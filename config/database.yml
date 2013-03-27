@@ -1,0 +1,17 @@
+development:
+  host: 127.0.0.1
+  database: atk14skelet_devel
+  username: atk14skelet_devel
+  password: skelet
+
+test:
+  host: 127.0.0.1
+  database: atk14skelet_test
+  username: atk14skelet_test
+  password: skelet
+
+production:
+  host: 127.0.0.1
+  database: atk14skelet_production
+  username: atk14skelet_production
+  password: skelet
