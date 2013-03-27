@@ -71,11 +71,74 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	/**
+	 * Attempt to instantiate object by object_name and parameter
 	 * 
 	 * $this->_find("user");
 	 * $this->_find("static_page","page_id");
+	 * $this->_find("static_page",array(
+	 *		"key" => "page_id",
+	 *		"execute_error404_if_not_found" => false,
+	 * ));
+	 *
+	 * When an object is instantiated it can by found as
+	 *	$this->user
+	 *	$this->tpl_data["user"]
 	 */
-	function _find($object,$options = array()){
-		
+	function &_find($object_name,$options = array()){
+		if(is_string($options)){
+			$options = array("key" => $options);
+		}
+
+		$options += array(
+			"key" => "id",
+			"execute_error404_if_not_found" => true,
+		);
+
+		$class_name = String::ToObject($object_name)->camelize()->toString(); // static_page -> StaticPage
+
+		$key = $options["key"];
+
+		// eval je tady kvuli PHP5.2, PHP4...
+		eval("\$this->$object_name = $class_name::GetInstanceById(\$this->params->getInt(\$key));");
+
+		if(!$this->$object_name){
+			$options["execute_error404_if_not_found"] && $this->_execute_action("error404");
+		}
+		$this->tpl_data["$object_name"] = $this->$object_name;
+		return $this->$object_name;
+	}
+
+	/**
+	 * Adds return_uri to the given form to it's hidden parameters.
+	 *
+	 * $this->_save_return_uri();
+	 * $this->_save_return_uri($this->form);
+	 * 
+	 */
+	function _save_return_uri(&$form = null){
+		if(!isset($form)){ $form = $this->form; }
+		$return_uri = $this->params->defined("_return_uri_") ? $this->params->getString("_return_uri_") : $this->request->getHttpReferer();
+		$form->set_hidden_field("_return_uri_",$return_uri);
+	}
+
+
+	/**
+	 * Provede presmerovani podle parametru return_uri nebo na danou akci.
+	 * Redirects user 
+	 *
+	 * $this->_redirect_to_return_uri(); // to same jako "index" :)
+	 * $this->_redirect_to_return_uri("index");
+	 * $this->_redirect_to_return_uri("books/index");
+	 * $this->_redirect_to_return_uri($this->_link_to(array(...)));
+	 * $this->_redirect_to_return_uri("http://www.poctenicko.cz/");
+	 */
+	function _redirect_back($default = "index"){
+		if($return_uri = $this->params->g("_return_uri_")){
+			return $this->_redirect_to($return_uri);
+		}
+		if(is_array($default)){
+			$default = $this->_link_to($default);
+		}
+		return $this->_redirect_to($default);
 	}
 }

@@ -5,12 +5,12 @@ class UsersController extends ApplicationController{
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$user = User::CreateNewRecord($d);
+			$this->logger->info("user $user just registered from ".$this->request->getRemoteAddr());
 
 			$this->_login_user($user);
 
-			$this->flash->success(_("You have been successfuly registered and now you are logged in"));
+			$this->flash->success(sprintf(_("You have been successfuly registered and now you are logged in as <em>%s</em>"),h("$user")));
 			$this->_redirect_to_action("main/index");
 		}
 	}
-
 }

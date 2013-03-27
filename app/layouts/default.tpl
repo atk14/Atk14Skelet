@@ -34,10 +34,10 @@
 
 		<div class="container">
 			<header>
-				{if $controller=="main" && $action=="index"}
+				{if $controller=="main" && $action=="index" && $namespace==""}
 					<h1>{"ATK14_APPLICATION_NAME"|dump_constant}</h1>
 				{else}
-					<h1>{a controller=main action=index}{"ATK14_APPLICATION_NAME"|dump_constant}{/a}</h1>
+					<h1>{a action="main/index" namespace=""}{"ATK14_APPLICATION_NAME"|dump_constant}{/a}</h1>
 				{/if}
 
 				<p>

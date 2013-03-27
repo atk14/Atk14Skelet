@@ -4,7 +4,8 @@ class UsersController extends ApplicationController{
 		$this->page_title = _("Users list");
 
 		$this->sorting->add("created_at",array("reverse" => "true"));
-		$this->sorting->add("id");
+		$this->sorting->add("updated_at",array("reverse" => "true"));
+		$this->sorting->add("is_admin","is_admin DESC, UPPER(login)","is_admin ASC, UPPER(login)");
 		$this->sorting->add("login","UPPER(login)");
 
 		$this->tpl_data["finder"] = User::Finder(array(
@@ -14,7 +15,16 @@ class UsersController extends ApplicationController{
 	}
 
 	function edit(){
-		$this->page_title = sprintf(_("Editing user #%s"),$this->user->getId());
+		$this->page_title = sprintf(_("Editing user %s"),h($this->user));
+
+		$this->form->set_initial($this->user);
+		$this->_save_return_uri();
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$this->user->s($d);
+			$this->flash->success("The user entry has been updated");
+			$this->_redirect_back();
+		}
 	}
 
 	function _before_filter(){

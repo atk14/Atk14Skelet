@@ -38,4 +38,6 @@ class User extends ApplicationModel{
 	}
 
 	function isAdmin(){ return $this->getIsAdmin(); }
+
+	function toString(){ return $this->getLogin(); }
 }
