@@ -37,15 +37,20 @@ class ApplicationBaseController extends Atk14Controller{
 		// following header helps to avoid clickjacking attacks
 		$this->response->setHeader("X-Frame-Options","SAMEORIGIN"); // SAMEORIGIN, DENY
 
-		// prihlaseny uzivatel
+		// logged in user
 		$this->logged_user = null;
-		if($user_id = $this->session->g("user_id")){
+		if($user_id = $this->session->g("logged_user_id")){
 			$this->logged_user = $this->tpl_data["logged_user"] = User::GetInstanceById($user_id);
 		}
 
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
 		}
+	}
+
+	function _login_user($user){
+		$this->session->s("logged_user_id",$user->getId());
+		$this->session->changeSecretToken(); // prevent from session fixation
 	}
 
 	function _begin_database_transaction(){

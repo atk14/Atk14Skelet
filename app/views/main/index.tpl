@@ -1,5 +1,7 @@
 <h2>{t}It's working!{/t}</h2>
 
+<img src="{$public}images/skelet.png" width="475" height="478" alt="ATK14 skelet" title="this is an ATK14 skelet" />
+
 <p>{t}Hi there, it's nice to see you!{/t}</p>
 
 <p>{t}What you see is a freshly installed ATK14 application.{/t}</p>
