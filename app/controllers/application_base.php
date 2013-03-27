@@ -69,4 +69,13 @@ class ApplicationBaseController extends Atk14Controller{
 	function _logged_user_required(){
 		return false;
 	}
+
+	/**
+	 * 
+	 * $this->_find("user");
+	 * $this->_find("static_page","page_id");
+	 */
+	function _find($object,$options = array()){
+		
+	}
 }

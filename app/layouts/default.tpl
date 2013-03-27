@@ -44,6 +44,10 @@
 				{if $logged_user}
 					{t escape=no login=$logged_user->getLogin()}You are logged in as <em>%1</em>{/t}
 					({a namespace="" action="logins/destroy" _method=post}{t}sign out{/t}{/a})
+					{if $logged_user->isAdmin()}
+						<br />
+						{t}You are admin{/t} &rarr; {a action="main/index" namespace="admin"}administration{/a}
+					{/if}
 				{else}
 					{t}You are not logged in{/t}
 					&rarr; {a namespace="" action="logins/create_new"}{t}Sign in{/t}{/a} | {a namespace="" action="users/create_new"}Register as a new user{/a}
