@@ -11,7 +11,7 @@ class SitemapsController extends ApplicationController{
 			),array("with_hostname" => true));
 		}
 
-		$this->_render_sitemap($map_ar);
+		$this->_render_xml($map_ar);
 	}
 
 	function detail(){
@@ -19,16 +19,29 @@ class SitemapsController extends ApplicationController{
 		
 		$map_ar[] = array(
 			"title" => _("Homepage"),
-			"action" => "main/index"
+			"action" => "main/index",
+			"description" => _("The most important page in the whole universe"),
 		);
 		$map_ar[] = array(
 			"title" => _("About"),
-			"action" => "main/about"
+			"action" => "main/about",
+			"description" => _("What is this site all about"),
+		);
+		$map_ar[] = array(
+			"title" => _("New user registration"),
+			"action" => "users/create_new",
+			"description" => _("If you don't have yet an account here, this is absolutely must do procedure :)"),
+		);
+		$map_ar[] = array(
+			"title" => _("Sign in"),
+			"action" => "logins/create_new",
+			"description" => _("Sign in to our site"),
 		);
 		$map_ar[] = array(
 			"title" => "API",
 			"namespace" => "api",
-			"action" => "main/index"
+			"action" => "main/index",
+			"description" => _("We offer an awesome restful API"),
 		);
 
 		foreach($map_ar as &$item){
@@ -41,7 +54,7 @@ class SitemapsController extends ApplicationController{
 		}
 
 		if($this->params->getString("format")=="xml"){
-			$this->_render_sitemap($map_ar);
+			$this->_render_xml($map_ar);
 			return;
 		}
 
@@ -49,7 +62,7 @@ class SitemapsController extends ApplicationController{
 		$this->tpl_data["map_ar"] = $map_ar;
 	}
 
-	function _render_sitemap($map_ar){
+	function _render_xml($map_ar){
 		$this->render_template = false;
 		$this->response->setContentType("text/xml");
 
