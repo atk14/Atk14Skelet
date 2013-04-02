@@ -12,7 +12,9 @@
 
 <h3>{t}Where to go?{/t}</h3>
 <ul>
-	<li>{a controller=creatures}{t}visit the Creatures show{/t}{/a}</li>
+	<li>{a namespace="api" action="main/index"}API{/a}</li>
+	<li>{a action="main/about"}About{/a}</li>
+	<li>{a action="sitemaps/detail"}Sitemap{/a}</li>
 	<li><a href="/non-existing-page">{t}check out 404 error page{/t}</a></li>
 
 	{capture assign=url_en}{link_to lang=en}{/capture}

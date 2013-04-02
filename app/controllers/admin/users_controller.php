@@ -1,5 +1,5 @@
 <?php
-class UsersController extends ApplicationController{
+class UsersController extends AdminController{
 	function index(){
 		$this->page_title = _("Users list");
 

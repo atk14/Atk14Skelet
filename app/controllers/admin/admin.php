@@ -1,7 +1,7 @@
 <?php
 require_once(dirname(__FILE__)."/../application_base.php");
 
-class ApplicationController extends ApplicationBaseController{
+class AdminController extends ApplicationBaseController{
 	function access_denied(){
 		$this->response->setStatusCode(403);
 

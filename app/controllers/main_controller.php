@@ -10,4 +10,8 @@ class MainController extends ApplicationController{
 	function index(){
 		$this->page_title = _("Welcome!");
 	}
+
+	function about(){
+		$this->page_title = sprintf(_("About %s"),ATK14_APPLICATION_NAME);
+	}
 }

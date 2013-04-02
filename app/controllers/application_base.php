@@ -6,9 +6,19 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function error404(){
-		$this->page_title = "Page not found";
+		$this->page_title = _("Page not found");
 		$this->response->setStatusCode(404);
 		$this->template_name = "application/error404";
+		if($this->request->xhr()){
+			// there's no need to render anything for XHR requests
+			$this->render_template = false;
+		}
+	}
+
+	function error403(){
+		$this->page_title = _("Forbidden");
+		$this->response->setStatusCode(403);
+		$this->template_name = "application/error403";
 		if($this->request->xhr()){
 			// there's no need to render anything for XHR requests
 			$this->render_template = false;
@@ -38,10 +48,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->response->setHeader("X-Frame-Options","SAMEORIGIN"); // SAMEORIGIN, DENY
 
 		// logged in user
-		$this->logged_user = null;
-		if($user_id = $this->session->g("logged_user_id")){
-			$this->logged_user = $this->tpl_data["logged_user"] = User::GetInstanceById($user_id);
-		}
+		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
 
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
@@ -63,7 +70,9 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _get_logged_user(){
-		return $this->logged_user;
+		static $STORE;
+		$user_id = $this->session->g("logged_user_id");
+		return User::GetInstanceById($user_id);
 	}
 
 	function _logged_user_required(){

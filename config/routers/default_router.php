@@ -33,42 +33,8 @@ class DefaultRouter extends Atk14Router{
 	var $namespace = "";
 
 	function setUp(){
-		// Here are SEF URI examples.
 
-		// http://myapp.localhost/creatures/ (english)
-		// http://myapp.localhost/prisery/ (czech)
-		$this->addRoute("/creatures/","en/creatures/index");
-		$this->addRoute("/prisery/","cs/creatures/index");
-
-		// http://myapp.localhost/creature-8.json (english)
-		// http://myapp.localhost/prisera-8.xml (czech)
-		foreach(array(
-			"en" => "/creature-<id>.<format>",
-			"cs" => "/prisera-<id>.<format>",
-		) as $lang => $uri){
-			$this->addRoute($uri,"$lang/creatures/detail",
-											// note that the following regular expressions fill in the URI like:
-											//		/\/creature-[0-9]+\.(json|xml)/
-											// so /^[0-9]+$/ or /^(json|xml)$/ will not work here
-											array(
-												"id" => "/[0-9]+/", 
-												"format" => "/(json|xml)/"
-											)
-			);
-		}
-
-		// http://myapp.localhost/creature-8/ (english)
-		// http://myapp.localhost/prisera-8/ (czech)
-		foreach(array(
-			"en" => "/creature-<id>/",
-			"cs" => "/prisera-<id>/"
-		) as $lang => $uri){
-			$this->addRoute($uri,"$lang/creatures/detail",
-											array(
-												"id" => "/[0-9]+/"
-											)
-			);
-		}
+		$this->addRoute("/sitemap.xml","sitemaps/index");
 
 		// Generic routes follow.
 		// Keep them on the end of the list.
