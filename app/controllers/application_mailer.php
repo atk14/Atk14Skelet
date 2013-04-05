@@ -21,9 +21,17 @@ class ApplicationMailer extends Atk14Mailer {
 	 * A place for common configuration.
 	 */
 	function _before_filter(){
-		// $this->content_type = "text/plain";
-		// $this->content_charset = DEFAULT_CHARSET; // "UTF-8"
-		// $this->from = DEFAULT_EMAIL;
+		$this->content_type = "text/plain";
+		$this->content_charset = DEFAULT_CHARSET; // "UTF-8"
+		$this->from = DEFAULT_EMAIL;
 		// $this->bcc = "";
+	}
+
+	function notify_password_recovery($params){
+		$this->tpl_data["user"] = $user = $params["password_recovery"]->getUser();
+		$this->tpl_data["password_recovery"] = $params["password_recovery"];
+
+		$this->to = $user->getEmail();
+		$this->subject = _("Reset Your Password");
 	}
 }

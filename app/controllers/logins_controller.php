@@ -3,6 +3,8 @@ class LoginsController extends ApplicationController{
 	function create_new(){
 		$this->page_title = _("Sign in");
 
+		if($this->request->get()){ $this->form->set_initial($this->params); }
+
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			if(!$user = User::Login($d["login"],$d["password"])){
 				$this->logger->warn("bad login attempt on $d[login] from ".$this->request->getRemoteAddr());

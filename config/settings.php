@@ -21,7 +21,7 @@ define("ATK14_BASE_HREF","/");
 
 define("DEFAULT_EMAIL","your@email");
 
-define("ATK14_APPLICATION_NAME","atk14skelet");
+define("ATK14_APPLICATION_NAME","ATK14 Skelet");
 define("ATK14_HTTP_HOST",PRODUCTION ? "www.atk14skelet.com" : "atk14skelet.localhost");
 
 if(DEVELOPMENT){
