@@ -7,4 +7,28 @@ class TcApplicationModel extends TcBase{
 	function test_true(){
 		$this->assertTrue(true);
 	}
+
+	function test_GetInstanceByToken(){
+		$user = User::CreateNewRecord(array(
+			"login" => "la_unity_testeur",
+			"password" => "Primavera",
+		));
+
+		$token = $user->getToken();
+		$token_salted = $user->getToken("Extra_Spicy_Salt");
+
+		$this->assertTrue($token!=$token_salted);
+
+		$u = User::GetInstanceByToken($token);
+		$this->assertEquals($user->getId(),$u->getId());
+
+		$u = User::GetInstanceByToken($token_salted,"Extra_Spicy_Salt");
+		$this->assertEquals($user->getId(),$u->getId());
+
+		$this->assertNull(User::GetInstanceByToken(""));
+		$this->assertNull(User::GetInstanceByToken("nonsence"));
+		$this->assertNull(User::GetInstanceByToken($token."a_hacking_attempt"));
+		$this->assertNull(User::GetInstanceByToken($token_salted));
+		$this->assertNull(User::GetInstanceByToken($token,"Extra_Spicy_Salt"));
+	}
 }

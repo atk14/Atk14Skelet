@@ -2,7 +2,6 @@
 /**
  * The base class of all the application db table based models.
  * Do you have any common methods or attributes for all your models? Put them right here.
- * Otherwise there's no need to care :)
  */
 class ApplicationModel extends TableRecord{
 
@@ -58,5 +57,42 @@ class ApplicationModel extends TableRecord{
 			}
 		}
 		return parent::setValues($values,$options);
+	}
+
+	/**
+	 * Returns a hard to guess unique identifier for a given object.
+	 *
+	 * <code>
+	 * $album = Album::FindById(123);
+	 * $token = $album->getToken();
+	 * $token2 = $album->getToken("s.e.c.r.e.t");
+	 *
+	 * Album::GetInstanceByToken($token); // object
+	 * Album::GetInstanceByToken($token2,"s.e.c.r.e.t"); // object
+	 *
+	 * Album::GetInstanceByToken($token,"s.e.c.r.e.t"); // null
+	 * Album::GetInstanceByToken($token2); // null
+	 * </code>
+	 */
+	function getToken($extra_salt = ""){
+		$length = 32;
+		return $this->getId().".".substr(md5(get_class($this).$this->getId().SECRET_TOKEN.$extra_salt),0,$length);
+	}
+
+
+	/**
+	 * Instantiates an object according to a given token.
+	 *
+	 * Returns null when token is not valid.
+	 * 
+	 * @see getToken
+	 */
+	static function GetInstanceByToken($token,$extra_salt = ""){
+		$class_name = get_called_class();
+		$ar = explode(".",$token);
+		
+		if(isset($ar[0]) && is_numeric($ar[0]) && ($obj = call_user_func(array($class_name,"GetInstanceById"),$ar[0])) && $obj->getToken($extra_salt)==$token){
+			return $obj;
+		}
 	}
 }
