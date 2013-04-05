@@ -10,6 +10,7 @@
 			{sortable key=is_admin}<th>{t}Is admin?{/t}</th>{/sortable}
 			{sortable key=created_at}<th>{t}Created at{/t}</th>{/sortable}
 			{sortable key=updated_at}<th>{t}Updated at{/t}</th>{/sortable}
+			<th></th>
 		</tr>
 	</thead>
 

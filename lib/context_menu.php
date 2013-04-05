@@ -1,4 +1,4 @@
-<?
+<?php
 /**
 * $cm = new ContextMenu();
 * $cm->setTitle("Aktivity s domenou plovarna.cz");

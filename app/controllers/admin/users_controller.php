@@ -27,6 +27,16 @@ class UsersController extends AdminController{
 		}
 	}
 
+	function login_as_user(){
+		if(!$this->request->post() || !($user = $this->_find("user"))){
+			$this->_execute_action("error404");
+			return;
+		}
+		$this->_login_user($user,array("fake_login" => true));
+		$this->flash->success(sprintf(_("Now you are logged as <em>%s</em>"),h($user->getLogin())));
+		$this->_redirect_to(array("namespace" => "", "action" => "main/index"));
+	}
+
 	function _before_filter(){
 		if(in_array($this->action,array("edit","destroy"))){
 			$this->_find("user");

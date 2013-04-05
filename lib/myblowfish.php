@@ -1,4 +1,4 @@
-<?
+<?php
 if(!defined("MY_BLOWFISH_ESCAPE_NON_ASCII_CHARS")){
 	// existuji jiste problemy pri hashovaniu non-ascii hesel
 	// http://www.php.net/security/crypt_blowfish.php

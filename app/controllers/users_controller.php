@@ -1,7 +1,6 @@
 <?php
 class UsersController extends ApplicationController{
-	function detail(){
-	}
+	function detail(){ }
 
 	function create_new(){
 		$this->page_title = _("New user registration");

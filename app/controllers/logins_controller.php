@@ -23,7 +23,7 @@ class LoginsController extends ApplicationController{
 	function destroy(){
 		if($this->request->post() && $this->logged_user){
 			$this->logger->info("user $this->logged_user logged out from ".$this->request->getRemoteAddr());
-			$this->session->clear("logged_user_id");
+			$this->_logout_user();
 			$this->flash->success(_("You have been successfuly logged out"));
 		}
 		$this->_redirect_to("main/index");

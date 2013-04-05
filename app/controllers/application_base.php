@@ -61,9 +61,22 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 	}
 
-	function _login_user($user){
-		$this->session->s("logged_user_id",$user->getId());
+	function _login_user($user,$options = array()){
+		$options += array(
+			"fake_login" => false,
+		);
+
+		$key = $options["fake_login"] ? "fake_logged_user_id" : "logged_user_id";
+		$this->session->s($key,$user->getId());
 		$this->session->changeSecretToken(); // prevent from session fixation
+	}
+
+	function _logout_user(){
+		if($this->session->g("fake_logged_user_id")){
+			$this->session->clear("fake_logged_user_id");
+			return;
+		}
+		$this->session->clear("logged_user_id");
 	}
 
 	function _begin_database_transaction(){
@@ -76,8 +89,8 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _get_logged_user(){
-		static $STORE;
-		$user_id = $this->session->g("logged_user_id");
+		($user_id = $this->session->g("fake_logged_user_id")) ||
+		($user_id = $this->session->g("logged_user_id"));
 		return User::GetInstanceById($user_id);
 	}
 
@@ -128,7 +141,6 @@ class ApplicationBaseController extends Atk14Controller{
 	 *
 	 * $this->_save_return_uri();
 	 * $this->_save_return_uri($this->form);
-	 * 
 	 */
 	function _save_return_uri(&$form = null){
 		if(!isset($form)){ $form = $this->form; }
@@ -138,14 +150,14 @@ class ApplicationBaseController extends Atk14Controller{
 
 
 	/**
-	 * Provede presmerovani podle parametru return_uri nebo na danou akci.
-	 * Redirects user 
+	 * Redirects user back to return_uri, when it is know.
+	 * Otherwise redirects to the $default.
 	 *
-	 * $this->_redirect_to_return_uri(); // to same jako "index" :)
+	 * $this->_redirect_to_return_uri(); // same as "index" :)
 	 * $this->_redirect_to_return_uri("index");
 	 * $this->_redirect_to_return_uri("books/index");
 	 * $this->_redirect_to_return_uri($this->_link_to(array(...)));
-	 * $this->_redirect_to_return_uri("http://www.poctenicko.cz/");
+	 * $this->_redirect_to_return_uri("http://www.atk14.net");
 	 */
 	function _redirect_back($default = "index"){
 		if($return_uri = $this->params->g("_return_uri_")){
