@@ -30,7 +30,7 @@
 		{placeholder for=head}
 	</head>
 
-	<body id="body_{$controller}_{$action}">
+	<body id="body_{$controller}_{$action}" class="{$lang}{if $context_menu && !$context_menu->isEmpty()} has_menu{/if}">
 
 		<div class="container">
 			<header>
@@ -42,7 +42,8 @@
 
 				<p>
 				{if $logged_user}
-					{t escape=no login=$logged_user->getLogin()}You are logged in as <em>%1</em>{/t}
+					{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
+					{t escape=no url=$user_profile_url login=$logged_user->getLogin()}You are logged in as <a href="%1" title="User profile"><em>%2</em></a>{/t}
 					({a namespace="" action="logins/destroy" _method=post}{t}sign out{/t}{/a})
 					{if $logged_user->isAdmin()}
 						<br />
@@ -56,6 +57,7 @@
 			</header>
 
 			<div class="main" role="main">
+				{render partial="shared/context_menu"}
 				{render partial="shared/layout/flash_message"}
 				{placeholder}
 			</div>

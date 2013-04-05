@@ -8,7 +8,7 @@ class User extends ApplicationModel{
    */
   static function Login($login,$password){
     $user = User::FindByLogin($login);
-    if($user && MyBlowfish::CheckPassword($password,$user->getPassword())){
+    if($user && $user->isPasswordCorrect($password)){
       return $user;
     }
   }
@@ -35,6 +35,10 @@ class User extends ApplicationModel{
 			$values["password"] = MyBlowfish::GetHash($values["password"]);
 		}
 		return parent::setValues($values,$options);
+	}
+
+	function isPasswordCorrect($password){
+		return MyBlowfish::CheckPassword($password,$this->getPassword());
 	}
 
 	function isAdmin(){ return $this->getIsAdmin(); }

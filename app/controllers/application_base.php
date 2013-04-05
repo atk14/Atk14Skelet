@@ -40,6 +40,10 @@ class ApplicationBaseController extends Atk14Controller{
 		// you can safely cover this method in a descendand without calling the parent
 	}
 
+	function _before_render(){
+		$this->tpl_data["context_menu"] = $this->context_menu;
+	}
+
 	function _application_before_filter(){
 		$this->response->setContentType("text/html");
 		$this->response->setContentCharset(DEFAULT_CHARSET);
@@ -49,6 +53,8 @@ class ApplicationBaseController extends Atk14Controller{
 
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
+
+		$this->context_menu = new contextMenu();
 
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
