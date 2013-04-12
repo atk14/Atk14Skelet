@@ -4,6 +4,8 @@ class News extends ApplicationModel{
 		return strtotime($this->getPublishedAt())<time();
 	}
 
+	function getAuthor(){ return User::GetInstanceById($this->getAuthorId()); }
+
 	function getNewerNews(){
 		return News::FindFirst(array(
 			"conditions" => "published_at>:published_at AND published_at<NOW()",
