@@ -23,7 +23,7 @@ class NewsController extends ApplicationController{
 			$this->context_menu->add(sprintf(_("Older news: %s"),$older->getTitle()),array("action" => "detail", "id" => $older));
 		}
 		if($newer = $news->getNewerNews()){
-			$this->context_menu->add(sprintf(_("Newer news: %s"),$news->getTitle()),array("action" => "detail", "id" => $newer));
+			$this->context_menu->add(sprintf(_("Newer news: %s"),$newer->getTitle()),array("action" => "detail", "id" => $newer));
 		}
 		$this->context_menu->add(_("News archive"),"index");
 	}

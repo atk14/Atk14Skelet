@@ -19,6 +19,7 @@ class NewsController extends AdminController{
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$d["author_id"] = $this->logged_user;
 			News::CreateNewRecord($d);
 			$this->flash->success(_("The news entry has been created successfuly"));
 			$this->_redirect_back();	

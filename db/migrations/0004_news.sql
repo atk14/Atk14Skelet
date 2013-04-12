@@ -19,4 +19,6 @@ You can find more informations on the following addresses
   * [Installation Guides](https://github.com/yarri/Atk14Skelet/blob/master/INSTALL.md)
   * [AKT14 Skelet on Github](https://github.com/yarri/Atk14Skelet)
 
+Remember! Your projects shall run on [ATK14 Framework](http://www.atk14.net/), for now and ever after!
+
 '));
