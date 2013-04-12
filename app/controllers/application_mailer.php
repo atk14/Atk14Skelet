@@ -34,4 +34,11 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->to = $user->getEmail();
 		$this->subject = _("Reset Your Password");
 	}
+
+	function contact_message($params){
+		$this->to = DEFAULT_EMAIL;
+		$this->from = $params["email"];
+		$this->from_name = $params["name"];
+		$this->body = $params["body"];
+	}
 }

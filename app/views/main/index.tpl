@@ -19,6 +19,7 @@
 	{t escape=no url_en=$url_en url_cs=$url_cs}<a href="%1">English</a> and <a href="%2">czech</a> localization{/t}<br />
 	</li>
 	<li>{a action="main/about"}About page{/a}</li>
+	<li>{a action="main/contact"}Contact page with fast contact form{/a}</li>
 </ul>
 
 <h3>{t}External links{/t}</h3>
