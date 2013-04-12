@@ -1,5 +1,5 @@
 <?php
-class EditForm extends ApplicationForm{
+class EditForm extends AdminForm{
 	function set_up(){
 		$this->add_field("name",new CharField(array(
 			"label" => _("Name"),

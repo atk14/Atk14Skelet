@@ -28,6 +28,9 @@ class ContextMenu{
 				));
 			}
 		}
+		if(is_array($url)){
+			$url = Atk14Url::BuildLink($url);
+		}
 		if(is_string($item) && is_string($url)){
 			$options += array(
 				"text" => $item,

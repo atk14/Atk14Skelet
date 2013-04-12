@@ -10,7 +10,7 @@ class ApplicationModel extends TableRecord{
 	}
 	
 	/**
-   * Converts object into XML.
+	 * Converts object into XML.
 	 * 
 	 * @return string
 	 */
