@@ -19,7 +19,7 @@ define("SECRET_TOKEN","YPJ6K2BsjNh2FVpcWTMUBmk2L05gFDYf7oYmL50RmOfVUVQQjIAHz12ml
 define("ATK14_DOCUMENT_ROOT",dirname(__FILE__)."/../");
 define("ATK14_BASE_HREF","/");
 
-define("DEFAULT_EMAIL","your@email");
+define("DEFAULT_EMAIL","your@email.com");
 
 define("ATK14_APPLICATION_NAME","ATK14 Skelet");
 define("ATK14_HTTP_HOST",PRODUCTION ? "www.atk14skelet.com" : "atk14skelet.localhost");

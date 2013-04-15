@@ -11,6 +11,7 @@ class CreateNewForm extends UsersForm{
 		$this->_add_password_fields();
 
 		$this->enable_csrf_protection();
+		$this->set_button_text(_("Register"));
 	}
 
 	function clean(){

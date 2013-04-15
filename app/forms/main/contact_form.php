@@ -6,7 +6,7 @@ class ContactForm extends ApplicationForm{
 			"max_length" => 200,
 		)));
 
-		$this->add_field("email",new CharField(array(
+		$this->add_field("email",new EmailField(array(
 			"label" => _("E-mail"),
 			"max_length" => 200,
 		)));
@@ -17,5 +17,6 @@ class ContactForm extends ApplicationForm{
 		)));
 
 		$this->enable_csrf_protection();
+		$this->set_button_text(_("Send message"));
 	}
 }

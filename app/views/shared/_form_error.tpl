@@ -11,6 +11,10 @@
  *	{render partial="shared/form_error" small_form=1}
  *}
 
+{if !isset($small_form)}
+	{assign var=small_form value=$form->is_small()}
+{/if}
+
 {if $form->has_errors()}
 		{if $form->non_field_errors()}
 				{if sizeof($form->non_field_errors())>1}
