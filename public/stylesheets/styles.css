@@ -39,7 +39,6 @@ span.notice{
  *
  * see shared templates
  *		app/views/shared/_form*
- *		app/views/shared/_generic_form*
  */
 .error_field { background-color:#fbe3e4; padding-top:1em; padding-bottom:1em; }
 .error_field * { color:#8a1f11; }

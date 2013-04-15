@@ -4,4 +4,4 @@
 	<p>{$page_description|trim|nl2br nofilter}</p>
 {/if}
 
-{render partial="shared/generic_form"}
+{render partial="shared/form"}

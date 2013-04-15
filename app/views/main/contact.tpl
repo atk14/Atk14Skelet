@@ -15,4 +15,4 @@ United States</pre>
 <p>From dusk till dawn</p>
 
 
-{render partial="shared/generic_form"}
+{render partial="shared/form"}

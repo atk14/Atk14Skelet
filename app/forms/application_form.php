@@ -8,7 +8,7 @@ class ApplicationForm extends Atk14Form{
 	/**
 	 * Has this form only a few fields and so on a page it appears to be small?
 	 * 
-	 * This method is used in partial template app/views/shared_generic_form.tpl
+	 * This method is used in partial template app/views/shared/form.tpl
 	 */
 	function is_small(){
 		return sizeof($this->fields)<=4;
