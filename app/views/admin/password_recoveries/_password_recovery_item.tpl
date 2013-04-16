@@ -5,6 +5,6 @@
 	<td>{$password_recovery->getEmail()}</td>
 	<td>{$password_recovery->getCreatedFromAddr()}</td>
 	<td>{$password_recovery->wasUsed()|display_bool}</td>
-	<td>{$password_recovery->getRecoveredAt()|format_datetime|default:"&mdash;" nofilter}</td>
-	<td>{$password_recovery->getRecoveredFromAddr()|h|default:"&mdash;" nofilter}</td>
+	<td>{!$password_recovery->getRecoveredAt()|format_datetime|default:"&mdash;"}</td>
+	<td>{!$password_recovery->getRecoveredFromAddr()|h|default:"&mdash;"}</td>
 </tr>

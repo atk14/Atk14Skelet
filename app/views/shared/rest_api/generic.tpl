@@ -1,7 +1,7 @@
 {if $documentation}
-	{$documentation nofilter}
+	{!$documentation}
 {else}
-	<p>{$page_description|trim|nl2br nofilter}</p>
+	<p>{!$page_description|trim|nl2br}</p>
 {/if}
 
 {render partial="shared/form"}
