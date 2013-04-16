@@ -15,7 +15,13 @@
 	<head>
 		<meta charset="utf-8">
 
-		<title>{$page_title} | {"ATK14_APPLICATION_NAME"|dump_constant}</title>
+		<title>{trim}
+			{if $controller=="main" && $action=="index" && $namespace==""}
+				{"ATK14_APPLICATION_NAME"|dump_constant}
+			{else}
+				{$page_title} | {"ATK14_APPLICATION_NAME"|dump_constant}
+			{/if}
+		{/trim}</title>
 		<meta name="description" content="{$page_description}" />
 		{render partial="shared/layout/dev_info"}
 

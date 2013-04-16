@@ -31,4 +31,9 @@ class MainController extends ApplicationController{
 			$this->_redirect_to("contact");
 		}
 	}
+
+	function robots_txt(){
+		$this->render_layout = false;
+		$this->response->setContentType("text/plain");
+	}
 }
