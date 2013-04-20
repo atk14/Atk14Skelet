@@ -41,9 +41,10 @@
 		<div class="container">
 			<header>
 				{if $controller=="main" && $action=="index" && $namespace==""}
-					<h1>{"ATK14_APPLICATION_NAME"|dump_constant}</h1>
+					<h1 id="logo"><span>{"ATK14_APPLICATION_NAME"|dump_constant}</span></h1>
 				{else}
-					<h1>{a action="main/index" namespace=""}{"ATK14_APPLICATION_NAME"|dump_constant}{/a}</h1>
+					{capture assign=link_title}{t}Go to home page{/t}{/capture}
+					<h1 id="logo">{a action="main/index" namespace="" _title=$link_title}<span>{"ATK14_APPLICATION_NAME"|dump_constant}</span>{/a}</h1>
 				{/if}
 
 				<p>

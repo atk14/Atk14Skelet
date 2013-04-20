@@ -116,3 +116,16 @@ footer {
 footer a {
 	color: #3399FF;
 }
+
+#logo {
+	background-color: black;
+	height: 180px;
+}
+
+#logo span {
+	display: block;
+	height: 162px;
+	width: 453px;
+	background-image: url('../images/logo.png');
+	font-size: 0px;
+}
