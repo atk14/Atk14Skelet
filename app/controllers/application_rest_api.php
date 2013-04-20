@@ -19,7 +19,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		$dir_handle = opendir($dir);
 		$ctrls = array();
 		while($item = readdir($dir_handle)){
-			if(preg_match('/^([a-z_]+)_controller\./',$item,$matches)){
+			if(preg_match('/^([a-z0-9_]+)_controller\./',$item,$matches)){
 				$ctrl = $matches[1];
 				if(in_array($ctrl,array("main","application"))){ continue; }
 				$ctrls[$ctrl] = $item;
