@@ -10,4 +10,4 @@ CREATE TABLE users(
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );
 
-INSERT INTO users (id,login,password,is_admin) VALUES(1,'admin','admin','t');
+INSERT INTO users (id,login,password,name,is_admin) VALUES(1,'admin','admin','Charlie Root','t');
