@@ -1,13 +1,27 @@
 {*
  * The page Layout template
- * 
+ *
  * Placeholders
  * ------------
- *	head						 	located whithin the <head> tag
- *	main							the main (or default) one
- *	js_script_tags		place for javascript script tags
- *	js								place for javascript code
- *	domready					place for domready javascript code
+ * head						 	located whithin the <head> tag
+ * main							the main (or default) one
+ * js_script_tags				place for javascript script tags
+ * js							place for javascript code
+ * domready						place for domready javascript code
+ *
+ * Variables
+ * ------------
+ * $context_menu
+ * $lang
+ * $controller
+ * $action
+ * $namespace
+ * $logged_user
+ * $page_description
+ *
+ * Constants
+ * ------------
+ * $DEVELOPMENT
  *}
 <!DOCTYPE html>
 <html lang="{$lang}">
@@ -22,23 +36,22 @@
 				{$page_title} | {"ATK14_APPLICATION_NAME"|dump_constant}
 			{/if}
 		{/trim}</title>
+
 		<meta name="description" content="{$page_description}" />
-		{render partial="shared/layout/dev_info"}
+		<meta name="viewport" content="width=device-width,initial-scale=1.0">
 
-		<meta name="viewport" content="width=device-width,initial-scale=1">
+		{if $DEVELOPMENT}
+			{render partial="shared/layout/dev_info"}
+		{/if}
 
-		{stylesheet_link_tag file="lib/blueprint-css/blueprint/screen.css" media="screen, projection"}
-		{stylesheet_link_tag file="lib/blueprint-css/blueprint/print.css" media="print"}
-		<!--[if IE]>
-			{stylesheet_link_tag file="lib/blueprint-css/blueprint/ie.css" media="screen, projection"}
-		<![endif]-->
-		{stylesheet_link_tag file="styles.css" media="screen, projection"}
-		{placeholder for=head}
+		{stylesheet_link_tag file="../assets/vendor/bootstrap/bootstrap/css/bootstrap.css" media="screen"}
+		{stylesheet_link_tag file="../assets/vendor/bootstrap/bootstrap/css/bootstrap-responsive.css" media="screen"}
+		{stylesheet_link_tag file="application.css" media="screen"}
 	</head>
 
-	<body id="body_{$controller}_{$action}" class="{$lang}{if $context_menu && !$context_menu->isEmpty()} has_menu{/if}">
+	<body id="body_{$controller}_{$action}">
 
-		<div class="container">
+		<div class="container-fluid">
 			<header>
 				{if $controller=="main" && $action=="index" && $namespace==""}
 					<h1 id="logo"><span>{"ATK14_APPLICATION_NAME"|dump_constant}</span></h1>
@@ -75,25 +88,9 @@
 			</footer>
 		</div>
 
-
-
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.7.1/jquery.min.js"></script>
-		<script>window.jQuery || document.write('<script src="{$public}javascripts/libs/jquery/jquery-1.7.1.min.js"><\/script>')</script>
-		{javascript_script_tag file="atk14.js"}
+		{javascript_script_tag file="../assets/vendor/jquery/jquery.js"}
+		{javascript_script_tag file="../assets/vendor/bootstrap/bootstrap/js/bootstrap.js"}
+		{javascript_script_tag file="../assets/lib/atk14.js"}
 		{javascript_script_tag file="application.js"}
-		{placeholder for=js_script_tags}
-		{javascript_tag}
-			{placeholder for=js}
-			$(function() \{
-				{placeholder for=domready}
-			\});
-		{/javascript_tag}
-
-		<!-- Prompt IE 6 users to install Chrome Frame. Remove this if you want to support IE 6.
-			chromium.org/developers/how-tos/chrome-frame-getting-started -->
-		<!--[if lt IE 7 ]>
-			<script defer src="//ajax.googleapis.com/ajax/libs/chrome-frame/1.0.3/CFInstall.min.js"></script>
-			<script defer>window.attachEvent('onload',function()\{CFInstall.check(\{mode:'overlay'\})\})</script>
-		<![endif]-->
 	</body>
 </html>

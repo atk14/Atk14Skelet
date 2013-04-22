@@ -1,0 +1,6 @@
+{
+	"name": "atk14-skelet",
+	"dependencies": {
+		"bootstrap": "latest"
+	}
+}
