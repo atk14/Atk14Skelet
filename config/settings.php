@@ -22,7 +22,7 @@ define("ATK14_BASE_HREF","/");
 define("DEFAULT_EMAIL","your@email.com");
 
 define("ATK14_APPLICATION_NAME","ATK14 Skelet");
-define("ATK14_HTTP_HOST",PRODUCTION ? "www.atk14skelet.com" : "atk14skelet.localhost");
+define("ATK14_HTTP_HOST",PRODUCTION ? "atk14skelet.atk14.net" : "atk14skelet.localhost");
 
 if(DEVELOPMENT){
 	// a place for development environment settings
