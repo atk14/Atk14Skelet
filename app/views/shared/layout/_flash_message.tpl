@@ -4,21 +4,23 @@
  * Beware! There is no html escaping.
  * Thus one can place a link to somewhere within the flash message or something.
  *}
-{if $flash->notice()}
-	<div class="alert">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
-		{!$flash->notice()}
-	</div>
+{if $flash->warning()}
+	{message block=1}
+		{!$flash->warning()}
+	{/message}
 {/if}
 {if $flash->error()}
-	<div class="alert alert-error">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
+	{message type="error" block=1}
 		{!$flash->error()}
-	</div>
+	{/message}
 {/if}
 {if $flash->success()}
-	<div class="alert alert-success">
-		<button type="button" class="close" data-dismiss="alert">&times;</button>
+	{message type="success" block=1}
 		{!$flash->success()}
-	</div>
+	{/message}
+{/if}
+{if $flash->info()}
+	{message type="info" block=1}
+		{!$flash->info()}
+	{/message}
 {/if}
