@@ -1,5 +1,3 @@
-<h2>{t}Welcome to the ATK14 Skelet!{/t}</h2>
-
 <img src="{$public}images/skelet.png" width="475" height="478" alt="ATK14 skelet" title="this is an ATK14 skelet" />
 
 <h3>{t}Skelet consists of{/t}</h3>

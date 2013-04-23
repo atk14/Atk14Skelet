@@ -50,8 +50,9 @@
 	</head>
 
 	<body id="body_{$controller}_{$action}">
+		<div class="container">
+			{render partial="shared/login"}
 
-		<div class="container-fluid">
 			<header>
 				{if $controller=="main" && $action=="index" && $namespace==""}
 					<h1 id="logo"><span>{"ATK14_APPLICATION_NAME"|dump_constant}</span></h1>
@@ -59,31 +60,15 @@
 					{capture assign=link_title}{t}Go to home page{/t}{/capture}
 					<h1 id="logo">{a action="main/index" namespace="" _title=$link_title}<span>{"ATK14_APPLICATION_NAME"|dump_constant}</span>{/a}</h1>
 				{/if}
-
-				<p>
-				{if $logged_user}
-					{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
-					{t escape=no url=$user_profile_url login=$logged_user->getLogin()}You are logged in as <a href="%1" title="User profile"><em>%2</em></a>{/t}
-					({a namespace="" action="logins/destroy" _method=post}{t}sign out{/t}{/a})
-					{if $logged_user->isAdmin()}
-						<br />
-						{t}You are admin{/t} &rarr; {a action="main/index" namespace="admin"}administration{/a}
-					{/if}
-				{else}
-					{t}You are not logged in{/t}
-					&rarr; {a namespace="" action="logins/create_new"}{t}Sign in{/t}{/a} | {a namespace="" action="users/create_new"}Register as a new user{/a}
-				{/if}
-				</p>
 			</header>
 
-			<div class="main" role="main">
+			<div class="main">
 				{render partial="shared/context_menu"}
 				{render partial="shared/layout/flash_message"}
 				{placeholder}
 			</div>
 
 			<footer>
-				<hr />
 				{t escape=no}This site runs on <a href="http://www.atk14.net/">ATK14 Framework</a>, for now and ever after{/t}
 			</footer>
 		</div>

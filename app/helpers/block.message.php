@@ -22,7 +22,7 @@ function smarty_block_message($params,$content,$template,&$repeat){
 	$classes[] = "alert-$params[type]";
 	$params["block"] && ($classes[] = "alert-block");
 
-	$params["close_button"] && ($content .= ' <button>close</button>');
+	$params["close_button"] && ( $content = '<button type="button" class="close" data-dismiss="alert">&times;</button>' . $content );
 
 
 	return '<div class="'.join(" ",$classes).'">'.$content.'</div>';
