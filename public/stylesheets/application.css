@@ -14,3 +14,10 @@
 #row-login .nav {
 	margin-bottom: 0;
 }
+
+.navbar-static-bottom {
+	margin-bottom: 0;
+}
+.navbar-static-bottom .navbar-inner {
+	border-radius: 0 0 0 0;
+}

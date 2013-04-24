@@ -1,4 +1,6 @@
-<h2>{$page_title}</h2>
+<h1 class="page-header">{$page_title}</h1>
+
+{render partial="shared/context_menu"}
 
 {if $finder->isEmpty()}
 
@@ -6,7 +8,7 @@
 
 {else}
 
-	<table>
+	<table class="table table-striped">
 		<thead>
 			<tr>
 				<th>Id</th>
@@ -14,7 +16,7 @@
 			</tr>
 		</thead>
 		<tbody>
-		{render partial="news_item" from=$finder->getRecords() item=news}
+			{render partial="news_item" from=$finder->getRecords() item=news}
 		</tbody>
 	</table>
 

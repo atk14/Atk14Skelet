@@ -1,3 +1,3 @@
-<li{if $item->active} class="active"{/if}{if !$item->isLink()} class="no_link"{/if}>
+<li{if $item->active} class="active"{/if}{if !$item->isLink()} class="disabled"{/if}>
 	{!$item->getMarkup()}
 </li>

@@ -7,7 +7,14 @@
 	<td>{$user->getCreatedAt()|format_datetime}</td>
 	<td>{$user->getUpdatedAt()|format_datetime}</td>
 	<td>
-		{a action=edit id=$user}{t}edit{/t}{/a} |
-		{a action=login_as_user id=$user _method=post}{t}sign in as this user{/t}{/a}
+	<div class="btn-group">
+		<button class="btn dropdown-toggle" data-toggle="dropdown" href="#">
+			<i class="icon icon-cog"></i>
+		</button>
+		<ul class="dropdown-menu pull-right">
+			<li>{a action=edit id=$user}<i class="icon icon-edit"></i> {t}Edit{/t}{/a}</li>
+			<li>{a action=login_as_user id=$user _method=post}<i class="icon icon-user"></i> {t}Sign in as this user{/t}{/a}</li>
+		</ul>
+		</div>
 	</td>
 </tr>

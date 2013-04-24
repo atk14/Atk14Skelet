@@ -52,25 +52,14 @@
 	<body id="body_{$controller}_{$action}">
 		<div class="container">
 			{render partial="shared/login"}
-
-			<header>
-				{if $controller=="main" && $action=="index" && $namespace==""}
-					<h1 id="logo"><span>{"ATK14_APPLICATION_NAME"|dump_constant}</span></h1>
-				{else}
-					{capture assign=link_title}{t}Go to home page{/t}{/capture}
-					<h1 id="logo">{a action="main/index" namespace="" _title=$link_title}<span>{"ATK14_APPLICATION_NAME"|dump_constant}</span>{/a}</h1>
-				{/if}
-			</header>
+			{render partial="shared/layout/header"}
 
 			<div class="main">
-				{render partial="shared/context_menu"}
 				{render partial="shared/layout/flash_message"}
 				{placeholder}
 			</div>
 
-			<footer>
-				{t escape=no}This site runs on <a href="http://www.atk14.net/">ATK14 Framework</a>, for now and ever after{/t}
-			</footer>
+			{render partial="shared/layout/footer"}
 		</div>
 
 		{javascript_script_tag file="../assets/vendor/jquery/jquery.js"}
