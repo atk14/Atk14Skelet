@@ -5,5 +5,7 @@ class CreateNewForm extends ApplicationForm{
 			"label" => _("Login or e-mail address"),
 		)));
 		$this->enable_csrf_protection();
+
+		$this->set_button_text(_("Send me a recovery link"));
 	}
 }

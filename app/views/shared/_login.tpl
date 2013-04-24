@@ -13,7 +13,9 @@
 				</a>
 				<ul class="dropdown-menu">
 					<li><a href="{$user_profile_url}">{t}Profile{/t}</a></li>
-					<li>{a action="main/index" namespace="admin"}{t}Administration{/t}{/a}</li>
+					{if $logged_user->isAdmin()}
+						<li>{a action="main/index" namespace="admin"}{t}Administration{/t}{/a}</li>
+					{/if}
 					<li class="divider"></li>
 					<li>{a namespace="" action="logins/destroy" _method=post}{t}Sign out{/t}{/a}</li>
 				</ul>

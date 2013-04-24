@@ -23,6 +23,11 @@ class SitemapsController extends ApplicationController{
 			"description" => _("The most important page in the whole universe"),
 		);
 		$map_ar[] = array(
+			"title" => _("Contact"),
+			"action" => "main/contact",
+			"description" => _("Contact data and quick contact form"),
+		);
+		$map_ar[] = array(
 			"title" => _("About"),
 			"action" => "main/about",
 			"description" => _("What is this site all about"),
@@ -30,7 +35,7 @@ class SitemapsController extends ApplicationController{
 		$map_ar[] = array(
 			"title" => _("New user registration"),
 			"action" => "users/create_new",
-			"description" => _("If you don't have yet an account here, this is absolutely must do procedure :)"),
+			"description" => _("If you don't have yet an account on this site, this is absolutely must to do procedure"),
 		);
 		$map_ar[] = array(
 			"title" => _("Sign in"),
