@@ -112,7 +112,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		$this->page_title = $this->controller.($this->action=="index" ? "" : "/$this->action");
 		$this->page_description = "";
 
-		$this->params = new Dictionary(translate::trans($this->params->toArray(),"utf-8",$this->api_internal_charset));
+		$this->params = new Dictionary(Translate::Trans($this->params->toArray(),"utf-8",$this->api_internal_charset));
 		$this->logger->set_prefix($this->namespace);
 
 		$this->template_name = "shared/rest_api/generic";
@@ -122,7 +122,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		// prevod obsahu na UTF-8: docela netransparentni oser :)
 		if($this->render_template){ // pokud se uz zobrazuje vystup (_display_output()), nedelame nic
 			$ob = $this->response->getOutputBuffer();
-			$content = translate::trans($ob->toString(),$this->api_internal_charset,"utf-8");
+			$content = Translate::Trans($ob->toString(),$this->api_internal_charset,"utf-8");
 			$ob->clear();
 			$ob->addString($content);
 		}
@@ -239,7 +239,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 
 		$this->response->setStatusCode($options["status_code"],$options["status_message"]);
 
-		$data = translate::trans($data,$this->api_internal_charset,"utf-8");
+		$data = Translate::Trans($data,$this->api_internal_charset,"utf-8");
 
 		switch($this->params->getString("format")){
 			case "xml":
@@ -295,7 +295,7 @@ function _rest_api_dbmole_error_handler($dbmole){
 	$HTTP_RESPONSE->setStatusCode(500);
 	$HTTP_RESPONSE->setContentCharset('UTF-8');
 
-	$msg = translate::trans("Do?lo k vnit?n? chyb?",DEFAULT_CHARSET,"utf-8");
+	$msg = Translate::Trans("Do?lo k vnit?n? chyb?",DEFAULT_CHARSET,"utf-8");
 
 	if($HTTP_REQUEST->getVar("format")=="json"){
 		$HTTP_RESPONSE->setContentType('text/plain');
