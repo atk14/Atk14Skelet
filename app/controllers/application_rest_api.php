@@ -28,7 +28,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		ksort($ctrls);
 		foreach($ctrls as $ctrl => $item){
 			$commands = array();
-			$content = files::get_file_content("$dir/$item");
+			$content = Files::GetFileContent("$dir/$item");
 			preg_match_all('/(\/\*.*?\*\/|)\s*\n\s*function ([a-z][a-z_]*)/s',$content,$matches);
 			foreach($matches[2] as $action){
 				$documentation_ar = $this->__get_documentation_from_source_code($content,$action);
@@ -79,7 +79,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		if(preg_match('/\n/s',$controller_filename) || !file_exists($controller_filename)){
 			$content = $controller_filename;
 		}else{
-			$content = files::get_file_content($controller_filename);
+			$content = Files::GetFileContent($controller_filename);
 		}
 
 		if(preg_match('/\s*(\/\*\*.*?\*\/)\s*\n\s*function ('.$function_name.')\(/s',$content,$matches)){
