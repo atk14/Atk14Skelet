@@ -1,9 +1,11 @@
 <?php
 class CreateNewForm extends UsersForm{
 	function set_up(){
-		$this->add_field("login", new CharField(array(
+		$this->add_field("login", new RegexField('/^[a-z0-9.-]+$/',array(
 			"label" => _("Username (login)"),
-			"max_length" => 255,
+			"max_length" => 50,
+			"help_text" => _("Only letters, numbers, dots and dashes are allowed. Up to 50 characters."),
+			"hint" => "john.doe",
 		)));
 	
 		$this->_add_basic_account_fields();
