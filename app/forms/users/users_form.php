@@ -4,11 +4,13 @@ class UsersForm extends ApplicationForm{
 		$this->add_field("name", new CharField(array(
 			"label" => _("Your name"),
 			"max_length" => 255,
+			"hint" => "John Doe"
 		)));
 
 		$this->add_field("email", new EmailField(array(
 			"label" => _("E-mail address"),
 			"max_length" => 255,
+			"hint" => "john.doe@email.com",
 		)));
 	}
 
