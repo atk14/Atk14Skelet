@@ -1,0 +1,1 @@
+$link.parent("tr").fadeOut();

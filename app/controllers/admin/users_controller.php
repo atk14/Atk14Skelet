@@ -8,7 +8,18 @@ class UsersController extends AdminController{
 		$this->sorting->add("is_admin","is_admin DESC, UPPER(login)","is_admin ASC, UPPER(login)");
 		$this->sorting->add("login","UPPER(login)");
 
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
+
+		$conditions = $bind_ar = array();
+
+		if($d["search"]){
+			$conditions[] = "UPPER(id||' '||login||' '||COALESCE(name,'')||' '||COALESCE(email,'')) LIKE UPPER('%'||:search||'%')";
+			$bind_ar[":search"] = $d["search"];
+		}
+
 		$this->tpl_data["finder"] = User::Finder(array(
+			"conditions" => $conditions,
+			"bind_ar" => $bind_ar,
 			"order_by" => $this->sorting,
 			"offset" => $this->params->getInt("offset"),
 		));
@@ -24,6 +35,17 @@ class UsersController extends AdminController{
 			$this->user->s($d);
 			$this->flash->success("The user entry has been updated");
 			$this->_redirect_back();
+		}
+	}
+
+	function destroy(){
+		if(!$this->request->post() || !$this->user->isDeletable() || $this->user->getId()==$this->logged_user->getId()){ return $this->_execute_action("error404"); }
+
+		$this->user->destroy();
+
+		if(!$this->request->xhr()){
+			$this->flash->success(_("The user entry has been deleted"));
+			$this->_redirect_to("index");
 		}
 	}
 
