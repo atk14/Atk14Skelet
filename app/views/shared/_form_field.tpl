@@ -1,9 +1,11 @@
 {*
- * Displays a form field
- * {render partial="shared/form_field" field="title"}
- * {render partial="shared/form_field" field=$form->get_field("title")}
+ * Displays a form field.
  *
- * Generuje toto:
+ * Examples:
+ *   {render partial="shared/form_field" field="title"}
+ *   {render partial="shared/form_field" field=$form->get_field("title")}
+ *
+ * Renders:
  * <div>
  *		<label>Label</label>
  * 		<input />
@@ -17,18 +19,23 @@
  *		</ul>
  * </div>
  *
- * Parent divu jsou automaticky podle potreb nastavovany tridy:
- *  - required
- *  - error
- * 
- * Pokud ma mit div dalsi tridu (tridy), je mozne predat parametr class: 
- * {render partial="shared/form_field" field=title class="blue"}
+ * Parent <div> will automagically have class "error" in case validation fails.
  *
  * Printing out more fields on a single line
  * {render partial="shared/form_field" fields="firstname,lastname,email"}
  *
- * When all the fields are required, there`s no need to mark them as required
- * {render partial="shared/form_field" fields="firstname,lastname,email" omit_required=1}
+ * Available variables:
+ * - $field: Initially field's name. Later field object.
+ * - $field->hint: Hint text for filling the field. If set it's used in field's
+     placeholder attribute by default.
+ * - $field->required: Boolean indicating if the field is required. By default
+ *   it's used for handling presence of field's required attribute. You can use
+ *   it for setting additional classes in your markup for example.
+ * - $field->help_text: Information text related to field.
+ * - $field->errors(): Returns an array of error messages resulting form failed
+ *   validation.
+ * - $class: String with optional html classes taken from {render} helper.
+ *   Example: {render partial="shared/form_field" class="my-class another-class"}
  *}
 
 {if $field}
@@ -40,23 +47,13 @@
 		{assign var=field value=$form->get_field($field)}
 	{/if}
 
-	{assign var=required value=$field->required}
-	{if $omit_required}
-		{assign var=required value=0}
-	{/if}
-
-	<div class="control-group{if $required || $field->errors() || $class} {trim}{if $required}required{/if}{if $field->errors()} error{/if}{if $class} {$class}{/if}{/trim}{/if}">
+	<div class="control-group{if $field->errors() || $class} {trim}{if $field->errors()} error{/if}{if $class} {$class}{/if}{/trim}{/if}">
 		<label for="{$field->id_for_label()}" class="control-label">{$field->label}</label>
 		<div class="controls">
 			{!$field->as_widget()}
 
-			{if $field->help_text || $field->hint}
-				<div class="help-block">
-					{if $field->help_text}<p>{!$field->help_text}</p>{/if}
-					{if $field->hint}
-						<p class="hint"><strong>{t}Example:{/t}</strong> {!$field->hint}</p>
-					{/if}
-				</div>
+			{if $field->help_text}
+				<span class="alert alert-info">{!$field->help_text}</span>
 			{/if}
 
 			{if $field->errors()}
