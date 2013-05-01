@@ -1,5 +1,20 @@
 <?php
 class ApplicationForm extends Atk14Form{
+
+	function set_up(){
+
+	}
+
+	function before_set_up(){
+		if(in_array(get_class($this),array("IndexForm","DetailForm"))){
+			$this->set_method("GET");
+		}
+	}
+
+	function after_set_up(){
+		
+	}
+
 	/**
 	 * Text on submit button 
 	 */

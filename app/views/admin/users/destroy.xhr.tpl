@@ -1,1 +1,1 @@
-$link.parent("tr").fadeOut();
+$link.parents("tr").fadeOut();

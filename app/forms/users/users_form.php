@@ -11,6 +11,7 @@ class UsersForm extends ApplicationForm{
 			"label" => _("E-mail address"),
 			"max_length" => 255,
 			"hint" => "john.doe@email.com",
+			"help_text" => _("We will not disclose this address"),
 		)));
 	}
 

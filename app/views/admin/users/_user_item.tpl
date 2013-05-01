@@ -18,7 +18,7 @@
 			{if $user->isDeletable()}
 				{capture assign="confirm"}{t login=$user->getLogin()|h escape=no}You are about to permanently delete user %1
 Are you sure about that?{/t}{/capture}
-				<li>{a action=destroy id=$user _method=post _confirm=$confirm}<i class="icon icon-remove"></i> {t}Delete user{/t}{/a}</li>
+				<li>{a_remote action=destroy id=$user _method=post _confirm=$confirm}<i class="icon icon-remove"></i> {t}Delete user{/t}{/a_remote}</li>
 			{/if}
 		</ul>
 		</div>
