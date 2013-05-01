@@ -1,5 +1,5 @@
 <?php
-class UsersController extends ApiController{
+class LoggedUsersController extends ApiController{
 
 	/**
 	 * Provides information about currently logged user

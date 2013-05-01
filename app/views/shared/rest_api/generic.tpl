@@ -1,3 +1,5 @@
+<h2>{$page_title}</h2>
+
 {if $documentation}
 	{!$documentation}
 {else}
