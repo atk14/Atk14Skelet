@@ -107,6 +107,8 @@ class ApplicationRestApiController extends ApplicationBaseController{
 	//function _get_session(){ return null; }
 
 	function _application_before_filter(){
+		parent::_application_before_filter();
+
 		$this->response->setContentCharset("UTF-8");
 
 		$this->page_title = $this->controller.($this->action=="index" ? "" : "/$this->action");
