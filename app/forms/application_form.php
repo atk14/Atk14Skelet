@@ -5,14 +5,14 @@ class ApplicationForm extends Atk14Form{
 
 	}
 
-	function before_set_up(){
+	function pre_set_up(){
 		// submit method GET is automatically set in IndexForm or DetailForm
 		if(preg_match('/^(Index|Detail)Form$/i',get_class($this))){
 			$this->set_method("get");
 		}
 	}
 
-	function after_set_up(){
+	function post_set_up(){
 		
 	}
 
