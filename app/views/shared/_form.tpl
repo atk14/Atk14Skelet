@@ -9,6 +9,10 @@
  * {render partial="shared/form" form=$search_form button_text="Search" small_form=1}
  *}
 
+{if !isset($small_form)}
+	{assign var=small_form value=$form->is_small()}
+{/if}
+
 {if !$small_form}
 	{assign var="layout" value="form-horizontal"}
 {/if}
