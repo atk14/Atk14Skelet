@@ -1,6 +1,6 @@
-<h2>{$page_title}</h2>
+<h1 class="page-header">{$page_title}</h1>
 
-<table>
+<table class="table">
 	<tbody>
 		<tr>
 			<th>{t}Username (login){/t}</th>

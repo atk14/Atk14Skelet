@@ -1,6 +1,6 @@
 <h1 class="page-header">{$page_title}</h1>
 
-{render partial="shared/context_menu"}
+<p>{a action=create_new _class="btn btn-primary"}<i class="icon-plus-sign icon-white"></i> {t}Add New{/t}{/a}</p>
 
 {if $finder->isEmpty()}
 
