@@ -11,7 +11,6 @@
  *
  * Variables
  * ------------
- * $context_menu
  * $lang
  * $controller
  * $action

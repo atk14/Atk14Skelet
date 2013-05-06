@@ -45,16 +45,15 @@ class UsersController extends ApplicationController{
 				return;
 			}
 
-			$this->context_menu->setTitle(_("Your account"));
-			
 			foreach(array(
 				"detail" => _("User profile"),
 				"edit" => _("Change your account data"),
 				"edit_password" => _("Change your password"),
 			) as $action => $title){
+				/*
 				$this->context_menu->add($title,$action,array(
 					"active" => $action==$this->action
-				));
+				));*/
 
 				if($action==$this->action){
 					$this->page_title = $title;

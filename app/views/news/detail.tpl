@@ -5,3 +5,9 @@
 {/if}
 
 {!$news->getBody()|markdown} 
+
+<ul class="nav nav-list">
+	{foreach from=$news_navi->getItems() item=item}
+		{!$item}
+	{/foreach}
+</ul>

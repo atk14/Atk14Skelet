@@ -1,0 +1,117 @@
+<?php
+/**
+* $nav = new Navigation();
+* $nav->setTitle("Aktivity s domenou plovarna.cz");
+* $nav->addItem(array(
+*		"text" => "Nechat si poslat Auth-Info",
+*		"url" => $this->_link_to(...),
+*	));
+*/
+class Navigation{
+	var $items = array();
+
+	function __construct(){
+		//...?
+	}
+
+	/**
+	 * $context_menu->addItem("Update Account Data","users/edit",array("active" => true));
+	 */
+	function addItem($item,$url = null,$options = array()){
+		$item = $this->_makeItem($item,$url,$options);
+		if($item->key){
+			$this->items[$item->key] = $item;
+		}else{
+			$this->items[] = $item;
+		}	
+	}
+	/**
+	 * Alias for Navigation::addItem();
+	 */
+	function add($item,$url = null,$options = array()){ return $this->addItem($item,$url,$options); }
+
+	/**
+	 * $navigation->addHeader("User functions");
+	 */
+	function addHeader($title){
+		$this->addItem(array(
+			"text" => $title,
+			"class" => "nav-header",
+		));
+	}
+
+	function addDivider(){
+		$this->addItem(array(
+			"class" => "divider",
+		));
+	}
+
+	function isEmpty(){ return sizeof($this->items)==0; }
+	function hasItems(){ return sizeof($this->items)>0; }
+	function getItems(){ return $this->items; }
+
+	function _makeItem($item,$url = null,$options = array()){
+		if(is_string($url)){
+			if(preg_match('/^[a-z]/',$url)){
+				$url = Atk14Url::BuildLink(array(
+					"action" => $url
+				));
+			}
+		}
+		if(is_array($url)){
+			$url = Atk14Url::BuildLink($url);
+		}
+		if(is_string($item) && is_string($url)){
+			$options += array(
+				"text" => $item,
+				"url" => $url
+			);
+			return $this->_makeItem($options);
+		}
+		if(is_array($item)){ $item = new NavigationItem($item); }
+		return $item;
+	}
+}
+
+class NavigationItem{
+	function __construct($options = array()){
+		$options = array_merge(array(
+			"key" => null,
+			"text" => "",
+			"title" => "",
+			"url" => "",
+			"active" => false,
+			"class" => "", // nazev css stylu
+			"attrs" => array(),
+		),$options);
+		$this->key = $options["key"];
+		$this->title = $options["title"];
+		$this->url = $options["url"];
+		$this->active = $options["active"];
+		$this->text = $options["text"];
+		$this->class = $options["class"];
+		$this->attrs = $options["attrs"];
+	}
+
+	function getMarkup(){
+		$out = $this->text;
+		$title = $this->title ? " title=\"".htmlspecialchars($this->title)."\"" : "";
+		$class = $this->class ? " class=\"".htmlspecialchars($this->class)."\"" : "";
+
+		if($this->url){
+			$attrs = "";
+			foreach($this->attrs as $key => $value){
+				$attrs .= " $key=\"".htmlspecialchars($value)."\"";
+			}
+			$out = "<a href=\"$this->url\"$attrs>$out</a>";
+		}
+
+		$out = "<li$title$class>$out</li>";
+
+		return $out;
+	}
+
+	function __toString(){
+		return $this->getMarkup();
+	}
+}

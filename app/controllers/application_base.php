@@ -41,7 +41,7 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _before_render(){
-		$this->tpl_data["context_menu"] = $this->context_menu;
+
 	}
 
 	function _application_before_filter(){
@@ -53,8 +53,6 @@ class ApplicationBaseController extends Atk14Controller{
 
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
-
-		$this->context_menu = new contextMenu();
 
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
