@@ -47,10 +47,22 @@
 		{assign var=field value=$form->get_field($field)}
 	{/if}
 
+	{assign var=is_checkbox value=$field->widget->input_type=="checkbox"}
+
 	<div class="control-group{if $field->errors() || $class} {trim}{if $field->errors()} error{/if}{if $class} {$class}{/if}{/trim}{/if}">
-		<label for="{$field->id_for_label()}" class="control-label">{$field->label}</label>
+
+		{if !$is_checkbox}
+			<label for="{$field->id_for_label()}" class="control-label">{$field->label}</label>
+		{/if}
+
 		<div class="controls">
-			{!$field->as_widget()}
+			{if $is_checkbox}
+				<label for="{$field->id_for_label()}" class="checkbox">
+					{!$field->as_widget()} {$field->label}
+				</label>
+			{else}
+				{!$field->as_widget()}
+			{/if}
 
 			{if $field->help_text}
 				<span class="alert alert-info">{!$field->help_text}</span>

@@ -2,11 +2,9 @@
 
 {render partial="shared/context_menu"}
 
-{form}
-	{render partial="shared/form_field" field=search}
-	<div class="buttons">
-		<button type="submit">{t}Search users{/t}</button>
-	</div>
+{form _class="form-search"}
+	{!$form.search}
+	<button type="submit" class="btn">{t}Search users{/t}</button>
 {/form}
 
 {if $finder->isEmpty()}
