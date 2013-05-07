@@ -14,7 +14,6 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Id</th>
 				{sortable key=login}<th>{t}Username{/t}</th>{/sortable}
 				<th>{t}Name{/t}</th>
 				<th>{t}E-mail address{/t}</th>
