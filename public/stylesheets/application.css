@@ -1,14 +1,12 @@
 #logo {
 	background-color: black;
-	height: 180px;
 }
 
-#logo span {
+#logo h1, #logo a {
 	display: block;
 	height: 162px;
-	width: 453px;
-	background-image: url('../images/logo.png');
-	font-size: 0px;
+	background: #000 url('../images/logo.png') no-repeat;
+	text-indent: -999em;
 }
 
 #row-login .nav {
