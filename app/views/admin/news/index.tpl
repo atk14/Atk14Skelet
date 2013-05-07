@@ -11,8 +11,10 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>Id</th>
 				<th>{t}Title{/t}</th>
+				<th>{t}Author{/t}</th>
+				<th>{t}Date{/t}</th>
+				<th>{t}Actions{/t}</th>
 			</tr>
 		</thead>
 		<tbody>
