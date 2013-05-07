@@ -1,20 +1,22 @@
 <article>
 	<header>
 		<h1 class="page-header">{$news->getTitle()}</h1>
-		<p>{t author=$news->getAuthor()->getName()|h date=$news->getPublishedAt() date_human=$news->getPublishedAt()|format_date escape=no}Posted by <em>%1</em> on <time datetime="%2">%3</time>{/t}</p>
+		<p class="muted">{t author=$news->getAuthor()->getName()|h date=$news->getPublishedAt() date_human=$news->getPublishedAt()|format_date escape=no}Posted by <em class="label">%1</em> on <time datetime="%2">%3</time>{/t}</p>
 	</header>
 
 	{!$news->getBody()|markdown}
 </article>
 
-{*
- * Navigation
- * 
- * $news_navi contains links (in <li></li>) to newer and older item.
- *}
-<ul class="nav nav-list">
-	<li class="nav-header">{t}News{/t}</li>
-	{!$news_navi}
-	<li class="divider"></li>
-	<li>{a action=index}{t}News archive{/t}{/a}</li>
+<ul class="pager">
+	{if $older_news}
+		<li class="previous">
+			{a action=detail id=$older_news}&larr; {$older_news->getTitle()|truncate:24}{/a}
+		</li>
+	{/if}
+	<li>{a action=index _class="muted"}<i class="icon-list"></i> {t}News archive{/t}{/a}</li>
+	{if $newer_news}
+		<li class="next">
+			{a action=detail id=$newer_news}{$newer_news->getTitle()|truncate:24} &rarr;{/a}
+		</li>
+	{/if}
 </ul>

@@ -19,15 +19,7 @@ class NewsController extends ApplicationController{
 		$this->page_title = $news->getTitle();
 		$this->tpl_data["news"] = $news;
 
-		$news_navi = new Navigation();
-
-		if($older = $news->getOlderNews()){
-			$news_navi->add(sprintf(_("Older news: %s"),$older->getTitle()),array("action" => "detail", "id" => $older));
-		}
-		if($newer = $news->getNewerNews()){
-			$news_navi->add(sprintf(_("Newer news: %s"),$newer->getTitle()),array("action" => "detail", "id" => $newer));
-		}
-
-		$this->tpl_data["news_navi"] = $news_navi;
+		$this->tpl_data["older_news"] = $news->getOlderNews();
+		$this->tpl_data["newer_news"] = $news->getNewerNews();
 	}
 }

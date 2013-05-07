@@ -48,18 +48,22 @@
 		{stylesheet_link_tag file="application.css" media="screen"}
 	</head>
 
-	<body id="body_{$controller}_{$action}">
-		<div class="container">
+	<body class="body_{$controller}_{$action}">
+		<div class="container-fluid">
 			{render partial="shared/login"}
 			{render partial="shared/layout/header"}
 
-			{if $section_navigation}
-				<ul class="nav">{!$section_navigation}</ul>
-			{/if}
+			<div class="row-fluid">
+				{if $section_navigation}
+					<div class="span3">
+						{render partial="shared/layout/section_navigation"}
+					</div>
+				{/if}
 
-			<div class="main">
-				{render partial="shared/layout/flash_message"}
-				{placeholder}
+				<div class="content{if $section_navigation} span9{/if}">
+					{render partial="shared/layout/flash_message"}
+					{placeholder}
+				</div>
 			</div>
 
 			{render partial="shared/layout/footer"}

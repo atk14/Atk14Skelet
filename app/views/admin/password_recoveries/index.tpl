@@ -3,10 +3,9 @@
 {if $finder->isEmpty()}
 	<p class="alert alert-info">No records found.</p>
 {else}
-	<table>
+	<table class="table">
 		<thead>
 			<tr>
-				<th>Id</th>
 				{sortable key=created_at}<th>{t}Created at{/t}</th>{/sortable}
 				<th>{t}User{/t}</th>
 				<th>{t}E-mail{/t}</th>

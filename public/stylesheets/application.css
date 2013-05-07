@@ -15,6 +15,24 @@
 	margin-bottom: 0;
 }
 
-.main {
+.content {
 	margin-bottom: 64px;
+}
+.body_news_detail article h1 {
+	border-bottom-style: dotted;
+}
+.body_news_detail article header p {
+	padding-bottom: 9px;
+	border-bottom: 1px dotted #eee;
+}
+.pager {
+	padding-top: 19px;
+	border-top: 1px dotted #eee;
+}
+.body_news_detail h1 {
+	margin-bottom: 10px;
+}
+.body_news_index article {
+	padding: 20px 0 19px;
+	border-bottom: 1px dotted #eee;
 }

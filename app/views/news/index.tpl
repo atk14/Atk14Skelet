@@ -1,7 +1,5 @@
-<h2>{$page_title}</h2>
+<h1 class="page-header">{$page_title}</h1>
 
-<ul>
-	{render partial=news_item from=$finder->getRecords() item=news}
-</ul>
+{render partial=news_item from=$finder->getRecords() item=news}
 
 {paginator}
