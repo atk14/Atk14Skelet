@@ -15,5 +15,11 @@ class AdminController extends ApplicationBaseController{
 		if(!$this->logged_user || !$this->logged_user->isAdmin()){
 			return $this->_execute_action("access_denied");
 		}
+
+		$navi = new Navigation();
+		$navi->add(_("Users"),$this->_link_to("users/index"),array("active" => $this->controller=="users"));
+		$navi->add(_("News"),$this->_link_to("news/index"),array("active" => $this->controller=="news"));
+		$navi->add(_("Password recoveries"),$this->_link_to("password_recoveries/index"),array("active" => $this->controller=="password_recoveries"));
+		$this->tpl_data["section_navigation"] = $navi;
 	}
 }

@@ -53,6 +53,10 @@
 			{render partial="shared/login"}
 			{render partial="shared/layout/header"}
 
+			{if $section_navigation}
+				<ul class="nav">{!$section_navigation}</ul>
+			{/if}
+
 			<div class="main">
 				{render partial="shared/layout/flash_message"}
 				{placeholder}

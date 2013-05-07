@@ -95,35 +95,30 @@ class Navigation{
 
 class NavigationItem{
 	function __construct($options = array()){
-		$options = array_merge(array(
+		$options += array(
 			"key" => null,
 			"text" => "",
 			"title" => "",
 			"url" => "",
 			"active" => false,
-			"class" => "", // nazev css stylu
-			"attrs" => array(),
-		),$options);
+			"class" => "", // css class name of outer element (<li>)
+		);
 		$this->key = $options["key"];
 		$this->title = $options["title"];
 		$this->url = $options["url"];
 		$this->active = $options["active"];
 		$this->text = $options["text"];
 		$this->class = $options["class"];
-		$this->attrs = $options["attrs"];
 	}
 
 	function getMarkup(){
 		$out = $this->text;
 		$title = $this->title ? " title=\"".htmlspecialchars($this->title)."\"" : "";
-		$class = $this->class ? " class=\"".htmlspecialchars($this->class)."\"" : "";
+		$class = trim($this->class . ($this->active ? " active" : ""));
+		$class = $class ? " class=\"".htmlspecialchars($class)."\"" : "";
 
 		if($this->url){
-			$attrs = "";
-			foreach($this->attrs as $key => $value){
-				$attrs .= " $key=\"".htmlspecialchars($value)."\"";
-			}
-			$out = "<a href=\"$this->url\"$attrs>$out</a>";
+			$out = "<a href=\"$this->url\">$out</a>";
 		}
 
 		$out = "<li$title$class>$out</li>";
