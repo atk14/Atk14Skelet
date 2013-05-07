@@ -3,7 +3,7 @@ CREATE TABLE news(
 	id INT PRIMARY KEY DEFAULT NEXTVAL('seq_news'),
 	title VARCHAR(255),
 	body TEXT,
-	author_id INT,
+	author_id INT NOT NULL,
 	published_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
