@@ -1,7 +1,7 @@
 #logo {
-	background-color: black;
+	background-color: #000;
+	margin-bottom: 10px;
 }
-
 #logo h1, #logo a {
 	display: block;
 	height: 162px;
