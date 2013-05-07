@@ -1,12 +1,28 @@
 <?php
 /**
-* $nav = new Navigation();
-* $nav->setTitle("Aktivity s domenou plovarna.cz");
-* $nav->addItem(array(
-*		"text" => "Nechat si poslat Auth-Info",
-*		"url" => $this->_link_to(...),
-*	));
-*/
+ * == in controller ==
+ *
+ * $navi = new Navigation();
+ * $navi->add(
+ *  "Profile", // link text
+ *  array("controller" => "users", "action" => "detail"), // URL
+ *  array("active" => "$this->controller/$this->action"=="users/detail") // options
+ * );
+ *
+ * == in template ==
+ *
+ *  <ul class="nav">
+ *    {!$navi}
+ *  </ul>
+ *
+ *  {* or *}
+ *
+ *  <ul class="nav">
+ *  {foreach from=$navi->getItems() item=item}
+ *    {!$item}
+ *  {/foreach}
+ *  </ul>
+ */
 class Navigation{
 	var $items = array();
 
@@ -70,6 +86,10 @@ class Navigation{
 		}
 		if(is_array($item)){ $item = new NavigationItem($item); }
 		return $item;
+	}
+
+	function __toString(){
+		return join("\n",$this->items);
 	}
 }
 

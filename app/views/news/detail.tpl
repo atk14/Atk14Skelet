@@ -6,8 +6,14 @@
 
 {!$news->getBody()|markdown} 
 
+{*
+ * Navigation
+ * 
+ * $news_navi contains links (in <li></li>) to newer and older item.
+ *}
 <ul class="nav nav-list">
-	{foreach from=$news_navi->getItems() item=item}
-		{!$item}
-	{/foreach}
+	<li class="nav-header">{t}News{/t}</li>
+	{!$news_navi}
+	<li class="divider"></li>
+	<li>{a action=index}{t}News archive{/t}{/a}</li>
 </ul>

@@ -1,7 +1,5 @@
 <h1 class="page-header">{$page_title}</h1>
 
-{render partial="shared/context_menu"}
-
 {form _class="form-search"}
 	{!$form.search}
 	<button type="submit" class="btn">{t}Search users{/t}</button>

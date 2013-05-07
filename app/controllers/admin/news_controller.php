@@ -9,8 +9,6 @@ class NewsController extends AdminController{
 			"offset" => $this->params->getInt("from"),
 			"order_by" => $this->sorting
 		));
-
-		$this->context_menu->add(_("Create new entry"),"create_new");
 	}
 
 	function create_new(){
