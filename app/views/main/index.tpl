@@ -1,6 +1,6 @@
 <div><img src="{$public}images/skelet.png" width="475" height="478" alt="ATK14 skelet" title="this is an ATK14 skelet" class="pull-right" /></div>
 
-<div class="row">
+<div class="row-fluid">
 	<div class="span5">
 		<div class="well">
 			<h2>{t}Features{/t}</h2>
@@ -29,16 +29,15 @@
 			</ul>
 		</div>
 	</div>
-
 </div>
 
-	<div>
-		<h3>{t}External links{/t}</h3>
-		<ul>
-			<li><a href="https://github.com/yarri/Atk14Skelet">{t}This Skelet on Github{/t}</a></li>
-			<li><a href="http://www.atk14.net/">{t}ATK14 Project website{/t}</a></li>
-			<li><a href="http://book.atk14.net/">{t}The ATK14 Book{/t}</a></li>
-			<li><a href="http://api.atk14.net/">{t}The API reference{/t}</a></li>
-			<li><a href="https://github.com/yarri/Atk14">{t}ATK14 project page on Github{/t}</a></li>
-		</ul>
-	</div>
+<div>
+	<h3>{t}External links{/t}</h3>
+	<ul>
+		<li><a href="https://github.com/yarri/Atk14Skelet">{t}This Skelet on Github{/t}</a></li>
+		<li><a href="http://www.atk14.net/">{t}ATK14 Project website{/t}</a></li>
+		<li><a href="http://book.atk14.net/">{t}The ATK14 Book{/t}</a></li>
+		<li><a href="http://api.atk14.net/">{t}The API reference{/t}</a></li>
+		<li><a href="https://github.com/yarri/Atk14">{t}ATK14 project page on Github{/t}</a></li>
+	</ul>
+</div>
