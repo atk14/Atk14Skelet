@@ -10,7 +10,7 @@ class CreateNewForm extends AdminForm{
 			"label" => _("Body"),
 		)));
 
-		$this->add_field("published_at",new DatetimeField(array(
+		$this->add_field("published_at",new DateTimeField(array(
 			"label" => _("Published At"),
 			"initial" => time(),
 		)));
