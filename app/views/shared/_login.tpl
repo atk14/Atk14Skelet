@@ -4,7 +4,7 @@
 			{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
 
 			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown">
+				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
 					{t escape=no}{$logged_user->getLogin()}{/t}
 					{if $logged_user->isAdmin()}
 						({t}administrator{/t})
