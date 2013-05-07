@@ -10,12 +10,12 @@ Installation
 
 First make sure that all requirements are met: <http://book.atk14.net/czech/installation%3Arequirements/>
 
-		# go to your projects directory
-		cd ~/projects/
+    # go to your projects directory
+    cd ~/projects/
 
     mkdir atk14skelet
     cd atk14skelet
-		git clone https://github.com/yarri/Atk14Skelet.git ./
+    git clone https://github.com/yarri/Atk14Skelet.git ./
     chmod 777 log tmp
     git submodule init
     git submodule update
