@@ -1,3 +1,5 @@
+<h2>{$page_title}</h2>
+
 <ul>
 {foreach from=$controllers key=ctrl item=item}
 	<li>

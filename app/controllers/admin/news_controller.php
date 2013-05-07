@@ -5,9 +5,20 @@ class NewsController extends AdminController{
 
 		$this->sorting->add("created_at",array("reverse" => true));
 
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
+
+		$conditions = $bind_ar = array();
+
+		if($d["search"]){
+			$conditions[] = "UPPER(id||' '||' '||COALESCE(title,'')||' '||COALESCE(body,'')) LIKE UPPER('%'||:search||'%')";
+			$bind_ar[":search"] = $d["search"];
+		}
+
 		$this->tpl_data["finder"] = News::Finder(array(
+			"conditions" => $conditions,
+			"bind_ar" => $bind_ar,
 			"offset" => $this->params->getInt("from"),
-			"order_by" => $this->sorting
+			"order_by" => $this->sorting,
 		));
 	}
 
@@ -34,6 +45,17 @@ class NewsController extends AdminController{
 			$this->news->s($d);
 			$this->flash->success(_("The news entry has been updated successfuly"));
 			$this->_redirect_back();	
+		}
+	}
+
+	function destroy(){
+		if(!$this->request->post()){ return $this->_execute_action("error404"); }
+
+		$this->news->destroy();
+
+		if(!$this->request->xhr()){
+			$this->flash->success(_("The news entry has been deleted"));
+			$this->_redirect_to("index");
 		}
 	}
 

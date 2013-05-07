@@ -2,6 +2,7 @@
 class PasswordRecoveriesController extends ApplicationController{
 
 	function create_new(){
+		if($this->request->get()){ $this->form->set_initial($this->params); }
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			($user = User::FindByLogin($d["login"])) ||
 			($user = User::FindByEmail($d["login"],array("order_by" => "created_at DESC")));

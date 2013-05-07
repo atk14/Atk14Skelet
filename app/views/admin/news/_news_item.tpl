@@ -9,7 +9,11 @@
 			</button>
 			<ul class="dropdown-menu pull-right">
 				<li>{a action=edit id=$news}<i class="icon icon-edit"></i> {t}Edit{/t}{/a}</li>
-				<li>{a_remote action=destroy id=$news _method=post _confirm=$confirm}<i class="icon icon-remove"></i> {t}Delete news{/t}{/a_remote}</li>
+				<li>
+					{capture assign=confirm}{t title=$news->getTitle()|h escape=false}Are you sure to delete news item
+%1?{/t}{/capture}
+					{a_remote action=destroy id=$news _method=post _confirm=$confirm}<i class="icon icon-remove"></i> {t}Delete news{/t}{/a_remote}
+				</li>
 			</ul>
 		</div>
 	</td>

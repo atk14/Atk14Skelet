@@ -1,5 +1,10 @@
 <h1 class="page-header">{$page_title}</h1>
 
+{form _class="form-search"}
+	{!$form.search}
+	<button type="submit" class="btn">{t}Search news items{/t}</button>
+{/form}
+
 <p>{a action=create_new _class="btn btn-primary"}<i class="icon-plus-sign icon-white"></i> {t}Add New{/t}{/a}</p>
 
 {if $finder->isEmpty()}
@@ -13,7 +18,7 @@
 			<tr>
 				<th>{t}Title{/t}</th>
 				<th>{t}Author{/t}</th>
-				<th>{t}Date{/t}</th>
+				{sortable key=created_at}<th>{t}Date{/t}</th>{/sortable}
 				<th>{t}Actions{/t}</th>
 			</tr>
 		</thead>

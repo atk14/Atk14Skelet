@@ -8,6 +8,7 @@ class CreateNewForm extends AdminForm{
 
 		$this->add_field("body",new TextField(array(
 			"label" => _("Body"),
+			"help_text" => _("Mardown format is expected"),
 		)));
 
 		$this->add_field("published_at",new DateTimeField(array(

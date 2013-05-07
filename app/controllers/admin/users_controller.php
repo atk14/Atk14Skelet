@@ -41,7 +41,7 @@ class UsersController extends AdminController{
 	function destroy(){
 		if(!$this->request->post() || !$this->user->isDeletable() || $this->user->getId()==$this->logged_user->getId()){ return $this->_execute_action("error404"); }
 
-		//$this->user->destroy();
+		$this->user->destroy();
 
 		if(!$this->request->xhr()){
 			$this->flash->success(_("The user entry has been deleted"));
