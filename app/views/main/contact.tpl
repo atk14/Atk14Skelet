@@ -14,5 +14,5 @@ United States</pre>
 <h4>{t}Opening hours{/t}</h4>
 <p>From dusk till dawn</p>
 
-
+<h4>{t}Contact form{/t}</h4>
 {render partial="shared/form"}

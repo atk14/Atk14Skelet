@@ -2,7 +2,7 @@
 class SearchInput extends TextInput{
 	var $input_type = 'search';
 
-	function SearchInput($options = array()){
+	function __construct($options = array()){
 		$options += array(
 			"attrs" => array()
 		);
@@ -11,6 +11,6 @@ class SearchInput extends TextInput{
 			"class" => "search-query"
 		);
 
-		parent::TextInput($options);
+		parent::__construct($options);
 	}
 }
