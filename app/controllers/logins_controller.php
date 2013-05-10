@@ -10,9 +10,9 @@ class LoginsController extends ApplicationController{
 				$this->logger->warn("bad login attempt on $d[login] from ".$this->request->getRemoteAddr());
 
 				if(User::FindByLogin($d["login"])){
-					$this->form->set_error(sprintf(_('Wrong password. <a href="%s">Have you forgotten it?</a>'),$this->_link_to(array("action" => "password_recoveries/create_new", "login" => $d["login"]))));
+					$this->form->set_error(sprintf(_('Wrong login and password combination. <a href="%s">Have you forgotten your password?</a>'),$this->_link_to(array("action" => "password_recoveries/create_new", "login" => $d["login"]))));
 				}else{
-					$this->form->set_error(_("Given login doesn't exist"));
+					$this->form->set_error(_('Wrong login and password combination'));
 				}
 				return;
 			}

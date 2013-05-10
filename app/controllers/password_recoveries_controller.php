@@ -10,6 +10,10 @@ class PasswordRecoveriesController extends ApplicationController{
 				$this->form->set_error("login",_("There is not such user with the given login or e-mail"));
 				return;
 			}
+			if($user->getId()==1){
+				$this->form->set_error("Sorry, there is absolutely no chance to reset admins password");
+				return;
+			}
 
 			$password_recovery = PasswordRecovery::CreateNewRecord(array(
 				"user_id" => $user,

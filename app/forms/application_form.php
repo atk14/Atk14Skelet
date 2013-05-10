@@ -40,7 +40,7 @@ class ApplicationForm extends Atk14Form{
 	}
 
 	/**
-	 * Sets text on the form`s submit button
+	 * Returns text on the form`s submit button
 	 * 
 	 * See partial template app/views/shared/_form_button.tpl
 	 */
