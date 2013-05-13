@@ -297,7 +297,7 @@ function _rest_api_dbmole_error_handler($dbmole){
 	$HTTP_RESPONSE->setStatusCode(500);
 	$HTTP_RESPONSE->setContentCharset('UTF-8');
 
-	$msg = Translate::Trans("Do?lo k vnit?n? chyb?",DEFAULT_CHARSET,"utf-8");
+	$msg = Translate::Trans("Internal server error occurred",DEFAULT_CHARSET,"utf-8");
 
 	if($HTTP_REQUEST->getVar("format")=="json"){
 		$HTTP_RESPONSE->setContentType('text/plain');
