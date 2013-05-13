@@ -38,7 +38,7 @@ var ATK14 = (function( $ ) {
 		var event = new $.Event( name );
 		obj.trigger( event, data );
 		return event.result !== false;
-	};
+	}
 
 	function allowAction( $element ) {
 		var message = $element.data( "confirm" );
