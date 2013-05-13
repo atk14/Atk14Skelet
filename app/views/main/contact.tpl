@@ -1,18 +1,23 @@
-<h2>{$page_title}</h2>
+<h1 class="page-header">{$page_title}</h1>
 
-<p>
-<strong>{t}E-mail{/t}:</strong> {"DEFAULT_EMAIL"|dump_constant}<br />
-<strong>{t}Phone{/t}:</strong> +1-541-754-3010
-</p>
+<div class="row-fluid">
+	<div class="span6">
+		{render partial="shared/form" form_class="well"}
+	</div>
 
-<h4>{t}Office address{/t}</h4>
-<pre>Elm Street 1428
-Springwood
-Ohio
-United States</pre>
-
-<h4>{t}Opening hours{/t}</h4>
-<p>From dusk till dawn</p>
-
-<h4>{t}Contact form{/t}</h4>
-{render partial="shared/form"}
+	<address class="span6">
+		<strong>{t}ATK14 Unholy Team{/t}</strong><br>
+		Elm Street 1428<br>
+		Springwood<br>
+		Ohio<br>
+		United States<br>
+		<br>
+		<strong>{t}E-mail{/t}:</strong><br>
+		{"DEFAULT_EMAIL"|dump_constant}<br>
+		<strong>{t}Phone{/t}:</strong><br>
+		+1-541-754-3010
+		<br>
+		<strong>{t}Opening hours{/t}</strong><br>
+		From dusk till dawn
+	</address>
+</div>

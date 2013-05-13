@@ -14,15 +14,15 @@
 {/if}
 
 {if !$small_form}
-	{assign var="layout" value="form-horizontal"}
+	{assign var="form_layout" value="form-horizontal"}
 {/if}
 
-{form _novalidate="novalidate" _class=$layout}
+{capture assign=class}{trim}{$form_class} {$form_layout}{/trim}{/capture}
 
-{render partial="shared/form_error"}
-<fieldset>
-	{render partial="shared/form_field" fields=$form->get_field_keys() class="control-group"}
-	{render partial="shared/form_button"}
-</fieldset>
-
+{form _novalidate="novalidate" _class=$class}
+	{render partial="shared/form_error"}
+	<fieldset>
+		{render partial="shared/form_field" fields=$form->get_field_keys()}
+		{render partial="shared/form_button"}
+	</fieldset>
 {/form}

@@ -34,3 +34,9 @@
 	padding: 20px 0 19px;
 	border-bottom: 1px dotted #eee;
 }
+
+/* Contact Form */
+#form_main_contact .control-group input,
+#form_main_contact .control-group textarea {
+	width: 91.48936170212765%;
+}
