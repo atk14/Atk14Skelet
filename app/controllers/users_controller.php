@@ -5,6 +5,8 @@ class UsersController extends ApplicationController{
 	function create_new(){
 		$this->page_title = _("New user registration");
 
+		$this->tpl_data["js_validator"] = $jv = $this->form->js_validator();
+
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$user = User::CreateNewRecord($d);
 			$this->logger->info("user $user just registered from ".$this->request->getRemoteAddr());
