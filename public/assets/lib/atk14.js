@@ -1,9 +1,15 @@
-var ATK14 = (function( $ ) {
+/* global window */
+var ATK14 = (function( $, window, undefined ) {
+
+	var document = window.document,
+		confirm = window.confirm;
 
 	$( document ).on( "a[data-remote], a[data-method]", "click", function(e) {
 		var $link = $( this );
 
-		if ( !allowAction( $link ) ) return false;
+		if ( !allowAction( $link ) ) {
+			return false;
+		}
 
 		if ( $link.data( "remote" ) ) {
 			ATK14.handleRemote( this );
@@ -80,7 +86,7 @@ var ATK14 = (function( $ ) {
 
 			$.ajax({
 				url: url,
-				type: method || 'GET',
+				type: method || "GET",
 				data: data,
 				dataType: dataType,
 				beforeSend: function( xhr, settings ) {
@@ -103,4 +109,4 @@ var ATK14 = (function( $ ) {
 		}
 	};
 
-})( jQuery );
+})( window.jQuery, window );
