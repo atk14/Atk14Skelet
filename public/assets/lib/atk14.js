@@ -1,25 +1,25 @@
 var ATK14 = (function( $ ) {
 
-	$( "a[data-remote], a[data-method]" ).live( "click", function() {
+	$( document ).on( "a[data-remote], a[data-method]", "click", function(e) {
 		var $link = $( this );
 
 		if ( !allowAction( $link ) ) return false;
 
 		if ( $link.data( "remote" ) ) {
 			ATK14.handleRemote( this );
-			return false;
+			e.preventDefault();
 		} else if ( $link.data( "method" ) ) {
 			handleMethod( $link );
-			return false;
+			e.preventDefault();
 		}
 	});
 
-	$( "form[data-remote]" ).live( "submit", function() {
+	$( document ).on( "form[data-remote]", "submit", function(e) {
 		ATK14.handleRemote( this );
-		return false;
+		e.preventDefault();
 	});
 
-	$( "body" )
+	$( document )
 		.ajaxStart(function() {
 			$( this ).addClass( "loading" );
 		})
@@ -53,6 +53,7 @@ var ATK14 = (function( $ ) {
 
 		$form.hide().append( metadata_input ).appendTo( "body" );
 		$form.submit();
+		$form.remove();
 	}
 
 
