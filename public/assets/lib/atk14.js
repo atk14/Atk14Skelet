@@ -1,1 +1,1 @@
-/home/bganicky/Dev/ntvage/atk14skelet/atk14/skelet/public/javascripts/atk14.js
+../../../atk14/skelet/public/javascripts/atk14.js
