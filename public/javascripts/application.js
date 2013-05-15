@@ -88,5 +88,10 @@
 		}
 	};
 
-	$( document ).ready( SKELET.UTIL.init );
+	// Expose SKELET to the global object.
+	window.SKELET = SKELET;
+
 })( window, window.jQuery );
+
+// Initialize application.
+$( document ).ready( SKELET.UTIL.init );
