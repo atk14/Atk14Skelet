@@ -15,14 +15,12 @@ SKELET = {
 
 			/*
 			 * Check whether login is available.
-			 * Simple demo of working with an API..
+			 * Simple demo of working with an API.
 			 */
-			var id = "id_login",
-				$login = $( "#" + id ),
-				$label = $( "label[for='" + id + "']" ),
-				label = $label.text();
+			var $login = $( "#id_login" ),
+				$icon = $( "<i></i>" ).insertAfter( $login ).css( "margin-left", "4px" );
 
-			$login.on( "blur", function(ev) {
+			$login.on( "change", function(ev) {
 				// Login input value to check.
 				var value = $login.val(),
 				// API URL.
@@ -40,13 +38,19 @@ SKELET = {
 						url: url,
 						data: data,
 						success: function( json ) {
-							$label.text( label + ": " + json.status );
+							$icon.attr( "title", json.status );
+
+							if ( json.status !== "available" ) {
+								$icon.removeClass( "icon-ok" ).addClass( "icon-remove" );
+							} else {
+								$icon.removeClass( "icon-remove" ).addClass( "icon-ok" );
+							}
 						}
 					});
 				} else {
-					$label.text( label );
+					$icon.removeClass( "icon-ok icon-rmeove" ).attr( "title", "" );
 				}
-			});
+			}).change();
 		}
 	}
 };
