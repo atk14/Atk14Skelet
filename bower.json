@@ -1,7 +1,7 @@
 {
 	"name": "atk14-skelet",
 	"dependencies": {
-		"bootstrap": "latest",
+		"bootstrap": "latest"
 	},
 	"devDependencies": {
 		"jasmine": "latest"
