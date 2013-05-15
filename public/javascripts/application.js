@@ -48,7 +48,7 @@ SKELET = {
 						}
 					});
 				} else {
-					$icon.removeClass( "icon-ok icon-rmeove" ).attr( "title", "" );
+					$icon.removeClass( "icon-ok icon-remove" ).attr( "title", "" );
 				}
 			}).change();
 		}
