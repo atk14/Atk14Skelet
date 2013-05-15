@@ -48,7 +48,7 @@
 		{stylesheet_link_tag file="application.css" media="screen"}
 	</head>
 
-	<body class="body_{$controller}_{$action}">
+	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
 		<div class="container-fluid">
 			{render partial="shared/login"}
 			{render partial="shared/layout/header"}
