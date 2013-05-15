@@ -34,17 +34,18 @@ SKELET = {
 					};
 
 				// AJAX request to the API.
-				$.ajax({
-					dataType: "json",
-					url: url,
-					data: data,
-					success: function( json ) {
-						$label.text( label + ": " + json.status );
-					},
-					error: function( jqXHR, status, errorThrown ) {
-						$label.text( label + ": " + status + "(" + errorThrown + ")" );
-					}
-				});
+				if ( value !== "" ) {
+					$.ajax({
+						dataType: "json",
+						url: url,
+						data: data,
+						success: function( json ) {
+							$label.text( label + ": " + json.status );
+						}
+					});
+				} else {
+					$label.text( label );
+				}
 			});
 		}
 	}
