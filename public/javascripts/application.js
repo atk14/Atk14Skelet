@@ -5,7 +5,7 @@ SKELET = {
 		}
 	},
 	 
-	logins: {
+	users: {
 		init: function() {
 			// controller-wide code
 		},
