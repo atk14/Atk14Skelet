@@ -1,7 +1,6 @@
 /* global window */
-(function( window, undefined ) {
-	var $ = window.jQuery,
-		document = window.document,
+(function( window, $, undefined ) {
+	var document = window.document,
 
 	SKELET = {
 		common: {
@@ -90,4 +89,4 @@
 	};
 
 	$( document ).ready( SKELET.UTIL.init );
-})( window );
+})( window, window.jQuery );
