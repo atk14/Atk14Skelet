@@ -18,7 +18,6 @@ class LoginsController extends ApplicationController{
 			}
 
 			$this->_login_user($user);
-			$this->logger->info("user $user just logged in from ".$this->request->getRemoteAddr());
 
 			$this->flash->success(sprintf(_("You have been successfuly logged in as <em>%s</em>"),h($user->getLogin())));
 			$this->_redirect_to("main/index");
@@ -26,11 +25,15 @@ class LoginsController extends ApplicationController{
 	}
 
 	function destroy(){
-		if($this->request->post() && $this->logged_user){
-			$this->logger->info("user $this->logged_user logged out from ".$this->request->getRemoteAddr());
-			$this->_logout_user();
-			$this->flash->success(_("You have been successfuly logged out"));
+		$this->page_title = _("Sign out");
+		if($this->logged_user){
+			if($this->request->post()){
+				$this->_logout_user();
+				$this->flash->success(_("You have been successfuly logged out"));
+				$this->_redirect_to("main/index");
+			}
+		}else{
+			$this->_redirect_to("main/index");
 		}
-		$this->_redirect_to("main/index");
 	}
 }

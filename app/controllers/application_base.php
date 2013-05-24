@@ -67,6 +67,8 @@ class ApplicationBaseController extends Atk14Controller{
 		$key = $options["fake_login"] ? "fake_logged_user_id" : "logged_user_id";
 		$this->session->s($key,$user->getId());
 		$this->session->changeSecretToken(); // prevent from session fixation
+
+		$this->logger->info("user $user just logged in from ".$this->request->getRemoteAddr());
 	}
 
 	function _logout_user(){
@@ -74,6 +76,11 @@ class ApplicationBaseController extends Atk14Controller{
 			$this->session->clear("fake_logged_user_id");
 			return;
 		}
+
+		if($user = User::FindById($this->session->g("logged_user_id"))){
+			$this->logger->info("user $user logged out from ".$this->request->getRemoteAddr());
+		}
+
 		$this->session->clear("logged_user_id");
 	}
 
