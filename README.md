@@ -30,7 +30,7 @@ Front-end Assets Installation
 -----------------------------
 
     curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-    . ~/nvm/nvm.sh
+    . ~/.nvm/nvm.sh
     nvm install 0.10
     npm install -g bower
     bower install
