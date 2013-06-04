@@ -41,11 +41,14 @@
 
 		{if $DEVELOPMENT}
 			{render partial="shared/layout/dev_info"}
+
+			{stylesheet_link_tag file="../assets/vendor/bootstrap/bootstrap/css/bootstrap.css" media="screen"}
+			{stylesheet_link_tag file="../assets/vendor/bootstrap/bootstrap/css/bootstrap-responsive.css" media="screen"}
+			{stylesheet_link_tag file="skelet.css" media="screen"}
+		{else}
+			{stylesheet_link_tag file="application.min.css" media="screen"}
 		{/if}
 
-		{stylesheet_link_tag file="../assets/vendor/bootstrap/bootstrap/css/bootstrap.css" media="screen"}
-		{stylesheet_link_tag file="../assets/vendor/bootstrap/bootstrap/css/bootstrap-responsive.css" media="screen"}
-		{stylesheet_link_tag file="application.css" media="screen"}
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
@@ -69,9 +72,13 @@
 			{render partial="shared/layout/footer"}
 		</div>
 
-		{javascript_script_tag file="../assets/vendor/jquery/jquery.js"}
-		{javascript_script_tag file="../assets/vendor/bootstrap/bootstrap/js/bootstrap.js"}
-		{javascript_script_tag file="../assets/lib/atk14.js"}
-		{javascript_script_tag file="application.js"}
+		{if $DEVELOPMENT}
+			{javascript_script_tag file="../assets/vendor/jquery/jquery.js"}
+			{javascript_script_tag file="../assets/vendor/bootstrap/bootstrap/js/bootstrap.js"}
+			{javascript_script_tag file="../assets/lib/atk14.js"}
+			{javascript_script_tag file="skelet.js"}
+		{else}
+			{javascript_script_tag file="application.min.js"}
+		{/if}
 	</body>
 </html>

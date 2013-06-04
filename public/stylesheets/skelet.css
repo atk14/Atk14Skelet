@@ -1,0 +1,42 @@
+#logo {
+	background-color: #000;
+	margin-bottom: 10px;
+}
+#logo h1, #logo a {
+	display: block;
+	height: 162px;
+	background: #000 url('../images/logo.png') no-repeat;
+	text-indent: -999em;
+}
+
+#row-login .nav {
+	margin-bottom: 0;
+}
+
+.content {
+	margin-bottom: 64px;
+}
+.body_news_detail article h1 {
+	border-bottom-style: dotted;
+}
+.body_news_detail article header p {
+	padding-bottom: 9px;
+	border-bottom: 1px dotted #eee;
+}
+.pager {
+	padding-top: 19px;
+	border-top: 1px dotted #eee;
+}
+.body_news_detail h1 {
+	margin-bottom: 10px;
+}
+.body_news_index article {
+	padding: 20px 0 19px;
+	border-bottom: 1px dotted #eee;
+}
+
+/* Contact Form */
+#form_main_contact .control-group input,
+#form_main_contact .control-group textarea {
+	width: 91.48936170212765%;
+}
