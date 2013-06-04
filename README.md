@@ -38,17 +38,12 @@ nvm install 0.10
 # Bower
 npm install -g bower
 ```
-### Install skelet front-end dependencies/libraries.
+### Install skelet front-end dependencies via Bower.
 ```bash
 bower install
-# Build Bootstrap.
-cd public/assets/vendor/bootstrap
-npm install
-make bootstrap
 ```
 ### Install build dependencies.
 ```bash
-cd ../../../../
 npm install
 ```
 ### Build.
