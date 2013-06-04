@@ -28,8 +28,7 @@ You shall found running ATK14 Skelet on http://atk14skelet.localhost/
 
 Front-end Assets Installation
 -----------------------------
-Install dependencies.
-=====================
+### Install dependencies.
 ```bash
 # Node Version manager
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
@@ -39,8 +38,7 @@ nvm install 0.10
 # Bower
 npm install -g bower
 ```
-Install skelet front-end dependencies/libraries.
-================================================
+### Install skelet front-end dependencies/libraries.
 ```bash
 bower install
 # Build Bootstrap.
@@ -48,8 +46,7 @@ cd public/assets/vendor/bootstrap
 npm install
 make bootstrap
 ```
-Install build dependencies (back in the skelet root).
-=====================================================
+### Install build dependencies (back in the skelet root).
 ```bash
 npm install
 # Concat and minify JS/CSS.
