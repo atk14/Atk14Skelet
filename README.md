@@ -50,3 +50,5 @@ npm install
 ```bash
 grunt build
 ```
+### You're done! Happy skeleting!
+From now on you only need to run `grunt build` when you need to concatenate and minify JS and CSS for production. You can also run lint and other tasks via Grunt. To see available tasks run `grunt --help`.
