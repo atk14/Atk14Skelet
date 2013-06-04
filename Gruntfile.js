@@ -95,17 +95,45 @@ module.exports = function( grunt ) {
 				src: "<%= recess.concat.dest %>",
 				dest: "public/stylesheets/application.min.css"
 			}
+		},
+
+		sed: {
+			bootstrap: {
+				path: "./public/stylesheets/",
+				pattern: "../img/",
+				replacement: "./img/",
+				recursive: true
+			}
+		},
+
+		copy: {
+			bootstrap_img: {
+				files: [
+					{
+						src: "public/assets/vendor/bootstrap/img/*",
+						dest: "public/stylesheets/img/",
+						flatten: true,
+						expand: true
+					},
+					{
+						src: "public/assets/vendor/bootstrap/img/*",
+						dest: "public/assets/vendor/bootstrap/dist/img/",
+						flatten: true,
+						expand: true
+					}
+				]
+			}
 		}
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-concat" );
+	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-recess" );
-	//grunt.loadNpmTasks( "grunt-contrib-qunit" );
-	//grunt.loadNpmTasks( "grunt-contrib-watch" );
+	grunt.loadNpmTasks( "grunt-sed" );
 
 	grunt.registerTask( "lint", ["jshint"] );
 	grunt.registerTask( "default", ["lint"] );
-	grunt.registerTask( "build", ["concat", "uglify", "recess"] );
+	grunt.registerTask( "build", ["concat", "uglify", "recess", "copy", "sed"] );
 };
