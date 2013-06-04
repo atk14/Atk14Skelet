@@ -46,9 +46,13 @@ cd public/assets/vendor/bootstrap
 npm install
 make bootstrap
 ```
-### Install build dependencies (back in the skelet root).
+### Install build dependencies.
 ```bash
+cd ../../../../
 npm install
-# Concat and minify JS/CSS.
+```
+### Build.
+```bash
+# Concatenates and minifies CSS and JS for production.
 grunt build
 ```
