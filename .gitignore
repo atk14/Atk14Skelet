@@ -2,6 +2,8 @@
 tmp/*
 !log/README
 log/*
+!robots/lock/README.md
+robots/lock/*
 public/assets/vendor
 node_modules
 *.swp

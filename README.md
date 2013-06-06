@@ -24,7 +24,7 @@ First make sure that all requirements are met: <http://book.atk14.net/czech/inst
     ./scripts/initialize_database
     ./scripts/migrate
 
-You shall found running ATK14 Skelet on http://atk14skelet.localhost/
+You may found running ATK14 Skelet on http://atk14skelet.localhost/
 
 Front-end Assets Installation
 -----------------------------
@@ -32,7 +32,7 @@ Front-end Assets Installation
 ```bash
 # Node Version manager
 curl https://raw.github.com/creationix/nvm/master/install.sh | sh
-echo "\n. ~/.nvm/nvm.sh" >> ~/.bashrc && . ~/.nvm/nvm.sh
+echo -e "\n. ~/.nvm/nvm.sh" >> ~/.bashrc && . ~/.nvm/nvm.sh
 # Node.js
 nvm install 0.10
 # Bower
