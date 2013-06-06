@@ -8,10 +8,13 @@
  */
 class DummyRobot extends ApplicationRobot{
 	function run(){
-		$this->logger->info("I'm quite a dummy robot");
-		
-		// some useful information
-		$creatures_count = $this->dbmole->selectInt("SELECT COUNT(*) FROM creatures");
-		$this->logger->info("there are $creatures_count creatures so far");
+		$this->logger->info("I'm a dummy robot and I do nothing");
+
+		// You have access to
+		//	$this->logger
+		// 	$this->dbmole
+		//	$this->mailer
+		//	
+		// For more information visit http://book.atk14.net/czech/robots/
 	}
 }
