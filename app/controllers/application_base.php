@@ -146,11 +146,32 @@ class ApplicationBaseController extends Atk14Controller{
 	 *
 	 * $this->_save_return_uri();
 	 * $this->_save_return_uri($this->form);
+	 *
+	 *	controller SomeController extends ApplicationController{
+	 *		function edit(){
+	 *			// may be also in _before_filter()
+	 *			$this->_save_return_uri();
+	 *			if($this->params->defined("storno")){ return $this->_redirect_back(); }
+	 *
+	 *			if($this->request->post() && ($d = $this->form->validate($this->params))){
+	 *				// ...
+	 *			}
+	 *		}
+	 *	}
 	 */
 	function _save_return_uri(&$form = null){
 		if(!isset($form)){ $form = $this->form; }
-		$return_uri = $this->params->defined("_return_uri_") ? $this->params->getString("_return_uri_") : $this->request->getHttpReferer();
+		$return_uri = $this->_get_return_uri();
 		$form->set_hidden_field("_return_uri_",$return_uri);
+	}
+
+	/**
+	 * Returns current return uri
+	 *
+	 * In fact this returns a previously saved uri (by calling $this->_save_return_uri()) or http referer
+	 */
+	function _get_return_uri(){
+		return $this->params->defined("_return_uri_") ? $this->params->getString("_return_uri_") : $this->request->getHttpReferer();
 	}
 
 
@@ -161,6 +182,7 @@ class ApplicationBaseController extends Atk14Controller{
 	 * $this->_redirect_to_return_uri(); // same as "index" :)
 	 * $this->_redirect_to_return_uri("index");
 	 * $this->_redirect_to_return_uri("books/index");
+	 * $this->_redirect_to_return_uri(array(...));
 	 * $this->_redirect_to_return_uri($this->_link_to(array(...)));
 	 * $this->_redirect_to_return_uri("http://www.atk14.net");
 	 */
