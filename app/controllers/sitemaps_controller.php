@@ -1,7 +1,7 @@
 <?php
 class SitemapsController extends ApplicationController{
 	function index(){
-		$available_languages = array_keys($GLOBALS["ATK14_GLOBAL"]->getValue("locale")); // uf... TODO: to be rewritten
+		$available_languages = array_keys($GLOBALS["ATK14_GLOBAL"]->getConfig("locale")); // this is not really nice
 		$map_ar = array();
 		foreach($available_languages as $lang){
 			$map_ar[] = $this->_link_to(array(
