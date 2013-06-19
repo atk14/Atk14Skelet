@@ -136,4 +136,5 @@ module.exports = function( grunt ) {
 	grunt.registerTask( "lint", ["jshint"] );
 	grunt.registerTask( "default", ["lint"] );
 	grunt.registerTask( "build", ["concat", "uglify", "recess", "copy", "sed"] );
+	grunt.registerTask( "devel", ["concat:bootstrap", "recess:bootstrap", "recess:bootstrap_responsive"] );
 };
