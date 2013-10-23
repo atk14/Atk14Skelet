@@ -37,6 +37,8 @@ echo -e "\n. ~/.nvm/nvm.sh" >> ~/.bashrc && . ~/.nvm/nvm.sh
 nvm install 0.10
 # Bower
 npm install -g bower
+# Grunt
+npm install -g grunt-cli
 ```
 #### Install skelet front-end dependencies via Bower.
 ```bash
