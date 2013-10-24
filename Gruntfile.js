@@ -82,14 +82,16 @@ module.exports = function( grunt ) {
 
 		copy: {
 			bootstrap_fonts: {
-				files: [
-					{
-						src: "public/assets/vendor/bootstrap/fonts/*",
-						dest: "public/dist/fonts/",
-						flatten: true,
-						expand: true
-					}
-				]
+				src: "public/assets/vendor/bootstrap/fonts/*",
+				dest: "public/dist/fonts/",
+				flatten: true,
+				expand: true
+			},
+			images: {
+				src: "public/images/*",
+				dest: "public/dist/images/",
+				flatten: true,
+				expand: true
 			},
 			html5shiv: {
 				src: "public/assets/vendor/html5shiv/dist/html5shiv.js",
@@ -103,14 +105,27 @@ module.exports = function( grunt ) {
 				flatten: true,
 				expand: true
 			}
-		}
+		},
+
+		watch: {
+			css: {
+				files: "public/stylesheets/skelet.less",
+				tasks: [ "recess:compile" ]
+			},
+
+			js: {
+				files: "<%= concat.app.src %>",
+				tasks: [ "concat:app" ]
+			}
+		},
 	});
 
 	grunt.loadNpmTasks( "grunt-contrib-clean" );
-	grunt.loadNpmTasks( "grunt-contrib-jshint" );
-	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-concat" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
+	grunt.loadNpmTasks( "grunt-contrib-jshint" );
+	grunt.loadNpmTasks( "grunt-contrib-uglify" );
+	grunt.loadNpmTasks( "grunt-contrib-watch" );
 	grunt.loadNpmTasks( "grunt-recess" );
 
 	grunt.registerTask( "default", ["jshint"] );

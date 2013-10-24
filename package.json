@@ -25,7 +25,8 @@
     "url": "https://github.com/yarri/Atk14Skelet/issues"
   },
   "dependencies": {
-    "grunt-contrib-clean": "~0.5.0"
+    "grunt-contrib-clean": "~0.5.0",
+    "grunt-contrib-watch": "~0.5.3"
   },
   "devDependencies": {
     "grunt": "~0.4.1",
