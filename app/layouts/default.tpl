@@ -42,28 +42,32 @@
 		{if $DEVELOPMENT}
 			{render partial="shared/layout/dev_info"}
 
-			{stylesheet_link_tag file="../assets/vendor/bootstrap/dist/css/bootstrap.css" media="screen"}
-			{stylesheet_link_tag file="../assets/vendor/bootstrap/dist/css/bootstrap-responsive.css" media="screen"}
-			{stylesheet_link_tag file="skelet.css" media="screen"}
+			{stylesheet_link_tag file="../dist/css/app.css" media="screen"}
 		{else}
-			{stylesheet_link_tag file="application.min.css" media="screen"}
+			{stylesheet_link_tag file="../dist/css/app.min.css" media="screen"}
 		{/if}
 
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!--[if lt IE 9]>
+			<script src="../dist/js/html5shiv.js"></script>
+			<script src="../dist/js/respond.min.js"></script>
+		<![endif]-->
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
-		<div class="container-fluid">
+		<div class="container">
 			{render partial="shared/login"}
 			{render partial="shared/layout/header"}
 
-			<div class="row-fluid">
 				{if $section_navigation}
-					<div class="span3">
-						{render partial="shared/layout/section_navigation"}
+					<div class="row">
+						<div class="col-md-3">
+							{render partial="shared/layout/section_navigation"}
+						</div>
 					</div>
 				{/if}
 
-				<div class="content{if $section_navigation} span9{/if}">
+				<div class="content{if $section_navigation} col-md-9{/if}">
 					{render partial="shared/layout/flash_message"}
 					{placeholder}
 				</div>

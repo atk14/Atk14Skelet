@@ -19,7 +19,7 @@
 
 {capture assign=class}{trim}{$form_class} {$form_layout}{/trim}{/capture}
 
-{form _novalidate="novalidate" _class=$class}
+{form _novalidate="novalidate" _class=$class _role="form"}
 	{render partial="shared/form_error"}
 	<fieldset>
 		{render partial="shared/form_field" fields=$form->get_field_keys()}

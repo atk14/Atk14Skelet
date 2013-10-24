@@ -8,6 +8,6 @@
 	{assign var=button_text value=$form->get_button_text()}
 {/if}
 
-<div class="controls">
-	<button type="submit" class="btn">{$button_text}</button>
+<div class="form-group">
+	<button type="submit" class="btn btn-primary">{$button_text}</button>
 </div>
