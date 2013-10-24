@@ -13,3 +13,8 @@ RewriteCond %{REQUEST_URI} !^\/public\/
 RewriteCond %{REQUEST_URI} !^\/server-status\/
 RewriteCond %{REQUEST_URI} !^\/server-info\/
 RewriteRule (.*) dispatcher.php [L]
+
+# If one is solving a significant problem in PHP...
+# php_flag display_errors on
+# php_flag display_startup_errors on
+# php_value error_reporting 4294967295

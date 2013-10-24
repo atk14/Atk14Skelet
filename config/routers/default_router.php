@@ -50,7 +50,7 @@ class DefaultRouter extends Atk14Router{
 			"lang" => $this->default_lang,
 			"path" => "main/index",
 			"title" => ATK14_APPLICATION_NAME,
-			"description" => _("my beautiful application"),
+			"description" => ATK14_APPLICATION_DESCRIPTION,
 		));
 
 		$this->addRoute("/<lang>/",array(
