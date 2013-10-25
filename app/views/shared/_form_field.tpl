@@ -56,13 +56,13 @@
 			</label>
 		</div>
 	{else}
-		<div class="form-group{if $field->errors() || $class} {trim}{if $field->errors()} error{/if}{if $class} {$class}{/if}{/trim}{/if}">
+		<div class="form-group{if $field->errors() || $class} {trim}{if $field->errors()} has-error{/if}{if $class} {$class}{/if}{/trim}{/if}">
 
 			<label for="{$field->id_for_label()}" class="control-label">{$field->label}</label>
 			{!$field->as_widget()}
 
 			{if $field->help_text}
-				<span class="alert alert-info">{!$field->help_text}</span>
+				<div class="help-block">{!$field->help_text}</div>
 			{/if}
 
 			{if $field->errors()}

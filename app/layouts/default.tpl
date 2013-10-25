@@ -77,12 +77,9 @@
 		</div>
 
 		{if $DEVELOPMENT}
-			{javascript_script_tag file="../assets/vendor/jquery/jquery.js"}
-			{javascript_script_tag file="../assets/vendor/bootstrap/dist/js/bootstrap.js"}
-			{javascript_script_tag file="../assets/lib/atk14.js"}
-			{javascript_script_tag file="skelet.js"}
+			{javascript_script_tag file="../dist/js/app.js"}
 		{else}
-			{javascript_script_tag file="application.min.js"}
+			{javascript_script_tag file="../dist/js/app.min.js"}
 		{/if}
 	</body>
 </html>

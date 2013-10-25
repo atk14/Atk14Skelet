@@ -14,7 +14,7 @@
 				// controller-wide code
 			},
 
-			create_new: function() {
+			Xcreate_new: function() {
 				// action-specific code
 
 				/*
@@ -22,7 +22,7 @@
 				 * Simple demo of working with an API.
 				 */
 				var $login = $( "#id_login" ),
-					$icon = $( "<i></i>" ).insertAfter( $login ).css( "margin-left", "4px" );
+					$icon = $( "<span class='glyphicon'></span>" ).insertAfter( $login );
 
 				$login.on( "change", function() {
 					// Login input value to check.
@@ -45,14 +45,14 @@
 								$icon.attr( "title", json.status );
 
 								if ( json.status !== "available" ) {
-									$icon.removeClass( "icon-ok" ).addClass( "icon-remove" );
+									$icon.removeClass( "glyphicon-ok" ).addClass( "glyphicon-remove" );
 								} else {
-									$icon.removeClass( "icon-remove" ).addClass( "icon-ok" );
+									$icon.removeClass( "glyphicon-remove" ).addClass( "glyphicon-ok" );
 								}
 							}
 						});
 					} else {
-						$icon.removeClass( "icon-ok icon-remove" ).attr( "title", "" );
+						$icon.removeClass( "glyphicon-ok glyphicon-remove" ).attr( "title", "" );
 					}
 				}).change();
 			}

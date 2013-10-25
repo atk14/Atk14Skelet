@@ -2,24 +2,77 @@
 @import url("../assets/vendor/bootstrap/less/theme.less");
 
 
+/*
+================================================================
+=COMMON
+================================================================ */
+body {
+	padding-bottom: 70px;
+}
+.content h1 {
+	.page-header;
+}
+.alert {
+	margin-top: @line-height-computed;
+}
+
+
+/*
+================================
+=LOGO
+================================ */
 #logo {
-	background-color: #000;
-	margin-bottom: 10px;
-}
-#logo h1, #logo a {
-	display: block;
-	height: 162px;
-	background: #000 url('../images/logo.png') no-repeat;
-	text-indent: -999em;
-}
-
-#row-login .nav {
-	margin-bottom: 0;
+	h1, a {
+		display: block;
+		height: 162px;
+		margin: 0;
+		background: #000 url( "../images/logo.png" ) no-repeat left;
+		text-indent: -999em;
+	}
 }
 
-.content {
-	margin-bottom: 64px;
+
+/*
+================================
+=FORMS
+================================ */
+.help-error {
+	.help-block;
 }
+.form-horizontal {
+	label {
+		.make-sm-column(2);
+	}
+	.form-control {
+		.make-sm-column(4);
+	}
+	.help-block {
+		.make-sm-column(6);
+	}
+	.btn {
+		.make-sm-column-offset(2);
+	}
+}
+
+
+/*
+================================================================
+=NEWS
+================================================================ */
+
+/*
+================================
+=NEWS/INDEX
+================================ */
+.body_news_index article {
+	padding: 20px 0 19px;
+	border-bottom: 1px dotted #eee;
+}
+
+/*
+================================
+=NEWS/DETAIL
+================================ */
 .body_news_detail article h1 {
 	border-bottom-style: dotted;
 }
@@ -31,16 +84,17 @@
 	padding-top: 19px;
 	border-top: 1px dotted #eee;
 }
-.body_news_detail h1 {
-	margin-bottom: 10px;
-}
-.body_news_index article {
-	padding: 20px 0 19px;
-	border-bottom: 1px dotted #eee;
-}
 
-/* Contact Form */
-#form_main_contact .control-group input,
-#form_main_contact .control-group textarea {
-	width: 91.48936170212765%;
+
+/*
+================================================================
+=LOGINS
+================================================================ */
+
+/*
+================================
+=LOGINS/CREATE_NEW
+================================ */
+#form_logins_create_new {
+	max-width: 480px;
 }

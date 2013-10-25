@@ -8541,26 +8541,145 @@ td.visible-print {
           box-shadow: inset 0 1px 3px rgba(0, 0, 0, 0.05), 0 1px 0 rgba(255, 255, 255, 0.1);
 }
 
-#logo {
-  margin-bottom: 10px;
-  background-color: #000;
+/*
+================================================================
+=COMMON
+================================================================ */
+
+body {
+  padding-bottom: 70px;
 }
+
+.content h1 {
+  padding-bottom: 9px;
+  margin: 40px 0 20px;
+  border-bottom: 1px solid #eeeeee;
+}
+
+.alert {
+  margin-top: 20px;
+}
+
+/*
+================================
+=LOGO
+================================ */
 
 #logo h1,
 #logo a {
   display: block;
   height: 162px;
+  margin: 0;
   text-indent: -999em;
-  background: #000000 url('../images/logo.png') no-repeat;
+  background: #000000 url("../images/logo.png") no-repeat left;
 }
 
-#row-login .nav {
-  margin-bottom: 0;
+/*
+================================
+=FORMS
+================================ */
+
+.help-error {
+  display: block;
+  margin-top: 5px;
+  margin-bottom: 10px;
+  color: #737373;
 }
 
-.content {
-  margin-bottom: 64px;
+.form-horizontal label {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
 }
+
+@media (min-width: 768px) {
+  .form-horizontal label {
+    float: left;
+    width: 16.666666666666664%;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-horizontal label {
+    float: left;
+    width: 16.666666666666664%;
+  }
+}
+
+.form-horizontal .form-control {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+@media (min-width: 768px) {
+  .form-horizontal .form-control {
+    float: left;
+    width: 33.33333333333333%;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-horizontal .form-control {
+    float: left;
+    width: 33.33333333333333%;
+  }
+}
+
+.form-horizontal .help-block {
+  position: relative;
+  min-height: 1px;
+  padding-right: 15px;
+  padding-left: 15px;
+}
+
+@media (min-width: 768px) {
+  .form-horizontal .help-block {
+    float: left;
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-horizontal .help-block {
+    float: left;
+    width: 50%;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-horizontal .btn {
+    margin-left: 16.666666666666664%;
+  }
+}
+
+@media (min-width: 768px) {
+  .form-horizontal .btn {
+    margin-left: 16.666666666666664%;
+  }
+}
+
+/*
+================================================================
+=NEWS
+================================================================ */
+
+/*
+================================
+=NEWS/INDEX
+================================ */
+
+.body_news_index article {
+  padding: 20px 0 19px;
+  border-bottom: 1px dotted #eee;
+}
+
+/*
+================================
+=NEWS/DETAIL
+================================ */
 
 .body_news_detail article h1 {
   border-bottom-style: dotted;
@@ -8576,18 +8695,16 @@ td.visible-print {
   border-top: 1px dotted #eee;
 }
 
-.body_news_detail h1 {
-  margin-bottom: 10px;
-}
+/*
+================================================================
+=LOGINS
+================================================================ */
 
-.body_news_index article {
-  padding: 20px 0 19px;
-  border-bottom: 1px dotted #eee;
-}
+/*
+================================
+=LOGINS/CREATE_NEW
+================================ */
 
-/* Contact Form */
-
-#form_main_contact .control-group input,
-#form_main_contact .control-group textarea {
-  width: 91.48936170212765%;
+#form_logins_create_new {
+  max-width: 480px;
 }
