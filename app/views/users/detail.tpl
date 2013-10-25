@@ -1,4 +1,4 @@
-<h1 class="page-header">{$page_title}</h1>
+<h1>{$page_title}</h1>
 
 <table class="table">
 	<tbody>
