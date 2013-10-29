@@ -174,11 +174,13 @@ class ApplicationRestApiController extends ApplicationBaseController{
 	}
 
 	/**
-	 * Kladna odpoved z API.
+	 * A positive answer from API
 	 * 
 	 * $this->_report_success(array("id" => "123"));
+	 * $this->_report_success(array("id" => "123"),array("status_code" => 201));
+	 * $this->_report_success(array("id" => "123"),201);
 	 * 
-	 * Priklad odeslani PDF prilohy:
+	 * One can send a PDF file:
 	 * 
 	 *	$this->_report_success(array(),array(
 	 *		"content_type" => "application/pdf",
@@ -186,6 +188,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 	 *	));
 	 */
 	function _report_success($data = array(),$options = array()){
+		if(!is_array($options)){ $options = array("status_code" => $options); }
 		$options = array_merge(array(
 			"status_code" => 200,
 			"status_message" => null,
@@ -209,7 +212,14 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		$this->_report_fail($messages,$options);
 	}
 
+	/**
+	 * A negative answer from API
+	 *
+	 * $this->_report_fail("There is no such user",array("status_code" => 404));
+	 * $this->_report_fail("There is no such user",404);
+	 */
 	function _report_fail($messages = array(),$options = array()){
+		if(!is_array($options)){ $options = array("status_code" => $options); }
 		$options = array_merge(array(
 			"status_code" => (isset($this->api_status_code) ? $this->api_status_code : 400), // Bad Request
 			"status_message" => null,
