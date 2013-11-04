@@ -1,4 +1,4 @@
-<h2>{t}Error 404: Page not found{/t}</h2>
+<h1>{t}Error 404: Page not found{/t}</h1>
 
 <p>
 	{t escape=no uri=$request->getRequestUri()}We are deeply sorry, but the page on the URI <em>%1</em> wasn't found.{/t}<br />

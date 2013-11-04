@@ -5,6 +5,8 @@ class EditPasswordForm extends UsersForm{
 			"label" =>  _("Password"),
 		)));
 		$this->_add_password_fields();
+		$this->set_button_text(_("Set new password"));
+
 		$this->enable_csrf_protection();
 	}
 

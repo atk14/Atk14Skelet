@@ -1,4 +1,4 @@
-<h2>{$paget_title}</h2>
+<h1>{$page_title}</h1>
 
 {form}
 {render partial="shared/form_error"}
@@ -13,8 +13,6 @@
 </fieldset>
 
 <fieldset>
-	<div class="buttons">
-		<button type="submit">{t}Set new password{/t}</button>
-	</div>
+	{render partial="shared/form_button"}
 </fieldset>
 {/form}

@@ -1,6 +1,8 @@
 <?php
 class UsersController extends ApplicationController{
-	function detail(){ }
+	function detail(){
+		$this->page_title = _("User profile");
+	}
 
 	function create_new(){
 		$this->page_title = _("New user registration");
@@ -19,6 +21,8 @@ class UsersController extends ApplicationController{
 	}
 
 	function edit(){
+		$this->page_title = _("Change your account data");
+
 		$this->form->set_initial($this->logged_user);
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
@@ -29,6 +33,8 @@ class UsersController extends ApplicationController{
 	}
 
 	function edit_password(){
+		$this->page_title = _("Change your password");
+
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			if(!$this->logged_user->isPasswordCorrect($d["current_password"])){
 				$this->form->set_error("current_password",_("This is not your current password"));
@@ -45,21 +51,6 @@ class UsersController extends ApplicationController{
 			if(!$this->logged_user){
 				$this->_execute_action("error403");
 				return;
-			}
-
-			foreach(array(
-				"detail" => _("User profile"),
-				"edit" => _("Change your account data"),
-				"edit_password" => _("Change your password"),
-			) as $action => $title){
-				/*
-				$this->context_menu->add($title,$action,array(
-					"active" => $action==$this->action
-				));*/
-
-				if($action==$this->action){
-					$this->page_title = $title;
-				}
 			}
 		}
 	}

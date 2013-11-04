@@ -8,6 +8,8 @@ class CreateNewForm extends ApplicationForm{
 			"max_length" => 255,
 		)));
 
+		$this->set_button_text(_("Sign in"));
+
 		$this->enable_csrf_protection();
 	}
 }

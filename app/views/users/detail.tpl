@@ -22,3 +22,8 @@
 		{/if}
 	</tbody>
 </table>
+
+<ul>
+	<li>{a action="edit"}{t}Change your account data{/t}{/a}</li>
+	<li>{a action="edit_password"}{t}Change your password{/t}{/a}</li>
+</ul>
