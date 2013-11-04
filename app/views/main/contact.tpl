@@ -1,6 +1,10 @@
 <h1>{$page_title}</h1>
 
 <div class="row-fluid">
+	<p>
+		{t}If you have any question, contact us through the following form. We will reply to you as soon as we can.{/t}<br>
+		{t}Below the form you'll find other contact information.{/t}
+	</p>
 	<div class="span6">
 		{render partial="shared/form" form_class="well"}
 	</div>
@@ -18,6 +22,6 @@
 		+1-541-754-3010
 		<br>
 		<strong>{t}Opening hours{/t}</strong><br>
-		From dusk till dawn
+		{t}From dusk till dawn{/t}
 	</address>
 </div>

@@ -11,4 +11,12 @@ class TextField extends CharField{
 		),$options);
 		parent::__construct($options);
 	}
+
+	function clean($value){
+		if($this->required && trim($value)==""){
+			// when there are white characters only, the value is considered as empty
+			return array($this->messages["required"],null);
+		}
+		return parent::clean($value);
+	}
 }

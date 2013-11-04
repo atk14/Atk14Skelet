@@ -1,6 +1,6 @@
 <h1>{$page_title}</h1>
 
-<table class="table">
+<table class="table table-auto">
 	<tbody>
 		<tr>
 			<th>{t}Username (login){/t}</th>
