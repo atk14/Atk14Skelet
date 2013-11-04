@@ -1,7 +1,7 @@
 <article>
 	<header>
 		<h1>{$news->getTitle()}</h1>
-		<p class="muted">{t author=$news->getAuthor()->getName()|h date=$news->getPublishedAt() date_human=$news->getPublishedAt()|format_date escape=no}Posted by <em class="label">%1</em> on <time datetime="%2">%3</time>{/t}</p>
+		<p class="muted">{t author=$news->getAuthor()->getName()|h date=$news->getPublishedAt() date_human=$news->getPublishedAt()|format_date escape=no}Posted by <em>%1</em> on <time datetime="%2">%3</time>{/t}</p>
 	</header>
 
 	{!$news->getBody()|markdown}

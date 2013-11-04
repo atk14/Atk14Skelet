@@ -1,4 +1,4 @@
-<header>
+<header class="header-main">
 	{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
 
 	<div id="logo">

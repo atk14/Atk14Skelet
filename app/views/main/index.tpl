@@ -27,13 +27,10 @@
 </ul>
 </div>
 
-<div>
-	<h3>{t}External links{/t}</h3>
-	<ul>
-		<li><a href="https://github.com/yarri/Atk14Skelet">{t}This Skelet on Github{/t}</a></li>
-		<li><a href="http://www.atk14.net/">{t}ATK14 Project website{/t}</a></li>
-		<li><a href="http://book.atk14.net/">{t}The ATK14 Book{/t}</a></li>
-		<li><a href="http://api.atk14.net/">{t}The API reference{/t}</a></li>
-		<li><a href="https://github.com/yarri/Atk14">{t}ATK14 project page on Github{/t}</a></li>
-	</ul>
-</div>
+<ul class="row list-unstyled">
+	<li class="col-sm-2"><a href="http://www.atk14.net/">{t}ATK14 Project website{/t}</a></li>
+	<li class="col-sm-2"><a href="http://book.atk14.net/">{t}The ATK14 Book{/t}</a></li>
+	<li class="col-sm-2"><a href="http://api.atk14.net/">{t}The API reference{/t}</a></li>
+	<li class="col-sm-2"><a href="https://github.com/yarri/Atk14">{t}ATK14 project page on Github{/t}</a></li>
+	<li class="col-sm-2"><a href="https://github.com/yarri/Atk14Skelet">{t}This Skelet on Github{/t}</a></li>
+</ul>

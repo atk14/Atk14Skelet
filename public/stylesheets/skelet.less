@@ -1,5 +1,4 @@
 @import url("../assets/vendor/bootstrap/less/bootstrap.less");
-@import url("../assets/vendor/bootstrap/less/theme.less");
 
 
 /*
@@ -14,6 +13,24 @@ body {
 }
 .alert {
 	margin-top: @line-height-computed;
+}
+
+
+/*
+================================
+=LAYOUT
+================================ */
+.body {
+	.make-row();
+}
+.header-main {
+	margin-bottom: @line-height-computed;
+}
+.nav-section {
+	.make-sm-column(3);
+}
+.has-nav-section .content-main {
+	.make-sm-column(9);
 }
 
 
@@ -64,18 +81,11 @@ body {
 ================================
 =NEWS/INDEX
 ================================ */
-.body_news_index article {
-	padding: 20px 0 19px;
-	border-bottom: 1px dotted #eee;
-}
 
 /*
 ================================
 =NEWS/DETAIL
 ================================ */
-.body_news_detail article h1 {
-	border-bottom-style: dotted;
-}
 .body_news_detail article header p {
 	padding-bottom: 9px;
 	border-bottom: 1px dotted #eee;

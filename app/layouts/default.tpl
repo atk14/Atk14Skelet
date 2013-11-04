@@ -55,19 +55,18 @@
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
-		<div class="container">
+		<div class="container{if $section_navigation} has-nav-section{/if}">
 			{render partial="shared/login"}
 			{render partial="shared/layout/header"}
 
+			<div class="body">
 				{if $section_navigation}
-					<div class="row">
-						<div class="col-md-3">
-							{render partial="shared/layout/section_navigation"}
-						</div>
-					</div>
+					<nav class="nav-section">
+						{render partial="shared/layout/section_navigation"}
+					</nav>
 				{/if}
 
-				<div class="content{if $section_navigation} col-md-9{/if}">
+				<div class="content-main">
 					{render partial="shared/layout/flash_message"}
 					{placeholder}
 				</div>
