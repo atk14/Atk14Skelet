@@ -42,9 +42,9 @@
 		{if $DEVELOPMENT}
 			{render partial="shared/layout/dev_info"}
 
-			{stylesheet_link_tag file="../dist/css/app.css" media="screen"}
+			{stylesheet_link_tag file="../dist/admin/css/app.css" media="screen"}
 		{else}
-			{stylesheet_link_tag file="../dist/css/app.min.css" media="screen"}
+			{stylesheet_link_tag file="../dist/admin/css/app.min.css" media="screen"}
 		{/if}
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->

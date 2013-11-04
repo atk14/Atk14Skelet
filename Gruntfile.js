@@ -20,7 +20,10 @@ module.exports = function( grunt ) {
 				src: [ "Gruntfile.js" ]
 			},
 			app: {
-				src: [ "public/javascripts/skelet.js" ]
+				src: [ "public/javascripts/application.js" ]
+			},
+			admin: {
+				src: [ "public/javascripts/admin/application.js" ]
 			}
 		},
 
@@ -47,9 +50,18 @@ module.exports = function( grunt ) {
 					"public/assets/vendor/jquery/jquery.js",
 					"<%= concat.bootstrap.dest %>",
 					"public/assets/lib/atk14.js",
-					"public/javascripts/skelet.js"
+					"public/javascripts/application.js"
 				],
 				dest: "public/dist/js/app.js"
+			},
+			admin: {
+				src: [
+					"public/assets/vendor/jquery/jquery.js",
+					"<%= concat.bootstrap.dest %>",
+					"public/assets/lib/atk14.js",
+					"public/javascripts/admin/application.js"
+				],
+				dest: "public/dist/admin/js/app.js"
 			}
 		},
 
@@ -58,64 +70,105 @@ module.exports = function( grunt ) {
 				files: {
 					"public/dist/js/app.min.js": [ "<%= concat.app.dest %>" ]
 				}
-			}
+			},
+			admin: {
+				files: {
+					"public/dist/js/admin/app.min.js": [ "<%= concat.admin.dest %>" ]
+				}
+			},
 		},
 
 		recess: {
-			compile: {
+			compile_app: {
 				options: {
 					compile: true
 				},
 				src: [
-					"public/stylesheets/skelet.less"
+					"public/stylesheets/application.less"
 				],
 				dest: "public/dist/css/app.css"
 			},
-			minify: {
+			minify_app: {
 				options: {
 					compress: true
 				},
-				src: "<%= recess.compile.dest %>",
+				src: "<%= recess.compile_app.dest %>",
 				dest: "public/dist/css/app.min.css"
+			},
+			compile_admin: {
+				options: {
+					compile: true
+				},
+				src: [
+					"public/stylesheets/admin/application.less"
+				],
+				dest: "public/dist/admin/css/app.css"
+			},
+			minify_admin: {
+				options: {
+					compress: true
+				},
+				src: "<%= recess.compile_admin.dest %>",
+				dest: "public/dist/admin/css/app.min.css"
 			}
 		},
 
 		copy: {
-			bootstrap_fonts: {
+			fonts_app: {
 				src: "public/assets/vendor/bootstrap/fonts/*",
 				dest: "public/dist/fonts/",
 				flatten: true,
 				expand: true
 			},
-			images: {
+			images_app: {
 				src: "public/images/*",
 				dest: "public/dist/images/",
 				flatten: true,
 				expand: true
 			},
+			fonts_admin: {
+				src: "public/assets/vendor/bootstrap/fonts/*",
+				dest: "public/dist/admin/fonts/",
+				flatten: true,
+				expand: true
+			},
+			images_admin: {
+				src: "public/images/admin/*",
+				dest: "public/dist/admin/images/",
+				flatten: true,
+				expand: true
+			},
 			html5shiv: {
 				src: "public/assets/vendor/html5shiv/dist/html5shiv.js",
-				dest: "public/dist/js/",
+				dest: "public/dist/vendor/js/",
 				flatten: true,
 				expand: true
 			},
 			respond: {
 				src: "public/assets/vendor/respond/respond.min.js",
-				dest: "public/dist/js/",
+				dest: "public/dist/vendor/js/",
 				flatten: true,
 				expand: true
 			}
 		},
 
 		watch: {
-			css: {
-				files: "public/stylesheets/skelet.less",
-				tasks: [ "recess:compile" ]
+			css_app: {
+				files: "public/stylesheets/application.less",
+				tasks: [ "recess:compile_app" ]
+			},
+			js_app: {
+				files: "<%= concat.app.src %>",
+				tasks: [ "concat:admin" ]
 			},
 
-			js: {
-				files: "<%= concat.app.src %>",
-				tasks: [ "concat:app" ]
+			css_admin: {
+				files: "public/stylesheets/admin/application.less",
+				tasks: [ "recess:compile_admin" ]
+			},
+			js_admin: {
+				files: "<%= concat.admin.src %>",
+				tasks: [ "concat:admin" ]
 			}
 		},
 	});
