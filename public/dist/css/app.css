@@ -7074,28 +7074,28 @@ body {
 =LAYOUT
 ================================ */
 
-.body {
+.has-nav-section .body {
   margin-right: -15px;
   margin-left: -15px;
 }
 
-.body:before,
-.body:after {
+.has-nav-section .body:before,
+.has-nav-section .body:after {
   display: table;
   content: " ";
 }
 
-.body:after {
+.has-nav-section .body:after {
   clear: both;
 }
 
-.body:before,
-.body:after {
+.has-nav-section .body:before,
+.has-nav-section .body:after {
   display: table;
   content: " ";
 }
 
-.body:after {
+.has-nav-section .body:after {
   clear: both;
 }
 
@@ -7143,6 +7143,15 @@ body {
   margin: 0;
   text-indent: -999em;
   background: #000000 url("../images/logo.png") no-repeat left;
+}
+
+/*
+================================
+=TABLES
+================================ */
+
+.table-auto {
+  width: auto;
 }
 
 /*
