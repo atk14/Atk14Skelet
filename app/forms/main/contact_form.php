@@ -2,12 +2,12 @@
 class ContactForm extends ApplicationForm{
 	function set_up(){
 		$this->add_field("name",new CharField(array(
-			"label" => _("Name"),
+			"label" => _("Your name"),
 			"max_length" => 200,
 		)));
 
 		$this->add_field("email",new EmailField(array(
-			"label" => _("E-mail"),
+			"label" => _("Your e-mail"),
 			"max_length" => 200,
 		)));
 
