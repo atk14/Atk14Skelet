@@ -159,7 +159,7 @@ module.exports = function( grunt ) {
 			},
 			js_app: {
 				files: "<%= concat.app.src %>",
-				tasks: [ "concat:admin" ]
+				tasks: [ "concat:app" ]
 			},
 
 			css_admin: {
