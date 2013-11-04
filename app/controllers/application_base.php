@@ -85,12 +85,19 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _begin_database_transaction(){
-		$this->dbmole->begin();
+		$this->dbmole->begin(array(
+			"execute_after_connecting" => true
+		));
 	}
 
 	function _end_database_transaction(){
 		if(TEST){ return; } // perhaps you don't want to commit a transaction when you are testing
-		$this->dbmole->commit();
+		$this->dbmole->isConnected() && $this->dbmole->commit();
+	}
+
+	function _rollback_database_transaction(){
+		$this->dbmole->rollback();
+		$this->_begin_database_transaction();
 	}
 
 	function _get_logged_user(){
