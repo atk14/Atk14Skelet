@@ -50,6 +50,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		// following header helps to avoid clickjacking attacks
 		$this->response->setHeader("X-Frame-Options","SAMEORIGIN"); // SAMEORIGIN, DENY
+		$this->response->setHeader("X-Powered-By","ATK14 Framework");
 
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
