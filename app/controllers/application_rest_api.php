@@ -48,7 +48,8 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		$this->tpl_data["controllers"] = $controllers;
 
 		$this->template_name = "shared/rest_api/command_list";
-		$this->page_title = "Command list";
+
+		$this->page_title = sprintf(_("Commands in %s"),$this->namespace);
 	}
 
 	/**
@@ -88,7 +89,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 			// a chyta se tak zacatek komentare, ktery patri nejake jine funkci...
 			$matches[1] = preg_replace('/^.*\n\s*\n\s*(\/\*.*?)$/s','\1',trim($matches[1]));
 
-			$lines = split("\n",trim($matches[1]));
+			$lines = explode("\n",trim($matches[1]));
 			array_shift($lines); // zacatek komentare
 			array_pop($lines); // konec komentare
 			foreach($lines as &$line){

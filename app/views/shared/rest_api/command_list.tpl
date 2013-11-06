@@ -1,5 +1,7 @@
 <h1>{$page_title}</h1>
 
+<p>{t api=$namespace escape=no}Here you can find the list of all commands in <em>%1</em>.{/t}</p>
+
 <ul>
 {foreach from=$controllers key=ctrl item=item}
 	<li>

@@ -1,4 +1,4 @@
-<h1>{$page_title}</h1>
+<h1>{a action="main/index"}{$namespace}{/a} &rarr; {$page_title}</h1>
 
 {if $documentation}
 	{!$documentation}
