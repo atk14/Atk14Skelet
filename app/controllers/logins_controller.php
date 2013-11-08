@@ -22,7 +22,7 @@ class LoginsController extends ApplicationController{
 			$this->_login_user($user);
 
 			$this->flash->success(sprintf(_("You have been successfuly logged in as <em>%s</em>"),h($user->getLogin())));
-			$this->_redirect_to("main/index");
+			$this->_redirect_after_login_or_logout();
 		}
 	}
 
@@ -34,10 +34,17 @@ class LoginsController extends ApplicationController{
 			if($this->request->post()){
 				$this->_logout_user();
 				$this->flash->success(_("You have been successfuly logged out"));
-				$this->_redirect_to("main/index");
+				$this->_redirect_after_login_or_logout();
 			}
 		}else{
-			$this->_redirect_to("main/index");
+			$this->_redirect_after_login_or_logout();
 		}
+	}
+
+	function _redirect_after_login_or_logout(){
+		if($uri = $this->params->getString("return_uri")){
+			return $this->_redirect_to($uri);
+		}
+		return $this->_redirect_to("main/index");
 	}
 }

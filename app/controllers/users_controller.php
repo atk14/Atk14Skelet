@@ -5,6 +5,15 @@ class UsersController extends ApplicationController{
 	}
 
 	function create_new(){
+		if($this->logged_user){
+			$this->flash->warning(_("To register as a new user, sign out first"));
+			$this->_redirect_to(array(
+				"controller" => "logins",
+				"action" => "destroy",
+				"return_uri" => $this->request->getUri(),
+			));
+			return;
+		}
 		$this->page_title = _("New user registration");
 
 		$this->tpl_data["js_validator"] = $jv = $this->form->js_validator();
