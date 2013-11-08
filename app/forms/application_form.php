@@ -1,10 +1,13 @@
 <?php
 class ApplicationForm extends Atk14Form{
+	/**
+	 * Text on submit button 
+	 */
+	protected $button_text = null;
 
-	function set_up(){
-
-	}
-
+	/**
+	 * 
+	 */
 	function pre_set_up(){
 		// submit method GET is automatically set in IndexForm or DetailForm
 		if(preg_match('/^(Index|Detail)Form$/i',get_class($this))){
@@ -12,14 +15,19 @@ class ApplicationForm extends Atk14Form{
 		}
 	}
 
-	function post_set_up(){
-		
+	/**
+	 * The main setup method
+	 */
+	function set_up(){
+
 	}
 
 	/**
-	 * Text on submit button 
+	 * 
 	 */
-	protected $button_text = null;
+	function post_set_up(){
+		
+	}
 
 	/**
 	 * Has this form only a few fields and so on a page it appears to be small?
@@ -45,6 +53,16 @@ class ApplicationForm extends Atk14Form{
 	 * See partial template app/views/shared/_form_button.tpl
 	 */
 	function get_button_text(){
-		return isset($this->button_text) ? $this->button_text : _("Save");
+		if($this->button_text){ return $this->button_text; }
+		switch(get_class($this)){
+			case "CreateNewForm":
+				return _("Create");
+			case "EditForm":
+				return _("Update");
+			case "DestroyForm":
+				return _("Delete");
+			default:
+				return _("Save");
+		}
 	}
 }
