@@ -5,7 +5,7 @@ class CreateNewForm extends UsersForm{
 			"label" => _("Username (login)"),
 			"max_length" => 50,
 			"help_text" => _("Only letters, numbers, dots and dashes are allowed. Up to 50 characters."),
-			"hint" => "john.doe",
+			"hint" => "<br>john.doe<br>samantha92",
 		)));
 		$login_field->widget->attrs["pattern"] = '^[a-z0-9.-]+$';
 		$login_field->widget->attrs["title"] = _('lowercase letters, numbers, dots and dashes are expected');
