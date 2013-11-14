@@ -5,29 +5,17 @@
  *   {render partial="shared/form_field" field="title"}
  *   {render partial="shared/form_field" field=$form->get_field("title")}
  *
- * Renders:
- * <div>
- *		<label>Label</label>
- * 		<input />
- *		<div class="help">
- *			Help Text
- *			<p class="hint">Example: a correct value example</p>
- *		</div>
- *		<ul class="error_list">
- *			<li>Error text #1</li>
- *			<li>Error text #2</li>
- *		</ul>
- * </div>
- *
- * Parent <div> will automagically have class "error" in case validation fails.
- *
- * Printing out more fields on a single line
- * {render partial="shared/form_field" fields="firstname,lastname,email"}
+ *   Printing out more fields on a single line
+ *   {render partial="shared/form_field" fields="firstname,lastname,email"}
  *
  * Available variables:
  * - $field: Initially field's name. Later field object.
- * - $field->hint: Hint text for filling the field. If set it's used in field's
-     placeholder attribute by default.
+ * - $field->hint: Hint text for filling the field. Usually used as an input's
+     placeholder attribute. DEPRECATED, use $field->hints array instead.
+ * - $field->hints: Array of hint texts for filling the field. Usually used as an input's
+     placeholder attribute. You're free to render it according to your needs.
+ * - $field->hint_in_placeholder: Boolean indicating if hint was already used as a
+     placeholder.
  * - $field->required: Boolean indicating if the field is required. By default
  *   it's used for handling presence of field's required attribute. You can use
  *   it for setting additional classes in your markup for example.
@@ -71,6 +59,16 @@
 						<li>{!$err_item}</li>
 					{/foreach}
 				</ul>
+			{/if}
+
+			{if $field->hints && !$field->hint_in_placeholder}
+				<div class="help-hint hidden" data-title="{t}Examples:{/t}">
+					<ul class="list-unstyled">
+						{foreach $field->hints as $hint}
+							<li>{!$hint}</li>
+						{/foreach}
+					</ul>
+				</div>
 			{/if}
 		</div>
 	{/if}

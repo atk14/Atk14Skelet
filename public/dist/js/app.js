@@ -11709,6 +11709,21 @@ var ATK14 = (function( $, window, undefined ) {
 		common: {
 			init: function() {
 				// application-wide code
+
+				// Form hints.
+				$( ".help-hint" ).each( function() {
+					var $this = $( this ),
+						$field = $this.closest( ".form-group" ).find( ".form-control" ),
+						title = $this.data( "title" ) || "",
+						content = $this.html();
+
+					$field.popover({
+						html: true,
+						trigger: "focus",
+						title: title,
+						content: content
+					});
+				});
 			}
 		},
 

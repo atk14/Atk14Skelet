@@ -7214,6 +7214,18 @@ body {
   }
 }
 
+.form-group .popover-title {
+  font-weight: bold;
+}
+
+.form-group .popover-content {
+  font-style: italic;
+}
+
+.form-group .popover-content ul {
+  margin-bottom: 0;
+}
+
 /*
 ================================================================
 =NEWS
