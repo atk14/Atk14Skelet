@@ -8,7 +8,6 @@ class CreateNewForm extends UsersForm{
 			"hint" => "<br>john.doe<br>samantha92",
 		)));
 		$login_field->widget->attrs["pattern"] = '^[a-z0-9.-]+$';
-		$login_field->widget->attrs["title"] = _('lowercase letters, numbers, dots and dashes are expected');
 	
 		$this->_add_basic_account_fields();
 
