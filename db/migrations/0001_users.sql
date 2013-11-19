@@ -6,6 +6,7 @@ CREATE TABLE users(
 	name VARCHAR(255),
 	email VARCHAR(255),
 	is_admin BOOLEAN NOT NULL DEFAULT 'f',
+	registered_from_ip_addr VARCHAR(255),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	updated_at TIMESTAMP NOT NULL DEFAULT NOW()
 );

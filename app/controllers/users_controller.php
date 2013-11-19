@@ -19,6 +19,7 @@ class UsersController extends ApplicationController{
 		$this->tpl_data["js_validator"] = $jv = $this->form->js_validator();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$d["registered_from_ip_addr"] = $this->request->getRemoteAddr();
 			$user = User::CreateNewRecord($d);
 			$this->logger->info("user $user just registered from ".$this->request->getRemoteAddr());
 
