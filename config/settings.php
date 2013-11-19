@@ -14,7 +14,7 @@
  *	$ ./scripts/dump_settings DEFAULT_EMAIL
  */
 
-define("SECRET_TOKEN","YPJ6K2BsjNh2FVpcWTMUBmk2L05gFDYf7oYmL50RmOfVUVQQjIAHz12mlR9yZAID");
+define("SECRET_TOKEN",PRODUCTION ? Files::GetFileContent(dirname(__FILE__)."/secret_token.txt") : "_please_put_here_a_lot_of_random_chars_");
 
 define("ATK14_DOCUMENT_ROOT",dirname(__FILE__)."/../");
 define("ATK14_BASE_HREF","/");

@@ -6,4 +6,4 @@ log/*
 robots/lock/*
 public/assets/vendor
 node_modules
-*.swp
+config/secret_token.txt
