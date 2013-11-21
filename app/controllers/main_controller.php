@@ -26,7 +26,8 @@ class MainController extends ApplicationController{
 		}
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$this->mailer->execute("contact_message",$d);
+			headeR("content-Type: text/plain");
+			$this->mailer->execute("contact_message",$d["email"],$d["name"],$d["body"]);
 			$this->flash->success(_("The message has been sent to us. We will reply as soon as we can."));
 			$this->_redirect_to("contact");
 		}

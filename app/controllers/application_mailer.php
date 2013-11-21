@@ -27,6 +27,12 @@ class ApplicationMailer extends Atk14Mailer {
 		// $this->bcc = "";
 	}
 
+	function notify_user_registration($user){
+		$this->tpl_data["user"] = $user;
+		$this->to = $user->getEmail();
+		$this->subject = sprintf(_("Welcome to %s"),ATK14_APPLICATION_NAME);
+	}
+
 	function notify_password_recovery($params){
 		$this->tpl_data["user"] = $user = $params["password_recovery"]->getUser();
 		$this->tpl_data["password_recovery"] = $params["password_recovery"];
@@ -35,10 +41,11 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->subject = _("Reset Your Password");
 	}
 
-	function contact_message($params){
+	function contact_message($email_address,$name,$message){
 		$this->to = DEFAULT_EMAIL;
-		$this->from = $params["email"];
-		$this->from_name = $params["name"];
-		$this->body = $params["body"];
+		$this->from = $email_address;
+		$this->from_name = $name;
+		$this->body = $message;
+		$this->subject = _("Message sent from contact page");
 	}
 }
