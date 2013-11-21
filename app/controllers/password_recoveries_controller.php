@@ -21,9 +21,7 @@ class PasswordRecoveriesController extends ApplicationController{
 				"created_from_addr" => $this->request->getRemoteAddr(),
 			));
 
-			$this->mailer->execute("notify_password_recovery",array(
-				"password_recovery" => $password_recovery,
-			));
+			$this->mailer->notify_password_recovery($password_recovery);
 
 			$this->_redirect_to_action("sent");
 		}

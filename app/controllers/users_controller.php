@@ -23,7 +23,7 @@ class UsersController extends ApplicationController{
 			$user = User::CreateNewRecord($d);
 			$this->logger->info("user $user just registered from ".$this->request->getRemoteAddr());
 
-			$this->mailer->execute("notify_user_registration",$user);
+			$this->mailer->notify_user_registration($user);
 
 			$this->_login_user($user);
 
