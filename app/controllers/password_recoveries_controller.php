@@ -48,6 +48,8 @@ class PasswordRecoveriesController extends ApplicationController{
 				"recovered_from_addr" => $this->request->getRemoteAddr(),
 			));
 
+			$this->mailer->notify_password_update_in_recovery($password_recovery);
+
 			$this->flash->success(_("Your password has been updated successfuly"));
 			$this->_redirect_to_action("logins/create_new",array("login" => $user->getLogin()));
 		}

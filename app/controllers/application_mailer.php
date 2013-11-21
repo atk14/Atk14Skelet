@@ -40,6 +40,14 @@ class ApplicationMailer extends Atk14Mailer {
 		// body is rendered from app/views/mailer/notify_password_recovery.tpl
 	}
 
+	function notify_password_update_in_recovery($password_recovery){
+		$this->tpl_data["user"] = $user = $password_recovery->getUser();
+		$this->tpl_data["password_recovery"] = $password_recovery;
+
+		$this->to = $user->getEmail();
+		$this->subject = _("Your password was updated");
+	}
+
 	function contact_message($email_address,$name,$message){
 		$this->to = DEFAULT_EMAIL;
 		$this->from = $email_address;
