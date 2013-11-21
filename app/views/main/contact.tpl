@@ -10,7 +10,7 @@
 	</div>
 
 	<address class="span6">
-		<strong>{t}ATK14 Unholy Team{/t}</strong><br>
+		<strong>{t team_name="ATK14_APPLICATION_NAME"|dump_constant}%1 Team{/t}</strong><br>
 		Elm Street 1428<br>
 		Springwood<br>
 		Ohio<br>
