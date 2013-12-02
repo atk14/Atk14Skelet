@@ -12,7 +12,9 @@ CREATE TABLE news(
 
 
 INSERT INTO news (title,published_at,author_id,body) VALUES('Happy Millenium','2000-01-01',1,TRIM('
-We wishes you a Happy Millenium!
+We wish you Happy Millenium!
+
+May all ATK14 developers are doing their job in peace.
 
 ATK14 Development Team
 '));
