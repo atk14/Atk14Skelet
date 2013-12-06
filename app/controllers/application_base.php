@@ -139,8 +139,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$key = $options["key"];
 
-		// eval je tady kvuli PHP5.2, PHP4...
-		eval("\$this->$object_name = $class_name::GetInstanceById(\$this->params->getInt(\$key));");
+		$this->$object_name = call_user_func(array($class_name, 'GetInstanceById'), $this->params->getInt($key));
 
 		if(!$this->$object_name){
 			$options["execute_error404_if_not_found"] && $this->_execute_action("error404");
