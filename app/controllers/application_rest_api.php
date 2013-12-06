@@ -239,18 +239,18 @@ class ApplicationRestApiController extends ApplicationBaseController{
 			"content_type" => null,
 			"raw_data" => null,
 
+			"status_code" => (isset($this->api_status_code) ? $this->api_status_code : 200), // Found
 			"status_message" => null,
 		),$options);
 
 		$this->render_template = false;
+		$this->response->setStatusCode($options["status_code"],$options["status_message"]);
 
 		if(isset($options["raw_data"])){
 			$this->response->setContentType($options["content_type"]);
 			$this->response->write($options["raw_data"]);
 			return;
 		}
-
-		$this->response->setStatusCode($options["status_code"],$options["status_message"]);
 
 		$data = Translate::Trans($data,$this->api_internal_charset,"utf-8");
 
