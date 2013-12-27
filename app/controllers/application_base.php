@@ -30,8 +30,9 @@ class ApplicationBaseController extends Atk14Controller{
 
 		if(!$this->rendering_component){
 			// keep these lines at the end of the _initialize() method
-			$this->_prepend_before_filter("begin_database_transaction"); // _begin_database_transaction() is the very first before filter
-			$this->_append_after_filter("end_database_transaction"); // _end_database_transaction() is the very last after filter
+			$this->_prepend_before_filter("begin_database_transaction"); // _begin_database_transaction() is the very first filter
+			$this->_append_after_filter("application_after_filter");
+			$this->_append_after_filter("end_database_transaction"); // _end_database_transaction() is the very last filter
 		}
 	}
 
@@ -58,6 +59,11 @@ class ApplicationBaseController extends Atk14Controller{
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
 		}
+	}
+
+	function _application_after_filter(){
+		// Here everything is done
+		// rendered template is in $this->response->buffer
 	}
 
 	function _login_user($user,$options = array()){
