@@ -119,17 +119,28 @@ class ApplicationBaseController extends Atk14Controller{
 
 	/**
 	 * Attempt to instantiate object by object_name and parameter
-	 * 
-	 * $this->_find("user");
-	 * $this->_find("static_page","page_id");
-	 * $this->_find("static_page",array(
-	 *		"key" => "page_id",
-	 *		"execute_error404_if_not_found" => false,
-	 * ));
+	 *
+	 * <code>
+	 *	 $this->_find("user");
+	 *	 $this->_find("static_page","page_id");
+	 *	 $this->_find("static_page",array(
+	 *			"key" => "page_id",
+	 *			"execute_error404_if_not_found" => false,
+	 *	 ));
+	 * </code>
 	 *
 	 * When an object is instantiated it can by found as
 	 *	$this->user
 	 *	$this->tpl_data["user"]
+	 *
+	 * A very common usage is:
+	 * <code>
+	 *	function _before_filter(){
+	 *		if(in_array($this->action,array("detail","edit","destroy"))){
+	 *			$this->_find("article");
+	 *		}
+	 *	}
+	 * </code>
 	 */
 	function &_find($object_name,$options = array()){
 		if(is_string($options)){
@@ -139,19 +150,28 @@ class ApplicationBaseController extends Atk14Controller{
 		$options += array(
 			"key" => "id",
 			"execute_error404_if_not_found" => true,
+			"class_name" => null, // e.g. "User"
+
+			"set_object_as_controller_property" => true,
+			"add_object_to_template" => true,
 		);
 
-		$class_name = String::ToObject($object_name)->camelize()->toString(); // static_page -> StaticPage
+		if(!$options["class_name"]){
+			$options["class_name"] = String::ToObject($object_name)->camelize()->toString(); // static_page -> StaticPage
+		}
 
 		$key = $options["key"];
 
-		$this->$object_name = call_user_func(array($class_name, 'GetInstanceById'), $this->params->getInt($key));
+		$object = call_user_func(array($options["class_name"], "GetInstanceById"), $this->params->getInt($key));
 
-		if(!$this->$object_name){
+		$options["set_object_as_controller_property"] && ($this->$object_name = $object);
+		$options["add_object_to_template"] && ($this->tpl_data["$object_name"] = $object);
+
+		if(!$object){
 			$options["execute_error404_if_not_found"] && $this->_execute_action("error404");
 		}
-		$this->tpl_data["$object_name"] = $this->$object_name;
-		return $this->$object_name;
+
+		return $object;
 	}
 
 	/**
