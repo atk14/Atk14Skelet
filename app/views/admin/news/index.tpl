@@ -27,4 +27,6 @@
 		</tbody>
 	</table>
 
+	{paginator}
+
 {/if}
