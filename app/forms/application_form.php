@@ -57,6 +57,8 @@ class ApplicationForm extends Atk14Form{
 		switch(get_class($this)){
 			case "CreateNewForm":
 				return _("Create");
+			case "DetailForm":
+				return _("Show");
 			case "EditForm":
 				return _("Update");
 			case "DestroyForm":
