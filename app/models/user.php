@@ -1,4 +1,10 @@
 <?php
+/**
+ * Model class for user records
+ *
+ * Uses lib/myblowfish.php for passwords hashing.
+ * See test/models/tc_user.php for basic usage.
+ */
 class User extends ApplicationModel{
 
 	/**
@@ -27,8 +33,13 @@ class User extends ApplicationModel{
 	}
 
 	/**
+	 * On a record update it provides transparent password hashing
 	 *
-	 * Among others provides transparent password hashing.
+	 * A new password won't be stored in database in plain form:
+	 *
+	 *	 $rambo->setValues(array("password" => "secret123"));
+	 *	 // or $rambo->setValue("password","secret123");
+	 *	 // or $rambo->s("password","secret123");
 	 */
 	function setValues($values,$options = array()){
 		if(isset($values["password"]) && !MyBlowfish::IsHash($values["password"])){
