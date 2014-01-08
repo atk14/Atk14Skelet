@@ -6,7 +6,7 @@ CREATE TABLE news(
 	author_id INT NOT NULL,
 	published_at TIMESTAMP NOT NULL DEFAULT NOW(),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-	updated_at TIMESTAMP NOT NULL DEFAULT NOW(),
+	updated_at TIMESTAMP,
 	CONSTRAINT fk_news_users FOREIGN KEY (author_id) REFERENCES users ON DELETE SET NULL
 );
 
