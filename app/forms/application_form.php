@@ -59,6 +59,8 @@ class ApplicationForm extends Atk14Form{
 				return _("Create");
 			case "DetailForm":
 				return _("Show");
+			case "IndexForm":
+				return _("Search");
 			case "EditForm":
 				return _("Update");
 			case "DestroyForm":
