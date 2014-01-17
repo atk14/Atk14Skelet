@@ -1,7 +1,7 @@
 <h1>{$page_title}</h1>
 
 {if $finder->isEmpty()}
-	<p class="alert alert-info">No records found.</p>
+	<p class="alert alert-info">{t}No records found.{/t}</p>
 {else}
 	<table class="table">
 		<thead>

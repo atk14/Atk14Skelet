@@ -23,7 +23,7 @@
 		{else}
 			<li>{a namespace="" action="logins/create_new"}{t}Sign in{/t}{/a}</li>
 			<li class="divider-vertical"></li>
-			<li>{a namespace="" action="users/create_new"}Register{/a}</li>
+			<li>{a namespace="" action="users/create_new"}{t}Register{/t}{/a}</li>
 		{/if}
 	</ul>
 </div>
