@@ -1,4 +1,4 @@
-<div class="jumbotron row">
+<div class="row">
 	<div class="col-sm-6">
 		<h1>{t}Welcome!{/t}</h1>
 		<p>
@@ -34,11 +34,13 @@
 
 
 		<h3>{t}Further Reading & Resources{/t}</h3>
-			<a href="http://www.atk14.net/">{t}ATK14 Project{/t}</a> |
-			<a href="http://book.atk14.net/">{t}ATK14 Book{/t}</a> |
-			<a href="http://api.atk14.net/">{t}API Reference{/t}</a> |
-			<a href="https://github.com/yarri/Atk14">{t}ATK14 on GitHub{/t}</a> |
-			<a href="https://github.com/yarri/Atk14Skelet">{t}ATK14 Skelet on GitHub{/t}</a>
+		<ul>
+			<li><a href="http://www.atk14.net/">{t}ATK14 Project{/t}</a></li>
+			<li><a href="http://book.atk14.net/">{t}ATK14 Book{/t}</a></li>
+			<li><a href="http://api.atk14.net/">{t}API Reference{/t}</a></li>
+			<li><a href="https://github.com/yarri/Atk14">{t}ATK14 on GitHub{/t}</a></li>
+			<li><a href="https://github.com/yarri/Atk14Skelet">{t}ATK14 Skelet on GitHub{/t}</a></li>
+		</ul>	
 	</div>
 
 	<div class="col-sm-6">
