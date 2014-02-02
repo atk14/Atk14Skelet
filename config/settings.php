@@ -16,9 +16,6 @@
 
 define("SECRET_TOKEN",PRODUCTION ? Files::GetFileContent(dirname(__FILE__)."/secret_token.txt") : "_please_put_here_a_lot_of_random_chars_");
 
-define("ATK14_DOCUMENT_ROOT",dirname(__FILE__)."/../");
-define("ATK14_BASE_HREF","/");
-
 define("DEFAULT_EMAIL","your@email.com");
 
 define("ATK14_APPLICATION_NAME","ATK14 Skelet");
