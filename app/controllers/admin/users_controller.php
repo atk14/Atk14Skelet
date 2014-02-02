@@ -33,7 +33,25 @@ class UsersController extends AdminController{
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$this->user->s($d);
-			$this->flash->success("The user entry has been updated");
+			$this->flash->success(_("The user entry has been updated"));
+			$this->_redirect_back();
+		}
+	}
+
+	function edit_password(){
+		$this->page_title = sprintf(_("Setting a new password to the user %s"),h($this->user));
+
+		$this->form->set_initial("password",String::RandomPassword(10));
+
+		$this->_save_return_uri();
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$this->user->s($d);
+			$this->flash->success(strtr(_('The new password has been set to the user <em>%user%</em>.<br>Would be nice to let him know at e-mail address <a href="mailto:%email%">%email%</a>.'),array(
+				"%user%" => h($this->user),
+				"%email%" => h($this->user->getEmail()
+			))));
+			$this->logger->info("administrator $this->logged_user just set new password to user $this->user (#".$this->user->getId().")");
 			$this->_redirect_back();
 		}
 	}
@@ -60,7 +78,7 @@ class UsersController extends AdminController{
 	}
 
 	function _before_filter(){
-		if(in_array($this->action,array("edit","destroy","login_as_user"))){
+		if(in_array($this->action,array("edit","edit_password","destroy","login_as_user"))){
 			$this->_find("user");
 		}
 	}
