@@ -115,7 +115,7 @@ module.exports = function( grunt ) {
 
 		copy: {
 			fonts_app: {
-				src: "public/assets/vendor/bootstrap/fonts/*",
+				src: "public/assets/vendor/bootstrap/dist/fonts/*",
 				dest: "public/dist/fonts/",
 				flatten: true,
 				expand: true
@@ -127,7 +127,7 @@ module.exports = function( grunt ) {
 				expand: true
 			},
 			fonts_admin: {
-				src: "public/assets/vendor/bootstrap/fonts/*",
+				src: "public/assets/vendor/bootstrap/dist/fonts/*",
 				dest: "public/dist/admin/fonts/",
 				flatten: true,
 				expand: true

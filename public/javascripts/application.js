@@ -29,7 +29,7 @@
 				// controller-wide code
 			},
 
-			Xcreate_new: function() {
+			create_new: function() {
 				// action-specific code
 
 				/*
@@ -37,7 +37,7 @@
 				 * Simple demo of working with an API.
 				 */
 				var $login = $( "#id_login" ),
-					$icon = $( "<span class='glyphicon'></span>" ).insertAfter( $login );
+					$status = $( "<p class='alert alert-danger col-sm-4 col-sm-offset-2'>Username is already taken.</p>" ).hide().appendTo( $login.closest(".form-group") );
 
 				$login.on( "change", function() {
 					// Login input value to check.
@@ -57,17 +57,13 @@
 							url: url,
 							data: data,
 							success: function( json ) {
-								$icon.attr( "title", json.status );
-
 								if ( json.status !== "available" ) {
-									$icon.removeClass( "glyphicon-ok" ).addClass( "glyphicon-remove" );
+									$status.fadeIn();
 								} else {
-									$icon.removeClass( "glyphicon-remove" ).addClass( "glyphicon-ok" );
+									$status.fadeOut();
 								}
 							}
 						});
-					} else {
-						$icon.removeClass( "glyphicon-ok glyphicon-remove" ).attr( "title", "" );
 					}
 				}).change();
 			}
