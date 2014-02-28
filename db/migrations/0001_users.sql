@@ -11,4 +11,4 @@ CREATE TABLE users(
 	updated_at TIMESTAMP
 );
 
-INSERT INTO users (id,login,password,name,is_admin) VALUES(1,'admin','admin','Charlie Root','t');
+INSERT INTO users (id,login,password,name,is_admin) VALUES(1,'admin','!to_be_replaced_by_a_hashed_password!','Charlie Root','t');
