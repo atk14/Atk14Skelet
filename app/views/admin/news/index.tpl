@@ -5,7 +5,7 @@
 	<button type="submit" class="btn">{t}Search news items{/t}</button>
 {/form}
 
-<p>{a action=create_new _class="btn btn-primary"}<i class="icon-plus-sign icon-white"></i> {t}Add New{/t}{/a}</p>
+<p>{a action=create_new _class="btn btn-primary"}<i class="glyphicon glyphicon-plus-sign"></i> {t}Add New{/t}{/a}</p>
 
 {if $finder->isEmpty()}
 
