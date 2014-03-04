@@ -1,7 +1,7 @@
-A place for application`s robots
+A place for application robots
 
-You can run dummy_robot by the following system call from the root
+One can execute a robot this way:
 
- $ ./scripts/robot_runner dummy_robot
+    $ ./scripts/robot_runner dummy_robot
 
-And then inspect log file ./log/robots.log
+By default every robot writes its output to log/robots.log

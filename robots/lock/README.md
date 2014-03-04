@@ -1,1 +1,1 @@
-This is folder for robots` lock file
+This is a folder for robots' lock files
