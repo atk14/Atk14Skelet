@@ -11,19 +11,23 @@
  * 
  * In your templates build links always this way
  *
- *			{a controller=creatures action=detail id=$creature}Details of the creature{/a}
+ *      {a controller=creatures action=detail id=$creature}Details of the creature{/a}
  *
  * According to the matching generic route, the following URI will be rendered
  *
- *			/en/creatures/detail/?id=123
+ *      /en/creatures/detail/?id=123
  *
  * Now you can prepend a SEF route like this
  *
- *			$this->addRoute("/creature-<id>/","creatures/detail",array("id" => "/[0-9]+/"));
+ *      $this->addRoute("/creature-<id>/","creatures/detail",array("id" => "/[0-9]+/"));
  *
  * the previous link will be changed automatically to the following one
  *
- *			/creature-123/
+ *      /creature-123/
+ *
+ * Keep in mind that there is a useful script for URI recognition
+ *
+ *      $ ./scripts/recognize_route http://myapp.localhost/creature-123/
  *
  * For more information about routing see http://book.atk14.net/czech/routing/
  */
