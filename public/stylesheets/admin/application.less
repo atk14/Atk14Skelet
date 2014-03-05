@@ -14,7 +14,14 @@ body {
 .alert {
 	margin-top: @line-height-computed;
 }
+.pagination {
+	display: block;
+	margin: 0;
 
+	> ul {
+		.pagination();
+	}
+}
 
 /*
 ================================
