@@ -78,38 +78,32 @@ module.exports = function( grunt ) {
 			},
 		},
 
-		recess: {
-			compile_app: {
-				options: {
-					compile: true
-				},
-				src: [
-					"public/stylesheets/application.less"
-				],
-				dest: "public/dist/css/app.css"
+		less: {
+			development: {
+				files: {
+					"public/dist/css/app.css": "public/stylesheets/application.less"
+				}
 			},
-			minify_app: {
+			production: {
 				options: {
-					compress: true
+					cleancss: true
 				},
-				src: "<%= recess.compile_app.dest %>",
-				dest: "public/dist/css/app.min.css"
+				files: {
+					"public/dist/css/app.min.css": "public/stylesheets/application.less"
+				}
 			},
-			compile_admin: {
-				options: {
-					compile: true
-				},
-				src: [
-					"public/stylesheets/admin/application.less"
-				],
-				dest: "public/dist/admin/css/app.css"
+			admin_development: {
+				files: {
+					"public/dist/admin/css/app.css": "public/stylesheets/admin/application.less"
+				}
 			},
-			minify_admin: {
+			admin_production: {
 				options: {
-					compress: true
+					cleancss: true
 				},
-				src: "<%= recess.compile_admin.dest %>",
-				dest: "public/dist/admin/css/app.min.css"
+				files: {
+					"public/dist/admin/css/app.min.css": "public/stylesheets/admin/application.less"
+				}
 			}
 		},
 
@@ -155,7 +149,7 @@ module.exports = function( grunt ) {
 		watch: {
 			css_app: {
 				files: "public/stylesheets/application.less",
-				tasks: [ "recess:compile_app" ]
+				tasks: [ "less:development" ]
 			},
 			js_app: {
 				files: "<%= concat.app.src %>",
@@ -164,7 +158,7 @@ module.exports = function( grunt ) {
 
 			css_admin: {
 				files: "public/stylesheets/admin/application.less",
-				tasks: [ "recess:compile_admin" ]
+				tasks: [ "less:admin_development" ]
 			},
 			js_admin: {
 				files: "<%= concat.admin.src %>",
@@ -179,8 +173,8 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
-	grunt.loadNpmTasks( "grunt-recess" );
+	grunt.loadNpmTasks( "grunt-contrib-less" );
 
 	grunt.registerTask( "default", ["jshint"] );
-	grunt.registerTask( "dist", [ "jshint", "concat", "uglify", "recess", "copy"] );
+	grunt.registerTask( "dist", [ "jshint", "concat", "uglify", "less", "copy"] );
 };

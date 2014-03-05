@@ -1,4 +1,4 @@
-@import url("../../assets/vendor/bootstrap/less/bootstrap.less");
+@import "../../assets/vendor/bootstrap/less/bootstrap.less";
 
 
 /*
@@ -15,11 +15,11 @@ body {
 	margin-top: @line-height-computed;
 }
 .pagination {
-	display: block;
 	margin: 0;
 
 	> ul {
-		.pagination();
+		&:extend(.pagination all);
+		margin-bottom: 10px;
 	}
 }
 
