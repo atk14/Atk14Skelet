@@ -149,6 +149,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$options += array(
 			"key" => "id",
+			"id" => null, // 123
 			"execute_error404_if_not_found" => true,
 			"class_name" => null, // e.g. "User"
 
@@ -162,7 +163,9 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$key = $options["key"];
 
-		$object = call_user_func(array($options["class_name"], "GetInstanceById"), $this->params->getInt($key));
+		$id = isset($options["id"]) ? $options["id"] : $this->params->getInt($key);
+
+		$object = call_user_func(array($options["class_name"], "GetInstanceById"), $id);
 
 		$options["set_object_as_controller_property"] && ($this->$object_name = $object);
 		$options["add_object_to_template"] && ($this->tpl_data["$object_name"] = $object);
@@ -172,6 +175,28 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		return $object;
+	}
+
+	/**
+	 * Just finds an object with no magic on the background
+	 *
+	 * ... or returns null when the object was not found.
+	 *
+	 *	$article = $this->_just_find("article");
+	 *	$article = $this->_just_find("article","article_id");
+	 *	$article = $this->_just_find("article",123);
+	 *	$article = $this->_just_find("article",array("id" => 123));
+	 */
+	function &_just_find($object_name,$options = array()){
+		if(is_numeric($options)){
+			$options = array("id" => $options);
+		}elseif(is_string($options)){
+			$options = array("key" => $options);
+		}
+		$options["execute_error404_if_not_found"] = false;
+		$options["set_object_as_controller_property"] = false;
+		$options["add_object_to_template"] = false;
+		return $this->_find($object_name,$options);
 	}
 
 	/**
