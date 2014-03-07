@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2014-01-17 15:36+0100\n"
-"PO-Revision-Date: 2014-01-17 15:36+0100\n"
+"PO-Revision-Date: 2014-03-07 14:36+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: \n"
@@ -540,11 +540,11 @@ msgstr "Ujistěte se, že šířka obrázku nepřekročí %max% bodů (teď je �
 
 #: ../atk14/src/forms/fields/image_field.php:28
 msgid "Ensure this image is at most %max% pixels high (it is %height%)."
-msgstr "Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký %width%)."
+msgstr "Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký %height%)."
 
 #: ../atk14/src/forms/fields/image_field.php:29
 msgid "Ensure this image is at least %min% pixels wide (it is %width%)."
-msgstr "Obrázek musí mít alespoň %min% bodů na šířku (nyní má %height%). "
+msgstr "Obrázek musí mít alespoň %min% bodů na šířku (nyní má %width%). "
 
 #: ../atk14/src/forms/fields/image_field.php:30
 msgid "Ensure this image is at least %min% pixels high (it is %height%)."
