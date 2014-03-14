@@ -70,7 +70,6 @@
 		}
 	};
 
-
 	/*
 	 * Garber-Irish DOM-based routing.
 	 * See: http://goo.gl/z9dmd

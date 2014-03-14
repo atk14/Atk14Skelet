@@ -11594,8 +11594,8 @@ if ( typeof define === "function" && define.amd && define.amd.jQuery ) {
 
 }(jQuery);
 
-/* global window */
 var ATK14 = (function( $, window, undefined ) {
+	"use strict";
 
 	var document = window.document,
 		confirm = window.confirm;
@@ -11658,7 +11658,6 @@ var ATK14 = (function( $, window, undefined ) {
 		$form.remove();
 	}
 
-
 	return {
 
 		action: $( "meta[name='x-action']" ).attr( "content" ),
@@ -11705,7 +11704,7 @@ var ATK14 = (function( $, window, undefined ) {
 		}
 	};
 
-})( window.jQuery, window );
+})( this.jQuery, this );
 
 /* global window */
 (function( window, $, undefined ) {
@@ -11778,7 +11777,6 @@ var ATK14 = (function( $, window, undefined ) {
 			}
 		}
 	};
-
 
 	/*
 	 * Garber-Irish DOM-based routing.

@@ -1,4 +1,7 @@
 module.exports = function( grunt ) {
+	"use strict";
+
+	var bsRoot = "public/assets/vendor/bootstrap/";
 
 	grunt.initConfig({
 
@@ -12,38 +15,55 @@ module.exports = function( grunt ) {
 			options: {
 				jshintrc: ".jshintrc"
 			},
-
 			atk14: {
-				src: [ "public/assets/lib/atk14.js" ]
+				src: "public/assets/lib/atk14.js"
 			},
 			grunt: {
-				src: [ "Gruntfile.js" ]
+				src: "Gruntfile.js"
 			},
 			app: {
-				src: [ "public/javascripts/application.js" ]
+				src: "public/javascripts/application.js"
 			},
 			admin: {
-				src: [ "public/javascripts/admin/application.js" ]
+				src: "public/javascripts/admin/application.js"
+			}
+		},
+
+		jscs: {
+			options: {
+				config: ".jscsrc"
+			},
+			atk14: {
+				src: "<%= jshint.atk14.src %>"
+			},
+			grunt: {
+				src: "<%= jshint.grunt.src %>"
+			},
+			app: {
+				src: "<%= jshint.app.src %>"
+			},
+			admin: {
+				src: "<%= jshint.admin.src %>"
 			}
 		},
 
 		concat: {
 			bootstrap: {
 				src: [
-					"public/assets/vendor/bootstrap/js/transition.js",
-					"public/assets/vendor/bootstrap/js/alert.js",
-					"public/assets/vendor/bootstrap/js/button.js",
-					"public/assets/vendor/bootstrap/js/carousel.js",
-					"public/assets/vendor/bootstrap/js/collapse.js",
-					"public/assets/vendor/bootstrap/js/dropdown.js",
-					"public/assets/vendor/bootstrap/js/modal.js",
-					"public/assets/vendor/bootstrap/js/tooltip.js",
-					"public/assets/vendor/bootstrap/js/popover.js",
-					"public/assets/vendor/bootstrap/js/scrollspy.js",
-					"public/assets/vendor/bootstrap/js/tab.js",
-					"public/assets/vendor/bootstrap/js/affix.js"
+					bsRoot + "js/transition.js",
+					bsRoot + "js/alert.js",
+					bsRoot + "js/button.js",
+					bsRoot + "js/carousel.js",
+					bsRoot + "js/collapse.js",
+					bsRoot + "js/dropdown.js",
+					bsRoot + "js/modal.js",
+					bsRoot + "js/tooltip.js",
+					bsRoot + "js/popover.js",
+					bsRoot + "js/scrollspy.js",
+					bsRoot + "js/tab.js",
+					bsRoot + "js/affix.js"
 				],
-				dest: "public/assets/vendor/bootstrap/dist/js/bootstrap.js"
+				dest: bsRoot + "dist/js/bootstrap.js"
 			},
 			app: {
 				src: [
@@ -171,10 +191,11 @@ module.exports = function( grunt ) {
 	grunt.loadNpmTasks( "grunt-contrib-concat" );
 	grunt.loadNpmTasks( "grunt-contrib-copy" );
 	grunt.loadNpmTasks( "grunt-contrib-jshint" );
+	grunt.loadNpmTasks( "grunt-contrib-less" );
 	grunt.loadNpmTasks( "grunt-contrib-uglify" );
 	grunt.loadNpmTasks( "grunt-contrib-watch" );
-	grunt.loadNpmTasks( "grunt-contrib-less" );
+	grunt.loadNpmTasks( "grunt-jscs-checker" );
 
-	grunt.registerTask( "default", ["jshint"] );
-	grunt.registerTask( "dist", [ "jshint", "concat", "uglify", "less", "copy"] );
+	grunt.registerTask( "default", [ "jshint", "jscs" ] );
+	grunt.registerTask( "dist", [ "default", "concat", "uglify", "less", "copy" ] );
 };
