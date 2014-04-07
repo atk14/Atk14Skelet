@@ -14,6 +14,8 @@
 			<tr>
 				<th>#</th>
 				{sortable key=tag}<th>{t}Tag{/t}</th>{/sortable}
+				{sortable key=created_at}<th>{t}Created at{/t}</th>{/sortable}
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
