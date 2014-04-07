@@ -1,1 +1,1 @@
-<ul class="nav nav-list">{!$section_navigation}</ul>
+<ul class="nav nav-pills nav-stacked">{!$section_navigation}</ul>

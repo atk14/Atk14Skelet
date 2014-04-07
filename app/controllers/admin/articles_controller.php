@@ -1,7 +1,7 @@
 <?php
-class NewsController extends AdminController{
+class ArticlesController extends AdminController{
 	function index(){
-		$this->page_title = _("Listing News");
+		$this->page_title = _("Listing Articles");
 
 		$this->sorting->add("created_at",array("reverse" => true));
 
@@ -14,7 +14,7 @@ class NewsController extends AdminController{
 			$bind_ar[":search"] = $d["search"];
 		}
 
-		$this->tpl_data["finder"] = News::Finder(array(
+		$this->tpl_data["finder"] = Article::Finder(array(
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
 			"offset" => $this->params->getInt("from"),
@@ -23,27 +23,28 @@ class NewsController extends AdminController{
 	}
 
 	function create_new(){
-		$this->page_title = _("Create news entry");
+		$this->page_title = _("Create article");
 
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$d["author_id"] = $this->logged_user;
-			News::CreateNewRecord($d);
-			$this->flash->success(_("The news entry has been created successfuly"));
+			$d["author_id"] = $d["created_by_user_id"] = $this->logged_user;
+			Article::CreateNewRecord($d);
+			$this->flash->success(_("The article has been created successfuly"));
 			$this->_redirect_back();	
 		}
 	}
 
 	function edit(){
-		$this->page_title = sprintf(_("Editing %s"),$this->news);
+		$this->page_title = sprintf(_("Editing %s"),$this->article);
 
 		$this->_save_return_uri();
-		$this->form->set_initial($this->news);
+		$this->form->set_initial($this->article);
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$this->news->s($d);
-			$this->flash->success(_("The news entry has been updated successfuly"));
+			$d["updated_by_user_id"] = $this->logged_user;
+			$this->article->s($d);
+			$this->flash->success(_("The article has been updated successfuly"));
 			$this->_redirect_back();	
 		}
 	}
@@ -51,17 +52,17 @@ class NewsController extends AdminController{
 	function destroy(){
 		if(!$this->request->post()){ return $this->_execute_action("error404"); }
 
-		$this->news->destroy();
+		$this->article->destroy();
 
 		if(!$this->request->xhr()){
-			$this->flash->success(_("The news entry has been deleted"));
+			$this->flash->success(_("The article has been deleted"));
 			$this->_redirect_to("index");
 		}
 	}
 
 	function _before_filter(){
 		if(in_array($this->action,array("edit","destroy"))){
-			$this->_find("news");
+			$this->_find("article");
 		}
 	}
 }

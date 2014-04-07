@@ -2,7 +2,7 @@
 
 {form _class="form-search"}
 	{!$form.search}
-	<button type="submit" class="btn">{t}Search news items{/t}</button>
+	<button type="submit" class="btn">{t}Search articles{/t}</button>
 {/form}
 
 <p>{a action=create_new _class="btn btn-primary"}<i class="glyphicon glyphicon-plus-sign"></i> {t}Add New{/t}{/a}</p>
@@ -23,7 +23,7 @@
 			</tr>
 		</thead>
 		<tbody>
-			{render partial="news_item" from=$finder->getRecords() item=news}
+			{render partial="article_item" from=$finder->getRecords() item=article}
 		</tbody>
 	</table>
 
