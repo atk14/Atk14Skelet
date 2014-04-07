@@ -17,7 +17,5 @@
     "disallowKeywords": [ "with" ],
     "disallowMultipleLineBreaks": true,
     "disallowKeywordsOnNewLine": [ "else" ],
-    "requireLineFeedAtFileEnd": true,
-
-    "excludeFiles": [ "src/intro.js", "src/outro.js", "src/sizzle/**/*" ]
+    "requireLineFeedAtFileEnd": true
 }
