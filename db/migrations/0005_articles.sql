@@ -25,9 +25,10 @@ CREATE TABLE article_tags(
   tag_id INTEGER NOT NULL,
   rank INTEGER DEFAULT 999 NOT NULL,
   CONSTRAINT fk_article_tags_articles FOREIGN KEY (article_id) REFERENCES articles ON DELETE CASCADE,
-  CONSTRAINT fk_article_tags_tags FOREIGN KEY (tag_id) REFERENCES tags ON DELETE CASCADE,
-	CONSTRAINT unq_articles UNIQUE (article_id,tag_id)
+  CONSTRAINT fk_article_tags_tags FOREIGN KEY (tag_id) REFERENCES tags ON DELETE CASCADE
 );
+CREATE INDEX in_articletags_articleid ON article_tags(article_id);
+CREATE INDEX in_articletags_tagid ON article_tags(tag_id);
 
 INSERT INTO articles (title,published_at,author_id,body) VALUES('Happy Millenium','2000-01-01',1,TRIM('
 We wish you Happy Millenium!

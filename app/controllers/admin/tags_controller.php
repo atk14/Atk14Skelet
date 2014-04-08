@@ -61,4 +61,4 @@ class TagsController extends AdminController{
 			$this->_find("tag");
 		}
 	}
-}	
+}

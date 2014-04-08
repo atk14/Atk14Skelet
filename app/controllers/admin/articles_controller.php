@@ -28,10 +28,13 @@ class ArticlesController extends AdminController{
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$tags = $d["tags"];
+			unset($d["tags"]);
 			$d["author_id"] = $d["created_by_user_id"] = $this->logged_user;
-			Article::CreateNewRecord($d);
+			$article = Article::CreateNewRecord($d);
+			$article->setTags($tags);
 			$this->flash->success(_("The article has been created successfuly"));
-			$this->_redirect_back();	
+			$this->_redirect_back();
 		}
 	}
 
@@ -40,12 +43,15 @@ class ArticlesController extends AdminController{
 
 		$this->_save_return_uri();
 		$this->form->set_initial($this->article);
+		$this->form->set_initial("tags",$this->article->getTags());
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$d["updated_by_user_id"] = $this->logged_user;
+			$this->article->setTags($d["tags"]);
+			unset($d["tags"]);
 			$this->article->s($d);
 			$this->flash->success(_("The article has been updated successfuly"));
-			$this->_redirect_back();	
+			$this->_redirect_back();
 		}
 	}
 
