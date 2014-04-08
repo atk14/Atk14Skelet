@@ -1,19 +1,26 @@
 <?php
 class TcApplication extends TcBase{
 	function test_access(){
-		$this->client->get("main/index");
-		$this->assertEquals(403,$this->client->getStatusCode());
+		$client = $this->client;
 
+		// access to administration is forbidden for non logged user
+		$this->_logoutUser();
+		$client->get("main/index");
+		$this->assertEquals(403,$client->getStatusCode());
+
+		// an ordinary user can't access administration
 		$user = User::CreateNewRecord(array(
 			"login" => "ordinary_testing_user",
 			"password" => "x",
 		));
-		$this->client->session->s("logged_user_id",$user->getId());
-		$this->assertEquals(403,$this->client->getStatusCode());
+		$this->_loginUser($user);
+		$client->get("main/index");
+		$this->assertEquals(403,$client->getStatusCode());
+		$this->assertContains("ordinary_testing_user",$client->getContent()); // on the page there must be the user mentioned
 
-		// only administrator can access
-		$this->client->session->s("logged_user_id",1); // admin
-		$this->client->get("main/index");
-		$this->assertEquals(200,$this->client->getStatusCode());
+		// only administrator can access administration
+		$this->_loginUser(1); // admin
+		$client->get("main/index");
+		$this->assertEquals(200,$client->getStatusCode());
 	}
 }

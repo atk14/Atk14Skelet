@@ -32,8 +32,12 @@ class UsersController extends AdminController{
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$this->user->s($d);
-			$this->flash->success(_("The user entry has been updated"));
+			if($d!=$this->form->get_initial()){
+				$this->user->s($d);
+				$this->flash->success(_("The user entry has been updated"));
+			}else{
+				$this->flash->notice(_("Nothing has been changed"));
+			}
 			$this->_redirect_back();
 		}
 	}
@@ -57,7 +61,8 @@ class UsersController extends AdminController{
 	}
 
 	function destroy(){
-		if(!$this->request->post() || !$this->user->isDeletable() || $this->user->getId()==$this->logged_user->getId()){ return $this->_execute_action("error404"); }
+		if(!$this->request->post()){ return $this->_execute_action("error404"); }
+		if(!$this->user->isDeletable() || $this->user->getId()==$this->logged_user->getId()){ return $this->_execute_action("error403"); }
 
 		$this->user->destroy();
 
