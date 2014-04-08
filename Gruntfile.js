@@ -77,6 +77,11 @@ module.exports = function( grunt ) {
 			admin: {
 				src: [
 					"public/assets/vendor/jquery/jquery.js",
+					"public/assets/vendor/jquery-ui/ui/jquery.ui.core.js",
+					"public/assets/vendor/jquery-ui/ui/jquery.ui.widget.js",
+					"public/assets/vendor/jquery-ui/ui/jquery.ui.position.js",
+					"public/assets/vendor/jquery-ui/ui/jquery.ui.menu.js",
+					"public/assets/vendor/jquery-ui/ui/jquery.ui.autocomplete.js",
 					"<%= concat.bootstrap.dest %>",
 					"public/assets/lib/atk14.js",
 					"public/javascripts/admin/application.js"

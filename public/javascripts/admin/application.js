@@ -47,7 +47,7 @@
 				}
 
 				$input.autocomplete({
-					minLength: 2,
+					minLength: 1,
 					source: function( request, response ) {
 						term = extractLast( request.term );
 
@@ -63,7 +63,7 @@
 					search: function() {
 						term = extractLast( this.value );
 
-						if ( term.length < 2 ) {
+						if ( term.length < 1 ) {
 							return false;
 						}
 					},
