@@ -46,6 +46,11 @@ class ArticlesController extends AdminController{
 		$this->form->set_initial("tags",$this->article->getTags());
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			if($d==$this->form->get_initial()){
+				$this->flash->notice(_("Nothing has been changed"));
+				return $this->_redirect_back();
+			}
+
 			$d["updated_by_user_id"] = $this->logged_user;
 			$this->article->setTags($d["tags"]);
 			unset($d["tags"]);

@@ -19,7 +19,7 @@ class Article extends ApplicationModel{
 	}
 
 	function getTags(){
-		return $this->getTagsLister()->getRecords();
+		return Cache::Get("Tag",$this->getTagsLister()->getRecordIds());
 	}
 
 	function setTags($tags){

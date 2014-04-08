@@ -1,4 +1,4 @@
-{render partial="articles/detail" article=$news}
+{render partial="shared/article_detail" article=$news}
 
 <ul class="pager">
 	{if $older_news}

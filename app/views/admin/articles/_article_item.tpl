@@ -2,6 +2,7 @@
 	<td>{a action=detail id=$article namespace=""}{$article->getTitle()}{/a}</td>
 	<td>{$article->getAuthor()->getLogin()}</td>
 	<td><time datetime="{$article->getPublishedAt()}">{$article->getPublishedAt()|format_date}</time></td>
+	<td>{to_sentence var=$article->getTags() words_connector=" , " last_word_connector=" , "}</td>
 	<td>
 		<div class="btn-group">
 			<button class="btn dropdown-toggle" data-toggle="dropdown" href="#">

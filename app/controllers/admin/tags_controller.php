@@ -38,13 +38,14 @@ class TagsController extends AdminController{
 				return;
 			}
 
-			if($d!=$this->form->get_initial()){
-				$d["updated_by_user_id"] = $this->logged_user;
-				$tag->s($d);
-				$this->flash->success(_("The tag has been updated"));
-			}else{
+			if($d==$this->form->get_initial()){
 				$this->flash->notice(_("Nothing has been changed"));
+				$this->_redirect_back();
 			}
+
+			$d["updated_by_user_id"] = $this->logged_user;
+			$tag->s($d);
+			$this->flash->success(_("The tag has been updated"));
 			$this->_redirect_back();
 		}
 	}

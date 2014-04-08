@@ -1,1 +1,1 @@
-{render partial="detail"}
+{render partial="shared/article_detail"}

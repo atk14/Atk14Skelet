@@ -32,12 +32,13 @@ class UsersController extends AdminController{
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if($d!=$this->form->get_initial()){
-				$this->user->s($d);
-				$this->flash->success(_("The user entry has been updated"));
-			}else{
+			if($d==$this->form->get_initial()){
 				$this->flash->notice(_("Nothing has been changed"));
+				return $this->_redirect_back();
 			}
+
+			$this->user->s($d);
+			$this->flash->success(_("The user entry has been updated"));
 			$this->_redirect_back();
 		}
 	}
