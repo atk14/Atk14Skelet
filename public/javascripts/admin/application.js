@@ -17,6 +17,69 @@
 			create_new: function() {
 				// action-specific code
 			}
+		},
+
+		articles: {
+			create_new: function() {
+				ADMIN.utils.tagsSuggest( "#id_tags" );
+			},
+			edit: function() {
+				ADMIN.utils.tagsSuggest( "#id_tags" );
+			}
+		},
+
+		utils: {
+			tagsSuggest: function( selector ) {
+				var $input = $( selector ),
+					url = "/api/" + $( "html" ).attr( "lang" ) + "/tags_suggestions/?format=json&q=",
+					cache = {},
+					term, terms;
+
+				function split( val ) {
+					return val.split( /,\s*/ );
+				}
+				function extractLast( t ) {
+					return split( t ).pop();
+				}
+
+				if ( !$input.length ) {
+					return;
+				}
+
+				$input.autocomplete({
+					minLength: 2,
+					source: function( request, response ) {
+						term = extractLast( request.term );
+
+						if ( term in cache ) {
+							response( cache[ term ] );
+						} else {
+							$.getJSON( url + term, function(data) {
+								cache[ term ] = data;
+								response( data );
+							});
+						}
+					},
+					search: function() {
+						term = extractLast( this.value );
+
+						if ( term.length < 2 ) {
+							return false;
+						}
+					},
+					focus: function() {
+						return false;
+					},
+					select: function( event, ui ) {
+						terms = split( this.value );
+						terms.pop();
+						terms.push( ui.item.value );
+						terms.push( "" );
+						this.value = terms.join( " , " );
+						return false;
+					}
+				});
+			}
 		}
 	};
 
