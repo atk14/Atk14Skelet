@@ -14,7 +14,7 @@ class NewsController extends ApplicationController{
 	}
 
 	function detail(){
-		$news = Article::FindById($this->params->getInt("id"));
+		$news = $this->_just_find("article");
 		if(!$news || !$news->isPublished() || !in_array(static::TAG_ID,$news->getTagsLister()->getRecordIds())){
 			return $this->_execute_action("error404");
 		}
