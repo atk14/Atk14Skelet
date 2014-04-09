@@ -37,6 +37,7 @@ class UsersController extends AdminController{
 				return $this->_redirect_back();
 			}
 
+			$d["updated_by_user_id"] = $this->logged_user;
 			$this->user->s($d);
 			$this->flash->success(_("The user entry has been updated"));
 			$this->_redirect_back();
@@ -51,6 +52,7 @@ class UsersController extends AdminController{
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$d["updated_by_user_id"] = $this->logged_user;
 			$this->user->s($d);
 			$this->flash->success(strtr(_('The new password has been set to the user <em>%user%</em>.<br>Would be nice to let him know at e-mail address <a href="mailto:%email%">%email%</a>.'),array(
 				"%user%" => h($this->user),

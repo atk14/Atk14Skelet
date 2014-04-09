@@ -28,7 +28,7 @@ class UsersController extends ApplicationController{
 			$this->_login_user($user);
 
 			$this->flash->success(sprintf(_("You have been successfuly registered and now you are logged in as <em>%s</em>"),h("$user")));
-			$this->_redirect_to_action("main/index");
+			$this->_redirect_to("main/index");
 		}
 	}
 
@@ -38,9 +38,14 @@ class UsersController extends ApplicationController{
 		$this->form->set_initial($this->logged_user);
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			if($d==$this->form->get_initial()){
+				$this->flash->notice(_("Nothing has been changed"));
+				return $this->_redirect_to("detail");
+			}
+			$d["updated_by_user_id"] = $this->logged_user;
 			$this->logged_user->s($d);
 			$this->flash->success(_("Your account data has been updated"));
-			$this->_redirect_to_action("detail");
+			$this->_redirect_to("detail");
 		}
 	}
 
@@ -52,9 +57,12 @@ class UsersController extends ApplicationController{
 				$this->form->set_error("current_password",_("This is not your current password"));
 				return;
 			}
-			$this->logged_user->s("password",$d["password"]);
+			$this->logged_user->s(array(
+				"password" => $d["password"],
+				"updated_by_user_id" => $this->logged_user
+			));
 			$this->flash->success(_("Your password has been updated successfuly"));
-			$this->_redirect_to_action("detail");
+			$this->_redirect_to("detail");
 		}
 	}
 
