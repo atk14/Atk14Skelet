@@ -7,7 +7,7 @@
 
 {if $finder->isEmpty()}
 
-	<p>{t}No record has been found{/t}</p>
+	<p>{t}No record has been found.{/t}</p>
 
 {else}
 

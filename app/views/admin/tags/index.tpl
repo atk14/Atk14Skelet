@@ -9,7 +9,7 @@
 
 {if $finder->isEmpty()}
 
-	<p>{t}No tag has been found{/t}</p>
+	<p>{t}No tag has been found.{/t}</p>
 
 {else}
 

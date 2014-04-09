@@ -3,7 +3,7 @@ class ArticlesController extends AdminController{
 	function index(){
 		$this->page_title = _("Listing Articles");
 
-		$this->sorting->add("created_at",array("reverse" => true));
+		$this->sorting->add("published_at",array("reverse" => true));
 
 		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
 

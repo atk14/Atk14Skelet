@@ -30,7 +30,7 @@ CREATE TABLE article_tags(
 CREATE INDEX in_articletags_articleid ON article_tags(article_id);
 CREATE INDEX in_articletags_tagid ON article_tags(tag_id);
 
-INSERT INTO articles (title,published_at,author_id,body) VALUES('Happy Millenium','2000-01-01',1,TRIM('
+INSERT INTO articles (title,published_at,author_id,body) VALUES('Happy Millenium','2000-01-01',1,BTRIM('
 We wish you Happy Millenium!
 
 May all ATK14 developers are doing their job in peace.
@@ -39,8 +39,7 @@ ATK14 Development Team
 '));
 INSERT INTO article_tags (article_id,tag_id,rank) VALUES(CURRVAL('seq_articles'),1,0); -- tag "news"
 
-INSERT INTO articles (title,published_at,author_id,body) VALUES('Welcome to ATK14 Skelet','2013-04-12',1,TRIM('
-
+INSERT INTO articles (title,published_at,author_id,body) VALUES('Welcome to ATK14 Skelet','2013-04-12',1,BTRIM('
 We are happy to announce the availability of ATK14 Skelet. This is a carefully selected & minimalistic set of functionality you may require at the start of your next web project.
 
 You can find more informations on the following addresses
@@ -50,6 +49,5 @@ You can find more informations on the following addresses
   * [Atk14 Book](http://book.atk14.net/)
 
 Remember! Your projects shall run on [ATK14 Framework](http://www.atk14.net/), for now and ever after!
-
 '));
 INSERT INTO article_tags (article_id,tag_id,rank) VALUES(CURRVAL('seq_articles'),1,0); -- tag "news"

@@ -9,7 +9,7 @@
 
 {if $finder->isEmpty()}
 
-	<p>{t}The list is empty{/t}</p>
+	<p>{t}The list is empty.{/t}</p>
 
 {else}
 
@@ -18,7 +18,7 @@
 			<tr>
 				<th>{t}Title{/t}</th>
 				<th>{t}Author{/t}</th>
-				{sortable key=created_at}<th>{t}Date{/t}</th>{/sortable}
+				{sortable key=published_at}<th>{t}Date{/t}</th>{/sortable}
 				<th>{t}Tags{/t}</th>
 				<th>{t}Actions{/t}</th>
 			</tr>
