@@ -98,7 +98,7 @@ module.exports = function( grunt ) {
 			},
 			admin: {
 				files: {
-					"public/dist/js/admin/app.min.js": [ "<%= concat.admin.dest %>" ]
+					"public/dist/admin/js/app.min.js": [ "<%= concat.admin.dest %>" ]
 				}
 			},
 		},
