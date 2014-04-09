@@ -13,7 +13,6 @@ class TcUsers extends TcBase{
 		$this->assertEquals(null,$controller->logged_user);
 
 		// we are posting data to the page
-		$GLOBALS["_POST"]["_token"] = $controller->form->get_csrf_token(); // we need to set the current csrf token as a POST parameter (little ugly, I know)
 		$controller = $this->client->post("users/create_new",array(
 			"login" => "john.doe.tester",
 			"name" => "John Doe",

@@ -14,6 +14,7 @@ class EditForm extends AdminForm{
 		$this->add_field("is_admin",new BooleanField(array(
 			"label" => _("Is admin?"),
 			"required" => false,
+			"disabled" => $this->controller->user->getId()==1, // admin should be administrator forever
 		)));
 	}
 }

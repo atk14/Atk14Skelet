@@ -76,9 +76,9 @@
 		</div>
 
 		{if $DEVELOPMENT}
-			{javascript_script_tag file="../dist/js/app.js"}
+			{javascript_script_tag file="../dist/admin/js/app.js"}
 		{else}
-			{javascript_script_tag file="../dist/js/app.min.js"}
+			{javascript_script_tag file="../dist/admin/js/app.min.js"}
 		{/if}
 	</body>
 </html>

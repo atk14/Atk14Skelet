@@ -32,6 +32,12 @@ class UsersController extends AdminController{
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			if($d==$this->form->get_initial()){
+				$this->flash->notice(_("Nothing has been changed"));
+				return $this->_redirect_back();
+			}
+
+			$d["updated_by_user_id"] = $this->logged_user;
 			$this->user->s($d);
 			$this->flash->success(_("The user entry has been updated"));
 			$this->_redirect_back();
@@ -46,6 +52,7 @@ class UsersController extends AdminController{
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			$d["updated_by_user_id"] = $this->logged_user;
 			$this->user->s($d);
 			$this->flash->success(strtr(_('The new password has been set to the user <em>%user%</em>.<br>Would be nice to let him know at e-mail address <a href="mailto:%email%">%email%</a>.'),array(
 				"%user%" => h($this->user),
@@ -57,7 +64,8 @@ class UsersController extends AdminController{
 	}
 
 	function destroy(){
-		if(!$this->request->post() || !$this->user->isDeletable() || $this->user->getId()==$this->logged_user->getId()){ return $this->_execute_action("error404"); }
+		if(!$this->request->post()){ return $this->_execute_action("error404"); }
+		if(!$this->user->isDeletable() || $this->user->getId()==$this->logged_user->getId()){ return $this->_execute_action("error403"); }
 
 		$this->user->destroy();
 

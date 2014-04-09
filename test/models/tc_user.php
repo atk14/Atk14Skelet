@@ -1,4 +1,4 @@
-<?
+<?php
 class TcUser extends TcBase{
 	function testHashingPassword(){
 		$rambo = User::CreateNewRecord(array("login" => "rambo", "password" => "secret"));

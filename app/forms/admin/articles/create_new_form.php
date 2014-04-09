@@ -15,5 +15,12 @@ class CreateNewForm extends AdminForm{
 			"label" => _("Published At"),
 			"initial" => time(),
 		)));
+
+		$this->add_field("tags", new TagsField(array(
+			"label" => _("Tags"),
+			"required" => false,
+			"hint" => "news , webdesign",
+			"help_text" => _("Mention tag <em>news</em> when this article should be displayed in the news section")
+		)));
 	}
 }
