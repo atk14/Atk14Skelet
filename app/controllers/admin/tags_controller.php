@@ -6,8 +6,20 @@ class TagsController extends AdminController{
 		$this->sorting->add("tag","LOWER(tag)");
 		$this->sorting->add("created_at",array("reverse" => true));
 
+		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
+
+		$conditions = $bind_ar = array();
+
+		if($d["search"]){
+			$conditions[] = "id||' '||UPPER(tag) LIKE UPPER(:search)";
+			$bind_ar[":search"] = "%$d[search]%";
+		}
+
 		$this->tpl_data["finder"] = Tag::Finder(array(
-			"order_by" => $this->sorting
+			"conditions" => $conditions,
+			"bind_ar" => $bind_ar,
+			"order_by" => $this->sorting,
+			"offset" => $this->params->getInt("offset"),
 		));
 	}
 

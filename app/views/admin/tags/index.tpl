@@ -1,11 +1,15 @@
 <h1>{$page_title}</h1>
 
+{form _class="form-search"}
+	{!$form.search}
+	<button type="submit" class="btn">{t}Search tags{/t}</button>
+{/form}
 
 <p>{a action=create_new _class="btn btn-primary"}<i class="glyphicon glyphicon-plus-sign"></i> {t}Add New{/t}{/a}</p>
 
 {if $finder->isEmpty()}
 
-	<p>{t}There is no tag at the moment{/t}</p>
+	<p>{t}No tag has been found{/t}</p>
 
 {else}
 
