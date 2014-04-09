@@ -11,7 +11,7 @@ class PasswordRecoveriesController extends ApplicationController{
 				return;
 			}
 			if($user->getId()==1){
-				$this->form->set_error("Sorry, there is absolutely no chance to reset admins password");
+				$this->form->set_error(_("To reset admins password use console like ATK14 ninja: $ ./scripts/migrate -f 0002_reset_admins_password_migration.php"));
 				return;
 			}
 
