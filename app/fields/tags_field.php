@@ -34,9 +34,9 @@ class TagsField extends CharField{
 	function clean($value){
 		$sep = $this->separator;
 
-		$value = preg_replace("/^[\\s$sep]+/s",'',$value); // ",music,,rock," -> "music,,rock,"
-		$value = preg_replace("/[\\s$sep]+$/s",'',$value); // "models,,rock," -> "models,,rock"
-		$value = preg_replace("/[\\s$sep]+/s",$sep,$value); // "models,,rock" -> "models,rock"
+		$value = preg_replace("/^(\\s*$sep\\s*)+/s",'',$value); // ",music,,rock," -> "music,,rock,"
+		$value = preg_replace("/(\\s*$sep\\s*)+$/s",'',$value); // "models,,rock," -> "models,,rock"
+		$value = preg_replace("/(\\s*$sep\\s*)+/s",$sep,$value); // "models,,rock" -> "models,rock"
 
 		list($err,$value) = parent::clean($value);
 		if($err || !$value){ return array($err,array()); }
