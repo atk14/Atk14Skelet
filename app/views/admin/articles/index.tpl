@@ -16,6 +16,7 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
+				<th>#</th>
 				<th>{t}Title{/t}</th>
 				<th>{t}Author{/t}</th>
 				{sortable key=published_at}<th>{t}Date{/t}</th>{/sortable}

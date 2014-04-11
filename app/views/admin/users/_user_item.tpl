@@ -1,4 +1,5 @@
 <tr>
+	<td>{$user->getId()}</td>
 	<td>{$user->getLogin()}</td>
 	<td>{$user->getName()}</td>
 	<td>{$user->getEmail()}</td>

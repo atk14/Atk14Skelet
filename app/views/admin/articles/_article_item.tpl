@@ -1,4 +1,5 @@
 <tr>
+	<td>{$article->getId()}</td>
 	<td>{a action=detail id=$article namespace=""}{$article->getTitle()}{/a}</td>
 	<td>{$article->getAuthor()->getLogin()}</td>
 	<td><time datetime="{$article->getPublishedAt()}">{$article->getPublishedAt()|format_date}</time></td>
