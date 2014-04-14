@@ -315,7 +315,8 @@ hr {
   border: 0;
   border-top: 1px solid #eeeeee;
 }
-.sr-only {
+.sr-only,
+.ui-helper-hidden-accessible {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -6151,4 +6152,57 @@ body {
 ================================ */
 #form_logins_create_new {
   max-width: 480px;
+}
+/*
+================================================================
+=COMPONENTS
+================================================================ */
+/*
+================================
+=AUTOCOMPLETE
+================================ */
+.ui-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  z-index: 1000;
+  display: none;
+  float: left;
+  min-width: 160px;
+  padding: 5px 0;
+  margin: 2px 0 0;
+  list-style: none;
+  font-size: 14px;
+  background-color: #ffffff;
+  border: 1px solid #cccccc;
+  border: 1px solid rgba(0, 0, 0, 0.15);
+  border-radius: 4px;
+  -webkit-box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  box-shadow: 0 6px 12px rgba(0, 0, 0, 0.175);
+  background-clip: padding-box;
+}
+.ui-menu.pull-right {
+  right: 0;
+  left: auto;
+}
+.ui-menu .divider {
+  height: 1px;
+  margin: 9px 0;
+  overflow: hidden;
+  background-color: #e5e5e5;
+}
+.ui-menu > li > a {
+  display: block;
+  padding: 3px 20px;
+  clear: both;
+  font-weight: normal;
+  line-height: 1.42857143;
+  color: #333333;
+  white-space: nowrap;
+}
+.ui-menu .ui-state-focus {
+  color: #ffffff;
+  text-decoration: none;
+  outline: 0;
+  background-color: #428bca;
 }

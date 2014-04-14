@@ -124,3 +124,27 @@ body {
 #form_logins_create_new {
 	max-width: 480px;
 }
+
+
+/*
+================================================================
+=COMPONENTS
+================================================================ */
+
+/*
+================================
+=AUTOCOMPLETE
+================================ */
+.ui-helper-hidden-accessible {
+	&:extend(.sr-only);
+}
+.ui-menu {
+	.dropdown-menu();
+
+	.ui-state-focus {
+		color: @dropdown-link-active-color;
+		text-decoration: none;
+		outline: 0;
+		background-color: @dropdown-link-active-bg;
+	}
+}
