@@ -1,10 +1,10 @@
 module.exports = function( grunt ) {
 	"use strict";
 
-    // Load grunt tasks automatically
-    require( "load-grunt-tasks" )( grunt );
-    // Time how long tasks take. Can help when optimizing build times
-    require( "time-grunt" )( grunt );
+	// Load grunt tasks automatically
+	require( "load-grunt-tasks" )( grunt );
+	// Time how long tasks take. Can help when optimizing build times
+	require( "time-grunt" )( grunt );
 
 	var bsRoot = "public/assets/vendor/bootstrap/";
 
@@ -69,20 +69,22 @@ module.exports = function( grunt ) {
 					bsRoot + "js/tab.js",
 					bsRoot + "js/affix.js"
 				],
-				dest: bsRoot + "dist/js/bootstrap.js"
+				dest: bsRoot + "dist/js/bootstrap.js",
+				nonull: true
 			},
 			app: {
 				src: [
-					"public/assets/vendor/jquery/jquery.js",
+					"public/assets/vendor/jquery/dist/jquery.js",
 					"<%= concat.bootstrap.dest %>",
 					"public/assets/lib/atk14.js",
 					"public/javascripts/application.js"
 				],
-				dest: "public/dist/js/app.js"
+				dest: "public/dist/js/app.js",
+				nonull: true
 			},
 			admin: {
 				src: [
-					"public/assets/vendor/jquery/jquery.js",
+					"public/assets/vendor/jquery/dist/jquery.js",
 					"public/assets/vendor/jquery-ui/ui/jquery.ui.core.js",
 					"public/assets/vendor/jquery-ui/ui/jquery.ui.widget.js",
 					"public/assets/vendor/jquery-ui/ui/jquery.ui.position.js",
@@ -92,7 +94,8 @@ module.exports = function( grunt ) {
 					"public/assets/lib/atk14.js",
 					"public/javascripts/admin/application.js"
 				],
-				dest: "public/dist/admin/js/app.js"
+				dest: "public/dist/admin/js/app.js",
+				nonull: true
 			}
 		},
 
@@ -111,30 +114,28 @@ module.exports = function( grunt ) {
 
 		less: {
 			development: {
-				files: {
-					"public/dist/css/app.css": "public/stylesheets/application.less"
-				}
+				src: "public/stylesheets/application.less",
+				dest: "public/dist/css/app.css",
+				nonull: true
 			},
 			production: {
 				options: {
 					cleancss: true
 				},
-				files: {
-					"public/dist/css/app.min.css": "public/stylesheets/application.less"
-				}
+				src: "public/stylesheets/application.less",
+				dest: "public/dist/css/app.min.css"
 			},
 			admin_development: {
-				files: {
-					"public/dist/admin/css/app.css": "public/stylesheets/admin/application.less"
-				}
+				src: "public/stylesheets/admin/application.less",
+				dest: "public/dist/admin/css/app.css",
+				nonull: true
 			},
 			admin_production: {
 				options: {
 					cleancss: true
 				},
-				files: {
-					"public/dist/admin/css/app.min.css": "public/stylesheets/admin/application.less"
-				}
+				src: "public/stylesheets/admin/application.less",
+				dest: "public/dist/admin/css/app.min.css"
 			}
 		},
 
@@ -178,6 +179,13 @@ module.exports = function( grunt ) {
 		},
 
 		watch: {
+			options: {
+				livereload: true
+			},
+			gruntfile: {
+				files: "Gruntfile.js",
+				tasks: [ "jshint:grunt", "jscs:grunt", "concat" ]
+			},
 			css_app: {
 				files: "public/stylesheets/application.less",
 				tasks: [ "less:development" ]

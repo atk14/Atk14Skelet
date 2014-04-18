@@ -77,6 +77,7 @@
 
 		{if $DEVELOPMENT}
 			{javascript_script_tag file="../dist/js/app.js"}
+			<script src="//localhost:35729/livereload.js"></script>
 		{else}
 			{javascript_script_tag file="../dist/js/app.min.js"}
 		{/if}
