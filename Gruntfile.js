@@ -1,6 +1,11 @@
 module.exports = function( grunt ) {
 	"use strict";
 
+    // Load grunt tasks automatically
+    require( "load-grunt-tasks" )( grunt );
+    // Time how long tasks take. Can help when optimizing build times
+    require( "time-grunt" )( grunt );
+
 	var bsRoot = "public/assets/vendor/bootstrap/";
 
 	grunt.initConfig({
@@ -13,7 +18,8 @@ module.exports = function( grunt ) {
 
 		jshint: {
 			options: {
-				jshintrc: ".jshintrc"
+				jshintrc: ".jshintrc",
+				reporter: require( "jshint-stylish" )
 			},
 			atk14: {
 				src: "public/assets/lib/atk14.js"
@@ -191,15 +197,6 @@ module.exports = function( grunt ) {
 			}
 		},
 	});
-
-	grunt.loadNpmTasks( "grunt-contrib-clean" );
-	grunt.loadNpmTasks( "grunt-contrib-concat" );
-	grunt.loadNpmTasks( "grunt-contrib-copy" );
-	grunt.loadNpmTasks( "grunt-contrib-jshint" );
-	grunt.loadNpmTasks( "grunt-contrib-less" );
-	grunt.loadNpmTasks( "grunt-contrib-uglify" );
-	grunt.loadNpmTasks( "grunt-contrib-watch" );
-	grunt.loadNpmTasks( "grunt-jscs-checker" );
 
 	grunt.registerTask( "default", [ "jshint", "jscs" ] );
 	grunt.registerTask( "dist", [ "default", "concat", "uglify", "less", "copy" ] );
