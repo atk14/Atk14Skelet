@@ -40,11 +40,11 @@
 			<li><a href="http://api.atk14.net/">{t}API Reference{/t}</a></li>
 			<li><a href="https://github.com/yarri/Atk14">{t}ATK14 on GitHub{/t}</a></li>
 			<li><a href="https://github.com/yarri/Atk14Skelet">{t}ATK14 Skelet on GitHub{/t}</a></li>
-		</ul>	
+		</ul>
 	</div>
 
 	<div class="col-sm-6">
-		<img src="{$public}images/skelet.png" alt="ATK14 Skelet" title="{t}The ATK14 Skelet at age 5{/t}" class="img-responsive pull-right" />
+		<img src="{$public}images/skelet.png" alt="ATK14 Skelet" title="{t}The ATK14 Skelet at age 5{/t}" class="img-responsive">
 		<p style="font-size: 0.7em; text-align: center;">{t escape=no}fig.1 <em>The Creature is pleading for forking on GitHub</em>{/t}</p>
 	</div>
 </div>
