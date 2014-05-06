@@ -1,5 +1,5 @@
-Atk14Skelet
-===========
+ATK14 Skelet
+============
 
 Meaningful skelet for a new installed ATK14 application.
 
@@ -10,21 +10,28 @@ Installation
 
 First make sure that all requirements are met: <http://book.atk14.net/czech/installation%3Arequirements/>
 
-    # go to your projects directory
-    cd ~/projects/
+```bash
+# go to your projects directory
+cd ~/projects/
+git clone https://github.com/yarri/Atk14Skelet.git atk14skelet
+cd atk14skelet
+chmod 777 log tmp
+git submodule init
+git submodule update
+./scripts/create_database
+./scripts/migrate
 
-    mkdir atk14skelet
-    cd atk14skelet
-    git clone https://github.com/yarri/Atk14Skelet.git ./
-    chmod 777 log tmp
-    git submodule init
-    git submodule update
-    ./scripts/virtual_host_configuration -f
-    ./scripts/create_database
-    ./scripts/initialize_database
-    ./scripts/migrate
+./scripts/server
+```
 
-You may found running ATK14 Skelet on http://atk14skelet.localhost/
+You should find running application on http://localhost:8000/
+
+If you have Apache installed, you may want to install the application to a virtual server.
+Follow instructions from the following command.
+
+```bash
+./scripts/virtual_host_configuration
+```
 
 Front-end Assets Installation
 -----------------------------
@@ -53,4 +60,7 @@ npm install
 grunt dist
 ```
 ### You're done! Happy skeleting!
-From now on you only need to run `grunt dist` when you need to concatenate and minify JS and CSS for production. You can also run lint and other tasks via Grunt. To see available tasks run `grunt --help`.
+From now on you only need to run `grunt dist` when you need to concatenate and minify JS and CSS for production.
+You can also run lint and other tasks via Grunt. To see available tasks run `grunt --help`.
+
+<!-- vim: set et: -->
