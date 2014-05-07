@@ -1,0 +1,38 @@
+#!/usr/bin/env bash
+#
+# This script changes configuration according to the given application name.
+# It could be called after the clone of a skeleton.
+#
+#   $ ./local_scripts/update_project_name bookstore
+#
+# If the parameter is missing, it will be detected automatically according to the current directory.
+#
+#   $ ./local_scripts/update_project_name
+#
+
+cd `dirname $0`
+cd ..
+
+pwd=`pwd` # /home/yarri/www/atk14skelet
+appname=`basename $pwd` # atk14skelet
+
+if [ ! -z "$1" ]; then
+	appname="$1"
+fi
+
+appname=`echo "$appname" | tr '[A-Z]' '[a-z]'` # Book-Store -> book-store
+appname=`echo "$appname" | sed -r 's/[^a-z0-9]/_/'` # book-store -> book_store
+
+# Remember! The following lines need to be runnable both on Linux or FreeBSD
+
+# editing ./config/database.yml
+sed -i -r "s/(database|username): .+_(test|devel|production)/\1: ${appname}_\2/" ./config/database.yml
+
+# editing ATK14_HTTP_HOST in ./config/settings.php
+sed -i -r "s/define\(.ATK14_HTTP_HOST.*/define\(\"ATK14_HTTP_HOST\",PRODUCTION ? \"www.${appname}.com\" : \"${appname}.localhost\"\);/" ./config/settings.php
+
+# editing ATK14_APPLICATION_NAME in ./config/settings.php
+appname_cap=`echo "$appname" | tr '[a-z]' '[A-Z]' | tr '_' ' '` # book_store -> "BOOK STORE"
+sed -i -r "s/define\(.ATK14_APPLICATION_NAME.*/define\(\"ATK14_APPLICATION_NAME\",\"${appname_cap}\"\);/" ./config/settings.php
+
+exit 0
