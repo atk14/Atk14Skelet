@@ -24,15 +24,16 @@ appname=`echo "$appname" | tr '[A-Z]' '[a-z]'` # Book-Store -> book-store
 appname=`echo "$appname" | sed -r 's/[^a-z0-9]/_/'` # book-store -> book_store
 
 # Remember! The following lines need to be runnable both on Linux or FreeBSD
+# On FreeBSD the sed command has -i option with other meaning than on Linux
 
 # editing ./config/database.yml
-sed -i -r "s/(database|username): .+_(test|devel|production)/\1: ${appname}_\2/" ./config/database.yml
+sed -r "s/(database|username): .+_(test|devel|production)/\1: ${appname}_\2/" ./config/database.yml > ./config/database.yml.new && mv ./config/database.yml.new ./config/database.yml
 
 # editing ATK14_HTTP_HOST in ./config/settings.php
-sed -i -r "s/define\(.ATK14_HTTP_HOST.*/define\(\"ATK14_HTTP_HOST\",PRODUCTION ? \"www.${appname}.com\" : \"${appname}.localhost\"\);/" ./config/settings.php
+sed -r "s/define\(.ATK14_HTTP_HOST.*/define\(\"ATK14_HTTP_HOST\",PRODUCTION ? \"www.${appname}.com\" : \"${appname}.localhost\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
 
 # editing ATK14_APPLICATION_NAME in ./config/settings.php
 appname_cap=`echo "$appname" | tr '[a-z]' '[A-Z]' | tr '_' ' '` # book_store -> "BOOK STORE"
-sed -i -r "s/define\(.ATK14_APPLICATION_NAME.*/define\(\"ATK14_APPLICATION_NAME\",\"${appname_cap}\"\);/" ./config/settings.php
+sed -r "s/define\(.ATK14_APPLICATION_NAME.*/define\(\"ATK14_APPLICATION_NAME\",\"${appname_cap}\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
 
 exit 0
