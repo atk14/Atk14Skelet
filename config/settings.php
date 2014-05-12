@@ -18,8 +18,8 @@ define("SECRET_TOKEN",PRODUCTION ? Files::GetFileContent(dirname(__FILE__)."/sec
 
 define("DEFAULT_EMAIL","your@email.com");
 
-define("ATK14_APPLICATION_NAME","ATK14 Skelet");
-define("ATK14_HTTP_HOST",PRODUCTION ? "atk14skelet.atk14.net" : "atk14skelet.localhost");
+define("ATK14_APPLICATION_NAME","XXXX");
+define("ATK14_HTTP_HOST",PRODUCTION ? "www.xxxx.com" : "xxxx.localhost");
 
 date_default_timezone_set('Europe/Prague');
 
@@ -32,4 +32,5 @@ if(DEVELOPMENT || TEST){
 if(PRODUCTION){
 	// a place for production environment settings
 
+	ini_set("display_errors","0");
 }
