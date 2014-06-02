@@ -109,7 +109,7 @@ module.exports = function( grunt ) {
 				files: {
 					"public/dist/admin/js/app.min.js": [ "<%= concat.admin.dest %>" ]
 				}
-			},
+			}
 		},
 
 		less: {
