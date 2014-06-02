@@ -203,7 +203,7 @@ module.exports = function( grunt ) {
 				files: "<%= concat.admin.src %>",
 				tasks: [ "concat:admin" ]
 			}
-		},
+		}
 	});
 
 	grunt.registerTask( "default", [ "jshint", "jscs" ] );
