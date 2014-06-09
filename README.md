@@ -38,7 +38,7 @@ Front-end Assets Installation
 #### Install dependencies.
 ```bash
 # Node Version manager
-curl https://raw.github.com/creationix/nvm/master/install.sh | sh
+wget -q -O - https://raw.github.com/creationix/nvm/master/install.sh | sh
 echo -e "\n. ~/.nvm/nvm.sh" >> ~/.bashrc && . ~/.nvm/nvm.sh
 # Node.js
 nvm install 0.10
