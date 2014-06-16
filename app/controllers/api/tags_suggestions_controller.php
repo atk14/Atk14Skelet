@@ -1,5 +1,5 @@
 <?php
-class TagsSuggestionscontroller extends ApiController{
+class TagsSuggestionsController extends ApiController{
 
 	/**
 	 * Suggests tags according to a search term
