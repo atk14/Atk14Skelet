@@ -37,13 +37,16 @@
 				 * Simple demo of working with an API.
 				 */
 				var $login = $( "#id_login" ),
-					$status = $( "<p class='alert alert-danger col-sm-4 col-sm-offset-2'>Username is already taken.</p>" ).hide().appendTo( $login.closest(".form-group") );
+					m = "Username is already taken.",
+					h = "<p class='alert alert-danger col-sm-4 col-sm-offset-2'>" + m + "</p>",
+					$status = $( h ).hide().appendTo( $login.closest(".form-group") );
 
 				$login.on( "change", function() {
 					// Login input value to check.
 					var value = $login.val(),
+						lang = $( "html" ).attr( "lang" ),
 					// API URL.
-						url = "/api/" + $( "html" ).attr( "lang" ) + "/login_availabilities/detail/",
+						url = "/api/" + lang + "/login_availabilities/detail/",
 					// GET values for API. Available formats: xml, json, yaml, jsonp.
 						data = {
 							login: value,
@@ -76,14 +79,16 @@
 	 */
 	SKELET.UTIL = {
 		exec: function( controller, action ) {
-			var ns = SKELET;
+			var ns = SKELET,
+				c = controller,
+				a = action;
 
-			if ( action === undefined ) {
-				action = "init";
+			if ( a === undefined ) {
+				a = "init";
 			}
 
-			if ( controller !== "" && ns[controller] && typeof ns[controller][action] === "function" ) {
-				ns[controller][action]();
+			if ( c !== "" && ns[c] && typeof ns[c][a] === "function" ) {
+				ns[c][a]();
 			}
 		},
 

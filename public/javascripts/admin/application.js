@@ -31,7 +31,8 @@
 		utils: {
 			tagsSuggest: function( selector ) {
 				var $input = $( selector ),
-					url = "/api/" + $( "html" ).attr( "lang" ) + "/tags_suggestions/?format=json&q=",
+					lang = $( "html" ).attr( "lang" ),
+					url = "/api/" + lang + "/tags_suggestions/?format=json&q=",
 					cache = {},
 					term, terms;
 
@@ -89,14 +90,16 @@
 	 */
 	ADMIN.UTIL = {
 		exec: function( controller, action ) {
-			var ns = ADMIN;
+			var ns = ADMIN,
+				c = controller,
+				a = action;
 
-			if ( action === undefined ) {
-				action = "init";
+			if ( a === undefined ) {
+				a = "init";
 			}
 
-			if ( controller !== "" && ns[controller] && typeof ns[controller][action] === "function" ) {
-				ns[controller][action]();
+			if ( c !== "" && ns[c] && typeof ns[c][a] === "function" ) {
+				ns[c][a]();
 			}
 		},
 
