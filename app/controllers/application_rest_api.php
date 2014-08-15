@@ -94,7 +94,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 			array_pop($lines); // konec komentare
 			foreach($lines as &$line){
 				$line = preg_replace('/^\s*\*/','',$line); // odstraneni hvezdicky
-				$line = preg_replace('/^(\t)+/e','str_repeat("  ",strlen("\1"))',$line); // tabulator na zacatku radku se nahradi dvema mezerama
+				$line = preg_replace_callback('/^(\t+)/',function($matches){ return str_repeat('  ',strlen($matches[1])); },$line); // tabulator na zacatku radku se nahradi dvema mezerama
 				$line = preg_replace('/^ /','',$line); // prvni mezera se odstrani
 				$line = rtrim($line); // bile znaky na konci musi pryc!
 			}
