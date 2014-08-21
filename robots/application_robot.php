@@ -3,11 +3,13 @@
  * The base class for every other robot.
  */
 class ApplicationRobot extends Atk14Robot{
-	function before_run(){
-		$this->dbmole->begin();
+	function beforeRun(){
+		$this->dbmole->begin(array(
+			"execute_after_connecting" => true
+		));
 	}
 
-	function after_run(){
+	function afterRun(){
 		$this->dbmole->commit();
 	}
 }
