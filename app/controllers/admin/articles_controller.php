@@ -17,7 +17,7 @@ class ArticlesController extends AdminController{
 		$this->tpl_data["finder"] = Article::Finder(array(
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
-			"offset" => $this->params->getInt("from"),
+			"offset" => $this->params->getInt("offset"),
 			"order_by" => $this->sorting,
 		));
 	}
