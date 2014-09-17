@@ -37,7 +37,7 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _before_filter(){
-		// therer's nothing here...
+		// there's nothing here...
 		// you can safely cover this method in a descendand without calling the parent
 	}
 
