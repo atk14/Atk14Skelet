@@ -8,7 +8,7 @@ class ApplicationBaseController extends Atk14Controller{
 	function error404(){
 		$this->page_title = _("Page not found");
 		$this->response->setStatusCode(404);
-		$this->template_name = "application/error404";
+		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
 		if($this->request->xhr()){
 			// there's no need to render anything for XHR requests
 			$this->render_template = false;
@@ -68,7 +68,7 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _application_after_filter(){
-		// Here everything is done
+		// in here everything is done
 		// rendered template is in $this->response->buffer
 	}
 
