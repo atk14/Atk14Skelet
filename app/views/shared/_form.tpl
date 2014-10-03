@@ -7,6 +7,8 @@
  * {render partial="shared/form" form=$search_form}
  * {render partial="shared/form" form=$search_form button_text="Search"}
  * {render partial="shared/form" form=$search_form button_text="Search" small_form=1}
+ *
+ * {render partial="shared/form" form_class="search"}
  *}
 
 {if !isset($small_form)}
