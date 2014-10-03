@@ -32,5 +32,7 @@ if(DEVELOPMENT || TEST){
 if(PRODUCTION){
 	// a place for production environment settings
 
-	ini_set("display_errors","0");
+	if(php_sapi_name()!="cli"){
+		ini_set("display_errors","0");
+	}
 }
