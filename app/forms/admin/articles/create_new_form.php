@@ -20,7 +20,7 @@ class CreateNewForm extends AdminForm{
 			"label" => _("Tags"),
 			"required" => false,
 			"hint" => "news , webdesign",
-			"help_text" => _("Mention tag <em>news</em> when this article should be displayed in the news section")
+			"help_text" => sprintf(_("Mention tag <em>%s</em> when this article should be displayed in the news section"),h(Tag::FindById(Tag::ID_NEWS)))
 		)));
 	}
 }
