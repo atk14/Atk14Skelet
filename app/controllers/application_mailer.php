@@ -2,7 +2,7 @@
 /**
  * The application's mailer class.
  *
- * In DEVELOPMENT e-mails are not sent for real,
+ * In DEVELOPMENT emails are not sent for real,
  * they are logged to the application's log instead.
  *
  * Within a controller one can send an email like this:

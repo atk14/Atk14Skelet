@@ -2,7 +2,7 @@
 class CreateNewForm extends ApplicationForm{
 	function set_up(){
 		$this->add_field("login",new CharField(array(
-			"label" => _("Login or e-mail address"),
+			"label" => _("Login or email address"),
 		)));
 		$this->enable_csrf_protection();
 

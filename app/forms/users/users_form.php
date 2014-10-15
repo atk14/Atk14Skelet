@@ -8,7 +8,7 @@ class UsersForm extends ApplicationForm{
 		)));
 
 		$this->add_field("email", new EmailField(array(
-			"label" => _("E-mail address"),
+			"label" => _("Email address"),
 			"max_length" => 255,
 			"hint" => "john.doe@email.com",
 			"help_text" => _("We will not disclose this address"),

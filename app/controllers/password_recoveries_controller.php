@@ -7,7 +7,7 @@ class PasswordRecoveriesController extends ApplicationController{
 			($user = User::FindByLogin($d["login"])) ||
 			($user = User::FindByEmail($d["login"],array("order_by" => "created_at DESC")));
 			if(!$user){
-				$this->form->set_error("login",_("There is not such user with the given login or e-mail"));
+				$this->form->set_error("login",_("There is not such user with the given login or email"));
 				return;
 			}
 			if($user->getId()==1){

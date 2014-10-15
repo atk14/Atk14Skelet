@@ -7,7 +7,7 @@ class EditForm extends AdminForm{
 		)));
 
 		$this->add_field("email",new EmailField(array(
-			"label" => _("E-mail address"),
+			"label" => _("Email address"),
 			"max_length" => 255,
 		)));
 

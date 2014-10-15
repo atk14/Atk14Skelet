@@ -41,7 +41,9 @@ class DefaultRouter extends Atk14Router{
 		$this->addRoute("/sitemap.xml","sitemaps/index");
 		$this->addRoute("/robots.txt","main/robots_txt");
 
-		// shorter password recovery links are nicer in e-mails
+		// Shorter password recovery links are nicer in emails:
+		//   generic route: http://example.com/en/password_recoveries/recovery/?token=123.xyz
+		//      nice route: http://example.cz/recovery/123.xyz
 		$this->addRoute("/recovery/<token>","en/password_recoveries/recovery");
 		$this->addRoute("/obnova/<token>","cs/password_recoveries/recovery");
 

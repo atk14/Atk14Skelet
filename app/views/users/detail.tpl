@@ -11,7 +11,7 @@
 			<td>{$logged_user->getName()}</td>
 		</tr>
 		<tr>
-			<th>{t}Your e-mail{/t}</th>
+			<th>{t}Your email{/t}</th>
 			<td>{$logged_user->getEmail()}</td>
 		</tr>
 		{if $logged_user->isAdmin}

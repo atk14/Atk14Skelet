@@ -9,4 +9,4 @@
 
 %1 Support Team
 web: %2
-e-mail: %3{/t}{/trim}
+email: %3{/t}{/trim}

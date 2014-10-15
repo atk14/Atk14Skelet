@@ -20,7 +20,7 @@
 		Ohio<br>
 		United States<br>
 		<br>
-		<strong>{t}E-mail{/t}:</strong><br>
+		<strong>{t}Email{/t}:</strong><br>
 		{"DEFAULT_EMAIL"|dump_constant}<br>
 		<strong>{t}Phone{/t}:</strong><br>
 		+1-541-754-3010

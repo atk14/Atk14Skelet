@@ -10,7 +10,7 @@
 			<tr>
 				{sortable key=created_at}<th>{t}Created at{/t}</th>{/sortable}
 				<th>{t}User{/t}</th>
-				<th>{t}E-mail{/t}</th>
+				<th>{t}Email{/t}</th>
 				<th>{t}Created from address{/t}</th>
 				<th>{t}Password recovered?{/t}</th>
 				<th>{t}Recovered at{/t}</th>

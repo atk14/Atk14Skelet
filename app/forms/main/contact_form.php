@@ -7,7 +7,7 @@ class ContactForm extends ApplicationForm{
 		)));
 
 		$this->add_field("email",new EmailField(array(
-			"label" => _("Your e-mail"),
+			"label" => _("Your email"),
 			"max_length" => 200,
 		)));
 
