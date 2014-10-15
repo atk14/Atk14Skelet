@@ -1,33 +1,48 @@
 ATK14 Skelet
 ============
 
-Meaningful skelet for a new installed ATK14 application.
+Meaningful skeleton for a new installed ATK14 application.
 
 Check out <http://atk14skelet.atk14.net/> to see the skelet running.
 
 Installation
 ------------
 
-First make sure that all requirements are met: <http://book.atk14.net/czech/installation%3Arequirements/>
-
 ```bash
-# go to your projects directory
-cd ~/projects/
-git clone https://github.com/yarri/Atk14Skelet.git atk14skelet
-cd atk14skelet
-chmod 777 log tmp
+git clone https://github.com/yarri/Atk14Skelet.git
+cd Atk14Skelet
 git submodule init
 git submodule update
 ./scripts/create_database
 ./scripts/migrate
+```
+If you are experiencing a trouble make sure that all requirements are met: <http://book.atk14.net/czech/installation%3Arequirements/>
 
+Starting the skeleton
+---------------------
+
+Start the development server
+
+```bash
 ./scripts/server
 ```
 
-You should find running application on http://localhost:8000/
+and you may found the running skeleton on http://localhost:8000/
 
-If you have Apache installed, you may want to install the application to a virtual server.
-Follow instructions from the following command.
+Installing the skeleton as a virtual host on Apache web server
+--------------------------------------------------------------
+
+This is optional step. If you have Apache installed, you may want to install the application to a virtual server.
+
+```bash
+./scripts/virtual_host_configuration -f
+sudo service apache2 reload
+chmod 777 tmp log
+```
+
+Visit <http://atk14skelet.localhost/>. Is it running? Great!
+
+If you have a trouble run the following command and follow instructions.
 
 ```bash
 ./scripts/virtual_host_configuration
@@ -63,4 +78,4 @@ grunt dist
 From now on you only need to run `grunt dist` when you need to concatenate and minify JS and CSS for production.
 You can also run lint and other tasks via Grunt. To see available tasks run `grunt --help`.
 
-<!-- vim: set et: -->
+Don't forget to list your new project on http://www.atk14sites.net/
