@@ -7,21 +7,21 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-01-17 15:36+0100\n"
-"PO-Revision-Date: 2014-03-07 14:36+0100\n"
+"POT-Creation-Date: 2014-10-15 08:44+0200\n"
+"PO-Revision-Date: 2014-10-15 09:30+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
-"Language: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
 
 #: ../app/forms/users/edit_password_form.php:5
 #: ../app/forms/users/users_form.php:20
 msgid "Password"
 msgstr "Heslo"
 
-#: ../app/forms/users/edit_password_form.php:8
+#: ../app/forms/users/edit_password_form.php:8 smarty.c:53 smarty.c:404
 msgid "Set new password"
 msgstr "Nastavit nové heslo"
 
@@ -29,18 +29,14 @@ msgstr "Nastavit nové heslo"
 msgid "The new password is the same as your current password"
 msgstr "Nové heslo je stejné jako to současné"
 
-#: ../app/forms/users/users_form.php:5
-#: ../app/forms/main/contact_form.php:5
-#: smarty.c:11
-#: smarty.c:326
+#: ../app/forms/users/users_form.php:5 ../app/forms/main/contact_form.php:5
+#: smarty.c:11 smarty.c:362
 msgid "Your name"
 msgstr "Vaše jméno"
 
 #: ../app/forms/users/users_form.php:11
-#: ../app/forms/admin/users/edit_form.php:10
-#: smarty.c:74
-#: smarty.c:389
-msgid "E-mail address"
+#: ../app/forms/admin/users/edit_form.php:10 smarty.c:77 smarty.c:428
+msgid "Email address"
 msgstr "E-mailová adresa"
 
 #: ../app/forms/users/users_form.php:14
@@ -55,19 +51,18 @@ msgstr "Heslo (opakování)"
 msgid "Password doesn't match"
 msgstr "Heslo se neshoduje"
 
-#: ../app/forms/users/create_new_form.php:5
-#: smarty.c:8
-#: smarty.c:323
+#: ../app/forms/users/create_new_form.php:5 smarty.c:8 smarty.c:359
 msgid "Username (login)"
 msgstr "Uživatelské jméno (login)"
 
 #: ../app/forms/users/create_new_form.php:7
-msgid "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
-msgstr "Zadávejte pouze písmena, číslice, tečky a pomlčky. Max. délka je omezena na 50 znaků."
+msgid ""
+"Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
+msgstr ""
+"Zadávejte pouze písmena, číslice, tečky a pomlčky. Max. délka je omezena na "
+"50 znaků."
 
-#: ../app/forms/users/create_new_form.php:17
-#: smarty.c:224
-#: smarty.c:539
+#: ../app/forms/users/create_new_form.php:17 smarty.c:263 smarty.c:614
 msgid "Register"
 msgstr "Registrovat"
 
@@ -79,10 +74,6 @@ msgstr "Toto uživatelské jméno je již zabráno"
 msgid "This login has been already taken"
 msgstr "Tento login je již zabrán"
 
-#: ../app/forms/users/edit_form.php:13
-msgid "Nothing has been changed"
-msgstr "Nic nebylo změněno"
-
 #: ../app/forms/application_form.php:59
 msgid "Create"
 msgstr "Vytvořit"
@@ -93,7 +84,8 @@ msgstr "Ukázat"
 
 #: ../app/forms/application_form.php:63
 #: ../app/forms/admin/users/index_form.php:5
-#: ../app/forms/admin/news/index_form.php:5
+#: ../app/forms/admin/articles/index_form.php:5
+#: ../app/forms/admin/tags/index_form.php:5
 msgid "Search"
 msgstr "Hledat"
 
@@ -110,63 +102,82 @@ msgid "Save"
 msgstr "Uložit"
 
 #: ../app/forms/logins/destroy_form.php:4
-#: ../app/controllers/logins_controller.php:32
-#: smarty.c:218
-#: smarty.c:533
+#: ../app/controllers/logins_controller.php:32 smarty.c:257 smarty.c:608
 msgid "Sign out"
 msgstr "Odhlásit se"
 
 #: ../app/forms/logins/create_new_form.php:11
 #: ../app/controllers/logins_controller.php:6
-#: ../app/controllers/sitemaps_controller.php:41
-#: smarty.c:221
-#: smarty.c:536
+#: ../app/controllers/sitemaps_controller.php:41 smarty.c:209 smarty.c:260
+#: smarty.c:560 smarty.c:611
 msgid "Sign in"
 msgstr "Přihlásit se"
 
+#: ../app/forms/admin/users/edit_password_form.php:5
+msgid "New password"
+msgstr "Nové heslo"
+
 #: ../app/forms/admin/users/edit_form.php:5
-#: ../atk14/skelet/app/forms/creatures/create_new_form.php:5
-#: smarty.c:71
-#: smarty.c:386
+#: ../atk14/skelet/app/forms/creatures/create_new_form.php:5 smarty.c:74
+#: smarty.c:425
 msgid "Name"
 msgstr "Jméno"
 
-#: ../app/forms/admin/users/edit_form.php:15
-#: smarty.c:77
-#: smarty.c:392
+#: ../app/forms/admin/users/edit_form.php:15 smarty.c:80 smarty.c:431
 msgid "Is admin?"
 msgstr "Je administrátor?"
 
-#: ../app/forms/admin/news/create_new_form.php:5
-#: smarty.c:104
-#: smarty.c:419
+#: ../app/forms/admin/articles/create_new_form.php:5 smarty.c:131 smarty.c:482
 msgid "Title"
 msgstr "Název"
 
-#: ../app/forms/admin/news/create_new_form.php:10
+#: ../app/forms/admin/articles/create_new_form.php:10
 msgid "Body"
 msgstr "Tělo"
 
-#: ../app/forms/admin/news/create_new_form.php:11
+#: ../app/forms/admin/articles/create_new_form.php:11
 msgid "Mardown format is expected"
 msgstr "Je očekáván formát Markdown"
 
-#: ../app/forms/admin/news/create_new_form.php:15
+#: ../app/forms/admin/articles/create_new_form.php:15
 msgid "Published At"
 msgstr "Publikováno dne"
 
+#: ../app/forms/admin/articles/create_new_form.php:20
+#: ../app/controllers/admin/admin.php:15 smarty.c:140 smarty.c:491
+msgid "Tags"
+msgstr "Štítky"
+
+#: ../app/forms/admin/articles/create_new_form.php:23
+msgid ""
+"Mention tag <em>news</em> when this article should be displayed in the news "
+"section"
+msgstr ""
+
+#: ../app/forms/admin/tags/create_new_form.php:7
+#: ../app/controllers/admin/tags_controller.php:49
+msgid "The same tag already exists"
+msgstr "Stejný štítek již existuje"
+
+#: ../app/forms/admin/tags/tags_form.php:5 smarty.c:164 smarty.c:515
+msgid "Tag"
+msgstr "Štítek"
+
 #: ../app/forms/password_recoveries/create_new_form.php:5
-msgid "Login or e-mail address"
+msgid "Login or email address"
 msgstr "Login nebo e-mailová adresa"
 
 #: ../app/forms/password_recoveries/create_new_form.php:9
 msgid "Send me a recovery link"
 msgstr "Pošli mi odkaz pro obnovu"
 
-#: ../app/forms/main/contact_form.php:10
-#: smarty.c:14
-#: smarty.c:329
-msgid "Your e-mail"
+#: ../app/forms/api/tags_suggestions/index_form.php:5
+#: ../atk14/skelet/app/forms/creatures/index_form.php:7
+msgid "Search term"
+msgstr "Hledat výraz"
+
+#: ../app/forms/main/contact_form.php:10 smarty.c:14 smarty.c:365
+msgid "Your email"
 msgstr "Váš e-mail"
 
 #: ../app/forms/main/contact_form.php:15
@@ -176,6 +187,21 @@ msgstr "Text"
 #: ../app/forms/main/contact_form.php:20
 msgid "Send message"
 msgstr "Poslat zprávu"
+
+#: ../app/fields/tags_field.php:16
+msgid "Ensure that there are max %max% tags (now there are %count%)"
+msgstr ""
+"Ujistěte se, že je zde nejvýše %max% štítků (nyní je tady %count% štítků) "
+
+#: ../app/fields/tags_field.php:17
+#, php-format
+msgid "There is no tag <em>%s</em>"
+msgstr "Štítek <em>%s</em> neexistuje"
+
+#: ../app/fields/tags_field.php:18
+#, php-format
+msgid "Tag <em>%s</em> is there more than once"
+msgstr "Štítek <em>%s</em> je uveden vícekrát"
 
 #: ../app/helpers/function.paginator.php:89
 #: ../app/helpers/function.paginator.php:152
@@ -201,11 +227,19 @@ msgid "No"
 msgstr "Ne"
 
 #: ../app/controllers/password_recoveries_controller.php:10
-msgid "There is not such user with the given login or e-mail"
-msgstr "Tady není uživatel s takovým loginem nebo e-mailem."
+msgid "There is not such user with the given login or email"
+msgstr "Tady není uživatel s tímto loginem nebo e-mailem"
+
+#: ../app/controllers/password_recoveries_controller.php:14
+msgid ""
+"To reset admins password use console like ATK14 ninja: $ ./scripts/migrate -"
+"f 0002_reset_admins_password_migration.php"
+msgstr ""
+"Resetujte adminovo heslo v konzoli jako správný ATK14 ninja: $ ./scripts/"
+"migrate -f 0002_reset_admins_password_migration.php"
 
 #: ../app/controllers/password_recoveries_controller.php:53
-#: ../app/controllers/users_controller.php:56
+#: ../app/controllers/users_controller.php:64
 msgid "Your password has been updated successfuly"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
@@ -214,7 +248,7 @@ msgid "Password recovery"
 msgstr "Obnovení hesla"
 
 #: ../app/controllers/admin/password_recoveries_controller.php:4
-#: ../app/controllers/admin/admin.php:23
+#: ../app/controllers/admin/admin.php:17
 msgid "Password recoveries"
 msgstr "Obnovy hesel"
 
@@ -227,62 +261,100 @@ msgstr "Seznam uživatelů"
 msgid "Editing user %s"
 msgstr "Editace uživatele %s"
 
-#: ../app/controllers/admin/users_controller.php:47
+#: ../app/controllers/admin/users_controller.php:36
+#: ../app/controllers/admin/articles_controller.php:50
+#: ../app/controllers/admin/tags_controller.php:54
+#: ../app/controllers/users_controller.php:42
+msgid "Nothing has been changed"
+msgstr "Nic nebylo změněno"
+
+#: ../app/controllers/admin/users_controller.php:42
+msgid "The user entry has been updated"
+msgstr "Záznam o uživateli byl aktualizován"
+
+#: ../app/controllers/admin/users_controller.php:48
+#, php-format
+msgid "Setting a new password to the user %s"
+msgstr "Nastavit nové heslo uživateli %s"
+
+#: ../app/controllers/admin/users_controller.php:57
+msgid ""
+"The new password has been set to the user <em>%user%</em>.<br>Would be nice "
+"to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
+msgstr ""
+"Nové heslo bylo nastaveno uživateli <em>%user%</em>.<br>Bude hezké, když mu "
+"o tom napíšete na e-mail <a href=\"mailto:%email%\">%email%</a>."
+
+#: ../app/controllers/admin/users_controller.php:73
 msgid "The user entry has been deleted"
 msgstr "Uživatel byl smazán"
 
-#: ../app/controllers/admin/users_controller.php:58
+#: ../app/controllers/admin/users_controller.php:84
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
 msgstr "Nyní jste přihlášen jako <em>%s</em>"
 
-#: ../app/controllers/admin/admin.php:8
-msgid "Access denied"
-msgstr "Přístup byl odmítnut"
+#: ../app/controllers/admin/articles_controller.php:4
+msgid "Listing Articles"
+msgstr "Výpis článků"
 
-#: ../app/controllers/admin/admin.php:20
-msgid "Welcome screen"
-msgstr "Vítací obrazovka"
+#: ../app/controllers/admin/articles_controller.php:26
+msgid "Create article"
+msgstr "Vytvořit článek"
 
-#: ../app/controllers/admin/admin.php:21
-msgid "Users"
-msgstr "Uživatelé"
+#: ../app/controllers/admin/articles_controller.php:36
+msgid "The article has been created successfuly"
+msgstr "Článek byl úspěšně vytvořen"
 
-#: ../app/controllers/admin/admin.php:22
-#: ../app/controllers/news_controller.php:5
-msgid "News"
-msgstr "Novinky"
-
-#: ../app/controllers/admin/main_controller.php:4
-#: smarty.c:215
-#: smarty.c:530
-msgid "Administration"
-msgstr "Administrace"
-
-#: ../app/controllers/admin/news_controller.php:4
-msgid "Listing News"
-msgstr "Sezam novinek"
-
-#: ../app/controllers/admin/news_controller.php:26
-msgid "Create news entry"
-msgstr "Vytvořit nový záznam"
-
-#: ../app/controllers/admin/news_controller.php:33
-msgid "The news entry has been created successfuly"
-msgstr "Novinka byla úspěšně vytvořena"
-
-#: ../app/controllers/admin/news_controller.php:39
+#: ../app/controllers/admin/articles_controller.php:42
 #, php-format
 msgid "Editing %s"
 msgstr "Editace %s"
 
-#: ../app/controllers/admin/news_controller.php:46
-msgid "The news entry has been updated successfuly"
-msgstr "Novinka byla úspěšně změněna"
+#: ../app/controllers/admin/articles_controller.php:58
+msgid "The article has been updated successfuly"
+msgstr "Článek byl úspěšně aktualizován"
 
-#: ../app/controllers/admin/news_controller.php:57
-msgid "The news entry has been deleted"
-msgstr "Novinka byla smazána"
+#: ../app/controllers/admin/articles_controller.php:69
+msgid "The article has been deleted"
+msgstr "Článek byl smazán"
+
+#: ../app/controllers/admin/admin.php:13
+msgid "Welcome screen"
+msgstr "Vítací obrazovka"
+
+#: ../app/controllers/admin/admin.php:14
+msgid "Articles"
+msgstr "Články"
+
+#: ../app/controllers/admin/admin.php:16
+msgid "Users"
+msgstr "Uživatelé"
+
+#: ../app/controllers/admin/main_controller.php:4 smarty.c:254 smarty.c:605
+msgid "Administration"
+msgstr "Administrace"
+
+#: ../app/controllers/admin/tags_controller.php:4
+msgid "Listing Tags"
+msgstr "Přehled štítků"
+
+#: ../app/controllers/admin/tags_controller.php:27
+msgid "Create a new tag"
+msgstr "Vytvořit nový štítek"
+
+#: ../app/controllers/admin/tags_controller.php:34
+msgid "The tag has been created successfuly"
+msgstr "Štítek byl úspěšně vytvořen"
+
+#: ../app/controllers/admin/tags_controller.php:42
+#, php-format
+msgid "Editing tag %s"
+msgstr "Editace štítku %s"
+
+#: ../app/controllers/admin/tags_controller.php:60
+msgid "The tag has been updated"
+msgstr "Štítek byl aktualizován"
 
 #: ../app/controllers/users_controller.php:4
 msgid "User profile"
@@ -299,33 +371,34 @@ msgstr "Registrace nového uživatele"
 
 #: ../app/controllers/users_controller.php:30
 #, php-format
-msgid "You have been successfuly registered and now you are logged in as <em>%s</em>"
+msgid ""
+"You have been successfuly registered and now you are logged in as <em>%s</em>"
 msgstr "Byl jste úspěšně zaregistrován a teď jste přihlášen jako <em>%s</em>"
 
-#: ../app/controllers/users_controller.php:36
-#: smarty.c:23
-#: smarty.c:338
+#: ../app/controllers/users_controller.php:36 smarty.c:23 smarty.c:374
 msgid "Change your account data"
 msgstr "Změnit vaše údaje"
 
-#: ../app/controllers/users_controller.php:42
+#: ../app/controllers/users_controller.php:47
 msgid "Your account data has been updated"
 msgstr "Údaje vašeho účtu byly změněny"
 
-#: ../app/controllers/users_controller.php:48
-#: smarty.c:26
-#: smarty.c:341
+#: ../app/controllers/users_controller.php:53 smarty.c:26 smarty.c:377
 msgid "Change your password"
 msgstr "Změna vašeho hesla"
 
-#: ../app/controllers/users_controller.php:52
+#: ../app/controllers/users_controller.php:57
 msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
 #: ../app/controllers/logins_controller.php:15
 #, php-format
-msgid "Wrong login and password combination. <a href=\"%s\">Have you forgotten your password?</a>"
-msgstr "Nesprávna kombinace loginu a hesla. <a href=\"%s\">Zapomněl jste své heslo?</a>"
+msgid ""
+"Wrong login and password combination. <a href=\"%s\">Have you forgotten your "
+"password?</a>"
+msgstr ""
+"Nesprávna kombinace loginu a hesla. <a href=\"%s\">Zapomněl jste své heslo?</"
+"a>"
 
 #: ../app/controllers/logins_controller.php:17
 msgid "Wrong login and password combination"
@@ -384,8 +457,12 @@ msgid "What is this site all about"
 msgstr "O čem jsou tyto stránky"
 
 #: ../app/controllers/sitemaps_controller.php:38
-msgid "If you don't have yet an account on this site, this is absolutely must to do procedure"
-msgstr "Pokud ješte nemáte účet na těchto stránkách, měli byste se rozhodně zaregistrovat "
+msgid ""
+"If you don't have yet an account on this site, this is absolutely must to do "
+"procedure"
+msgstr ""
+"Pokud ješte nemáte účet na těchto stránkách, měli byste se rozhodně "
+"zaregistrovat "
 
 #: ../app/controllers/sitemaps_controller.php:43
 msgid "Sign in to our site"
@@ -395,9 +472,7 @@ msgstr "Přihlaste se na naše stránky"
 msgid "We offer an awesome restful API"
 msgstr "Nabízíme skvělé restful API"
 
-#: ../app/controllers/sitemaps_controller.php:66
-#: smarty.c:272
-#: smarty.c:587
+#: ../app/controllers/sitemaps_controller.php:66 smarty.c:308 smarty.c:659
 msgid "Sitemap"
 msgstr "Mapa stránek"
 
@@ -419,9 +494,8 @@ msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
 #: ../app/controllers/main_controller.php:11
-#: ../atk14/skelet/app/controllers/main_controller.php:11
-#: smarty.c:257
-#: smarty.c:572
+#: ../atk14/skelet/app/controllers/main_controller.php:11 smarty.c:293
+#: smarty.c:644
 msgid "Welcome!"
 msgstr "Vítejte"
 
@@ -433,6 +507,10 @@ msgstr "O %s"
 #: ../app/controllers/main_controller.php:30
 msgid "The message has been sent to us. We will reply as soon as we can."
 msgstr "Zpráva nám byla odeslána. Odpovíme vám jak nejrychleji umíme."
+
+#: ../app/controllers/news_controller.php:7
+msgid "News"
+msgstr "Novinky"
 
 #: ../app/controllers/application_base.php:9
 msgid "Page not found"
@@ -454,15 +532,15 @@ msgstr "Toto pole je povinné"
 msgid "Enter a valid value."
 msgstr "Vložta správnou hodnotu."
 
-#: ../atk14/src/forms/fields/multiple_choice_field.php:24
+#: ../atk14/src/forms/fields/multiple_choice_field.php:21
 msgid "Select a valid choice. %(value)s is not one of the available choices."
 msgstr "Vyberte platnou hodnotu. %(value) není jedna z nabízených možností."
 
-#: ../atk14/src/forms/fields/multiple_choice_field.php:25
+#: ../atk14/src/forms/fields/multiple_choice_field.php:22
 msgid "Enter a list of values."
 msgstr "Zadejte seznam hodnot."
 
-#: ../atk14/src/forms/fields/multiple_choice_field.php:26
+#: ../atk14/src/forms/fields/multiple_choice_field.php:23
 msgid "Please, choose the right options."
 msgstr "Prosím, vyberte správnou možnost."
 
@@ -494,7 +572,8 @@ msgstr "Zadejde platné datum."
 
 #: ../atk14/src/forms/fields/choice_field.php:19
 msgid "Select a valid choice. That choice is not one of the available choices."
-msgstr "Vyberte platnou hodnotu. Vybraná hodnota není ani jedna z nabízených hodnot."
+msgstr ""
+"Vyberte platnou hodnotu. Vybraná hodnota není ani jedna z nabízených hodnot."
 
 #: ../atk14/src/forms/fields/choice_field.php:20
 msgid "Please, choose the right option."
@@ -528,19 +607,25 @@ msgstr "Ověřte, že tento soubor je obrázek."
 
 #: ../atk14/src/forms/fields/image_field.php:24
 msgid "Ensure this image is %width_required% pixels wide (it is %width%)."
-msgstr "Ujistěte se, že je šířka obrázku %width_required% bodů (teď je šířoký %width%)."
+msgstr ""
+"Ujistěte se, že je šířka obrázku %width_required% bodů (teď je šířoký %width"
+"%)."
 
 #: ../atk14/src/forms/fields/image_field.php:25
 msgid "Ensure this image is %height_required% pixels high (it is %height%)."
-msgstr "Ujistěte se, že výška obrázku je %height_required% bodů (teď je vysoký %height%)."
+msgstr ""
+"Ujistěte se, že výška obrázku je %height_required% bodů (teď je vysoký "
+"%height%)."
 
 #: ../atk14/src/forms/fields/image_field.php:27
 msgid "Ensure this image is at most %max% pixels wide (it is %width%)."
-msgstr "Ujistěte se, že šířka obrázku nepřekročí %max% bodů (teď je šíroký %width%)."
+msgstr ""
+"Ujistěte se, že šířka obrázku nepřekročí %max% bodů (teď je šíroký %width%)."
 
 #: ../atk14/src/forms/fields/image_field.php:28
 msgid "Ensure this image is at most %max% pixels high (it is %height%)."
-msgstr "Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký %height%)."
+msgstr ""
+"Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký %height%)."
 
 #: ../atk14/src/forms/fields/image_field.php:29
 msgid "Ensure this image is at least %min% pixels wide (it is %width%)."
@@ -558,9 +643,15 @@ msgstr "Ujistěte se, že je obrázek v požadovaném formátu"
 msgid "Enter a valid date, hours and minutes."
 msgstr "Zadejte platné datum, hodiny a minuty."
 
-#: ../atk14/src/forms/fields/file_field.php:27
+#: ../atk14/src/forms/fields/file_field.php:31
 msgid "Ensure this file has at most %max_file_size% bytes (it has %file_size%)"
-msgstr "Ujistěte se, že velikost souboru nepřekročí %max_file_size% bytů (teď má %file_size%)"
+msgstr ""
+"Ujistěte se, že velikost souboru nepřekročí %max_file_size% bytů (teď má "
+"%file_size%)"
+
+#: ../atk14/src/forms/fields/file_field.php:32
+msgid "Disallowed file type (%mime_type%)"
+msgstr "Nepovolený typ souboru (%mime_type%)"
 
 #: ../atk14/src/forms/fields/email_field.php:20
 msgid "Enter a valid e-mail address."
@@ -570,15 +661,15 @@ msgstr "Zadejte platnou e-mailovou adresu."
 msgid "Enter a valid IP address."
 msgstr "Vložte platnou IP adresu."
 
-#: ../atk14/src/atk14/atk14_form.php:189
-msgid "The form contains errors, therefor it cannot be processed."
+#: ../atk14/src/atk14/atk14_form.php:186
+msgid "The form contains errors, therefore it cannot be processed."
 msgstr "Formulář obsahuje chyby, proto nemůže být zpracován."
 
-#: ../atk14/src/atk14/atk14_form.php:447
+#: ../atk14/src/atk14/atk14_form.php:455
 msgid "Please, submit the form again"
 msgstr "Prosím, odešlete formulář znovu."
 
-#: ../atk14/src/atk14/atk14_sorting.php:142
+#: ../atk14/src/atk14/atk14_sorting.php:131
 msgid "Sort table by this column"
 msgstr "Třídit tabulku podle tohoto sloupce"
 
@@ -618,7 +709,9 @@ msgstr "j.n.Y H:i"
 
 #: ../atk14/src/atk14/atk14_locale.php:103
 msgid "atk14.parse_datetime_pattern"
-msgstr "/^(?<day>[0-9]{1,2})\\.(?<month>[0-9]{1,2})\\.(?<year>[0-9]{4}) (?<hours>[0-9]{2}):(?<minutes>[0-9]{2})$/"
+msgstr ""
+"/^(?<day>[0-9]{1,2})\\.(?<month>[0-9]{1,2})\\.(?<year>[0-9]{4}) (?"
+"<hours>[0-9]{2}):(?<minutes>[0-9]{2})$/"
 
 #: ../atk14/src/atk14/atk14_locale.php:116
 msgid "atk14.datetime_with_seconds_format"
@@ -626,11 +719,9 @@ msgstr "j.n.Y H:i:s"
 
 #: ../atk14/src/atk14/atk14_locale.php:128
 msgid "atk14.parse_datetime_with_seconds_pattern"
-msgstr "/^(?<day>[0-9]{1,2})\\.(?<month>[0-9]{1,2})\\.(?<year>[0-9]{4}) (?<hours>[0-9]{2}):(?<minutes>[0-9]{2}):(?<seconds>[0-9]{2})$/"
-
-#: ../atk14/skelet/app/forms/creatures/index_form.php:7
-msgid "Search term"
-msgstr "Hledat výraz"
+msgstr ""
+"/^(?<day>[0-9]{1,2})\\.(?<month>[0-9]{1,2})\\.(?<year>[0-9]{4}) (?"
+"<hours>[0-9]{2}):(?<minutes>[0-9]{2}):(?<seconds>[0-9]{2})$/"
 
 #: ../atk14/skelet/app/forms/creatures/create_new_form.php:10
 msgid "Description"
@@ -670,72 +761,70 @@ msgstr "Příšerka byla úspěšně změněna."
 msgid "my beautiful application"
 msgstr "moje nádherná aplikace"
 
-#: smarty.c:2
-#: smarty.c:317
+#: smarty.c:2 smarty.c:353
 msgid "Current Password"
 msgstr "Aktuální heslo"
 
-#: smarty.c:5
-#: smarty.c:320
+#: smarty.c:5 smarty.c:356
 msgid "New Password"
 msgstr "Nové heslo"
 
-#: smarty.c:17
-#: smarty.c:332
+#: smarty.c:17 smarty.c:368
 msgid "Are you admin?"
 msgstr "Jste administrátor?"
 
-#: smarty.c:20
-#: smarty.c:335
+#: smarty.c:20 smarty.c:371
 msgid "Yes, you are"
 msgstr "Ano, jste"
 
-#: smarty.c:29
-#: smarty.c:32
-#: smarty.c:344
-#: smarty.c:347
+#: smarty.c:29 smarty.c:242 smarty.c:380 smarty.c:593
 msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr "Zaslal <em>%1</em> dne <time datetime=\"%2\">%3</time>"
 
-#: smarty.c:35
-#: smarty.c:350
+#: smarty.c:32 smarty.c:383
 msgid "News archive"
 msgstr "Archív novinek"
 
-#: smarty.c:38
-#: smarty.c:353
+#: smarty.c:35 smarty.c:386
 msgid "You are signed in as <em>%1</em>."
 msgstr "Jste přihlášen jako <em>%1</em>."
 
-#: smarty.c:41
-#: smarty.c:356
+#: smarty.c:38 smarty.c:389
 msgid "Click on the button to sign out."
 msgstr "Pro odhlášení klikněte na tlačítko"
 
-#: smarty.c:44
-#: smarty.c:359
+#: smarty.c:41 smarty.c:392
 msgid "Have you forgotten password?"
 msgstr "Zapomněl jste heslo?"
 
-#: smarty.c:47
-#: smarty.c:362
-msgid "Please note that default administration access is admin/admin. Be a smart guy and change admin's password on production promptly."
-msgstr "Mějte prosím na paměti, že administrátorský přístup je admin/admin. Buďtě chytrý chlapík a v produkčním prostředí změnte okamžitě adminovo heslo."
+#: smarty.c:44 smarty.c:395
+msgid ""
+"Please note that default administration access is admin/admin. Be a smart "
+"guy and change admin's password on production promptly."
+msgstr ""
+"Mějte prosím na paměti, že administrátorský přístup je admin/admin. Buďtě "
+"chytrý chlapík a v produkčním prostředí změnte okamžitě adminovo heslo."
 
-#: smarty.c:50
-#: smarty.c:86
-#: smarty.c:365
-#: smarty.c:401
+#: smarty.c:47 smarty.c:398
+msgid ""
+"At the moment no one knows the actual user's password because passwords are "
+"not stored in plain text form. In this form you can set a new password to "
+"the user <em>%1</em>"
+msgstr ""
+"Momentálně nikdo nezná heslo uživatele, protože hesla nejsou ukládána v "
+"čitelné podobě. V tomto formuláři můžete nastavit nové heslo uživateli <em>"
+"%1</em>"
+
+#: smarty.c:50 smarty.c:113 smarty.c:146 smarty.c:401 smarty.c:464
+#: smarty.c:497
 msgid "Edit"
 msgstr "Změnit"
 
-#: smarty.c:53
-#: smarty.c:368
+#: smarty.c:56 smarty.c:407
 msgid "Sign in as this user"
 msgstr "Přihlásit se jako tento uživatel"
 
-#: smarty.c:56
-#: smarty.c:371
+#: smarty.c:59 smarty.c:410
 msgid ""
 "You are about to permanently delete user %1\n"
 "\tAre you sure about that?"
@@ -743,183 +832,177 @@ msgstr ""
 "Chystáte se nevratně smazat uživatele %1\n"
 "\tJste si skutečně jistý?"
 
-#: smarty.c:59
-#: smarty.c:374
+#: smarty.c:62 smarty.c:413
 msgid "Delete user"
 msgstr "Smazat uživatele"
 
-#: smarty.c:62
-#: smarty.c:377
+#: smarty.c:65 smarty.c:416
 msgid "Search users"
 msgstr "Hledat uživatele"
 
-#: smarty.c:65
-#: smarty.c:380
-msgid "No record has been found"
-msgstr "Nebyl nalezen žádný záznam"
+#: smarty.c:68 smarty.c:419
+msgid "No record has been found."
+msgstr "Nebyl nalezen žádný záznam."
 
-#: smarty.c:68
-#: smarty.c:383
+#: smarty.c:71 smarty.c:422
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: smarty.c:80
-#: smarty.c:119
-#: smarty.c:395
-#: smarty.c:434
+#: smarty.c:83 smarty.c:92 smarty.c:167 smarty.c:434 smarty.c:443 smarty.c:518
 msgid "Created at"
 msgstr "Vytvořeno"
 
-#: smarty.c:83
-#: smarty.c:398
+#: smarty.c:86 smarty.c:437
 msgid "Updated at"
 msgstr "Změněno"
 
-#: smarty.c:89
-#: smarty.c:404
-msgid ""
-"Are you sure to delete news item\n"
-"%1?"
-msgstr ""
-"Jste si jistý smazáním novinky\n"
-"%1?"
+#: smarty.c:89 smarty.c:128 smarty.c:440 smarty.c:479
+msgid "The list is empty."
+msgstr "Seznam je prázdný."
 
-#: smarty.c:92
-#: smarty.c:407
-msgid "Delete news"
-msgstr "Smazat novinku"
-
-#: smarty.c:95
-#: smarty.c:410
-msgid "Search news items"
-msgstr "Hladat v novinkách"
-
-#: smarty.c:98
-#: smarty.c:413
-msgid "Add New"
-msgstr "Přidat novinku"
-
-#: smarty.c:101
-#: smarty.c:416
-msgid "The list is empty"
-msgstr "Seznam je prázdný"
-
-#: smarty.c:107
-#: smarty.c:422
-msgid "Author"
-msgstr "Autor"
-
-#: smarty.c:110
-#: smarty.c:425
-msgid "Date"
-msgstr "Datum"
-
-#: smarty.c:113
-#: smarty.c:428
-msgid "Actions"
-msgstr "Akce"
-
-#: smarty.c:116
-#: smarty.c:431
-msgid "No records found."
-msgstr "Nebyl nalezen žádný záznam."
-
-#: smarty.c:122
-#: smarty.c:437
+#: smarty.c:95 smarty.c:446
 msgid "User"
 msgstr "Uživatel"
 
-#: smarty.c:125
-#: smarty.c:245
-#: smarty.c:440
-#: smarty.c:560
-msgid "E-mail"
+#: smarty.c:98 smarty.c:281 smarty.c:449 smarty.c:632
+msgid "Email"
 msgstr "E-mail"
 
-#: smarty.c:128
-#: smarty.c:443
+#: smarty.c:101 smarty.c:452
 msgid "Created from address"
 msgstr "Vytvořeno z adresy"
 
-#: smarty.c:131
-#: smarty.c:446
+#: smarty.c:104 smarty.c:455
 msgid "Password recovered?"
 msgstr "Heslo obnoveno?"
 
-#: smarty.c:134
-#: smarty.c:449
+#: smarty.c:107 smarty.c:458
 msgid "Recovered at"
 msgstr "Obnoveno dne"
 
-#: smarty.c:137
-#: smarty.c:452
+#: smarty.c:110 smarty.c:461
 msgid "Recovered from address"
 msgstr "Obnoveno z adresy"
 
-#: smarty.c:140
-#: smarty.c:455
+#: smarty.c:116 smarty.c:467
+msgid ""
+"Are you sure to delete article item\n"
+"%1?"
+msgstr ""
+"Určitě chcete smazat článek\n"
+"%1?"
+
+#: smarty.c:119 smarty.c:470
+msgid "Delete article"
+msgstr "Smazat článek"
+
+#: smarty.c:122 smarty.c:473
+msgid "Search articles"
+msgstr "Vyhledat články"
+
+#: smarty.c:125 smarty.c:158 smarty.c:476 smarty.c:509
+msgid "Add New"
+msgstr "Přidat novinku"
+
+#: smarty.c:134 smarty.c:485
+msgid "Author"
+msgstr "Autor"
+
+#: smarty.c:137 smarty.c:488
+msgid "Date"
+msgstr "Datum"
+
+#: smarty.c:143 smarty.c:494
+msgid "Actions"
+msgstr "Akce"
+
+#: smarty.c:149 smarty.c:500
+msgid ""
+"You are about to permanently delete tag %1\n"
+"\tAre you sure about that?"
+msgstr ""
+"Chystáte se smazat štítek %1\n"
+"\tUrčite to chcete?"
+
+#: smarty.c:152 smarty.c:503
+msgid "Delete tag"
+msgstr "Smazat štítek"
+
+#: smarty.c:155 smarty.c:506
+msgid "Search tags"
+msgstr "Vyhledat štítky"
+
+#: smarty.c:161 smarty.c:512
+msgid "No tag has been found."
+msgstr "Nebyl nalezen žádný štítek."
+
+#: smarty.c:170 smarty.c:521
 msgid "Welcome administrator!"
 msgstr "Vítejte administrátore!"
 
-#: smarty.c:143
-#: smarty.c:458
+#: smarty.c:173 smarty.c:524
 msgid "The URL is not valid."
 msgstr "Toto URL není platné"
 
-#: smarty.c:146
-#: smarty.c:461
+#: smarty.c:176 smarty.c:527
 msgid "In the form bellow set the new password for user <em>%1</em>"
 msgstr "Do formuláře níže zadejte nové heslo pro uživatele <em>%1</em>"
 
-#: smarty.c:149
-#: smarty.c:464
+#: smarty.c:179 smarty.c:530
 msgid "The address has expired or already been used."
 msgstr "Tato adresa už není platné nebo již byla použita."
 
-#: smarty.c:152
-#: smarty.c:467
-msgid "The password recovery link has been sent to your e-mail address."
-msgstr "Odkaz pro obnovu hesla byl odeslán na vaší e-mailovou adresu"
+#: smarty.c:182 smarty.c:533
+msgid "The password recovery link has been sent to your email address."
+msgstr "Odkaz pro obnovení hesla byl odeslán na vaši e-mailovou adresu."
 
-#: smarty.c:155
-#: smarty.c:470
-msgid "If you don't receive instructions within a few minutes, check your email's spam and junk filters."
-msgstr "Pokud neobdržíte instrukce do několika minut, zkontrolujte spamovou složku a spamová filtry."
+#: smarty.c:185 smarty.c:536
+msgid ""
+"If you don't receive instructions within a few minutes, check your email's "
+"spam and junk filters."
+msgstr ""
+"Pokud neobdržíte instrukce do několika minut, zkontrolujte spamovou složku a "
+"spamová filtry."
 
-#: smarty.c:158
-#: smarty.c:473
+#: smarty.c:188 smarty.c:539
 msgid "Error 403: Forbidden"
 msgstr "Chyba 403: Zakázáno"
 
-#: smarty.c:161
-#: smarty.c:476
+#: smarty.c:191 smarty.c:542
 msgid "You don`t have a permission to access <em>%1</em> on this server."
 msgstr "Nemáte oprávnění k přístupu <em>%1</em> na tomto serveru."
 
-#: smarty.c:164
-#: smarty.c:176
-#: smarty.c:479
-#: smarty.c:491
+#: smarty.c:194 smarty.c:221 smarty.c:545 smarty.c:572
 msgid "Go to the homepage"
 msgstr "Jděte na homepage"
 
-#: smarty.c:167
-#: smarty.c:482
+#: smarty.c:197 smarty.c:548
+msgid "Currently you are not logged as an admin user."
+msgstr "Momentálně nejste přihlášen jako administrátor"
+
+#: smarty.c:200 smarty.c:206 smarty.c:551 smarty.c:557
+msgid "or"
+msgstr "nebo"
+
+#: smarty.c:203 smarty.c:554
+msgid "Sign in as an admin user"
+msgstr "Přihlaste se jako administrátor"
+
+#: smarty.c:212 smarty.c:563
 msgid "Error 404: Page not found"
 msgstr "Chyba 404: Stránka nebyla nalezena."
 
-#: smarty.c:170
-#: smarty.c:485
+#: smarty.c:215 smarty.c:566
 msgid "We are deeply sorry, but the page on the URI <em>%1</em> wasn't found."
-msgstr "Je nám velmi líto, ale stránka s touto adresou URI <em>%1</em> nebyla nalezena."
+msgstr ""
+"Je nám velmi líto, ale stránka s touto adresou URI <em>%1</em> nebyla "
+"nalezena."
 
-#: smarty.c:173
-#: smarty.c:488
+#: smarty.c:218 smarty.c:569
 msgid "Please, write us to %1 if you think this is our mistake."
 msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
 
-#: smarty.c:179
-#: smarty.c:494
+#: smarty.c:224 smarty.c:575
 msgid ""
 "Thanks for signing up for %1!\n"
 "\n"
@@ -937,12 +1020,12 @@ msgstr ""
 "e-mail: %3\n"
 "jméno: %4\n"
 
-#: smarty.c:182
-#: smarty.c:497
+#: smarty.c:227 smarty.c:578
 msgid ""
 "Hello %1!\n"
 "\n"
-"Have you forgotten you password? To reset your password, click on the link below\n"
+"Have you forgotten you password? To reset your password, click on the link "
+"below\n"
 "\n"
 "%2\n"
 "\n"
@@ -950,14 +1033,14 @@ msgid ""
 msgstr ""
 "Dobrý den %1!\n"
 "\n"
-"Zapoměl jste přihlašovací heslo? Pro nastavení nového hesla klikněte na odkaz\n"
+"Zapoměl jste přihlašovací heslo? Pro nastavení nového hesla klikněte na "
+"odkaz\n"
 "\n"
 "%2\n"
 "\n"
 "Mějte prosím na paměti, ze tento odkaz je platný pouze 2 hodiny."
 
-#: smarty.c:185
-#: smarty.c:500
+#: smarty.c:230 smarty.c:581
 msgid ""
 "Hello %1!\n"
 "\n"
@@ -971,39 +1054,25 @@ msgstr ""
 "\n"
 "Změna byla realizována na základě požadavku z IP adresy %2"
 
-#: smarty.c:188
-#: smarty.c:503
-msgid "We are deeply sorry but you are not authorized to see this page!"
-msgstr "Je nám nesmírně líto, ale nejste autorizován k prohlížení této stránky!"
+#: smarty.c:233 smarty.c:584
+msgid ""
+"This site runs on <a href=\"http://www.atk14.net/\">ATK14 Framework</a>, for "
+"now and ever after"
+msgstr ""
+"Tato aplikace běží na <a href=\"http://www.atk14.net/\">frameworku ATK14</a> "
+"až na věky"
 
-#: smarty.c:191
-#: smarty.c:506
-msgid "Currently you are not logged as an admin user."
-msgstr "Momentálně nejste přihlášen jako administrátor"
-
-#: smarty.c:194
-#: smarty.c:509
-msgid "Sign in as an admin user"
-msgstr "Přihlaste se jako administrátor"
-
-#: smarty.c:197
-#: smarty.c:512
-msgid "This site runs on <a href=\"http://www.atk14.net/\">ATK14 Framework</a>, for now and ever after"
-msgstr "Tato aplikace běží na <a href=\"http://www.atk14.net/\">frameworku ATK14</a> až na věky"
-
-#: smarty.c:200
-#: smarty.c:515
+#: smarty.c:236 smarty.c:587
 msgid "Go to home page"
 msgstr "Přejděte na úvodní stránku"
 
-#: smarty.c:203
-#: smarty.c:518
+#: smarty.c:239 smarty.c:590
 msgid ""
 "Best regards\n"
 "\n"
 "%1 Support Team\n"
 "web: %2\n"
-"e-mail: %3"
+"email: %3"
 msgstr ""
 "S pozdravem\n"
 "\n"
@@ -1011,159 +1080,237 @@ msgstr ""
 "web: %2\n"
 "e-mail: %3"
 
-#: smarty.c:206
-#: smarty.c:521
+#: smarty.c:245 smarty.c:596
 msgid "Examples:"
 msgstr "Příklady"
 
-#: smarty.c:209
-#: smarty.c:524
+#: smarty.c:248 smarty.c:599
 msgid "administrator"
 msgstr "administrátor"
 
-#: smarty.c:212
-#: smarty.c:527
+#: smarty.c:251 smarty.c:602
 msgid "Profile"
 msgstr "Profil"
 
-#: smarty.c:227
-#: smarty.c:542
+#: smarty.c:266 smarty.c:617
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr "Zde neleznete seznam příkazů v <em>%1</em>."
 
-#: smarty.c:230
-#: smarty.c:545
+#: smarty.c:269 smarty.c:620
 msgid "The following difficulties have occurred during the form processing:"
 msgstr "Během zpracování formuláře došlo k následujícím chybám:"
 
-#: smarty.c:233
-#: smarty.c:548
-msgid "Some of the items were filled incorrectly. Please, check the form and correct the errors."
-msgstr "Některé položky nebyly vyplněny správně. Zkontrolujte formulář a opravte chyby."
+#: smarty.c:272 smarty.c:623
+msgid ""
+"Some of the items were filled incorrectly. Please, check the form and "
+"correct the errors."
+msgstr ""
+"Některé položky nebyly vyplněny správně. Zkontrolujte formulář a opravte "
+"chyby."
 
-#: smarty.c:236
-#: smarty.c:551
-msgid "If you have any question, contact us through the following form. We will reply to you as soon as we can."
-msgstr "Pokud máte nějakou otázku, kontaktujte nás prostřednictvím tohoto formuláře. Odpovíme vám, jak nejdříve budeme moct."
+#: smarty.c:275 smarty.c:626
+msgid ""
+"If you have any question, contact us through the following form. We will "
+"reply to you as soon as we can. Below the form you'll find other contact "
+"information."
+msgstr ""
+"Pokud máte nějaký dotaz, napište nám prostřednictvím tohoto formuláře. "
+"Odpovíme, jak nejdříve to bude možné. Pod formulářem najdete naše další "
+"kontaktní údaje."
 
-#: smarty.c:239
-#: smarty.c:554
-msgid "Below the form you'll find other contact information."
-msgstr "Pod tímto formulářem najdete další kontaktní informace"
-
-#: smarty.c:242
-#: smarty.c:557
+#: smarty.c:278 smarty.c:629
 msgid "%1 Team"
 msgstr "% Tým"
 
-#: smarty.c:248
-#: smarty.c:563
+#: smarty.c:284 smarty.c:635
 msgid "Phone"
 msgstr "Telefon"
 
-#: smarty.c:251
-#: smarty.c:566
+#: smarty.c:287 smarty.c:638
 msgid "Opening hours"
 msgstr "Otevírací hodiny"
 
-#: smarty.c:254
-#: smarty.c:569
+#: smarty.c:290 smarty.c:641
 msgid "From dusk till dawn"
 msgstr "Od soumraku do úsvitu"
 
-#: smarty.c:260
-#: smarty.c:575
+#: smarty.c:296 smarty.c:647
 msgid ""
-"<em>ATK14 Skelet</em> is a very basic application written on top of <a href=\"http://atk14.net\">the ATK14 Framework</a>.\n"
-"\t\t\tAs the Skelet is simple and minimal it may be usefull for developers as a good start point for any other application."
+"<em>ATK14 Skelet</em> is a very basic application written on top of <a href="
+"\"http://atk14.net\">the ATK14 Framework</a>.\n"
+"\t\t\tAs the Skelet is simple and minimal it may be usefull for developers "
+"as a good start point for any other application."
 msgstr ""
-"<em>ATK14 Skelet</em> je základní aplikace napsaná ve <a href=\"http://atk14.net\">frameworku ATK14</a>.\n"
-"\t\t\tSkelet je jednoduchý a minimalistický, proto může být pro webového vývojáře dobrým startovacím místem pro jakoukoli další aplikaci."
+"<em>ATK14 Skelet</em> je základní aplikace napsaná ve <a href=\"http://atk14."
+"net\">frameworku ATK14</a>.\n"
+"\t\t\tSkelet je jednoduchý a minimalistický, proto může být pro webového "
+"vývojáře dobrým startovacím místem pro jakoukoli další aplikaci."
 
-#: smarty.c:263
-#: smarty.c:578
+#: smarty.c:299 smarty.c:650
 msgid "The Skelet contains mainly"
 msgstr "Skelet obsahuje hlavně"
 
-#: smarty.c:266
-#: smarty.c:581
+#: smarty.c:302 smarty.c:653
 msgid "News section"
 msgstr "Sekce s novinkama"
 
-#: smarty.c:269
-#: smarty.c:584
+#: smarty.c:305 smarty.c:656
 msgid "User registration"
 msgstr "Registrace uživatele"
 
-#: smarty.c:275
-#: smarty.c:590
+#: smarty.c:311 smarty.c:662
 msgid "Localization"
 msgstr "Lokalizace"
 
-#: smarty.c:278
-#: smarty.c:593
+#: smarty.c:314 smarty.c:665
 msgid "English"
 msgstr "Anglicky"
 
-#: smarty.c:281
-#: smarty.c:596
+#: smarty.c:317 smarty.c:668
 msgid "Czech"
 msgstr "Česky"
 
-#: smarty.c:284
-#: smarty.c:599
+#: smarty.c:320 smarty.c:671
 msgid "Installation"
 msgstr "Instalace"
 
-#: smarty.c:287
-#: smarty.c:602
-msgid "If you are brave enough to install the Skelet on your computer, check out <a href=\"https://github.com/yarri/Atk14Skelet/blob/master/README.md#installation\">the installation instrunction.</a>"
-msgstr "Pokud si troufáte na instalaci Skeletu na váš počítač, přečtěte si <a href=\"https://github.com/yarri/Atk14Skelet/blob/master/README.md#installation\">instalační instrukce.</a>"
+#: smarty.c:323 smarty.c:674
+msgid ""
+"If you are brave enough to install the Skelet on your computer, check out <a "
+"href=\"https://github.com/yarri/Atk14Skelet/blob/master/README."
+"md#installation\">the installation instrunction.</a>"
+msgstr ""
+"Pokud si troufáte na instalaci Skeletu na váš počítač, přečtěte si <a href="
+"\"https://github.com/yarri/Atk14Skelet/blob/master/README.md#installation"
+"\">instalační instrukce.</a>"
 
-#: smarty.c:290
-#: smarty.c:605
-msgid "If you want to help us to improve the Skelet, <a href=\"https://github.com/yarri/Atk14Skelet\">fork it on GitHub.</a>"
-msgstr "Pokud nám chcete pomoct s vývojem Skeletu, <a href=\"https://github.com/yarri/Atk14Skelet\">forkněte si ho na GitHubu.</a>"
+#: smarty.c:326 smarty.c:677
+msgid ""
+"If you want to help us to improve the Skelet, <a href=\"https://github.com/"
+"yarri/Atk14Skelet\">fork it on GitHub.</a>"
+msgstr ""
+"Pokud nám chcete pomoct s vývojem Skeletu, <a href=\"https://github.com/"
+"yarri/Atk14Skelet\">forkněte si ho na GitHubu.</a>"
 
-#: smarty.c:293
-#: smarty.c:608
+#: smarty.c:329 smarty.c:680
 msgid "Further Reading & Resources"
 msgstr "Další čtení a zdroje"
 
-#: smarty.c:296
-#: smarty.c:611
+#: smarty.c:332 smarty.c:683
 msgid "ATK14 Project"
 msgstr "ATK14 Projekt"
 
-#: smarty.c:299
-#: smarty.c:614
+#: smarty.c:335 smarty.c:686
 msgid "ATK14 Book"
 msgstr "Kniha ATK14"
 
-#: smarty.c:302
-#: smarty.c:617
+#: smarty.c:338 smarty.c:689
 msgid "API Reference"
 msgstr "API reference"
 
-#: smarty.c:305
-#: smarty.c:620
+#: smarty.c:341 smarty.c:692
 msgid "ATK14 on GitHub"
 msgstr "ATK14 na GitHubu"
 
-#: smarty.c:308
-#: smarty.c:623
+#: smarty.c:344 smarty.c:695
 msgid "ATK14 Skelet on GitHub"
 msgstr "ATK14 Skelet na GitHubu"
 
-#: smarty.c:311
-#: smarty.c:626
+#: smarty.c:347 smarty.c:698
 msgid "The ATK14 Skelet at age 5"
 msgstr "ATK14 Skelet ve věku 5 let"
 
-#: smarty.c:314
-#: smarty.c:629
+#: smarty.c:350 smarty.c:701
 msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
 msgstr "obr.1 <em>Stvoření prosí o fork na GitHubu</em>"
+
+#~ msgid "E-mail address"
+#~ msgstr "E-mailová adresa"
+
+#~ msgid "Login or e-mail address"
+#~ msgstr "Login nebo e-mailová adresa"
+
+#~ msgid "Your e-mail"
+#~ msgstr "Váš e-mail"
+
+#~ msgid "There is not such user with the given login or e-mail"
+#~ msgstr "Tady není uživatel s takovým loginem nebo e-mailem."
+
+#~ msgid "Access denied"
+#~ msgstr "Přístup byl odmítnut"
+
+#~ msgid "Listing News"
+#~ msgstr "Sezam novinek"
+
+#~ msgid "Create news entry"
+#~ msgstr "Vytvořit nový záznam"
+
+#~ msgid "The news entry has been created successfuly"
+#~ msgstr "Novinka byla úspěšně vytvořena"
+
+#~ msgid "The news entry has been updated successfuly"
+#~ msgstr "Novinka byla úspěšně změněna"
+
+#~ msgid "The news entry has been deleted"
+#~ msgstr "Novinka byla smazána"
+
+#~ msgid "The form contains errors, therefor it cannot be processed."
+#~ msgstr "Formulář obsahuje chyby, proto nemůže být zpracován."
+
+#~ msgid "No record has been found"
+#~ msgstr "Nebyl nalezen žádný záznam"
+
+#~ msgid ""
+#~ "Are you sure to delete news item\n"
+#~ "%1?"
+#~ msgstr ""
+#~ "Jste si jistý smazáním novinky\n"
+#~ "%1?"
+
+#~ msgid "Delete news"
+#~ msgstr "Smazat novinku"
+
+#~ msgid "Search news items"
+#~ msgstr "Hladat v novinkách"
+
+#~ msgid "The list is empty"
+#~ msgstr "Seznam je prázdný"
+
+#~ msgid "No records found."
+#~ msgstr "Nebyl nalezen žádný záznam."
+
+#~ msgid "E-mail"
+#~ msgstr "E-mail"
+
+#~ msgid "The password recovery link has been sent to your e-mail address."
+#~ msgstr "Odkaz pro obnovu hesla byl odeslán na vaší e-mailovou adresu"
+
+#~ msgid "We are deeply sorry but you are not authorized to see this page!"
+#~ msgstr ""
+#~ "Je nám nesmírně líto, ale nejste autorizován k prohlížení této stránky!"
+
+#~ msgid ""
+#~ "Best regards\n"
+#~ "\n"
+#~ "%1 Support Team\n"
+#~ "web: %2\n"
+#~ "e-mail: %3"
+#~ msgstr ""
+#~ "S pozdravem\n"
+#~ "\n"
+#~ "%1 Support Team\n"
+#~ "web: %2\n"
+#~ "e-mail: %3"
+
+#~ msgid ""
+#~ "If you have any question, contact us through the following form. We will "
+#~ "reply to you as soon as we can."
+#~ msgstr ""
+#~ "Pokud máte nějakou otázku, kontaktujte nás prostřednictvím tohoto "
+#~ "formuláře. Odpovíme vám, jak nejdříve budeme moct."
+
+#~ msgid "Below the form you'll find other contact information."
+#~ msgstr "Pod tímto formulářem najdete další kontaktní informace"
 
 #~ msgid "Create a new creature"
 #~ msgstr "Vytvořit novou příšeru"
