@@ -9,7 +9,7 @@ Installation
 ------------
 
 ```bash
-git clone https://github.com/yarri/Atk14Skelet.git
+git clone https://github.com/atk14/Atk14Skelet.git
 cd Atk14Skelet
 git submodule init
 git submodule update
@@ -27,7 +27,7 @@ Start the development server
 ./scripts/server
 ```
 
-and you may found the running skeleton on http://localhost:8000/
+and you may find the running skeleton on http://localhost:8000/
 
 Installing the skeleton as a virtual host on Apache web server
 --------------------------------------------------------------
