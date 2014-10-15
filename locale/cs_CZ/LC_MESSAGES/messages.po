@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2014-10-15 08:44+0200\n"
-"PO-Revision-Date: 2014-10-15 09:30+0100\n"
+"POT-Creation-Date: 2014-10-15 09:45+0200\n"
+"PO-Revision-Date: 2014-10-15 09:46+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "MIME-Version: 1.0\n"
@@ -149,10 +149,12 @@ msgid "Tags"
 msgstr "Štítky"
 
 #: ../app/forms/admin/articles/create_new_form.php:23
+#, php-format
 msgid ""
-"Mention tag <em>news</em> when this article should be displayed in the news "
+"Mention tag <em>%s</em> when this article should be displayed in the news "
 "section"
 msgstr ""
+"Uveďte štítek <em>%s</em>, pokud se má tento článek objevit mezi novinkama"
 
 #: ../app/forms/admin/tags/create_new_form.php:7
 #: ../app/controllers/admin/tags_controller.php:49
