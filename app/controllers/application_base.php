@@ -136,8 +136,8 @@ class ApplicationBaseController extends Atk14Controller{
 	 * </code>
 	 *
 	 * When an object is instantiated it can by found as
-	 *	$this->user
-	 *	$this->tpl_data["user"]
+	 *	$this->logged_user
+	 *	$this->tpl_data["logged_user"]
 	 *
 	 * A very common usage is:
 	 * <code>
