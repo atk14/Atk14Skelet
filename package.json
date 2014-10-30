@@ -3,10 +3,10 @@
   "title": "ATK14 Skelet Application",
   "version": "0.1.0",
   "description": "Front-end assets for ATK14 Skelet application.",
-  "homepage": "http://atk14skelet.atk14.net/",
+  "homepage": "http://skelet.atk14.net/",
   "repository": {
     "type": "git",
-    "url": "https://github.com/yarri/Atk14Skelet.git"
+    "url": "https://github.com/atk14/Atk14Skelet.git"
   },
   "contributors": [
     {
@@ -22,7 +22,7 @@
   "readmeFilename": "README.md",
   "gitHead": "08020875c22b1655ab0c9e5495a44df286687240",
   "bugs": {
-    "url": "https://github.com/yarri/Atk14Skelet/issues"
+    "url": "https://github.com/atk14/Atk14Skelet/issues"
   },
   "devDependencies": {
     "grunt": "^0.4.4",

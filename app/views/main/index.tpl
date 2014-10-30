@@ -25,11 +25,11 @@
 		<h3>{t}Installation{/t}</h3>
 
 		<p>
-			{t escape=no}If you are brave enough to install the Skelet on your computer, check out <a href="https://github.com/yarri/Atk14Skelet/blob/master/README.md#installation">the installation instrunction.</a>{/t}
+			{t escape=no}If you are brave enough to install the Skelet on your computer, check out <a href="https://github.com/atk14/Atk14Skelet/blob/master/README.md#installation">the installation instrunction.</a>{/t}
 		</p>
 
 		<p>
-			{t escape=no}If you want to help us to improve the Skelet, <a href="https://github.com/yarri/Atk14Skelet">fork it on GitHub.</a>{/t}
+			{t escape=no}If you want to help us to improve the Skelet, <a href="https://github.com/atk14/Atk14Skelet">fork it on GitHub.</a>{/t}
 		</p>
 
 
@@ -38,8 +38,8 @@
 			<li><a href="http://www.atk14.net/">{t}ATK14 Project{/t}</a></li>
 			<li><a href="http://book.atk14.net/">{t}ATK14 Book{/t}</a></li>
 			<li><a href="http://api.atk14.net/">{t}API Reference{/t}</a></li>
-			<li><a href="https://github.com/yarri/Atk14">{t}ATK14 on GitHub{/t}</a></li>
-			<li><a href="https://github.com/yarri/Atk14Skelet">{t}ATK14 Skelet on GitHub{/t}</a></li>
+			<li><a href="https://github.com/atk14/Atk14">{t}ATK14 on GitHub{/t}</a></li>
+			<li><a href="https://github.com/atk14/Atk14Skelet">{t}ATK14 Skelet on GitHub{/t}</a></li>
 		</ul>
 	</div>
 

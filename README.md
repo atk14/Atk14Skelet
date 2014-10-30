@@ -3,7 +3,7 @@ ATK14 Skelet
 
 Meaningful skeleton for a new installed ATK14 application.
 
-Check out <http://atk14skelet.atk14.net/> to see the skelet running.
+Check out <http://skelet.atk14.net/> to see the skelet running.
 
 Installation
 ------------
