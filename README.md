@@ -5,6 +5,16 @@ Meaningful skeleton for a new installed ATK14 application.
 
 Check out <http://skelet.atk14.net/> to see the skelet running.
 
+What the Skeleton contains
+--------------------------
+
+* User registrations
+* Password recoveries
+* Articles (news)
+* Tags
+* A simple administration
+* JS & CSS libraries are installed by [Bower](http://bower.io/) and compilled by [Grunt](http://gruntjs.com/)
+
 Installation
 ------------
 
