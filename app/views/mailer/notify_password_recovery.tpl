@@ -5,5 +5,3 @@ Have you forgotten you password? To reset your password, click on the link below
 %2
 
 Please note that this link is valid for 2 hours only.{/t}
-
-{render partial="shared/mailer/footer"}

@@ -1,3 +1,4 @@
+{placeholder}
 {trim}
 {capture assign=url}{link_to action="main/index" _with_hostname=true _ssl=false}{/capture}
 {t

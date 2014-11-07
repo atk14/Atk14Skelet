@@ -3,5 +3,3 @@
 Your password was just updated in recovery mode.
 
 The update has been executed upon a request from IP address %2{/t}
-
-{render partial="shared/mailer/footer"}

@@ -12,4 +12,3 @@ login: %2
 email: %3
 name: %4
 {/t}
-{render partial="shared/mailer/footer"}
