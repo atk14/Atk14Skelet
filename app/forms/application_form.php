@@ -9,8 +9,8 @@ class ApplicationForm extends Atk14Form{
 	 * 
 	 */
 	function pre_set_up(){
-		// submit method GET is automatically set in IndexForm or DetailForm
-		if(preg_match('/^(Index|Detail)Form$/i',get_class($this))){
+		// submit method GET is automatically set in IndexForm or DetailForm (or Users\IndexForm, Users\DetailForm, ...)
+		if(preg_match('/^(|.*\\\\)(Index|Detail)Form$/i',get_class($this))){ 
 			$this->set_method("get");
 		}
 	}
@@ -32,7 +32,7 @@ class ApplicationForm extends Atk14Form{
 	/**
 	 * Has this form only a few fields and so on a page it appears to be small?
 	 * 
-	 * This method is used in partial template app/views/shared/form.tpl
+	 * This method is used in partial template app/views/shared/_form.tpl
 	 */
 	function is_small(){
 		return sizeof($this->fields)<=4;
