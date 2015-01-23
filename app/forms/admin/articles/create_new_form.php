@@ -1,12 +1,12 @@
 <?php
 class CreateNewForm extends AdminForm{
 	function set_up(){
-		$this->add_field("title",new CharField(array(
+		$this->add_translatable_field("title",new CharField(array(
 			"label" => _("Title"),
 			"max_length" => 255,
 		)));
 
-		$this->add_field("body",new TextField(array(
+		$this->add_translatable_field("body",new TextField(array(
 			"label" => _("Body"),
 			"help_text" => _("Mardown format is expected"),
 		)));
@@ -14,6 +14,10 @@ class CreateNewForm extends AdminForm{
 		$this->add_field("published_at",new DateTimeField(array(
 			"label" => _("Published At"),
 			"initial" => time(),
+		)));
+
+		$this->add_translatable_field("slug",new SlugField(array(
+			"required" => false,
 		)));
 
 		$this->add_field("tags", new TagsField(array(

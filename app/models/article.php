@@ -1,5 +1,12 @@
 <?php
-class Article extends ApplicationModel{
+class Article extends ApplicationModel implements Translatable{
+	
+	static $automatically_sluggable = true;
+
+	static function GetTranslatableFields() { return array("title", "body");}
+
+	function getSlugPattern($lang = null){ return $this->getTitle($lang); }
+
 	function isPublished(){
 		return strtotime($this->getPublishedAt())<time();
 	}
