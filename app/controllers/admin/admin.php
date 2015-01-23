@@ -12,6 +12,7 @@ class AdminController extends ApplicationBaseController{
 		$navi = new Navigation();
 		$navi->add(_("Welcome screen"),$this->_link_to("main/index"),array("active" => $this->controller=="main"));
 		$navi->add(_("Articles"),$this->_link_to("articles/index"),array("active" => $this->controller=="articles"));
+		$navi->add(_("Static pages"),$this->_link_to("static_pages/index"),array("active" => $this->controller=="static_pages"));
 		$navi->add(_("Tags"),$this->_link_to("tags/index"),array("active" => $this->controller=="tags"));
 		$navi->add(_("Users"),$this->_link_to("users/index"),array("active" => $this->controller=="users"));
 		$navi->add(_("Password recoveries"),$this->_link_to("password_recoveries/index"),array("active" => $this->controller=="password_recoveries"));

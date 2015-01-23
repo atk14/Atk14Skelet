@@ -7,7 +7,7 @@
 		</p>
 		<h3>{t}The Skelet contains mainly{/t}</h3>
 		<ul>
-			<li>{a action="main/about"}About page{/a}</li>
+			<li>{a action="static_pages/detail" id=1}About page{/a}</li>
 			<li>{a action="main/contact"}Contact page with fast contact form{/a}</li>
 			<li>{a action="news/index"}{t}News section{/t}{/a}</li>
 			<li>{a action="users/create_new"}{t}User registration{/t}{/a} (with strong blowfish passwords hashing)</li>
