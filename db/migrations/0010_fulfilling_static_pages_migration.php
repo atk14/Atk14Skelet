@@ -24,5 +24,29 @@ class FulfillingStaticPagesMigration extends Atk14Migration{
 			"title_cs" => "Pro média",
 			"body_cs" => "V této chvíli nemáme pro média žádné informace."
 		));
+
+		$contact_data = StaticPage::CreateNewRecord(array(
+			"parent_static_page_id" => $about,
+			
+			"title_en" => "Contact Data",
+			"body_en" => trim("
+## Address
+
+    Elm Street 1428
+    Springwood
+    Ohio
+    United States
+"),
+
+			"title_cs" => "Kontaktní údaje",
+			"body_cs" => "
+## Adresa
+
+    Elm Street 1428
+    Springwood
+    Ohio
+    United States
+"
+		));
 	}
 }

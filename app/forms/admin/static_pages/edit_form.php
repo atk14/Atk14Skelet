@@ -1,6 +1,5 @@
 <?php
-require_once(__DIR__."/static_page_form.php");
-class EditForm extends StaticPageForm {
+class EditForm extends StaticPagesForm {
 
 	function set_up() {
 		parent::set_up();

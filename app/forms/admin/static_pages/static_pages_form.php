@@ -1,5 +1,5 @@
 <?php
-class StaticPageForm extends AdminForm {
+class StaticPagesForm extends AdminForm {
 	function set_up() {
 		$this->add_translatable_field("title", new CharField(array(
 			"label" => _("Title"),
