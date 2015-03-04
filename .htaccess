@@ -1,5 +1,14 @@
 RewriteEngine On
 
+# If you application is being run in PHP fastcgi environment, you don't have access to the Authorization header.
+# Therefore the following lines provide copying of the Authorization header into the X-Authorization header.
+# Finally in HTTP* classes there is a mechanism which initializes $_SERVER["PHP_AUTH_USER"] and $_SERVER["PHP_AUTH_PW"] from the X-Authorization header.
+<IfModule mod_headers.c>
+  #RewriteCond %{HTTP:Authorization} ^Basic.*
+  RewriteRule (.*) - [E=HTTP_AUTHORIZATION:%{HTTP:Authorization}]
+  RequestHeader set X-Authorization %{HTTP_AUTHORIZATION}e
+</IfModule>
+
 # silent redirecting /crossdomain.xml -> /public/crossdomain.xml; control file for flash player, acrobat reader and other adobe`s products
 RewriteCond %{REQUEST_URI} ^\/crossdomain.xml(|\?.*)$
 RewriteRule (.*) public/crossdomain.xml [L]
