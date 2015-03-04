@@ -47,10 +47,10 @@
 			{stylesheet_link_tag file="../dist/css/app.min.css" media="screen"}
 		{/if}
 
-		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
-			<script src="../dist/vendor/js/html5shiv.js"></script>
-			<script src="../dist/vendor/js/respond.min.js"></script>
+			<script src="{$public}dist/vendor/js/html5shiv.js"></script>
+			<script src="{$public}dist/vendor/js/respond.min.js"></script>
 		<![endif]-->
 	</head>
 
