@@ -69,6 +69,17 @@ body {
 ================================
 =FORMS
 ================================ */
+label {
+	font-weight: normal;
+
+	&.label-mce {
+		position: relative;
+		z-index: 1;
+	}
+}
+.form-group-required label {
+	font-weight: bold;
+}
 .help-error {
 	.help-block;
 }
