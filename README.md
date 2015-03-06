@@ -28,6 +28,15 @@ git submodule update
 ```
 If you are experiencing a trouble make sure that all requirements are met: <http://book.atk14.net/czech/installation%3Arequirements/>
 
+Installing optional 3rd party libraries
+---------------------------------------
+
+```bash
+composer update
+```
+
+If you don't have the Composer installed, visit http://www.getcomposer.org/
+
 Starting the skeleton
 ---------------------
 

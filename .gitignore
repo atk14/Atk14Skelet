@@ -8,3 +8,5 @@ public/assets/vendor
 node_modules
 config/secret_token.txt
 public/dist
+vendor/*
+composer.lock

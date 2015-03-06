@@ -70,6 +70,16 @@ class ApplicationBaseController extends Atk14Controller{
 	function _application_after_filter(){
 		// in here everything is done
 		// rendered template is in $this->response->buffer
+
+		if(DEVELOPMENT && class_exists("Tracy\Debugger")){
+			$bar = Tracy\Debugger::getBar();
+			if(DBMOLE_COLLECT_STATICTICS){
+				$bar->addPanel(new DbMolePanel($this->dbmole));
+			}
+			if(DEVELOPMENT) {
+				$bar->addPanel(new MailPanel($this->mailer));
+			}
+		}
 	}
 
 	function _login_user($user,$options = array()){

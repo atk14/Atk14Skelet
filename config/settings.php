@@ -21,6 +21,7 @@ define("DEFAULT_EMAIL","your@email.com");
 define("ATK14_APPLICATION_NAME","ATK14 Skelet");
 define("ATK14_HTTP_HOST",PRODUCTION ? "skelet.atk14.net" : "atk14skelet.localhost");
 
+define("DBMOLE_COLLECT_STATICTICS",DEVELOPMENT);
 date_default_timezone_set('Europe/Prague');
 
 if(DEVELOPMENT || TEST){
