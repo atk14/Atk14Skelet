@@ -15,9 +15,12 @@ production:
   deploy_via: "git_push"                                                      # at the moment this is the only way how to deploy
   deploy_repository: "devel@kajka:apps/skelet.atk14.net/repos/production.git" # this is the URL of deployment git repository with a proper post-receive hook
   deploy_branch: "master"                                                     # the name of the branch in deployment repository
+#  before_deploy:                                                             # some tasks may be run before deployment
+#  - "@local composer.phar update"
+#  - "@local grunt dist"
   rsync:
   - "public/dist/"                                                            # since the directory public/dist is ignored in .gitignore we need to synchronize it by deployment process
-
+  - "vendor/"
 # You can have another stage to deploy application on it (eg. preview).
 # In this recipe you can mention only items which differ from the first recipe.
 #
