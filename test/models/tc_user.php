@@ -7,7 +7,8 @@ class TcUser extends TcBase{
 		$this->assertTrue($rambo->getPassword()!="secret");
 		$this->assertTrue($rocky->getPassword()!=$rambo->getPassword()); // different salts, different hashes
 
-		$this->assertNull(User::Login("rambo","bad try"));
+		$this->assertNull(User::Login("rambo","bad try",$bad_password));
+		$this->assertTrue($bad_password);
 
 		$user = User::Login("rambo","secret");
 		$this->assertEquals($rambo->getId(),$user->getId());
@@ -19,5 +20,8 @@ class TcUser extends TcBase{
 		$this->assertTrue($rambo->getPassword()!="CrazyWolf");
 		$this->assertNull(User::Login("rambo","secret"));
 		$this->assertNotNull(User::Login("rambo","CrazyWolf"));
+
+		$this->assertNull(User::Login("mr.cooler","infinity",$bad_password));
+		$this->assertEquals(false,$bad_password);
 	}
 }

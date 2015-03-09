@@ -12,11 +12,14 @@ class User extends ApplicationModel{
 	 * 
 	 * $user = User::Login("rambo","secret"); // returns user when login and password are correct
 	 */
-	static function Login($login,$password){
+	static function Login($login,$password,&$bad_password = false){
+		$bad_password = false;
 	  $user = User::FindByLogin($login);
-	  if($user && $user->isPasswordCorrect($password)){
-	    return $user;
-	  }
+		if(!$user){ return; }
+	  if($user->isPasswordCorrect($password)){
+			return $user;
+		}
+		$bad_password = true;
 	}
 
 	/**
