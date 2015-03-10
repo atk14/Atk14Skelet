@@ -2,6 +2,8 @@
 class TagsSuggestionsController extends ApiController{
 
 	/**
+	 * ### Tags suggestion
+	 * 
 	 * Suggests tags according to a search term
 	 */
 	function index(){
