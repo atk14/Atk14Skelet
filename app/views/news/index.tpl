@@ -2,7 +2,7 @@
 
 {if $finder->isEmpty()}
 
-	<p>At the moment there are no news.</p>
+	<p>{t}At the moment there are no news.{/t}</p>
 
 {else}
 
