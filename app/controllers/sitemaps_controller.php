@@ -9,11 +9,17 @@ class SitemapsController extends ApplicationController{
 	function detail(){
 		$this->page_title = _("Sitemap");
 
+		$this->tpl_data["articles"] = Article::FindAll(array(
+			"condition" => "published_at<NOW()",
+			"order_by" => "published_at DESC",
+			"limit" => 20,
+		));
+
 		if($this->params->getString("format")=="xml"){
 			$this->render_template = false;
 			$this->response->setContentType("text/xml");
 			$this->response->writeln('<?xml version="1.0" encoding="UTF-8"?>');
-			$this->response->writeln('<urlset>');
+			$this->response->writeln('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">');
 
 			// We are gonna extract all links from the rendered HTML snippet
 			$content = $this->_render(array("partial" => "detail"));
