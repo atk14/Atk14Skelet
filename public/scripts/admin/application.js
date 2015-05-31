@@ -1,24 +1,8 @@
 /* global window */
-(function( window, $, undefined ) {
+( function( window, $, undefined ) {
 	var document = window.document,
 
 	ADMIN = {
-		common: {
-			init: function() {
-				// application-wide code
-			}
-		},
-
-		logins: {
-			init: function() {
-				// controller-wide code
-			},
-
-			create_new: function() {
-				// action-specific code
-			}
-		},
-
 		articles: {
 			create_new: function() {
 				ADMIN.utils.tagsSuggest( "#id_tags" );
@@ -47,7 +31,7 @@
 					return;
 				}
 
-				$input.autocomplete({
+				$input.autocomplete( {
 					minLength: 1,
 					source: function( request, response ) {
 						term = extractLast( request.term );
@@ -55,10 +39,10 @@
 						if ( term in cache ) {
 							response( cache[ term ] );
 						} else {
-							$.getJSON( url + term, function(data) {
+							$.getJSON( url + term, function( data ) {
 								cache[ term ] = data;
 								response( data );
-							});
+							} );
 						}
 					},
 					search: function() {
@@ -79,7 +63,7 @@
 						this.value = terms.join( " , " );
 						return false;
 					}
-				});
+				} );
 			}
 		}
 	};
@@ -119,4 +103,4 @@
 
 	// Initialize application.
 	$( document ).ready( ADMIN.UTIL.init );
-})( window, window.jQuery );
+} )( window, window.jQuery );
