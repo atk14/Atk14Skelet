@@ -47,7 +47,7 @@
 
 		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
-			<script src="{$public}dist/scripts/html5shiv.js"></script>
+			<script src="{$public}dist/scripts/html5shiv.min.js"></script>
 			<script src="{$public}dist/scripts/respond.min.js"></script>
 		<![endif]-->
 	</head>

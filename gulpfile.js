@@ -55,6 +55,14 @@ gulp.task( "jscs", function() {
 		.pipe( $.jscs() );
 } );
 
+// Copy
+gulp.task( "copy", function() {
+	gulp.src( "bower_components/html5shiv/dist/html5shiv.min.js" )
+		.pipe( gulp.dest( "public/dist/scripts" ) );
+	gulp.src( "bower_components/respond/dest/respond.min.js" )
+		.pipe( gulp.dest( "public/dist/scripts" ) );
+} );
+
 // Clean
 gulp.task( "clean", require( "del" ).bind( null, [ "public/dist" ] ) );
 
@@ -75,7 +83,7 @@ gulp.task( "serve", [ "styles" ], function() {
 } );
 
 // Build
-gulp.task( "build", [ "lint", "jscs", "styles", "scripts" ], function() {
+gulp.task( "build", [ "lint", "jscs", "styles", "scripts", "copy" ], function() {
 	return gulp.src( "public/dist/**/*" )
 		.pipe( $.size( { title: "build", gzip: true } ) );
 } );
