@@ -8,5 +8,6 @@ bower_components
 node_modules
 config/secret_token.txt
 public/dist
+public/admin/dist
 vendor/*
 composer.lock

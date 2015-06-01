@@ -43,7 +43,7 @@
 			{render partial="shared/layout/dev_info"}
 		{/if}
 
-		{stylesheet_link_tag file="../dist/styles/application.min.css" media="screen"}
+		{stylesheet_link_tag file="../dist/styles/application.min.css"}
 
 		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
