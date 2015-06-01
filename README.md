@@ -13,7 +13,7 @@ What the Skeleton contains
 * Articles (news)
 * Tags
 * A simple administration
-* JS & CSS libraries are installed by [Bower](http://bower.io/) and compilled by [Grunt](http://gruntjs.com/)
+* Front-end tooling including [Bower](http://bower.io/), [Gulp](https://github.com/gulpjs/gulp) and [BrowserSync](https://github.com/BrowserSync/browser-sync)
 
 Installation
 ------------
@@ -70,31 +70,19 @@ If you have a trouble run the following command and follow instructions.
 Front-end Assets Installation
 -----------------------------
 #### Install dependencies.
+With [Node.js](http://nodejs.org) and npm installed, run the following one liner from the root of your Skelet application:
 ```bash
-# Node Version manager
-wget -q -O - https://raw.github.com/creationix/nvm/master/install.sh | sh
-echo -e "\n. ~/.nvm/nvm.sh" >> ~/.bashrc && . ~/.nvm/nvm.sh
-# Node.js
-nvm install 0.10
-# Bower
-npm install -g bower
-# Grunt
-npm install -g grunt-cli
-```
-#### Install skelet front-end dependencies via Bower.
+$ npm install -g gulp && npm install -g bower && npm install && bower install
+
+This will install all the tools you will need to serve and build your front-end assets.
+
+### Serve / watch
 ```bash
-bower install
+$ gulp serve
 ```
-#### Install build dependencies.
-```bash
-npm install
-```
-#### Build.
-```bash
-grunt dist
-```
+
+This outputs an IP address you can use to locally test and another that can be used on devices connected to your network.
+
 ### You're done! Happy skeleting!
-From now on you only need to run `grunt dist` when you need to concatenate and minify JS and CSS for production.
-You can also run lint and other tasks via Grunt. To see available tasks run `grunt --help`.
 
 Don't forget to list your new project on http://www.atk14sites.net/
