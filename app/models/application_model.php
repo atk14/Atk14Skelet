@@ -79,7 +79,7 @@ class ApplicationModel extends TableRecord{
 		return $this->getId().".".substr(md5(get_class($this).$this->getId().SECRET_TOKEN.$extra_salt),0,$length);
 	}
 	
-	static function CreateNewRecord($values = array(),$options = array()){
+	static function CreateNewRecord($values,$options = array()){
 		// there is a auto setting of created_at, created_on or create_date field
 		$v_keys = array_keys($values);
 		$class_name = get_called_class();
