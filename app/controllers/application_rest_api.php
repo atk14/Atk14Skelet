@@ -259,6 +259,12 @@ class ApplicationRestApiController extends ApplicationBaseController{
 				$this->response->setContentType("text/xml");
 				$this->response->write($this->_array_to_xml($data,$options["root_element"]));
 				break;
+			case "html":
+				$this->render_template = true;
+				$this->template_name = "shared/rest_api/html_output";
+				$this->tpl_data["status_code"] = $options["status_code"];
+				$this->tpl_data["data"] = $data;
+				break;
 			case "yaml":
 				$this->response->setContentType("text/plain")	;
 				$this->response->write(miniYAML::Dump($data));
@@ -267,7 +273,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 				$this->response->setContentType("text/plain");
 				$this->response->write(__render_jsonp($data,$options["root_element"]));
 				break;
-			default:
+			default: // json
 				$this->response->setContentType("text/plain");
 				$this->response->write(json_encode($data));
 		}
@@ -319,6 +325,9 @@ function _rest_api_dbmole_error_handler($dbmole){
 	}elseif($HTTP_REQUEST->getVar("format")=="yaml"){
 		$HTTP_RESPONSE->setContentType('text/plain');
 		$HTTP_RESPONSE->write(miniYAML::Dump(array($msg)));
+	}elseif($HTTP_REQUEST->getVar("format")=="html"){
+		$HTTP_RESPONSE->setContentType('text/html');
+		$HTTP_RESPONSE->internalServerError($msg);
 	}else{
 		$HTTP_RESPONSE->setContentType('text/xml');
 		$HTTP_RESPONSE->write('<'.'?xml version="1.0" encoding="utf-8"?'.'>'."\n<error_messages>\n<error_message>$msg</error_message>\n</error_messages>");
