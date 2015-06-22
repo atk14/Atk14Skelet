@@ -5,7 +5,8 @@ require( "./gulpfile-admin" );
 
 var vendorScripts = [
 	"bower_components/jquery/dist/jquery.js",
-	"bower_components/bootstrap/dist/js/bootstrap.js"
+	"bower_components/bootstrap/dist/js/bootstrap.js",
+	"bower_components/atk14js/src/atk14.js"
 ];
 var applicationScripts = [
 	"public/scripts/application.js"

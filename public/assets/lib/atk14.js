@@ -1,1 +1,0 @@
-../../../atk14/skelet/public/javascripts/atk14.js
