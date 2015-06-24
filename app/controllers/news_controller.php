@@ -11,6 +11,8 @@ class NewsController extends ApplicationController{
 			"order_by" => "published_at DESC",
 			"offset" => $this->params->getInt("offset")
 		));
+
+		$this->breadcrumbs[] = _("News");
 	}
 
 	function detail(){
@@ -24,5 +26,8 @@ class NewsController extends ApplicationController{
 
 		$this->tpl_data["older_news"] = $news->getOlderArticle(static::TAG_ID);
 		$this->tpl_data["newer_news"] = $news->getNewerArticle(static::TAG_ID);
+
+		$this->breadcrumbs[] = array(_("News"),"news/index");
+		$this->breadcrumbs[] = $news->getTitle();
 	}
 }

@@ -58,6 +58,9 @@
 		<div class="container{if $section_navigation} has-nav-section{/if}">
 			{render partial="shared/login"}
 			{render partial="shared/layout/header"}
+			{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
+				{render partial="shared/breadcrumbs"}
+			{/if}
 
 			<div class="body">
 				{if $section_navigation}
