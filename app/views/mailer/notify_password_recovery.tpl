@@ -1,6 +1,6 @@
 {t user_name=$user->getName() url=$password_recovery->getUrl() escape=no}Hello %1!
 
-Have you forgotten you password? To reset your password, click on the following link
+Have you forgotten your password? To reset your password, click on the following link
 
 %2
 
