@@ -171,7 +171,7 @@ module.exports = function( grunt ) {
 				expand: true
 			},
 			respond: {
-				src: "public/assets/vendor/respond/respond.min.js",
+				src: "public/assets/vendor/respond/dest/respond.min.js",
 				dest: "public/dist/vendor/js/",
 				flatten: true,
 				expand: true
