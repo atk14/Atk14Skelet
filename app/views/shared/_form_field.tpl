@@ -24,6 +24,9 @@
  *   validation.
  * - $class: String with optional html classes taken from {render} helper.
  *   Example: {render partial="shared/form_field" class="my-class another-class"}
+ * - $addon: String with optional html "input-group-addon" taken from {render} helper.
+ *   More info: http://getbootstrap.com/components/#input-groups
+ *   Example: {render partial="shared/form_field" addon="<span class='icon-example'></span>"}
  *}
 
 {if $field}
@@ -51,7 +54,16 @@
 		<div class="form-group{if $field->required} form-group-required{/if}{if $field->errors() || $class} {trim}{if $field->errors()} has-error{/if}{if $class} {$class}{/if}{/trim}{/if}">
 
 			<label for="{$field->id_for_label()}" class="control-label">{$field->label}</label>
-			{!$field->as_widget()}
+			{if $addon}
+				<div class="input-group">
+					<div class="input-group-addon">
+						{!$addon}
+					</div>
+					{!$field->as_widget()}
+				</div>
+			{else}
+				{!$field->as_widget()}
+			{/if}
 
 			{if $field->help_text}
 				<div class="help-block">{!$field->help_text}</div>
