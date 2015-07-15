@@ -34,7 +34,8 @@ class AdminController extends ApplicationBaseController{
 	}
 
 	function _before_render(){
-		if($this->action!="index"){
+		// auto breadcrumbs
+		if($this->action!="index" && !preg_match('/^error/',$this->action)){ // error404 or error403
 			$this->breadcrumbs[] = $this->page_title;
 		}
 		parent::_before_render();
