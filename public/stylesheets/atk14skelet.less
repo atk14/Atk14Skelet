@@ -1,0 +1,146 @@
+//
+// Atk14Skelet Init styles
+//
+// (if you are using a custom theme, you can remove this)
+//
+// ------------------------------------------------------
+
+/*
+================================================================
+=COMMON
+================================================================ */
+body {
+	padding-bottom: 70px;
+}
+.content-main h1 {
+	.page-header;
+}
+.alert {
+	margin-top: @line-height-computed;
+}
+
+
+/*
+================================
+=LAYOUT
+================================ */
+.has-nav-section .body {
+	.make-row();
+}
+.header-main {
+	margin-bottom: @line-height-computed;
+}
+.nav-section {
+	.make-sm-column(3);
+}
+.has-nav-section .content-main {
+	.make-sm-column(9);
+}
+
+
+/*
+================================
+=LOGO
+================================ */
+#logo {
+	h1, a {
+		display: block;
+		height: 162px;
+		margin: 0;
+		background: #000 url( "../images/logo.png" ) no-repeat left;
+		text-indent: -999em;
+	}
+}
+
+
+/*
+================================
+=TABLES
+================================ */
+.table-auto {
+	width: auto;
+}
+
+
+/*
+================================
+=FORMS
+================================ */
+label {
+	font-weight: normal;
+
+	&.label-mce {
+		position: relative;
+		z-index: 1;
+	}
+}
+.form-group-required label {
+	font-weight: bold;
+}
+.help-error {
+	.help-block;
+}
+.form-horizontal {
+	label {
+		.make-sm-column(2);
+	}
+	.form-control {
+		.make-sm-column(4);
+	}
+	.help-block {
+		.make-sm-column(6);
+	}
+	.btn {
+		.make-sm-column-offset(2);
+	}
+}
+.form-group {
+	.popover-title {
+		font-weight: bold;
+	}
+	.popover-content {
+		font-style: italic;
+
+		ul {
+			margin-bottom: 0;
+		}
+	}
+}
+
+
+/*
+================================================================
+=NEWS
+================================================================ */
+
+/*
+================================
+=NEWS/INDEX
+================================ */
+
+/*
+================================
+=NEWS/DETAIL
+================================ */
+.body_news_detail article header p {
+	padding-bottom: 9px;
+	border-bottom: 1px dotted #eee;
+}
+.pager {
+	padding-top: 19px;
+	border-top: 1px dotted #eee;
+}
+
+
+/*
+================================================================
+=LOGINS
+================================================================ */
+
+/*
+================================
+=LOGINS/CREATE_NEW
+================================ */
+#form_logins_create_new {
+	max-width: 480px;
+}
