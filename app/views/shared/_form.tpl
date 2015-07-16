@@ -7,6 +7,7 @@
  * {render partial="shared/form" form=$search_form}
  * {render partial="shared/form" form=$search_form button_text="Search"}
  * {render partial="shared/form" form=$search_form button_text="Search" small_form=1}
+ * {render partial="shared/form" form=$search_form button_text="Search" button_class="search"}
  *
  * {render partial="shared/form" form_class="search"}
  *}
@@ -25,6 +26,6 @@
 	{render partial="shared/form_error"}
 	<fieldset>
 		{render partial="shared/form_field" fields=$form->get_field_keys()}
-		{render partial="shared/form_button"}
+		{render partial="shared/form_button" class=$button_class}
 	</fieldset>
 {/form}
