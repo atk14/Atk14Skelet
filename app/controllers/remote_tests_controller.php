@@ -32,6 +32,28 @@ class RemoteTestsController extends ApplicationController{
 		$this->_assert_equals(123,456);
 		$this->_assert_true(false);
 	}
+
+	/**
+	 * Checks for existence of stale locks from robots
+	 */
+	function stale_locks(){
+		$cmd = "cd ".LOCK_DIR."; find . -type f -mmin +20 | grep -v README.md";
+		$out = `$cmd`;
+		if($out){
+			$this->_fail($out);
+		}
+	}
+
+	/**
+	 * Filters out Tracy's log files which are no older than 30 minutes
+	 */
+	function php_errors(){
+		$cmd = "cd ".ATK14_DOCUMENT_ROOT."log/ && find . -type f -mmin -30 | egrep '(php_error.log|exception|error.log)'";
+		$out = `$cmd`;
+		if($out){
+			$this->_fail($out);
+		}
+	}
 	
 	function _before_filter(){
 		/*
