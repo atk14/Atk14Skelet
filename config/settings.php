@@ -24,6 +24,11 @@ define("ATK14_HTTP_HOST",PRODUCTION ? "skelet.atk14.net" : "atk14skelet.localhos
 define("DBMOLE_COLLECT_STATICTICS",DEVELOPMENT);
 date_default_timezone_set('Europe/Prague');
 
+// If you don't want to let users to register freely (e.g. your app is an closed alpha),
+// set the constant INVITATION_CODE_FOR_USER_REGISTRATION.
+// See app/forms/users/create_new_form.php for more info
+// define("INVITATION_CODE_FOR_USER_REGISTRATION","some great secret");
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 
