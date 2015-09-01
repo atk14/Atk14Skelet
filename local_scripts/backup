@@ -1,0 +1,40 @@
+#!/usr/bin/env php
+<?php
+// TODO: toto bude zaklad pro obecny backup script
+
+require_once(dirname(__FILE__)."/../atk14/load.php");
+
+chdir(__DIR__);
+
+// my-app.localhost -> my_app
+$appname = ATK14_HTTP_HOST;
+$appname = preg_replace('/.localhost$/','',$appname);
+$appname = preg_replace('/[^a-z0-9]/i','_',$appname);
+
+$HOME = $_SERVER["HOME"];
+$BACKUP_DIR = "$HOME/backup/$appname/".date("Y-m-d_H_i").".".uniqid();
+
+echo "about to backup to $BACKUP_DIR\n";
+sleep(2);
+
+// TODO: tady je potreba mit nehjake objekty tridy Atk14DeploymentStage
+$deploy_stages = $ATK14_GLOBAL->getConfig("deploy");
+$first_conf = null;
+foreach($deploy_stages as $stage_name => $conf){
+	if(is_null($first_conf)){
+		$first_conf = $conf;
+	}else{
+		$conf += $first_conf;
+	}
+
+	$b_dir = "$BACKUP_DIR/$stage_name";
+	Files::Mkdir($b_dir,$err);
+	if($err){
+		echo "can't create directory $b_dir\n";
+		exit(1);
+	}
+	$command = "ssh $conf[user]@$conf[server] ATK14_ENV=production $conf[directory]/scripts/dump_db | gzip - > $b_dir/dump.sql.gz";
+	`$command`;
+	echo "done in $b_dir\n";
+}
+
