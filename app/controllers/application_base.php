@@ -61,6 +61,8 @@ class ApplicationBaseController extends Atk14Controller{
 	function _application_before_filter(){
 		$this->response->setContentType("text/html");
 		$this->response->setContentCharset(DEFAULT_CHARSET);
+		$this->response->setHeader("Cache-Control","private, max-age=0, must-revalidate");
+		$this->response->setHeader("Pragma","no-cache");
 
 		// following header helps to avoid clickjacking attacks
 		$this->response->setHeader("X-Frame-Options","SAMEORIGIN"); // SAMEORIGIN, DENY
