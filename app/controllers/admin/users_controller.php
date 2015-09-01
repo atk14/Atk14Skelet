@@ -4,7 +4,7 @@ class UsersController extends AdminController{
 		$this->page_title = _("Users list");
 
 		$this->sorting->add("created_at",array("reverse" => "true"));
-		$this->sorting->add("updated_at",array("reverse" => "true"));
+		$this->sorting->add("updated_at","COALESCE(updated_at,'2000-01-01') DESC, created_at DESC, id DESC","COALESCE(updated_at,'2099-01-01'), created_at, id");
 		$this->sorting->add("is_admin","is_admin DESC, UPPER(login)","is_admin ASC, UPPER(login)");
 		$this->sorting->add("login","UPPER(login)");
 
