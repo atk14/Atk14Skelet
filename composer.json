@@ -1,6 +1,7 @@
 {
     "require": {
         "atk14/dbmole-panel": "dev-master",
-        "atk14/mail-panel": "dev-master"
+        "atk14/mail-panel": "dev-master",
+        "michelf/php-markdown": "1.5.0"
     }
 }
