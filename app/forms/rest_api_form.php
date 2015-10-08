@@ -23,6 +23,7 @@ class RestApiForm extends ApplicationForm{
 				"jsonp" => "jsonp",
 				"xml" => "xml",
 				"yaml" => "yaml",
+				"html" => "html",
 			),
 			"required" => !false, 
 		)));

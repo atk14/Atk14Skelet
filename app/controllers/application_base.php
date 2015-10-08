@@ -1,5 +1,16 @@
 <?php
 class ApplicationBaseController extends Atk14Controller{
+
+	/**
+	 * @var User
+	 */
+	var $logged_user;
+
+	/**
+	 * @var Navigation
+	 */
+	var $breadcrumbs;
+
 	function index(){
 		// acts like there's no index action by default
 		$this->_execute_action("error404");
@@ -42,7 +53,9 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _before_render(){
-
+		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
+			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
+		}
 	}
 
 	function _application_before_filter(){
@@ -61,6 +74,9 @@ class ApplicationBaseController extends Atk14Controller{
 
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
+
+		$this->breadcrumbs = new Navigation();
+		$this->breadcrumbs[] = array(ATK14_APPLICATION_NAME,$this->_link_to("main/index"));
 
 		if($this->_logged_user_required() && !$this->logged_user){
 			return $this->_execute_action("error403");
