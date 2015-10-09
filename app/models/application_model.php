@@ -78,7 +78,20 @@ class ApplicationModel extends TableRecord{
 		$length = 32;
 		return $this->getId().".".substr(md5(get_class($this).$this->getId().SECRET_TOKEN.$extra_salt),0,$length);
 	}
+	
+	static function CreateNewRecord($values,$options = array()){
+		// there is a auto setting of created_at, created_on or create_date field
+		$v_keys = array_keys($values);
+		$class_name = get_called_class();
+		$o = new $class_name();
+		foreach(array("created_at","created_on","create_date") as $f){
+			if($o->hasKey($f) && !in_array($f,$v_keys)){
+				$values[$f] = date("Y-m-d H:i:s");
+			}
+		}
 
+		return parent::CreateNewRecord($values,$options);
+	}
 
 	/**
 	 * Instantiates an object according to a given token.

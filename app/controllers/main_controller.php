@@ -13,6 +13,8 @@ class MainController extends ApplicationController{
 
 	function about(){
 		$this->page_title = sprintf(_("About %s"),ATK14_APPLICATION_NAME);
+
+		$this->breadcrumbs[] = $this->page_title;
 	}
 
 	function contact(){
