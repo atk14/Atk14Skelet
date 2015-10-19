@@ -20,6 +20,11 @@ class MainController extends ApplicationController{
 	function contact(){
 		$this->page_title = _("Contact");
 
+		if($this->params->defined("sent")){
+			$this->template_name = "contact_message_sent";
+			return;
+		}
+
 		if($this->logged_user){
 			$this->form->set_initial(array(
 				"name" => $this->logged_user->getName(),
@@ -28,9 +33,8 @@ class MainController extends ApplicationController{
 		}
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$this->mailer->contact_message($d["email"],$d["name"],$d["body"]);
-			$this->flash->success(_("The message has been sent to us. We will reply as soon as we can."));
-			$this->_redirect_to("contact");
+			$this->mailer->contact_message($d,$this->request->getRemoteAddr(),$this->logged_user);
+			$this->_redirect_to(array("sent" => 1));
 		}
 	}
 

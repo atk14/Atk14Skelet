@@ -48,11 +48,19 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->subject = _("Your password was updated");
 	}
 
-	function contact_message($email_address,$name,$message){
+	/**
+	 *	$mailer->contact_message(array(
+	 *		"name" => "John Doe",
+	 *		"email" => "john@doe.com",
+	 *		"body" => "Hi, I just lost my password..."
+	 *	),$request->getRemoteAddr(),$logged_user);
+	 */
+	function contact_message($params,$remote_addr,$logged_user){
 		$this->to = DEFAULT_EMAIL;
-		$this->from = $email_address;
-		$this->from_name = $name;
-		$this->body = $message; // there is no template for body
 		$this->subject = _("Message sent from contact page");
+		$this->tpl_data += $params;
+		$this->tpl_data["remote_addr"] = $remote_addr;
+		$this->tpl_data["logged_user"] = $logged_user;
+		$this->render_layout = false;
 	}
 }
