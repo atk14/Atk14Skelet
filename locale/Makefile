@@ -1,4 +1,5 @@
-SUBDIRS = $(shell ls | egrep '^[a-z]{2}_[A-Z]{2,4}' | tr '\n' ' ' )
+# SUBDIRS is a merge of folders and supported locales
+SUBDIRS = $(shell { ../scripts/_get_supported_locales && ls | cat; } | egrep '^[a-z]{2}_[A-Z]{2,4}' | sort | uniq | tr '\n' ' ' )
 
 files-list:
 	@find ../ -type f -name '*.inc' | grep -v -F ".svn" >> files_php
@@ -25,6 +26,8 @@ clear:
 
 define lang-def
 compile-$(1):
+	@mkdir -p $(1)/LC_MESSAGES
+	@touch $(1)/LC_MESSAGES/messages.po
 	@mv $(1)/LC_MESSAGES/messages.po $(1)/LC_MESSAGES/messages.po.orig
 	msgconv -t UTF-8 $(1)/LC_MESSAGES/messages.po.orig -o $(1)/LC_MESSAGES/messages.po 2>/dev/null
 	msgfmt $(1)/LC_MESSAGES/messages.po --output-file=$(1)/LC_MESSAGES/messages.mo
@@ -32,7 +35,9 @@ compile-$(1):
 	@mv $(1)/LC_MESSAGES/messages.po.orig $(1)/LC_MESSAGES/messages.po
 
 merge-$(1):
-	@echo "Zpracovavam $(1)"
+	@echo "Processing $(1)"
+	@mkdir -p $(1)/LC_MESSAGES
+	@touch $(1)/LC_MESSAGES/messages.po
 	-mv $(1)/LC_MESSAGES/messages.po $(1)/LC_MESSAGES/old.po;
 	-cp messages.po $(1)/LC_MESSAGES;
 	-msgmerge $(1)/LC_MESSAGES/old.po $(1)/LC_MESSAGES/messages.po --no-fuzzy-matching --output-file=$(1)/LC_MESSAGES/new.po
