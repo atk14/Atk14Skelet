@@ -26,8 +26,8 @@ clear:
 
 define lang-def
 compile-$(1):
-	@mkdir -p $(1)/LC_MESSAGES
-	@touch $(1)/LC_MESSAGES/messages.po
+	echo "Processing $(1)"
+	if [ ! -f  $(1)/LC_MESSAGES/messages.po ]; then mkdir -p $(1)/LC_MESSAGES; echo -en 'msgid ""\nmsgstr ""\n"Language: '$(shell echo $(1) | cut -d _ -f 1)'\\n"\n"MIME-Version: 1.0\\n"\n"Content-Type: text/plain; charset=UTF-8\\n"\n"Content-Transfer-Encoding: 8bit\\n"' > $(1)/LC_MESSAGES/messages.po; fi
 	@mv $(1)/LC_MESSAGES/messages.po $(1)/LC_MESSAGES/messages.po.orig
 	msgconv -t UTF-8 $(1)/LC_MESSAGES/messages.po.orig -o $(1)/LC_MESSAGES/messages.po 2>/dev/null
 	msgfmt $(1)/LC_MESSAGES/messages.po --output-file=$(1)/LC_MESSAGES/messages.mo
@@ -35,9 +35,8 @@ compile-$(1):
 	@mv $(1)/LC_MESSAGES/messages.po.orig $(1)/LC_MESSAGES/messages.po
 
 merge-$(1):
-	@echo "Processing $(1)"
-	@mkdir -p $(1)/LC_MESSAGES
-	@touch $(1)/LC_MESSAGES/messages.po
+	echo "Processing $(1)"
+	if [ ! -f  $(1)/LC_MESSAGES/messages.po ]; then mkdir -p $(1)/LC_MESSAGES; echo -en 'msgid ""\nmsgstr ""\n"Language: '$(shell echo $(1) | cut -d _ -f 1)'\\n"\n"MIME-Version: 1.0\\n"\n"Content-Type: text/plain; charset=UTF-8\\n"\n"Content-Transfer-Encoding: 8bit\\n"' > $(1)/LC_MESSAGES/messages.po; fi
 	-mv $(1)/LC_MESSAGES/messages.po $(1)/LC_MESSAGES/old.po;
 	-cp messages.po $(1)/LC_MESSAGES;
 	-msgmerge $(1)/LC_MESSAGES/old.po $(1)/LC_MESSAGES/messages.po --no-fuzzy-matching --output-file=$(1)/LC_MESSAGES/new.po
