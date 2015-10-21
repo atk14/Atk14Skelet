@@ -1,12 +1,16 @@
 {
   "name": "atk14-skelet",
   "dependencies": {
-    "jquery": "^1.10",
+    "atk14js": "^1.0.0",
+    "jquery": "~2.1.4",
     "bootstrap": "^3.1.1",
     "html5shiv": "^3.7.0",
     "respond": "^1.4.2",
-    "jquery-ui": "^1.10.3",
-    "lodash": "~3.9.3",
-    "atk14js": "~1.0.0"
+    "lodash": "^3.9.3",
+    "jquery-file-upload": "^9.11.2",
+    "jquery-ui": "^1.11.2",
+    "bootstrap-markdown": "^2.9.0",
+    "markdown-js": "^0.6.2",
+    "to-markdown": "^1.2.1"
   }
 }

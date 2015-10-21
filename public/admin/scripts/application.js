@@ -82,8 +82,8 @@
 				a = "init";
 			}
 
-			if ( c !== "" && ns[c] && typeof ns[c][a] === "function" ) {
-				ns[c][a]();
+			if ( c !== "" && ns[ c ] && typeof ns[ c ][ a ] === "function" ) {
+				ns[ c ][ a ]();
 			}
 		},
 
