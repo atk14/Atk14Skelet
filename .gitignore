@@ -4,9 +4,10 @@ tmp/*
 log/*
 !robots/lock/README.md
 robots/lock/*
-public/assets/vendor
+bower_components
 node_modules
 config/secret_token.txt
 public/dist
+public/admin/dist
 vendor/*
 composer.lock

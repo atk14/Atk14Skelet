@@ -19,6 +19,7 @@ RewriteRule (.*) public/favicon.ico [L]
 
 RewriteCond %{REQUEST_URI} ^\/
 RewriteCond %{REQUEST_URI} !^\/public\/
+RewriteCond %{REQUEST_URI} !^\/bower_components\/
 RewriteCond %{REQUEST_URI} !^\/server-status\/
 RewriteCond %{REQUEST_URI} !^\/server-info\/
 RewriteRule (.*) dispatcher.php [L]

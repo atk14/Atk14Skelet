@@ -1,37 +1,40 @@
 /* global window */
-(function( window, $, undefined ) {
+( function( window, $, undefined ) {
+	"use strict";
 	var document = window.document,
 
 	SKELET = {
 		common: {
+
+			// Application-wide code.
 			init: function() {
-				// application-wide code
 
 				// Form hints.
 				$( ".help-hint" ).each( function() {
 					var $this = $( this ),
 						$field = $this.closest( ".form-group" ).find( ".form-control" ),
 						title = $this.data( "title" ) || "",
-						content = $this.html();
+						content = $this.html(),
+						popoverOptions = {
+							html: true,
+							trigger: "focus",
+							title: title,
+							content: content
+						};
 
-					$field.popover({
-						html: true,
-						trigger: "focus",
-						title: title,
-						content: content
-					});
-				});
+					$field.popover( popoverOptions );
+				} );
 			}
 		},
 
 		users: {
+
+			// Controller-wide code.
 			init: function() {
-				// controller-wide code
 			},
 
+			// Action-specific code
 			create_new: function() {
-				// action-specific code
-
 				/*
 				 * Check whether login is available.
 				 * Simple demo of working with an API.
@@ -39,14 +42,17 @@
 				var $login = $( "#id_login" ),
 					m = "Username is already taken.",
 					h = "<p class='alert alert-danger col-sm-4 col-sm-offset-2'>" + m + "</p>",
-					$status = $( h ).hide().appendTo( $login.closest(".form-group") );
+					$status = $( h ).hide().appendTo( $login.closest( ".form-group" ) );
 
 				$login.on( "change", function() {
+
 					// Login input value to check.
 					var value = $login.val(),
 						lang = $( "html" ).attr( "lang" ),
+
 					// API URL.
 						url = "/api/" + lang + "/login_availabilities/detail/",
+
 					// GET values for API. Available formats: xml, json, yaml, jsonp.
 						data = {
 							login: value,
@@ -55,7 +61,7 @@
 
 					// AJAX request to the API.
 					if ( value !== "" ) {
-						$.ajax({
+						$.ajax( {
 							dataType: "json",
 							url: url,
 							data: data,
@@ -66,9 +72,9 @@
 									$status.fadeOut();
 								}
 							}
-						});
+						} );
 					}
-				}).change();
+				} ).change();
 			}
 		}
 	};
@@ -107,5 +113,5 @@
 	window.SKELET = SKELET;
 
 	// Initialize application.
-	$( document ).ready( SKELET.UTIL.init );
-})( window, window.jQuery );
+	SKELET.UTIL.init();
+} )( window, window.jQuery );
