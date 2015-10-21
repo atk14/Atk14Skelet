@@ -28,6 +28,12 @@ class MainController extends ApplicationController{
 		}
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			if($d["sign_up_for_newsletter"] && $d["email"]){
+				NewsletterSubscriber::SignUp($d["email"],array(
+					"name" => $d["name"],
+				));
+			}
+
 			$this->mailer->contact_message($d,$this->request->getRemoteAddr(),$this->logged_user);
 			$this->session->s("contact_message_sent",1);
 			$this->_redirect_to("contact_message_sent");

@@ -19,6 +19,7 @@ class AdminController extends ApplicationBaseController{
 			array(_("Tags"),								"tags"),
 			array(_("Users"),								"users"),
 			array(_("Password recoveries"),	"password_recoveries"),
+			array(_("Newsletter subscribers"), "newsletter_subscribers"),
 		) as $item){
 			$_label = $item[0];
 			$_controllers = explode(',',$item[1]); // "products,cards" => array("products","cards");
@@ -39,5 +40,31 @@ class AdminController extends ApplicationBaseController{
 			$this->breadcrumbs[] = $this->page_title;
 		}
 		parent::_before_render();
+	}
+
+	/**
+	 * Generic method for deleting a record
+	 *
+	 * $this->_destroy($this->article);
+	 * $this->_destroy(); // the object for deletion will be determined by the controller name
+	 */
+	function _destroy($object = null){
+		if(!$this->request->post()){ return $this->_execute_action("error404"); }
+
+		if(!$object){
+			$cn = String::ToObject(get_class($this));
+			$cn = $cn->gsub('/Controller$/',''); // "NiceImagesController" -> "NiceImages"
+			$cn = $cn->underscore(); // "nice_images"
+			$o_name = $cn->singularize()->toString(); // "nice_images" -> "nice_image"
+			$object = $this->$o_name; // $this->nice_image
+		}
+
+		$object->destroy();
+		$this->template_name = "application/destroy";
+
+		if(!$this->request->xhr()){
+			$this->flash->success(_("The entry has been deleted"));
+			$this->_redirect_to("index");
+		}
 	}
 }
