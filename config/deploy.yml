@@ -18,6 +18,7 @@ production:
   deploy_branch: "master"                                                     # the name of the branch in deployment repository
   before_deploy:                                                              # some tasks may be run before deployment
   - "@local composer update"
+  - "@local bower update"
   - "@local gulp"
   - "@local gulp admin"
   rsync:
