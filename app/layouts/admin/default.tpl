@@ -52,8 +52,8 @@
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
-			<script src="{$public}admin/dist/scripts/html5shiv.min.js"></script>
-			<script src="{$public}admin/dist/scripts/respond.min.js"></script>
+			{javascript_script_tag file="{$public}/admin/dist/scripts/html5shiv.min.js"}
+			{javascript_script_tag file="{$public}/admin/dist/scripts/respond.min.js"}
 		<![endif]-->
 	</head>
 
