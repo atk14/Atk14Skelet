@@ -79,15 +79,5 @@
 
 		{javascript_script_tag file="{$public}/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="{$public}/dist/scripts/application.min.js"}
-
-		{* TODO: in DEVELOPMENT we need non-minified scripts
-		{if $DEVELOPMENT}
-			{javascript_script_tag file="{$public}/dist/scripts/vendor.js"}
-			{javascript_script_tag file="{$public}/dist/scripts/application.js"}
-		{else}
-			{javascript_script_tag file="{$public}/dist/scripts/vendor.min.js"}
-			{javascript_script_tag file="{$public}/dist/scripts/application.min.js"}
-		{/if}
-		*}
 	</body>
 </html>
