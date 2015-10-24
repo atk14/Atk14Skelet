@@ -11,7 +11,7 @@
 
 {else}
 
-	<table class="table" border=1>
+	<table class="table">
 		<thead>
 			<tr>
 				<th>#</th>
