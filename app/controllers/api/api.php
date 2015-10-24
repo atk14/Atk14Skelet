@@ -17,4 +17,15 @@ class ApiController extends ApplicationRestApiController{
 			"is_admin" => $user->isAdmin()
 		) : array();
 	}
+
+	function _application_before_filter(){
+		parent::_application_before_filter();
+
+		if($this->controller=="main" && $this->action=="index"){
+			$this->breadcrumbs[] = $this->namespace; // "api"
+		}else{
+			$this->breadcrumbs[] = array($this->namespace,$this->_link_to(array("namespace" => $this->namespace, "controller" => "main", "action" => "index")));
+			$this->breadcrumbs[] = "$this->controller/$this->action"; // "logins/detail"
+		}
+	}
 }
