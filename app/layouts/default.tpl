@@ -43,7 +43,7 @@
 			{render partial="shared/layout/dev_info"}
 		{/if}
 
-		{stylesheet_link_tag file="{$public}/dist/styles/vendor.min.css"}
+		{stylesheet_link_tag file="{$public}/dist/styles/vendor.min.css" hide_when_file_not_found=true}
 		{stylesheet_link_tag file="{$public}/dist/styles/application.min.css"}
 
 		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
