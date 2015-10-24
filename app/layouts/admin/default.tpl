@@ -78,7 +78,6 @@
 				</div>
 			</div>
 
-			{render partial="shared/layout/footer"}
 		</div>
 
 		{javascript_script_tag file="{$public}/admin/dist/scripts/vendor.min.js"}
