@@ -4,11 +4,13 @@ class TagsField extends CharField{
 		$options += array(
 			"separator" => ",",
 			"unique" => true,
+			"create_tag_if_not_found" => false,
 			"max_tags" => null, // 10
 		);
 		$this->separator = $options["separator"];
 		$this->unique = $options["unique"];
 		$this->max_tags = $options["max_tags"];
+		$this->create_tag_if_not_found = $options["create_tag_if_not_found"];
 
 		parent::__construct($options);
 
@@ -45,7 +47,10 @@ class TagsField extends CharField{
 		$out = array();
 		while($tag = array_shift($tags)){
 			if(!$t = Tag::FindByTag($tag)){
-				return array(sprintf($this->messages["no_such_tag"],h($tag)),null);
+				if(!$this->create_tag_if_not_found){
+					return array(sprintf($this->messages["no_such_tag"],h($tag)),null);
+				}
+				$t = Tag::CreateNewRecord(array("tag" => $tag));
 			}
 			if($this->unique && in_array($tag,$tags)){
 				return array(sprintf($this->messages["unique"],h($tag)),null);
