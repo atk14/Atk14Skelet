@@ -93,7 +93,7 @@ msgstr "Hledat"
 
 #: ../app/forms/application_form.php:65
 msgid "Update"
-msgstr "Změnit"
+msgstr "Aktualizovat"
 
 #: ../app/forms/application_form.php:67
 msgid "Delete"
@@ -527,7 +527,7 @@ msgstr "Zadejte seznam hodnot."
 
 #: ../atk14/src/forms/fields/multiple_choice_field.php:23
 msgid "Please, choose the right options."
-msgstr "Prosím, vyberte správnou možnost."
+msgstr "Prosím, vyberte správné možnosti."
 
 #: ../atk14/src/forms/fields/float_field.php:22
 msgid "Enter a number."
@@ -807,7 +807,7 @@ msgstr ""
 #: smarty.c:68 smarty.c:131 smarty.c:164 smarty.c:485 smarty.c:548
 #: smarty.c:581
 msgid "Edit"
-msgstr "Změnit"
+msgstr "Upravit"
 
 #: smarty.c:74 smarty.c:491
 msgid "Sign in as this user"
