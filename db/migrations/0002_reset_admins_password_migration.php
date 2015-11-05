@@ -8,9 +8,9 @@
  * 
  * $ ./scripts/migrate -f 0002_reset_admins_password_migration.php
  */
-class ResetAdminsPasswordMigration extends Atk14Migration{
+class ResetAdminsPasswordMigration extends ApplicationMigration{
 	function up(){
 		$admin = User::GetInstanceById(1);
-		$admin->s("password","admin");
+		$admin->s("password","admin"); // a transparent password hashing is involved
 	}
 }
