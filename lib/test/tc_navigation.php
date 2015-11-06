@@ -28,12 +28,16 @@ class TcNavigation extends TcBase{
 		$this->assertEquals(4,sizeof($navi));
 		$this->assertEquals("Level_3",$navi[3]->text);
 
+		$navi[] = 2015;
+		$this->assertEquals(5,sizeof($navi));
+		$this->assertEquals("2015",$navi[4]->text);
+
 		// iteration
 
 		$ary = array();
 		foreach($navi as $item){
 			$ary[] = $item->text;
 		}
-		$this->assertEquals("Root,Level_1,Level_2,Level_3",join(",",$ary));
+		$this->assertEquals("Root,Level_1,Level_2,Level_3,2015",join(",",$ary));
 	}
 }
