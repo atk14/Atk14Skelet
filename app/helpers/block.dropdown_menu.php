@@ -31,7 +31,7 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	$first_line = array_shift($lines);
 	if(preg_match('/<a\s[^>]*class="/',$first_line)){
 		// <a href=".." class="bold">Detail</a> -> <a href=".." class="bold btn btn-default">Detail</a>
-		$first_line = preg_replace('/(<a\s[^>]*\bclass="[^"]*)"','\1 btn btn-default"',$first_line);
+		$first_line = preg_replace('/(<a\s[^>]*\bclass="[^"]*)"/','\1 btn btn-default"',$first_line);
 	}else{
 		// <a href="..">Detail</a> -> <a href=".." class="btn btn-default">Detail</a>
 		$first_line = preg_replace('/(<a\s[^>]*)>/','\1 class="btn btn-default">',$first_line);
