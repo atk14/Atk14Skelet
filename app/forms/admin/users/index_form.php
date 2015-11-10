@@ -5,5 +5,7 @@ class IndexForm extends AdminForm{
 			"lable" => _("Search"),
 			"required" => false,
 		)));
+
+		$this->set_button_text(_("Search users"));
 	}
 }

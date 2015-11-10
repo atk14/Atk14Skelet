@@ -1,9 +1,6 @@
 <h1>{$page_title}</h1>
 
-{form _class="form-search"}
-	{!$form.search}
-	<button type="submit" class="btn">{t}Search users{/t}</button>
-{/form}
+{render partial="shared/search_form"}
 
 {if $finder->isEmpty()}
 
