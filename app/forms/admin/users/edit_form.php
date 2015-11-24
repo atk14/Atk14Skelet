@@ -1,20 +1,11 @@
 <?php
-class EditForm extends AdminForm{
+class EditForm extends UsersForm{
 	function set_up(){
-		$this->add_field("name",new CharField(array(
-			"label" => _("Name"),
-			"max_length" => 255,
-		)));
+		parent::set_up();
 
-		$this->add_field("email",new EmailField(array(
-			"label" => _("Email address"),
-			"max_length" => 255,
-		)));
-
-		$this->add_field("is_admin",new BooleanField(array(
-			"label" => _("Is admin?"),
-			"required" => false,
-			"disabled" => $this->controller->user->getId()==1, // admin should be administrator forever
-		)));
+		if($this->controller->user->getId()==1){
+			// the default admin should be administrator forever
+			$this->fields["is_admin"]->disabled = true;
+		}
 	}
 }

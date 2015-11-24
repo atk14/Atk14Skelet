@@ -2,6 +2,8 @@
 
 {render partial="shared/search_form"}
 
+<p>{a action=create_new _class="btn btn-primary"}<i class="glyphicon glyphicon-plus-sign"></i> {t}Create new user{/t}{/a}</p>
+
 {if $finder->isEmpty()}
 
 	<p>{t}No record has been found.{/t}</p>
