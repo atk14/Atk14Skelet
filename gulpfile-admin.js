@@ -21,12 +21,24 @@ var applicationScripts = [
 ];
 
 // CSS
+//gulp.task( "styles-admin", function() {
+//	return gulp.src( "public/admin/styles/application.less" )
+//		.pipe( $.sourcemaps.init() )
+//		.pipe( $.less() )
+//		.pipe( $.autoprefixer() )
+//		.pipe( $.minifyCss() )
+//		.pipe( $.rename( { suffix: ".min" } ) )
+//		.pipe( $.sourcemaps.write( "." ) )
+//		.pipe( gulp.dest( "public/admin/dist/styles" ) )
+//		.pipe( browserSync.stream() );
+//} );
+
 gulp.task( "styles-admin", function() {
-	return gulp.src( "public/admin/styles/application.less" )
+	gulp.src( "public/admin/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
-		.pipe( $.less() )
-		.pipe( $.autoprefixer() )
-		.pipe( $.minifyCss() )
+		.pipe( $.sass.sync().on( "error", $.sass.logError ) )
+		.pipe( gulp.dest( "public/admin/dist/styles" ) )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
@@ -38,7 +50,7 @@ gulp.task( "styles-vendor-admin", function() {
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css" ) )
 		.pipe( $.autoprefixer() )
-		.pipe( $.minifyCss() )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )

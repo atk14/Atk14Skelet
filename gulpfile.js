@@ -17,14 +17,26 @@ var applicationScripts = [
 ];
 
 // CSS
+//gulp.task( "styles", function() {
+//	return gulp.src( "public/styles/application.scss" )
+//		.pipe( $.sourcemaps.init() )
+//		.pipe( $.sass() )
+//		.pipe( $.autoprefixer() )
+//		.pipe( $.minifyCss() )
+//		.pipe( $.rename( { suffix: ".min" } ) )
+//		.pipe( $.sourcemaps.write( "." ) )
+//		.pipe( gulp.dest( "public/dist/styles" ) )
+//		.pipe( browserSync.stream() );
+//} );
+
 gulp.task( "styles", function() {
-	return gulp.src( "public/styles/application.less" )
+	gulp.src( "public/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
-		.pipe( $.less() )
-		.pipe( $.autoprefixer() )
-		.pipe( $.minifyCss() )
+		.pipe( $.sass.sync().on( "error", $.sass.logError ) )
+		.pipe( gulp.dest( "public/admin/dist/styles" ) )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
 		.pipe( browserSync.stream() );
 } );
@@ -34,7 +46,7 @@ gulp.task( "styles-vendor", function() {
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css" ) )
 		.pipe( $.autoprefixer() )
-		.pipe( $.minifyCss() )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
@@ -105,7 +117,7 @@ gulp.task( "serve", [ "styles" ], function() {
 		"public/images/**/*"
 	] ).on( "change", browserSync.reload );
 
-	gulp.watch( "public/styles/**/*.less", [ "styles" ] );
+	gulp.watch( "public/styles/**/*.scss", [ "styles" ] );
 } );
 
 // Build

@@ -1,9 +1,5 @@
-//
-// Atk14Skelet Init styles
-//
-// (if you are using a custom theme, you can remove this)
-//
-// ------------------------------------------------------
+@import "../../../bower_components/bootstrap/scss/bootstrap";
+
 
 /*
 ================================================================
@@ -12,29 +8,39 @@
 body {
 	padding-bottom: 70px;
 }
-.content-main h1 {
-	.page-header;
-}
 .alert {
-	margin-top: @line-height-computed;
+	margin-top: $spacer;
 }
+.pagination {
+	margin: 0;
 
+	> ul {
+		@extend .pagination;
+		margin-bottom: 10px;
+	}
+}
 
 /*
 ================================
 =LAYOUT
 ================================ */
 .has-nav-section .body {
-	.make-row();
+	@include make-row();
 }
 .header-main {
-	margin-bottom: @line-height-computed;
+	margin-bottom: $spacer;
 }
 .nav-section {
-	.make-sm-column(3);
+	@include make-col();
+	@include media-breakpoint-up(sm) {
+		@include make-col-span(3);
+	}
 }
 .has-nav-section .content-main {
-	.make-sm-column(9);
+	@include make-col();
+	@include media-breakpoint-up(sm) {
+		@include make-col-span(9);
+	}
 }
 
 
@@ -47,7 +53,7 @@ body {
 		display: block;
 		height: 162px;
 		margin: 0;
-		background: #000 url( "../images/logo.png" ) no-repeat left;
+		background: #000 url( "../../images/logo.png" ) no-repeat left;
 		text-indent: -999em;
 	}
 }
@@ -69,7 +75,7 @@ body {
 label {
 	font-weight: normal;
 
-	&.label-mce {
+	.label-mce {
 		position: relative;
 		z-index: 1;
 	}
@@ -78,35 +84,49 @@ label {
 	font-weight: bold;
 }
 .help-error {
-	.help-block;
+//	.help-block;
 }
 .form-horizontal {
 	label {
-		.make-sm-column(2);
-	}
-	.form-control {
-		.make-sm-column(4);
-	}
-	.help-block {
-		.make-sm-column(6);
-	}
-	.btn {
-		.make-sm-column-offset(2);
-	}
-}
-.form-group {
-	.popover-title {
-		font-weight: bold;
-	}
-	.popover-content {
-		font-style: italic;
-
-		ul {
-			margin-bottom: 0;
+		@include make-col();
+		@include media-breakpoint-up(sm) {
+			@include make-col-span(2);
 		}
 	}
+	.form-control, .checkboxes {
+		@include make-col();
+		@include media-breakpoint-up(sm) {
+			@include make-col-span(4);
+		}
+	}
+	.help-block {
+		@include make-col();
+		@include media-breakpoint-up(sm) {
+			@include make-col-span(6);
+		}
+	}
+	.btn {
+		@include media-breakpoint-up(sm) {
+			@include make-col-offset(2);
+		}
+	}
+	.checkboxes li {
+//		@include checkbox();
+	}
 }
 
+/*
+================================
+=SEARCH FORMS
+================================ */
+.form-search {
+	margin-bottom: 10px;
+	input {
+		width: 10em;
+		float: left;
+		margin-right: 10px;
+	}
+}
 
 /*
 ================================================================
@@ -145,23 +165,26 @@ label {
 	max-width: 480px;
 }
 
+
 /*
-=====================================================================================
-=Sticky footer styles (http://getbootstrap.com/examples/sticky-footer-navbar/)
-===================================================================================== */
-html {
-  position: relative;
-  min-height: 100%;
+================================================================
+=COMPONENTS
+================================================================ */
+
+/*
+================================
+=AUTOCOMPLETE
+================================ */
+.ui-helper-hidden-accessible {
+	@extend .sr-only;
 }
-body {
-  /* Margin bottom by footer height */
-  margin-bottom: 80px;
-}
-.footer {
-  position: absolute;
-  bottom: 0;
-	left: 0;
-  width: 100%;
-  /* Set the fixed height of the footer here */
-  height: 80px;
+.ui-menu {
+	@extend .dropdown-menu;
+
+	.ui-state-focus {
+		color: $dropdown-link-active-color;
+		text-decoration: none;
+		outline: 0;
+		background-color: $dropdown-link-active-bg;
+	}
 }
