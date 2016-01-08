@@ -159,7 +159,10 @@ class ApplicationRestApiController extends ApplicationBaseController{
 			$this->_display_output($this->api_data,array(
 				"status_code" => $this->api_status_code,
 			));
+			return;
 		}
+
+		parent::_before_render();
 	}
 
 	function error404(){

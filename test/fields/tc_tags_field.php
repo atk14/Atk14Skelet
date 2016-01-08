@@ -32,5 +32,10 @@ class TcTagsField extends TcBase{
 
 		$err = $this->assertInvalid("news,music,fun,wisdom");
 		$this->assertEquals(strtr($f->messages["max_tags"],array("%max%" => 3, "%count%" => 4)),$err);
+
+		// create_tag_if_not_found
+		$this->field = $f = new TagsField(array("unique" => true, "create_tag_if_not_found" => true));
+		$tags = $this->assertValid("news,music,XXX");
+		$this->assertEquals("XXX",$tags[2]->getTag());
 	}
 }

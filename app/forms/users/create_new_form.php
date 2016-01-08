@@ -1,13 +1,9 @@
 <?php
 class CreateNewForm extends UsersForm{
 	function set_up(){
-		$login_field = $this->add_field("login", new RegexField('/^[a-z0-9.-]+$/',array(
+		$this->add_field("login", new LoginField(array(
 			"label" => _("Username (login)"),
-			"max_length" => 50,
-			"help_text" => _("Only letters, numbers, dots and dashes are allowed. Up to 50 characters."),
-			"hints" => array("john.doe","samantha92")
 		)));
-		$login_field->widget->attrs["pattern"] = '^[a-z0-9.-]+$';
 	
 		$this->_add_basic_account_fields();
 
@@ -27,10 +23,6 @@ class CreateNewForm extends UsersForm{
 
 	function clean(){
 		list($err,$d) = parent::clean();
-
-		if(isset($d["login"]) && User::FindByLogin($d["login"])){
-			$this->set_error("login",_("This username has been already taken"));
-		}
 
 		if(isset($d["invitation_code"]) && $d["invitation_code"]!==INVITATION_CODE_FOR_USER_REGISTRATION){
 			$this->set_error("invitation_code",_("This is not a valid invitation code"));

@@ -61,14 +61,7 @@ class ArticlesController extends AdminController{
 	}
 
 	function destroy(){
-		if(!$this->request->post()){ return $this->_execute_action("error404"); }
-
-		$this->article->destroy();
-
-		if(!$this->request->xhr()){
-			$this->flash->success(_("The article has been deleted"));
-			$this->_redirect_to("index");
-		}
+		$this->_destroy($this->article);
 	}
 
 	function _before_filter(){

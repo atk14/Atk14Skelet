@@ -5,5 +5,7 @@ class IndexForm extends AdminForm{
 			"label" => _("Search"),
 			"required" => false,
 		)));
+
+		$this->set_button_text(_("Search articles"));
 	}
 }

@@ -25,6 +25,18 @@ class UsersController extends AdminController{
 		));
 	}
 
+	function create_new(){
+		$this->page_title = _("Create a new user");
+
+		$this->_save_return_uri();
+
+		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			User::CreateNewRecord($d);
+			$this->flash->success(_("The user has been created successfuly"));
+			$this->_redirect_back();
+		}
+	}
+
 	function edit(){
 		$this->page_title = sprintf(_("Editing user %s"),h($this->user));
 
