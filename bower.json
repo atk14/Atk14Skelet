@@ -15,5 +15,8 @@
   },
   "resolutions": {
     "bootstrap": "v4.0.0-alpha.2"
+  },
+  "devDependencies": {
+    "components-font-awesome": "~4.5.0"
   }
 }
