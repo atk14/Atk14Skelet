@@ -3,12 +3,12 @@
 {form}
 {render partial="shared/form_error"}
 <fieldset>
-	<legend>{t}Current Password{/t}</legend>
+	<legend>{t}Current password{/t}</legend>
 	{render partial="shared/form_field" field="current_password"}
 </fieldset>
 
 <fieldset>
-	<legend>{t}New Password{/t}</legend>
+	<legend>{t}New password{/t}</legend>
 	{render partial="shared/form_field" fields="password,password_repeat"}
 </fieldset>
 
