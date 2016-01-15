@@ -7,12 +7,12 @@
 		</p>
 		<h3>{t}The Skelet contains mainly{/t}</h3>
 		<ul>
-			<li>{a action="main/about"}About page{/a}</li>
-			<li>{a action="main/contact"}Contact page with fast contact form{/a}</li>
+			<li>{a action="main/about"}{t}About page{/t}{/a}</li>
+			<li>{a action="main/contact"}{t}Contact page with fast contact form{/t}{/a}</li>
 			<li>{a action="news/index"}{t}News section{/t}{/a}</li>
-			<li>{a action="users/create_new"}{t}User registration{/t}{/a} (with strong blowfish passwords hashing)</li>
-			<li>{a namespace="admin"}Basic administration{/a}</li>
-			<li>{a namespace="api"}RESTful API{/a}</li>
+			<li>{a action="users/create_new"}{t}User registration{/t}{/a} ({t}with strong blowfish passwords hashing{/t})</li>
+			<li>{a namespace="admin"}{t}Basic administration{/t}{/a}</li>
+			<li>{a namespace="api"}{t}RESTful API{/t}{/a}</li>
 			<li>{t}Sitemap{/t} ({a action="sitemaps/detail"}HTML{/a}, {a action="sitemaps/index"}XML{/a})</li>
 			<li>
 				{t}Localization{/t}
