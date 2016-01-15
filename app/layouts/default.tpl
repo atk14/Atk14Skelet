@@ -43,13 +43,13 @@
 			{render partial="shared/layout/dev_info"}
 		{/if}
 
-		{stylesheet_link_tag file="{$public}/dist/styles/vendor.min.css" hide_when_file_not_found=true}
-		{stylesheet_link_tag file="{$public}/dist/styles/application.min.css"}
+		{stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true}
+		{stylesheet_link_tag file="$public/dist/styles/application.min.css"}
 
 		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
-			{javascript_script_tag file="{$public}/dist/scripts/html5shiv.min.js"}
-			{javascript_script_tag file="{$public}/dist/scripts/respond.min.js"}
+			{javascript_script_tag file="$public/dist/scripts/html5shiv.min.js"}
+			{javascript_script_tag file="$public/dist/scripts/respond.min.js"}
 		<![endif]-->
 	</head>
 
@@ -77,7 +77,7 @@
 			{render partial="shared/layout/footer"}
 		</div>
 
-		{javascript_script_tag file="{$public}/dist/scripts/vendor.min.js"}
-		{javascript_script_tag file="{$public}/dist/scripts/application.min.js"}
+		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
+		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
 	</body>
 </html>
