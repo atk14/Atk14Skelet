@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2015-11-09 15:47+0100\n"
+"POT-Creation-Date: 2016-01-15 13:46+0100\n"
 "PO-Revision-Date: 2011-02-16 15:06+0100\n"
 "Last-Translator: Translator <translator@email.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -23,7 +23,7 @@ msgstr ""
 
 #: ../app/forms/users/edit_password_form.php:8
 #: ../app/forms/password_recoveries/recovery_form.php:7 smarty.c:71
-#: smarty.c:530
+#: smarty.c:539
 msgid "Set new password"
 msgstr ""
 
@@ -32,12 +32,12 @@ msgid "The new password is the same as your current password"
 msgstr ""
 
 #: ../app/forms/users/users_form.php:5 ../app/forms/main/contact_form.php:5
-#: smarty.c:26 smarty.c:485
+#: smarty.c:26 smarty.c:494
 msgid "Your name"
 msgstr ""
 
 #: ../app/forms/users/users_form.php:11
-#: ../app/forms/admin/users/edit_form.php:10 smarty.c:95 smarty.c:554
+#: ../app/forms/admin/users/users_form.php:10 smarty.c:95 smarty.c:563
 msgid "Email address"
 msgstr ""
 
@@ -53,32 +53,23 @@ msgstr ""
 msgid "Password doesn't match"
 msgstr ""
 
-#: ../app/forms/users/create_new_form.php:5 smarty.c:23 smarty.c:482
+#: ../app/forms/users/create_new_form.php:5 smarty.c:23 smarty.c:491
 msgid "Username (login)"
 msgstr ""
 
-#: ../app/forms/users/create_new_form.php:7
-msgid ""
-"Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
-msgstr ""
-
-#: ../app/forms/users/create_new_form.php:20
+#: ../app/forms/users/create_new_form.php:16
 msgid "In order to register you need to obtain an invitation code"
 msgstr ""
 
-#: ../app/forms/users/create_new_form.php:25 smarty.c:329 smarty.c:788
+#: ../app/forms/users/create_new_form.php:21 smarty.c:320 smarty.c:788
 msgid "Register"
 msgstr ""
 
-#: ../app/forms/users/create_new_form.php:32
-msgid "This username has been already taken"
-msgstr ""
-
-#: ../app/forms/users/create_new_form.php:36
+#: ../app/forms/users/create_new_form.php:28
 msgid "This is not a valid invitation code"
 msgstr ""
 
-#: ../app/forms/users/create_new_form.php:56
+#: ../app/forms/users/create_new_form.php:48
 msgid "This login has been already taken"
 msgstr ""
 
@@ -102,7 +93,7 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
-#: ../app/forms/application_form.php:67 smarty.c:209 smarty.c:668
+#: ../app/forms/application_form.php:67 smarty.c:200 smarty.c:668
 msgid "Delete"
 msgstr ""
 
@@ -111,30 +102,34 @@ msgid "Save"
 msgstr ""
 
 #: ../app/forms/logins/destroy_form.php:4
-#: ../app/controllers/logins_controller.php:32 smarty.c:323 smarty.c:782
+#: ../app/controllers/logins_controller.php:32 smarty.c:314 smarty.c:782
 msgid "Sign out"
 msgstr ""
 
 #: ../app/forms/logins/create_new_form.php:11
-#: ../app/controllers/logins_controller.php:6 smarty.c:251 smarty.c:326
-#: smarty.c:446 smarty.c:710 smarty.c:785 smarty.c:905
+#: ../app/controllers/logins_controller.php:6 smarty.c:242 smarty.c:317
+#: smarty.c:455 smarty.c:710 smarty.c:785 smarty.c:923
 msgid "Sign in"
 msgstr ""
 
-#: ../app/forms/admin/users/edit_password_form.php:5
+#: ../app/forms/admin/users/edit_password_form.php:5 smarty.c:20 smarty.c:488
 msgid "New password"
 msgstr ""
 
-#: ../app/forms/admin/users/edit_form.php:5 smarty.c:92 smarty.c:197
-#: smarty.c:275 smarty.c:551 smarty.c:656 smarty.c:734
+#: ../app/forms/admin/users/users_form.php:5 smarty.c:92 smarty.c:188
+#: smarty.c:266 smarty.c:560 smarty.c:656 smarty.c:734
 msgid "Name"
 msgstr ""
 
-#: ../app/forms/admin/users/edit_form.php:15 smarty.c:98 smarty.c:557
+#: ../app/forms/admin/users/users_form.php:15 smarty.c:98 smarty.c:566
 msgid "Is admin?"
 msgstr ""
 
-#: ../app/forms/admin/articles/articles_form.php:5 smarty.c:149 smarty.c:608
+#: ../app/forms/admin/users/index_form.php:9
+msgid "Search users"
+msgstr ""
+
+#: ../app/forms/admin/articles/articles_form.php:5 smarty.c:146 smarty.c:614
 msgid "Title"
 msgstr ""
 
@@ -151,7 +146,7 @@ msgid "Published At"
 msgstr ""
 
 #: ../app/forms/admin/articles/articles_form.php:20
-#: ../app/controllers/admin/admin.php:19 smarty.c:158 smarty.c:617
+#: ../app/controllers/admin/admin.php:19 smarty.c:155 smarty.c:623
 msgid "Tags"
 msgstr ""
 
@@ -162,12 +157,20 @@ msgid ""
 "section"
 msgstr ""
 
+#: ../app/forms/admin/articles/index_form.php:9
+msgid "Search articles"
+msgstr ""
+
+#: ../app/forms/admin/tags/index_form.php:9
+msgid "Search tags"
+msgstr ""
+
 #: ../app/forms/admin/tags/create_new_form.php:7
 #: ../app/controllers/admin/tags_controller.php:49
 msgid "The same tag already exists"
 msgstr ""
 
-#: ../app/forms/admin/tags/tags_form.php:5 smarty.c:182 smarty.c:641
+#: ../app/forms/admin/tags/tags_form.php:5 smarty.c:176 smarty.c:644
 msgid "Tag"
 msgstr ""
 
@@ -183,7 +186,7 @@ msgstr ""
 msgid "Search term"
 msgstr ""
 
-#: ../app/forms/main/contact_form.php:10 smarty.c:29 smarty.c:488
+#: ../app/forms/main/contact_form.php:10 smarty.c:29 smarty.c:497
 msgid "Your email"
 msgstr ""
 
@@ -197,6 +200,15 @@ msgstr ""
 
 #: ../app/forms/main/contact_form.php:26
 msgid "Send message"
+msgstr ""
+
+#: ../app/fields/login_field.php:6
+msgid ""
+"Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
+msgstr ""
+
+#: ../app/fields/login_field.php:18
+msgid "This username has been already taken"
 msgstr ""
 
 #: ../app/fields/tags_field.php:18
@@ -267,37 +279,45 @@ msgid "Users list"
 msgstr ""
 
 #: ../app/controllers/admin/users_controller.php:29
+msgid "Create a new user"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:35
+msgid "The user has been created successfuly"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:41
 #, php-format
 msgid "Editing user %s"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:36
+#: ../app/controllers/admin/users_controller.php:48
 #: ../app/controllers/admin/articles_controller.php:50
 #: ../app/controllers/admin/tags_controller.php:54
 #: ../app/controllers/users_controller.php:42
 msgid "Nothing has been changed"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:42
+#: ../app/controllers/admin/users_controller.php:54
 msgid "The user entry has been updated"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:48
+#: ../app/controllers/admin/users_controller.php:60
 #, php-format
 msgid "Setting a new password to the user %s"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:57
+#: ../app/controllers/admin/users_controller.php:69
 msgid ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:73
+#: ../app/controllers/admin/users_controller.php:85
 msgid "The user entry has been deleted"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:84
+#: ../app/controllers/admin/users_controller.php:96
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
 msgstr ""
@@ -323,12 +343,8 @@ msgstr ""
 msgid "The article has been updated successfuly"
 msgstr ""
 
-#: ../app/controllers/admin/articles_controller.php:69
-msgid "The article has been deleted"
-msgstr ""
-
 #: ../app/controllers/admin/admin.php:8
-#: ../app/controllers/admin/main_controller.php:4 smarty.c:320 smarty.c:779
+#: ../app/controllers/admin/main_controller.php:4 smarty.c:311 smarty.c:779
 msgid "Administration"
 msgstr ""
 
@@ -381,7 +397,7 @@ msgstr ""
 msgid "To register as a new user, sign out first"
 msgstr ""
 
-#: ../app/controllers/users_controller.php:17 smarty.c:440 smarty.c:899
+#: ../app/controllers/users_controller.php:17 smarty.c:449 smarty.c:917
 msgid "New user registration"
 msgstr ""
 
@@ -391,7 +407,7 @@ msgid ""
 "You have been successfuly registered and now you are logged in as <em>%s</em>"
 msgstr ""
 
-#: ../app/controllers/users_controller.php:36 smarty.c:38 smarty.c:497
+#: ../app/controllers/users_controller.php:36 smarty.c:38 smarty.c:506
 msgid "Change your account data"
 msgstr ""
 
@@ -399,7 +415,7 @@ msgstr ""
 msgid "Your account data has been updated"
 msgstr ""
 
-#: ../app/controllers/users_controller.php:53 smarty.c:41 smarty.c:500
+#: ../app/controllers/users_controller.php:53 smarty.c:41 smarty.c:509
 msgid "Change your password"
 msgstr ""
 
@@ -445,7 +461,7 @@ msgstr ""
 msgid "Sorry, An internal error happened"
 msgstr ""
 
-#: ../app/controllers/sitemaps_controller.php:10 smarty.c:377 smarty.c:836
+#: ../app/controllers/sitemaps_controller.php:10 smarty.c:386 smarty.c:854
 msgid "Sitemap"
 msgstr ""
 
@@ -474,7 +490,7 @@ msgstr ""
 msgid "Message sent from contact page"
 msgstr ""
 
-#: ../app/controllers/main_controller.php:11 smarty.c:362 smarty.c:821
+#: ../app/controllers/main_controller.php:11 smarty.c:356 smarty.c:824
 msgid "Welcome!"
 msgstr ""
 
@@ -484,7 +500,7 @@ msgid "About %s"
 msgstr ""
 
 #: ../app/controllers/main_controller.php:21
-#: ../app/controllers/main_controller.php:44 smarty.c:428 smarty.c:887
+#: ../app/controllers/main_controller.php:44 smarty.c:437 smarty.c:905
 msgid "Contact"
 msgstr ""
 
@@ -654,7 +670,7 @@ msgstr ""
 msgid "The form contains errors, therefore it cannot be processed."
 msgstr ""
 
-#: ../atk14/src/atk14/atk14_form.php:486
+#: ../atk14/src/atk14/atk14_form.php:488
 msgid "Please, submit the form again"
 msgstr ""
 
@@ -712,31 +728,31 @@ msgstr ""
 "/^(?<month>[0-9]{1,2})\\/(?<day>[0-9]{1,2})\\/(?<year>[0-9]{4}) (?"
 "<hours>[0-9]{2}):(?<minutes>[0-9]{2}):(?<seconds>[0-9]{2}$/"
 
-#: ../atk14/src/atk14/atk14_dispatcher.php:59
+#: ../atk14/src/atk14/atk14_dispatcher.php:67
 msgid "Service Unavailable"
 msgstr ""
 
-#: ../atk14/src/atk14/atk14_dispatcher.php:60
+#: ../atk14/src/atk14/atk14_dispatcher.php:68
 msgid "This site is in maintenance. Please come back later."
 msgstr ""
 
-#: smarty.c:2 smarty.c:461
+#: smarty.c:2 smarty.c:470
 msgid "Best regards"
 msgstr ""
 
-#: smarty.c:5 smarty.c:464
+#: smarty.c:5 smarty.c:473
 msgid "%1 Support Team"
 msgstr ""
 
-#: smarty.c:8 smarty.c:467
+#: smarty.c:8 smarty.c:476
 msgid "web"
 msgstr ""
 
-#: smarty.c:11 smarty.c:470
+#: smarty.c:11 smarty.c:479
 msgid "email"
 msgstr ""
 
-#: smarty.c:14 smarty.c:473
+#: smarty.c:14 smarty.c:482
 msgid ""
 "Best regards\n"
 "\n"
@@ -745,255 +761,239 @@ msgid ""
 "email: %3"
 msgstr ""
 
-#: smarty.c:17 smarty.c:476
-msgid "Current Password"
+#: smarty.c:17 smarty.c:485
+msgid "Current password"
 msgstr ""
 
-#: smarty.c:20 smarty.c:479
-msgid "New Password"
-msgstr ""
-
-#: smarty.c:32 smarty.c:491
+#: smarty.c:32 smarty.c:500
 msgid "Are you admin?"
 msgstr ""
 
-#: smarty.c:35 smarty.c:494
+#: smarty.c:35 smarty.c:503
 msgid "Yes, you are"
 msgstr ""
 
-#: smarty.c:44 smarty.c:308 smarty.c:503 smarty.c:767
+#: smarty.c:44 smarty.c:299 smarty.c:512 smarty.c:767
 msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr ""
 
-#: smarty.c:47 smarty.c:506
+#: smarty.c:47 smarty.c:515
 msgid "News archive"
 msgstr ""
 
-#: smarty.c:50 smarty.c:509
+#: smarty.c:50 smarty.c:518
 msgid "At the moment there are no news."
 msgstr ""
 
-#: smarty.c:53 smarty.c:512
+#: smarty.c:53 smarty.c:521
 msgid "You are signed in as <em>%1</em>."
 msgstr ""
 
-#: smarty.c:56 smarty.c:515
+#: smarty.c:56 smarty.c:524
 msgid "Click on the button to sign out."
 msgstr ""
 
-#: smarty.c:59 smarty.c:518
+#: smarty.c:59 smarty.c:527
 msgid "Have you forgotten password?"
 msgstr ""
 
-#: smarty.c:62 smarty.c:521
+#: smarty.c:62 smarty.c:530
 msgid ""
 "Please note that default administration access is admin/admin. Be a smart "
 "guy and change admin's password on production promptly."
 msgstr ""
 
-#: smarty.c:65 smarty.c:524
+#: smarty.c:65 smarty.c:533
 msgid ""
 "At the moment no one knows the actual user's password because passwords are "
 "not stored in plain text form. In this form you can set a new password to "
 "the user <em>%1</em>"
 msgstr ""
 
-#: smarty.c:68 smarty.c:131 smarty.c:164 smarty.c:527 smarty.c:590
-#: smarty.c:623
+#: smarty.c:68 smarty.c:134 smarty.c:161 smarty.c:536 smarty.c:602
+#: smarty.c:629
 msgid "Edit"
 msgstr ""
 
-#: smarty.c:74 smarty.c:533
+#: smarty.c:74 smarty.c:542
 msgid "Sign in as this user"
 msgstr ""
 
-#: smarty.c:77 smarty.c:536
+#: smarty.c:77 smarty.c:545
 msgid ""
 "You are about to permanently delete user %1\n"
 "\tAre you sure about that?"
 msgstr ""
 
-#: smarty.c:80 smarty.c:539
+#: smarty.c:80 smarty.c:548
 msgid "Delete user"
 msgstr ""
 
-#: smarty.c:83 smarty.c:542
-msgid "Search users"
+#: smarty.c:83 smarty.c:551
+msgid "Create new user"
 msgstr ""
 
-#: smarty.c:86 smarty.c:191 smarty.c:545 smarty.c:650
+#: smarty.c:86 smarty.c:182 smarty.c:554 smarty.c:650
 msgid "No record has been found."
 msgstr ""
 
-#: smarty.c:89 smarty.c:548
+#: smarty.c:89 smarty.c:557
 msgid "Username"
 msgstr ""
 
-#: smarty.c:101 smarty.c:110 smarty.c:185 smarty.c:560 smarty.c:569
-#: smarty.c:644
+#: smarty.c:101 smarty.c:110 smarty.c:179 smarty.c:569 smarty.c:578
+#: smarty.c:647
 msgid "Created at"
 msgstr ""
 
-#: smarty.c:104 smarty.c:563
+#: smarty.c:104 smarty.c:572
 msgid "Updated at"
 msgstr ""
 
-#: smarty.c:107 smarty.c:146 smarty.c:566 smarty.c:605
+#: smarty.c:107 smarty.c:143 smarty.c:575 smarty.c:611
 msgid "The list is empty."
 msgstr ""
 
-#: smarty.c:113 smarty.c:572
+#: smarty.c:113 smarty.c:581
 msgid "User"
 msgstr ""
 
-#: smarty.c:116 smarty.c:194 smarty.c:278 smarty.c:350 smarty.c:575
-#: smarty.c:653 smarty.c:737 smarty.c:809
+#: smarty.c:116 smarty.c:185 smarty.c:269 smarty.c:344 smarty.c:584
+#: smarty.c:653 smarty.c:737 smarty.c:812
 msgid "Email"
 msgstr ""
 
-#: smarty.c:119 smarty.c:578
+#: smarty.c:119 smarty.c:587
 msgid "Created from address"
 msgstr ""
 
-#: smarty.c:122 smarty.c:581
+#: smarty.c:122 smarty.c:590
 msgid "Password recovered?"
 msgstr ""
 
-#: smarty.c:125 smarty.c:584
+#: smarty.c:125 smarty.c:593
 msgid "Recovered at"
 msgstr ""
 
-#: smarty.c:128 smarty.c:587
+#: smarty.c:128 smarty.c:596
 msgid "Recovered from address"
 msgstr ""
 
-#: smarty.c:134 smarty.c:593
+#: smarty.c:131 smarty.c:599
 msgid ""
 "Are you sure to delete article item\n"
 "%1?"
 msgstr ""
 
-#: smarty.c:137 smarty.c:596
+#: smarty.c:137 smarty.c:605
 msgid "Delete article"
 msgstr ""
 
-#: smarty.c:140 smarty.c:599
-msgid "Search articles"
-msgstr ""
-
-#: smarty.c:143 smarty.c:176 smarty.c:602 smarty.c:635
+#: smarty.c:140 smarty.c:170 smarty.c:608 smarty.c:638
 msgid "Add New"
 msgstr ""
 
-#: smarty.c:152 smarty.c:611
+#: smarty.c:149 smarty.c:617
 msgid "Author"
 msgstr ""
 
-#: smarty.c:155 smarty.c:614
+#: smarty.c:152 smarty.c:620
 msgid "Date"
 msgstr ""
 
-#: smarty.c:161 smarty.c:620
+#: smarty.c:158 smarty.c:626
 msgid "Actions"
 msgstr ""
 
-#: smarty.c:167 smarty.c:626
+#: smarty.c:164 smarty.c:632
 msgid ""
 "You are about to permanently delete tag %1\n"
 "\tAre you sure about that?"
 msgstr ""
 
-#: smarty.c:170 smarty.c:629
+#: smarty.c:167 smarty.c:635
 msgid "Delete tag"
 msgstr ""
 
-#: smarty.c:173 smarty.c:632
-msgid "Search tags"
-msgstr ""
-
-#: smarty.c:179 smarty.c:638
+#: smarty.c:173 smarty.c:641
 msgid "No tag has been found."
 msgstr ""
 
-#: smarty.c:188 smarty.c:647
-msgid "Search records"
-msgstr ""
-
-#: smarty.c:200 smarty.c:659
+#: smarty.c:191 smarty.c:659
 msgid "Subscribed since"
 msgstr ""
 
-#: smarty.c:203 smarty.c:284 smarty.c:662 smarty.c:743
+#: smarty.c:194 smarty.c:275 smarty.c:662 smarty.c:743
 msgid "IP address"
 msgstr ""
 
-#: smarty.c:206 smarty.c:665
+#: smarty.c:197 smarty.c:665
 msgid "Export emails in CSV"
 msgstr ""
 
-#: smarty.c:212 smarty.c:671
+#: smarty.c:203 smarty.c:671
 msgid "Welcome administrator!"
 msgstr ""
 
-#: smarty.c:215 smarty.c:674
+#: smarty.c:206 smarty.c:674
 msgid "The URL is not valid."
 msgstr ""
 
-#: smarty.c:218 smarty.c:677
+#: smarty.c:209 smarty.c:677
 msgid "In the form bellow set the new password for user <em>%1</em>"
 msgstr ""
 
-#: smarty.c:221 smarty.c:680
+#: smarty.c:212 smarty.c:680
 msgid "The address has expired or already been used."
 msgstr ""
 
-#: smarty.c:224 smarty.c:683
+#: smarty.c:215 smarty.c:683
 msgid "The password recovery link has been sent to your email address."
 msgstr ""
 
-#: smarty.c:227 smarty.c:686
+#: smarty.c:218 smarty.c:686
 msgid ""
 "If you don't receive instructions within a few minutes, check your email's "
 "spam and junk filters."
 msgstr ""
 
-#: smarty.c:230 smarty.c:689
+#: smarty.c:221 smarty.c:689
 msgid "Error 403: Forbidden"
 msgstr ""
 
-#: smarty.c:233 smarty.c:692
+#: smarty.c:224 smarty.c:692
 msgid "You don`t have a permission to access <em>%1</em> on this server."
 msgstr ""
 
-#: smarty.c:236 smarty.c:263 smarty.c:695 smarty.c:722
+#: smarty.c:227 smarty.c:254 smarty.c:695 smarty.c:722
 msgid "Go to the homepage"
 msgstr ""
 
-#: smarty.c:239 smarty.c:698
+#: smarty.c:230 smarty.c:698
 msgid "Currently you are not logged as an admin user."
 msgstr ""
 
-#: smarty.c:242 smarty.c:248 smarty.c:701 smarty.c:707
+#: smarty.c:233 smarty.c:239 smarty.c:701 smarty.c:707
 msgid "or"
 msgstr ""
 
-#: smarty.c:245 smarty.c:704
+#: smarty.c:236 smarty.c:704
 msgid "Sign in as an admin user"
 msgstr ""
 
-#: smarty.c:254 smarty.c:713
+#: smarty.c:245 smarty.c:713
 msgid "Error 404: Page not found"
 msgstr ""
 
-#: smarty.c:257 smarty.c:716
+#: smarty.c:248 smarty.c:716
 msgid "We are deeply sorry, but the page on the URI <em>%1</em> wasn't found."
 msgstr ""
 
-#: smarty.c:260 smarty.c:719
+#: smarty.c:251 smarty.c:719
 msgid "Please, write us to %1 if you think this is our mistake."
 msgstr ""
 
-#: smarty.c:266 smarty.c:725
+#: smarty.c:257 smarty.c:725
 msgid ""
 "Thanks for signing up for %1!\n"
 "\n"
@@ -1004,7 +1004,7 @@ msgid ""
 "name: %4\n"
 msgstr ""
 
-#: smarty.c:269 smarty.c:728
+#: smarty.c:260 smarty.c:728
 msgid ""
 "Hello %1!\n"
 "\n"
@@ -1016,7 +1016,7 @@ msgid ""
 "Please note that this link is valid for 2 hours only."
 msgstr ""
 
-#: smarty.c:272 smarty.c:731
+#: smarty.c:263 smarty.c:731
 msgid ""
 "Hello %1!\n"
 "\n"
@@ -1025,96 +1025,100 @@ msgid ""
 "The update has been executed upon a request from IP address %2"
 msgstr ""
 
-#: smarty.c:281 smarty.c:740
+#: smarty.c:272 smarty.c:740
 msgid "Signing up for newsletter"
 msgstr ""
 
-#: smarty.c:287 smarty.c:746
+#: smarty.c:278 smarty.c:746
 msgid "Logged user:"
 msgstr ""
 
-#: smarty.c:290 smarty.c:749
+#: smarty.c:281 smarty.c:749
 msgid "Hello %1!"
 msgstr ""
 
-#: smarty.c:293 smarty.c:752
+#: smarty.c:284 smarty.c:752
 msgid ""
 "Have you forgotten your password? To reset your password, click on the "
 "following link"
 msgstr ""
 
-#: smarty.c:296 smarty.c:755
+#: smarty.c:287 smarty.c:755
 msgid "recovery link"
 msgstr ""
 
-#: smarty.c:299 smarty.c:758
+#: smarty.c:290 smarty.c:758
 msgid "Please note that this link is valid for 2 hours only."
 msgstr ""
 
-#: smarty.c:302 smarty.c:761
+#: smarty.c:293 smarty.c:761
 msgid ""
 "This site runs on <a href=\"http://www.atk14.net/\">ATK14 Framework</a>, for "
 "now and ever after"
 msgstr ""
 
-#: smarty.c:305 smarty.c:764
+#: smarty.c:296 smarty.c:764
 msgid "Go to home page"
 msgstr ""
 
-#: smarty.c:311 smarty.c:770
+#: smarty.c:302 smarty.c:770
 msgid "Examples:"
 msgstr ""
 
-#: smarty.c:314 smarty.c:773
+#: smarty.c:305 smarty.c:773
 msgid "administrator"
 msgstr ""
 
-#: smarty.c:317 smarty.c:776
+#: smarty.c:308 smarty.c:776
 msgid "Profile"
 msgstr ""
 
-#: smarty.c:332 smarty.c:791
+#: smarty.c:323 smarty.c:791
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr ""
 
-#: smarty.c:335 smarty.c:794
+#: smarty.c:326 smarty.c:794
+msgid "Show menu"
+msgstr ""
+
+#: smarty.c:329 smarty.c:797
 msgid "The following difficulties have occurred during the form processing:"
 msgstr ""
 
-#: smarty.c:338 smarty.c:797
+#: smarty.c:332 smarty.c:800
 msgid ""
 "Some of the items were filled incorrectly. Please, check the form and "
 "correct the errors."
 msgstr ""
 
-#: smarty.c:341 smarty.c:800
+#: smarty.c:335 smarty.c:803
 msgid "The message has been sent to us. We will reply as soon as we can."
 msgstr ""
 
-#: smarty.c:344 smarty.c:803
+#: smarty.c:338 smarty.c:806
 msgid ""
 "If you have any question, contact us through the following form. We will "
 "reply to you as soon as we can. Below the form you'll find other contact "
 "information."
 msgstr ""
 
-#: smarty.c:347 smarty.c:806
+#: smarty.c:341 smarty.c:809
 msgid "%1 Team"
 msgstr ""
 
-#: smarty.c:353 smarty.c:812
+#: smarty.c:347 smarty.c:815
 msgid "Phone"
 msgstr ""
 
-#: smarty.c:356 smarty.c:815
+#: smarty.c:350 smarty.c:818
 msgid "Opening hours"
 msgstr ""
 
-#: smarty.c:359 smarty.c:818
+#: smarty.c:353 smarty.c:821
 msgid "From dusk till dawn"
 msgstr ""
 
-#: smarty.c:365 smarty.c:824
+#: smarty.c:359 smarty.c:827
 msgid ""
 "<em>ATK14 Skelet</em> is a very basic application written on top of <a href="
 "\"http://atk14.net\">the ATK14 Framework</a>.\n"
@@ -1122,117 +1126,137 @@ msgid ""
 "as a good start point for any other application."
 msgstr ""
 
-#: smarty.c:368 smarty.c:827
+#: smarty.c:362 smarty.c:830
 msgid "The Skelet contains mainly"
 msgstr ""
 
-#: smarty.c:371 smarty.c:830
+#: smarty.c:365 smarty.c:833
+msgid "About page"
+msgstr ""
+
+#: smarty.c:368 smarty.c:836
+msgid "Contact page with fast contact form"
+msgstr ""
+
+#: smarty.c:371 smarty.c:839
 msgid "News section"
 msgstr ""
 
-#: smarty.c:374 smarty.c:833
+#: smarty.c:374 smarty.c:842
 msgid "User registration"
 msgstr ""
 
-#: smarty.c:380 smarty.c:839
+#: smarty.c:377 smarty.c:845
+msgid "with strong blowfish passwords hashing"
+msgstr ""
+
+#: smarty.c:380 smarty.c:848
+msgid "Basic administration"
+msgstr ""
+
+#: smarty.c:383 smarty.c:851
+msgid "RESTful API"
+msgstr ""
+
+#: smarty.c:389 smarty.c:857
 msgid "Localization"
 msgstr ""
 
-#: smarty.c:383 smarty.c:842
+#: smarty.c:392 smarty.c:860
 msgid "English"
 msgstr ""
 
-#: smarty.c:386 smarty.c:845
+#: smarty.c:395 smarty.c:863
 msgid "Czech"
 msgstr ""
 
-#: smarty.c:389 smarty.c:848
+#: smarty.c:398 smarty.c:866
 msgid "Installation"
 msgstr ""
 
-#: smarty.c:392 smarty.c:851
+#: smarty.c:401 smarty.c:869
 msgid ""
 "If you are brave enough to install the Skelet on your computer, check out <a "
 "href=\"https://github.com/atk14/Atk14Skelet/blob/master/README."
 "md#installation\">the installation instrunction.</a>"
 msgstr ""
 
-#: smarty.c:395 smarty.c:854
+#: smarty.c:404 smarty.c:872
 msgid ""
 "If you want to help us to improve the Skelet, <a href=\"https://github.com/"
 "atk14/Atk14Skelet\">fork it on GitHub.</a>"
 msgstr ""
 
-#: smarty.c:398 smarty.c:857
+#: smarty.c:407 smarty.c:875
 msgid "Further Reading & Resources"
 msgstr ""
 
-#: smarty.c:401 smarty.c:860
+#: smarty.c:410 smarty.c:878
 msgid "ATK14 Project"
 msgstr ""
 
-#: smarty.c:404 smarty.c:863
+#: smarty.c:413 smarty.c:881
 msgid "ATK14 Book"
 msgstr ""
 
-#: smarty.c:407 smarty.c:866
+#: smarty.c:416 smarty.c:884
 msgid "API Reference"
 msgstr ""
 
-#: smarty.c:410 smarty.c:869
+#: smarty.c:419 smarty.c:887
 msgid "ATK14 on GitHub"
 msgstr ""
 
-#: smarty.c:413 smarty.c:872
+#: smarty.c:422 smarty.c:890
 msgid "ATK14 Skelet on GitHub"
 msgstr ""
 
-#: smarty.c:416 smarty.c:875
+#: smarty.c:425 smarty.c:893
 msgid "The ATK14 Skelet at age 5"
 msgstr ""
 
-#: smarty.c:419 smarty.c:878
+#: smarty.c:428 smarty.c:896
 msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
 msgstr ""
 
-#: smarty.c:422 smarty.c:881
+#: smarty.c:431 smarty.c:899
 msgid "Homepage"
 msgstr ""
 
-#: smarty.c:425 smarty.c:884
+#: smarty.c:434 smarty.c:902
 msgid "The most important page in the whole universe"
 msgstr ""
 
-#: smarty.c:431 smarty.c:890
+#: smarty.c:440 smarty.c:908
 msgid "Contact data and quick contact form"
 msgstr ""
 
-#: smarty.c:434 smarty.c:893
+#: smarty.c:443 smarty.c:911
 msgid "About"
 msgstr ""
 
-#: smarty.c:437 smarty.c:896
+#: smarty.c:446 smarty.c:914
 msgid "What is this site all about"
 msgstr ""
 
-#: smarty.c:443 smarty.c:902
+#: smarty.c:452 smarty.c:920
 msgid ""
 "If you don't have yet an account on this site, this is absolutely must to do "
 "procedure"
 msgstr ""
 
-#: smarty.c:449 smarty.c:908
+#: smarty.c:458 smarty.c:926
 msgid "Sign in to our site"
 msgstr ""
 
-#: smarty.c:452 smarty.c:911
+#: smarty.c:461 smarty.c:929
 msgid "API"
 msgstr ""
 
-#: smarty.c:455 smarty.c:914
+#: smarty.c:464 smarty.c:932
 msgid "We offer an awesome restful API"
 msgstr ""
 
-#: smarty.c:458 smarty.c:917
+#: smarty.c:467 smarty.c:935
 msgid "Recent articles"
 msgstr ""
