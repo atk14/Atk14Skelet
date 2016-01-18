@@ -24,6 +24,6 @@ class TcTextField extends TcBase{
 			"initial" => " Hello World! "
 		));
 
-		$this->assertEquals('<textarea cols="40" rows="10" class="form-control" id="id_body" name="body"> Hello World! </textarea>',$form["body"]->as_widget());
+		$this->assertEquals('<textarea cols="40" rows="10" class="form-control" id="id_body" name="body">'."\n".' Hello World! </textarea>',$form["body"]->as_widget());
 	}
 }
