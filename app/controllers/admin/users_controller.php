@@ -59,7 +59,7 @@ class UsersController extends AdminController{
 	function edit_password(){
 		$this->page_title = sprintf(_("Setting a new password to the user %s"),h($this->user));
 
-		$this->form->set_initial("password",String::RandomPassword(10));
+		$this->form->set_initial("password",String4::RandomPassword(10));
 
 		$this->_save_return_uri();
 

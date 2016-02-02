@@ -52,7 +52,7 @@ class AdminController extends ApplicationBaseController{
 		if(!$this->request->post()){ return $this->_execute_action("error404"); }
 
 		if(!$object){
-			$cn = String::ToObject(get_class($this));
+			$cn = String4::ToObject(get_class($this));
 			$cn = $cn->gsub('/Controller$/',''); // "NiceImagesController" -> "NiceImages"
 			$cn = $cn->underscore(); // "nice_images"
 			$o_name = $cn->singularize()->toString(); // "nice_images" -> "nice_image"

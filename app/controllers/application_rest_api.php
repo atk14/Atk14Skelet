@@ -234,7 +234,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 	}
 
 	function _display_output($data,$options = array()){
-		$s = new String($this->controller);
+		$s = new String4($this->controller);
 
 		$options = array_merge(array(
 			"root_element" => $this->api_root_element ? $this->api_root_element : (in_array($this->action,array("index")) ? $s : $s->singularize()),
@@ -291,7 +291,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 				$k = "item";
 				if($root_element){
 					// "editions" -> "edition"
-					$k = new String($root_element);
+					$k = new String4($root_element);
 					$k = $k->singularize();
 				}
 			}

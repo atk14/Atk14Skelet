@@ -192,7 +192,7 @@ class ApplicationBaseController extends Atk14Controller{
 		);
 
 		if(!$options["class_name"]){
-			$options["class_name"] = String::ToObject($object_name)->camelize()->toString(); // static_page -> StaticPage
+			$options["class_name"] = String4::ToObject($object_name)->camelize()->toString(); // static_page -> StaticPage
 		}
 
 		$key = $options["key"];

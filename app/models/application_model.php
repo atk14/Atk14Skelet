@@ -15,7 +15,7 @@ class ApplicationModel extends TableRecord{
 	 * @return string
 	 */
 	function toXml(){
-		$class_name = new String(get_class($this));
+		$class_name = new String4(get_class($this));
 		$root = $class_name->underscore(); // "LittleKitty" turns into "little_kitty"
 		$out = array();
 		$out[] = "<$root>";
