@@ -22,6 +22,7 @@ before_install:
   - ./src/scripts/check_system || echo "FIX REQUIREMENTS!"
 
 before_script:
+  - travis_retry composer install --no-interaction --prefer-dist
   - echo "y" | ATK14_ENV=test ./scripts/create_database
   - ATK14_ENV=test ./scripts/migrate
 
