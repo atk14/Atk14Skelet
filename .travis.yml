@@ -23,6 +23,7 @@ before_install:
 
 before_script:
   - echo "y" | ATK14_ENV=test ./scripts/create_database
+  - ATK14_ENV=test ./scripts/migrate
 
 script:
   - ./scripts/run_all_tests && echo "EVERYTHING IS FINE"
