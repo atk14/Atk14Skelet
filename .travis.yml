@@ -1,0 +1,28 @@
+# vim:ts=2:sw=2:et
+language: php
+
+services:
+  - postgresql
+
+php:
+  - 5.3
+  - 5.4
+  - 5.5
+  - 5.6
+  - 7.0
+
+before_install:
+  - echo 'en_US.UTF-8 UTF-8' | sudo tee --append /var/lib/locales/supported.d/local
+  - echo 'cs_CZ.UTF-8 UTF-8' | sudo tee --append /var/lib/locales/supported.d/local
+  - sudo locale-gen
+  - locale -a
+  - sudo apt-get install php-pear
+  - sudo pear install --alldeps PHPUnit2
+  - git submodule init && git submodule update
+  - ./src/scripts/check_system || echo "FIX REQUIREMENTS!"
+
+before_script:
+  - echo "y" | ATK14_ENV=test ./scripts/create_database
+
+script:
+  - ./scripts/run_all_tests && echo "EVERYTHING IS FINE"
