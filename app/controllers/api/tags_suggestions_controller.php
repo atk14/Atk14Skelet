@@ -11,9 +11,9 @@ class TagsSuggestionsController extends ApiController{
 			$this->api_data = array();
 			
 			$tags = Tag::FindAll(array(
-				"conditions" => "LOWER(tag) LIKE LOWER(:q)",
-				"bind_ar" => array(":q" => "%$d[q]%"),
-				"order_by" => "LOWER(tag), tag",
+				"conditions" => "LOWER(tag) LIKE LOWER('%'||:q||'%')",
+				"bind_ar" => array(":q" => "$d[q]"),
+				"order_by" => "LOWER(tag) LIKE LOWER(:q||'%') DESC, LOWER(tag), tag",
 				"limit" => 20,
 			));
 			foreach($tags as $t){
