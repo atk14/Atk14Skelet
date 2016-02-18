@@ -2,7 +2,7 @@
 
 {render partial="shared/search_form"}
 
-<p>{a action=create_new _class="btn btn-primary"}<i class="glyphicon glyphicon-plus-sign"></i> {t}Add New{/t}{/a}</p>
+<p>{a action=create_new _class="btn btn-primary"}<i class="glyphicon glyphicon-plus-sign"></i> {t}Add new article{/t}{/a}</p>
 
 {if $finder->isEmpty()}
 
