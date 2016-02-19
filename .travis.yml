@@ -19,7 +19,7 @@ before_install:
   - sudo apt-get install php-pear
   - sudo pear install --alldeps PHPUnit2
   - git submodule init && git submodule update
-  - ./src/scripts/check_system || echo "FIX REQUIREMENTS!"
+  - ./scripts/check_system || echo "FIX REQUIREMENTS!"
 
 before_script:
   - travis_retry composer install --no-interaction --prefer-dist
