@@ -40,15 +40,32 @@
 
 	{assign var=is_checkbox value=$field->widget->input_type=="checkbox"}
 
+	{capture assign=errors}
+		{if $field->errors()}
+			<ul class="help-block">
+				{foreach from=$field->errors() item=err_item}
+					<li>{!$err_item}</li>
+				{/foreach}
+			</ul>
+		{/if}
+	{/capture}
+
+	{capture assign=help_text}
+		{if $field->help_text}
+			<div class="help-block">{!$field->help_text}</div>
+		{/if}
+	{/capture}
+
 	{if $is_checkbox}
-		<div class="checkbox">
+		{* TODO: this needs to be refactored *}
+		<div class="checkbox form-group{if $field->required} form-group-required{/if}{if $field->errors() || $class} {trim}{if $field->errors()} has-error{/if}{if $class} {$class}{/if}{/trim}{/if}">
 			<label for="{$field->id_for_label()}">
 				{!$field->as_widget()} {$field->label}
 			</label>
-			{if $field->help_text}
-				<div class="help-block">{!$field->help_text}</div>
-			{/if}
 
+			{!$help_text}
+
+			{!$errors}
 		</div>
 	{else}
 		<div class="form-group{if $field->required} form-group-required{/if}{if $field->errors() || $class} {trim}{if $field->errors()} has-error{/if}{if $class} {$class}{/if}{/trim}{/if}">
@@ -65,17 +82,9 @@
 				{!$field->as_widget()}
 			{/if}
 
-			{if $field->help_text}
-				<div class="help-block">{!$field->help_text}</div>
-			{/if}
+			{!$help_text}
 
-			{if $field->errors()}
-				<ul class="help-block">
-					{foreach from=$field->errors() item=err_item}
-						<li>{!$err_item}</li>
-					{/foreach}
-				</ul>
-			{/if}
+			{!$errors}
 
 			{if $field->hints && !$field->hint_in_placeholder}
 				<div class="help-hint hidden" data-title="{t}Examples:{/t}">
