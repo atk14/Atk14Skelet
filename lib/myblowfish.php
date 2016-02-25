@@ -172,7 +172,7 @@ class MyBlowfish{
 		}
 
 		// weak randomness
-		return (string)String::RandomString($length);
+		return (string)String4::RandomString($length);
 	}
 
   private static function _EncodeBytes($input) {
