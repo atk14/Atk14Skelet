@@ -64,6 +64,7 @@ class TagsController extends AdminController{
 	}
 
 	function destroy(){
+		if(!$this->request->post()){ return $this->_execute_action("error404"); }
 		if(!$this->tag->isDeletable()){ return $this->_execute_action("error403"); }
 
 		$this->_destroy($this->tag);
