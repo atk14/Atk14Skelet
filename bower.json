@@ -6,7 +6,6 @@
     "bootstrap": "^3.1.1",
     "html5shiv": "^3.7.0",
     "respond": "^1.4.2",
-    "lodash": "^3.9.3",
     "jquery-file-upload": "^9.11.2",
     "jquery-ui": "^1.11.2",
     "bootstrap-markdown": "^2.9.0",
