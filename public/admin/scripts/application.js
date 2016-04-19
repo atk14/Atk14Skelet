@@ -102,5 +102,5 @@
 	window.ADMIN = ADMIN;
 
 	// Initialize application.
-	$( document ).ready( ADMIN.UTIL.init );
+	ADMIN.UTIL.init();
 } )( window, window.jQuery );
