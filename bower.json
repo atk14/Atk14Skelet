@@ -1,7 +1,7 @@
 {
   "name": "atk14-skelet",
   "dependencies": {
-    "atk14js": "^1.0.0",
+    "atk14js": "^1.1.0",
     "jquery": "~2.1.4",
     "bootstrap": "^3.1.1",
     "html5shiv": "^3.7.0",
