@@ -10,6 +10,7 @@ CREATE TABLE sessions(
         last_access TIMESTAMP DEFAULT NOW() NOT NULL
 );
 CREATE INDEX in_sessions_lastaccess ON sessions (last_access);
+CREATE INDEX in_sessions_sessionname_lastaccess ON sessions (session_name,last_access); -- a special index for "DELETE FROM sessions WHERE session_name='session' AND last_access<:date"; the index in_sessions_lastaccess is not being used in this case
 
 CREATE SEQUENCE seq_session_values;
 CREATE TABLE session_values(
