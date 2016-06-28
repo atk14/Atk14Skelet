@@ -338,7 +338,7 @@ function _rest_api_dbmole_error_handler($dbmole){
 	$HTTP_RESPONSE->flushAll();
 	$dbmole->sendErrorReportToEmail(ATK14_ADMIN_EMAIL);
 	$dbmole->logErrorReport();
-	exit;
+	exit(1);
 }
 
 /**
