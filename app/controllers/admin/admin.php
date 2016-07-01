@@ -8,6 +8,16 @@ class AdminController extends ApplicationBaseController{
 		$this->breadcrumbs[] = array(_("Administration"), $this->_link_to(array("namespace" => "admin", "action" => "main/index")));
 
 		if(!$this->logged_user || !$this->logged_user->isAdmin()){
+			if($this->controller=="main" && $this->action=="index" && $this->request->get()){
+				// in the case that this is the main page of administration
+				// we can simply redirect not-logged user to the login form
+				return $this->_redirect_to(array(
+					"namespace" => "",
+					"action" => "logins/create_new",
+					"return_uri" => $this->request->getUri(),
+				));
+			}
+
 			return $this->_execute_action("error403");
 		}
 
