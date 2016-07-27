@@ -5,8 +5,11 @@ class UsersController extends AdminController{
 
 		$this->sorting->add("created_at",array("reverse" => "true"));
 		$this->sorting->add("updated_at","COALESCE(updated_at,'2000-01-01') DESC, created_at DESC, id DESC","COALESCE(updated_at,'2099-01-01'), created_at, id");
-		$this->sorting->add("is_admin","is_admin DESC, UPPER(login)","is_admin ASC, UPPER(login)");
-		$this->sorting->add("login","UPPER(login)");
+		$this->sorting->add("is_admin","is_admin DESC, LOWER(login)","is_admin ASC, LOWER(login)");
+		$this->sorting->add("login","LOWER(login)");
+		$this->sorting->add("id");
+		$this->sorting->add("name","LOWER(name)");
+		$this->sorting->add("email","COALESCE(LOWER(name),'')");
 
 		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
 

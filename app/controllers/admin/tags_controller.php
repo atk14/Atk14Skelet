@@ -15,6 +15,7 @@ class TagsController extends AdminController{
 
 		$this->sorting->add("tag","LOWER(tag)");
 		$this->sorting->add("created_at",array("reverse" => true));
+		$this->sorting->add("id");
 
 		$this->tpl_data["finder"] = Tag::Finder(array(
 			"conditions" => $conditions,

@@ -3,8 +3,6 @@ class ArticlesController extends AdminController{
 	function index(){
 		$this->page_title = _("Listing Articles");
 
-		$this->sorting->add("published_at",array("reverse" => true));
-
 		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
 
 		$conditions = $bind_ar = array();
@@ -13,6 +11,10 @@ class ArticlesController extends AdminController{
 			$conditions[] = "UPPER(id||' '||' '||COALESCE(title,'')||' '||COALESCE(body,'')) LIKE UPPER('%'||:search||'%')";
 			$bind_ar[":search"] = $d["search"];
 		}
+
+		$this->sorting->add("published_at",array("reverse" => true));
+		$this->sorting->add("id");
+		$this->sorting->add("title","LOWER(title)");
 
 		$this->tpl_data["finder"] = Article::Finder(array(
 			"conditions" => $conditions,

@@ -13,8 +13,8 @@
 	<table class="table table-striped">
 		<thead>
 			<tr>
-				<th>#</th>
-				<th>{t}Title{/t}</th>
+				{sortable key=id}<th>#</th>{/sortable}
+				{sortable key=title}<th>{t}Title{/t}</th>{/sortable}
 				<th>{t}Author{/t}</th>
 				{sortable key=published_at}<th>{t}Date{/t}</th>{/sortable}
 				<th>{t}Tags{/t}</th>
