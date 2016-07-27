@@ -11,9 +11,9 @@
 	<table class="table">
 		<thead>
 			<tr>
-				<th>#</th>
+				{sortable key=id}<th>#</th>{/sortable}
 				{sortable key=email}<th>{t}Email{/t}</th>{/sortable}
-				<th>{t}Name{/t}</th>
+				{sortable key=name}<th>{t}Name{/t}</th>{/sortable}
 				{sortable key=created_at}<th>{t}Subscribed since{/t}</th>{/sortable}
 				<th>{t}IP address{/t}</th>
 			</tr>
