@@ -8,6 +8,6 @@ class EditPasswordForm extends AdminForm{
 
 		$this->enable_csrf_protection();
 
-		$this->set_button_text("Set password");
+		$this->set_button_text(_("Set password"));
 	}
 }
