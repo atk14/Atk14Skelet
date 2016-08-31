@@ -84,7 +84,7 @@ label {
 	label {
 		.make-sm-column(2);
 	}
-	.form-control {
+	.form-control, .checkboxes {
 		.make-sm-column(4);
 	}
 	.help-block {
@@ -92,6 +92,20 @@ label {
 	}
 	.btn {
 		.make-sm-column-offset(2);
+	}
+	.checkboxes li {
+		.checkbox();
+	}
+	.checkbox {
+		padding-top: 0;
+		margin-bottom: @breadcrumb-padding-horizontal;
+		label {
+			text-align: right;
+			input {
+				position: absolute;
+				right: -@breadcrumb-padding-horizontal;
+			}
+		}
 	}
 }
 .form-group {

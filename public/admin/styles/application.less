@@ -99,6 +99,17 @@ label {
 	.checkboxes li {
 		.checkbox();
 	}
+	.checkbox {
+		padding-top: 0;
+		margin-bottom: @breadcrumb-padding-horizontal;
+		label {
+			text-align: right;
+			input {
+				position: absolute;
+				right: -@breadcrumb-padding-horizontal;
+			}
+		}
+	}
 }
 
 /*
