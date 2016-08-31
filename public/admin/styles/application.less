@@ -101,13 +101,17 @@ label {
 	}
 	.checkbox {
 		padding-top: 0;
-		margin-bottom: @breadcrumb-padding-horizontal;
+		margin-bottom: @grid-gutter-width / 2;
 		label {
 			text-align: right;
 			input {
 				position: absolute;
-				right: -@breadcrumb-padding-horizontal;
+				right: -@grid-gutter-width / 2;
 			}
+		}
+		.help-block {
+			border: 1px solid red;
+			padding-left: @grid-gutter-width;
 		}
 	}
 }
