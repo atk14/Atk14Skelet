@@ -3,6 +3,30 @@
 	var document = window.document,
 
 	ADMIN = {
+
+		common: {
+
+			// Application-wide code.
+			init: function() {
+
+				// Form hints.
+				$( ".help-hint" ).each( function() {
+					var $this = $( this ),
+						$field = $this.closest( ".form-group" ).find( ".form-control" ),
+						title = $this.data( "title" ) || "",
+						content = $this.html(),
+						popoverOptions = {
+							html: true,
+							trigger: "focus",
+							title: title,
+							content: content
+						};
+
+					$field.popover( popoverOptions );
+				} );
+			}
+		},
+
 		articles: {
 			create_new: function() {
 				ADMIN.utils.tagsSuggest( "#id_tags" );
