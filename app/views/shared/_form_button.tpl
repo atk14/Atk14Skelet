@@ -12,6 +12,14 @@
 	{assign var=button_text value=$form->get_button_text()}
 {/if}
 
+{if empty($class)}
+	{if $form && $form->get_method()=="get"}
+		{assign var=class value="btn btn-default"}
+	{else}
+		{assign var=class value="btn btn-primary"}
+	{/if}
+{/if}
+
 <div class="form-group">
-	<button type="submit" class="{if $class}{$class}{else}btn btn-primary{/if}">{$button_text}</button>
+	<button type="submit" class="{$class}">{$button_text}</button>
 </div>
