@@ -4,7 +4,8 @@ var browserSync = require( "browser-sync" );
 
 var vendorStyles = [
 	"bower_components/jquery-file-upload/css/jquery.fileupload.css",
-	"bower_components/bootstrap-markdown/css/bootstrap-markdown.min.css"
+	"bower_components/bootstrap-markdown/css/bootstrap-markdown.min.css",
+	"bower_components/jquery-ui/themes/base/all.css"
 ];
 var vendorScripts = [
 	"bower_components/jquery/dist/jquery.js",
@@ -36,7 +37,7 @@ gulp.task( "styles-admin", function() {
 gulp.task( "styles-vendor-admin", function() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
-		.pipe( $.concatCss( "vendor.css" ) )
+		.pipe( $.concatCss( "vendor.css", { rebaseUrls: false } ) )
 		.pipe( $.autoprefixer() )
 		.pipe( $.cleanCss() )
 		.pipe( $.rename( { suffix: ".min" } ) )
@@ -85,6 +86,8 @@ gulp.task( "copy-admin", function() {
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
 	gulp.src( "bower_components/bootstrap/dist/fonts/*" )
 		.pipe( gulp.dest( "public/admin/dist/fonts" ) );
+	gulp.src( "bower_components/jquery-ui/themes/base/images/*" )
+		.pipe( gulp.dest( "public/admin/dist/styles/images" ) );
 	gulp.src( "public/admin/fonts/*" )
 		.pipe( gulp.dest( "public/admin/dist/fonts" ) );
 	gulp.src( "public/admin/images/*" )

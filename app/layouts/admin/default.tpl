@@ -43,10 +43,6 @@
 			{render partial="shared/layout/dev_info"}
 		{/if}
 
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.min.css" type="text/css" media="all" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.structure.min.css" type="text/css" media="all" />
-		<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/jqueryui/1.11.4/jquery-ui.theme.min.css" type="text/css" media="all" />
-
 		{stylesheet_link_tag file="$public/admin/dist/styles/vendor.min.css"}
 		{stylesheet_link_tag file="$public/admin/dist/styles/application.min.css"}
 
