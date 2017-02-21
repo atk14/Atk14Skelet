@@ -1,6 +1,7 @@
 var gulp = require( "gulp" );
+var del = require( "del" );
 var $ = require( "gulp-load-plugins" )();
-var browserSync = require( "browser-sync" );
+var browserSync = require( "browser-sync" ).create();
 
 var vendorStyles = [
 	"bower_components/jquery-file-upload/css/jquery.fileupload.css",
@@ -17,6 +18,7 @@ var vendorScripts = [
 	"bower_components/bootstrap/dist/js/bootstrap.js",
 	"bower_components/atk14js/src/atk14.js"
 ];
+
 var applicationScripts = [
 	"public/admin/scripts/application.js"
 ];
@@ -31,7 +33,7 @@ gulp.task( "styles-admin", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
-		.pipe( browserSync.stream() );
+		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
 
 gulp.task( "styles-vendor-admin", function() {
@@ -43,7 +45,7 @@ gulp.task( "styles-vendor-admin", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
-		.pipe( browserSync.stream() );
+		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
 
 // JS
@@ -95,7 +97,9 @@ gulp.task( "copy-admin", function() {
 } );
 
 // Clean
-gulp.task( "clean-admin", require( "del" ).bind( null, [ "public/admin/dist" ] ) );
+gulp.task( "clean-admin", function() {
+	del( "admin/dist" );
+} );
 
 // Server
 gulp.task( "serve-admin", [ "styles-admin", "styles-vendor-admin" ], function() {
@@ -103,13 +107,17 @@ gulp.task( "serve-admin", [ "styles-admin", "styles-vendor-admin" ], function() 
 		proxy: "atk14skelet.localhost/admin/"
 	} );
 
+	// If these files change = reload browser
 	gulp.watch( [
 		"app/**/*.tpl",
-		"public/admin/scripts/**/*.js",
 		"public/admin/images/**/*"
 	] ).on( "change", browserSync.reload );
 
-	gulp.watch( "public/admin/styles/**/*.less", [ "styles" ] );
+	// If javascript files change = run 'scripts' task, then reload browser
+	gulp.watch( "public/admin/scripts/**/*.js", [ "scripts" ] ).on( "change", browserSync.reload );
+
+	// If styles files change = run 'styles' task with style injection
+	gulp.watch( "public/admin/styles/**/*.less", [ "styles-admin" ] );
 } );
 
 // Build
