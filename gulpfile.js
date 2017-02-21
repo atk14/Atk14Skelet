@@ -26,7 +26,7 @@ gulp.task( "styles", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
-		.pipe( browserSync.stream() );
+		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
 
 gulp.task( "styles-vendor", function() {
@@ -38,7 +38,7 @@ gulp.task( "styles-vendor", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
-		.pipe( browserSync.stream() );
+		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
 
 // JS
@@ -58,7 +58,7 @@ gulp.task( "scripts", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/scripts" ) )
-		.pipe( browserSync.stream() );
+		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
 
 // Lint
@@ -99,12 +99,16 @@ gulp.task( "serve", [ "styles" ], function() {
 		proxy: "atk14skelet.localhost"
 	} );
 
+	// If these files change = reload browser
 	gulp.watch( [
 		"app/**/*.tpl",
-		"public/scripts/**/*.js",
 		"public/images/**/*"
 	] ).on( "change", browserSync.reload );
 
+	// If javascript files change = run 'scripts' task, then reload browser
+	gulp.watch( "public/scripts/**/*.js", [ "scripts" ] ).on( "change", browserSync.reload );
+
+	// If styles files change = run 'styles' task with style injection
 	gulp.watch( "public/styles/**/*.less", [ "styles" ] );
 } );
 
