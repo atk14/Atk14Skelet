@@ -57,8 +57,7 @@ gulp.task( "scripts", function() {
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
-		.pipe( gulp.dest( "public/dist/scripts" ) )
-		.pipe( browserSync.stream( { match: "**/*.css" } ) );
+		.pipe( gulp.dest( "public/dist/scripts" ) );
 } );
 
 // Lint
