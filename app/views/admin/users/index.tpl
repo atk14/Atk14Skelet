@@ -1,4 +1,4 @@
-<h1>{button_create_new}{t}Create new user{/t}{/button_create_new} {$page_title}</h1>
+<h1>{button_create_new}{t}Create a new user{/t}{/button_create_new} {$page_title}</h1>
 
 {render partial="shared/search_form"}
 
