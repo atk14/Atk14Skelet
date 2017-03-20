@@ -37,22 +37,38 @@ class RemoteTestsController extends ApplicationController{
 	 * Checks for existence of stale locks from robots
 	 */
 	function stale_locks(){
-		$cmd = "cd ".LOCK_DIR."; find . -type f -mmin +20 | grep -v README.md";
-		$out = `$cmd`;
-		if($out){
-			$this->_fail($out);
+		$cwd = getcwd();
+
+		chdir(LOCK_DIR);
+		$files = Files::FindFiles(".",array(
+			"max_mtime" => time() - 20 * 60, // older than 20 minutes
+			"invert_pattern" => '/(README|\.gitkeep)/'
+		));
+
+		if($files){
+			$this->_fail(join("\n",$files));
 		}
+
+		chdir($cwd);
 	}
 
 	/**
 	 * Filters out Tracy's log files which are no older than 30 minutes
 	 */
 	function php_errors(){
-		$cmd = "cd ".ATK14_DOCUMENT_ROOT."log/ && find . -type f -mmin -30 | egrep '(php_error.log|exception|error.log)'";
-		$out = `$cmd`;
-		if($out){
-			$this->_fail($out);
+		$cwd = getcwd();
+
+		chdir(ATK14_DOCUMENT_ROOT."log/");
+		$files = Files::FindFiles(".",array(
+			"pattern" => '/(php_error\.log|exception|error\.log)/',
+			"min_mtime" => time() - 30 * 60, // not older than 30 minutes
+		));
+
+		if($files){
+			$this->_fail(join("\n",$files));
 		}
+
+		chdir($cwd);
 	}
 	
 	function _before_filter(){
@@ -106,4 +122,5 @@ class RemoteTestsController extends ApplicationController{
 
 		$this->response->write(join("\n",$this->test_messages));
 	}
+
 }
