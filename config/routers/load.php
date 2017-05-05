@@ -5,6 +5,7 @@
 // the router should be listed here:
 //
 //  Atk14Url::AddRouter("ArticlesRouter");
+//  Atk14Url::AddRouter("blog","ArticlesRouter"); // adding the same ArticlesRouter to a namespace blog
 
 Atk14Url::AddRouter("AdminRouter");
 
