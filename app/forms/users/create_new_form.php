@@ -24,7 +24,7 @@ class CreateNewForm extends UsersForm{
 	function clean(){
 		list($err,$d) = parent::clean();
 
-		if(isset($d["invitation_code"]) && $d["invitation_code"]!==INVITATION_CODE_FOR_USER_REGISTRATION){
+		if(defined("INVITATION_CODE_FOR_USER_REGISTRATION") && strlen(INVITATION_CODE_FOR_USER_REGISTRATION) && isset($d["invitation_code"]) && $d["invitation_code"]!==INVITATION_CODE_FOR_USER_REGISTRATION){
 			$this->set_error("invitation_code",_("This is not a valid invitation code"));
 		}
 		unset($d["invitation_code"]);
