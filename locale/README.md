@@ -29,7 +29,7 @@ Creates files files_php and files_smarty_templates with a list of files to be se
 
 Creates the messages.po file with all phrases in the current folder.
 
-    make gettext
+    make pot
 
 Merges just created messages.po with en_US/LC_MESSAGES/messages.po, cs_CZ/LC_MESSAGES/messages.po and so on.
 

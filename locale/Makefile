@@ -11,7 +11,7 @@ files-list:
 	find ../vendor/ -type f -name '*.php' -o -name '*.inc' | grep -v -F ".svn" | sort >> files_vendor
 	find ../app/ -type f -name "*.tpl" | grep -v -F ".svn" | sort >> files_smarty_templates
 
-gettext: files-list
+pot: files-list
 	# Creating application.pot
 	@cat files_smarty_templates|xargs ../scripts/tsmarty2c.php >> smarty.c
 	@-xgettext --no-location -L c --from-code=UTF-8 smarty.c --output=- > application.pot
