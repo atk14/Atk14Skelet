@@ -29,7 +29,10 @@ clear:
 	@rm -f files_php files_vendor files_smarty_templates
 	@rm -f smarty.c
 	@rm -f application.pot vendor.pot
-	@rm -f */*/messages.po
+	@rm -f */LC_MESSAGES/messages.po
+	@rm -f */LC_MESSAGES/application.mo
+	@rm -f */LC_MESSAGES/atk14.mo
+	@rm -f */LC_MESSAGES/vendor.mo
 
 define lang-def
 sync-atk14-$(1):

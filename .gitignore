@@ -11,6 +11,3 @@ public/dist
 public/admin/dist
 vendor/*
 composer.lock
-locale/*/LC_MESSAGES/application.mo
-locale/*/LC_MESSAGES/atk14.mo
-locale/*/LC_MESSAGES/vendor.mo
