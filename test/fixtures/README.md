@@ -45,6 +45,21 @@ In a specific test case you can use @fixture annotation and the given fixture wi
         $this->assertEquals("Samantha Doe",$samantha->getName());
 
         $this->assertTrue((bool)User::Login("john.doe","JohnNeverDoe"));
-        $this->assertNull(User::Login("john","BadTry"));
+        $this->assertNull(User::Login("john.doe","BadTry"));
       }
+    }
+
+It's possible to load 2 or more fixtures. Specify every annotation on separate lines.
+
+    <?php
+    /**
+     * file: tests/more/tc_article.php
+     *
+     * @fixture users
+     * @fixture tags
+     * @fixture articles
+     */
+    class TcArticle extends TcBase {
+       
+       // ...
     }
