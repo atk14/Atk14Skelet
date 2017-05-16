@@ -1,12 +1,15 @@
 <?php
+/**
+ *
+ * @fixture tags
+ */
 class TcTag extends TcBase{
+
 	function test(){
-		$music = Tag::CreateNewRecord(array(
-			"tag" => "music"
-		));
+		$music = $this->tags["music"];
 
 		// converting to string
-		$this->assertEquals("music","$music");
+		$this->assertEquals("Music","$music");
 
 		// is tag deletable?
 		$this->assertEquals(true,$music->isDeletable());
