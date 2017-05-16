@@ -9,6 +9,7 @@ class TcBase extends TcAtk14Model{
 
 	function setUp(){
 		$this->dbmole->begin();
+		$this->setUpFixtures();
 	}
 
 	function tearDown(){
