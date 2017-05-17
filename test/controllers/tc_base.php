@@ -9,6 +9,7 @@ class TcBase extends TcAtk14Controller{
 
 	function setUp(){
 		$this->dbmole->begin();
+		$this->setUpFixtures();
 		$GLOBALS["HTTP_REQUEST"]->setPostVar("_csrf_token_","testing_csrf_token"); // in tests we do not want to deal with the csrf protection
 	}
 
