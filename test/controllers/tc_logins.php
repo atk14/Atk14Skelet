@@ -1,13 +1,11 @@
 <?php
+/**
+ *
+ * @fixture users
+ */
 class TcLogins extends TcBase{
 	function test(){
 		$client = $this->client;
-
-		// a testing user
-		$user = User::CreateNewRecord(array(
-			"login" => "rambo.tester",
-			"password" => "Secret123",
-		));
 
 		// no mention about the user on the front page
 		$client->get("main/index");

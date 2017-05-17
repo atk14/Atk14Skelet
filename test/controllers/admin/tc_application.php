@@ -1,5 +1,10 @@
 <?php
+/**
+ *
+ * @fixture users
+ */
 class TcApplication extends TcBase{
+
 	function test_access(){
 		$client = $this->client;
 
@@ -19,14 +24,11 @@ class TcApplication extends TcBase{
 		$this->assertEquals(403,$client->getStatusCode()); // redirect to the login form
 
 		// an ordinary user can't access administration
-		$user = User::CreateNewRecord(array(
-			"login" => "ordinary_testing_user",
-			"password" => "x",
-		));
+		$user = $this->users["rambo_tester"];
 		$this->_loginUser($user);
 		$client->get("main/index");
 		$this->assertEquals(403,$client->getStatusCode());
-		$this->assertContains("ordinary_testing_user",$client->getContent()); // on the page there must be the user mentioned
+		$this->assertContains("rambo.tester",$client->getContent()); // on the page there must be the user mentioned
 
 		// only administrator can access administration
 		$this->_loginUser(1); // admin

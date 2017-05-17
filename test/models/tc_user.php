@@ -1,8 +1,13 @@
 <?php
+/**
+ * @fixture users
+ */
 class TcUser extends TcBase{
 	function testHashingPassword(){
-		$rambo = User::CreateNewRecord(array("login" => "rambo", "password" => "secret"));
-		$rocky = User::CreateNewRecord(array("login" => "rocky", "password" => "secret"));
+
+		// see test/fixtures/users.yml
+		$rambo = $this->users["rambo"];
+		$rocky = $this->users["rocky"];
 
 		$this->assertTrue($rambo->getPassword()!="secret");
 		$this->assertTrue($rocky->getPassword()!=$rambo->getPassword()); // different salts, different hashes

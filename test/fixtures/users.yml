@@ -1,0 +1,14 @@
+rambo:
+  login: "rambo"
+  name: "John Rambo"
+  password: "secret"
+
+rambo_tester:
+  login: "rambo.tester"
+  name: "John Tester Rambo"
+  password: "Secret123"
+
+rocky:
+  login: "rocky"
+  name: "Rocky Balboa"
+  password: "secret"

@@ -1,2 +1,11 @@
 music:
-  tag: Music
+  tag: music
+
+fun:
+  tag: fun
+
+wisdom:
+  tag: wisdom
+
+spring:
+  tag: "spring 2000"

@@ -1,11 +1,20 @@
 <?php
+/**
+ *
+ * @fixture tags
+ */
 class TcTagsField extends TcBase{
+
 	function test(){
-		$news = Tag::FindByTag("news");
-		$music = Tag::CreateNewRecord(array("tag" => "music"));
-		$fun = Tag::CreateNewRecord(array("tag" => "fun"));
-		$wisdom = Tag::CreateNewRecord(array("tag" => "wisdom"));
-		$spring = Tag::CreateNewRecord(array("tag" => "spring 2000"));
+
+		// tag $news comes from migration
+		$news = Tag::FindById(Tag::ID_NEWS); // from migration
+
+		// other tags come from fixture
+		$music = $this->tags["music"];
+		$fun = $this->tags["fun"];
+		$wisdom = $this->tags["wisdom"];
+		$spring = $this->tags["spring"];
 
 		$this->field = $f = new TagsField(array("unique" => true, "max_tags" => 3, "required" => false));
 

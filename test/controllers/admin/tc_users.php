@@ -1,4 +1,7 @@
 <?php
+/**
+ * @fixture users
+ */
 class TcUsers extends TcBase{
 	function test_destroy(){
 		// attempt to destroy non existing user
@@ -13,30 +16,23 @@ class TcUsers extends TcBase{
 		));
 		$this->assertEquals(403,$this->client->getStatusCode()); // forbidden
 
-		// delete normal user
-		$user = User::CreateNewRecord(array(
-			"login" => "to_be_deleted",
-			"password" => "britney",
-		));
 		$this->client->post("users/destroy",array(
-			"id" => $user->getId(),
+			"id" => $this->users["rambo"]->getId(),
 		));
 		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting
 	}
 
 	function test_edit_password(){
-		$vagus = User::CreateNewRecord(array(
-			"login" => "va.gus",
-			"password" => "secret",
-		));
+		$this->assertEquals(true,!!User::Login("rocky","secret"));
+		$this->assertEquals(false,!!User::Login("rocky","Bimbo"));
 
 		$this->client->post("users/edit_password",array(
-			"id" => $vagus->getId(),
-			"password" => "rambo",
+			"id" => $this->users["rocky"]->getId(),
+			"password" => "Bimbo",
 		));
 		$this->assertEquals(303,$this->client->getStatusCode());
 
-		$this->assertEquals(false,!!User::Login("va.gus","secret"));
-		$this->assertEquals(true,!!User::Login("va.gus","rambo"));
+		$this->assertEquals(false,!!User::Login("rocky","secret"));
+		$this->assertEquals(true,!!User::Login("rocky","Bimbo"));
 	}
 }
