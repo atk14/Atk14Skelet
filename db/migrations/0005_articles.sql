@@ -46,6 +46,7 @@ You can find more information on following addresses
 
   * [AKT14 Skelet on Github](https://github.com/atk14/Atk14Skelet)
   * [Atk14 Site](http://www.atk14.net/)
+  * [Atk14 Forum](http://forum.atk14.net/)
   * [Atk14 Book](http://book.atk14.net/)
 
 Remember! Your projects shall run on [ATK14 Framework](http://www.atk14.net/), for now and ever after!
