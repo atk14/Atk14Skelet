@@ -40,11 +40,11 @@ ATK14 Development Team
 INSERT INTO article_tags (article_id,tag_id,rank) VALUES(CURRVAL('seq_articles'),1,0); -- tag "news"
 
 INSERT INTO articles (title,published_at,author_id,body) VALUES('Welcome to ATK14 Skelet','2013-04-12',1,BTRIM('
-We are happy to announce the availability of ATK14 Skelet. This is a carefully selected & minimalistic set of functionality you may require at the start of your next web project.
+We are happy to announce the availability of the ATK14 Skelet. This is a carefully selected & minimalistic set of functionality you may require at the start of your next web project.
 
 You can find more information on following addresses
 
-  * [AKT14 Skelet on Github](https://github.com/yarri/Atk14Skelet)
+  * [AKT14 Skelet on Github](https://github.com/atk14/Atk14Skelet)
   * [Atk14 Site](http://www.atk14.net/)
   * [Atk14 Book](http://book.atk14.net/)
 
