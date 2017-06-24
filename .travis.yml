@@ -3,6 +3,7 @@ language: php
 
 services:
   - postgresql
+  - mysql
 
 php:
   - 5.3
