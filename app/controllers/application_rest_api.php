@@ -9,6 +9,27 @@ class ApplicationRestApiController extends ApplicationBaseController{
 	var $api_internal_charset = DEFAULT_CHARSET;
 
 	/**
+	 * Username and password to prevent an anonymous user from reading the auto-generated documentation
+	 *
+	 * Be aware that only documentation is protected, not the action call itself. 
+	 *	
+	 * documentation:     http://myapp.localhost/api/en/articles/detail/
+	 * not documentation: http://myapp.localhost/api/en/articles/detail/?id=1&format=json
+	 *
+	 *	// just one username and password for the whole documentation
+	 *	var $doc_basic_auth = "aladdin:openSesame";
+	 *
+	 *	// more passwords can be also set
+	 *	var $doc_basic_auth = array(
+	 *		'/./' => "aladdin:openSesame",
+	 *		'/^articles\//' => "", // a special password for all actions in articles controller
+	 *		'/^newsletter_subscriptions\/(create_new|destroy)$/' => "", // no password for newsletter_subscriptions/create_new and newsletter_subscriptions/destroy
+	 *	);
+	 */
+	var $doc_basic_auth = "";
+	var $doc_basic_auth_realm = "Documentation Restricted Area";
+
+	/**
 	 * Vygeneruje seznam prikazu.
 	 *
 	 * $this->_render_command_list("/home/user/www/project/app/controllers/api/");
@@ -163,6 +184,34 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		}
 
 		parent::_before_render();
+
+		if($this->doc_basic_auth){
+			// doc_basic_auth is set so we may sacure the api documentation
+
+			if($this->render_template){
+				if(is_array($this->doc_basic_auth)){
+					$auth_ar = $this->doc_basic_auth;
+				}else{
+					$auth_ar = array(
+						'/^.*\/.*$/' => "$this->doc_basic_auth",
+					);
+				}
+
+				$authorized = false;
+				foreach($auth_ar as $pattern => $auth_string){
+					if(($this->request->getBasicAuthString()==$auth_string || $auth_string==="") && preg_match($pattern,"$this->controller/$this->action")){
+						$authorized = true;
+						break;
+					}
+				}
+
+				if(!$authorized){
+					$this->response->authorizationRequired($this->doc_basic_auth_realm ? $this->doc_basic_auth_realm : "Private Area");
+					$this->render_template = false;
+					return;
+				}
+			}
+		}
 	}
 
 	function error404(){
