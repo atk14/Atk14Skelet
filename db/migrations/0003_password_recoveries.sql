@@ -7,5 +7,7 @@ CREATE TABLE password_recoveries(
 	recovered_at TIMESTAMP, -- when was set the new password
 	recovered_from_addr VARCHAR(255),
 	created_at TIMESTAMP NOT NULL DEFAULT NOW(),
-	updated_at TIMESTAMP
+	updated_at TIMESTAMP,
+	--
+	CONSTRAINT fk_passwordrecoveries_users FOREIGN KEY (user_id) REFERENCES users ON DELETE CASCADE
 );
