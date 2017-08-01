@@ -24,7 +24,6 @@ define("ATK14_APPLICATION_DESCRIPTION","Yet another application running on ATK14
 
 define("ATK14_HTTP_HOST",PRODUCTION ? "skelet.atk14.net" : "atk14skelet.localhost");
 
-define("DBMOLE_COLLECT_STATICTICS",DEVELOPMENT);
 date_default_timezone_set('Europe/Prague');
 
 // If you don't want to let users to register freely (e.g. your app is an closed alpha),

@@ -26,6 +26,12 @@ class Article extends ApplicationModel{
 		return $this->getTagsLister()->setRecords($tags);
 	}
 
+	function getPrimaryTag(){
+		if($tags = $this->getTags()){
+			return $tags[0];
+		}
+	}
+
 	protected function _getNextArticle($newer,$tag_required = null){
 		$conditions = $bind_ar = array();
 		$conditions[] = "published_at<NOW()";

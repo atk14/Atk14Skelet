@@ -9,7 +9,7 @@
 		<ul>
 			<li>{a action="main/about"}{t}About page{/t}{/a}</li>
 			<li>{a action="main/contact"}{t}Contact page with fast contact form{/t}{/a}</li>
-			<li>{a action="news/index"}{t}News section{/t}{/a}</li>
+			<li>{a action="articles/index"}{t}Articles section{/t}{/a}</li>
 			<li>{a action="users/create_new"}{t}User registration{/t}{/a} ({t}with strong blowfish passwords hashing{/t})</li>
 			<li>{a namespace="admin"}{t}Basic administration{/t}{/a}</li>
 			<li>{a namespace="api"}{t}RESTful API{/t}{/a}</li>

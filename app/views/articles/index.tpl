@@ -1,4 +1,4 @@
-<h1>{$page_title}</h1>
+<h1>{!$page_title}</h1>
 
 {if $finder->isEmpty()}
 
@@ -6,7 +6,7 @@
 
 {else}
 
-	{render partial=news_item from=$finder->getRecords() item=news}
+	{render partial=article_item from=$finder->getRecords() item=article}
 	{paginator}
 
 {/if}
