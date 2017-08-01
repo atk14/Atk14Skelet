@@ -62,6 +62,7 @@ class PasswordRecoveriesController extends ApplicationController{
 	function expired_recovery(){ }
 
 	function _before_filter(){
-		$this->page_title = _("Password recovery");
+		$this->breadcrumbs[] = array(_("Sign in"),$this->_link_to("logins/create_new"));
+		$this->page_title = $this->breadcrumbs[] = _("Password recovery");
 	}
 }

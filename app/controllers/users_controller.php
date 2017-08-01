@@ -1,7 +1,7 @@
 <?php
 class UsersController extends ApplicationController{
 	function detail(){
-		$this->page_title = _("User profile");
+		$this->page_title = $this->breadcrumbs[] = _("User profile");
 	}
 
 	function create_new(){
@@ -14,7 +14,7 @@ class UsersController extends ApplicationController{
 			));
 			return;
 		}
-		$this->page_title = _("New user registration");
+		$this->page_title = $this->breadcrumbs[] = _("New user registration");
 
 		$this->tpl_data["js_validator"] = $jv = $this->form->js_validator();
 
@@ -33,7 +33,7 @@ class UsersController extends ApplicationController{
 	}
 
 	function edit(){
-		$this->page_title = _("Change your account data");
+		$this->page_title = $this->breadcrumbs[] = _("Change your account data");
 
 		$this->form->set_initial($this->logged_user);
 
@@ -50,7 +50,7 @@ class UsersController extends ApplicationController{
 	}
 
 	function edit_password(){
-		$this->page_title = _("Change your password");
+		$this->page_title = $this->breadcrumbs[] = _("Change your password");
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			if(!$this->logged_user->isPasswordCorrect($d["current_password"])){
@@ -71,6 +71,10 @@ class UsersController extends ApplicationController{
 			if(!$this->logged_user){
 				$this->_execute_action("error403");
 				return;
+			}
+
+			if(preg_match('/^edit/',$this->action)){
+				$this->breadcrumbs[] = array(_("User profile"),$this->_link_to("detail"));
 			}
 		}
 	}
