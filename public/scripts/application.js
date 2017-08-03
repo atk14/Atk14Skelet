@@ -27,6 +27,12 @@
 			}
 		},
 
+		logins: {
+			create_new: function() {
+				$( "#id_login" ).focus();
+			}
+		},
+
 		users: {
 
 			// Controller-wide code.
