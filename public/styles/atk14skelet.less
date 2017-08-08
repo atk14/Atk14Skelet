@@ -21,6 +21,14 @@ body {
 body.loading, body.loading a, body.loading input, body.loading select, body.loading button {
 	cursor: wait;
 }
+.pagination {
+	margin: 0;
+
+	> ul {
+		&:extend(.pagination all);
+		margin-bottom: 10px;
+	}
+}
 
 
 /*
