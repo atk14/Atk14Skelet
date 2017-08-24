@@ -114,7 +114,8 @@ gulp.task( "serve-admin", [ "styles-admin", "styles-vendor-admin" ], function() 
 	] ).on( "change", browserSync.reload );
 
 	// If javascript files change = run 'scripts' task, then reload browser
-	gulp.watch( "public/admin/scripts/**/*.js", [ "scripts-admin" ] ).on( "change", browserSync.reload );
+	gulp.watch( "public/admin/scripts/**/*.js", [ "scripts-admin" ] )
+		.on( "change", browserSync.reload );
 
 	// If styles files change = run 'styles' task with style injection
 	gulp.watch( "public/admin/styles/**/*.less", [ "styles-admin" ] );
