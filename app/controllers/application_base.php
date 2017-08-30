@@ -7,7 +7,7 @@ class ApplicationBaseController extends Atk14Controller{
 	var $logged_user;
 
 	/**
-	 * @var Navigation
+	 * @var Menu14
 	 */
 	var $breadcrumbs;
 
