@@ -8,13 +8,11 @@ class ArticlesController extends ApplicationController{
 			return;
 		}
 
+		$this->page_title = _("Articles");
 
 		if($tag){
-			$this->breadcrumbs[] = array(_("Articles"),$this->_link_to("articles/index"));
 			$this->breadcrumbs[] = "$tag";
 			$this->page_title = sprintf(_("Articles tagged with <em>%s</em>"),h($tag));
-		}else{
-			$this->page_title = $this->breadcrumbs[] = _("Articles");
 		}
 
 		$conditions = $bind_ar = array();
@@ -52,10 +50,13 @@ class ArticlesController extends ApplicationController{
 		$this->tpl_data["older_article"] = $article->getOlderArticle();
 		$this->tpl_data["newer_article"] = $article->getNewerArticle();
 
-		$this->breadcrumbs[] = array(_("Articles"),"articles/index");
 		if($primary_tag = $article->getPrimaryTag()){
 			$this->breadcrumbs[] = array("$primary_tag",$this->_link_to(array("action" => "articles/index", "tag_id" => $primary_tag)));
 		}
 		$this->breadcrumbs[] = $article->getTitle();
+	}
+
+	function _before_filter(){
+		$this->breadcrumbs[] = array(_("Articles"),$this->_link_to("articles/index"));
 	}
 }

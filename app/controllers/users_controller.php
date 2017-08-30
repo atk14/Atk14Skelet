@@ -1,7 +1,7 @@
 <?php
 class UsersController extends ApplicationController{
 	function detail(){
-		$this->page_title = $this->breadcrumbs[] = _("User profile");
+		$this->page_title = _("User profile");
 	}
 
 	function create_new(){
@@ -73,7 +73,7 @@ class UsersController extends ApplicationController{
 				return;
 			}
 
-			if(preg_match('/^edit/',$this->action)){
+			if(preg_match('/^(edit|detail)/',$this->action)){
 				$this->breadcrumbs[] = array(_("User profile"),$this->_link_to("detail"));
 			}
 		}

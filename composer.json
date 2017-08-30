@@ -3,6 +3,7 @@
         "atk14/dbmole-panel": "dev-master",
         "atk14/mail-panel": "dev-master",
         "atk14/templates-panel": "dev-master",
-        "michelf/php-markdown": "1.5.0"
+        "michelf/php-markdown": "1.5.0",
+        "atk14/menu14": "^1.1"
     }
 }

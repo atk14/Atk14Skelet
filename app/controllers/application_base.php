@@ -77,7 +77,7 @@ class ApplicationBaseController extends Atk14Controller{
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
 
-		$this->breadcrumbs = new Navigation();
+		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(ATK14_APPLICATION_NAME,$this->_link_to(array("namespace" => "", "action" => "main/index")));
 
 		if($this->_logged_user_required() && !$this->logged_user){
