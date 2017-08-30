@@ -21,7 +21,7 @@ class AdminController extends ApplicationBaseController{
 			return $this->_execute_action("error403");
 		}
 
-		$navi = new Navigation();
+		$navi = new Menu14();
 
 		foreach(array(
 			array(_("Welcome screen"),			"main"),
