@@ -64,8 +64,13 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->response->setHeader("Cache-Control","private, max-age=0, must-revalidate");
 		$this->response->setHeader("Pragma","no-cache");
 
-		// following header helps to avoid clickjacking attacks
-		$this->response->setHeader("X-Frame-Options","SAMEORIGIN"); // SAMEORIGIN, DENY
+		// security headers
+		$this->response->setHeader("X-Frame-Options","SAMEORIGIN"); // avoiding clickjacking attacks; "SAMEORIGIN", "DENY"
+		$this->response->setHeader("X-XSS-Protection","1; mode=block");
+		$this->response->setHeader("Referrer-Policy","same-origin"); // "same-origin", "strict-origin", "strict-origin-when-cross-origin"...
+		$this->response->setHeader("X-Content-Type-Options","nosniff");
+		//$this->response->setHeader("Content-Security-Policy","default-src 'self' data: 'unsafe-inline' 'unsafe-eval'");
+
 		$this->response->setHeader("X-Powered-By","ATK14 Framework");
 
 		if(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)){
