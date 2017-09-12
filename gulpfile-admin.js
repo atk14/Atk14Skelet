@@ -98,7 +98,7 @@ gulp.task( "copy-admin", function() {
 
 // Clean
 gulp.task( "clean-admin", function() {
-	del( "admin/dist" );
+	del.sync( "public/admin/dist/**" );
 } );
 
 // Server
