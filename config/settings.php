@@ -14,8 +14,6 @@
  *	$ ./scripts/dump_settings DEFAULT_EMAIL
  */
 
-define("SECRET_TOKEN",PRODUCTION ? Files::GetFileContent(dirname(__FILE__)."/secret_token.txt") : "_please_put_here_a_lot_of_random_chars_");
-
 define("DEFAULT_EMAIL","your@email.com");
 define("ATK14_ADMIN_EMAIL",DEFAULT_EMAIL); // the address for sending error reports and so on...
 
