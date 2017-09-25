@@ -10,8 +10,8 @@ class ApplicationModel extends TableRecord{
 	}
 
 	static function CreateNewRecord($values,$options = array()){
-		$class_name = get_called_class();
-		$obj = new $class_name();
+		global $ATK14_GLOBAL,$HTTP_REQUEST;
+		$obj = new static();
 
 		// there is a auto setting of created_at, created_on or create_date field
 		$v_keys = array_keys($values);
@@ -19,6 +19,10 @@ class ApplicationModel extends TableRecord{
 			if($obj->hasKey($f) && !in_array($f,$v_keys)){
 				$values[$f] = date("Y-m-d H:i:s");
 			}
+		}
+
+		if($obj->hasKey("created_from_addr") && !in_array("created_from_addr",$v_keys)){
+			$values["created_from_addr"] = $HTTP_REQUEST->getRemoteAddr();
 		}
 
 		return parent::CreateNewRecord($values,$options);
@@ -89,9 +93,16 @@ class ApplicationModel extends TableRecord{
 	 * Album::GetInstanceByToken($token2); // null
 	 * </code>
 	 */
-	function getToken($extra_salt = ""){
+	function getToken($options = array()){
+		if(is_string($options)){
+			$options = array("extra_salt" => $options);
+		}
+		$options += array(
+			"salt" => SECRET_TOKEN,
+			"extra_salt" => "",
+		);
 		$length = 32;
-		return $this->getId().".".substr(md5(get_class($this).$this->getId().SECRET_TOKEN.$extra_salt),0,$length);
+		return $this->getId().".".substr(md5(get_class($this).$this->getId().$options["salt"].$options["extra_salt"]),0,$length);
 	}
 
 	/**
@@ -101,11 +112,12 @@ class ApplicationModel extends TableRecord{
 	 *
 	 * @see getToken
 	 */
-	static function GetInstanceByToken($token,$extra_salt = ""){
+	static function GetInstanceByToken($token,$options = array()){
+		$token = (string)$token;
 		$class_name = get_called_class();
 		$ar = explode(".",$token);
 
-		if(isset($ar[0]) && is_numeric($ar[0]) && ($obj = call_user_func(array($class_name,"GetInstanceById"),$ar[0])) && $obj->getToken($extra_salt)==$token){
+		if(isset($ar[0]) && is_numeric($ar[0]) && ($obj = call_user_func(array($class_name,"GetInstanceById"),$ar[0])) && $obj->getToken($options)===$token){
 			return $obj;
 		}
 	}
