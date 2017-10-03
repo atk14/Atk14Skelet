@@ -2,11 +2,11 @@
 /**
  * It takes a serie of links and converts it to a drop down menu
  *
- * Each link must be on a separate line.
+ * Each link must be on a separate line. Empty lines are ignored.
  *
  * Usage:
  *
- *	{dropdown_menu}
+ *	{dropdown_menu pull=right clearfix=false}
  *		{a action="detail" id=$article}<i class="glyphicon glyphicon-eye-open"></i> Detail{/a}
  *		{a action="edit" id=$article}<i class="glyphicon glyphicon-edit"></i> Edit{/a}
  *		{a_destroy id=$article}<i class="glyphicon glyphicon-remove"></i> Delete{/a_destroy}
@@ -16,6 +16,16 @@
  */
 function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	if($repeat){ return; }
+
+	$params += array(
+		"pull" => "right", // "right", "left", ""
+		"clearfix" => null,
+	);
+
+	if(!isset($params["clearfix"])){
+		$params["clearfix"] = $params["pull"]=="right";
+	}
+
 	$smarty = atk14_get_smarty_from_template($template);
 
 	$content = preg_replace('/(<\/a>)\s*(<a)/s','\1%SEPARATOR%\2',$content);
@@ -40,6 +50,8 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	$original_smarty_vars = $smarty->getTemplateVars();
 	$smarty->assign("first_line",$first_line);
 	$smarty->assign("lines",$lines);
+	$smarty->assign("pull",$params["pull"]);
+	$smarty->assign("clearfix",$params["clearfix"]);
 	$out = $smarty->fetch("shared/helpers/_dropdown_menu.tpl");
 	$smarty->clearAllAssign();
 	$smarty->assign($original_smarty_vars);
