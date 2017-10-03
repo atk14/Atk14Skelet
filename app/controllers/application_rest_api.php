@@ -220,6 +220,12 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		));
 	}
 
+	function error403(){
+		return $this->_report_fail(_("You don't have access to the requested resource"),array(
+			"status_code" => 403,
+		));
+	}
+
 	function error500(){
 		return $this->_report_fail(_("Sorry, An internal error happened"),array(
 			"status_code" => 500,
