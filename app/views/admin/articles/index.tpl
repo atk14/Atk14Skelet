@@ -16,7 +16,7 @@
 				<th>{t}Author{/t}</th>
 				{sortable key=published_at}<th>{t}Date{/t}</th>{/sortable}
 				<th>{t}Tags{/t}</th>
-				<th>{t}Actions{/t}</th>
+				<th></th>
 			</tr>
 		</thead>
 		<tbody>
