@@ -118,8 +118,10 @@ label {
 		margin-bottom: @grid-gutter-width / 2;
 		@media (min-width: @screen-sm-min) {
 			.help-block {
+				position: relative;
+				left: @grid-gutter-width;
 				margin-top: 0;
-				padding-left: @grid-gutter-width;
+				padding-left: 0;
 			}
 			ul.help-block{
 				// in ul>li come error messages
