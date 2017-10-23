@@ -23,7 +23,7 @@
  * $DEVELOPMENT
  *}
 <!DOCTYPE html>
-<html lang="{$lang}">
+<html lang="{$lang}" class="no-js">
 
 	<head>
 		<meta charset="utf-8">
@@ -42,6 +42,11 @@
 		{if $DEVELOPMENT}
 			{render partial="shared/layout/dev_info"}
 		{/if}
+
+		{* Indication of active javascript *}
+		{javascript_tag}
+			document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/, "js" );
+		{/javascript_tag}
 
 		{stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true}
 		{stylesheet_link_tag file="$public/dist/styles/application.min.css"}

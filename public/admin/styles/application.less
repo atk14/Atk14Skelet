@@ -14,7 +14,7 @@ body {
 .alert {
 	margin-top: @line-height-computed;
 }
-body.loading, body.loading a, body.loading input, body.loading select, body.loading button {
+body.loading, body.loading a, body.loading input, body.loading select, body.loading button, body.loading label {
 	cursor: wait;
 }
 .pagination {
@@ -24,6 +24,9 @@ body.loading, body.loading a, body.loading input, body.loading select, body.load
 		&:extend(.pagination all);
 		margin-bottom: 10px;
 	}
+}
+html.js .js-hide {
+	display: none;
 }
 
 // Fix of broken button groups
@@ -213,6 +216,7 @@ label {
 	padding-top: 19px;
 	border-top: 1px dotted #eee;
 }
+
 
 /*
 ================================================================

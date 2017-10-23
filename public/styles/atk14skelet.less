@@ -29,7 +29,15 @@ body.loading, body.loading a, body.loading input, body.loading select, body.load
 		margin-bottom: 10px;
 	}
 }
+html.js .js-hide {
+	display: none;
+}
 
+// Fix of broken button groups
+// https://github.com/twbs/bootstrap/issues/9939
+.btn-group {
+  display: flex;
+}
 
 /*
 ================================
@@ -111,6 +119,11 @@ label {
 		.checkbox();
 		input {
 			left: 10px;
+		}
+		label {
+			width: 100%;
+			vertical-align: top;
+			text-align: left;
 		}
 	}
 	.checkbox {
