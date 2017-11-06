@@ -37,38 +37,30 @@ class RemoteTestsController extends ApplicationController{
 	 * Checks for existence of stale locks from robots
 	 */
 	function stale_locks(){
-		$cwd = getcwd();
-
-		chdir(LOCK_DIR);
-		$files = Files::FindFiles(".",array(
+		$this->_check_for_files(LOCK_DIR,array(
 			"max_mtime" => time() - 20 * 60, // older than 20 minutes
 			"invert_pattern" => '/(README|\.gitkeep)/'
 		));
-
-		if($files){
-			$this->_fail(join("\n",$files));
-		}
-
-		chdir($cwd);
 	}
 
 	/**
 	 * Filters out Tracy's log files which are no older than 30 minutes
 	 */
 	function php_errors(){
-		$cwd = getcwd();
-
-		chdir(ATK14_DOCUMENT_ROOT."log/");
-		$files = Files::FindFiles(".",array(
+		$this->_check_for_files(ATK14_DOCUMENT_ROOT."log/",array(
 			"pattern" => '/(php_error\.log|exception|error\.log)/',
 			"min_mtime" => time() - 30 * 60, // not older than 30 minutes
 		));
+	}
 
-		if($files){
-			$this->_fail(join("\n",$files));
-		}
-
-		chdir($cwd);
+	/**
+	 * Filters out Tracy's exception log files which are no older than 30 minutes
+	 */
+	function php_exceptions(){
+		$this->_check_for_files(ATK14_DOCUMENT_ROOT."log/",array(
+			"pattern" => '/exception/',
+			"min_mtime" => time() - 30 * 60, // not older than 30 minutes
+		));
 	}
 	
 	function _before_filter(){
@@ -99,6 +91,19 @@ class RemoteTestsController extends ApplicationController{
 			if(!is_array($messages)){ $messages = array($messages); }
 			$this->test_messages = array_merge($messages,$this->test_messages);
 		}
+	}
+
+	function _check_for_files($directory,$check_options){
+		$cwd = getcwd();
+
+		chdir($directory);
+		$files = Files::FindFiles(".",$check_options);
+
+		if($files){
+			$this->_fail(join("\n",$files));
+		}
+
+		chdir($cwd);
 	}
 
 	function _before_render(){
