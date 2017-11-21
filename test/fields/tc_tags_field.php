@@ -24,27 +24,27 @@ class TcTagsField extends TcBase{
 		$tags = $this->assertValid(", , ,");
 		$this->assertEquals(array(),$tags);
 
-		$tags = $this->assertValid("news");
+		$tags = $this->assertValid("$news");
 		$this->assertEquals(array($news),$tags);
 
 		$tags = $this->assertValid("spring 2000");
 		$this->assertEquals(array($spring),$tags);
 
-		$tags = $this->assertValid(",news, spring 2000,,, fun,");
+		$tags = $this->assertValid(",$news, spring 2000,,, fun,");
 		$this->assertEquals(array($news,$spring,$fun),$tags);
 
-		$err = $this->assertInvalid("news,music,news");
+		$err = $this->assertInvalid("$news,music,$news");
 		$this->assertEquals(sprintf($f->messages["unique"],$news),$err);
 
-		$err = $this->assertInvalid("news,music,XXX");
+		$err = $this->assertInvalid("$news,music,XXX");
 		$this->assertEquals(sprintf($f->messages["no_such_tag"],"XXX"),$err);
 
-		$err = $this->assertInvalid("news,music,fun,wisdom");
+		$err = $this->assertInvalid("$news,music,fun,wisdom");
 		$this->assertEquals(strtr($f->messages["max_tags"],array("%max%" => 3, "%count%" => 4)),$err);
 
 		// create_tag_if_not_found
 		$this->field = $f = new TagsField(array("unique" => true, "create_tag_if_not_found" => true));
-		$tags = $this->assertValid("news,music,XXX");
+		$tags = $this->assertValid("$news,music,XXX");
 		$this->assertEquals("XXX",$tags[2]->getTag());
 	}
 }
