@@ -254,6 +254,15 @@ class ApplicationBaseController extends Atk14Controller{
 	 *	}
 	 */
 	function _save_return_uri(&$form = null){
+
+		// An experiment: let's utilize the session for better "redirect back" ability
+		if($this->request->get()){
+			$key = "return_uri_".md5($this->request->getRequestUri());
+			if(!$this->session->defined($key)){
+				$this->session->s($key,$this->_get_return_uri());
+			}
+		}
+
 		if(!isset($form)){ $form = $this->form; }
 		$return_uri = $this->_get_return_uri();
 		$form->set_hidden_field("_return_uri_",$return_uri);
@@ -264,10 +273,14 @@ class ApplicationBaseController extends Atk14Controller{
 	 *
 	 * In fact this returns a previously saved uri (by calling $this->_save_return_uri()) or http referer
 	 */
-	function _get_return_uri(){
-		return $this->params->defined("_return_uri_") ? $this->params->getString("_return_uri_") : $this->request->getHttpReferer();
+	function _get_return_uri($default = "index"){
+		$key = "return_uri_".md5($this->request->getRequestUri());
+		($return_uri = $this->params->getString("_return_uri_")) ||
+		($return_uri = $this->session->g($key)) ||
+		($return_uri = $this->request->getHttpReferer()) ||
+		($return_uri = $this->_link_to($default));
+		return $return_uri;
 	}
-
 
 	/**
 	 * Redirects user back to return_uri, when it is know.
@@ -281,6 +294,13 @@ class ApplicationBaseController extends Atk14Controller{
 	 * $this->_redirect_to_return_uri("http://www.atk14.net");
 	 */
 	function _redirect_back($default = "index"){
+		$key = "return_uri_".md5($this->request->getRequestUri());
+		if($this->session->defined($key)){
+			$return_uri = $this->session->g($key);
+			$this->session->clear($key);
+			return $this->_redirect_to($return_uri);
+		}
+
 		if($return_uri = $this->params->g("_return_uri_")){
 			return $this->_redirect_to($return_uri);
 		}
