@@ -271,12 +271,13 @@ class ApplicationBaseController extends Atk14Controller{
 	/**
 	 * Returns current return uri
 	 *
-	 * In fact this returns a previously saved uri (by calling $this->_save_return_uri()) or http referer
+	 * In fact this returns a previously saved uri (by calling $this->_save_return_uri()), value of parameter _return_uri_ (eventually return_uri) or the http referer
 	 */
 	function _get_return_uri($default = "index"){
 		$key = "return_uri_".md5($this->request->getRequestUri());
 		($return_uri = $this->params->getString("_return_uri_")) ||
 		($return_uri = $this->session->g($key)) ||
+		($return_uri = $this->params->getString("return_uri")) ||
 		($return_uri = $this->request->getHttpReferer()) ||
 		($return_uri = $this->_link_to($default));
 		return $return_uri;
@@ -298,15 +299,10 @@ class ApplicationBaseController extends Atk14Controller{
 		if($this->session->defined($key)){
 			$return_uri = $this->session->g($key);
 			$this->session->clear($key);
-			return $this->_redirect_to($return_uri);
+		}else{
+			$return_uri = $this->_get_return_uri($default);
 		}
 
-		if($return_uri = $this->params->g("_return_uri_")){
-			return $this->_redirect_to($return_uri);
-		}
-		if(is_array($default)){
-			$default = $this->_link_to($default);
-		}
-		return $this->_redirect_to($default);
+		return $this->_redirect_to($return_uri);
 	}
 }
