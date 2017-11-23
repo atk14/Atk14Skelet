@@ -111,20 +111,28 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->session->s($key,$user->getId());
 		$this->session->changeSecretToken(); // prevent from session fixation
 
-		$this->logger->info("user $user just logged in from ".$this->request->getRemoteAddr());
+		if($options["fake_login"]){
+			$this->logger->info(sprintf("User#%s (%s) just logged in administratively as User#%s (%s) from %s",$this->logged_user->getId(),"$this->logged_user",$user->getId(),"$user",$this->request->getRemoteAddr()));
+		}else{
+			$this->logger->info(sprintf("User#%s (%s) just logged in from %s",$user->getId(),"$user",$this->request->getRemoteAddr()));
+		}
 	}
 
 	function _logout_user(){
-		if($this->session->g("fake_logged_user_id")){
+		$logged_user = $this->_get_logged_user($really_logged_user);
+
+		if(!$logged_user){
+			// just for sure
+			$this->session->clear("logged_user_id");
 			$this->session->clear("fake_logged_user_id");
-			return;
+		}elseif($logged_user->getId()!=$really_logged_user->getId()){
+			$this->session->clear("fake_logged_user_id");
+			$this->logger->info(sprintf("User#%s (%s) logged out administratively as User#%s (%s) from %s",$really_logged_user->getId(),"$really_logged_user",$logged_user->getId(),"$logged_user",$this->request->getRemoteAddr()));
+		}else{
+			$this->session->clear("logged_user_id");
+			$this->session->clear("fake_logged_user_id"); // just for sure
+			$this->logger->info(sprintf("User#%s (%s) logged out from %s",$logged_user->getId(),"$logged_user",$this->request->getRemoteAddr()));
 		}
-
-		if($user = User::FindById($this->session->g("logged_user_id"))){
-			$this->logger->info("user $user logged out from ".$this->request->getRemoteAddr());
-		}
-
-		$this->session->clear("logged_user_id");
 	}
 
 	function _begin_database_transaction(){
@@ -143,10 +151,14 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->_begin_database_transaction();
 	}
 
-	function _get_logged_user(){
-		($user_id = $this->session->g("fake_logged_user_id")) ||
-		($user_id = $this->session->g("logged_user_id"));
-		return User::GetInstanceById($user_id);
+	function _get_logged_user(&$really_logged_user = null){
+		$really_logged_user = User::GetInstanceById($this->session->g("logged_user_id"));
+
+		if($really_logged_user && $really_logged_user->isAdmin()){
+			$fakely_logged_user = User::GetInstanceById($this->session->g("fake_logged_user_id"));
+		}
+
+		return isset($fakely_logged_user) ? $fakely_logged_user : $really_logged_user;
 	}
 
 	function _logged_user_required(){
