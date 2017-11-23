@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-11 15:29+0200\n"
-"PO-Revision-Date: 2016-11-18 11:19+0100\n"
+"POT-Creation-Date: 2017-11-23 22:47+0100\n"
+"PO-Revision-Date: 2017-11-23 22:47+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -75,9 +75,6 @@ msgstr "Datum"
 #: ../app/forms/admin/articles/articles_form.php:20
 msgid "Tags"
 msgstr "Štítky"
-
-msgid "Actions"
-msgstr "Akce"
 
 msgid "Welcome administrator!"
 msgstr "Vítejte administrátore!"
@@ -207,7 +204,8 @@ msgstr "nebo"
 msgid "Sign in as an admin user"
 msgstr "Přihlaste se jako administrátor"
 
-#: ../app/controllers/logins_controller.php:6
+#: ../app/controllers/logins_controller.php:7
+#: ../app/controllers/password_recoveries_controller.php:65
 #: ../app/forms/logins/create_new_form.php:13
 msgid "Sign in"
 msgstr "Přihlásit se"
@@ -223,15 +221,20 @@ msgstr ""
 msgid "Please, write us to %1 if you think this is our mistake."
 msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
 
+msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
+msgstr "Zaslal <em>%1</em> dne <time datetime=\"%2\">%3</time>"
+
+msgid "older article"
+msgstr "starší článek"
+
+msgid "newer article"
+msgstr "novější článek"
+
+msgid "At the moment there are no news."
+msgstr "V této chvíli nejsou žádné novinky"
+
 msgid "Have you forgotten password?"
 msgstr "Zapomněl jste heslo?"
-
-msgid ""
-"Please note that default administration access is admin/admin. Be a smart "
-"guy and change admin's password on production promptly."
-msgstr ""
-"Mějte prosím na paměti, že administrátorský přístup je admin/admin. Buďtě "
-"chytrý chlapík a v produkčním prostředí změnte okamžitě adminovo heslo."
 
 msgid "You are signed in as <em>%1</em>."
 msgstr "Jste přihlášen jako <em>%1</em>."
@@ -362,8 +365,8 @@ msgstr "Stránka O nás"
 msgid "Contact page with fast contact form"
 msgstr "Kontaktní stránka s formulářem pro rychlý kontakt"
 
-msgid "News section"
-msgstr "Sekce s novinkama"
+msgid "Articles section"
+msgstr "Sekce s články"
 
 msgid "User registration"
 msgstr "Registrace uživatele"
@@ -394,20 +397,26 @@ msgid "Installation"
 msgstr "Instalace"
 
 msgid ""
-"If you are brave enough to install the Skelet on your computer, check out <a "
-"href=\"https://github.com/atk14/Atk14Skelet/blob/master/README."
-"md#installation\">the installation instrunction.</a>"
+"Are you planning to kick up a new project from the Atk14Skelet? Great! Just "
+"run the following commands."
 msgstr ""
-"Pokud jste dost odvážný, nainstalujte si Skelet na svůj počítač. Mrkněte na "
-"<a href=\"https://github.com/atk14/Atk14Skelet/blob/master/README."
-"md#installation\">navod k instalaci.</a>"
+"Chystáte se pustit do nového projektu na Atk14Skeletu? Skvělé! Stačí spustit "
+"následující příkazy."
 
 msgid ""
-"If you want to help us to improve the Skelet, <a href=\"https://github.com/"
-"atk14/Atk14Skelet\">fork it on GitHub.</a>"
+"You can find more information in <a href=\"https://github.com/atk14/"
+"Atk14Skelet/blob/master/README.md#installation\">the installation "
+"instructions.</a>"
 msgstr ""
-"Pokud chcete pomoct při zlepšování Skeletu, <a href=\"https://github.com/"
-"atk14/Atk14Skelet\">forkněte si ho na GitHubu.</a>"
+"Více informací naleznete v <a href=\"https://github.com/atk14/Atk14Skelet/"
+"blob/master/README.md#installation\">pokynech k instalaci.</a>"
+
+msgid ""
+"If you want to help us to improve the Atk14Skelet, <a href=\"https://github."
+"com/atk14/Atk14Skelet\">fork it on GitHub.</a>"
+msgstr ""
+"Chcete-li nám pomoct vylepšit Atk14Skelet, <a href=\"https://github.com/"
+"atk14/Atk14Skelet\">forkněte si ho na GitHubu. </a>"
 
 msgid "Further Reading & Resources"
 msgstr "Další čtení a zdroje"
@@ -432,15 +441,6 @@ msgstr "ATK14 Skelet ve věku 5 let"
 
 msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
 msgstr "obr.1 <em>Stvoření prosí o fork na GitHubu</em>"
-
-msgid "News archive"
-msgstr "Archív novinek"
-
-msgid "At the moment there are no news."
-msgstr "V této chvíli nejsou žádné novinky"
-
-msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
-msgstr "Zaslal <em>%1</em> dne <time datetime=\"%2\">%3</time>"
 
 msgid "The address has expired or already been used."
 msgstr "Tato adresa už není platné nebo již byla použita."
@@ -498,7 +498,7 @@ msgstr "Profil"
 msgid "Administration"
 msgstr "Administrace"
 
-#: ../app/controllers/logins_controller.php:32
+#: ../app/controllers/logins_controller.php:33
 #: ../app/forms/logins/destroy_form.php:4
 msgid "Sign out"
 msgstr "Odhlásit se"
@@ -591,6 +591,8 @@ msgid "Welcome screen"
 msgstr "Vítací obrazovka"
 
 #: ../app/controllers/admin/admin.php:28
+#: ../app/controllers/articles_controller.php:11
+#: ../app/controllers/articles_controller.php:60
 msgid "Articles"
 msgstr "Články"
 
@@ -620,7 +622,7 @@ msgid "Create article"
 msgstr "Vytvořit článek"
 
 #: ../app/controllers/admin/articles_controller.php:38
-msgid "The article has been created successfuly"
+msgid "The article has been created successfully"
 msgstr "Článek byl úspěšně vytvořen"
 
 #: ../app/controllers/admin/articles_controller.php:44
@@ -636,7 +638,7 @@ msgid "Nothing has been changed"
 msgstr "Nic nebylo změněno"
 
 #: ../app/controllers/admin/articles_controller.php:60
-msgid "The article has been updated successfuly"
+msgid "The article has been updated successfully"
 msgstr "Článek byl úspěšně aktualizován"
 
 #: ../app/controllers/admin/newsletter_subscribers_controller.php:4
@@ -652,7 +654,7 @@ msgid "Create a new tag"
 msgstr "Vytvořit nový štítek"
 
 #: ../app/controllers/admin/tags_controller.php:36
-msgid "The tag has been created successfuly"
+msgid "The tag has been created successfully"
 msgstr "Štítek byl úspěšně vytvořen"
 
 #: ../app/controllers/admin/tags_controller.php:44
@@ -674,7 +676,7 @@ msgid "Users list"
 msgstr "Seznam uživatelů"
 
 #: ../app/controllers/admin/users_controller.php:38
-msgid "The user has been created successfuly"
+msgid "The user has been created successfully"
 msgstr "Uživatel byl úspěšně vytvořen"
 
 #: ../app/controllers/admin/users_controller.php:44
@@ -741,25 +743,34 @@ msgstr "Vaše heslo bylo změněno"
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
-#: ../app/controllers/application_rest_api.php:52
+#: ../app/controllers/application_rest_api.php:73
 #, php-format
 msgid "Commands in %s"
 msgstr "Přikazy v %s"
 
-#: ../app/controllers/application_rest_api.php:150
+#: ../app/controllers/application_rest_api.php:171
 #, php-format
 msgid "submit using method %s"
 msgstr "Odeslat metodou %s"
 
-#: ../app/controllers/application_rest_api.php:169
+#: ../app/controllers/application_rest_api.php:218
 msgid "Nothing has been found on this address"
 msgstr "Na této adrese nebylo nic nalezeno"
 
-#: ../app/controllers/application_rest_api.php:175
+#: ../app/controllers/application_rest_api.php:224
+msgid "You don't have access to the requested resource"
+msgstr "Nemáte přístup k požadovanému zdroji"
+
+#: ../app/controllers/application_rest_api.php:230
 msgid "Sorry, An internal error happened"
 msgstr "Omlouváme se, nastala vnitřní chyba"
 
-#: ../app/controllers/logins_controller.php:15
+#: ../app/controllers/articles_controller.php:15
+#, php-format
+msgid "Articles tagged with <em>%s</em>"
+msgstr "Články se štítkem <em>%s</em>"
+
+#: ../app/controllers/logins_controller.php:16
 #, php-format
 msgid ""
 "Wrong login and password combination. <a href=\"%s\">Have you forgotten your "
@@ -768,29 +779,28 @@ msgstr ""
 "Nesprávna kombinace loginu a hesla. <a href=\"%s\">Zapomněl jste své heslo?</"
 "a>"
 
-#: ../app/controllers/logins_controller.php:17
+#: ../app/controllers/logins_controller.php:18
 msgid "Wrong login and password combination"
 msgstr "Nesprávna kombinace loginu a hesla"
 
-#: ../app/controllers/logins_controller.php:24
+#: ../app/controllers/logins_controller.php:25
 #, php-format
-msgid "You have been successfuly logged in as <em>%s</em>"
+msgid "You have been successfully logged in as <em>%s</em>"
 msgstr "Byl jste úspěšně přihlášen jako <em>%s</em>"
 
-#: ../app/controllers/logins_controller.php:36
-msgid "You have been successfuly logged out"
+#: ../app/controllers/logins_controller.php:37
+msgid "You have been successfully logged out"
 msgstr "Byl jste úspěšně odhlášen"
+
+#: ../app/controllers/logins_controller.php:37
+#, php-format
+msgid "You've stayed logged in as <em>%s</em>"
+msgstr "Zůstal jste přihlášen jako <em>%s</em>"
 
 #: ../app/controllers/main_controller.php:15
 #, php-format
 msgid "About %s"
 msgstr "O %s"
-
-#: ../app/controllers/news_controller.php:7
-#: ../app/controllers/news_controller.php:15
-#: ../app/controllers/news_controller.php:30
-msgid "News"
-msgstr "Novinky"
 
 #: ../app/controllers/password_recoveries_controller.php:10
 msgid "There is not such user with the given login or email"
@@ -806,14 +816,15 @@ msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:53
 #: ../app/controllers/users_controller.php:64
-msgid "Your password has been updated successfuly"
+msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: ../app/controllers/password_recoveries_controller.php:65
+#: ../app/controllers/password_recoveries_controller.php:66
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
 #: ../app/controllers/users_controller.php:4
+#: ../app/controllers/users_controller.php:77
 msgid "User profile"
 msgstr "Profil uživatele"
 
@@ -824,7 +835,8 @@ msgstr "Abyste se mohl zaregistrovat, napřed se odhlaste"
 #: ../app/controllers/users_controller.php:30
 #, php-format
 msgid ""
-"You have been successfuly registered and now you are logged in as <em>%s</em>"
+"You have been successfully registered and now you are logged in as <em>%s</"
+"em>"
 msgstr "Byl jste úspěšně zaregistrován a teď jste přihlášen jako <em>%s</em>"
 
 #: ../app/controllers/users_controller.php:47
@@ -872,14 +884,6 @@ msgstr "Je očekáván formát Markdown"
 #: ../app/forms/admin/articles/articles_form.php:15
 msgid "Published At"
 msgstr "Publikováno dne"
-
-#: ../app/forms/admin/articles/articles_form.php:23
-#, php-format
-msgid ""
-"Mention tag <em>%s</em> when this article should be displayed in the news "
-"section"
-msgstr ""
-"Uveďte štítek <em>%s</em>, pokud se má tento článek objevit mezi novinkama"
 
 #: ../app/forms/admin/articles/index_form.php:5
 #: ../app/forms/admin/newsletter_subscribers/index_form.php:5
@@ -1003,6 +1007,47 @@ msgstr "Ano"
 #: ../app/helpers/modifier.display_bool.php:14
 msgid "No"
 msgstr "Ne"
+
+#~ msgid "Actions"
+#~ msgstr "Akce"
+
+#~ msgid ""
+#~ "Please note that default administration access is admin/admin. Be a smart "
+#~ "guy and change admin's password on production promptly."
+#~ msgstr ""
+#~ "Mějte prosím na paměti, že administrátorský přístup je admin/admin. Buďtě "
+#~ "chytrý chlapík a v produkčním prostředí změnte okamžitě adminovo heslo."
+
+#~ msgid "News section"
+#~ msgstr "Sekce s novinkama"
+
+#~ msgid ""
+#~ "If you are brave enough to install the Skelet on your computer, check out "
+#~ "<a href=\"https://github.com/atk14/Atk14Skelet/blob/master/README."
+#~ "md#installation\">the installation instrunction.</a>"
+#~ msgstr ""
+#~ "Pokud jste dost odvážný, nainstalujte si Skelet na svůj počítač. Mrkněte "
+#~ "na <a href=\"https://github.com/atk14/Atk14Skelet/blob/master/README."
+#~ "md#installation\">navod k instalaci.</a>"
+
+#~ msgid ""
+#~ "If you want to help us to improve the Skelet, <a href=\"https://github."
+#~ "com/atk14/Atk14Skelet\">fork it on GitHub.</a>"
+#~ msgstr ""
+#~ "Pokud chcete pomoct při zlepšování Skeletu, <a href=\"https://github.com/"
+#~ "atk14/Atk14Skelet\">forkněte si ho na GitHubu.</a>"
+
+#~ msgid "News archive"
+#~ msgstr "Archív novinek"
+
+#~ msgid "News"
+#~ msgstr "Novinky"
+
+#~ msgid ""
+#~ "Mention tag <em>%s</em> when this article should be displayed in the news "
+#~ "section"
+#~ msgstr ""
+#~ "Uveďte štítek <em>%s</em>, pokud se má tento článek objevit mezi novinkama"
 
 #~ msgid "Headers"
 #~ msgstr "Hlavičky"
@@ -1261,7 +1306,7 @@ msgstr "Ne"
 #~ msgid "Creating new creature"
 #~ msgstr "Vytvoření nové příšerky"
 
-#~ msgid "A new creature has been successfuly created"
+#~ msgid "A new creature has been successfully created"
 #~ msgstr "Nová příšerka byla vytvořena"
 
 #~ msgid "Detail of the creature #%s"
@@ -1270,7 +1315,7 @@ msgstr "Ne"
 #~ msgid "Editing the creature #%s"
 #~ msgstr "Editovat příšerku #%s"
 
-#~ msgid "The creature has been changed successfuly."
+#~ msgid "The creature has been changed successfully."
 #~ msgstr "Příšerka byla úspěšně změněna."
 
 #~ msgid "my beautiful application"
@@ -1313,10 +1358,10 @@ msgstr "Ne"
 #~ msgid "Create news entry"
 #~ msgstr "Vytvořit nový záznam"
 
-#~ msgid "The news entry has been created successfuly"
+#~ msgid "The news entry has been created successfully"
 #~ msgstr "Novinka byla úspěšně vytvořena"
 
-#~ msgid "The news entry has been updated successfuly"
+#~ msgid "The news entry has been updated successfully"
 #~ msgstr "Novinka byla úspěšně změněna"
 
 #~ msgid "The news entry has been deleted"

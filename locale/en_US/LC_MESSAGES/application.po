@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-05-11 15:29+0200\n"
+"POT-Creation-Date: 2017-11-23 22:47+0100\n"
 "PO-Revision-Date: 2016-03-07 17:03+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -67,9 +67,6 @@ msgstr ""
 #: ../app/controllers/admin/admin.php:29
 #: ../app/forms/admin/articles/articles_form.php:20
 msgid "Tags"
-msgstr ""
-
-msgid "Actions"
 msgstr ""
 
 msgid "Welcome administrator!"
@@ -193,7 +190,8 @@ msgstr ""
 msgid "Sign in as an admin user"
 msgstr ""
 
-#: ../app/controllers/logins_controller.php:6
+#: ../app/controllers/logins_controller.php:7
+#: ../app/controllers/password_recoveries_controller.php:65
 #: ../app/forms/logins/create_new_form.php:13
 msgid "Sign in"
 msgstr ""
@@ -207,12 +205,19 @@ msgstr ""
 msgid "Please, write us to %1 if you think this is our mistake."
 msgstr ""
 
-msgid "Have you forgotten password?"
+msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr ""
 
-msgid ""
-"Please note that default administration access is admin/admin. Be a smart "
-"guy and change admin's password on production promptly."
+msgid "older article"
+msgstr ""
+
+msgid "newer article"
+msgstr ""
+
+msgid "At the moment there are no news."
+msgstr ""
+
+msgid "Have you forgotten password?"
 msgstr ""
 
 msgid "You are signed in as <em>%1</em>."
@@ -317,7 +322,7 @@ msgstr ""
 msgid "Contact page with fast contact form"
 msgstr ""
 
-msgid "News section"
+msgid "Articles section"
 msgstr ""
 
 msgid "User registration"
@@ -349,14 +354,19 @@ msgid "Installation"
 msgstr ""
 
 msgid ""
-"If you are brave enough to install the Skelet on your computer, check out <a "
-"href=\"https://github.com/atk14/Atk14Skelet/blob/master/README."
-"md#installation\">the installation instrunction.</a>"
+"Are you planning to kick up a new project from the Atk14Skelet? Great! Just "
+"run the following commands."
 msgstr ""
 
 msgid ""
-"If you want to help us to improve the Skelet, <a href=\"https://github.com/"
-"atk14/Atk14Skelet\">fork it on GitHub.</a>"
+"You can find more information in <a href=\"https://github.com/atk14/"
+"Atk14Skelet/blob/master/README.md#installation\">the installation "
+"instructions.</a>"
+msgstr ""
+
+msgid ""
+"If you want to help us to improve the Atk14Skelet, <a href=\"https://github."
+"com/atk14/Atk14Skelet\">fork it on GitHub.</a>"
 msgstr ""
 
 msgid "Further Reading & Resources"
@@ -381,15 +391,6 @@ msgid "The ATK14 Skelet at age 5"
 msgstr ""
 
 msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
-msgstr ""
-
-msgid "News archive"
-msgstr ""
-
-msgid "At the moment there are no news."
-msgstr ""
-
-msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr ""
 
 msgid "The address has expired or already been used."
@@ -442,7 +443,7 @@ msgstr ""
 msgid "Administration"
 msgstr ""
 
-#: ../app/controllers/logins_controller.php:32
+#: ../app/controllers/logins_controller.php:33
 #: ../app/forms/logins/destroy_form.php:4
 msgid "Sign out"
 msgstr ""
@@ -533,6 +534,8 @@ msgid "Welcome screen"
 msgstr ""
 
 #: ../app/controllers/admin/admin.php:28
+#: ../app/controllers/articles_controller.php:11
+#: ../app/controllers/articles_controller.php:60
 msgid "Articles"
 msgstr ""
 
@@ -562,7 +565,7 @@ msgid "Create article"
 msgstr ""
 
 #: ../app/controllers/admin/articles_controller.php:38
-msgid "The article has been created successfuly"
+msgid "The article has been created successfully"
 msgstr ""
 
 #: ../app/controllers/admin/articles_controller.php:44
@@ -578,7 +581,7 @@ msgid "Nothing has been changed"
 msgstr ""
 
 #: ../app/controllers/admin/articles_controller.php:60
-msgid "The article has been updated successfuly"
+msgid "The article has been updated successfully"
 msgstr ""
 
 #: ../app/controllers/admin/newsletter_subscribers_controller.php:4
@@ -594,7 +597,7 @@ msgid "Create a new tag"
 msgstr ""
 
 #: ../app/controllers/admin/tags_controller.php:36
-msgid "The tag has been created successfuly"
+msgid "The tag has been created successfully"
 msgstr ""
 
 #: ../app/controllers/admin/tags_controller.php:44
@@ -616,7 +619,7 @@ msgid "Users list"
 msgstr ""
 
 #: ../app/controllers/admin/users_controller.php:38
-msgid "The user has been created successfuly"
+msgid "The user has been created successfully"
 msgstr ""
 
 #: ../app/controllers/admin/users_controller.php:44
@@ -681,53 +684,61 @@ msgstr ""
 msgid "Message sent from contact page"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:52
+#: ../app/controllers/application_rest_api.php:73
 #, php-format
 msgid "Commands in %s"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:150
+#: ../app/controllers/application_rest_api.php:171
 #, php-format
 msgid "submit using method %s"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:169
+#: ../app/controllers/application_rest_api.php:218
 msgid "Nothing has been found on this address"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:175
+#: ../app/controllers/application_rest_api.php:224
+msgid "You don't have access to the requested resource"
+msgstr ""
+
+#: ../app/controllers/application_rest_api.php:230
 msgid "Sorry, An internal error happened"
 msgstr ""
 
-#: ../app/controllers/logins_controller.php:15
+#: ../app/controllers/articles_controller.php:15
+#, php-format
+msgid "Articles tagged with <em>%s</em>"
+msgstr ""
+
+#: ../app/controllers/logins_controller.php:16
 #, php-format
 msgid ""
 "Wrong login and password combination. <a href=\"%s\">Have you forgotten your "
 "password?</a>"
 msgstr ""
 
-#: ../app/controllers/logins_controller.php:17
+#: ../app/controllers/logins_controller.php:18
 msgid "Wrong login and password combination"
 msgstr ""
 
-#: ../app/controllers/logins_controller.php:24
+#: ../app/controllers/logins_controller.php:25
 #, php-format
-msgid "You have been successfuly logged in as <em>%s</em>"
+msgid "You have been successfully logged in as <em>%s</em>"
 msgstr ""
 
-#: ../app/controllers/logins_controller.php:36
-msgid "You have been successfuly logged out"
+#: ../app/controllers/logins_controller.php:37
+msgid "You have been successfully logged out"
+msgstr ""
+
+#: ../app/controllers/logins_controller.php:37
+#, php-format
+msgid "You've stayed logged in as <em>%s</em>"
 msgstr ""
 
 #: ../app/controllers/main_controller.php:15
 #, php-format
 msgid "About %s"
-msgstr ""
-
-#: ../app/controllers/news_controller.php:7
-#: ../app/controllers/news_controller.php:15
-#: ../app/controllers/news_controller.php:30
-msgid "News"
 msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:10
@@ -742,14 +753,15 @@ msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:53
 #: ../app/controllers/users_controller.php:64
-msgid "Your password has been updated successfuly"
+msgid "Your password has been updated successfully"
 msgstr ""
 
-#: ../app/controllers/password_recoveries_controller.php:65
+#: ../app/controllers/password_recoveries_controller.php:66
 msgid "Password recovery"
 msgstr ""
 
 #: ../app/controllers/users_controller.php:4
+#: ../app/controllers/users_controller.php:77
 msgid "User profile"
 msgstr ""
 
@@ -760,7 +772,8 @@ msgstr ""
 #: ../app/controllers/users_controller.php:30
 #, php-format
 msgid ""
-"You have been successfuly registered and now you are logged in as <em>%s</em>"
+"You have been successfully registered and now you are logged in as <em>%s</"
+"em>"
 msgstr ""
 
 #: ../app/controllers/users_controller.php:47
@@ -804,13 +817,6 @@ msgstr ""
 
 #: ../app/forms/admin/articles/articles_form.php:15
 msgid "Published At"
-msgstr ""
-
-#: ../app/forms/admin/articles/articles_form.php:23
-#, php-format
-msgid ""
-"Mention tag <em>%s</em> when this article should be displayed in the news "
-"section"
 msgstr ""
 
 #: ../app/forms/admin/articles/index_form.php:5
