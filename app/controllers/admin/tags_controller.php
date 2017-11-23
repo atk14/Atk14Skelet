@@ -33,7 +33,7 @@ class TagsController extends AdminController{
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$d["created_by_user_id"] = $this->logged_user;
 			Tag::CreateNewRecord($d);
-			$this->flash->success(_("The tag has been created successfuly"));
+			$this->flash->success(_("The tag has been created successfully"));
 			$this->_redirect_back();
 		}
 	}

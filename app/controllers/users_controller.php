@@ -27,7 +27,7 @@ class UsersController extends ApplicationController{
 
 			$this->_login_user($user);
 
-			$this->flash->success(sprintf(_("You have been successfuly registered and now you are logged in as <em>%s</em>"),h("$user")));
+			$this->flash->success(sprintf(_("You have been successfully registered and now you are logged in as <em>%s</em>"),h("$user")));
 			$this->_redirect_to("main/index");
 		}
 	}
@@ -61,7 +61,7 @@ class UsersController extends ApplicationController{
 				"password" => $d["password"],
 				"updated_by_user_id" => $this->logged_user
 			));
-			$this->flash->success(_("Your password has been updated successfuly"));
+			$this->flash->success(_("Your password has been updated successfully"));
 			$this->_redirect_to("detail");
 		}
 	}

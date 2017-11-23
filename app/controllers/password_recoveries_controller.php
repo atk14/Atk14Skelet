@@ -50,7 +50,7 @@ class PasswordRecoveriesController extends ApplicationController{
 
 			$this->mailer->notify_password_update_in_recovery($password_recovery);
 
-			$this->flash->success(_("Your password has been updated successfuly"));
+			$this->flash->success(_("Your password has been updated successfully"));
 			$this->_redirect_to_action("logins/create_new",array("login" => $user->getLogin()));
 		}
 	}

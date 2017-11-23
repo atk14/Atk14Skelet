@@ -35,7 +35,7 @@ class ArticlesController extends AdminController{
 			$d["author_id"] = $d["created_by_user_id"] = $this->logged_user;
 			$article = Article::CreateNewRecord($d);
 			$article->setTags($tags);
-			$this->flash->success(_("The article has been created successfuly"));
+			$this->flash->success(_("The article has been created successfully"));
 			$this->_redirect_back();
 		}
 	}
@@ -57,7 +57,7 @@ class ArticlesController extends AdminController{
 			$this->article->setTags($d["tags"]);
 			unset($d["tags"]);
 			$this->article->s($d);
-			$this->flash->success(_("The article has been updated successfuly"));
+			$this->flash->success(_("The article has been updated successfully"));
 			$this->_redirect_back();
 		}
 	}
