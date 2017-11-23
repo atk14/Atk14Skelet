@@ -118,7 +118,8 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 	}
 
-	function _logout_user(){
+	function _logout_user(&$stayed_logged_as_user = null){
+		$stayed_logged_as_user = null;
 		$logged_user = $this->_get_logged_user($really_logged_user);
 
 		if(!$logged_user){
@@ -126,6 +127,7 @@ class ApplicationBaseController extends Atk14Controller{
 			$this->session->clear("logged_user_id");
 			$this->session->clear("fake_logged_user_id");
 		}elseif($logged_user->getId()!=$really_logged_user->getId()){
+			$stayed_logged_as_user = $really_logged_user;
 			$this->session->clear("fake_logged_user_id");
 			$this->logger->info(sprintf("User#%s (%s) logged out administratively as User#%s (%s) from %s",$really_logged_user->getId(),"$really_logged_user",$logged_user->getId(),"$logged_user",$this->request->getRemoteAddr()));
 		}else{
