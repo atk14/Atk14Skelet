@@ -38,7 +38,7 @@ git remote set-url origin git@my.server.com:my_project.git
 git push</code></pre>
 
 		<p>
-			{t escape=no}You can find more information in <a href="https://github.com/atk14/Atk14Skelet/blob/master/README.md#installation">the installation instrunction.</a>{/t}
+			{t escape=no}You can find more information in <a href="https://github.com/atk14/Atk14Skelet/blob/master/README.md#installation">the installation instructions.</a>{/t}
 		</p>
 
 		<p>
