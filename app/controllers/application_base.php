@@ -271,9 +271,12 @@ class ApplicationBaseController extends Atk14Controller{
 
 		// An experiment: let's utilize the session for better "redirect back" ability
 		if($this->request->get()){
-			$key = "return_uri_".md5($this->request->getRequestUri());
-			if(!$this->session->defined($key)){
-				$this->session->s($key,$this->_get_return_uri());
+			($return_uris = $this->session->g("return_uris")) || ($return_uris = array());
+			$key = md5($this->request->getRequestUri());
+			if(!isset($return_uris[$key])){
+				if(sizeof($return_uris)>50){ array_shift($return_uris); } // for safety reasons there is a max limit
+				$return_uris[$key] = $this->_get_return_uri();
+				$this->session->s("return_uris",$return_uris);
 			}
 		}
 
@@ -288,9 +291,11 @@ class ApplicationBaseController extends Atk14Controller{
 	 * In fact this returns a previously saved uri (by calling $this->_save_return_uri()), value of parameter _return_uri_ (eventually return_uri) or the http referer
 	 */
 	function _get_return_uri($default = "index"){
-		$key = "return_uri_".md5($this->request->getRequestUri());
+		$key = md5($this->request->getRequestUri());
+		($return_uris = $this->session->g("return_uris")) || ($return_uris = array());
+
 		($return_uri = $this->params->getString("_return_uri_")) ||
-		($return_uri = $this->session->g($key)) ||
+		($return_uri = isset($return_uris[$key]) ? $return_uris[$key] : null) ||
 		($return_uri = $this->params->getString("return_uri")) ||
 		($return_uri = $this->request->getHttpReferer()) ||
 		($return_uri = $this->_link_to($default));
@@ -309,10 +314,13 @@ class ApplicationBaseController extends Atk14Controller{
 	 * $this->_redirect_to_return_uri("http://www.atk14.net");
 	 */
 	function _redirect_back($default = "index"){
-		$key = "return_uri_".md5($this->request->getRequestUri());
-		if($this->session->defined($key)){
-			$return_uri = $this->session->g($key);
-			$this->session->clear($key);
+		$key = md5($this->request->getRequestUri());
+		($return_uris = $this->session->g("return_uris")) || ($return_uris = array());
+
+		if(isset($return_uris[$key])){
+			$return_uri = $return_uris[$key];
+			unset($return_uris[$key]);
+			$this->session->s("return_uris",$return_uris);
 		}else{
 			$return_uri = $this->_get_return_uri($default);
 		}
