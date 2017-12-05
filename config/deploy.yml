@@ -12,10 +12,7 @@ production:
   server: "kajka"                                                             # we are deploying on this server
   user: "devel"                                                               # we are deploying as this user
   directory: "/home/devel/apps/skelet.atk14.net/production/"                  # in this directory is this application installed on the server
-  create_maintenance_file: "false"                                            # 
-  deploy_via: "git_push"                                                      # at the moment this is the only way how to deploy
   deploy_repository: "devel@kajka:apps/skelet.atk14.net/repos/production.git" # this is the URL of deployment git repository with a proper post-receive hook
-  deploy_branch: "master"                                                     # the name of the branch in deployment repository
   before_deploy:                                                              # some tasks may be run before deployment
   - "@local composer update"
   - "@local bower update"
