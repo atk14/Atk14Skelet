@@ -30,4 +30,15 @@ class TcApplicationModel extends TcBase{
 		$this->assertNull(User::GetInstanceByToken($token_salted));
 		$this->assertNull(User::GetInstanceByToken($token,"Extra_Spicy_Salt"));
 	}
+
+	function test_do_not_set_update_time() {
+		$user = $this->users["rambo_tester"];
+		$this->assertNull($user->getUpdatedAt());
+
+		$user->s("email", "rambouch@email.com", array("do_not_set_update_time" => true));
+		$this->assertNull($user->getUpdatedAt());
+
+		$user->s("email", "rambouch@gmail.com");
+		$this->assertNotNull($user->getUpdatedAt());
+	}
 }

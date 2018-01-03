@@ -67,12 +67,21 @@ class ApplicationModel extends TableRecord{
 	/**
 	 *
 	 * Provides transparent updating of update_at field if such field exists.
+	 *
+	 * @param array $values
+	 * @param array $options
+	 * - do_not_set_update_time if true is passed the method does not set fields updated_at, updated_on, update_date [default: false]
 	 */
 	function setValues($values,$options = array()){
+		$options += array(
+			"do_not_set_update_time" => false,
+		);
 		$v_keys = array_keys($values);
-		foreach(array("updated_at","updated_on","update_date") as $f){
-			if($this->hasKey($f) && !in_array($f,$v_keys)){
-				$values[$f] = date("Y-m-d H:i:s");
+		if ($options["do_not_set_update_time"]===false) {
+			foreach(array("updated_at","updated_on","update_date") as $f){
+				if($this->hasKey($f) && !in_array($f,$v_keys)){
+					$values[$f] = date("Y-m-d H:i:s");
+				}
 			}
 		}
 		return parent::setValues($values,$options);
