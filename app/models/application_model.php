@@ -70,14 +70,14 @@ class ApplicationModel extends TableRecord{
 	 *
 	 * @param array $values
 	 * @param array $options
-	 * - do_not_set_update_time if true is passed the method does not set fields updated_at, updated_on, update_date [default: false]
+	 * - set_update_time if true is passed the method does not set fields updated_at, updated_on, update_date [default: true]
 	 */
 	function setValues($values,$options = array()){
 		$options += array(
-			"do_not_set_update_time" => false,
+			"set_update_time" => true,
 		);
 		$v_keys = array_keys($values);
-		if ($options["do_not_set_update_time"]===false) {
+		if ($options["set_update_time"]===true) {
 			foreach(array("updated_at","updated_on","update_date") as $f){
 				if($this->hasKey($f) && !in_array($f,$v_keys)){
 					$values[$f] = date("Y-m-d H:i:s");

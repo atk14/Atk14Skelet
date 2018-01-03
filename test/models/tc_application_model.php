@@ -35,7 +35,7 @@ class TcApplicationModel extends TcBase{
 		$user = $this->users["rambo_tester"];
 		$this->assertNull($user->getUpdatedAt());
 
-		$user->s("email", "rambouch@email.com", array("do_not_set_update_time" => true));
+		$user->s("email", "rambouch@email.com", array("set_update_time" => false));
 		$this->assertNull($user->getUpdatedAt());
 
 		$user->s("email", "rambouch@gmail.com");
