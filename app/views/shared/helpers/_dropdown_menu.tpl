@@ -1,4 +1,4 @@
-<div class="btn-group btn-group-sm{if $pull=="right"} pull-right{/if}{if $pull=="left"} pull-left{/if}">
+<div class="btn-group btn-group-sm{if $pull=="right"} pull-right{/if}{if $pull=="left"} pull-left{/if}{if $class} {$class}{/if}">
 	{!$first_line}
 	{if $lines}
 		<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">

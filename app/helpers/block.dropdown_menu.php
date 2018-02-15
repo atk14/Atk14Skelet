@@ -20,6 +20,7 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	$params += array(
 		"pull" => "right", // "right", "left", ""
 		"clearfix" => null,
+		"class" => "",
 	);
 
 	if(!isset($params["clearfix"])){
@@ -52,6 +53,7 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	$smarty->assign("lines",$lines);
 	$smarty->assign("pull",$params["pull"]);
 	$smarty->assign("clearfix",$params["clearfix"]);
+	$smarty->assign("class",$params["class"]);
 	$out = $smarty->fetch("shared/helpers/_dropdown_menu.tpl");
 	$smarty->clearAllAssign();
 	$smarty->assign($original_smarty_vars);
