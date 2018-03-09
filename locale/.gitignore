@@ -1,0 +1,10 @@
+application.pot
+files_php
+files_smarty_templates
+files_vendor
+smarty.c
+vendor.pot
+*/LC_MESSAGES/application.mo
+*/LC_MESSAGES/atk14.mo
+*/LC_MESSAGES/vendor.mo
+*/LC_MESSAGES/messages.po
