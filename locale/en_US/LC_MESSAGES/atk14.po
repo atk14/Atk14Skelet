@@ -227,8 +227,8 @@ msgid "Enter a valid IP address."
 msgstr "Enter a valid IP address."
 
 #: ../src/forms/fields/multiple_choice_field.php:21
-msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr "Select a valid choice. %(value)s is not one of the available choices."
+msgid "Select a valid choice. %value% is not one of the available choices."
+msgstr "Select a valid choice. %value% is not one of the available choices."
 
 #: ../src/forms/fields/multiple_choice_field.php:22
 msgid "Enter a list of values."
@@ -245,3 +245,8 @@ msgstr "This field is required."
 #: ../src/forms/fields.php:236
 msgid "Enter a valid value."
 msgstr "Enter a valid value."
+
+#~ msgid ""
+#~ "Select a valid choice. %(value)s is not one of the available choices."
+#~ msgstr ""
+#~ "Select a valid choice. %(value)s is not one of the available choices."

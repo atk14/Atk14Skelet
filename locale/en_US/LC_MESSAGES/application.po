@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-23 22:47+0100\n"
+"POT-Creation-Date: 2018-03-09 15:15+0100\n"
 "PO-Revision-Date: 2016-03-07 17:03+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -54,7 +54,6 @@ msgstr ""
 msgid "The list is empty."
 msgstr ""
 
-#: ../app/forms/admin/articles/articles_form.php:5
 msgid "Title"
 msgstr ""
 
@@ -64,8 +63,6 @@ msgstr ""
 msgid "Date"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:29
-#: ../app/forms/admin/articles/articles_form.php:20
 msgid "Tags"
 msgstr ""
 
@@ -78,7 +75,6 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: ../app/forms/admin/users/users_form.php:5
 msgid "Name"
 msgstr ""
 
@@ -119,7 +115,6 @@ msgstr ""
 msgid "No tag has been found."
 msgstr ""
 
-#: ../app/forms/admin/tags/tags_form.php:5
 msgid "Tag"
 msgstr ""
 
@@ -137,19 +132,16 @@ msgid ""
 "the user <em>%1</em>"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:32
 msgid "Create a new user"
 msgstr ""
 
 msgid "Username"
 msgstr ""
 
-#: ../app/forms/admin/users/users_form.php:10
 #: ../app/forms/users/users_form.php:11
 msgid "Email address"
 msgstr ""
 
-#: ../app/forms/admin/users/users_form.php:15
 msgid "Is admin?"
 msgstr ""
 
@@ -438,8 +430,6 @@ msgstr ""
 msgid "Profile"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:8
-#: ../app/controllers/admin/main_controller.php:4
 msgid "Administration"
 msgstr ""
 
@@ -525,130 +515,7 @@ msgstr ""
 msgid "Current password"
 msgstr ""
 
-#: ../app/forms/admin/users/edit_password_form.php:5
 msgid "New password"
-msgstr ""
-
-#: ../app/controllers/admin/admin.php:27
-msgid "Welcome screen"
-msgstr ""
-
-#: ../app/controllers/admin/admin.php:28
-#: ../app/controllers/articles_controller.php:11
-#: ../app/controllers/articles_controller.php:60
-msgid "Articles"
-msgstr ""
-
-#: ../app/controllers/admin/admin.php:30
-msgid "Users"
-msgstr ""
-
-#: ../app/controllers/admin/admin.php:31
-#: ../app/controllers/admin/password_recoveries_controller.php:4
-msgid "Password recoveries"
-msgstr ""
-
-#: ../app/controllers/admin/admin.php:32
-msgid "Newsletter subscribers"
-msgstr ""
-
-#: ../app/controllers/admin/admin.php:76
-msgid "The entry has been deleted"
-msgstr ""
-
-#: ../app/controllers/admin/articles_controller.php:4
-msgid "Listing Articles"
-msgstr ""
-
-#: ../app/controllers/admin/articles_controller.php:28
-msgid "Create article"
-msgstr ""
-
-#: ../app/controllers/admin/articles_controller.php:38
-msgid "The article has been created successfully"
-msgstr ""
-
-#: ../app/controllers/admin/articles_controller.php:44
-#, php-format
-msgid "Editing %s"
-msgstr ""
-
-#: ../app/controllers/admin/articles_controller.php:52
-#: ../app/controllers/admin/tags_controller.php:56
-#: ../app/controllers/admin/users_controller.php:51
-#: ../app/controllers/users_controller.php:42
-msgid "Nothing has been changed"
-msgstr ""
-
-#: ../app/controllers/admin/articles_controller.php:60
-msgid "The article has been updated successfully"
-msgstr ""
-
-#: ../app/controllers/admin/newsletter_subscribers_controller.php:4
-msgid "Newsletter Subscribers"
-msgstr ""
-
-#: ../app/controllers/admin/tags_controller.php:4
-msgid "Listing Tags"
-msgstr ""
-
-#: ../app/controllers/admin/tags_controller.php:29
-msgid "Create a new tag"
-msgstr ""
-
-#: ../app/controllers/admin/tags_controller.php:36
-msgid "The tag has been created successfully"
-msgstr ""
-
-#: ../app/controllers/admin/tags_controller.php:44
-#, php-format
-msgid "Editing tag %s"
-msgstr ""
-
-#: ../app/controllers/admin/tags_controller.php:51
-#: ../app/forms/admin/tags/create_new_form.php:7
-msgid "The same tag already exists"
-msgstr ""
-
-#: ../app/controllers/admin/tags_controller.php:62
-msgid "The tag has been updated"
-msgstr ""
-
-#: ../app/controllers/admin/users_controller.php:4
-msgid "Users list"
-msgstr ""
-
-#: ../app/controllers/admin/users_controller.php:38
-msgid "The user has been created successfully"
-msgstr ""
-
-#: ../app/controllers/admin/users_controller.php:44
-#, php-format
-msgid "Editing user %s"
-msgstr ""
-
-#: ../app/controllers/admin/users_controller.php:57
-msgid "The user entry has been updated"
-msgstr ""
-
-#: ../app/controllers/admin/users_controller.php:63
-#, php-format
-msgid "Setting a new password to the user %s"
-msgstr ""
-
-#: ../app/controllers/admin/users_controller.php:72
-msgid ""
-"The new password has been set to the user <em>%user%</em>.<br>Would be nice "
-"to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
-msgstr ""
-
-#: ../app/controllers/admin/users_controller.php:88
-msgid "The user entry has been deleted"
-msgstr ""
-
-#: ../app/controllers/admin/users_controller.php:99
-#, php-format
-msgid "Now you are logged as <em>%s</em>"
 msgstr ""
 
 #: ../app/controllers/api/logins_controller.php:33
@@ -684,26 +551,31 @@ msgstr ""
 msgid "Message sent from contact page"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:73
+#: ../app/controllers/application_rest_api.php:75
 #, php-format
 msgid "Commands in %s"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:171
+#: ../app/controllers/application_rest_api.php:173
 #, php-format
 msgid "submit using method %s"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:218
+#: ../app/controllers/application_rest_api.php:220
 msgid "Nothing has been found on this address"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:224
+#: ../app/controllers/application_rest_api.php:226
 msgid "You don't have access to the requested resource"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:230
+#: ../app/controllers/application_rest_api.php:232
 msgid "Sorry, An internal error happened"
+msgstr ""
+
+#: ../app/controllers/articles_controller.php:11
+#: ../app/controllers/articles_controller.php:60
+msgid "Articles"
 msgstr ""
 
 #: ../app/controllers/articles_controller.php:15
@@ -776,6 +648,10 @@ msgid ""
 "em>"
 msgstr ""
 
+#: ../app/controllers/users_controller.php:42
+msgid "Nothing has been changed"
+msgstr ""
+
 #: ../app/controllers/users_controller.php:47
 msgid "Your account data has been updated"
 msgstr ""
@@ -807,42 +683,6 @@ msgstr ""
 msgid "Tag <em>%s</em> is there more than once"
 msgstr ""
 
-#: ../app/forms/admin/articles/articles_form.php:10
-msgid "Body"
-msgstr ""
-
-#: ../app/forms/admin/articles/articles_form.php:11
-msgid "Mardown format is expected"
-msgstr ""
-
-#: ../app/forms/admin/articles/articles_form.php:15
-msgid "Published At"
-msgstr ""
-
-#: ../app/forms/admin/articles/index_form.php:5
-#: ../app/forms/admin/newsletter_subscribers/index_form.php:5
-#: ../app/forms/admin/tags/index_form.php:5
-#: ../app/forms/admin/users/index_form.php:5
-#: ../app/forms/application_form.php:63
-msgid "Search"
-msgstr ""
-
-#: ../app/forms/admin/articles/index_form.php:9
-msgid "Search articles"
-msgstr ""
-
-#: ../app/forms/admin/tags/index_form.php:9
-msgid "Search tags"
-msgstr ""
-
-#: ../app/forms/admin/users/edit_password_form.php:11
-msgid "Set password"
-msgstr ""
-
-#: ../app/forms/admin/users/index_form.php:9
-msgid "Search users"
-msgstr ""
-
 #: ../app/forms/api/tags_suggestions/index_form.php:5
 msgid "Search term"
 msgstr ""
@@ -853,6 +693,10 @@ msgstr ""
 
 #: ../app/forms/application_form.php:61
 msgid "Show"
+msgstr ""
+
+#: ../app/forms/application_form.php:63
+msgid "Search"
 msgstr ""
 
 #: ../app/forms/application_form.php:65

@@ -8,6 +8,9 @@ The output file messages.mo is compiled from concatenation of 3 files:
 - #### application.po
   messages from your application are extracted from files located in folders ./app/, ./lib/
 
+- #### application_admin.po
+  messages from your admin are extracted from files located in folders ./app/controllers/admin/, ./app/forms/admin/, ./app/views/admin/
+
 - #### atk14.po
   messages from ATK14 Framework
 
@@ -38,6 +41,7 @@ Merges just created messages.po with en_US/LC_MESSAGES/messages.po, cs_CZ/LC_MES
 Now it is time to translate all new messages in every language, e.g.:
 
     poedit cs_CZ/LC_MESSAGES/application.po
+    poedit cs_CZ/LC_MESSAGES/application_admin.po
     poedit cs_CZ/LC_MESSAGES/atk14.po
     poedit cs_CZ/LC_MESSAGES/vendor.po
 

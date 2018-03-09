@@ -1,0 +1,334 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PACKAGE VERSION\n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2018-03-09 15:15+0100\n"
+"PO-Revision-Date: 2016-03-07 17:03+0100\n"
+"Last-Translator: Yarri <do-not-write-me@ever.com>\n"
+"Language-Team: Team <team@email.com>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 1.5.4\n"
+
+msgid ""
+"Are you sure to delete article item\n"
+"%1?"
+msgstr ""
+
+msgid "Edit"
+msgstr ""
+
+msgid "Delete article"
+msgstr ""
+
+msgid "Add new article"
+msgstr ""
+
+msgid "The list is empty."
+msgstr ""
+
+#: ../app/forms/admin/articles/articles_form.php:5
+msgid "Title"
+msgstr ""
+
+msgid "Author"
+msgstr ""
+
+msgid "Date"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:29
+#: ../app/forms/admin/articles/articles_form.php:20
+msgid "Tags"
+msgstr ""
+
+msgid "Welcome administrator!"
+msgstr ""
+
+msgid "No record has been found."
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
+#: ../app/forms/admin/users/users_form.php:5
+msgid "Name"
+msgstr ""
+
+msgid "Subscribed since"
+msgstr ""
+
+msgid "IP address"
+msgstr ""
+
+msgid "Export emails in CSV"
+msgstr ""
+
+msgid "Delete"
+msgstr ""
+
+msgid "Created at"
+msgstr ""
+
+msgid "User"
+msgstr ""
+
+msgid "Created from address"
+msgstr ""
+
+msgid "Password recovered?"
+msgstr ""
+
+msgid "Recovered at"
+msgstr ""
+
+msgid "Recovered from address"
+msgstr ""
+
+msgid "Add new tag"
+msgstr ""
+
+msgid "No tag has been found."
+msgstr ""
+
+#: ../app/forms/admin/tags/tags_form.php:5
+msgid "Tag"
+msgstr ""
+
+msgid ""
+"You are about to permanently delete tag %1\n"
+"\tAre you sure about that?"
+msgstr ""
+
+msgid "Delete tag"
+msgstr ""
+
+msgid ""
+"At the moment no one knows the actual user's password because passwords are "
+"not stored in plain text form. In this form you can set a new password to "
+"the user <em>%1</em>"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:32
+msgid "Create a new user"
+msgstr ""
+
+msgid "Username"
+msgstr ""
+
+#: ../app/forms/admin/users/users_form.php:10
+msgid "Email address"
+msgstr ""
+
+#: ../app/forms/admin/users/users_form.php:15
+msgid "Is admin?"
+msgstr ""
+
+msgid "Updated at"
+msgstr ""
+
+msgid "Set new password"
+msgstr ""
+
+msgid "Sign in as this user"
+msgstr ""
+
+msgid ""
+"You are about to permanently delete user %1\n"
+"\tAre you sure about that?"
+msgstr ""
+
+msgid "Delete user"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:8
+#: ../app/controllers/admin/main_controller.php:4
+msgid "Administration"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:27
+msgid "Welcome screen"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:28
+msgid "Articles"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:30
+msgid "Users"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:31
+#: ../app/controllers/admin/password_recoveries_controller.php:4
+msgid "Password recoveries"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:32
+msgid "Newsletter subscribers"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:76
+msgid "The entry has been deleted"
+msgstr ""
+
+#: ../app/controllers/admin/articles_controller.php:4
+msgid "Listing Articles"
+msgstr ""
+
+#: ../app/controllers/admin/articles_controller.php:28
+msgid "Create article"
+msgstr ""
+
+#: ../app/controllers/admin/articles_controller.php:38
+msgid "The article has been created successfully"
+msgstr ""
+
+#: ../app/controllers/admin/articles_controller.php:44
+#, php-format
+msgid "Editing %s"
+msgstr ""
+
+#: ../app/controllers/admin/articles_controller.php:52
+#: ../app/controllers/admin/tags_controller.php:56
+#: ../app/controllers/admin/users_controller.php:51
+msgid "Nothing has been changed"
+msgstr ""
+
+#: ../app/controllers/admin/articles_controller.php:60
+msgid "The article has been updated successfully"
+msgstr ""
+
+#: ../app/controllers/admin/newsletter_subscribers_controller.php:4
+msgid "Newsletter Subscribers"
+msgstr ""
+
+#: ../app/controllers/admin/tags_controller.php:4
+msgid "Listing Tags"
+msgstr ""
+
+#: ../app/controllers/admin/tags_controller.php:29
+msgid "Create a new tag"
+msgstr ""
+
+#: ../app/controllers/admin/tags_controller.php:36
+msgid "The tag has been created successfully"
+msgstr ""
+
+#: ../app/controllers/admin/tags_controller.php:44
+#, php-format
+msgid "Editing tag %s"
+msgstr ""
+
+#: ../app/controllers/admin/tags_controller.php:51
+#: ../app/forms/admin/tags/create_new_form.php:7
+msgid "The same tag already exists"
+msgstr ""
+
+#: ../app/controllers/admin/tags_controller.php:62
+msgid "The tag has been updated"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:4
+msgid "Users list"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:38
+msgid "The user has been created successfully"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:44
+#, php-format
+msgid "Editing user %s"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:57
+msgid "The user entry has been updated"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:63
+#, php-format
+msgid "Setting a new password to the user %s"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:72
+msgid ""
+"The new password has been set to the user <em>%user%</em>.<br>Would be nice "
+"to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:88
+msgid "The user entry has been deleted"
+msgstr ""
+
+#: ../app/controllers/admin/users_controller.php:99
+#, php-format
+msgid "Now you are logged as <em>%s</em>"
+msgstr ""
+
+#: ../app/forms/admin/articles/articles_form.php:10
+msgid "Body"
+msgstr ""
+
+#: ../app/forms/admin/articles/articles_form.php:11
+msgid "Mardown format is expected"
+msgstr ""
+
+#: ../app/forms/admin/articles/articles_form.php:15
+msgid "Published At"
+msgstr ""
+
+#: ../app/forms/admin/articles/index_form.php:5
+#: ../app/forms/admin/newsletter_subscribers/index_form.php:5
+#: ../app/forms/admin/tags/index_form.php:5
+#: ../app/forms/admin/users/index_form.php:5
+msgid "Search"
+msgstr ""
+
+#: ../app/forms/admin/articles/index_form.php:9
+msgid "Search articles"
+msgstr ""
+
+#: ../app/forms/admin/tags/index_form.php:9
+msgid "Search tags"
+msgstr ""
+
+#: ../app/forms/admin/users/edit_password_form.php:5
+msgid "New password"
+msgstr ""
+
+#: ../app/forms/admin/users/edit_password_form.php:11
+msgid "Set password"
+msgstr ""
+
+#: ../app/forms/admin/users/index_form.php:9
+msgid "Search users"
+msgstr ""
+
+#~ msgid "atk14.date_format"
+#~ msgstr "m/d/Y"
+
+#~ msgid "atk14.parse_date_pattern"
+#~ msgstr "/^(?<month>[0-9]{1,2})\\/(?<day>[0-9]{1,2})\\/(?<year>[0-9]{4})$/"
+
+#~ msgid "atk14.datetime_format"
+#~ msgstr "m/d/Y H:i"
+
+#~ msgid "atk14.parse_datetime_pattern"
+#~ msgstr ""
+#~ "/^(?<month>[0-9]{1,2})\\/(?<day>[0-9]{1,2})\\/(?<year>[0-9]{4}) (?"
+#~ "<hours>[0-9]{2}):(?<minutes>[0-9]{2})$/"
+
+#~ msgid "atk14.datetime_with_seconds_format"
+#~ msgstr "m/d/Y H:i:s"
+
+#~ msgid "atk14.parse_datetime_with_seconds_pattern"
+#~ msgstr ""
+#~ "/^(?<month>[0-9]{1,2})\\/(?<day>[0-9]{1,2})\\/(?<year>[0-9]{4}) (?"
+#~ "<hours>[0-9]{2}):(?<minutes>[0-9]{2}):(?<seconds>[0-9]{2})$/"

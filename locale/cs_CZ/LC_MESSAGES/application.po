@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2017-11-23 22:47+0100\n"
+"POT-Creation-Date: 2018-03-09 15:15+0100\n"
 "PO-Revision-Date: 2017-11-23 22:47+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -61,7 +61,6 @@ msgstr "Přidat nový článek"
 msgid "The list is empty."
 msgstr "Seznam je prázdný."
 
-#: ../app/forms/admin/articles/articles_form.php:5
 msgid "Title"
 msgstr "Název"
 
@@ -71,8 +70,6 @@ msgstr "Autor"
 msgid "Date"
 msgstr "Datum"
 
-#: ../app/controllers/admin/admin.php:29
-#: ../app/forms/admin/articles/articles_form.php:20
 msgid "Tags"
 msgstr "Štítky"
 
@@ -85,7 +82,6 @@ msgstr "Nebyl nalezen žádný záznam."
 msgid "Email"
 msgstr "E-mail"
 
-#: ../app/forms/admin/users/users_form.php:5
 msgid "Name"
 msgstr "Jméno"
 
@@ -126,7 +122,6 @@ msgstr "Přidat nový štítek"
 msgid "No tag has been found."
 msgstr "Nebyl nalezen žádný štítek."
 
-#: ../app/forms/admin/tags/tags_form.php:5
 msgid "Tag"
 msgstr "Štítek"
 
@@ -149,19 +144,16 @@ msgstr ""
 "čitelné podobě. V tomto formuláři můžete nastavit nové heslo uživateli <em>"
 "%1</em>"
 
-#: ../app/controllers/admin/users_controller.php:32
 msgid "Create a new user"
 msgstr "Vytvořit nového uživatele"
 
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: ../app/forms/admin/users/users_form.php:10
 #: ../app/forms/users/users_form.php:11
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: ../app/forms/admin/users/users_form.php:15
 msgid "Is admin?"
 msgstr "Je administrátor?"
 
@@ -493,8 +485,6 @@ msgstr "administrátor"
 msgid "Profile"
 msgstr "Profil"
 
-#: ../app/controllers/admin/admin.php:8
-#: ../app/controllers/admin/main_controller.php:4
 msgid "Administration"
 msgstr "Administrace"
 
@@ -582,133 +572,8 @@ msgstr "Změna vašeho hesla"
 msgid "Current password"
 msgstr "Aktuální heslo"
 
-#: ../app/forms/admin/users/edit_password_form.php:5
 msgid "New password"
 msgstr "Nové heslo"
-
-#: ../app/controllers/admin/admin.php:27
-msgid "Welcome screen"
-msgstr "Vítací obrazovka"
-
-#: ../app/controllers/admin/admin.php:28
-#: ../app/controllers/articles_controller.php:11
-#: ../app/controllers/articles_controller.php:60
-msgid "Articles"
-msgstr "Články"
-
-#: ../app/controllers/admin/admin.php:30
-msgid "Users"
-msgstr "Uživatelé"
-
-#: ../app/controllers/admin/admin.php:31
-#: ../app/controllers/admin/password_recoveries_controller.php:4
-msgid "Password recoveries"
-msgstr "Obnovy hesel"
-
-#: ../app/controllers/admin/admin.php:32
-msgid "Newsletter subscribers"
-msgstr "Odběratelé newsletteru"
-
-#: ../app/controllers/admin/admin.php:76
-msgid "The entry has been deleted"
-msgstr "Záznam byl smazán"
-
-#: ../app/controllers/admin/articles_controller.php:4
-msgid "Listing Articles"
-msgstr "Výpis článků"
-
-#: ../app/controllers/admin/articles_controller.php:28
-msgid "Create article"
-msgstr "Vytvořit článek"
-
-#: ../app/controllers/admin/articles_controller.php:38
-msgid "The article has been created successfully"
-msgstr "Článek byl úspěšně vytvořen"
-
-#: ../app/controllers/admin/articles_controller.php:44
-#, php-format
-msgid "Editing %s"
-msgstr "Editace %s"
-
-#: ../app/controllers/admin/articles_controller.php:52
-#: ../app/controllers/admin/tags_controller.php:56
-#: ../app/controllers/admin/users_controller.php:51
-#: ../app/controllers/users_controller.php:42
-msgid "Nothing has been changed"
-msgstr "Nic nebylo změněno"
-
-#: ../app/controllers/admin/articles_controller.php:60
-msgid "The article has been updated successfully"
-msgstr "Článek byl úspěšně aktualizován"
-
-#: ../app/controllers/admin/newsletter_subscribers_controller.php:4
-msgid "Newsletter Subscribers"
-msgstr "Odběratelé newsletteru"
-
-#: ../app/controllers/admin/tags_controller.php:4
-msgid "Listing Tags"
-msgstr "Přehled štítků"
-
-#: ../app/controllers/admin/tags_controller.php:29
-msgid "Create a new tag"
-msgstr "Vytvořit nový štítek"
-
-#: ../app/controllers/admin/tags_controller.php:36
-msgid "The tag has been created successfully"
-msgstr "Štítek byl úspěšně vytvořen"
-
-#: ../app/controllers/admin/tags_controller.php:44
-#, php-format
-msgid "Editing tag %s"
-msgstr "Editace štítku %s"
-
-#: ../app/controllers/admin/tags_controller.php:51
-#: ../app/forms/admin/tags/create_new_form.php:7
-msgid "The same tag already exists"
-msgstr "Stejný štítek již existuje"
-
-#: ../app/controllers/admin/tags_controller.php:62
-msgid "The tag has been updated"
-msgstr "Štítek byl aktualizován"
-
-#: ../app/controllers/admin/users_controller.php:4
-msgid "Users list"
-msgstr "Seznam uživatelů"
-
-#: ../app/controllers/admin/users_controller.php:38
-msgid "The user has been created successfully"
-msgstr "Uživatel byl úspěšně vytvořen"
-
-#: ../app/controllers/admin/users_controller.php:44
-#, php-format
-msgid "Editing user %s"
-msgstr "Editace uživatele %s"
-
-#: ../app/controllers/admin/users_controller.php:57
-msgid "The user entry has been updated"
-msgstr "Záznam o uživateli byl aktualizován"
-
-#: ../app/controllers/admin/users_controller.php:63
-#, php-format
-msgid "Setting a new password to the user %s"
-msgstr "Nastavit nové heslo uživateli %s"
-
-#: ../app/controllers/admin/users_controller.php:72
-msgid ""
-"The new password has been set to the user <em>%user%</em>.<br>Would be nice "
-"to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
-msgstr ""
-"Nové heslo bylo nastaveno uživateli <em>%user%</em>.<br>Bude hezké, když mu "
-"o tom napíšete na e-mail <a href=\"mailto:%email%\">%email%</a>."
-
-#: ../app/controllers/admin/users_controller.php:88
-msgid "The user entry has been deleted"
-msgstr "Uživatel byl smazán"
-
-#: ../app/controllers/admin/users_controller.php:99
-#, php-format
-msgid "Now you are logged as <em>%s</em>"
-msgstr "Nyní jste přihlášen jako <em>%s</em>"
 
 #: ../app/controllers/api/logins_controller.php:33
 msgid "Bad password"
@@ -743,27 +608,32 @@ msgstr "Vaše heslo bylo změněno"
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
-#: ../app/controllers/application_rest_api.php:73
+#: ../app/controllers/application_rest_api.php:75
 #, php-format
 msgid "Commands in %s"
 msgstr "Přikazy v %s"
 
-#: ../app/controllers/application_rest_api.php:171
+#: ../app/controllers/application_rest_api.php:173
 #, php-format
 msgid "submit using method %s"
 msgstr "Odeslat metodou %s"
 
-#: ../app/controllers/application_rest_api.php:218
+#: ../app/controllers/application_rest_api.php:220
 msgid "Nothing has been found on this address"
 msgstr "Na této adrese nebylo nic nalezeno"
 
-#: ../app/controllers/application_rest_api.php:224
+#: ../app/controllers/application_rest_api.php:226
 msgid "You don't have access to the requested resource"
 msgstr "Nemáte přístup k požadovanému zdroji"
 
-#: ../app/controllers/application_rest_api.php:230
+#: ../app/controllers/application_rest_api.php:232
 msgid "Sorry, An internal error happened"
 msgstr "Omlouváme se, nastala vnitřní chyba"
+
+#: ../app/controllers/articles_controller.php:11
+#: ../app/controllers/articles_controller.php:60
+msgid "Articles"
+msgstr "Články"
 
 #: ../app/controllers/articles_controller.php:15
 #, php-format
@@ -839,6 +709,10 @@ msgid ""
 "em>"
 msgstr "Byl jste úspěšně zaregistrován a teď jste přihlášen jako <em>%s</em>"
 
+#: ../app/controllers/users_controller.php:42
+msgid "Nothing has been changed"
+msgstr "Nic nebylo změněno"
+
 #: ../app/controllers/users_controller.php:47
 msgid "Your account data has been updated"
 msgstr "Údaje vašeho účtu byly změněny"
@@ -873,42 +747,6 @@ msgstr "Štítek <em>%s</em> neexistuje"
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Štítek <em>%s</em> je uveden vícekrát"
 
-#: ../app/forms/admin/articles/articles_form.php:10
-msgid "Body"
-msgstr "Tělo"
-
-#: ../app/forms/admin/articles/articles_form.php:11
-msgid "Mardown format is expected"
-msgstr "Je očekáván formát Markdown"
-
-#: ../app/forms/admin/articles/articles_form.php:15
-msgid "Published At"
-msgstr "Publikováno dne"
-
-#: ../app/forms/admin/articles/index_form.php:5
-#: ../app/forms/admin/newsletter_subscribers/index_form.php:5
-#: ../app/forms/admin/tags/index_form.php:5
-#: ../app/forms/admin/users/index_form.php:5
-#: ../app/forms/application_form.php:63
-msgid "Search"
-msgstr "Hledat"
-
-#: ../app/forms/admin/articles/index_form.php:9
-msgid "Search articles"
-msgstr "Vyhledat články"
-
-#: ../app/forms/admin/tags/index_form.php:9
-msgid "Search tags"
-msgstr "Vyhledat štítky"
-
-#: ../app/forms/admin/users/edit_password_form.php:11
-msgid "Set password"
-msgstr "Nastavit heslo"
-
-#: ../app/forms/admin/users/index_form.php:9
-msgid "Search users"
-msgstr "Hledat uživatele"
-
 #: ../app/forms/api/tags_suggestions/index_form.php:5
 msgid "Search term"
 msgstr "Hledat výraz"
@@ -920,6 +758,10 @@ msgstr "Vytvořit"
 #: ../app/forms/application_form.php:61
 msgid "Show"
 msgstr "Ukázat"
+
+#: ../app/forms/application_form.php:63
+msgid "Search"
+msgstr "Hledat"
 
 #: ../app/forms/application_form.php:65
 msgid "Update"
@@ -1007,6 +849,107 @@ msgstr "Ano"
 #: ../app/helpers/modifier.display_bool.php:14
 msgid "No"
 msgstr "Ne"
+
+#~ msgid "Welcome screen"
+#~ msgstr "Vítací obrazovka"
+
+#~ msgid "Users"
+#~ msgstr "Uživatelé"
+
+#~ msgid "Password recoveries"
+#~ msgstr "Obnovy hesel"
+
+#~ msgid "Newsletter subscribers"
+#~ msgstr "Odběratelé newsletteru"
+
+#~ msgid "The entry has been deleted"
+#~ msgstr "Záznam byl smazán"
+
+#~ msgid "Listing Articles"
+#~ msgstr "Výpis článků"
+
+#~ msgid "Create article"
+#~ msgstr "Vytvořit článek"
+
+#~ msgid "The article has been created successfully"
+#~ msgstr "Článek byl úspěšně vytvořen"
+
+#~ msgid "Editing %s"
+#~ msgstr "Editace %s"
+
+#~ msgid "The article has been updated successfully"
+#~ msgstr "Článek byl úspěšně aktualizován"
+
+#~ msgid "Newsletter Subscribers"
+#~ msgstr "Odběratelé newsletteru"
+
+#~ msgid "Listing Tags"
+#~ msgstr "Přehled štítků"
+
+#~ msgid "Create a new tag"
+#~ msgstr "Vytvořit nový štítek"
+
+#~ msgid "The tag has been created successfully"
+#~ msgstr "Štítek byl úspěšně vytvořen"
+
+#~ msgid "Editing tag %s"
+#~ msgstr "Editace štítku %s"
+
+#~ msgid "The same tag already exists"
+#~ msgstr "Stejný štítek již existuje"
+
+#~ msgid "The tag has been updated"
+#~ msgstr "Štítek byl aktualizován"
+
+#~ msgid "Users list"
+#~ msgstr "Seznam uživatelů"
+
+#~ msgid "The user has been created successfully"
+#~ msgstr "Uživatel byl úspěšně vytvořen"
+
+#~ msgid "Editing user %s"
+#~ msgstr "Editace uživatele %s"
+
+#~ msgid "The user entry has been updated"
+#~ msgstr "Záznam o uživateli byl aktualizován"
+
+#~ msgid "Setting a new password to the user %s"
+#~ msgstr "Nastavit nové heslo uživateli %s"
+
+#~ msgid ""
+#~ "The new password has been set to the user <em>%user%</em>.<br>Would be "
+#~ "nice to let him know at email address <a href=\"mailto:%email%\">%email%</"
+#~ "a>."
+#~ msgstr ""
+#~ "Nové heslo bylo nastaveno uživateli <em>%user%</em>.<br>Bude hezké, když "
+#~ "mu o tom napíšete na e-mail <a href=\"mailto:%email%\">%email%</a>."
+
+#~ msgid "The user entry has been deleted"
+#~ msgstr "Uživatel byl smazán"
+
+#~ msgid "Now you are logged as <em>%s</em>"
+#~ msgstr "Nyní jste přihlášen jako <em>%s</em>"
+
+#~ msgid "Body"
+#~ msgstr "Tělo"
+
+#~ msgid "Mardown format is expected"
+#~ msgstr "Je očekáván formát Markdown"
+
+#~ msgid "Published At"
+#~ msgstr "Publikováno dne"
+
+#~ msgid "Search articles"
+#~ msgstr "Vyhledat články"
+
+#~ msgid "Search tags"
+#~ msgstr "Vyhledat štítky"
+
+#~ msgid "Set password"
+#~ msgstr "Nastavit heslo"
+
+#~ msgid "Search users"
+#~ msgstr "Hledat uživatele"
 
 #~ msgid "Actions"
 #~ msgstr "Akce"

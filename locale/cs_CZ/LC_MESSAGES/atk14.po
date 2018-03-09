@@ -241,8 +241,8 @@ msgid "Enter a valid IP address."
 msgstr "Vložte platnou IP adresu."
 
 #: ../src/forms/fields/multiple_choice_field.php:21
-msgid "Select a valid choice. %(value)s is not one of the available choices."
-msgstr "Vyberte platnou hodnotu. %(value) není jedna z nabízených možností."
+msgid "Select a valid choice. %value% is not one of the available choices."
+msgstr "Vyberte platnou hodnotu. %value% není jedna z nabízených možností."
 
 #: ../src/forms/fields/multiple_choice_field.php:22
 msgid "Enter a list of values."
@@ -259,3 +259,7 @@ msgstr "Toto pole je povinné"
 #: ../src/forms/fields.php:236
 msgid "Enter a valid value."
 msgstr "Vložta správnou hodnotu."
+
+#~ msgid ""
+#~ "Select a valid choice. %(value)s is not one of the available choices."
+#~ msgstr "Vyberte platnou hodnotu. %(value) není jedna z nabízených možností."
