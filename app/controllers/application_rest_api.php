@@ -1,7 +1,9 @@
 <?php
-// TODO: vsechny hlasky do anglictiny a pak lokalizovat gettextem
-
+/**
+ * Base class for other Rest API controllers
+ */
 class ApplicationRestApiController extends ApplicationBaseController{
+
 	var $api_status_code = null; // automaticky je status code nastaven na 200 resp. 400 pri neuspechu; zde je to mozne zmenit
 	var $api_root_element = null; // pokud nevyhovuje automaticke urceni root elementu pro XML, timto je mozne nastavit (napr. u kontroleru ActiveUsersControllers muzeme nastavit api_root_element na users)
 	var $api_data = null; // pole dat, ktere ma byt vyrenderovano
