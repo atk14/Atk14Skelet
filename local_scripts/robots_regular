@@ -1,0 +1,12 @@
+#!/usr/bin/env bash
+
+# Regular robots
+#
+# See README.md for more information.
+
+cd `dirname $0`
+cd ..
+
+# ./scripts/robot_runner do_something
+# ./scripts/robot_runner do_something_another
+# etc.
