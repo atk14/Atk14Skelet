@@ -3,7 +3,7 @@ ATK14 Skelet
 
 [![Build Status](https://travis-ci.org/atk14/Atk14Skelet.svg?branch=master)](https://travis-ci.org/atk14/Atk14Skelet)
 
-Meaningful skeleton for a new installed ATK14 application.
+Meaningful skeleton for just kicked up ATK14 application.
 
 Check out <http://skelet.atk14.net/> to see the skelet running.
 
