@@ -29,9 +29,10 @@ class User extends ApplicationModel{
 	 * )); // returns user with hashed password
 	 */
 	static function CreateNewRecord($values,$options = array()){
-		if(!MyBlowfish::IsHash($values["password"])){
-			$values["password"] = MyBlowfish::GetHash($values["password"]);
+		if(isset($values["password"])){
+			$values["password"] = MyBlowfish::Hash($values["password"]);
 		}
+
 	  return parent::CreateNewRecord($values,$options);
 	}
 
@@ -45,8 +46,8 @@ class User extends ApplicationModel{
 	 *	 // or $rambo->s("password","secret123");
 	 */
 	function setValues($values,$options = array()){
-		if(isset($values["password"]) && !MyBlowfish::IsHash($values["password"])){
-			$values["password"] = MyBlowfish::GetHash($values["password"]);
+		if(isset($values["password"])){
+			$values["password"] = MyBlowfish::Hash($values["password"]);
 		}
 		return parent::setValues($values,$options);
 	}
