@@ -1,8 +1,8 @@
 {
     "require": {
-        "atk14/dbmole-panel": "dev-master",
-        "atk14/mail-panel": "dev-master",
-        "atk14/templates-panel": "dev-master",
+        "atk14/dbmole-panel": "^1.0",
+        "atk14/mail-panel": "^1.0",
+        "atk14/templates-panel": "^1.0",
         "michelf/php-markdown": "1.5.0",
         "atk14/menu14": "^1.1.1",
         "yarri/my-blowfish": ">=1.1 <2.0"
