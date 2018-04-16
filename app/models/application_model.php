@@ -73,9 +73,12 @@ class ApplicationModel extends TableRecord{
 	 * - set_update_time if true is passed the method does not set fields updated_at, updated_on, update_date [default: true]
 	 */
 	function setValues($values,$options = array()){
+		global $HTTP_REQUEST;
+
 		$options += array(
 			"set_update_time" => true,
 		);
+
 		$v_keys = array_keys($values);
 		if ($options["set_update_time"]===true) {
 			foreach(array("updated_at","updated_on","update_date") as $f){
@@ -84,6 +87,11 @@ class ApplicationModel extends TableRecord{
 				}
 			}
 		}
+
+		if($this->hasKey("updated_from_addr") && !in_array("updated_from_addr",$v_keys)){
+			$values["updated_from_addr"] = $HTTP_REQUEST->getRemoteAddr();
+		}
+
 		return parent::setValues($values,$options);
 	}
 
