@@ -10,18 +10,18 @@
 #   $ ./local_scripts/update_project_name
 #
 
-cd `dirname $0`
+cd $(dirname $0)
 cd ..
 
-pwd=`pwd` # /home/yarri/www/atk14skelet
-appname=`basename $pwd` # atk14skelet
+pwd=$(pwd) # /home/yarri/www/atk14skelet
+appname=$(basename $pwd) # atk14skelet
 
 if [ ! -z "$1" ]; then
 	appname="$1"
 fi
 
-appname=`echo "$appname" | tr '[A-Z]' '[a-z]'` # Book-Store -> book-store
-appname=`echo "$appname" | sed -r 's/[^a-z0-9]/_/'` # book-store -> book_store
+appname=$(echo "$appname" | tr '[A-Z]' '[a-z]') # Book-Store -> book-store
+appname=$(echo "$appname" | sed -r 's/[^a-z0-9]/_/') # book-store -> book_store
 
 # Remember! The following lines need to be runnable both on Linux or FreeBSD
 # On FreeBSD the sed command has -i option with other meaning than on Linux
@@ -33,7 +33,7 @@ sed -r "s/(database|username): .+_(test|devel|production)/\1: ${appname}_\2/" ./
 sed -r "s/define\(.ATK14_HTTP_HOST.*/define\(\"ATK14_HTTP_HOST\",PRODUCTION ? \"www.${appname}.com\" : \"${appname}.localhost\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
 
 # editing ATK14_APPLICATION_NAME in ./config/settings.php
-appname_cap=`echo "$appname" | tr '[a-z]' '[A-Z]' | tr '_' ' '` # book_store -> "BOOK STORE"
+appname_cap=$(echo "$appname" | tr '[a-z]' '[A-Z]' | tr '_' ' ') # book_store -> "BOOK STORE"
 sed -r "s/define\(.ATK14_APPLICATION_NAME.*/define\(\"ATK14_APPLICATION_NAME\",\"${appname_cap}\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
 
 exit 0

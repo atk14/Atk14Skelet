@@ -4,7 +4,7 @@
 #
 # See README.md for more information.
 
-cd `dirname $0`
+cd $(dirname $0)
 cd ..
 
 ./scripts/robot_runner vacuum_analyze
