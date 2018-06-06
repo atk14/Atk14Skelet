@@ -4,6 +4,7 @@ class RestApiForm extends ApplicationForm{
 	var $has_format_field = true;
 	var $error_http_status_code = 400; // this HTTP status is returned from API in case that the form is invalid
 	var $value_or_initial_fields = array(); // when some value is missing in an API call the field initial value can be set in cleaned data; e.g. ["country_id"]
+	var $formats = array("json","jsonp","xml","yaml","html");
 
 	function post_set_up(){
 		$this->has_format_field && $this->add_format_field();
@@ -18,15 +19,9 @@ class RestApiForm extends ApplicationForm{
 	function add_format_field(){
 		$this->add_field("format",new ChoiceField(array(
 			"label" => "format",
-			"initial" => "xml",
-			"choices" => array(
-				"json" => "json",
-				"jsonp" => "jsonp",
-				"xml" => "xml",
-				"yaml" => "yaml",
-				"html" => "html",
-			),
-			"required" => !false, 
+			"initial" => "html",
+			"choices" => array_combine($this->formats,$this->formats),
+			"required" => true, 
 		)));
 	}
 

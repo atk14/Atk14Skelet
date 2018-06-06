@@ -4,9 +4,10 @@
  */
 class ApplicationRestApiController extends ApplicationBaseController{
 
-	var $api_status_code = null; // automaticky je status code nastaven na 200 resp. 400 pri neuspechu; zde je to mozne zmenit
-	var $api_root_element = null; // pokud nevyhovuje automaticke urceni root elementu pro XML, timto je mozne nastavit (napr. u kontroleru ActiveUsersControllers muzeme nastavit api_root_element na users)
-	var $api_data = null; // pole dat, ktere ma byt vyrenderovano
+	var $api_status_code = null; // status code is set automatically to 200 or 400, in some cases it may be useful to set a special status code
+	var $api_status_message = ""; // "Ok", "Created Gracefully", "Resource Busy"; by default the status messages is set automatically
+	var $api_root_element = null; // root element for XML output; by default it is set automatically according to a controller name (e.g. for controller UsersController the api_root_element will be <users> or <user>)
+	var $api_data = null; // output data; Array
 
 	var $api_internal_charset = DEFAULT_CHARSET;
 
@@ -32,7 +33,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 	var $doc_basic_auth_realm = "Documentation Restricted Area";
 
 	/**
-	 * Vygeneruje seznam prikazu.
+	 * Renders list of all commands in the API
 	 *
 	 * $this->_render_command_list("/home/user/www/project/app/controllers/api/");
 	 */
@@ -127,8 +128,6 @@ class ApplicationRestApiController extends ApplicationBaseController{
 
 		return $out;
 	}
-
-	//function _get_session(){ return null; }
 
 	function _application_before_filter(){
 		parent::_application_before_filter();
@@ -300,7 +299,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 			"raw_data" => null,
 
 			"status_code" => (isset($this->api_status_code) ? $this->api_status_code : 200), // Found
-			"status_message" => null,
+			"status_message" => $this->api_status_message,
 		),$options);
 
 		$this->render_template = false;
@@ -322,7 +321,8 @@ class ApplicationRestApiController extends ApplicationBaseController{
 			case "html":
 				$this->render_template = true;
 				$this->template_name = "shared/rest_api/html_output";
-				$this->tpl_data["status_code"] = $options["status_code"];
+				$this->tpl_data["status_code"] = $this->response->getStatusCode();
+				$this->tpl_data["status_message"] = $this->response->getStatusMessage();
 				$this->tpl_data["data"] = $data;
 				break;
 			case "yaml":
@@ -367,7 +367,7 @@ class ApplicationRestApiController extends ApplicationBaseController{
 }
 
 
-// zachycovani DbMole chyb... TODO: slocit kod s generovanim odpovedi v kontroleru
+// zachycovani DbMole chyb... TODO: sloucit kod s generovanim odpovedi v kontroleru
 DbMole::RegisterErrorHandler("_rest_api_dbmole_error_handler");
 function _rest_api_dbmole_error_handler($dbmole){
 	global $HTTP_RESPONSE,$HTTP_REQUEST;

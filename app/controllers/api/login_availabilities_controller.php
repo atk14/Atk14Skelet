@@ -8,6 +8,7 @@ class LoginAvailabilitiesController extends ApiController{
 	 */
 	function detail(){
 		if(!$this->params->isEmpty() && ($d = $this->form->validate($this->params))){
+			$this->api_status_message = "";
 			$this->api_data = array("status" => User::FindByLogin($d["login"]) ? "taken" : "available");
 		}
 	}

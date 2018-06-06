@@ -1,5 +1,6 @@
 <h1>{a action="main/index"}{$namespace}{/a} &rarr; {a}{$page_title}{/a}</h1>
 
-<p>HTTP Status code: {$status_code}</p>
+<p>HTTP Status Code: {$status_code}<br>
+HTTP Status Message: {$status_message}</p>
 
-<code><pre>{$data|print_r:true}</pre></code>
+<pre><code>{$data|print_r:true}</code></pre>
