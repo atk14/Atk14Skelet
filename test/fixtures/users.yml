@@ -11,4 +11,4 @@ rambo_tester:
 rocky:
   login: "rocky"
   name: "Rocky Balboa"
-  password: "secret"
+  password: "$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta" # secret
