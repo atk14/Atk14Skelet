@@ -1,11 +1,14 @@
 <?php
-class CreateNewForm extends ApplicationForm{
+namespace Logins;
+
+class CreateNewForm extends \ApplicationForm{
+
 	function set_up(){
-		$this->add_field("login", new CharField(array(
+		$this->add_field("login", new \CharField(array(
 			"label" => _("Login"),
 			"max_length" => 255,
 		)));
-		$this->add_field("password", new PasswordField(array(
+		$this->add_field("password", new \PasswordField(array(
 			"label" => _("Password"),
 			"max_length" => 255,
 		)));

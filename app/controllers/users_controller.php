@@ -20,6 +20,7 @@ class UsersController extends ApplicationController{
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$d["registered_from_ip_addr"] = $this->request->getRemoteAddr();
+			$d["password"] = MyBlowfish::GetHash($d["password"]); // Make sure to encrypt password which even looks like a proper blowfish hash! :)
 			$user = User::CreateNewRecord($d);
 			$this->logger->info("user $user just registered from ".$this->request->getRemoteAddr());
 
@@ -57,6 +58,9 @@ class UsersController extends ApplicationController{
 				$this->form->set_error("current_password",_("This is not your current password"));
 				return;
 			}
+
+			$d["password"] = MyBlowfish::GetHash($d["password"]); // Make sure to encrypt password which even looks like a proper blowfish hash! :)
+
 			$this->logged_user->s(array(
 				"password" => $d["password"],
 				"updated_by_user_id" => $this->logged_user
