@@ -6,6 +6,8 @@
 class TcRedirection extends TcBase {
 
 	function test(){
+		Redirection::RefreshCache();
+
 		$request = new HttpRequest();
 
 		$request->setUri("/home.php?lang=cs");
@@ -38,6 +40,8 @@ class TcRedirection extends TcBase {
 			"source_url" => "/attachments/manual.pdf",
 			"target_url" => "/public/attachments/manual.pdf", 
 		));
+		Redirection::RefreshCache();
+
 		$this->assertNull($redirection->getLastAccessedAt());
 
 		$time = strtotime("2018-07-15 13:50:00");

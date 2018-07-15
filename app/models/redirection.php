@@ -37,6 +37,10 @@ class Redirection extends ApplicationModel {
 		if(!is_null($id)){ return Cache::Get("Redirection",$id); }
 	}
 
+	static function RefreshCache(){
+		static::_ReadRows(true);
+	}
+
 	function getDestinationUrl(){
 		if(!$this->g("regex")){
 			return $this->getTargetUrl();
