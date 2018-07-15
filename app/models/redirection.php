@@ -1,13 +1,12 @@
 <?php
 class Redirection extends ApplicationModel {
 
-	function GetInstanceByHttpRequest($request){
+	static function GetInstanceByHttpRequest($request){
 		$url = $request->getUrl(); // "http://example.com/documents/manual.pdf"
 		$url_without_proto = preg_replace('/^https?:/','',$url); // "//example.com/documents/manual.pdf"
 		$uri = $request->getUri(); // "/documents/manual.pdf";
 
-		$dbmole = self::GetDbmole();
-		$rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url, moved_permanently FROM redirections WHERE NOT regex ORDER BY LENGTH(source_url) DESC");
+		list($rows,$regex_rows) = static::_ReadRows();
 
 		$id = null;
 		if(isset($rows[$url])){
@@ -72,5 +71,13 @@ class Redirection extends ApplicationModel {
 			return true;
 		}
 		return false;
+	}
+
+	static function _ReadRows($recache = false){
+		$dbmole = static::GetDbmole();
+		$rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM redirections WHERE NOT regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => 600, "recache" => $recache));
+		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => 600, "recache" => $recache));
+
+		return array($rows,$regex_rows);
 	}
 }
