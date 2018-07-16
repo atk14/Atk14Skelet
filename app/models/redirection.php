@@ -1,4 +1,8 @@
 <?php
+/**
+ * HTTP error 404 redirection
+ *
+ */
 class Redirection extends ApplicationModel {
 
 	static function GetInstanceByHttpRequest($request){
@@ -79,8 +83,8 @@ class Redirection extends ApplicationModel {
 
 	static function _ReadRows($recache = false){
 		$dbmole = static::GetDbmole();
-		$rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM redirections WHERE NOT regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => 600, "recache" => $recache));
-		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => 600, "recache" => $recache));
+		$rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM redirections WHERE NOT regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
+		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
 
 		return array($rows,$regex_rows);
 	}
