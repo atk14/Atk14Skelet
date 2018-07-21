@@ -73,7 +73,7 @@ class ErrorRedirection extends ApplicationModel {
 		}
 
 		// Avoiding a parallel update
-		$updated = $this->dbmole->selectSingleValue("UPDATE error_redirections SET last_accessed_at=:last_access WHERE last_accessed_at IS NULL OR last_accessed_at<:last_access RETURNING id",array(":last_access" => $last_access));
+		$updated = $this->dbmole->selectSingleValue("UPDATE error_redirections SET last_accessed_at=:last_access WHERE id=:id AND (last_accessed_at IS NULL OR last_accessed_at<:last_access) RETURNING id",array(":id" => $this, ":last_access" => $last_access));
 		if(!is_null($updated)){
 			$this->_readValues();
 			return true;
