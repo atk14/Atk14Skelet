@@ -19,7 +19,7 @@
 		</thead>
 
 		<tbody>
-			{render partial="redirection_item" from=$finder->getRecords()}
+			{render partial="error_redirection_item" from=$finder->getRecords()}
 		</tbody>
 	</table>
 

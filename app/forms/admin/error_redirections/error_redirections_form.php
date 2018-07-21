@@ -1,5 +1,5 @@
 <?php
-class RedirectionsForm extends AdminForm {
+class ErrorRedirectionsForm extends AdminForm {
 
 	function set_up(){
 		$this->add_field("source_url", new CharField(array(

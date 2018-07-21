@@ -17,7 +17,7 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function error404(){
-		if($this->request->get() && !$this->request->xhr() && ($redirection = Redirection::GetInstanceByHttpRequest($this->request))){
+		if($this->request->get() && !$this->request->xhr() && ($redirection = ErrorRedirection::GetInstanceByHttpRequest($this->request))){
 			$redirection->touch();
 			$this->_redirect_to($redirection->getDestinationUrl(),array(
         "moved_permanently" => $redirection->movedPermanently(),

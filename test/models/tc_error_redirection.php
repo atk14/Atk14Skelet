@@ -1,46 +1,46 @@
 <?php
 /**
  *
- * @fixture redirections
+ * @fixture error_redirections
  */
-class TcRedirection extends TcBase {
+class TcErrorRedirection extends TcBase {
 
 	function test(){
-		Redirection::RefreshCache();
+		ErrorRedirection::RefreshCache();
 
 		$request = new HttpRequest();
 
 		$request->setUri("/home.php?lang=cs");
-		$r = Redirection::GetInstanceByHttpRequest($request);
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/cs/",$r->getDestinationUrl());
 
 		$request->setUri("/home.php?lang=en");
-		$r = Redirection::GetInstanceByHttpRequest($request);
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/",$r->getDestinationUrl());
 
 		$request->setUri("/home.php?lang=en&utm_source=twiddler");
-		$r = Redirection::GetInstanceByHttpRequest($request);
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/",$r->getDestinationUrl());
 
 		$request->setHttpHost("partner.example.com");
-		$r = Redirection::GetInstanceByHttpRequest($request);
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/partners/",$r->getDestinationUrl());
 
 		$request->setUri("/home.php?lang=en&utm_source=twiddler");
-		$r = Redirection::GetInstanceByHttpRequest($request);
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/partners/",$r->getDestinationUrl());
 
 		$request->setUri("/home.php?lang=xx");
-		$r = Redirection::GetInstanceByHttpRequest($request);
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertNull($r);
 	}
 
 	function test_touch(){
-		$redirection = Redirection::CreateNewRecord(array(
+		$redirection = ErrorRedirection::CreateNewRecord(array(
 			"source_url" => "/attachments/manual.pdf",
 			"target_url" => "/public/attachments/manual.pdf", 
 		));
-		Redirection::RefreshCache();
+		ErrorRedirection::RefreshCache();
 
 		$this->assertNull($redirection->getLastAccessedAt());
 

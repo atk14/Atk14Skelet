@@ -1,5 +1,5 @@
 <?php
-class RedirectionsController extends AdminController {
+class ErrorRedirectionsController extends AdminController {
 
 	function index(){
 		$this->page_title = _("404 Redirections");
@@ -16,7 +16,7 @@ class RedirectionsController extends AdminController {
 		$this->sorting->add("last_accessed_at","last_accessed_at IS NOT NULL DESC, last_accessed_at DESC, created_at DESC","last_accessed_at IS NOT NULL DESC, last_accessed_at ASC, created_at ASC");
 		$this->sorting->add("id");
 
-		$this->tpl_data["finder"] = Redirection::Finder(array(
+		$this->tpl_data["finder"] = ErrorRedirection::Finder(array(
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
 			"offset" => $this->params->getInt("offset"),
@@ -29,7 +29,7 @@ class RedirectionsController extends AdminController {
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$redirection = Redirection::CreateNewRecord($d);
+			$redirection = ErrorRedirection::CreateNewRecord($d);
 			$this->flash->success(_("The redirection has been created successfully"));
 			$this->_redirect_back();
 		}

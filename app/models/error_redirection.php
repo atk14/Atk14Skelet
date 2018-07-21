@@ -3,7 +3,7 @@
  * HTTP error 404 redirection
  *
  */
-class Redirection extends ApplicationModel {
+class ErrorRedirection extends ApplicationModel {
 
 	static function GetInstanceByHttpRequest($request){
 		$url = $request->getUrl(); // "http://example.com/documents/manual.pdf"
@@ -21,7 +21,7 @@ class Redirection extends ApplicationModel {
 			$id = $rows[$uri]["id"];
 		}
 
-		if(!is_null($id)){ return Cache::Get("Redirection",$id); }
+		if(!is_null($id)){ return Cache::Get("ErrorRedirection",$id); }
 
 		foreach($rows as $source_url => $row){
 			if(strpos($url,$source_url)===0){
@@ -38,7 +38,7 @@ class Redirection extends ApplicationModel {
 			}
 		}
 
-		if(!is_null($id)){ return Cache::Get("Redirection",$id); }
+		if(!is_null($id)){ return Cache::Get("ErrorRedirection",$id); }
 	}
 
 	static function RefreshCache(){
@@ -73,7 +73,7 @@ class Redirection extends ApplicationModel {
 		}
 
 		// Avoiding a parallel update
-		$updated = $this->dbmole->selectSingleValue("UPDATE redirections SET last_accessed_at=:last_access WHERE last_accessed_at IS NULL OR last_accessed_at<:last_access RETURNING id",array(":last_access" => $last_access));
+		$updated = $this->dbmole->selectSingleValue("UPDATE error_redirections SET last_accessed_at=:last_access WHERE last_accessed_at IS NULL OR last_accessed_at<:last_access RETURNING id",array(":last_access" => $last_access));
 		if(!is_null($updated)){
 			$this->_readValues();
 			return true;
@@ -83,8 +83,8 @@ class Redirection extends ApplicationModel {
 
 	static function _ReadRows($recache = false){
 		$dbmole = static::GetDbmole();
-		$rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM redirections WHERE NOT regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
-		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
+		$rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE NOT regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
+		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
 
 		return array($rows,$regex_rows);
 	}
