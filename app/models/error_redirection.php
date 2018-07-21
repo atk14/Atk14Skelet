@@ -84,7 +84,7 @@ class ErrorRedirection extends ApplicationModel {
 	static function _ReadRows($recache = false){
 		$dbmole = static::GetDbmole();
 		$rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE NOT regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
-		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
+		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_t redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
 
 		return array($rows,$regex_rows);
 	}
