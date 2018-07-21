@@ -29,7 +29,8 @@ class ErrorRedirectionsController extends AdminController {
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$redirection = ErrorRedirection::CreateNewRecord($d);
+			ErrorRedirection::CreateNewRecord($d);
+			ErrorRedirection::RefreshCache();
 			$this->flash->success(_("The redirection has been created successfully"));
 			$this->_redirect_back();
 		}
@@ -39,10 +40,11 @@ class ErrorRedirectionsController extends AdminController {
 		$this->page_title = _("Editing redirection");
 
 		$this->_save_return_uri();
-		$this->form->set_initial($this->redirection);
+		$this->form->set_initial($this->error_redirection);
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$this->redirection->s($d);
+			$this->error_redirection->s($d);
+			ErrorRedirection::RefreshCache();
 			$this->flash->success(_("The redirection has been updated successfully"));
 			$this->_redirect_back();
 		}
@@ -50,11 +52,12 @@ class ErrorRedirectionsController extends AdminController {
 
 	function destroy(){
 		$this->_destroy();
+		ErrorRedirection::RefreshCache();
 	}
 
 	function _before_filter(){
 		if(in_array($this->action,array("edit","destroy"))){
-			$this->_find("redirection");
+			$this->_find("error_redirection");
 		}
 	}
 }
