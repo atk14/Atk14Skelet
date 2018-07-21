@@ -58,24 +58,49 @@ class AdminController extends ApplicationBaseController{
 	 *
 	 * $this->_destroy($this->article);
 	 * $this->_destroy(); // the object for deletion will be determined by the controller name
+	 * $this->_destroy(array("prepare_object" => false, "destroy_closure" => function($object){ .... }));
 	 */
-	function _destroy($object = null){
-		if(!$this->request->post()){ return $this->_execute_action("error404"); }
-
-		if(!$object){
-			$cn = String4::ToObject(get_class($this));
-			$cn = $cn->gsub('/Controller$/',''); // "NiceImagesController" -> "NiceImages"
-			$cn = $cn->underscore(); // "nice_images"
-			$o_name = $cn->singularize()->toString(); // "nice_images" -> "nice_image"
-			$object = $this->$o_name; // $this->nice_image
+	function _destroy($object = null, $options = array()){
+		if(is_array($object)){
+			$options = $object;
+			$object = null;
 		}
 
-		$object->destroy();
-		$this->template_name = "application/destroy";
+		$options += array(
+			"prepare_object" => true,
+			"destroy_closure" => null,
+			"redirect_to" => "index", // on a non-XHR request
+		);
+
+		if(!$this->request->post()){ return $this->_execute_action("error404"); }
+
+		if($options["prepare_object"]){
+			if(!$this->__prepare_object_for_action($object)){
+				return;
+			}
+		}
+
+		if(method_exists($object,"isDeletable") && !$object->isDeletable()){
+			return $this->_execute_action("error404");
+		}
+
+		if($options["destroy_closure"]){
+			$fn = $options["destroy_closure"];
+			$record = $fn($object);
+		}else{
+			if(!$object){
+				return $this->_execute_action("error404");
+			}
+			$object->destroy();
+		}
+
+		$object && $this->logger->info(sprintf("user $this->logged_user just deleted %s#%d",get_class($object),$object->getId()));
+
+		$this->__set_template_name_for_action();
 
 		if(!$this->request->xhr()){
 			$this->flash->success(_("The entry has been deleted"));
-			$this->_redirect_to("index");
+			$this->_redirect_to($options["redirect_to"]);
 		}
 	}
 }

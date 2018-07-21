@@ -180,8 +180,8 @@ class ApplicationBaseController extends Atk14Controller{
 	 *
 	 * <code>
 	 *	 $this->_find("user");
-	 *	 $this->_find("static_page","page_id");
-	 *	 $this->_find("static_page",array(
+	 *	 $this->_find("page","page_id");
+	 *	 $this->_find("page",array(
 	 *			"key" => "page_id",
 	 *			"execute_error404_if_not_found" => false,
 	 *	 ));
@@ -216,7 +216,7 @@ class ApplicationBaseController extends Atk14Controller{
 		);
 
 		if(!$options["class_name"]){
-			$options["class_name"] = String4::ToObject($object_name)->camelize()->toString(); // static_page -> StaticPage
+			$options["class_name"] = String4::ToObject($object_name)->camelize()->toString(); // page -> Page
 		}
 
 		$key = $options["key"];
@@ -334,5 +334,37 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		return $this->_redirect_to($return_uri);
+	}
+
+	/**
+	 * Prepares a object for the current action
+	 *
+	 * It's used in generic methods
+	 */
+	function __prepare_object_for_action(&$object){
+		if($object){ return true; }
+
+		$object_name = String4::ToObject(get_class($this))->gsub('/Controller$/','')->singularize()->underscore()->toString(); // "PeopleController" -> "person"
+		if(!$object = $this->_find($object_name)){
+			$this->_execute_action("error404");
+			return false;
+		}
+
+		return true;
+	}
+
+	/**
+	 * Sets the proper template for the current action
+	 *
+	 * It's used in generic methods
+	 */
+	function __set_template_name_for_action(){
+		$smarty = $this->_get_smarty();
+		if(!(
+			(!$this->request->xhr() && $smarty->templateExists("$this->namespace/$this->controller/$this->action.tpl")) ||
+			($this->request->xhr() && $smarty->templateExists("$this->namespace/$this->controller/$this->action.xhr.tpl"))
+		)){
+			$this->template_name = "application/$this->action";
+		}
 	}
 }
