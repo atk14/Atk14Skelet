@@ -1,4 +1,7 @@
 <?php
+/**
+ *
+ */
 class TcApplication extends TcBase{
 
 	/**
@@ -17,5 +20,18 @@ class TcApplication extends TcBase{
 		$this->client->get("application/error404");
 		$this->assertEquals(404,$this->client->getStatusCode());
 	}
-	
+
+	function test_error_redirections(){
+		ErrorRedirection::CreateNewRecord(array(
+			"source_url" => "/docroot/about_us.html",
+			"target_url" => "/about-us/"
+		));
+		ErrorRedirection::RefreshCache();
+
+		$ctrl = $this->client->get("/docroot/about_us.html?page=2");
+		$this->assertEquals(301,$this->client->getStatusCode()); // Moved Permanently
+		$this->assertEquals("application",$ctrl->controller);
+		$this->assertEquals("error404",$ctrl->action);
+		$this->assertEquals("/about-us/",$this->client->getLocation());
+	}
 }

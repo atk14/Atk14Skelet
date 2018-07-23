@@ -10,15 +10,15 @@ class TcErrorRedirection extends TcBase {
 
 		$request = new HttpRequest();
 
-		$request->setUri("/home.php?lang=cs");
+		$request->setUri("/scripts/home.php?lang=cs");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/cs/",$r->getDestinationUrl());
 
-		$request->setUri("/home.php?lang=en");
+		$request->setUri("/scripts/home.php?lang=en");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/",$r->getDestinationUrl());
 
-		$request->setUri("/home.php?lang=en&utm_source=twiddler");
+		$request->setUri("/scripts/home.php?lang=en&utm_source=twiddler");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/",$r->getDestinationUrl());
 
@@ -26,11 +26,11 @@ class TcErrorRedirection extends TcBase {
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/partners/",$r->getDestinationUrl());
 
-		$request->setUri("/home.php?lang=en&utm_source=twiddler");
+		$request->setUri("/scripts/home.php?lang=en&utm_source=twiddler");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/partners/",$r->getDestinationUrl());
 
-		$request->setUri("/home.php?lang=xx");
+		$request->setUri("/scripts/home.php?lang=xx");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertNull($r);
 	}
@@ -39,6 +39,10 @@ class TcErrorRedirection extends TcBase {
 		$redirection = ErrorRedirection::CreateNewRecord(array(
 			"source_url" => "/attachments/manual.pdf",
 			"target_url" => "/public/attachments/manual.pdf", 
+		));
+		$redirection2 = ErrorRedirection::CreateNewRecord(array(
+			"source_url" => "/site/about-us/",
+			"target_url" => "/about-us/", 
 		));
 		ErrorRedirection::RefreshCache();
 
@@ -55,5 +59,7 @@ class TcErrorRedirection extends TcBase {
 		$this->assertEquals(true,$redirection->touch($time+1));
 		$this->assertEquals("2018-07-15 13:50:01",$redirection->getLastAccessedAt());
 
+		$redirection2 = ErrorRedirection::GetInstanceById($redirection2);
+		$this->assertEquals(null,$redirection2->getLastAccessedAt());
 	}
 }

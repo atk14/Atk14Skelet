@@ -1,13 +1,13 @@
 lang_cs:
-  source_url: /home.php?lang=cs
+  source_url: /scripts/home.php?lang=cs
   target_url: /cs/
 
 lang_en:
-  source_url: /home.php?lang=en
+  source_url: /scripts/home.php?lang=en
   target_url: /en/
 
 lang_en_partners:
-  source_url: //partner.example.com/home.php?lang=en
+  source_url: //partner.example.com/scripts/home.php?lang=en
   target_url: /en/partners/
 
 
