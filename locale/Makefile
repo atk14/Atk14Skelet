@@ -16,6 +16,10 @@ files-list:
 	find ../app/ -type f -name "*.tpl" | grep -v -F ".svn" | grep '../app/views/admin' | sort >> files_smarty_templates_admin
 
 pot: files-list
+	# Creating and emptying destination files
+	@> application.pot
+	@> application_admin.pot
+	@> vendor.pot
 	# Creating application.pot
 	@cat files_smarty_templates|xargs ../scripts/tsmarty2c.php >> smarty.c
 	@-xgettext --no-location -L c --from-code=UTF-8 smarty.c --output=- > application.pot
