@@ -7,8 +7,8 @@ require( "./gulpfile-admin" );
 var vendorStyles = [];
 
 var vendorScripts = [
-	"bower_components/jquery/dist/jquery.js",
-	"bower_components/bootstrap/dist/js/bootstrap.js",
+	"node_modules/jquery/dist/jquery.js",
+	"node_modules/bootstrap/dist/js/bootstrap.js",
 	"bower_components/atk14js/src/atk14.js"
 ];
 
@@ -18,13 +18,17 @@ var applicationScripts = [
 
 // CSS
 gulp.task( "styles", function() {
-	return gulp.src( "public/styles/application.less" )
+	return gulp.src( "public/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
-		.pipe( $.less() )
+		.pipe( $.sass( {
+			includePaths: [
+				"public/styles"
+			]
+		} ) )
 		.pipe( $.autoprefixer() )
-		.pipe( $.cleanCss() )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
@@ -34,9 +38,9 @@ gulp.task( "styles-vendor", function() {
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css" ) )
 		.pipe( $.autoprefixer() )
-		.pipe( $.cleanCss() )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
@@ -57,7 +61,8 @@ gulp.task( "scripts", function() {
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
-		.pipe( gulp.dest( "public/dist/scripts" ) );
+		.pipe( gulp.dest( "public/dist/scripts" ) )
+		.pipe( browserSync.stream() );
 } );
 
 // Lint
@@ -79,8 +84,6 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/scripts" ) );
 	gulp.src( "bower_components/respond/dest/respond.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
-	gulp.src( "bower_components/bootstrap/dist/fonts/*" )
-		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/fonts/*" )
 		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/images/*" )
@@ -108,7 +111,7 @@ gulp.task( "serve", [ "styles" ], function() {
 	gulp.watch( "public/scripts/**/*.js", [ "scripts" ] ).on( "change", browserSync.reload );
 
 	// If styles files change = run 'styles' task with style injection
-	gulp.watch( "public/styles/**/*.less", [ "styles" ] );
+	gulp.watch( "public/styles/**/*.scss", [ "styles" ] );
 } );
 
 // Build
