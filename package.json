@@ -46,6 +46,7 @@
     "gulp-sourcemaps": "^2.4.0",
     "gulp-uglify": "^1.5.3",
     "atk14js": "^1.1.1",
+    "unobfuscatejs": "^1.0.0",
     "jquery": "~2.1.4",
     "bootstrap": "^3.1.1",
     "html5shiv": "^3.7.0",

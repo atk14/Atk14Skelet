@@ -9,7 +9,8 @@ var vendorStyles = [];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
 	"node_modules/bootstrap/dist/js/bootstrap.js",
-	"node_modules/atk14js/src/atk14.js"
+	"node_modules/atk14js/src/atk14.js",
+	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js"
 ];
 
 var applicationScripts = [
