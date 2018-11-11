@@ -15,7 +15,7 @@ production:
   deploy_repository: "{{user}}@{{server}}:apps/skelet.atk14.net/repos/production.git" # this is the URL of deployment git repository with a proper post-receive hook
   before_deploy:                                                              # some tasks may be run before deployment
   - "@local composer update"
-  - "@local bower update"
+  - "@local npm install"
   - "@local gulp"
   - "@local gulp admin"
   rsync:

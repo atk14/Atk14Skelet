@@ -52,6 +52,7 @@
     "html5shiv": "^3.7.0",
     "respond.js": "^1.4.2",
     "blueimp-file-upload": "^9.11.2",
+    "markdown": "^0.5.0",
     "bootstrap-markdown": "^2.9.0",
     "jquery-ui-bundle": "^1.11.2",
     "jshint-stylish": "^2.0.1",
