@@ -7,9 +7,9 @@ require( "./gulpfile-admin" );
 var vendorStyles = [];
 
 var vendorScripts = [
-	"bower_components/jquery/dist/jquery.js",
-	"bower_components/bootstrap/dist/js/bootstrap.js",
-	"bower_components/atk14js/src/atk14.js"
+	"node_modules/jquery/dist/jquery.js",
+	"node_modules/bootstrap/dist/js/bootstrap.js",
+	"node_modules/atk14js/src/atk14.js"
 ];
 
 var applicationScripts = [
@@ -75,11 +75,11 @@ gulp.task( "jscs", function() {
 
 // Copy
 gulp.task( "copy", function() {
-	gulp.src( "bower_components/html5shiv/dist/html5shiv.min.js" )
+	gulp.src( "node_modules/html5shiv/dist/html5shiv.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
-	gulp.src( "bower_components/respond/dest/respond.min.js" )
+	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
-	gulp.src( "bower_components/bootstrap/dist/fonts/*" )
+	gulp.src( "node_modules/bootstrap/dist/fonts/*" )
 		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/fonts/*" )
 		.pipe( gulp.dest( "public/dist/fonts" ) );

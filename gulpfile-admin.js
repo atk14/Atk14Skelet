@@ -4,19 +4,19 @@ var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 
 var vendorStyles = [
-	"bower_components/jquery-file-upload/css/jquery.fileupload.css",
-	"bower_components/bootstrap-markdown/css/bootstrap-markdown.min.css",
-	"bower_components/jquery-ui/themes/base/all.css"
+	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
+	"node_modules/bootstrap-markdown/css/bootstrap-markdown.min.css",
+	"node_modules/jquery-ui-bundle/jquery-ui.css"
 ];
 var vendorScripts = [
-	"bower_components/jquery/dist/jquery.js",
-	"bower_components/jquery-ui/jquery-ui.js",
-	"bower_components/jquery-file-upload/js/jquery.fileupload.js",
+	"node_modules/jquery/dist/jquery.js",
+	"node_modules/jquery-ui-bundle/jquery-ui.js",
+	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
 	"bower_components/markdown-js/dist/markdown.js",
 	"bower_components/to-markdown/dist/to-markdown.js",
-	"bower_components/bootstrap-markdown/js/bootstrap-markdown.js",
-	"bower_components/bootstrap/dist/js/bootstrap.js",
-	"bower_components/atk14js/src/atk14.js"
+	"node_modules/bootstrap-markdown/js/bootstrap-markdown.js",
+	"node_modules/bootstrap/dist/js/bootstrap.js",
+	"node_modules/atk14js/src/atk14.js"
 ];
 
 var applicationScripts = [
@@ -82,13 +82,13 @@ gulp.task( "jscs-admin", function() {
 
 // Copy
 gulp.task( "copy-admin", function() {
-	gulp.src( "bower_components/html5shiv/dist/html5shiv.min.js" )
+	gulp.src( "node_modules/html5shiv/dist/html5shiv.min.js" )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
-	gulp.src( "bower_components/respond/dest/respond.min.js" )
+	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
-	gulp.src( "bower_components/bootstrap/dist/fonts/*" )
+	gulp.src( "node_modules/bootstrap/dist/fonts/*" )
 		.pipe( gulp.dest( "public/admin/dist/fonts" ) );
-	gulp.src( "bower_components/jquery-ui/themes/base/images/*" )
+	gulp.src( "node_modules/jquery-ui-bundle/images/*" )
 		.pipe( gulp.dest( "public/admin/dist/styles/images" ) );
 	gulp.src( "public/admin/fonts/*" )
 		.pipe( gulp.dest( "public/admin/dist/fonts" ) );
