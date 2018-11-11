@@ -13,7 +13,6 @@ var vendorScripts = [
 	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
 	"bower_components/markdown-js/dist/markdown.js",
-	"bower_components/to-markdown/dist/to-markdown.js",
 	"node_modules/bootstrap-markdown/js/bootstrap-markdown.js",
 	"node_modules/bootstrap/dist/js/bootstrap.js",
 	"node_modules/atk14js/src/atk14.js"

@@ -1,7 +1,6 @@
 {
   "name": "atk14-skelet",
   "dependencies": {
-    "markdown-js": "^0.6.2",
-    "to-markdown": "^1.2.1"
+    "markdown-js": "^0.6.2"
   }
 }
