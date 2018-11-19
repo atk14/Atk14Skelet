@@ -6,7 +6,7 @@
 			<h1>{$appname}</h1>
 		{else}
 			{capture assign=link_title}{t}Go to home page{/t}{/capture}
-			{a action="main/index" namespace="" _title=$link_title}{$appname}{/a}
+			{a action="main/index" namespace="" _title=$link_title _class="h1"}{$appname}{/a}
 		{/if}
 	</div>
 </header>

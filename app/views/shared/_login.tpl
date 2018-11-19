@@ -1,29 +1,27 @@
-<div class="row">
-	<ul class="nav nav-pills pull-right">
+<div class="clearfix">
+	<ul class="nav nav-pills float-right">
 		{if $logged_user}
 			{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
 
-			<li class="dropdown">
-				<a class="dropdown-toggle" data-toggle="dropdown" href="#">
+			<li class="nav-item dropdown">
+				<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 					{t escape=no}{$logged_user->getLogin()}{/t}
 					{if $logged_user->isAdmin()}
 						({t}administrator{/t})
 					{/if}
-					<span class="caret"></span>
 				</a>
-				<ul class="dropdown-menu">
-					<li><a href="{$user_profile_url}">{t}Profile{/t}</a></li>
+				<div class="dropdown-menu">
+					<a href="{$user_profile_url}" class="dropdown-item">{t}Profile{/t}</a>
 					{if $logged_user->isAdmin()}
-						<li>{a action="main/index" namespace="admin"}{t}Administration{/t}{/a}</li>
+						{a action="main/index" namespace="admin" _class="dropdown-item"}{t}Administration{/t}{/a}
 					{/if}
-					<li class="divider"></li>
-					<li>{a namespace="" action="logins/destroy" _method=post}{t}Sign out{/t}{/a}</li>
-				</ul>
+					<div class="dropdown-divider"></div>
+					{a namespace="" action="logins/destroy" _method=post _class="dropdown-item"}{t}Sign out{/t}{/a}
+				</div>
 			</li>
 		{else}
-			<li>{a namespace="" action="logins/create_new"}{t}Sign in{/t}{/a}</li>
-			<li class="divider-vertical"></li>
-			<li>{a namespace="" action="users/create_new"}{t}Register{/t}{/a}</li>
+			<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{t}Sign in{/t}</a></li>
+			<li class="nav-item"><a href="{link_to namespace="" action="users/create_new"}" class="nav-link">{t}Register{/t}</a></li>
 		{/if}
 	</ul>
 </div>
