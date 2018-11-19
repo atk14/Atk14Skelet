@@ -9,6 +9,12 @@
 			// Application-wide code.
 			init: function() {
 
+				// Restores email addresses misted by the no_spam helper
+				$( ".atk14_no_spam" ).unobfuscate( {
+					atstring: "[at-sign]",
+					dotstring: "[dot-sign]"
+				} );
+
 				// Form hints.
 				$( ".help-hint" ).each( function() {
 					var $this = $( this ),

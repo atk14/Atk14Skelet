@@ -4,7 +4,6 @@ tmp/*
 log/*
 !robots/lock/README.md
 robots/lock/*
-bower_components
 node_modules
 config/.secret_token.txt
 config/secret_token.txt

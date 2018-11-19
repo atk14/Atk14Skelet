@@ -15,7 +15,7 @@ What the Skeleton contains
 * Articles (news)
 * Tags
 * A simple administration
-* Front-end tooling including [Bower](http://bower.io/), [Gulp](https://github.com/gulpjs/gulp) and [BrowserSync](https://github.com/BrowserSync/browser-sync)
+* Front-end tooling [Gulp](https://github.com/gulpjs/gulp) and [BrowserSync](https://github.com/BrowserSync/browser-sync)
 
 Installation
 ------------
@@ -74,7 +74,7 @@ Front-end Assets Installation
 #### Install dependencies.
 With [Node.js](http://nodejs.org) and npm installed, run the following one liner from the root of your Skelet application:
 ```bash
-$ npm install -g gulp && npm install -g bower && npm install && bower install
+$ npm install -g gulp && npm install
 ```
 
 This will install all the tools you will need to serve and build your front-end assets.
