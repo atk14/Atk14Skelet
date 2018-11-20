@@ -20,7 +20,7 @@ define("ATK14_ADMIN_EMAIL",DEFAULT_EMAIL); // the address for sending error repo
 define("ATK14_APPLICATION_NAME","BOOTSTRAP4 PLAYGROUND");
 define("ATK14_APPLICATION_DESCRIPTION","Yet another application running on ATK14 Framework");
 
-define("ATK14_HTTP_HOST",PRODUCTION ? "www.bootstrap4_playground.com" : "bootstrap4_playground.localhost");
+define("ATK14_HTTP_HOST",PRODUCTION ? "www.bootstrap4-playground.com" : "bootstrap4-playground.localhost");
 
 date_default_timezone_set('Europe/Prague');
 
