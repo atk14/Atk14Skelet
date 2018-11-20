@@ -4,7 +4,9 @@ var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 require( "./gulpfile-admin" );
 
-var vendorStyles = [];
+var vendorStyles = [
+	"node_modules/font-awesome/css/font-awesome.css"
+];
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
@@ -85,6 +87,8 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
+	gulp.src( "node_modules/font-awesome/fonts/*" )
+		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/fonts/*" )
 		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/images/*" )
