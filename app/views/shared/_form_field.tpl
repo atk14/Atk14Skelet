@@ -53,13 +53,13 @@
 	{/capture}
 	{capture assign=valid_feedback}
 		{if $form->is_bound && !$field->errors()}
-			<div class="feedback feedback--valid"><span class="sr-only">OK</span></div>
+			<div class="feedback feedback--valid"><span class="sr-only">{t}OK{/t}</span></div>
 		{/if}
 	{/capture}
 
 	{capture assign=optional_feedback}
 		{if !$form->is_bound && !$field->required}
-			<div class="feedback feedback--optional"><ul class="list"><li class="list__item">{t}nepovinné{/t}</li></ul></div>
+			<div class="feedback feedback--optional"><ul class="list"><li class="list__item">{t}optional{/t}</li></ul></div>
 		{/if}
 	{/capture}
 
