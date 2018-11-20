@@ -25,6 +25,7 @@ git clone https://github.com/atk14/Atk14Skelet.git
 cd Atk14Skelet
 git submodule init
 git submodule update
+composer install
 ./scripts/create_database
 ./scripts/migrate
 ```
