@@ -17,10 +17,10 @@
 define("DEFAULT_EMAIL","your@email.com");
 define("ATK14_ADMIN_EMAIL",DEFAULT_EMAIL); // the address for sending error reports and so on...
 
-define("ATK14_APPLICATION_NAME","ATK14 Skelet");
+define("ATK14_APPLICATION_NAME","BOOTSTRAP4 PLAYGROUND");
 define("ATK14_APPLICATION_DESCRIPTION","Yet another application running on ATK14 Framework");
 
-define("ATK14_HTTP_HOST",PRODUCTION ? "skelet.atk14.net" : "atk14skelet.localhost");
+define("ATK14_HTTP_HOST",PRODUCTION ? "www.bootstrap4-playground.com" : "bootstrap4-playground.localhost");
 
 date_default_timezone_set('Europe/Prague');
 
