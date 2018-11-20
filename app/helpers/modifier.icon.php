@@ -9,6 +9,7 @@ function smarty_modifier_icon($glyph){
 	if(USING_FONTAWESOME){
 		$tr_table = array(
 			"remove" => "times",
+			"eye-open" => "eye",
 		);
 		$glyph = isset($tr_table[$glyph]) ? $tr_table[$glyph] : $glyph;
 		return sprintf('<span class="fa fa-%s"></span>',$glyph);
