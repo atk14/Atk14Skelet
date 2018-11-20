@@ -125,7 +125,7 @@
 			{!$optional_feedback}
 
 			{if $field->hints && !$field->hint_in_placeholder}
-				<div class="help-hint hidden" data-title="{t}Examples:{/t}">
+				<div class="help-hint d-none" data-title="{t}Examples:{/t}">
 					<ul class="list-unstyled">
 						{foreach $field->hints as $hint}
 							<li>{!$hint}</li>

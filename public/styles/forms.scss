@@ -1,0 +1,40 @@
+// Applies grid classes to form elements to create horizontal form.
+
+.form-horizontal, .fieldset-horizontal {
+  .form-group {
+    @extend .row;
+    // @extend .align-items-center;
+    > label {
+      @extend .col-form-label;
+      @extend .col-12;
+      @extend .col-sm-3;
+    }
+    > .form-control {
+      // @extend .col-12;
+      @extend .col-sm-4;
+      padding-left: .75rem;
+      padding-right: .75rem;
+      @include media-breakpoint-down(xs) {
+        margin-left: $grid-gutter-width/2;
+        margin-right: $grid-gutter-width/2;
+      }
+    }
+    > .help-block {
+      @extend .col-12;
+      @extend .col-sm;
+      @extend .text-muted;
+      font-size: 0.85rem;
+      line-height: 1.1;
+      @include media-breakpoint-up(sm){
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+      }
+    }
+    > .feedback {
+      @extend .col-12;
+      // @extend .col-sm;
+      
+    }
+  }
+}
