@@ -5,7 +5,7 @@ var browserSync = require( "browser-sync" ).create();
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
-	"node_modules/font-awesome/css/font-awesome.css"
+	"node_modules/@fortawesome/fontawesome-free/css/all.css"
 ];
 
 var vendorScripts = [
@@ -87,8 +87,8 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
-	gulp.src( "node_modules/font-awesome/fonts/*" )
-		.pipe( gulp.dest( "public/dist/fonts" ) );
+	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
+		.pipe( gulp.dest( "public/dist/webfonts" ) );
 	gulp.src( "public/fonts/*" )
 		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/images/*" )

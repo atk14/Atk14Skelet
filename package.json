@@ -58,6 +58,6 @@
     "bootstrap-markdown-editor-4": "^3.0.0",
     "jquery-ui-bundle": "^1.11.2",
     "jshint-stylish": "^2.0.1",
-    "font-awesome": "^4.7.0"
+    "@fortawesome/fontawesome-free": "^5.5.0"
   }
 }
