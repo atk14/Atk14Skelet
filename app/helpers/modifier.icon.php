@@ -2,7 +2,11 @@
 /**
  *	{!"edit"|icon}
  *	{!"remove"|icon}
+ *
  *	{!"twitter"|icon:"brands"}
+ *	{!"envelope"|icon:"solid"}
+ *	{!"envelope"|icon:"regular"}
+ *	{!"envelope"|icon:"light"}
  */
 function smarty_modifier_icon($glyph,$style = ""){
 	$tr_table = array(

@@ -33,6 +33,15 @@
 
 <tr>
 	<td>
+	\{!"envelope"|icon:"light"\}
+	</td>
+	<td>
+	{!"envelope"|icon:"light"}
+	</td>
+</tr>
+
+<tr>
+	<td>
 	\{!"twitter"|icon\}
 	</td>
 	<td>
