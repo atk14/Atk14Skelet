@@ -73,9 +73,8 @@ form {
 			}
 		}
 		&.form-group--is-valid {
-			.form-control, .list--checkboxes, .list--radios {
+			.form-control {
 				border: 1px solid $success;
-				.
 			}
 		}
 	}
