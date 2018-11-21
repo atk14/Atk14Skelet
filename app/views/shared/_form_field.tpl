@@ -45,7 +45,7 @@
 		<div class="feedback feedback--invalid">
 			<ul class="list">
 				{foreach from=$field->errors() item=err_item}
-					<li class="list__item">{!$err_item}</li>
+					<li class="list__item">{!"exclamation-circle"|icon} {!$err_item}</li>
 				{/foreach}
 			</ul>
 		</div>
