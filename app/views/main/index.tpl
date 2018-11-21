@@ -1,3 +1,7 @@
+<ul class="list list-unstylled">
+	<li>{a action="tests/icons"}Ikony{/a}</li>
+</ul>
+
 <div class="row">
 	<div class="col-sm-6">
 		<h1>{t}Welcome!{/t}</h1>
