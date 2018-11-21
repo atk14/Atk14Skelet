@@ -6,7 +6,8 @@ var browserSync = require( "browser-sync" ).create();
 var vendorStyles = [
 	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
 	"node_modules/bootstrap-markdown/css/bootstrap-markdown.min.css",
-	"node_modules/jquery-ui-bundle/jquery-ui.css"
+	"node_modules/jquery-ui-bundle/jquery-ui.css",
+	"node_modules/@fortawesome/fontawesome-free/css/all.css"
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
@@ -14,8 +15,9 @@ var vendorScripts = [
 	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
 	"node_modules/markdown/lib/markdown.js",
 	"node_modules/bootstrap-markdown/js/bootstrap-markdown.js",
-	"node_modules/bootstrap/dist/js/bootstrap.js",
-	"node_modules/atk14js/src/atk14.js"
+	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
+	"node_modules/atk14js/src/atk14.js",
+	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js"
 ];
 
 var applicationScripts = [
@@ -24,13 +26,17 @@ var applicationScripts = [
 
 // CSS
 gulp.task( "styles-admin", function() {
-	return gulp.src( "public/admin/styles/application.less" )
+	return gulp.src( "public/admin/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
-		.pipe( $.less() )
+		.pipe( $.sass( {
+			includePaths: [
+				"public/admin/styles"
+			]
+		} ) )
 		.pipe( $.autoprefixer() )
-		.pipe( $.cleanCss() )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
@@ -40,9 +46,9 @@ gulp.task( "styles-vendor-admin", function() {
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css", { rebaseUrls: false } ) )
 		.pipe( $.autoprefixer() )
-		.pipe( $.cleanCss() )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
@@ -85,8 +91,8 @@ gulp.task( "copy-admin", function() {
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
-	gulp.src( "node_modules/bootstrap/dist/fonts/*" )
-		.pipe( gulp.dest( "public/admin/dist/fonts" ) );
+	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
+		.pipe( gulp.dest( "public/dist/webfonts" ) );
 	gulp.src( "node_modules/jquery-ui-bundle/images/*" )
 		.pipe( gulp.dest( "public/admin/dist/styles/images" ) );
 	gulp.src( "public/admin/fonts/*" )
@@ -117,7 +123,7 @@ gulp.task( "serve-admin", [ "styles-admin", "styles-vendor-admin" ], function() 
 		.on( "change", browserSync.reload );
 
 	// If styles files change = run 'styles' task with style injection
-	gulp.watch( "public/admin/styles/**/*.less", [ "styles-admin" ] );
+	gulp.watch( "public/admin/styles/**/*.scss", [ "styles-admin" ] );
 } );
 
 // Build

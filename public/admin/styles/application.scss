@@ -1,0 +1,20 @@
+// To allow to redefine variables in application-variables,
+// first we need to load functions and variables from bootstrap package.
+
+@import "node_modules/bootstrap/scss/functions";
+
+// We may overrdide Bootstrap variables here like this:
+// $primary: deeppink;
+// or directly in _bootstrap_variables.scss
+
+// Bootstrap variables
+@import "bootstrap_variables";
+
+// Application specific variables, overrides bootstrap vars.
+@import "application_variables";
+
+@import "bootstrap";
+
+@import "forms";
+
+@import "shared/clearfix";
