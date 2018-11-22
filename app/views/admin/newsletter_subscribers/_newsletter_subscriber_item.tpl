@@ -4,7 +4,7 @@
 	<td>{$newsletter_subscriber->getName()}</td>
 	<td>{$newsletter_subscriber->getCreatedAt()|format_datetime}</td>
 	<td>{$newsletter_subscriber->getCreatedFromAddr()}</td>
-	<td>
+	<td class="text-right">
 		{dropdown_menu}
 			{a_destroy id=$newsletter_subscriber}{!"trash-alt"|icon} {t}Delete{/t}{/a_destroy}
 		{/dropdown_menu}

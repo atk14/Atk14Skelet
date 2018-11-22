@@ -4,7 +4,7 @@
 	<td>{$error_redirection->getTargetUrl()}</td>
 	<td>{$error_redirection->getCreatedAt()|format_datetime}</td>
 	<td>{!$error_redirection->getLastAccessedAt()|format_datetime|default:"&mdash;"}</td>
-	<td>
+	<td class="text-right">
 		{dropdown_menu}
 			{a action=edit id=$error_redirection}{t}Edit{/t}{/a}
 			{a_destroy id=$error_redirection}{t}Delete{/t}{/a_destroy}

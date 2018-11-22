@@ -6,7 +6,7 @@
 	<td>{$user->isAdmin()|display_bool}</td>
 	<td>{$user->getCreatedAt()|format_datetime}</td>
 	<td>{$user->getUpdatedAt()|format_datetime}</td>
-	<td>
+	<td class="text-right">
 			{dropdown_menu}
 				{a action=edit id=$user}{!"user-edit"|icon} {t}Edit{/t}{/a}
 				{a action=edit_password id=$user}{!"key"|icon} {t}Set new password{/t}{/a}
