@@ -8,9 +8,9 @@
 
 {else}
 
-	<table class="table">
+	<table class="table table-striped table-sm">
 		<thead>
-			<tr>
+			<tr class="table-dark">
 				{sortable key=id}<th>#</th>{/sortable}
 				{sortable key=email}<th>{t}Email{/t}</th>{/sortable}
 				{sortable key=name}<th>{t}Name{/t}</th>{/sortable}

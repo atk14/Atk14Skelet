@@ -8,9 +8,9 @@
 
 {else}
 
-	<table class="table table-striped">
+	<table class="table table-striped table-sm">
 		<thead>
-			<tr>
+			<tr class="table-dark">
 				{sortable key=id}<th>#</th>{/sortable}
 				{sortable key=tag}<th>{t}Tag{/t}</th>{/sortable}
 				{sortable key=created_at}<th>{t}Created at{/t}</th>{/sortable}

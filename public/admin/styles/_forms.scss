@@ -79,3 +79,12 @@ form {
 		}
 	}
 }
+
+// search form
+.form-search {
+	@extend .form-inline;
+	margin-bottom: 1rem;
+	input {
+		margin-right: 0.5em;
+	}
+}

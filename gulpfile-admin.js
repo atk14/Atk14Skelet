@@ -92,7 +92,7 @@ gulp.task( "copy-admin", function() {
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
 	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
-		.pipe( gulp.dest( "public/dist/webfonts" ) );
+		.pipe( gulp.dest( "public/admin/dist/webfonts" ) );
 	gulp.src( "node_modules/jquery-ui-bundle/images/*" )
 		.pipe( gulp.dest( "public/admin/dist/styles/images" ) );
 	gulp.src( "public/admin/fonts/*" )

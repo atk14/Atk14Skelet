@@ -1,0 +1,20 @@
+tr.table-dark {
+	th{
+		background-color: $gray-600;
+		color: $gray-300;
+		border-bottom: none;
+		a {
+			color: white;
+			border-bottom: 1px solid $gray-300;
+			&:hover {
+				text-decoration: none;
+				border-bottom: 2px solid $gray-300;
+			}
+		}
+	}
+}
+
+// Border pod tabulkou
+table.table {
+	border-bottom: 1px solid $gray-300;
+}

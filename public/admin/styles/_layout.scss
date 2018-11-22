@@ -1,0 +1,14 @@
+.has-nav-section {
+	.body {
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		grid-template-areas: 'sidebar mainbody';
+		grid-gap: $grid-gutter-width;
+		.nav-section {
+			grid-area: sidebar;
+		}
+		.content-main {
+			grid-area: mainbody;
+		}
+	}
+}

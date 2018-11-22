@@ -8,9 +8,9 @@
 
 {else}
 
-	<table class="table table-striped">
+	<table class="table table-striped table-sm">
 		<thead>
-			<tr>
+			<tr class="table-dark">
 				{sortable key=id}<th>#</th>{/sortable}
 				{sortable key=login}<th>{t}Username{/t}</th>{/sortable}
 				{sortable key=name}<th>{t}Name{/t}</th>{/sortable}
