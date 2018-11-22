@@ -1,15 +1,25 @@
 .has-nav-section {
 	.body {
-		display: grid;
-		grid-template-columns: 200px 1fr;
-		grid-template-areas: 'sidebar mainbody';
-		grid-gap: $grid-gutter-width;
-		.nav-section {
-			grid-area: sidebar;
+		@include media-breakpoint-up(md){
+			display: grid;
+			grid-template-columns: 230px 1fr;
+			grid-template-areas: 'sidebar mainbody';
+			grid-gap: $grid-gutter-width/2;
+			.nav-section {
+				grid-area: sidebar;
+				border-right: 1px solid $gray-300;
+				padding-right: $grid-gutter-width/2;
+			}
+			.content-main {
+				grid-area: mainbody;
+			}
 		}
-		.content-main {
-			grid-area: mainbody;
-			border-right: 1px solid $gray-300;
+		@include media-breakpoint-down(sm){
+			.nav-section {
+				border-bottom: 1px solid $gray-300;
+				padding-bottom: $grid-gutter-width/2;
+				margin-bottom: $grid-gutter-width/2;
+			}
 		}
 	}
 }

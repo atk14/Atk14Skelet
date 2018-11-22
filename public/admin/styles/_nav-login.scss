@@ -1,6 +1,7 @@
 ul.nav-login {
 	background-color: $dark;
 	color: white;
+	margin-bottom: $grid-gutter-width/2;
 	a.nav-link {
 		color: inherit;
 	}

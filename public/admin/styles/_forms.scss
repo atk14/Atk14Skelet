@@ -1,36 +1,12 @@
-// Applies CSS grid to .form-group to create horizontal form.
+// Some additional styling form elements
 
-.form-horizontal, .fieldset-horizontal {
+form {
 	.form-group {
-		@include media-breakpoint-up(sm){
-			display: grid;
-			grid-template-columns: 3fr 4fr 5fr;
-			grid-template-rows: auto auto auto;
-			grid-template-areas: 
-				'label control help'
-				'middleleft instantfeedback instantfeedback'
-				'bottomleft feedback feedback';
-			grid-gap: 0 $grid-gutter-width/2;
-			//border-bottom: 1px solid $gray-300;
-			margin: 0;
-			padding: 8px 0;
-		}
-		> label {
-			//@extend .col-form-label;
-			padding-top: calc(.375rem + 1px);
-			line-height: 1.5;
-			grid-area: label;
-		}
-		> .form-control, .custom-control, > .btn {
-			grid-area: control;
-		}
 		> ul.list--radios, > ul.list--checkboxes {
-			grid-area: control;
 			@extend .list-unstyled;
 			margin-bottom: 0;
 		}
 		> .feedback {
-			grid-area: feedback;
 			margin-top: 0.1rem;
 			ul {
 				@extend .list-unstyled;
@@ -45,16 +21,54 @@
 			}
 		}
 		> .help-block {
-			grid-area: help;
 			@extend .text-muted;
-			padding-top: 0.75rem;
 			font-size: 0.85rem;
 			line-height: 1.1;
 		}
 		> .alert {
-			grid-area: instantfeedback;
 			padding: 0.1rem 0.25rem;
 			margin-bottom: 0;
+		}
+	}
+}
+
+
+// Applies CSS grid to .form-group to create horizontal form.
+
+.form-horizontal, .fieldset-horizontal {
+	.form-group {
+		@include media-breakpoint-up(sm){
+			display: grid;
+			grid-template-columns: 3fr 4fr 5fr;
+			grid-template-rows: auto auto auto;
+			grid-template-areas: 
+				'label control help'
+				'middleleft instantfeedback instantfeedback'
+				'bottomleft feedback feedback';
+			grid-gap: 0 $grid-gutter-width/2;
+			margin: 0;
+			padding: 8px 0;
+		}
+		> label {
+			padding-top: calc(.375rem + 1px);
+			line-height: 1.5;
+			grid-area: label;
+		}
+		> .form-control, .custom-control, > .btn {
+			grid-area: control;
+		}
+		> ul.list--radios, > ul.list--checkboxes {
+			grid-area: control;
+		}
+		> .feedback {
+			grid-area: feedback;
+		}
+		> .help-block {
+			grid-area: help;
+			padding-top: 0.75rem;
+		}
+		> .alert {
+			grid-area: instantfeedback;
 			justify-self: stretch;
 		}
 	}
