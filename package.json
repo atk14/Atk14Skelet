@@ -54,7 +54,7 @@
     "respond.js": "^1.4.2",
     "blueimp-file-upload": "^9.26.0",
     "markdown": "^0.5.0",
-    "bootstrap-markdown": "^2.9.0",
+    "ace-builds": "^1.4.2",
     "bootstrap-markdown-editor-4": "^3.0.0",
     "jquery-ui-bundle": "^1.11.2",
     "jshint-stylish": "^2.0.1",
