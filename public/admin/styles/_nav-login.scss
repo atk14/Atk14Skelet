@@ -1,9 +1,18 @@
 .nav-login {
+	> .container {
+		max-width: 100%;
+		padding: 0;
+	}
 	margin-bottom: $grid-gutter-width/2;
 	.navbar-brand {
 		img {
 			height: 30px;
 			width: auto;
 		}
+	}
+	.navbar-toggler {
+		border: none;
+		color: white;
+		font-size: 1.5rem;
 	}
 }

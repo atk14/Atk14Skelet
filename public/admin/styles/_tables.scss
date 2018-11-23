@@ -17,11 +17,12 @@ tr.table-dark {
 }
 
 // Border under table
+
 table.table {
 	border-bottom: 1px solid $gray-300;
 }
 
-// Responsive tables
+// Responsive tables - display all as blocks
 
 @include media-breakpoint-down(xs){
 	table.table {
