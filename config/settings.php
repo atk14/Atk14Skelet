@@ -25,6 +25,7 @@ define("ATK14_HTTP_HOST",PRODUCTION ? "www.bootstrap4-playground.com" : "bootstr
 date_default_timezone_set('Europe/Prague');
 
 define("USING_BOOTSTRAP4",true);
+define("USING_FONTAWESOME",true);
 
 // If you don't want to let users to register freely (e.g. your app is an closed alpha),
 // set the constant INVITATION_CODE_FOR_USER_REGISTRATION.
