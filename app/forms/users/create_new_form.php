@@ -72,7 +72,7 @@ class CreateNewForm extends UsersForm{
 
 		$this->add_field("confirmation", new ConfirmationField(array(
 			"label" => _("I confirm everything"),
-			"help_text" => _('You must confirm out terms & conditions at <a hred="http://example.com/">example.com</a>'),
+			"help_text" => _('You must confirm out terms & conditions at <a href="http://example.com/">example.com</a>'),
 			"required" => false,
 		)));
 

@@ -8,15 +8,15 @@
 
 {else}
 
-	<table class="table table-striped table-sm">
+	<table class="table table-striped table-sm table--redirections">
 		<thead>
 			<tr class="table-dark">
-				{sortable key=id}<th>#</th>{/sortable}
-				{sortable key=source_url}<th>{t}Source URL{/t}</th>{/sortable}
-				{sortable key=target_url}<th>{t}Target URL{/t}</th>{/sortable}
-				{sortable key=created_at}<th>{t}Created at{/t}</th>{/sortable}
-				{sortable key=last_accessed_at}<th>{t}Last access{/t}</th>{/sortable}
-				<th></th>
+				{sortable key=id}<th class="item-id">#</th>{/sortable}
+				{sortable key=source_url}<th class="item-sourceurl">{t}Source URL{/t}</th>{/sortable}
+				{sortable key=target_url}<th class="item-targeturl">{t}Target URL{/t}</th>{/sortable}
+				{sortable key=created_at}<th class="item-created">{t}Created at{/t}</th>{/sortable}
+				{sortable key=last_accessed_at}<th class="item-lastaccess">{t}Last access{/t}</th>{/sortable}
+				<th class="item-actions"></th>
 			</tr>
 		</thead>
 

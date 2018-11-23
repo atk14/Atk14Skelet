@@ -1,10 +1,10 @@
 <tr>
-	<td>{$article->getId()}</td>
-	<td>{a action=detail id=$article namespace=""}{$article->getTitle()}{/a}</td>
-	<td>{$article->getAuthor()->getLogin()}</td>
-	<td><time datetime="{$article->getPublishedAt()}">{$article->getPublishedAt()|format_date}</time></td>
-	<td>{to_sentence var=$article->getTags() words_connector=" , " last_word_connector=" , "}</td>
-	<td class="text-right">
+	<td class="item-id">{$article->getId()}</td>
+	<td class="item-title">{a action=detail id=$article namespace=""}{$article->getTitle()}{/a}</td>
+	<td class="item-author">{$article->getAuthor()->getLogin()}</td>
+	<td class="item-published"><time datetime="{$article->getPublishedAt()}">{$article->getPublishedAt()|format_date}</time></td>
+	<td class="item-tags">{to_sentence var=$article->getTags() words_connector=" , " last_word_connector=" , "}</td>
+	<td class="item-actions text-right">
 		{capture assign=confirm}{t title=$article->getTitle()|h escape=false}Are you sure to delete article item
 %1?{/t}{/capture}
 

@@ -8,13 +8,13 @@
 
 {else}
 
-	<table class="table table-striped table-sm">
+	<table class="table table-striped table-sm table--tags">
 		<thead>
 			<tr class="table-dark">
-				{sortable key=id}<th>#</th>{/sortable}
-				{sortable key=tag}<th>{t}Tag{/t}</th>{/sortable}
-				{sortable key=created_at}<th>{t}Created at{/t}</th>{/sortable}
-				<th></th>
+				{sortable key=id}<th class="item-id">#</th>{/sortable}
+				{sortable key=tag}<th class="item-title">{t}Tag{/t}</th>{/sortable}
+				{sortable key=created_at}<th class="item-created">{t}Created at{/t}</th>{/sortable}
+				<th class="item-actions"></th>
 			</tr>
 		</thead>
 		<tbody>

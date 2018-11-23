@@ -8,14 +8,14 @@
 
 {else}
 
-	<table class="table table-sm table-striped">
+	<table class="table table-sm table-striped table--articles">
 		<thead>
 			<tr class="table-dark">
-				{sortable key=id}<th>#</th>{/sortable}
-				{sortable key=title}<th>{t}Title{/t}</th>{/sortable}
-				<th>{t}Author{/t}</th>
-				{sortable key=published_at}<th>{t}Date{/t}</th>{/sortable}
-				<th>{t}Tags{/t}</th>
+				{sortable key=id}<th class="item-id">#</th>{/sortable}
+				{sortable key=title}<th class="item-title">{t}Title{/t}</th>{/sortable}
+				<th class="item-author">{t}Author{/t}</th>
+				{sortable key=published_at}<th class="item-published">{t}Date{/t}</th>{/sortable}
+				<th class="item-tags">{t}Tags{/t}</th>
 				<th></th>
 			</tr>
 		</thead>

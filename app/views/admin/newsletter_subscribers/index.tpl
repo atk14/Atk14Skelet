@@ -8,14 +8,15 @@
 
 {else}
 
-	<table class="table table-striped table-sm">
+	<table class="table table-striped table-sm table--newssubscribers">
 		<thead>
 			<tr class="table-dark">
-				{sortable key=id}<th>#</th>{/sortable}
-				{sortable key=email}<th>{t}Email{/t}</th>{/sortable}
-				{sortable key=name}<th>{t}Name{/t}</th>{/sortable}
-				{sortable key=created_at}<th>{t}Subscribed since{/t}</th>{/sortable}
-				<th>{t}IP address{/t}</th>
+				{sortable key=id}<th class="item-id">#</th>{/sortable}
+				{sortable key=email}<th class="item-email">{t}Email{/t}</th>{/sortable}
+				{sortable key=name}<th class="item-title">{t}Name{/t}</th>{/sortable}
+				{sortable key=created_at}<th class="item-created">{t}Subscribed since{/t}</th>{/sortable}
+				<th class="item-addresscreated">{t}IP address{/t}</th>
+				<th class="item-actions"></th>
 			</tr>
 		</thead>
 		<tbody>

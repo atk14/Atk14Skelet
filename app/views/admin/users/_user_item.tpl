@@ -1,12 +1,12 @@
 <tr>
-	<td>{$user->getId()}</td>
-	<td>{$user->getLogin()}</td>
-	<td>{$user->getName()}</td>
-	<td>{$user->getEmail()}</td>
-	<td>{$user->isAdmin()|display_bool}</td>
-	<td>{$user->getCreatedAt()|format_datetime}</td>
-	<td>{$user->getUpdatedAt()|format_datetime}</td>
-	<td class="text-right">
+	<td class="item-id">{$user->getId()}</td>
+	<td class="item-login">{$user->getLogin()}</td>
+	<td class="item-title">{$user->getName()}</td>
+	<td class="item-email">{$user->getEmail()}</td>
+	<td class="item-isadmin">{$user->isAdmin()|display_bool}</td>
+	<td class="item-created">{$user->getCreatedAt()|format_datetime}</td>
+	<td class="item-updated">{$user->getUpdatedAt()|format_datetime}</td>
+	<td class="text-right item-actions">
 			{dropdown_menu}
 				{a action=edit id=$user}{!"user-edit"|icon} {t}Edit{/t}{/a}
 				{a action=edit_password id=$user}{!"key"|icon} {t}Set new password{/t}{/a}

@@ -1,8 +1,8 @@
 <tr>
-	<td>{$tag->getId()}</td>
-	<td>{$tag}</td>
-	<td>{$tag->getCreatedAt()|format_datetime}</td>
-	<td class="text-right">
+	<td class="item-id">{$tag->getId()}</td>
+	<td class="item-title">{$tag}</td>
+	<td class="item-created">{$tag->getCreatedAt()|format_datetime}</td>
+	<td class="text-right item-actions">
 		{dropdown_menu}
 			{a action=edit id=$tag}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 			{if $tag->isDeletable()}
