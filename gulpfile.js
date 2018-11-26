@@ -28,7 +28,7 @@ gulp.task( "styles", function() {
 				"public/styles"
 			]
 		} ) )
-		.pipe( $.autoprefixer() )
+		.pipe( $.autoprefixer( { grid: true } ) )
 		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )

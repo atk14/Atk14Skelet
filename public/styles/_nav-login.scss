@@ -1,11 +1,15 @@
 .nav-login {
 	margin-bottom: $grid-gutter-width/2;
+	
+	// Adjust image height for SVG scaling proplerly
 	.navbar-brand {
 		img {
 			height: 30px;
 			width: auto;
 		}
 	}
+	
+	// No border on hamburger
 	.navbar-toggler {
 		border: none;
 		color: white;
