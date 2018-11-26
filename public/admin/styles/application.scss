@@ -3,7 +3,8 @@
 
 @import "node_modules/bootstrap/scss/functions";
 
-// We may overrdide Bootstrap variables here like this:
+// We may overrdide Bootstrap variables here 
+// (before loading bootstrap_variables) like this:
 // $primary: deeppink;
 // or directly in _bootstrap_variables.scss
 
@@ -13,12 +14,18 @@
 // Application specific variables, overrides bootstrap vars.
 @import "application_variables";
 
+// Bootstrap
 @import "bootstrap";
 
+// Other SCSS
 @import "header";
+
 @import "layout";
+
 @import "tables";
+
 @import "forms";
+
 @import "nav-login";
 
 @import "shared/clearfix";
