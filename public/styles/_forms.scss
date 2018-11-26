@@ -69,6 +69,13 @@ form {
 			grid-area: instantfeedback;
 			justify-self: stretch;
 		}
+		// Two classes added just to get rid of autoprefixer warnings
+		> .dummy-111 {
+			grid-area: bottomleft;
+		}
+		> .dummy-222  {
+			grid-area: middleleft;
+		}
 	}
 }
 
