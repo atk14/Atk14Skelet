@@ -39,6 +39,7 @@
 	{/if}
 
 	{assign var=is_checkbox value=$field->widget->input_type=="checkbox"}
+	{assign var=is_hidden value=$field->widget->input_type=="hidden"}
 
 	{capture assign=invalid_feedback}
 		{if $field->errors()}
@@ -88,8 +89,9 @@
 		{$class}
 	{/normalize_css_class}{/capture}
 
-	{if $is_checkbox}
-		{* TODO: this needs to be refactored *}
+	{if $is_hidden}
+		{!$field->as_widget()}
+	{elseif $is_checkbox}
 		<div class="{$form_group_class}">
 			<div class="form-check custom-control custom-checkbox">
 				{!$field->as_widget($widget_options)|customize_checkbox} {* helper customize_checkbox prida do checkboxu css tridu custom-control-input *}
