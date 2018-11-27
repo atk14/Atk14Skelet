@@ -6,7 +6,7 @@
 
 <tr>
 	<td>
-	\{!"envelope"|icon\}
+	<code>\{!"envelope"|icon\}</code>
 	</td>
 	<td>
 	{!"envelope"|icon}
@@ -15,7 +15,7 @@
 
 <tr>
 	<td>
-	\{!"envelope"|icon:"regular"\}
+		<code>\{!"envelope"|icon:"regular"\}</code>
 	</td>
 	<td>
 	{!"envelope"|icon:"regular"}
@@ -24,7 +24,7 @@
 
 <tr>
 	<td>
-	\{!"envelope"|icon:"solid"\}
+	<code>\{!"envelope"|icon:"solid"\}</code>
 	</td>
 	<td>
 	{!"envelope"|icon:"solid"}
@@ -33,7 +33,7 @@
 
 <tr>
 	<td>
-	\{!"envelope"|icon:"light"\}
+	<code>\{!"envelope"|icon:"light"\}</code>
 	</td>
 	<td>
 	{!"envelope"|icon:"light"}
@@ -42,7 +42,7 @@
 
 <tr>
 	<td>
-	\{!"twitter"|icon\}
+	<code>\{!"twitter"|icon\}</code>
 	</td>
 	<td>
 	{!"twitter"|icon}
@@ -51,7 +51,7 @@
 
 <tr>
 	<td>
-	{h}<span class="fas fa-user"></span>{/h}
+	<code>{h}<span class="fas fa-user"></span>{/h}</code>
 	</td>
 	<td>
 	<span class="fas fa-user"></span>
@@ -60,7 +60,7 @@
 
 <tr>
 	<td>
-	{h}<span class="fab">&#xf099;</span>{/h}
+	<code>{h}<span class="fab">&#xf099;</span>{/h}</code>
 	</td>
 	<td>
 	<span class="fab">&#xf099;</span>

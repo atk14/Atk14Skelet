@@ -1,7 +1,7 @@
 <div class="jumbotron border border-secondary bg-transparent my-5">
 	<div class="row">
 		<div class="col-md-6 d-md-flex flex-column justify-content-center">
-			<h1 class="display-4">{t}Welcome!{/t}</h1>
+			<h2 class="display-4">{t}Welcome!{/t}</h2>
   		<p class="lead">{t escape=no}<em>ATK14 Skelet</em> is a very basic application written on top of <a href="http://atk14.net">the ATK14 Framework</a>.
 			As the Skelet is simple and minimal it may be usefull for developers as a good start point for any other application.{/t}</p>
 		</div>
@@ -11,11 +11,6 @@
 		</div>
 	</div>
 </div>
-
-<h3>Playground</h3>
-<ul>
-	<li>{a action="tests/icons"}Ikony{/a}</li>
-</ul>
 
 <h3>{t}The Skelet contains mainly{/t}</h3>
 <ul>
@@ -65,5 +60,11 @@ git push</code></pre>
 	<li><a href="http://api.atk14.net/">{t}API Reference{/t}</a></li>
 	<li><a href="https://github.com/atk14/Atk14">{t}ATK14 on GitHub{/t}</a></li>
 	<li><a href="https://github.com/atk14/Atk14Skelet">{t}ATK14 Skelet on GitHub{/t}</a></li>
+</ul>
+
+
+<h3>Playground</h3>
+<ul>
+	<li>{a action="tests/icons"}Ikony{/a}</li>
 </ul>
 
