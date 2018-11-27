@@ -61,10 +61,3 @@ git push</code></pre>
 	<li><a href="https://github.com/atk14/Atk14">{t}ATK14 on GitHub{/t}</a></li>
 	<li><a href="https://github.com/atk14/Atk14Skelet">{t}ATK14 Skelet on GitHub{/t}</a></li>
 </ul>
-
-
-<h3>Playground</h3>
-<ul>
-	<li>{a action="tests/icons"}Ikony{/a}</li>
-</ul>
-
