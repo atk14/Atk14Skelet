@@ -17,16 +17,10 @@
 					{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
-							{t escape=no}{$logged_user->getLogin()}{/t}
-							{if $logged_user->isAdmin()}
-								({t}administrator{/t})
-							{/if}
+							{!"user"|icon} {$logged_user->getLogin()}
 						</a>
 						<div class="dropdown-menu">
 							<a href="{$user_profile_url}" class="dropdown-item">{t}Profile{/t}</a>
-							{if $logged_user->isAdmin()}
-								{a action="main/index" namespace="admin" _class="dropdown-item"}{t}Administration{/t}{/a}
-							{/if}
 							<div class="dropdown-divider"></div>
 							{a namespace="" action="logins/destroy" _method=post _class="dropdown-item"}{t}Sign out{/t}{/a}
 						</div>
