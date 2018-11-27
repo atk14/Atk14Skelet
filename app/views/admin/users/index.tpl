@@ -8,17 +8,17 @@
 
 {else}
 
-	<table class="table table-striped">
+	<table class="table table-striped table-sm table--users">
 		<thead>
-			<tr>
-				{sortable key=id}<th>#</th>{/sortable}
-				{sortable key=login}<th>{t}Username{/t}</th>{/sortable}
-				{sortable key=name}<th>{t}Name{/t}</th>{/sortable}
-				{sortable key=email}<th>{t}Email address{/t}</th>{/sortable}
-				{sortable key=is_admin}<th>{t}Is admin?{/t}</th>{/sortable}
-				{sortable key=created_at}<th>{t}Created at{/t}</th>{/sortable}
-				{sortable key=updated_at}<th>{t}Updated at{/t}</th>{/sortable}
-				<th></th>
+			<tr class="table-dark">
+				{sortable key=id}<th class="item-id">#</th>{/sortable}
+				{sortable key=login}<th class="item-login">{t}Username{/t}</th>{/sortable}
+				{sortable key=name}<th class="item-title">{t}Name{/t}</th>{/sortable}
+				{sortable key=email}<th class="item-email">{t}Email address{/t}</th>{/sortable}
+				{sortable key=is_admin}<th class="item-isadmin">{t}Is admin?{/t}</th>{/sortable}
+				{sortable key=created_at}<th class="item-created">{t}Created at{/t}</th>{/sortable}
+				{sortable key=updated_at}<th class="item-updated">{t}Updated at{/t}</th>{/sortable}
+				<th class="item-actions"></th>
 			</tr>
 		</thead>
 

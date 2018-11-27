@@ -4,7 +4,9 @@ var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 require( "./gulpfile-admin" );
 
-var vendorStyles = [];
+var vendorStyles = [
+	"node_modules/@fortawesome/fontawesome-free/css/all.css"
+];
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
@@ -26,7 +28,7 @@ gulp.task( "styles", function() {
 				"public/styles"
 			]
 		} ) )
-		.pipe( $.autoprefixer() )
+		.pipe( $.autoprefixer( { grid: true } ) )
 		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
@@ -85,6 +87,8 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
+	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
+		.pipe( gulp.dest( "public/dist/webfonts" ) );
 	gulp.src( "public/fonts/*" )
 		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/images/*" )
