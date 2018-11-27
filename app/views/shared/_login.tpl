@@ -1,6 +1,13 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-md nav-login">
 	<div class="container">
-		{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}<img src="{$public}images/atk14opt-transp.svg" alt="ATK14 Skelet" title="{t}The ATK14 Skelet at age 5{/t}" class="img-fluid">{/a}
+		{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
+		{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}
+			{if $controller=="main" && $action=="index" && $namespace==""}
+				<h1>{$appname}</h1>
+			{else}
+				<span class="h1">{$appname}</span>
+			{/if}
+		{/a}		
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			{!"bars"|icon}
 		</button>

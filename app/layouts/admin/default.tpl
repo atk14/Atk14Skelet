@@ -61,7 +61,6 @@
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
 		{render partial="shared/login"}
 		<div class="container-fluid{if $section_navigation} has-nav-section{/if}">
-			{render partial="shared/layout/header"}
 			{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
 				{render partial="shared/breadcrumbs"}
 			{/if}
