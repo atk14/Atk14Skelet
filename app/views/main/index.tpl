@@ -1,14 +1,17 @@
-<ul class="list list-unstylled">
-	<li>{a action="tests/icons"}Ikony{/a}</li>
-</ul>
-
 <div class="row">
 	<div class="col-sm-6">
 		<h1>{t}Welcome!{/t}</h1>
+
 		<p>
 			{t escape=no}<em>ATK14 Skelet</em> is a very basic application written on top of <a href="http://atk14.net">the ATK14 Framework</a>.
 			As the Skelet is simple and minimal it may be usefull for developers as a good start point for any other application.{/t}
 		</p>
+
+		<h3>Playground</h3>
+		<ul>
+			<li>{a action="tests/icons"}Ikony{/a}</li>
+		</ul>
+
 		<h3>{t}The Skelet contains mainly{/t}</h3>
 		<ul>
 			<li>{a action="main/about"}{t}About page{/t}{/a}</li>
