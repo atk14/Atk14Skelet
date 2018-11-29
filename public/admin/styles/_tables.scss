@@ -7,10 +7,10 @@ tr.table-dark {
 		border-bottom: none;
 		a {
 			color: white;
-			border-bottom: 1px solid $gray-300;
+			border-bottom: 1px solid $table-border-color;
 			&:hover {
 				text-decoration: none;
-				border-bottom: 2px solid $gray-300;
+				border-bottom: 2px solid $table-border-color;
 			}
 		}
 	}
@@ -19,7 +19,7 @@ tr.table-dark {
 // Border under table
 
 table.table {
-	border-bottom: 1px solid $gray-300;
+	border-bottom: 1px solid $table-border-color;
 }
 
 // Responsive tables - display all as blocks
@@ -45,7 +45,7 @@ table.table {
 				}
 			}
 			th {
-				border-bottom: 1px solid $gray-300;
+				border-bottom: 1px solid $table-border-color;
 				border-top: none;
 			}
 		}
