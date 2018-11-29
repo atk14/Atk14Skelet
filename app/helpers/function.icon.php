@@ -1,5 +1,5 @@
 <?php
-require(__DIR__ . "/modifier.icon.php");
+require_once(__DIR__ . "/modifier.icon.php");
 
 /**
  *	{icon glyph="plus"}
