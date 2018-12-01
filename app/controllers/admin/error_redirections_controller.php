@@ -29,6 +29,10 @@ class ErrorRedirectionsController extends AdminController {
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			if(ErrorRedirection::FindFirst("source_url",$d["source_url"])){
+				$this->form->set_error("source_url",_("Another redirection with the same source URL already exists"));
+				return;
+			}
 			ErrorRedirection::CreateNewRecord($d);
 			ErrorRedirection::RefreshCache();
 			$this->flash->success(_("The redirection has been created successfully"));
@@ -43,6 +47,10 @@ class ErrorRedirectionsController extends AdminController {
 		$this->form->set_initial($this->error_redirection);
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			if(ErrorRedirection::FindFirst("source_url=:source_url AND id!=:id",array(":source_url" => $d["source_url"], ":id" => $this->error_redirection))){
+				$this->form->set_error("source_url",_("Another redirection with the same source URL already exists"));
+				return;
+			}
 			$this->error_redirection->s($d);
 			ErrorRedirection::RefreshCache();
 			$this->flash->success(_("The redirection has been updated successfully"));
