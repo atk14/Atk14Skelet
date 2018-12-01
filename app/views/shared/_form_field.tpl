@@ -59,7 +59,7 @@
 	{/capture}
 
 	{capture assign=optional_feedback}
-		{if !$form->is_bound && !$field->required}
+		{if !$form->is_bound && !$field->required && !$is_checkbox}
 			<div class="feedback feedback--optional"><ul class="list"><li class="list__item">{t}optional{/t}</li></ul></div>
 		{/if}
 	{/capture}
