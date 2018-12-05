@@ -58,9 +58,9 @@
 		{/if}
 	{/capture}
 
-	{capture assign=optional_feedback}
-		{if !$form->is_bound && !$field->required && !$is_checkbox}
-			<div class="feedback feedback--optional"><ul class="list"><li class="list__item">{t}optional{/t}</li></ul></div>
+	{capture assign=tip_optional}
+		{if !$form->is_bound && !$field->required}
+			<small class="tip tip--optional">({t}Optional{/t})</small>
 		{/if}
 	{/capture}
 
@@ -102,12 +102,11 @@
 			{if $render_helpblock==true}{!$help_text}{/if}
 			{!$invalid_feedback}
 			{!$valid_feedback}
-			{!$optional_feedback}
 		</div>
 	{else}
 		<div class="{$form_group_class}">
 			{if !$no_label_rendering}
-			<label for="{$field->id_for_label()}" class="control-label">{$field->label}</label>
+			<label for="{$field->id_for_label()}" class="control-label">{$field->label}{!$tip_optional}</label>
 			{/if}
 			{if $addon}
 				<div class="input-group">
@@ -124,7 +123,6 @@
 
 			{!$invalid_feedback}
 			{!$valid_feedback}
-			{!$optional_feedback}
 
 			{if $field->hints && !$field->hint_in_placeholder}
 				<div class="help-hint d-none" data-title="{t}Examples:{/t}">
