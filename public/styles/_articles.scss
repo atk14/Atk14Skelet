@@ -13,14 +13,6 @@ h1 {
 	}
 }
 
-.body_main_index {
-	.body {
-		h2, h3 {
-			margin-top: $grid-gutter-width*2;
-		}
-	}
-}
-
 .article-items {
 	@include media-breakpoint-up(md){
 		display: flex;

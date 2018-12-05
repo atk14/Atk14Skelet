@@ -1,0 +1,51 @@
+// Draw tree branches in nested lists
+ul.list--tree {
+	
+	$lineWidth: 3px;
+	$lineColor: $gray-300;
+	$lineRadius: 12px;
+	$bulletWidth: 20px;
+	$itemPaddingY: 0.15em;
+	
+	list-style: none;
+	padding: 0;
+	padding-left: $bulletWidth + 5px;
+	
+	li {
+		position: relative;
+		padding: $itemPaddingY 0 $itemPaddingY*4 0.5em;
+		margin: 0;
+		
+		&:before {
+			position: absolute;
+			left: 0-$bulletWidth;
+			top: 0;
+			content: '';
+			width: $bulletWidth;
+			height: 16px;
+			border-left: $lineWidth solid $lineColor;
+			border-bottom: $lineWidth solid $lineColor;
+			border-radius: 0 0 0 $lineRadius;
+		}
+		
+		&:after {
+			position: absolute;
+			left: 0-$bulletWidth;
+			top: 0;
+			content: '';
+			width: $bulletWidth;
+			height: 100%;
+			border-left: $lineWidth solid $lineColor;
+		}
+		
+		
+		&:last-child:after {
+			border-left: none;
+		}
+	}
+	
+	h1, h2, h3, h4, p {
+		margin-bottom: 0;
+	}
+	
+}

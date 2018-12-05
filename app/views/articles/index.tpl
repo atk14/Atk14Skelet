@@ -1,5 +1,6 @@
-<h1>{!$page_title}</h1>
-
+<header>
+	<h1>{!$page_title}</h1>
+</header>
 {if $finder->isEmpty()}
 
 	<p>{t}At the moment there are no news.{/t}</p>

@@ -14,7 +14,7 @@
 
 {if empty($class)}
 	{if $form && $form->get_method()=="get"}
-		{assign var=class value="btn btn-default"}
+		{assign var=class value="btn btn-outline-primary"}
 	{else}
 		{assign var=class value="btn btn-primary"}
 	{/if}

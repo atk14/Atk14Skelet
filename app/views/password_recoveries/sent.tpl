@@ -1,4 +1,6 @@
-<h1>{$page_title}</h1>
+<header>
+	<h1>{$page_title}</h1>
+</header>
 
 <div class="alert alert-success">
 	<p>{t}The password recovery link has been sent to your email address.{/t}</p>

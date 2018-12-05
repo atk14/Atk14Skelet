@@ -1,5 +1,8 @@
-<h1>{a action="main/index"}{$namespace}{/a} &rarr; {$page_title}</h1>
+<header>
+	<h1>{a action="main/index"}{$namespace}{/a} &rarr; {$page_title}</h1>
+</header>
 
+<section>
 {if $documentation}
 	{!$documentation}
 {else}
@@ -7,3 +10,4 @@
 {/if}
 
 {render partial="shared/form"}
+</section>

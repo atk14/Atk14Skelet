@@ -6,14 +6,15 @@
 			{!"tag"|icon}
 			{foreach $tags as $tag}
 				{if !$tag@first}/{/if}
-				{a action="articles/index" tag_id=$tag}{$tag}{/a}
+				{a action="articles/index" tag_id=$tag _class="badge badge-primary"}{$tag}{/a}
 			{/foreach}
 			</p>
 		{/if}
 		<p class="muted">{t author=$article->getAuthor()->getName()|h date=$article->getPublishedAt() date_human=$article->getPublishedAt()|format_date escape=no}Posted by <em>%1</em> on <time datetime="%2">%3</time>{/t}</p>
 	</header>
-
-	{!$article->getBody()|markdown}
+	<section class="article-body">
+		{!$article->getBody()|markdown}
+	</section>
 </article>
 
 {if $older_article || $newer_article}
