@@ -24,10 +24,19 @@ form {
 			@extend .text-muted;
 			font-size: 0.85rem;
 			line-height: 1.1;
+			ul {
+				margin-bottom: 0;
+				padding-left: 1rem;
+			}
 		}
 		> .alert {
 			padding: 0.1rem 0.25rem;
 			margin-bottom: 0;
+		}
+		label  {
+			.tip {
+				@extend .text-muted;
+			}
 		}
 	}
 }
@@ -46,7 +55,7 @@ form {
 				'bottomleft instantfeedback help';
 			grid-gap: 0 $grid-gutter-width/2;
 			margin: 0;
-			padding: 8px 0;
+			border-top: 1px solid $gray-200;
 		}
 		@include media-breakpoint-up(lg){
 			grid-template-columns: 2fr 5fr 3fr;
@@ -88,8 +97,7 @@ form {
 // Lines between form-groups for better readiblity
 form {
 	.form-group {
-		border-top: 1px solid $gray-200;
-		padding-top: 0.5rem;
+		padding: 1rem 0;
 	}
 }
 

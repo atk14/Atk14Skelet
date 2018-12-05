@@ -27,12 +27,14 @@
 
 				// Markdown Editor requires Ace
 				ace.config.set( "basePath", "/public/admin/dist/scripts/ace/" );
-				$( "textarea[data-provide=markdown]" ).markdownEditor( {
-					preview: true,
-					onPreview: function( content, callback ) {
-						var html = markdown.toHTML( content );
-						callback( html );
-					}
+				$.each( $( "textarea[data-provide=markdown]" ), function( i, el ) {
+					$( el ).markdownEditor( {
+						preview: true,
+						onPreview: function( content, callback ) {
+							var html = markdown.toHTML( content );
+							callback( html );
+						}
+					} );
 				} );
 			}
 		},
