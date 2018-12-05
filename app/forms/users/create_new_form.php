@@ -17,6 +17,66 @@ class CreateNewForm extends UsersForm{
 			)));
 		}
 
+		//
+
+		$this->add_field("delivery_street", new CharField([
+			"label" => "Street",
+			"required" => false,
+			"max_length" => 255,
+		]));
+		$this->add_field("delivery_city", new CharField([
+			"label" => "City",
+			"required" => false,
+			"max_length" => 255,
+		]));
+		$this->add_field("delivery_zip", new CharField([
+			"label" => "Zip",
+			"required" => false,
+			"max_length" => 255,
+		]));
+
+		$this->add_field("when_you_wake_up", new ChoiceField(array(
+			"choices" => [
+				"" => "- please select -",
+				"morning" => "In the morning",
+				"evening" => "In the evening",
+			],
+		)));
+		
+		$this->add_field("favourite_colors", new MultipleChoiceField(array(
+			"choices" => ["red" => "Red", "green" => "Green", "blue" => "Blue", "black" => "Black", "orange" => "Orange"]
+		)));
+
+		$this->add_field("gender", new ChoiceField(array(
+			"choices" => [
+				"m" => "boy",
+				"f" => "girl",
+			],
+			"widget" => new RadioSelect(),
+		)));
+
+		$this->add_field("interests", new MultipleChoiceField([
+			"choices" => [
+				"computers" => "Computers",
+				"drinking" => "Drinking",
+				"sport" => "Sport",
+			],
+			"required" => false,
+			"widget" => new CheckboxSelectMultiple(),
+		]));
+
+		$this->add_field("notice", new TextField([
+			"label" => _("Notice"),
+			"required" => false,
+		]));
+
+		$this->add_field("confirmation", new ConfirmationField(array(
+			"label" => _("I confirm everything"),
+			"help_text" => _('You must confirm out terms & conditions at <a href="http://example.com/">example.com</a>'),
+			"required" => false,
+		)));
+
+		$this->set_attr("novalidate","novalidate");
 		$this->enable_csrf_protection();
 		$this->set_button_text(_("Register"));
 	}
@@ -33,6 +93,7 @@ class CreateNewForm extends UsersForm{
 	}
 
 
+	/*
 	function js_validator(){
 		$js_v = parent::js_validator();
 
@@ -49,4 +110,5 @@ class CreateNewForm extends UsersForm{
 	
 		return $js_v;
 	}
+	*/
 }
