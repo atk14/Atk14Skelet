@@ -21,5 +21,5 @@
 {/if}
 
 <div class="form-group">
-	<button type="submit" class="{$class}">{$button_text}</button>
+	<span class="button-container"><button type="submit" class="{$class}">{$button_text}</button></span>
 </div>
