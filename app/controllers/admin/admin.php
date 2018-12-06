@@ -1,5 +1,5 @@
 <?php
-require_once(dirname(__FILE__)."/../application_base.php");
+require_once(__DIR__."/../application_base.php");
 
 class AdminController extends ApplicationBaseController{
 	function _application_before_filter(){

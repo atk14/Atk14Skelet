@@ -1,7 +1,7 @@
 <?php
-require_once(dirname(__FILE__)."/../application_base.php");
-require_once(dirname(__FILE__)."/../application_rest_api.php");
-require_once(dirname(__FILE__)."/../../../lib/markdown.php");
+require_once(__DIR__."/../application_base.php");
+require_once(__DIR__."/../application_rest_api.php");
+require_once(__DIR__."/../../../lib/markdown.php");
 
 class ApiController extends ApplicationRestApiController{
 	function _dump_logged_user(){
@@ -24,7 +24,7 @@ class ApiController extends ApplicationRestApiController{
 		if($this->controller=="main" && $this->action=="index"){
 			$this->breadcrumbs[] = $this->namespace; // "api"
 		}else{
-			$this->breadcrumbs[] = array($this->namespace,$this->_link_to(array("namespace" => $this->namespace, "controller" => "main", "action" => "index")));
+			$this->breadcrumbs[] = array($this->namespace,$this->_link_to(array("action" => "main/index")));
 			$this->breadcrumbs[] = "$this->controller/$this->action"; // "logins/detail"
 		}
 	}
