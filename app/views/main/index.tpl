@@ -40,15 +40,15 @@
 		<p>{t}Are you planning to kick up a new project from the Atk14Skelet? Great! Just run the following commands.{/t}</p>
 
 		<pre><code>cd path/to/projects/
-		git clone https://github.com/atk14/Atk14Skelet.git my_project
-		cd my_project
-		git submodule init
-		git submodule update
-		./local_scripts/update_project_name
-		git add .
-		git commit -m "Updating project name to My Project"
-		git remote set-url origin git@my.server.com:my_project.git
-		git push</code></pre>
+git clone https://github.com/atk14/Atk14Skelet.git my_project
+cd my_project
+git submodule init
+git submodule update
+./local_scripts/update_project_name
+git add .
+git commit -m "Updating project name to My Project"
+git remote set-url origin git@my.server.com:my_project.git
+git push</code></pre>
 
 		<p>
 			{t escape=no}You can find more information in <a href="https://github.com/atk14/Atk14Skelet/blob/master/README.md#installation">the installation instructions.</a>{/t}
