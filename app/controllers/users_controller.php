@@ -5,11 +5,6 @@ class UsersController extends ApplicationController{
 	}
 
 	function create_new(){
-		$form2 = $this->_get_form("CreateNewForm");
-		$form2->set_prefix("form2");
-		$form2->set_attr(["id" => "form2_users_create_new"]);
-		$this->tpl_data["form2"] = $form2;
-
 		if($this->logged_user){
 			$this->flash->warning(_("To register as a new user, sign out first"));
 			$this->_redirect_to(array(

@@ -23,15 +23,11 @@ class CreateNewForm extends UsersForm{
 			"label" => "Street",
 			"required" => false,
 			"max_length" => 255,
-			"help_text" => "Enter your street",
-			"hint" => "Elm Street",
 		]));
 		$this->add_field("delivery_city", new CharField([
 			"label" => "City",
 			"required" => false,
 			"max_length" => 255,
-			"help_text" => "Enter your city",
-			"hints" => array("Prague", "Bratislava"),
 		]));
 		$this->add_field("delivery_zip", new CharField([
 			"label" => "Zip",
@@ -45,7 +41,6 @@ class CreateNewForm extends UsersForm{
 				"morning" => "In the morning",
 				"evening" => "In the evening",
 			],
-			"help_text" => "Select the right option",
 		)));
 		
 		$this->add_field("favourite_colors", new MultipleChoiceField(array(
@@ -58,8 +53,6 @@ class CreateNewForm extends UsersForm{
 				"f" => "girl",
 			],
 			"widget" => new RadioSelect(),
-			"required" => false,
-			"help_text" => "Are you a man or woman or something?"
 		)));
 
 		$this->add_field("interests", new MultipleChoiceField([
@@ -70,19 +63,11 @@ class CreateNewForm extends UsersForm{
 			],
 			"required" => false,
 			"widget" => new CheckboxSelectMultiple(),
-			"help_text" => "What are you interested in?"
-		]));
-
-		$this->add_field("image", new ImageField([
-			"label" => "Your photo",
-			"help_text" => "Give us some fresh photo with a nice person on it.<br>Technical requirements:<ul><li>format: jpeg, gif or png</li><li>max size: 200x200</li></lu>",
-			"required" => false,
 		]));
 
 		$this->add_field("notice", new TextField([
 			"label" => _("Notice"),
 			"required" => false,
-			"help_text" => "Did you miss something? Let us know!"
 		]));
 
 		$this->add_field("confirmation", new ConfirmationField(array(
