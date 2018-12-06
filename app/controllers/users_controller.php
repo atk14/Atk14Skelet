@@ -16,8 +16,6 @@ class UsersController extends ApplicationController{
 		}
 		$this->page_title = $this->breadcrumbs[] = _("New user registration");
 
-		//$this->tpl_data["js_validator"] = $jv = $this->form->js_validator();
-
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$d["registered_from_ip_addr"] = $this->request->getRemoteAddr();
 			$d["password"] = MyBlowfish::GetHash($d["password"]); // Make sure to encrypt password which even looks like a proper blowfish hash! :)
