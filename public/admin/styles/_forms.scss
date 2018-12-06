@@ -1,0 +1,113 @@
+// Some additional styling form elements
+
+form {
+	.form-group {
+		> ul.list--radios, > ul.list--checkboxes {
+			@extend .list-unstyled;
+			margin-bottom: 0;
+		}
+		> .feedback {
+			margin-top: 0.1rem;
+			ul {
+				@extend .list-unstyled;
+				margin-bottom: 0;
+			}
+			&.feedback--invalid {
+				color: $danger;
+			}
+			&.feedback--optional {
+				@extend .text-muted;
+				font-size: 0.85rem;
+			}
+		}
+		> .help-block {
+			@extend .text-muted;
+			font-size: 0.85rem;
+			line-height: 1.1;
+		}
+		> .alert {
+			padding: 0.1rem 0.25rem;
+			margin-bottom: 0;
+		}
+	}
+}
+
+// Applies CSS grid to .form-group to create horizontal form.
+
+.form-horizontal, .fieldset-horizontal {
+	.form-group {
+		@include media-breakpoint-up(sm){
+			display: grid;
+			grid-template-columns: 3fr 4fr 5fr;
+			grid-template-rows: auto auto auto;
+			grid-template-areas: 
+				'label control help'
+				'middleleft instantfeedback instantfeedback'
+				'bottomleft feedback feedback';
+			grid-gap: 0 $grid-gutter-width/2;
+			margin: 0;
+			padding: 8px 0;
+		}
+		> label {
+			padding-top: calc(.375rem + 1px);
+			line-height: 1.5;
+			grid-area: label;
+		}
+		> .form-control, .custom-control, > .btn {
+			grid-area: control;
+		}
+		> ul.list--radios, > ul.list--checkboxes {
+			grid-area: control;
+		}
+		> .feedback {
+			grid-area: feedback;
+		}
+		> .help-block {
+			grid-area: help;
+			padding-top: 0.75rem;
+		}
+		> .alert {
+			grid-area: instantfeedback;
+			justify-self: stretch;
+		}
+		// Two classes added just to get rid of autoprefixer warnings
+		> .dummy-111 {
+			grid-area: bottomleft;
+		}
+		> .dummy-222  {
+			grid-area: middleleft;
+		}
+	}
+}
+
+
+// validation states
+form {
+	.form-group {
+		&.form-group--has-error {
+			.form-control, .list--checkboxes, .list--radios {
+				border: 1px solid $danger;
+			}
+			label {
+				color: $danger;
+			}
+		}
+		&.form-group--is-valid {
+			.form-control {
+				border: 1px solid $success;
+			}
+		}
+	}
+}
+
+// search form
+.form-search {
+	@extend .form-inline;
+	margin-bottom: 1rem;
+	input {
+		margin-right: 0.5em;
+		@include media-breakpoint-down(xs){
+			margin-bottom: 0.5rem;
+		}
+	}
+}

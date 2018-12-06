@@ -1,7 +1,7 @@
-<ul class="nav nav-pills nav-stacked">
+<ul class="nav nav-pills flex-column">
 	{foreach $section_navigation as $item}
-		<li{if $item->isActive()} class="active"{/if}>
-			<a href="{$item->getUrl()}">{$item->getTitle()}</a>
+		<li class="nav-item">
+			<a class="nav-link{if $item->isActive()} active{/if}" href="{$item->getUrl()}">{$item->getTitle()}</a>
 		</li>
 	{/foreach}
 </ul>

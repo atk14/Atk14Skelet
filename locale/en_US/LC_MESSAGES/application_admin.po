@@ -277,7 +277,7 @@ msgid "Body"
 msgstr ""
 
 #: ../app/forms/admin/articles/articles_form.php:11
-msgid "Mardown format is expected"
+msgid "Markdown format is expected"
 msgstr ""
 
 #: ../app/forms/admin/articles/articles_form.php:15

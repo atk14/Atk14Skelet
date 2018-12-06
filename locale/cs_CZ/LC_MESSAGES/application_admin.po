@@ -288,7 +288,7 @@ msgid "Body"
 msgstr "Tělo"
 
 #: ../app/forms/admin/articles/articles_form.php:11
-msgid "Mardown format is expected"
+msgid "Markdown format is expected"
 msgstr "Je očekáván formát Markdown"
 
 #: ../app/forms/admin/articles/articles_form.php:15

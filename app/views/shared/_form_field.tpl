@@ -39,38 +39,75 @@
 	{/if}
 
 	{assign var=is_checkbox value=$field->widget->input_type=="checkbox"}
+	{assign var=is_hidden value=$field->widget->input_type=="hidden"}
 
-	{capture assign=errors}
+	{capture assign=invalid_feedback}
 		{if $field->errors()}
-			<ul class="help-block">
+		<div class="feedback feedback--invalid">
+			<ul class="list">
 				{foreach from=$field->errors() item=err_item}
-					<li>{!$err_item}</li>
+					<li class="list__item">{!"exclamation-circle"|icon} {!$err_item}</li>
 				{/foreach}
 			</ul>
+		</div>
+		{/if}
+	{/capture}
+	{capture assign=valid_feedback}
+		{if $form->is_bound && !$field->errors()}
+			<div class="feedback feedback--valid"><span class="sr-only">{t}OK{/t}</span></div>
+		{/if}
+	{/capture}
+
+	{capture assign=tip_optional}
+		{if !$form->is_bound && !$field->required}
+			<small class="tip tip--optional">({t}Optional{/t})</small>
 		{/if}
 	{/capture}
 
 	{capture assign=help_text}
 		{if $field->help_text}
-			<div class="help-block">{!$field->help_text}</div>
+			<div class="form-text help-block">{!$field->help_text}</div>
 		{/if}
 	{/capture}
 
-	{if $is_checkbox}
-		{* TODO: this needs to be refactored *}
-		<div class="checkbox form-group{if $field->required} form-group-required{/if}{if $field->errors() || $class} {trim}{if $field->errors()} has-error{/if}{if $class} {$class}{/if}{/trim}{/if}">
-			<label for="{$field->id_for_label()}">
-				{!$field->as_widget()} {$field->label}
-			</label>
+	{assign widget_options []}
+	{assign render_helpblock !!true}
+	{if $helptext_as=="popover"}
+		{if $field->help_text}
+			{assign widget_options ["attrs" => ["data-toggle" => "popover", "data-container" => "body", "data-placement" => "auto" , "data-fallbackPlacement" => "flip", "data-boundary" => "viewport", "data-content" => trim($field->help_text), "data-trigger" => "focus", "data-html" => "true"]]}
+		{/if}
+		{assign render_helpblock !!false}
+	{/if}
 
-			{!$help_text}
+	{capture assign=form_group_class}{normalize_css_class}
+		form-group
+		{if $is_checkbox}form-group--checkbox{/if}
+		form-group--{$field->id_for_label()}
+		{if $field->required}form-group--required{else}form-group--optional{/if}
+		{if $field->errors()}form-group--has-error{/if}
+		{if $form->is_bound && !$field->errors()}form-group--is-valid{/if}
+		{$class}
+	{/normalize_css_class}{/capture}
 
-			{!$errors}
+	{if $is_hidden}
+		{!$field->as_widget()}
+	{elseif $is_checkbox}
+		<div class="{$form_group_class}">
+			<div class="form-check custom-control custom-checkbox">
+				{!$field->as_widget($widget_options)|customize_checkbox} {* helper customize_checkbox prida do checkboxu css tridu custom-control-input *}
+				<label class="form-check-label custom-control-label" for="{$field->id_for_label()}">
+					{$field->label}
+				</label>
+			</div>
+			{if $render_helpblock==true}{!$help_text}{/if}
+			{!$invalid_feedback}
+			{!$valid_feedback}
 		</div>
 	{else}
-		<div class="form-group{if $field->required} form-group-required{/if}{if $field->errors() || $class} {trim}{if $field->errors()} has-error{/if}{if $class} {$class}{/if}{/trim}{/if}">
-
-			<label for="{$field->id_for_label()}" class="control-label">{$field->label}</label>
+		<div class="{$form_group_class}">
+			{if !$no_label_rendering}
+			<label for="{$field->id_for_label()}" class="control-label">{$field->label}{!$tip_optional}</label>
+			{/if}
 			{if $addon}
 				<div class="input-group">
 					<div class="input-group-addon">
@@ -79,15 +116,16 @@
 					{!$field->as_widget()}
 				</div>
 			{else}
-				{!$field->as_widget()}
+				{!$field->as_widget($widget_options)}
 			{/if}
 
-			{!$help_text}
+			{if $render_helpblock==true}{!$help_text}{/if}
 
-			{!$errors}
+			{!$invalid_feedback}
+			{!$valid_feedback}
 
 			{if $field->hints && !$field->hint_in_placeholder}
-				<div class="help-hint hidden" data-title="{t}Examples:{/t}">
+				<div class="help-hint d-none" data-title="{t}Examples:{/t}">
 					<ul class="list-unstyled">
 						{foreach $field->hints as $hint}
 							<li>{!$hint}</li>

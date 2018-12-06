@@ -10,5 +10,5 @@
 
 {form _class="form-search"}
 	{!$form.search}
-	<button type="submit" class="btn">{$button_text}</button>
+	<button type="submit" class="btn btn-secondary">{$button_text}</button>
 {/form}

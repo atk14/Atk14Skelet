@@ -32,20 +32,19 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	$content = preg_replace('/(<\/a>)\s*(<a)/s','\1%SEPARATOR%\2',$content);
 
 	$lines = array();
+	$first_line = "";
 	foreach(explode('%SEPARATOR%',$content) as $line){
 		$line = trim($line);
 		if(!strlen($line)){ continue; }
-		$lines[] = $line;
-	}
 
-	// Herdcoding class="btn btn-default" to the first <a></a>
-	$first_line = array_shift($lines);
-	if(preg_match('/<a\s[^>]*class="/',$first_line)){
-		// <a href=".." class="bold">Detail</a> -> <a href=".." class="bold btn btn-default">Detail</a>
-		$first_line = preg_replace('/(<a\s[^>]*\bclass="[^"]*)"/','\1 btn btn-default"',$first_line);
-	}else{
-		// <a href="..">Detail</a> -> <a href=".." class="btn btn-default">Detail</a>
-		$first_line = preg_replace('/(<a\s[^>]*)>/','\1 class="btn btn-default">',$first_line);
+		if(!$first_line){
+			$line = _smarty_block_dropdown_menu_add_class_to_line($line,"btn btn-outline-primary btn-sm");
+			$first_line = $line;
+			continue;
+		}
+
+		$line = _smarty_block_dropdown_menu_add_class_to_line($line,"dropdown-item");
+		$lines[] = $line;
 	}
 
 	$original_smarty_vars = $smarty->getTemplateVars();
@@ -59,4 +58,21 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	$smarty->assign($original_smarty_vars);
 
 	return $out;
+}
+
+/**
+ * Hardocing the given CSS class into a <a> element
+ *
+ *	$line = _smarty_block_dropdown_menu_add_class_to_line($line,"dropdown-item"); // '<a href="/">Root</a>' -> '<a href="/" class="dropdown-item"></a>'
+ *
+ */
+function _smarty_block_dropdown_menu_add_class_to_line($line,$class){
+	if(preg_match('/<a\s[^>]*class="/',$line)){
+		// <a href=".." class="bold">Detail</a> -> <a href=".." class="bold btn btn-default">Detail</a>
+		$line = preg_replace('/(<a\s[^>]*\bclass="[^"]*)"/','\1 '.$class.'"',$line);
+	}else{
+		// <a href="..">Detail</a> -> <a href=".." class="btn btn-default">Detail</a>
+		$line = preg_replace('/(<a\s[^>]*)>/','\1 class="'.$class.'">',$line);
+	}
+	return $line;
 }

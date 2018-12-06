@@ -1,0 +1,16 @@
+// Clearfix
+// ========
+//
+// Easily clear floats by adding .clearfix to the parent element. Can also be used as a mixin.
+
+@mixin clearfix() {
+  &::after {
+    display: block;
+    content: "";
+    clear: both;
+  }
+}
+
+.clearfix {
+  @include clearfix;
+}

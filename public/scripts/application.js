@@ -53,7 +53,7 @@
 				 */
 				var $login = $( "#id_login" ),
 					m = "Username is already taken.",
-					h = "<p class='alert alert-danger col-sm-4 col-sm-offset-2'>" + m + "</p>",
+					h = "<p class='alert alert-danger'>" + m + "</p>",
 					$status = $( h ).hide().appendTo( $login.closest( ".form-group" ) );
 
 				$login.on( "change", function() {
