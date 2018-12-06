@@ -7,7 +7,6 @@ First official release.
 
 Key features:
 
+- Compatible with PHP from 5.3 to 7.2
 - Boostrap 3
 - Js packages installed by npm (not by bower)
-
-
