@@ -1,7 +1,7 @@
 {
   "name": "atk14-skelet",
   "title": "ATK14 Skelet Application",
-  "version": "0.1.0",
+  "version": "1.0.0",
   "description": "Front-end assets for ATK14 Skelet application.",
   "homepage": "http://skelet.atk14.net/",
   "repository": {
@@ -24,7 +24,6 @@
   ],
   "license": "WTFPL",
   "readmeFilename": "README.md",
-  "gitHead": "08020875c22b1655ab0c9e5495a44df286687240",
   "bugs": {
     "url": "https://github.com/atk14/Atk14Skelet/issues"
   },
