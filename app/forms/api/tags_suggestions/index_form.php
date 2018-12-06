@@ -4,6 +4,7 @@ class IndexForm extends ApiForm{
 		$this->add_field("q",new CharField(array(
 			"help_text" => _("Search term"),
 			"max_length" => 20,
+			"required" => false,
 		)));
 	}
 }
