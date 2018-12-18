@@ -57,9 +57,13 @@ class PasswordRecoveriesController extends ApplicationController{
 
 	function sent(){ }
 
-	function invalid_url(){ }
+	function invalid_url(){
+		$this->response->setStatusCode(404);
+	}
 
-	function expired_recovery(){ }
+	function expired_recovery(){
+		$this->response->setStatusCode(404);
+	}
 
 	function _before_filter(){
 		$this->breadcrumbs[] = array(_("Sign in"),$this->_link_to("logins/create_new"));
