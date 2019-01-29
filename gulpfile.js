@@ -68,17 +68,13 @@ gulp.task( "scripts", function() {
 		.pipe( browserSync.stream() );
 } );
 
-// Lint
+// Lint & Code style
 gulp.task( "lint", function() {
 	return gulp.src( [ "public/scripts/**/*.js", "gulpfile.js" ] )
-		.pipe( $.jshint() )
-		.pipe( $.jshint.reporter( "jshint-stylish" ) );
-} );
-
-// Code style
-gulp.task( "jscs", function() {
-	return gulp.src( [ "public/scripts/**/*.js", "gulpfile.js" ] )
-		.pipe( $.jscs() );
+		//.pipe( $.jshint() )
+		.pipe( $.eslint() )
+		.pipe( $.eslint.format() )
+		.pipe( $.eslint.failAfterError() );
 } );
 
 // Copy
@@ -122,7 +118,6 @@ gulp.task( "serve", [ "styles" ], function() {
 // Build
 var buildTasks = [
 	"lint",
-	"jscs",
 	"styles",
 	"styles-vendor",
 	"scripts",
