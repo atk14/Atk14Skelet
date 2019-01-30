@@ -1,6 +1,8 @@
 /* global window */
 ( function( window, $, undefined ) {
 	var document = window.document,
+		ace = window.ace,
+		markdown = window.markdown,
 
 	ADMIN = {
 
