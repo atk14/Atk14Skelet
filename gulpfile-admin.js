@@ -76,14 +76,9 @@ gulp.task( "scripts-admin", function() {
 // Lint
 gulp.task( "lint-admin", function() {
 	return gulp.src( [ "public/admin/scripts/**/*.js", "gulpfile-admin.js" ] )
-		.pipe( $.jshint() )
-		.pipe( $.jshint.reporter( "jshint-stylish" ) );
-} );
-
-// Code style
-gulp.task( "jscs-admin", function() {
-	return gulp.src( [ "public/admin/scripts/**/*.js", "gulpfile-admin.js" ] )
-		.pipe( $.jscs() );
+		.pipe( $.eslint() )
+		.pipe( $.eslint.format() )
+		.pipe( $.eslint.failAfterError() );
 } );
 
 // Copy
@@ -132,7 +127,6 @@ gulp.task( "serve-admin", [ "styles-admin", "styles-vendor-admin" ], function() 
 // Build
 var buildTasks = [
 	"lint-admin",
-	"jscs-admin",
 	"styles-admin",
 	"styles-vendor-admin",
 	"scripts-admin",
