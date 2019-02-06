@@ -28,8 +28,14 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	}
 
 	$smarty = atk14_get_smarty_from_template($template);
+	$USING_BOOTSTRAP4 = defined("USING_BOOTSTRAP4") && USING_BOOTSTRAP4;
 
-	$content = preg_replace('/(<\/a>)\s*(<a)/s','\1%SEPARATOR%\2',$content);
+	// splitting up content according links
+	$content = preg_replace('/(<\/a>)\s*(<a)/s','%a_end%%SEPARATOR%%a_begin%',$content);
+	$content = preg_replace('/\s*(<a)/s','%SEPARATOR%%a_begin%',$content); // takes effect on lines without links
+	$content = preg_replace('/(<\/a>)\s*/s','%a_end%%SEPARATOR%',$content);
+	$content = str_replace("%a_begin%","<a",$content);
+	$content = str_replace("%a_end%","</a>",$content);
 
 	$lines = array();
 	$first_line = "";
@@ -38,22 +44,35 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 		if(!strlen($line)){ continue; }
 
 		if(!$first_line){
-			$line = _smarty_block_dropdown_menu_add_class_to_line($line,"btn btn-outline-primary btn-sm");
+			if($USING_BOOTSTRAP4){
+				$line = _smarty_block_dropdown_menu_add_class_to_line($line,"btn btn-outline-primary btn-sm");
+			}else{
+				$line = _smarty_block_dropdown_menu_add_class_to_line($line,"btn btn-default");
+			}
 			$first_line = $line;
 			continue;
 		}
 
-		$line = _smarty_block_dropdown_menu_add_class_to_line($line,"dropdown-item");
+		if($USING_BOOTSTRAP4){
+			$line = _smarty_block_dropdown_menu_add_class_to_line($line,"dropdown-item");
+		}
 		$lines[] = $line;
+	}
+
+	if(!strlen($first_line)){
+		return "";
 	}
 
 	$original_smarty_vars = $smarty->getTemplateVars();
 	$smarty->assign("first_line",$first_line);
+	$smarty->assign("link_on_first_line",!!preg_match('/<a /',$first_line));
 	$smarty->assign("lines",$lines);
 	$smarty->assign("pull",$params["pull"]);
 	$smarty->assign("clearfix",$params["clearfix"]);
 	$smarty->assign("class",$params["class"]);
-	$out = $smarty->fetch("shared/helpers/_dropdown_menu.tpl");
+	$smarty->assign("USING_BOOTSTRAP4",$USING_BOOTSTRAP4);
+	$template_name = "shared/helpers/_dropdown_menu.tpl";
+	$out = $smarty->fetch($template_name);
 	$smarty->clearAllAssign();
 	$smarty->assign($original_smarty_vars);
 
