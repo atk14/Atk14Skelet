@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: ATK14 Framework\n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2017-05-11 11:29+0200\n"
-"PO-Revision-Date: 2017-05-09 14:16+0200\n"
+"PO-Revision-Date: 2019-02-06 16:59+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: ATK14 Development Team\n"
 "Language: cs_CZ\n"
@@ -258,7 +258,7 @@ msgstr "Toto pole je povinné"
 
 #: ../src/forms/fields.php:236
 msgid "Enter a valid value."
-msgstr "Vložta správnou hodnotu."
+msgstr "Vložte správnou hodnotu."
 
 #~ msgid ""
 #~ "Select a valid choice. %(value)s is not one of the available choices."
