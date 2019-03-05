@@ -31,22 +31,4 @@ class CreateNewForm extends UsersForm{
 
 		return array($err,$d);
 	}
-
-
-	function js_validator(){
-		$js_v = parent::js_validator();
-
-		//$js_v->validators["login"]->add_rule("remote",Atk14Url::BuildLink(array("controller" => "sign_up_js_validation", "action" => "check_login_availability")));
-		//$js_v->validators["login"]->add_message("remote",_("The login has been already taken"));
-
-		$js_v->validators["login"]->add_rule("remote",Atk14Url::BuildLink(array(
-			"namespace" => "api",
-			"controller" => "login_availabilities",
-			"action" => "detail",
-			"format" => "simple_boolean",
-		))."&login=");
-		$js_v->validators["login"]->add_message("remote",_("This login has been already taken"));
-	
-		return $js_v;
-	}
 }

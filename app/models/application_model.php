@@ -25,6 +25,14 @@ class ApplicationModel extends TableRecord{
 			$values["created_from_addr"] = $HTTP_REQUEST->getRemoteAddr();
 		}
 
+		if($obj->hasKey("created_from_hostname") && !in_array("created_from_hostname",$v_keys)){
+			$values["created_from_hostname"] = $HTTP_REQUEST->getRemoteHostname();
+		}
+
+		if($obj->hasKey("created_from_user_agent") && !in_array("created_from_user_agent",$v_keys)){
+			$values["created_from_user_agent"] = String4::ToObject($HTTP_REQUEST->getUserAgent())->truncate(1000)->toString();
+		}
+
 		return parent::CreateNewRecord($values,$options);
 	}
 	
@@ -80,7 +88,7 @@ class ApplicationModel extends TableRecord{
 		);
 
 		$v_keys = array_keys($values);
-		if ($options["set_update_time"]===true) {
+		if ($options["set_update_time"]) {
 			foreach(array("updated_at","updated_on","update_date") as $f){
 				if($this->hasKey($f) && !in_array($f,$v_keys)){
 					$values[$f] = date("Y-m-d H:i:s");
@@ -90,6 +98,14 @@ class ApplicationModel extends TableRecord{
 
 		if($this->hasKey("updated_from_addr") && !in_array("updated_from_addr",$v_keys)){
 			$values["updated_from_addr"] = $HTTP_REQUEST->getRemoteAddr();
+		}
+
+		if($this->hasKey("updated_from_hostname") && !in_array("updated_from_hostname",$v_keys)){
+			$values["updated_from_hostname"] = $HTTP_REQUEST->getRemoteHostname();
+		}
+
+		if($this->hasKey("updated_from_user_agent") && !in_array("updated_from_user_agent",$v_keys)){
+			$values["updated_from_user_agent"] = String4::ToObject($HTTP_REQUEST->getUserAgent())->truncate(1000)->toString();
 		}
 
 		return parent::setValues($values,$options);

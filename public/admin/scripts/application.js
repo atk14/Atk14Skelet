@@ -1,6 +1,8 @@
 /* global window */
 ( function( window, $, undefined ) {
 	var document = window.document,
+		ace = window.ace,
+		markdown = window.markdown,
 
 	ADMIN = {
 
@@ -23,6 +25,18 @@
 						};
 
 					$field.popover( popoverOptions );
+				} );
+
+				// Markdown Editor requires Ace
+				ace.config.set( "basePath", "/public/admin/dist/scripts/ace/" );
+				$.each( $( "textarea[data-provide=markdown]" ), function( i, el ) {
+					$( el ).markdownEditor( {
+						preview: true,
+						onPreview: function( content, callback ) {
+							var html = markdown.toHTML( content );
+							callback( html );
+						}
+					} );
 				} );
 			}
 		},

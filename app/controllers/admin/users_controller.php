@@ -84,6 +84,7 @@ class UsersController extends AdminController{
 
 		$this->user->destroy();
 
+		$this->template_name = "application/destroy";
 		if(!$this->request->xhr()){
 			$this->flash->success(_("The user entry has been deleted"));
 			$this->_redirect_to("index");

@@ -1,6 +1,10 @@
-<h1>{a action="main/index"}{$namespace}{/a} &rarr; {a}{$page_title}{/a}</h1>
+<header>
+	<h1>{a action="main/index"}{$namespace}{/a} &rarr; {a}{$page_title}{/a}</h1>
+</header>
 
-<p>HTTP Status Code: {$status_code}<br>
-HTTP Status Message: {$status_message}</p>
+<section>
+	<p>HTTP Status Code: <strong>{$status_code}</strong><br>
+	HTTP Status Message: <strong>{$status_message}</strong></p>
 
-<pre><code>{$data|print_r:true}</code></pre>
+	<pre><code>{$data|print_r:true}</code></pre>
+</section>

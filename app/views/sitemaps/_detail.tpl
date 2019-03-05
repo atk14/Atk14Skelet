@@ -1,4 +1,4 @@
-<ul>
+<ul class="list--tree">
 	<li>
 		<h4>{a action="main/index" _with_hostname=1}{t}Homepage{/t}{/a}</h4>
 		<p>{t}The most important page in the whole universe{/t}</p>
@@ -32,7 +32,7 @@
 	{if $articles}
 	<li>
 		<h4>{t}Recent articles{/t}</h4>
-		<ul>
+		<ul class="list--tree">
 		{foreach $articles as $article}
 			<li>{a action="articles/detail" id=$article _with_hostname=1}{$article->getTitle()}{/a}</li>
 		{/foreach}

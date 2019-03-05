@@ -1,0 +1,135 @@
+// Some additional styling form elements
+
+form {
+	.form-group {
+		> ul.list--radios, > ul.list--checkboxes {
+			@extend .list-unstyled;
+			margin-bottom: 0;
+		}
+		> .feedback {
+			margin-top: 0.1rem;
+			ul {
+				@extend .list-unstyled;
+				margin-bottom: 0;
+			}
+			&.feedback--invalid {
+				color: $danger;
+			}
+			&.feedback--optional {
+				@extend .text-muted;
+				font-size: 0.85rem;
+			}
+		}
+		> .help-block {
+			@extend .text-muted;
+			font-size: 0.85rem;
+			line-height: 1.1;
+			ul {
+				margin-bottom: 0;
+				padding-left: 1rem;
+			}
+		}
+		> .alert {
+			padding: 0.1rem 0.25rem;
+			margin-bottom: 0;
+		}
+		label  {
+			.tip {
+				@extend .text-muted;
+			}
+		}
+	}
+}
+
+// Applies CSS grid to .form-group to create horizontal form.
+
+.form-horizontal, .fieldset-horizontal {
+	.form-group {
+		@include media-breakpoint-up(md){
+			display: grid;
+			grid-template-columns: 3fr 5fr 4fr;
+			grid-template-rows: auto auto auto;
+			grid-template-areas: 
+				'label control help'
+				'middleleft feedback help'
+				'bottomleft instantfeedback help';
+			grid-gap: 0 $grid-gutter-width/2;
+			margin: 0;
+			border-top: 1px solid $gray-200;
+		}
+		@include media-breakpoint-up(lg){
+			grid-template-columns: 2fr 5fr 3fr;
+		}
+		> label {
+			padding-top: calc(.375rem + 1px);
+			line-height: 1.5;
+			grid-area: label;
+		}
+		> .form-control, .custom-control, > .btn, > .button-container {
+			grid-area: control;
+		}
+		> ul.list--radios, > ul.list--checkboxes {
+			grid-area: control;
+		}
+		> .feedback {
+			grid-area: feedback;
+		}
+		> .help-block {
+			grid-area: help;
+		}
+		> .alert {
+			grid-area: instantfeedback;
+			justify-self: stretch;
+		}
+		// Two classes added just to get rid of autoprefixer warnings
+		> .dummy-111 {
+			grid-area: bottomleft;
+		}
+		> .dummy-222  {
+			grid-area: middleleft;
+		}
+		.button-container {
+			display: inline-block;
+		}
+	}
+}
+
+// Lines between form-groups for better readiblity
+form {
+	.form-group {
+		padding: 1rem 0;
+	}
+}
+
+
+// Validation states
+form {
+	.form-group {
+		&.form-group--has-error {
+			.form-control, .list--checkboxes, .list--radios {
+				border: 1px solid $danger;
+			}
+			label {
+				color: $danger;
+			}
+		}
+		&.form-group--is-valid {
+			.form-control {
+				border: 1px solid $success;
+			}
+		}
+	}
+}
+
+
+// search form
+.form-search {
+	@extend .form-inline;
+	margin-bottom: 1rem;
+	input {
+		margin-right: 0.5em;
+		@include media-breakpoint-down(xs){
+			margin-bottom: 0.5rem;
+		}
+	}
+}

@@ -85,22 +85,22 @@ function smarty_function_paginator($params,$template){
 
 	if($total_amount<=$max_amount){
 		if($total_amount>=5){
-			$out[] = "<div class=\"pagination\">";
-			$out[] = "<p><span class='badge'>".$total_amount."</span> "._("items total")."</p>";
+			$out[] = "<div class=\"pagination-container\">";
+			$out[] = "<p><span class=\"badge badge-secondary\">".$total_amount."</span> "._("items total")."</p>";
 			$out[] = "</div>";
 			
 		}
 		return join("\n",$out);
 	}
 
-	$out[] = "<div class=\"pagination\">";
-	$out[] = "<ul>";
+	$out[] = "<div class=\"pagination-container\">";
+	$out[] = "<ul class=\"pagination\">";
 
 	$first_child = true;
 	if($from>0){
 		$par["$from_name"] = $from - $max_amount;
 		$url = _smarty_function_paginator_build_url($par,$smarty,$from_name);
-		$out[] = "<li class=\"first-child prev\"><a href=\"$url\">"._("Prev")."</a></li>";
+		$out[] = "<li class=\"page-item first-child prev\"><a class=\"page-link\" href=\"$url\"><i class=\"fas fa-arrow-left\"></i> "._("Prev")."</a></li>";
 		$first_child = false;
 	}
 
@@ -111,7 +111,7 @@ function smarty_function_paginator($params,$template){
 	while($cur_from < $total_amount){
 		$par["$from_name"] = $cur_from;
 		$url = _smarty_function_paginator_build_url($par,$smarty,$from_name);
-		$_class = array();
+		$_class = array( "page-item" );
 		$cur_from==$from && ($_class[] = "active");
 		$first_child && ($_class[] = "first-child") && ($first_child = false);
 
@@ -122,19 +122,20 @@ function smarty_function_paginator($params,$template){
 		$_class = $_class ? " class=\"".join(" ",$_class)."\"" : "";
 
 		if($cur_from==$from){
-			$out[] = "<li$_class><span>$screen</span></li>";
+			$out[] = "<li$_class><a class=\"page-link\" href=\"$url\">$screen</a></li>";
 		}else{
-			$out[] = "<li$_class><a href=\"$url\">$screen</a></li>";
+			$out[] = "<li$_class><a class=\"page-link\" href=\"$url\">$screen</a></li>";
 		}
 		$screen++;
-
+		
+		// skipped items ...
 		if($screen>2 && $current_step>6 && $screen<$current_step-4 && $screen<$steps-10){
-			$out[] = "<li class=\"skip disabled\"><span>&hellip;</span></li>";
+			$out[] = "<li class=\"page-item skip disabled\"><span class=\"page-link\">&hellip;</span></li>";
 			while($screen<$current_step-4 && $screen<$steps-10){ $screen++; }
 		}
-
+		
 		if($screen>$current_step+4 && $steps-$screen>=2 && $screen>11){
-			$out[] = "<li class=\"skip disabled\"><span>&hellip;</span></li>";
+			$out[] = "<li class=\"page-item skip disabled\"><span class=\"page-link\">&hellip;</span></li>";
 			while(($steps-$screen)>=2){ $screen++; }
 		}
 
@@ -144,12 +145,12 @@ function smarty_function_paginator($params,$template){
 	if(($from+$max_amount)<$total_amount){
 		$par["$from_name"] = $from + $max_amount;
 		$url = _smarty_function_paginator_build_url($par,$smarty,$from_name);
-		$out[] = "<li class=\"last-child next\"><a href=\"$url\">"._("Next")."</a></li>";
+		$out[] = "<li class=\"page-item last-child next\"><a class=\"page-link\" href=\"$url\">"._("Next")." <i class=\"fas fa-arrow-right\"></i></a></li>";
 	}
 
 	$out[] = "</ul>";
 
-	$out[] = "<p><span class='badge'>".$total_amount."</span> "._("items total")."</p>";
+	$out[] = "<p><span class=\"badge badge-secondary\">".$total_amount."</span> "._("items total")."</p>";
 	$out[] = "</div>";
 
 	return join("\n",$out);

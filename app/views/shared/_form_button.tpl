@@ -14,12 +14,12 @@
 
 {if empty($class)}
 	{if $form && $form->get_method()=="get"}
-		{assign var=class value="btn btn-default"}
+		{assign var=class value="btn btn-outline-primary"}
 	{else}
 		{assign var=class value="btn btn-primary"}
 	{/if}
 {/if}
 
 <div class="form-group">
-	<button type="submit" class="{$class}">{$button_text}</button>
+	<span class="button-container"><button type="submit" class="{$class}">{$button_text}</button></span>
 </div>

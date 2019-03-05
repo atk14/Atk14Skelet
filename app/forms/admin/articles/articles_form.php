@@ -8,7 +8,7 @@ class ArticlesForm extends AdminForm {
 
 		$this->add_field("body",new MarkdownField(array(
 			"label" => _("Body"),
-			"help_text" => _("Mardown format is expected"),
+			"help_text" => _("Markdown format is expected"),
 		)));
 
 		$this->add_field("published_at",new DateTimeField(array(

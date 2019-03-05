@@ -5,17 +5,20 @@ var browserSync = require( "browser-sync" ).create();
 
 var vendorStyles = [
 	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
-	"node_modules/bootstrap-markdown/css/bootstrap-markdown.min.css",
-	"node_modules/jquery-ui-bundle/jquery-ui.css"
+	"node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
+	"node_modules/jquery-ui-bundle/jquery-ui.css",
+	"node_modules/@fortawesome/fontawesome-free/css/all.css"
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
 	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
 	"node_modules/markdown/lib/markdown.js",
-	"node_modules/bootstrap-markdown/js/bootstrap-markdown.js",
-	"node_modules/bootstrap/dist/js/bootstrap.js",
-	"node_modules/atk14js/src/atk14.js"
+	"node_modules/ace-builds/src/ace.js",
+	"node_modules/bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js",
+	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
+	"node_modules/atk14js/src/atk14.js",
+	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js"
 ];
 
 var applicationScripts = [
@@ -24,13 +27,17 @@ var applicationScripts = [
 
 // CSS
 gulp.task( "styles-admin", function() {
-	return gulp.src( "public/admin/styles/application.less" )
+	return gulp.src( "public/admin/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
-		.pipe( $.less() )
-		.pipe( $.autoprefixer() )
-		.pipe( $.cleanCss() )
+		.pipe( $.sass( {
+			includePaths: [
+				"public/admin/styles"
+			]
+		} ) )
+		.pipe( $.autoprefixer( { grid: true } ) )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
@@ -40,9 +47,9 @@ gulp.task( "styles-vendor-admin", function() {
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css", { rebaseUrls: false } ) )
 		.pipe( $.autoprefixer() )
-		.pipe( $.cleanCss() )
+		.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
 } );
@@ -69,14 +76,9 @@ gulp.task( "scripts-admin", function() {
 // Lint
 gulp.task( "lint-admin", function() {
 	return gulp.src( [ "public/admin/scripts/**/*.js", "gulpfile-admin.js" ] )
-		.pipe( $.jshint() )
-		.pipe( $.jshint.reporter( "jshint-stylish" ) );
-} );
-
-// Code style
-gulp.task( "jscs-admin", function() {
-	return gulp.src( [ "public/admin/scripts/**/*.js", "gulpfile-admin.js" ] )
-		.pipe( $.jscs() );
+		.pipe( $.eslint() )
+		.pipe( $.eslint.format() )
+		.pipe( $.eslint.failAfterError() );
 } );
 
 // Copy
@@ -85,14 +87,16 @@ gulp.task( "copy-admin", function() {
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
-	gulp.src( "node_modules/bootstrap/dist/fonts/*" )
-		.pipe( gulp.dest( "public/admin/dist/fonts" ) );
+	gulp.src( "node_modules/@fortawesome/fontawesome-free/webfonts/*" )
+		.pipe( gulp.dest( "public/admin/dist/webfonts" ) );
 	gulp.src( "node_modules/jquery-ui-bundle/images/*" )
 		.pipe( gulp.dest( "public/admin/dist/styles/images" ) );
 	gulp.src( "public/admin/fonts/*" )
 		.pipe( gulp.dest( "public/admin/dist/fonts" ) );
 	gulp.src( "public/admin/images/*" )
 		.pipe( gulp.dest( "public/admin/dist/images" ) );
+	gulp.src( "node_modules/ace-builds/src-min/**" )
+		.pipe( gulp.dest( "public/admin/dist/scripts/ace" ) );
 } );
 
 // Clean
@@ -117,13 +121,12 @@ gulp.task( "serve-admin", [ "styles-admin", "styles-vendor-admin" ], function() 
 		.on( "change", browserSync.reload );
 
 	// If styles files change = run 'styles' task with style injection
-	gulp.watch( "public/admin/styles/**/*.less", [ "styles-admin" ] );
+	gulp.watch( "public/admin/styles/**/*.scss", [ "styles-admin" ] );
 } );
 
 // Build
 var buildTasks = [
 	"lint-admin",
-	"jscs-admin",
 	"styles-admin",
 	"styles-vendor-admin",
 	"scripts-admin",

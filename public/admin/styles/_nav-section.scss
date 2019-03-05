@@ -1,0 +1,23 @@
+nav.nav-section {
+	ul.nav {
+		li.nav-item {
+			.nav-link {
+				
+				// Less padding for denser display
+				
+				padding: 0.35rem 0.65rem;
+			}
+		}
+		
+		// Nav in two columns on SM screens to make it shorter
+		
+		@include media-breakpoint-only(sm){
+			flex-direction: row !important;
+			flex-wrap: wrap;
+			li.nav-item {
+				flex-basis: 50%;
+			}
+		}
+		
+	}
+}

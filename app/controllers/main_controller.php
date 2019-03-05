@@ -12,13 +12,11 @@ class MainController extends ApplicationController{
 	}
 
 	function about(){
-		$this->page_title = sprintf(_("About %s"),ATK14_APPLICATION_NAME);
-
-		$this->breadcrumbs[] = $this->page_title;
+		$this->page_title = $this->breadcrumbs[] = sprintf(_("About %s"),ATK14_APPLICATION_NAME);
 	}
 
 	function contact(){
-		$this->page_title = _("Contact");
+		$this->page_title = $this->breadcrumbs[] = _("Contact");
 
 		if($this->logged_user){
 			$this->form->set_initial(array(
@@ -41,7 +39,7 @@ class MainController extends ApplicationController{
 	}
 
 	function contact_message_sent(){
-		$this->page_title = _("Contact");
+		$this->page_title = $this->breadcrumbs[] = _("Contact");
 
 		if(!$this->session->g("contact_message_sent")){
 			return $this->_redirect_to("contact");
