@@ -673,7 +673,7 @@ msgid "About %s"
 msgstr "O %s"
 
 #: ../app/controllers/password_recoveries_controller.php:10
-msgid "There is not such user with the given login or email"
+msgid "There is no such user with the given login or email"
 msgstr "Tady není uživatel s tímto loginem nebo e-mailem"
 
 #: ../app/controllers/password_recoveries_controller.php:14

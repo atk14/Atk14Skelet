@@ -614,7 +614,7 @@ msgid "About %s"
 msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:10
-msgid "There is not such user with the given login or email"
+msgid "There is no such user with the given login or email"
 msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:14
