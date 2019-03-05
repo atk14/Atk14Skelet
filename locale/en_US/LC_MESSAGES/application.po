@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-05 09:46+0100\n"
+"POT-Creation-Date: 2019-03-05 11:00+0100\n"
 "PO-Revision-Date: 2016-03-07 17:03+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -56,7 +56,7 @@ msgid "Sign in as an admin user"
 msgstr ""
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:69
+#: ../app/controllers/password_recoveries_controller.php:74
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr ""
@@ -508,16 +508,16 @@ msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:14
 msgid ""
-"To reset admins password use console like ATK14 ninja: $ ./scripts/migrate -"
-"f 0002_reset_admins_password_migration.php"
+"Password recovery can not be initiated for this user. Email address is not "
+"set"
 msgstr ""
 
-#: ../app/controllers/password_recoveries_controller.php:53
+#: ../app/controllers/password_recoveries_controller.php:58
 #: ../app/controllers/users_controller.php:66
 msgid "Your password has been updated successfully"
 msgstr ""
 
-#: ../app/controllers/password_recoveries_controller.php:70
+#: ../app/controllers/password_recoveries_controller.php:75
 msgid "Password recovery"
 msgstr ""
 

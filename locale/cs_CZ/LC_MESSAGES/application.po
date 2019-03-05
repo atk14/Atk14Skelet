@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-05 09:46+0100\n"
-"PO-Revision-Date: 2017-11-23 22:47+0100\n"
-"Last-Translator: Yarri <do-not-write-me@ever.com>\n"
+"POT-Creation-Date: 2019-03-05 11:00+0100\n"
+"PO-Revision-Date: 2019-03-05 10:59+0100\n"
+"Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -61,7 +61,7 @@ msgid "Sign in as an admin user"
 msgstr "Přihlaste se jako administrátor"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:69
+#: ../app/controllers/password_recoveries_controller.php:74
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Přihlásit se"
@@ -216,6 +216,10 @@ msgid ""
 "\t\t\t\t\tAs the Skelet is simple and minimal it may be usefull for "
 "developers as a good start point for any other application."
 msgstr ""
+"<em>ATK14 Skelet</em> je základní aplikace napsaná ve <a href=\"http://atk14."
+"net\">fameworku ATK14</a>.\n"
+"\t\t\t\t\tVzhledem k tomu, jak je Skelet jednoduchý a minimální, může být "
+"pro vývojáře užitečný jako dobrý výchozí bod pro jakoukoli jinou aplikaci."
 
 msgid "The ATK14 Skelet at age 5"
 msgstr "ATK14 Skelet ve věku 5 let"
@@ -307,7 +311,7 @@ msgid "The address has expired or already been used."
 msgstr "Tato adresa už není platné nebo již byla použita."
 
 msgid "The URL is either expired or invalid."
-msgstr ""
+msgstr "Adresa URL buďto expirovala nebo není platná."
 
 msgid "In the form bellow set the new password for user <em>%1</em>"
 msgstr "Do formuláře níže zadejte nové heslo pro uživatele <em>%1</em>"
@@ -333,16 +337,16 @@ msgstr ""
 "chyby."
 
 msgid "OK"
-msgstr ""
+msgstr "OK"
 
 msgid "Optional"
-msgstr ""
+msgstr "Volitelné"
 
 msgid "Examples:"
 msgstr "Příklady"
 
 msgid "Create a new record"
-msgstr ""
+msgstr "Vytvořit nový záznam"
 
 msgid "Show menu"
 msgstr "Ukázat nabídku"
@@ -465,7 +469,7 @@ msgstr "Zakázáno"
 
 #: ../app/controllers/application_base.php:94
 msgid "Home"
-msgstr ""
+msgstr "Domů"
 
 #: ../app/controllers/application_mailer.php:30
 #, php-format
@@ -554,18 +558,18 @@ msgstr "Tady není uživatel s tímto loginem nebo e-mailem"
 
 #: ../app/controllers/password_recoveries_controller.php:14
 msgid ""
-"To reset admins password use console like ATK14 ninja: $ ./scripts/migrate -"
-"f 0002_reset_admins_password_migration.php"
+"Password recovery can not be initiated for this user. Email address is not "
+"set"
 msgstr ""
-"Resetujte adminovo heslo v konzoli jako správný ATK14 ninja: $ ./scripts/"
-"migrate -f 0002_reset_admins_password_migration.php"
+"Obnova hesla nemůže být pro tohoto uživatele provedena. E-mailová adresa "
+"není nastavena"
 
-#: ../app/controllers/password_recoveries_controller.php:53
+#: ../app/controllers/password_recoveries_controller.php:58
 #: ../app/controllers/users_controller.php:66
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: ../app/controllers/password_recoveries_controller.php:70
+#: ../app/controllers/password_recoveries_controller.php:75
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
@@ -734,6 +738,13 @@ msgstr "Ano"
 #: ../app/helpers/modifier.display_bool.php:14
 msgid "No"
 msgstr "Ne"
+
+#~ msgid ""
+#~ "To reset admins password use console like ATK14 ninja: $ ./scripts/"
+#~ "migrate -f 0002_reset_admins_password_migration.php"
+#~ msgstr ""
+#~ "Resetujte adminovo heslo v konzoli jako správný ATK14 ninja: $ ./scripts/"
+#~ "migrate -f 0002_reset_admins_password_migration.php"
 
 #~ msgid ""
 #~ "Are you sure to delete article item\n"
