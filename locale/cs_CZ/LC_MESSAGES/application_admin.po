@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-09 15:15+0100\n"
+"POT-Creation-Date: 2019-03-05 09:46+0100\n"
 "PO-Revision-Date: 2017-11-23 22:47+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -51,6 +51,26 @@ msgstr "Datum"
 msgid "Tags"
 msgstr "Štítky"
 
+msgid "Delete"
+msgstr "Smazat"
+
+msgid "Add new redirection"
+msgstr ""
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:6
+msgid "Source URL"
+msgstr ""
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:15
+msgid "Target URL"
+msgstr ""
+
+msgid "Created at"
+msgstr "Vytvořeno"
+
+msgid "Last access"
+msgstr ""
+
 msgid "Welcome administrator!"
 msgstr "Vítejte administrátore!"
 
@@ -72,12 +92,6 @@ msgstr "IP adresa"
 
 msgid "Export emails in CSV"
 msgstr "Export e-mailů v CSV"
-
-msgid "Delete"
-msgstr "Smazat"
-
-msgid "Created at"
-msgstr "Vytvořeno"
 
 msgid "User"
 msgstr "Uživatel"
@@ -183,7 +197,12 @@ msgstr "Obnovy hesel"
 msgid "Newsletter subscribers"
 msgstr "Odběratelé newsletteru"
 
-#: ../app/controllers/admin/admin.php:76
+#: ../app/controllers/admin/admin.php:33
+#: ../app/controllers/admin/error_redirections_controller.php:5
+msgid "404 Redirections"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:102
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
@@ -213,6 +232,27 @@ msgstr "Nic nebylo změněno"
 #: ../app/controllers/admin/articles_controller.php:60
 msgid "The article has been updated successfully"
 msgstr "Článek byl úspěšně aktualizován"
+
+#: ../app/controllers/admin/error_redirections_controller.php:27
+msgid "Create redirection"
+msgstr ""
+
+#: ../app/controllers/admin/error_redirections_controller.php:33
+#: ../app/controllers/admin/error_redirections_controller.php:51
+msgid "Another redirection with the same source URL already exists"
+msgstr ""
+
+#: ../app/controllers/admin/error_redirections_controller.php:38
+msgid "The redirection has been created successfully"
+msgstr ""
+
+#: ../app/controllers/admin/error_redirections_controller.php:44
+msgid "Editing redirection"
+msgstr ""
+
+#: ../app/controllers/admin/error_redirections_controller.php:56
+msgid "The redirection has been updated successfully"
+msgstr ""
 
 #: ../app/controllers/admin/newsletter_subscribers_controller.php:4
 msgid "Newsletter Subscribers"
@@ -274,14 +314,22 @@ msgstr ""
 "Nové heslo bylo nastaveno uživateli <em>%user%</em>.<br>Bude hezké, když mu "
 "o tom napíšete na e-mail <a href=\"mailto:%email%\">%email%</a>."
 
-#: ../app/controllers/admin/users_controller.php:88
+#: ../app/controllers/admin/users_controller.php:89
 msgid "The user entry has been deleted"
 msgstr "Uživatel byl smazán"
 
-#: ../app/controllers/admin/users_controller.php:99
+#: ../app/controllers/admin/users_controller.php:100
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
 msgstr "Nyní jste přihlášen jako <em>%s</em>"
+
+#: ../app/forms/admin/admin_form.php:6
+#: ../app/forms/admin/articles/index_form.php:5
+#: ../app/forms/admin/newsletter_subscribers/index_form.php:5
+#: ../app/forms/admin/tags/index_form.php:5
+#: ../app/forms/admin/users/index_form.php:5
+msgid "Search"
+msgstr "Hledat"
 
 #: ../app/forms/admin/articles/articles_form.php:10
 msgid "Body"
@@ -295,16 +343,13 @@ msgstr "Je očekáván formát Markdown"
 msgid "Published At"
 msgstr "Publikováno dne"
 
-#: ../app/forms/admin/articles/index_form.php:5
-#: ../app/forms/admin/newsletter_subscribers/index_form.php:5
-#: ../app/forms/admin/tags/index_form.php:5
-#: ../app/forms/admin/users/index_form.php:5
-msgid "Search"
-msgstr "Hledat"
-
 #: ../app/forms/admin/articles/index_form.php:9
 msgid "Search articles"
 msgstr "Vyhledat články"
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:24
+msgid "Moved permanently?"
+msgstr ""
 
 #: ../app/forms/admin/tags/index_form.php:9
 msgid "Search tags"

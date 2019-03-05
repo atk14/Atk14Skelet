@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-09 15:15+0100\n"
+"POT-Creation-Date: 2019-03-05 09:46+0100\n"
 "PO-Revision-Date: 2016-03-07 17:03+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -49,6 +49,26 @@ msgstr ""
 msgid "Tags"
 msgstr ""
 
+msgid "Delete"
+msgstr ""
+
+msgid "Add new redirection"
+msgstr ""
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:6
+msgid "Source URL"
+msgstr ""
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:15
+msgid "Target URL"
+msgstr ""
+
+msgid "Created at"
+msgstr ""
+
+msgid "Last access"
+msgstr ""
+
 msgid "Welcome administrator!"
 msgstr ""
 
@@ -69,12 +89,6 @@ msgid "IP address"
 msgstr ""
 
 msgid "Export emails in CSV"
-msgstr ""
-
-msgid "Delete"
-msgstr ""
-
-msgid "Created at"
 msgstr ""
 
 msgid "User"
@@ -174,7 +188,12 @@ msgstr ""
 msgid "Newsletter subscribers"
 msgstr ""
 
-#: ../app/controllers/admin/admin.php:76
+#: ../app/controllers/admin/admin.php:33
+#: ../app/controllers/admin/error_redirections_controller.php:5
+msgid "404 Redirections"
+msgstr ""
+
+#: ../app/controllers/admin/admin.php:102
 msgid "The entry has been deleted"
 msgstr ""
 
@@ -203,6 +222,27 @@ msgstr ""
 
 #: ../app/controllers/admin/articles_controller.php:60
 msgid "The article has been updated successfully"
+msgstr ""
+
+#: ../app/controllers/admin/error_redirections_controller.php:27
+msgid "Create redirection"
+msgstr ""
+
+#: ../app/controllers/admin/error_redirections_controller.php:33
+#: ../app/controllers/admin/error_redirections_controller.php:51
+msgid "Another redirection with the same source URL already exists"
+msgstr ""
+
+#: ../app/controllers/admin/error_redirections_controller.php:38
+msgid "The redirection has been created successfully"
+msgstr ""
+
+#: ../app/controllers/admin/error_redirections_controller.php:44
+msgid "Editing redirection"
+msgstr ""
+
+#: ../app/controllers/admin/error_redirections_controller.php:56
+msgid "The redirection has been updated successfully"
 msgstr ""
 
 #: ../app/controllers/admin/newsletter_subscribers_controller.php:4
@@ -263,13 +303,21 @@ msgid ""
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:88
+#: ../app/controllers/admin/users_controller.php:89
 msgid "The user entry has been deleted"
 msgstr ""
 
-#: ../app/controllers/admin/users_controller.php:99
+#: ../app/controllers/admin/users_controller.php:100
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
+msgstr ""
+
+#: ../app/forms/admin/admin_form.php:6
+#: ../app/forms/admin/articles/index_form.php:5
+#: ../app/forms/admin/newsletter_subscribers/index_form.php:5
+#: ../app/forms/admin/tags/index_form.php:5
+#: ../app/forms/admin/users/index_form.php:5
+msgid "Search"
 msgstr ""
 
 #: ../app/forms/admin/articles/articles_form.php:10
@@ -284,15 +332,12 @@ msgstr ""
 msgid "Published At"
 msgstr ""
 
-#: ../app/forms/admin/articles/index_form.php:5
-#: ../app/forms/admin/newsletter_subscribers/index_form.php:5
-#: ../app/forms/admin/tags/index_form.php:5
-#: ../app/forms/admin/users/index_form.php:5
-msgid "Search"
-msgstr ""
-
 #: ../app/forms/admin/articles/index_form.php:9
 msgid "Search articles"
+msgstr ""
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:24
+msgid "Moved permanently?"
 msgstr ""
 
 #: ../app/forms/admin/tags/index_form.php:9

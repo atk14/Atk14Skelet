@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-09 15:15+0100\n"
+"POT-Creation-Date: 2019-03-05 09:46+0100\n"
 "PO-Revision-Date: 2017-11-23 22:47+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -42,142 +42,6 @@ msgstr ""
 "web: %2\n"
 "e-mail: %3"
 
-msgid ""
-"Are you sure to delete article item\n"
-"%1?"
-msgstr ""
-"Určitě chcete smazat článek\n"
-"%1?"
-
-msgid "Edit"
-msgstr "Upravit"
-
-msgid "Delete article"
-msgstr "Smazat článek"
-
-msgid "Add new article"
-msgstr "Přidat nový článek"
-
-msgid "The list is empty."
-msgstr "Seznam je prázdný."
-
-msgid "Title"
-msgstr "Název"
-
-msgid "Author"
-msgstr "Autor"
-
-msgid "Date"
-msgstr "Datum"
-
-msgid "Tags"
-msgstr "Štítky"
-
-msgid "Welcome administrator!"
-msgstr "Vítejte administrátore!"
-
-msgid "No record has been found."
-msgstr "Nebyl nalezen žádný záznam."
-
-msgid "Email"
-msgstr "E-mail"
-
-msgid "Name"
-msgstr "Jméno"
-
-msgid "Subscribed since"
-msgstr "Přihlášen od"
-
-msgid "IP address"
-msgstr "IP adresa"
-
-msgid "Export emails in CSV"
-msgstr "Export e-mailů v CSV"
-
-#: ../app/forms/application_form.php:67
-msgid "Delete"
-msgstr "Smazat"
-
-msgid "Created at"
-msgstr "Vytvořeno"
-
-msgid "User"
-msgstr "Uživatel"
-
-msgid "Created from address"
-msgstr "Vytvořeno z adresy"
-
-msgid "Password recovered?"
-msgstr "Heslo obnoveno?"
-
-msgid "Recovered at"
-msgstr "Obnoveno dne"
-
-msgid "Recovered from address"
-msgstr "Obnoveno z adresy"
-
-msgid "Add new tag"
-msgstr "Přidat nový štítek"
-
-msgid "No tag has been found."
-msgstr "Nebyl nalezen žádný štítek."
-
-msgid "Tag"
-msgstr "Štítek"
-
-msgid ""
-"You are about to permanently delete tag %1\n"
-"\tAre you sure about that?"
-msgstr ""
-"Chystáte se smazat štítek %1\n"
-"\tUrčite to chcete?"
-
-msgid "Delete tag"
-msgstr "Smazat štítek"
-
-msgid ""
-"At the moment no one knows the actual user's password because passwords are "
-"not stored in plain text form. In this form you can set a new password to "
-"the user <em>%1</em>"
-msgstr ""
-"Momentálně nikdo nezná heslo uživatele, protože hesla nejsou ukládána v "
-"čitelné podobě. V tomto formuláři můžete nastavit nové heslo uživateli <em>"
-"%1</em>"
-
-msgid "Create a new user"
-msgstr "Vytvořit nového uživatele"
-
-msgid "Username"
-msgstr "Uživatelské jméno"
-
-#: ../app/forms/users/users_form.php:11
-msgid "Email address"
-msgstr "E-mailová adresa"
-
-msgid "Is admin?"
-msgstr "Je administrátor?"
-
-msgid "Updated at"
-msgstr "Změněno"
-
-#: ../app/forms/password_recoveries/recovery_form.php:7
-#: ../app/forms/users/edit_password_form.php:8
-msgid "Set new password"
-msgstr "Nastavit nové heslo"
-
-msgid "Sign in as this user"
-msgstr "Přihlásit se jako tento uživatel"
-
-msgid ""
-"You are about to permanently delete user %1\n"
-"\tAre you sure about that?"
-msgstr ""
-"Chystáte se nevratně smazat uživatele %1\n"
-"\tJste si skutečně jistý?"
-
-msgid "Delete user"
-msgstr "Smazat uživatele"
-
 msgid "Error 403: Forbidden"
 msgstr "Chyba 403: Zakázáno"
 
@@ -197,8 +61,8 @@ msgid "Sign in as an admin user"
 msgstr "Přihlaste se jako administrátor"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:65
-#: ../app/forms/logins/create_new_form.php:13
+#: ../app/controllers/password_recoveries_controller.php:69
+#: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Přihlásit se"
 
@@ -234,8 +98,17 @@ msgstr "Jste přihlášen jako <em>%1</em>."
 msgid "Click on the button to sign out."
 msgstr "Pro odhlášení klikněte na tlačítko"
 
+msgid "Name"
+msgstr "Jméno"
+
+msgid "Email"
+msgstr "E-mail"
+
 msgid "Signing up for newsletter"
 msgstr "Přihlásit se k newsletteru"
+
+msgid "IP address"
+msgstr "IP adresa"
 
 msgid "Logged user:"
 msgstr "Přihlášený uživatel:"
@@ -340,13 +213,15 @@ msgstr "Vítejte"
 msgid ""
 "<em>ATK14 Skelet</em> is a very basic application written on top of <a href="
 "\"http://atk14.net\">the ATK14 Framework</a>.\n"
-"\t\t\tAs the Skelet is simple and minimal it may be usefull for developers "
-"as a good start point for any other application."
+"\t\t\t\t\tAs the Skelet is simple and minimal it may be usefull for "
+"developers as a good start point for any other application."
 msgstr ""
-"<em>ATK14 Skelet</em> je základní aplikace napsaná ve <a href=\"http://atk14."
-"net\">frameworku ATK14</a>.\n"
-"\t\t\tSkelet je jednoduchý a minimalistický, proto může být pro webového "
-"vývojáře dobrým startovacím místem pro jakoukoli další aplikaci."
+
+msgid "The ATK14 Skelet at age 5"
+msgstr "ATK14 Skelet ve věku 5 let"
+
+msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
+msgstr "obr.1 <em>Stvoření prosí o fork na GitHubu</em>"
 
 msgid "The Skelet contains mainly"
 msgstr "Skelet obsahuje hlavně"
@@ -428,17 +303,11 @@ msgstr "ATK14 na GitHubu"
 msgid "ATK14 Skelet on GitHub"
 msgstr "ATK14 Skelet na GitHubu"
 
-msgid "The ATK14 Skelet at age 5"
-msgstr "ATK14 Skelet ve věku 5 let"
-
-msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
-msgstr "obr.1 <em>Stvoření prosí o fork na GitHubu</em>"
-
 msgid "The address has expired or already been used."
 msgstr "Tato adresa už není platné nebo již byla použita."
 
-msgid "The URL is not valid."
-msgstr "Toto URL není platné"
+msgid "The URL is either expired or invalid."
+msgstr ""
 
 msgid "In the form bellow set the new password for user <em>%1</em>"
 msgstr "Do formuláře níže zadejte nové heslo pro uživatele <em>%1</em>"
@@ -463,8 +332,17 @@ msgstr ""
 "Některé položky nebyly vyplněny správně. Zkontrolujte formulář a opravte "
 "chyby."
 
+msgid "OK"
+msgstr ""
+
+msgid "Optional"
+msgstr ""
+
 msgid "Examples:"
 msgstr "Příklady"
+
+msgid "Create a new record"
+msgstr ""
 
 msgid "Show menu"
 msgstr "Ukázat nabídku"
@@ -476,22 +354,16 @@ msgstr ""
 "Tato aplikace běží na <a href=\"http://www.atk14.net/\">frameworku ATK14</a> "
 "až na věky"
 
-msgid "Go to home page"
-msgstr "Přejděte na úvodní stránku"
-
-msgid "administrator"
-msgstr "administrátor"
-
 msgid "Profile"
 msgstr "Profil"
-
-msgid "Administration"
-msgstr "Administrace"
 
 #: ../app/controllers/logins_controller.php:33
 #: ../app/forms/logins/destroy_form.php:4
 msgid "Sign out"
 msgstr "Odhlásit se"
+
+msgid "Administration"
+msgstr "Administrace"
 
 #: ../app/forms/users/create_new_form.php:21
 msgid "Register"
@@ -506,8 +378,8 @@ msgstr "Úvodní stránka"
 msgid "The most important page in the whole universe"
 msgstr "Vůbec nejdůležitější stránka v celém vesmíru"
 
-#: ../app/controllers/main_controller.php:21
-#: ../app/controllers/main_controller.php:44
+#: ../app/controllers/main_controller.php:19
+#: ../app/controllers/main_controller.php:42
 msgid "Contact"
 msgstr "Kontakt"
 
@@ -561,11 +433,11 @@ msgstr "Jste administrátor?"
 msgid "Yes, you are"
 msgstr "Ano, jste"
 
-#: ../app/controllers/users_controller.php:36
+#: ../app/controllers/users_controller.php:35
 msgid "Change your account data"
 msgstr "Změnit vaše údaje"
 
-#: ../app/controllers/users_controller.php:53
+#: ../app/controllers/users_controller.php:52
 msgid "Change your password"
 msgstr "Změna vašeho hesla"
 
@@ -583,13 +455,17 @@ msgstr "Špatné heslo"
 msgid "There is no such user"
 msgstr "Takový uživatel tady není"
 
-#: ../app/controllers/application_base.php:20
+#: ../app/controllers/application_base.php:28
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
 
-#: ../app/controllers/application_base.php:30
+#: ../app/controllers/application_base.php:38
 msgid "Forbidden"
 msgstr "Zakázáno"
+
+#: ../app/controllers/application_base.php:94
+msgid "Home"
+msgstr ""
 
 #: ../app/controllers/application_mailer.php:30
 #, php-format
@@ -608,25 +484,25 @@ msgstr "Vaše heslo bylo změněno"
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
-#: ../app/controllers/application_rest_api.php:75
+#: ../app/controllers/application_rest_api.php:76
 #, php-format
 msgid "Commands in %s"
 msgstr "Přikazy v %s"
 
-#: ../app/controllers/application_rest_api.php:173
+#: ../app/controllers/application_rest_api.php:172
 #, php-format
 msgid "submit using method %s"
 msgstr "Odeslat metodou %s"
 
-#: ../app/controllers/application_rest_api.php:220
+#: ../app/controllers/application_rest_api.php:219
 msgid "Nothing has been found on this address"
 msgstr "Na této adrese nebylo nic nalezeno"
 
-#: ../app/controllers/application_rest_api.php:226
+#: ../app/controllers/application_rest_api.php:225
 msgid "You don't have access to the requested resource"
 msgstr "Nemáte přístup k požadovanému zdroji"
 
-#: ../app/controllers/application_rest_api.php:232
+#: ../app/controllers/application_rest_api.php:231
 msgid "Sorry, An internal error happened"
 msgstr "Omlouváme se, nastala vnitřní chyba"
 
@@ -685,16 +561,16 @@ msgstr ""
 "migrate -f 0002_reset_admins_password_migration.php"
 
 #: ../app/controllers/password_recoveries_controller.php:53
-#: ../app/controllers/users_controller.php:64
+#: ../app/controllers/users_controller.php:66
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: ../app/controllers/password_recoveries_controller.php:66
+#: ../app/controllers/password_recoveries_controller.php:70
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
 #: ../app/controllers/users_controller.php:4
-#: ../app/controllers/users_controller.php:77
+#: ../app/controllers/users_controller.php:79
 msgid "User profile"
 msgstr "Profil uživatele"
 
@@ -702,22 +578,22 @@ msgstr "Profil uživatele"
 msgid "To register as a new user, sign out first"
 msgstr "Abyste se mohl zaregistrovat, napřed se odhlaste"
 
-#: ../app/controllers/users_controller.php:30
+#: ../app/controllers/users_controller.php:29
 #, php-format
 msgid ""
 "You have been successfully registered and now you are logged in as <em>%s</"
 "em>"
 msgstr "Byl jste úspěšně zaregistrován a teď jste přihlášen jako <em>%s</em>"
 
-#: ../app/controllers/users_controller.php:42
+#: ../app/controllers/users_controller.php:41
 msgid "Nothing has been changed"
 msgstr "Nic nebylo změněno"
 
-#: ../app/controllers/users_controller.php:47
+#: ../app/controllers/users_controller.php:46
 msgid "Your account data has been updated"
 msgstr "Údaje vašeho účtu byly změněny"
 
-#: ../app/controllers/users_controller.php:57
+#: ../app/controllers/users_controller.php:56
 msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
@@ -767,15 +643,19 @@ msgstr "Hledat"
 msgid "Update"
 msgstr "Aktualizovat"
 
+#: ../app/forms/application_form.php:67
+msgid "Delete"
+msgstr "Smazat"
+
 #: ../app/forms/application_form.php:69
 msgid "Save"
 msgstr "Uložit"
 
-#: ../app/forms/logins/create_new_form.php:5
+#: ../app/forms/logins/create_new_form.php:8
 msgid "Login"
 msgstr "Přihlásit se"
 
-#: ../app/forms/logins/create_new_form.php:9
+#: ../app/forms/logins/create_new_form.php:12
 #: ../app/forms/users/edit_password_form.php:5
 #: ../app/forms/users/users_form.php:20
 msgid "Password"
@@ -801,6 +681,11 @@ msgstr "Login nebo e-mailová adresa"
 msgid "Send me a recovery link"
 msgstr "Pošli mi odkaz pro obnovu"
 
+#: ../app/forms/password_recoveries/recovery_form.php:7
+#: ../app/forms/users/edit_password_form.php:8
+msgid "Set new password"
+msgstr "Nastavit nové heslo"
+
 #: ../app/forms/users/create_new_form.php:16
 msgid "In order to register you need to obtain an invitation code"
 msgstr "Pro registraci musíte znát kód platné pozvánky"
@@ -809,13 +694,13 @@ msgstr "Pro registraci musíte znát kód platné pozvánky"
 msgid "This is not a valid invitation code"
 msgstr "Toto neni kód platné pozvánky"
 
-#: ../app/forms/users/create_new_form.php:48
-msgid "This login has been already taken"
-msgstr "Tento login je již zabrán"
-
 #: ../app/forms/users/edit_password_form.php:17
 msgid "The new password is the same as your current password"
 msgstr "Nové heslo je stejné jako to současné"
+
+#: ../app/forms/users/users_form.php:11
+msgid "Email address"
+msgstr "E-mailová adresa"
 
 #: ../app/forms/users/users_form.php:14
 msgid "We will not disclose this address"
@@ -830,7 +715,7 @@ msgid "Password doesn't match"
 msgstr "Heslo se neshoduje"
 
 #: ../app/helpers/function.paginator.php:89
-#: ../app/helpers/function.paginator.php:152
+#: ../app/helpers/function.paginator.php:153
 msgid "items total"
 msgstr "Položek celkem"
 
@@ -838,7 +723,7 @@ msgstr "Položek celkem"
 msgid "Prev"
 msgstr "Předchozí"
 
-#: ../app/helpers/function.paginator.php:147
+#: ../app/helpers/function.paginator.php:148
 msgid "Next"
 msgstr "Následující"
 
@@ -849,6 +734,143 @@ msgstr "Ano"
 #: ../app/helpers/modifier.display_bool.php:14
 msgid "No"
 msgstr "Ne"
+
+#~ msgid ""
+#~ "Are you sure to delete article item\n"
+#~ "%1?"
+#~ msgstr ""
+#~ "Určitě chcete smazat článek\n"
+#~ "%1?"
+
+#~ msgid "Edit"
+#~ msgstr "Upravit"
+
+#~ msgid "Delete article"
+#~ msgstr "Smazat článek"
+
+#~ msgid "Add new article"
+#~ msgstr "Přidat nový článek"
+
+#~ msgid "The list is empty."
+#~ msgstr "Seznam je prázdný."
+
+#~ msgid "Title"
+#~ msgstr "Název"
+
+#~ msgid "Author"
+#~ msgstr "Autor"
+
+#~ msgid "Date"
+#~ msgstr "Datum"
+
+#~ msgid "Tags"
+#~ msgstr "Štítky"
+
+#~ msgid "Welcome administrator!"
+#~ msgstr "Vítejte administrátore!"
+
+#~ msgid "No record has been found."
+#~ msgstr "Nebyl nalezen žádný záznam."
+
+#~ msgid "Subscribed since"
+#~ msgstr "Přihlášen od"
+
+#~ msgid "Export emails in CSV"
+#~ msgstr "Export e-mailů v CSV"
+
+#~ msgid "Created at"
+#~ msgstr "Vytvořeno"
+
+#~ msgid "User"
+#~ msgstr "Uživatel"
+
+#~ msgid "Created from address"
+#~ msgstr "Vytvořeno z adresy"
+
+#~ msgid "Password recovered?"
+#~ msgstr "Heslo obnoveno?"
+
+#~ msgid "Recovered at"
+#~ msgstr "Obnoveno dne"
+
+#~ msgid "Recovered from address"
+#~ msgstr "Obnoveno z adresy"
+
+#~ msgid "Add new tag"
+#~ msgstr "Přidat nový štítek"
+
+#~ msgid "No tag has been found."
+#~ msgstr "Nebyl nalezen žádný štítek."
+
+#~ msgid "Tag"
+#~ msgstr "Štítek"
+
+#~ msgid ""
+#~ "You are about to permanently delete tag %1\n"
+#~ "\tAre you sure about that?"
+#~ msgstr ""
+#~ "Chystáte se smazat štítek %1\n"
+#~ "\tUrčite to chcete?"
+
+#~ msgid "Delete tag"
+#~ msgstr "Smazat štítek"
+
+#~ msgid ""
+#~ "At the moment no one knows the actual user's password because passwords "
+#~ "are not stored in plain text form. In this form you can set a new "
+#~ "password to the user <em>%1</em>"
+#~ msgstr ""
+#~ "Momentálně nikdo nezná heslo uživatele, protože hesla nejsou ukládána v "
+#~ "čitelné podobě. V tomto formuláři můžete nastavit nové heslo uživateli "
+#~ "<em>%1</em>"
+
+#~ msgid "Create a new user"
+#~ msgstr "Vytvořit nového uživatele"
+
+#~ msgid "Username"
+#~ msgstr "Uživatelské jméno"
+
+#~ msgid "Is admin?"
+#~ msgstr "Je administrátor?"
+
+#~ msgid "Updated at"
+#~ msgstr "Změněno"
+
+#~ msgid "Sign in as this user"
+#~ msgstr "Přihlásit se jako tento uživatel"
+
+#~ msgid ""
+#~ "You are about to permanently delete user %1\n"
+#~ "\tAre you sure about that?"
+#~ msgstr ""
+#~ "Chystáte se nevratně smazat uživatele %1\n"
+#~ "\tJste si skutečně jistý?"
+
+#~ msgid "Delete user"
+#~ msgstr "Smazat uživatele"
+
+#~ msgid ""
+#~ "<em>ATK14 Skelet</em> is a very basic application written on top of <a "
+#~ "href=\"http://atk14.net\">the ATK14 Framework</a>.\n"
+#~ "\t\t\tAs the Skelet is simple and minimal it may be usefull for "
+#~ "developers as a good start point for any other application."
+#~ msgstr ""
+#~ "<em>ATK14 Skelet</em> je základní aplikace napsaná ve <a href=\"http://"
+#~ "atk14.net\">frameworku ATK14</a>.\n"
+#~ "\t\t\tSkelet je jednoduchý a minimalistický, proto může být pro webového "
+#~ "vývojáře dobrým startovacím místem pro jakoukoli další aplikaci."
+
+#~ msgid "The URL is not valid."
+#~ msgstr "Toto URL není platné"
+
+#~ msgid "Go to home page"
+#~ msgstr "Přejděte na úvodní stránku"
+
+#~ msgid "administrator"
+#~ msgstr "administrátor"
+
+#~ msgid "This login has been already taken"
+#~ msgstr "Tento login je již zabrán"
 
 #~ msgid "Welcome screen"
 #~ msgstr "Vítací obrazovka"
