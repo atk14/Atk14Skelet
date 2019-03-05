@@ -11,11 +11,6 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	var $breadcrumbs;
 
-	function index(){
-		// acts like there's no index action by default
-		$this->_execute_action("error404");
-	}
-
 	function error404(){
 		if($this->request->get() && !$this->request->xhr() && ($redirection = ErrorRedirection::GetInstanceByHttpRequest($this->request))){
 			$redirection->touch();
