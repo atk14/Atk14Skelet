@@ -60,6 +60,10 @@ class ApplicationBaseController extends Atk14Controller{
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
 
+		// It's better to write
+		//	{$val|default:$mdash}
+		// than
+		//	{!$val|h|default:"&mdash;"}
 		$this->tpl_data["mdash"] = "—";
 	}
 
