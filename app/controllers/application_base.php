@@ -59,6 +59,8 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
+
+		$this->tpl_data["mdash"] = "—";
 	}
 
 	function _application_before_filter(){
