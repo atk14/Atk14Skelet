@@ -37,4 +37,24 @@ class TcUser extends TcBase{
 		$this->assertNull(User::Login("mr.cooler","infinity",$bad_password));
 		$this->assertEquals(false,$bad_password);
 	}
+
+	function test_null_and_empty_password(){
+		$rambo = $this->users["rambo"];
+
+		$this->assertTrue($rambo->isPasswordCorrect("secret"));
+
+		$rambo->s("password",null);
+		$this->assertTrue($rambo->getPassword()===null);
+
+		$this->assertFalse($rambo->isPasswordCorrect("secret"));
+		$this->assertFalse($rambo->isPasswordCorrect(null));
+		$this->assertFalse($rambo->isPasswordCorrect(""));
+
+		$rambo->s("password","");
+		$this->assertTrue($rambo->getPassword()==="");
+
+		$this->assertFalse($rambo->isPasswordCorrect("secret"));
+		$this->assertFalse($rambo->isPasswordCorrect(null));
+		$this->assertFalse($rambo->isPasswordCorrect(""));
+	}
 }
