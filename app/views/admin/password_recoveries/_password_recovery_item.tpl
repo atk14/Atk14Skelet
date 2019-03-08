@@ -1,4 +1,5 @@
 <tr>
+	<td class="item-id">{$password_recovery->getId()}</td>
 	<td class="item-created"><time datetime="{$password_recovery->getCreatedAt()}">{$password_recovery->getCreatedAt()|format_datetime}</time></td>
 	<td class="item-login">{$password_recovery->getUser()->getLogin()}</td>
 	<td class="item-email">{$password_recovery->getEmail()}</td>
