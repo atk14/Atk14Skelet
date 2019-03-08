@@ -1,5 +1,7 @@
 <h1>{$page_title}</h1>
 
+{render partial="shared/search_form"}
+
 {if $finder->isEmpty()}
 
 	<p>{t}The list is empty.{/t}</p>
