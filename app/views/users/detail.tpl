@@ -1,6 +1,4 @@
-<header>
-	<h1>{$page_title}</h1>
-</header>
+<h1>{$page_title}</h1>
 
 <table class="table table-auto">
 	<tbody>
