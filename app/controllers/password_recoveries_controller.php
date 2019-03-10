@@ -10,8 +10,12 @@ class PasswordRecoveriesController extends ApplicationController{
 				$this->form->set_error("login",_("There is no such user with the given login or email"));
 				return;
 			}
+			if(!$user->isActive()){
+				$this->form->set_error("login",_("This user account has been deactivated. Password recovery process can not be started."));
+				return;
+			}
 			if(!$user->getEmail()){
-				$this->form->set_error("login",_("Password recovery can not be initiated for this user. Email address is not set"));
+				$this->form->set_error("login",_("Password recovery can not be initiated for this user. Email address is not set."));
 				return;
 			}
 			// To prevent password recovery for User#1, uncomment the following check

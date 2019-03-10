@@ -164,6 +164,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 	function _get_logged_user(&$really_logged_user = null){
 		$really_logged_user = User::GetInstanceById($this->session->g("logged_user_id"));
+		if($really_logged_user && !$really_logged_user->isActive()){ $really_logged_user = null; }
 
 		if($really_logged_user && $really_logged_user->isAdmin()){
 			$fakely_logged_user = User::GetInstanceById($this->session->g("fake_logged_user_id"));

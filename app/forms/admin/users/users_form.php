@@ -17,6 +17,13 @@ class UsersForm extends AdminForm{
 			"max_length" => 255,
 		)));
 
+		$this->add_field("active",new BooleanField(array(
+			"label" => _("Is active?"),
+			"required" => false,
+			"initial" => true,
+			"help_text" => _("Inactive user can not be logged in"),
+		)));
+
 		$this->add_field("is_admin",new BooleanField(array(
 			"label" => _("Is admin?"),
 			"required" => false,

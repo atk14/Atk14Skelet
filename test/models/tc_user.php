@@ -4,6 +4,16 @@
  */
 class TcUser extends TcBase{
 
+	function test(){
+		$rambo = $this->users["rambo"];
+
+		$this->assertEquals("John Rambo",$rambo->getName());
+		$this->assertEquals(true,$rambo->isActive());
+
+		$rambo->s("active",false);
+		$this->assertEquals(false,$rambo->isActive());
+	}
+
 	function testHashingPassword(){
 		// see test/fixtures/users.yml
 		$rambo = $this->users["rambo"];
@@ -56,5 +66,24 @@ class TcUser extends TcBase{
 		$this->assertFalse($rambo->isPasswordCorrect("secret"));
 		$this->assertFalse($rambo->isPasswordCorrect(null));
 		$this->assertFalse($rambo->isPasswordCorrect(""));
+	}
+
+	function test_Login(){
+		$rambo = User::Login("rambo","secret",$bad_password);
+		$this->assertTrue(!!$rambo);
+		$this->assertFalse($bad_password);
+
+		$rambo = User::Login("rambo","badguess",$bad_password);
+		$this->assertNull($rambo);
+		$this->assertTrue($bad_password);
+
+		$rambo = User::Login("rambo.xyz","secret",$bad_password);
+		$this->assertNull($rambo);
+		$this->assertFalse($bad_password);
+
+		$this->users["rambo"]->s("active",false);
+		$rambo = User::Login("rambo","secret",$bad_password);
+		$this->assertNull($rambo);
+		$this->assertFalse($bad_password);
 	}
 }

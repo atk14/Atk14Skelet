@@ -7,6 +7,8 @@ CREATE TABLE users(
 	lastname VARCHAR(255),
 	email VARCHAR(255),
 	is_admin BOOLEAN NOT NULL DEFAULT 'f',
+	active BOOLEAN NOT NULL DEFAULT 't',
+	--
 	registered_from_ip_addr VARCHAR(255),
 	--
 	updated_by_user_id INT,
