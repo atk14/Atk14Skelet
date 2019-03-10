@@ -56,6 +56,10 @@ class User extends ApplicationModel{
 		return MyBlowfish::CheckPassword($password,$this->getPassword());
 	}
 
+	function getName(){
+		return trim($this->getFirstname()." ".$this->getLastname());
+	}
+
 	function isAdmin(){ return $this->getIsAdmin(); }
 
 	function toString(){ return $this->getLogin(); }

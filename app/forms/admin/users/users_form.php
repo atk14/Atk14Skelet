@@ -1,8 +1,14 @@
 <?php
 class UsersForm extends AdminForm{
+
 	function set_up(){
-		$this->add_field("name",new CharField(array(
-			"label" => _("Name"),
+		$this->add_field("firstname", new CharField(array(
+			"label" => _("Firstname"),
+			"max_length" => 255,
+		)));
+
+		$this->add_field("lastname", new CharField(array(
+			"label" => _("Lastname"),
 			"max_length" => 255,
 		)));
 

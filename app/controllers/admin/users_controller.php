@@ -8,7 +8,7 @@ class UsersController extends AdminController{
 		$this->sorting->add("is_admin","is_admin DESC, LOWER(login)","is_admin ASC, LOWER(login)");
 		$this->sorting->add("login","LOWER(login)");
 		$this->sorting->add("id");
-		$this->sorting->add("name","LOWER(name)");
+		$this->sorting->add("name","LOWER(COALESCE(firstname,'')), LOWER(COALESCE(lastname,''))","LOWER(COALESCE(firstname,'')) DESC, LOWER(COALESCE(lastname,'')) DESC");
 		$this->sorting->add("email","COALESCE(LOWER(name),'')");
 
 		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());

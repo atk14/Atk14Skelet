@@ -8,11 +8,11 @@
 		</tr>
 		<tr>
 			<th>{t}Your name{/t}</th>
-			<td>{$logged_user->getName()}</td>
+			<td>{$logged_user->getName()|default:$mdash}</td>
 		</tr>
 		<tr>
 			<th>{t}Your email{/t}</th>
-			<td>{$logged_user->getEmail()}</td>
+			<td>{$logged_user->getEmail()|default:$mdash}</td>
 		</tr>
 		{if $logged_user->isAdmin}
 			<tr>
