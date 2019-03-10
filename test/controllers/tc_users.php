@@ -20,7 +20,8 @@ class TcUsers extends TcBase{
 		// passwords don't match to each other
 		$controller = $this->client->post("users/create_new",array(
 			"login" => "john.doe.tester",
-			"name" => "John Doe",
+			"firstname" => "John",
+			"lastname" => "Doe",
 			"email" => "john@doe.com",
 			"password" => "no_more_fears",
 			"password_repeat" => "no_more_feras",
@@ -31,7 +32,8 @@ class TcUsers extends TcBase{
 		// we are posting data to the page
 		$controller = $this->client->post("users/create_new",array(
 			"login" => "john.doe.tester",
-			"name" => "John Doe",
+			"firstname" => "John",
+			"lastname" => "Doe",
 			"email" => "john@doe.com",
 			"password" => "no_more_fears",
 			"password_repeat" => "no_more_fears",
@@ -62,7 +64,8 @@ class TcUsers extends TcBase{
 		// we are posting data to the page
 		$controller = $this->client->post("users/create_new",array(
 			"login" => "john.doe.joker",
-			"name" => "John Doe",
+			"firstname" => "John",
+			"lastname" => "Doe",
 			"email" => "john@doe.com",
 			"password" => '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta', // hash for secret
 			"password_repeat" => '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta',
