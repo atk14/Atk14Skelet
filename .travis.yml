@@ -27,6 +27,7 @@ before_install:
 before_script:
   - travis_retry composer install --dev --no-interaction --prefer-dist
   - echo "y" | ATK14_ENV=test ./scripts/create_database
+  - echo "SELECT VERSION()" | ATK14_ENV=test ./scripts/dbconsole
   - ATK14_ENV=test ./scripts/migrate
 
 script:
