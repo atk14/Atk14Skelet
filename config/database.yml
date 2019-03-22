@@ -14,4 +14,4 @@ production:
   host: 127.0.0.1
   database: atk14skelet_production
   username: atk14skelet_production
-  password: <?=sha1(SECRET_TOKEN."Very_Sophisticated_Production_Password_Hiding")?>
+  password: "<?=sha1(SECRET_TOKEN."Very_Sophisticated_Production_Password_Hiding")?>"
