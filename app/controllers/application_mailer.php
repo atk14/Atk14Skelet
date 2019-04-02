@@ -31,7 +31,7 @@ class ApplicationMailer extends Atk14Mailer {
 			$html = $this->body_html;
 			$html = preg_replace('/<!-- header -->.+<!-- \/header -->/s','',$html);
 			$html = preg_replace('/<!-- footer -->.+<!-- \/footer -->/s','',$html);
-			$converter = new \Html2Text\Html2Text($html,["width" => 80]);
+			$converter = new \Html2Text\Html2Text($html,array("width" => 80));
 			$this->body = trim($converter->getText());
 		}
 	}
