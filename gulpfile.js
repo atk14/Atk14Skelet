@@ -16,6 +16,7 @@ var vendorScripts = [
 ];
 
 var applicationScripts = [
+	"public/scripts/utils/utils.js",
 	"public/scripts/application.js"
 ];
 

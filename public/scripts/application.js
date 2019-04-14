@@ -2,8 +2,9 @@
 ( function( window, $, undefined ) {
 	"use strict";
 	var document = window.document,
+		//UTILS = window.UTILS, // Uncomment this if you need something from UTILS
 
-	SKELET = {
+	APPLICATION = {
 		common: {
 
 			// Application-wide code.
@@ -95,9 +96,9 @@
 	 * Garber-Irish DOM-based routing.
 	 * See: http://goo.gl/z9dmd
 	 */
-	SKELET.UTIL = {
+	APPLICATION.INITIALIZER = {
 		exec: function( controller, action ) {
-			var ns = SKELET,
+			var ns = APPLICATION,
 				c = controller,
 				a = action;
 
@@ -115,15 +116,15 @@
 			controller = body.getAttribute( "data-controller" ),
 			action = body.getAttribute( "data-action" );
 
-			SKELET.UTIL.exec( "common" );
-			SKELET.UTIL.exec( controller );
-			SKELET.UTIL.exec( controller, action );
+			APPLICATION.INITIALIZER.exec( "common" );
+			APPLICATION.INITIALIZER.exec( controller );
+			APPLICATION.INITIALIZER.exec( controller, action );
 		}
 	};
 
-	// Expose SKELET to the global object.
-	window.SKELET = SKELET;
+	// Expose APPLICATION to the global object.
+	window.APPLICATION = APPLICATION;
 
 	// Initialize application.
-	SKELET.UTIL.init();
+	APPLICATION.INITIALIZER.init();
 } )( window, window.jQuery );
