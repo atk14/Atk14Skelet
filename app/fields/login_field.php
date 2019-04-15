@@ -1,5 +1,6 @@
 <?php
 class LoginField extends RegexField{
+
 	function __construct($options = array()){
 		$options += array(
 			"max_length" => 50,
@@ -16,10 +17,12 @@ class LoginField extends RegexField{
 		$this->widget->attrs["pattern"] = '^[a-z0-9.-]+$';
 		$this->update_messages(array(
 			"login_taken" => _("This username has been already taken"),
+			"invalid" => _("Only letters, numbers, dots and dashes are allowed")
 		));
 	}
 
 	function clean($value){
+		$value = String4::ToObject($value)->lower()->toString();
 		list($err,$value) = parent::clean($value);
 		if($err || is_null($value)){ return array($err,$value); }
 
