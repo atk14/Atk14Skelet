@@ -12,6 +12,26 @@
 			// Application-wide code.
 			init: function() {
 
+				// Saving post forms state
+				$( "form[method=post]" ).each( function() {
+					var $form = $( this );
+					$form.data( "initial_state", $form.serialize() );
+				} );
+
+				$( window ).on( "beforeunload", function( e ) {
+					console.log( e );
+					var rv;
+					$( "form[method=post]" ).each( function() {
+						var $form = $( this );
+						var initial_state = $form.data( "initial_state" );
+						var current_state = $form.serialize();
+						if ( initial_state && initial_state !== current_state ) {
+							rv = "Are you sure?";
+						}
+					} );
+					return rv;
+				}	);
+
 				// Form hints.
 				$( ".help-hint" ).each( function() {
 					var $this = $( this ),
