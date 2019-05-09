@@ -31,7 +31,7 @@ class User extends ApplicationModel{
 	 */
 	static function CreateNewRecord($values,$options = array()){
 		if(isset($values["password"])){
-			$values["password"] = MyBlowfish::Hash($values["password"]);
+			$values["password"] = MyBlowfish::Filter($values["password"]);
 		}
 
 	  return parent::CreateNewRecord($values,$options);
@@ -48,7 +48,7 @@ class User extends ApplicationModel{
 	 */
 	function setValues($values,$options = array()){
 		if(isset($values["password"])){
-			$values["password"] = MyBlowfish::Hash($values["password"]);
+			$values["password"] = MyBlowfish::Filter($values["password"]);
 		}
 		return parent::setValues($values,$options);
 	}
