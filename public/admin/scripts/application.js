@@ -2,7 +2,7 @@
 ( function( window, $, undefined ) {
 	var document = window.document,
 		ace = window.ace,
-		markdown = window.markdown,
+		UTILS = window.UTILS,
 
 	ADMIN = {
 
@@ -33,11 +33,22 @@
 					$( el ).markdownEditor( {
 						preview: true,
 						onPreview: function( content, callback ) {
-							var html = markdown.toHTML( content );
-							callback( html );
+							var lang = $( "html" ).attr( "lang" );
+							$.ajax( {
+								type: "POST",
+								url: "/api/" + lang + "/markdown/transform/",
+								data: {
+									source: content
+								},
+								success: function( output ) {
+									callback( output );
+								}
+							} );
 						}
 					} );
 				} );
+
+				UTILS.leaving_unsaved_page_checker.init();
 			}
 		},
 
@@ -110,7 +121,7 @@
 	 * Garber-Irish DOM-based routing.
 	 * See: http://goo.gl/z9dmd
 	 */
-	ADMIN.UTIL = {
+	ADMIN.INITIALIZER = {
 		exec: function( controller, action ) {
 			var ns = ADMIN,
 				c = controller,
@@ -130,9 +141,9 @@
 			controller = body.getAttribute( "data-controller" ),
 			action = body.getAttribute( "data-action" );
 
-			ADMIN.UTIL.exec( "common" );
-			ADMIN.UTIL.exec( controller );
-			ADMIN.UTIL.exec( controller, action );
+			ADMIN.INITIALIZER.exec( "common" );
+			ADMIN.INITIALIZER.exec( controller );
+			ADMIN.INITIALIZER.exec( controller, action );
 		}
 	};
 
@@ -140,5 +151,5 @@
 	window.ADMIN = ADMIN;
 
 	// Initialize application.
-	ADMIN.UTIL.init();
+	ADMIN.INITIALIZER.init();
 } )( window, window.jQuery );

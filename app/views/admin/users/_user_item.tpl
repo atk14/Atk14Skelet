@@ -1,6 +1,6 @@
 <tr>
 	<td class="item-id">{$user->getId()}</td>
-	<td class="item-login">{$user->getLogin()}</td>
+	<td class="item-login">{$user->getLogin()}{if !$user->isActive()} <em>({t}not active{/t})</em>{/if}</td>
 	<td class="item-title">{$user->getName()}</td>
 	<td class="item-email">{$user->getEmail()}</td>
 	<td class="item-isadmin">{$user->isAdmin()|display_bool}</td>

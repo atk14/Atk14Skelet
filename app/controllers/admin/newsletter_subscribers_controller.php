@@ -1,5 +1,6 @@
 <?php
 class NewsletterSubscribersController extends AdminController {
+
 	function index(){
 		$this->page_title = _("Newsletter Subscribers");
 
@@ -12,8 +13,9 @@ class NewsletterSubscribersController extends AdminController {
 		$conditions = $bind_ar = array();
 
 		if($d["search"]){
-			$conditions[] = "UPPER(id||' '||' '||COALESCE(name,'')||' '||COALESCE(email,'')) LIKE UPPER('%'||:search||'%')";
-			$bind_ar[":search"] = $d["search"];
+			if($ft_cond = FullTextSearchQueryLike::GetQuery("UPPER(id||' '||' '||COALESCE(name,'')||' '||COALESCE(email,''))",Translate::Upper($d["search"]),$bind_ar)){
+				$conditions[] = $ft_cond;
+			}
 		}
 
 		// building URL for CSV export

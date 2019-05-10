@@ -9,6 +9,7 @@ smarty.c
 smarty_admin.c
 vendor.pot
 */LC_MESSAGES/application.mo
+*/LC_MESSAGES/application_admin.mo
 */LC_MESSAGES/admin.mo
 */LC_MESSAGES/atk14.mo
 */LC_MESSAGES/vendor.mo

@@ -11,11 +11,6 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	var $breadcrumbs;
 
-	function index(){
-		// acts like there's no index action by default
-		$this->_execute_action("error404");
-	}
-
 	function error404(){
 		if($this->request->get() && !$this->request->xhr() && ($redirection = ErrorRedirection::GetInstanceByHttpRequest($this->request))){
 			$redirection->touch();
@@ -64,6 +59,12 @@ class ApplicationBaseController extends Atk14Controller{
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
+
+		// It's better to write
+		//	{$val|default:$mdash}
+		// than
+		//	{!$val|h|default:"&mdash;"}
+		$this->tpl_data["mdash"] = "—";
 	}
 
 	function _application_before_filter(){
@@ -163,6 +164,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 	function _get_logged_user(&$really_logged_user = null){
 		$really_logged_user = User::GetInstanceById($this->session->g("logged_user_id"));
+		if($really_logged_user && !$really_logged_user->isActive()){ $really_logged_user = null; }
 
 		if($really_logged_user && $really_logged_user->isAdmin()){
 			$fakely_logged_user = User::GetInstanceById($this->session->g("fake_logged_user_id"));

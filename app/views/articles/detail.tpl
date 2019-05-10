@@ -1,5 +1,6 @@
 <article>
 	<header>
+		{admin_menu for=$article}
 		<h1>{$article->getTitle()}</h1>
 		{if $tags}
 			<p>

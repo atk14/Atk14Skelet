@@ -126,7 +126,7 @@
 
 			{if $field->hints && !$field->hint_in_placeholder}
 				<div class="help-hint d-none" data-title="{t}Examples:{/t}">
-					<ul class="list-unstyled">
+					<ul class="list pl-3">
 						{foreach $field->hints as $hint}
 							<li>{!$hint}</li>
 						{/foreach}

@@ -21,6 +21,8 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 		"pull" => "right", // "right", "left", ""
 		"clearfix" => null,
 		"class" => "",
+
+		"USING_BOOTSTRAP4" => defined("USING_BOOTSTRAP4") && USING_BOOTSTRAP4,
 	);
 
 	if(!isset($params["clearfix"])){
@@ -28,7 +30,7 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	}
 
 	$smarty = atk14_get_smarty_from_template($template);
-	$USING_BOOTSTRAP4 = defined("USING_BOOTSTRAP4") && USING_BOOTSTRAP4;
+	$USING_BOOTSTRAP4 = $params["USING_BOOTSTRAP4"];
 
 	// splitting up content according links
 	$content = preg_replace('/(<\/a>)\s*(<a)/s','%a_end%%SEPARATOR%%a_begin%',$content);

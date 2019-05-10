@@ -1,14 +1,17 @@
 rambo:
   login: "rambo"
-  name: "John Rambo"
+  firstname: "John"
+  lastname: "Rambo"
   password: "secret"
 
 rambo_tester:
   login: "rambo.tester"
-  name: "John Tester Rambo"
+  firstname: "John Tester"
+  lastname: "Rambo"
   password: "Secret123"
 
 rocky:
   login: "rocky"
-  name: "Rocky Balboa"
+  firstname: "Rocky"
+  lastname: "Balboa"
   password: "$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta" # secret

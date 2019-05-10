@@ -54,7 +54,7 @@ class TagsController extends AdminController{
 
 			if($d==$this->form->get_initial()){
 				$this->flash->notice(_("Nothing has been changed"));
-				$this->_redirect_back();
+				return $this->_redirect_back();
 			}
 
 			$d["updated_by_user_id"] = $this->logged_user;

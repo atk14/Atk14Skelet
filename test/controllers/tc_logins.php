@@ -61,5 +61,15 @@ class TcLogins extends TcBase{
 		));
 		$this->assertEquals(303,$client->getStatusCode());
 		$this->assertFalse($ctrl->form->has_errors());
+
+		$ctrl = $client->get("main/index");
+		$rocky = $ctrl->_get_logged_user();
+		$this->assertTrue(!!$rocky);
+
+		// deactivated user must not stay logged in
+		$this->users["rocky"]->s("active",false);
+		$ctrl = $client->get("main/index");
+		$rocky = $ctrl->_get_logged_user();
+		$this->assertNull($rocky);
 	}
 }

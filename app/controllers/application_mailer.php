@@ -24,6 +24,18 @@ class ApplicationMailer extends Atk14Mailer {
 		// $this->bcc = "";
 	}
 
+	function _after_render(){
+		if(!$this->body && $this->body_html){
+			// Missing plain text body will be automatically created from the HTML body.
+			// Unwanted parts in the email layout can be marked with HTML comments and will be filtered out.
+			$html = $this->body_html;
+			$html = preg_replace('/<!-- header -->.+<!-- \/header -->/s','',$html);
+			$html = preg_replace('/<!-- footer -->.+<!-- \/footer -->/s','',$html);
+			$converter = new \Html2Text\Html2Text($html,array("width" => 80));
+			$this->body = trim($converter->getText());
+		}
+	}
+
 	function notify_user_registration($user){
 		$this->tpl_data["user"] = $user;
 		$this->to = $user->getEmail();

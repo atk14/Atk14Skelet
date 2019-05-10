@@ -12,3 +12,4 @@ public/admin/dist
 vendor/*
 composer.lock
 package-lock.json
+.well-known/*
