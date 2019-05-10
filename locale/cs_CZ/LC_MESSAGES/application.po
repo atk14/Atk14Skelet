@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-05 11:00+0100\n"
-"PO-Revision-Date: 2019-03-05 10:59+0100\n"
+"POT-Creation-Date: 2019-05-10 23:48+0200\n"
+"PO-Revision-Date: 2019-05-10 23:54+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -61,7 +61,7 @@ msgid "Sign in as an admin user"
 msgstr "Přihlaste se jako administrátor"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:74
+#: ../app/controllers/password_recoveries_controller.php:78
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Přihlásit se"
@@ -345,6 +345,12 @@ msgstr "Volitelné"
 msgid "Examples:"
 msgstr "Příklady"
 
+msgid "Edit object"
+msgstr "Editovat objekt"
+
+msgid "Create new object"
+msgstr "Vytvořit nový objekt"
+
 msgid "Create a new record"
 msgstr "Vytvořit nový záznam"
 
@@ -423,7 +429,7 @@ msgstr "Nejnovější články"
 msgid "Username (login)"
 msgstr "Uživatelské jméno (login)"
 
-#: ../app/forms/main/contact_form.php:5 ../app/forms/users/users_form.php:5
+#: ../app/forms/main/contact_form.php:5
 msgid "Your name"
 msgstr "Vaše jméno"
 
@@ -459,32 +465,32 @@ msgstr "Špatné heslo"
 msgid "There is no such user"
 msgstr "Takový uživatel tady není"
 
-#: ../app/controllers/application_base.php:28
+#: ../app/controllers/application_base.php:23
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
 
-#: ../app/controllers/application_base.php:38
+#: ../app/controllers/application_base.php:33
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:94
+#: ../app/controllers/application_base.php:95
 msgid "Home"
 msgstr "Domů"
 
-#: ../app/controllers/application_mailer.php:30
+#: ../app/controllers/application_mailer.php:42
 #, php-format
 msgid "Welcome to %s"
 msgstr "Vítejte na %s"
 
-#: ../app/controllers/application_mailer.php:39
+#: ../app/controllers/application_mailer.php:51
 msgid "Reset Your Password"
 msgstr "Obnova vašeho hesla"
 
-#: ../app/controllers/application_mailer.php:48
+#: ../app/controllers/application_mailer.php:60
 msgid "Your password was updated"
 msgstr "Vaše heslo bylo změněno"
 
-#: ../app/controllers/application_mailer.php:60
+#: ../app/controllers/application_mailer.php:72
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
@@ -558,18 +564,25 @@ msgstr "Tady není uživatel s tímto loginem nebo e-mailem"
 
 #: ../app/controllers/password_recoveries_controller.php:14
 msgid ""
-"Password recovery can not be initiated for this user. Email address is not "
-"set"
+"This user account has been deactivated. Password recovery process can not be "
+"started."
 msgstr ""
-"Obnova hesla nemůže být pro tohoto uživatele provedena. E-mailová adresa "
-"není nastavena"
+"Tento uživatelský účet byl deaktivován. Nelze zahájit proces obnovení hesla."
 
-#: ../app/controllers/password_recoveries_controller.php:58
+#: ../app/controllers/password_recoveries_controller.php:18
+msgid ""
+"Password recovery can not be initiated for this user. Email address is not "
+"set."
+msgstr ""
+"Obnovení hesla nelze pro tohoto uživatele iniciovat. E-mailová adresa není "
+"nastavena."
+
+#: ../app/controllers/password_recoveries_controller.php:62
 #: ../app/controllers/users_controller.php:66
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: ../app/controllers/password_recoveries_controller.php:75
+#: ../app/controllers/password_recoveries_controller.php:79
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
@@ -601,16 +614,20 @@ msgstr "Údaje vašeho účtu byly změněny"
 msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
-#: ../app/fields/login_field.php:6
+#: ../app/fields/login_field.php:7
 msgid ""
 "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
 msgstr ""
 "Zadávejte pouze písmena, číslice, tečky a pomlčky. Max. délka je omezena na "
 "50 znaků."
 
-#: ../app/fields/login_field.php:18
+#: ../app/fields/login_field.php:19
 msgid "This username has been already taken"
 msgstr "Toto uživatelské jméno je již zabráno"
+
+#: ../app/fields/login_field.php:20
+msgid "Only letters, numbers, dots and dashes are allowed"
+msgstr "Zadávejte pouze písmena, číslice, tečky a pomlčky."
 
 #: ../app/fields/tags_field.php:18
 msgid "Ensure that there are max %max% tags (now there are %count%)"
@@ -661,7 +678,7 @@ msgstr "Přihlásit se"
 
 #: ../app/forms/logins/create_new_form.php:12
 #: ../app/forms/users/edit_password_form.php:5
-#: ../app/forms/users/users_form.php:20
+#: ../app/forms/users/users_form.php:25
 msgid "Password"
 msgstr "Heslo"
 
@@ -702,19 +719,27 @@ msgstr "Toto neni kód platné pozvánky"
 msgid "The new password is the same as your current password"
 msgstr "Nové heslo je stejné jako to současné"
 
+#: ../app/forms/users/users_form.php:6
+msgid "Firstname"
+msgstr "Jméno"
+
 #: ../app/forms/users/users_form.php:11
+msgid "Lastname"
+msgstr "Příjmení"
+
+#: ../app/forms/users/users_form.php:16
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: ../app/forms/users/users_form.php:14
+#: ../app/forms/users/users_form.php:19
 msgid "We will not disclose this address"
 msgstr "Tuto adresu nebudeme zvěřejňovat"
 
-#: ../app/forms/users/users_form.php:25
+#: ../app/forms/users/users_form.php:30
 msgid "Password (repeat)"
 msgstr "Heslo (opakování)"
 
-#: ../app/forms/users/users_form.php:38
+#: ../app/forms/users/users_form.php:43
 msgid "Password doesn't match"
 msgstr "Heslo se neshoduje"
 
@@ -738,6 +763,13 @@ msgstr "Ano"
 #: ../app/helpers/modifier.display_bool.php:14
 msgid "No"
 msgstr "Ne"
+
+#~ msgid ""
+#~ "Password recovery can not be initiated for this user. Email address is "
+#~ "not set"
+#~ msgstr ""
+#~ "Obnova hesla nemůže být pro tohoto uživatele provedena. E-mailová adresa "
+#~ "není nastavena"
 
 #~ msgid ""
 #~ "To reset admins password use console like ATK14 ninja: $ ./scripts/"

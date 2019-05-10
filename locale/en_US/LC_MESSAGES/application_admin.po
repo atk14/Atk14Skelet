@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-05 11:00+0100\n"
+"POT-Creation-Date: 2019-05-10 23:48+0200\n"
 "PO-Revision-Date: 2016-03-07 17:03+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -23,6 +23,9 @@ msgid ""
 msgstr ""
 
 msgid "Edit"
+msgstr ""
+
+msgid "Visit public link"
 msgstr ""
 
 msgid "Delete article"
@@ -78,7 +81,6 @@ msgstr ""
 msgid "Email"
 msgstr ""
 
-#: ../app/forms/admin/users/users_form.php:5
 msgid "Name"
 msgstr ""
 
@@ -137,15 +139,18 @@ msgstr ""
 msgid "Username"
 msgstr ""
 
-#: ../app/forms/admin/users/users_form.php:10
+#: ../app/forms/admin/users/users_form.php:16
 msgid "Email address"
 msgstr ""
 
-#: ../app/forms/admin/users/users_form.php:15
+#: ../app/forms/admin/users/users_form.php:28
 msgid "Is admin?"
 msgstr ""
 
 msgid "Updated at"
+msgstr ""
+
+msgid "not active"
 msgstr ""
 
 msgid "Set new password"
@@ -180,7 +185,7 @@ msgid "Users"
 msgstr ""
 
 #: ../app/controllers/admin/admin.php:31
-#: ../app/controllers/admin/password_recoveries_controller.php:4
+#: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr ""
 
@@ -245,7 +250,7 @@ msgstr ""
 msgid "The redirection has been updated successfully"
 msgstr ""
 
-#: ../app/controllers/admin/newsletter_subscribers_controller.php:4
+#: ../app/controllers/admin/newsletter_subscribers_controller.php:5
 msgid "Newsletter Subscribers"
 msgstr ""
 
@@ -313,10 +318,6 @@ msgid "Now you are logged as <em>%s</em>"
 msgstr ""
 
 #: ../app/forms/admin/admin_form.php:6
-#: ../app/forms/admin/articles/index_form.php:5
-#: ../app/forms/admin/newsletter_subscribers/index_form.php:5
-#: ../app/forms/admin/tags/index_form.php:5
-#: ../app/forms/admin/users/index_form.php:5
 msgid "Search"
 msgstr ""
 
@@ -332,16 +333,8 @@ msgstr ""
 msgid "Published At"
 msgstr ""
 
-#: ../app/forms/admin/articles/index_form.php:9
-msgid "Search articles"
-msgstr ""
-
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:24
 msgid "Moved permanently?"
-msgstr ""
-
-#: ../app/forms/admin/tags/index_form.php:9
-msgid "Search tags"
 msgstr ""
 
 #: ../app/forms/admin/users/edit_password_form.php:5
@@ -352,8 +345,20 @@ msgstr ""
 msgid "Set password"
 msgstr ""
 
-#: ../app/forms/admin/users/index_form.php:9
-msgid "Search users"
+#: ../app/forms/admin/users/users_form.php:6
+msgid "Firstname"
+msgstr ""
+
+#: ../app/forms/admin/users/users_form.php:11
+msgid "Lastname"
+msgstr ""
+
+#: ../app/forms/admin/users/users_form.php:21
+msgid "Is active?"
+msgstr ""
+
+#: ../app/forms/admin/users/users_form.php:24
+msgid "Inactive user can not be logged in"
 msgstr ""
 
 #~ msgid "atk14.date_format"
