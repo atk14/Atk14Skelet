@@ -3,7 +3,7 @@
 	var document = window.document,
 		ace = window.ace,
 		markdown = window.markdown,
-		//UTILS = window.UTILS, // Uncomment this if you need something from UTILS
+		UTILS = window.UTILS,
 
 	ADMIN = {
 
@@ -39,6 +39,8 @@
 						}
 					} );
 				} );
+
+				UTILS.leaving_unsaved_page_checker.init();
 			}
 		},
 
