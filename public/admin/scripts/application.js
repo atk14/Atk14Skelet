@@ -2,7 +2,6 @@
 ( function( window, $, undefined ) {
 	var document = window.document,
 		ace = window.ace,
-		markdown = window.markdown,
 		UTILS = window.UTILS,
 
 	ADMIN = {
@@ -34,8 +33,17 @@
 					$( el ).markdownEditor( {
 						preview: true,
 						onPreview: function( content, callback ) {
-							var html = markdown.toHTML( content );
-							callback( html );
+							var lang = $( "html" ).attr( "lang" );
+							$.ajax( {
+								type: "POST",
+								url: "/api/" + lang + "/markdown/transform/",
+								data: {
+									source: content
+								},
+								success: function( output ) {
+									callback( output );
+								}
+							} );
 						}
 					} );
 				} );

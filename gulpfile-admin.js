@@ -13,7 +13,6 @@ var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
 	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
-	"node_modules/markdown/lib/markdown.js",
 	"node_modules/ace-builds/src/ace.js",
 	"node_modules/bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
