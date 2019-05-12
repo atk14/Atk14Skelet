@@ -13,8 +13,8 @@ class TagsController extends AdminController{
 			$this->sorting->add("default","id||''=:search DESC, LOWER(tag) LIKE :search||'%' DESC, LOWER(tag)"); // in searching the default ordering is more usefull: exact match with id or at the beginning of a tag is prioritized
 		}
 
-		$this->sorting->add("tag","LOWER(tag)");
 		$this->sorting->add("created_at",array("reverse" => true));
+		$this->sorting->add("tag","LOWER(tag)");
 		$this->sorting->add("id");
 
 		$this->tpl_data["finder"] = Tag::Finder(array(
