@@ -8,9 +8,9 @@ window.UTILS.leaving_unsaved_page_checker.init = function() {
 
 	// Saving post method
 	var currentRequestMethod;
-	$("form").on( "submit", function() {
+	$( "form" ).on( "submit", function() {
 		currentRequestMethod = $( this ).attr( "method" );
-		if( currentRequestMethod ) {
+		if ( currentRequestMethod ) {
 			currentRequestMethod = currentRequestMethod.toLowerCase();
 		}
 	} );
@@ -31,9 +31,9 @@ window.UTILS.leaving_unsaved_page_checker.init = function() {
 		}
 		$( "form[method=post]" ).each( function() {
 			var $form = $( this );
-			var initial_state = $form.data( "initial_state" );
-			var current_state = $form.serialize();
-			if ( initial_state && initial_state !== current_state ) {
+			var initialState = $form.data( "initial_state" );
+			var currentState = $form.serialize();
+			if ( initialState && initialState !== currentState ) {
 				rv = "Are you sure to leave the page without saving?";
 			}
 		} );
