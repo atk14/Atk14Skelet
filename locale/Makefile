@@ -20,6 +20,7 @@ pot: files-list
 	@> application.pot
 	@> application_admin.pot
 	@> vendor.pot
+	@> smarty.c
 	# Creating application.pot
 	@cat files_smarty_templates|xargs ../scripts/tsmarty2c.php >> smarty.c
 	@-xgettext --no-location -L c --from-code=UTF-8 smarty.c --output=- > application.pot
