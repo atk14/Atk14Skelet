@@ -4,6 +4,10 @@ require_once(__DIR__."/../application_rest_api.php");
 require_once(__DIR__."/../../../lib/markdown.php");
 
 class ApiController extends ApplicationRestApiController{
+
+	// Reading documentation can be protected by username and password
+	// var $doc_basic_auth = "aladdin:openSesame";
+
 	function _dump_logged_user(){
 		return $this->_dump_user($this->_get_logged_user());
 	}
