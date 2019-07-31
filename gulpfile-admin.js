@@ -102,7 +102,7 @@ gulp.task( "copy-admin", function() {
 
 // Clean
 gulp.task( "clean-admin", function() {
-	del( "admin/dist" );
+	del( "public/admin/dist" );
 } );
 
 // Server

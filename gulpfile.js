@@ -93,7 +93,7 @@ gulp.task( "copy", function() {
 
 // Clean
 gulp.task( "clean", function() {
-	del( "dist" );
+	del( "public/dist" );
 } );
 
 // Server
