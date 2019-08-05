@@ -31,15 +31,6 @@ composer install
 ```
 If you are experiencing a trouble make sure that all requirements are met: <http://book.atk14.net/czech/installation%3Arequirements/>
 
-Installing optional 3rd party libraries
----------------------------------------
-
-```bash
-composer update
-```
-
-If you don't have the Composer installed, visit http://www.getcomposer.org/
-
 Starting the skeleton
 ---------------------
 
@@ -96,3 +87,5 @@ This outputs an IP address you can use to locally test and another that can be u
 ### You're done! Happy skeleting!
 
 Don't forget to list your new project on http://www.atk14sites.net/
+
+[//]: # ( vim: set ts=2 et: )

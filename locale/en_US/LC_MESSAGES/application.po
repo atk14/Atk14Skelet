@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-05 11:00+0100\n"
+"POT-Creation-Date: 2019-05-10 23:48+0200\n"
 "PO-Revision-Date: 2016-03-07 17:03+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -56,7 +56,7 @@ msgid "Sign in as an admin user"
 msgstr ""
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:74
+#: ../app/controllers/password_recoveries_controller.php:78
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr ""
@@ -301,6 +301,12 @@ msgstr ""
 msgid "Examples:"
 msgstr ""
 
+msgid "Edit object"
+msgstr ""
+
+msgid "Create new object"
+msgstr ""
+
 msgid "Create a new record"
 msgstr ""
 
@@ -375,7 +381,7 @@ msgstr ""
 msgid "Username (login)"
 msgstr ""
 
-#: ../app/forms/main/contact_form.php:5 ../app/forms/users/users_form.php:5
+#: ../app/forms/main/contact_form.php:5
 msgid "Your name"
 msgstr ""
 
@@ -411,32 +417,32 @@ msgstr ""
 msgid "There is no such user"
 msgstr ""
 
-#: ../app/controllers/application_base.php:28
+#: ../app/controllers/application_base.php:23
 msgid "Page not found"
 msgstr ""
 
-#: ../app/controllers/application_base.php:38
+#: ../app/controllers/application_base.php:33
 msgid "Forbidden"
 msgstr ""
 
-#: ../app/controllers/application_base.php:94
+#: ../app/controllers/application_base.php:95
 msgid "Home"
 msgstr ""
 
-#: ../app/controllers/application_mailer.php:30
+#: ../app/controllers/application_mailer.php:42
 #, php-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: ../app/controllers/application_mailer.php:39
+#: ../app/controllers/application_mailer.php:51
 msgid "Reset Your Password"
 msgstr ""
 
-#: ../app/controllers/application_mailer.php:48
+#: ../app/controllers/application_mailer.php:60
 msgid "Your password was updated"
 msgstr ""
 
-#: ../app/controllers/application_mailer.php:60
+#: ../app/controllers/application_mailer.php:72
 msgid "Message sent from contact page"
 msgstr ""
 
@@ -508,16 +514,22 @@ msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:14
 msgid ""
-"Password recovery can not be initiated for this user. Email address is not "
-"set"
+"This user account has been deactivated. Password recovery process can not be "
+"started."
 msgstr ""
 
-#: ../app/controllers/password_recoveries_controller.php:58
+#: ../app/controllers/password_recoveries_controller.php:18
+msgid ""
+"Password recovery can not be initiated for this user. Email address is not "
+"set."
+msgstr ""
+
+#: ../app/controllers/password_recoveries_controller.php:62
 #: ../app/controllers/users_controller.php:66
 msgid "Your password has been updated successfully"
 msgstr ""
 
-#: ../app/controllers/password_recoveries_controller.php:75
+#: ../app/controllers/password_recoveries_controller.php:79
 msgid "Password recovery"
 msgstr ""
 
@@ -549,13 +561,17 @@ msgstr ""
 msgid "This is not your current password"
 msgstr ""
 
-#: ../app/fields/login_field.php:6
+#: ../app/fields/login_field.php:7
 msgid ""
 "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
 msgstr ""
 
-#: ../app/fields/login_field.php:18
+#: ../app/fields/login_field.php:19
 msgid "This username has been already taken"
+msgstr ""
+
+#: ../app/fields/login_field.php:20
+msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr ""
 
 #: ../app/fields/tags_field.php:18
@@ -606,7 +622,7 @@ msgstr ""
 
 #: ../app/forms/logins/create_new_form.php:12
 #: ../app/forms/users/edit_password_form.php:5
-#: ../app/forms/users/users_form.php:20
+#: ../app/forms/users/users_form.php:25
 msgid "Password"
 msgstr ""
 
@@ -647,19 +663,27 @@ msgstr ""
 msgid "The new password is the same as your current password"
 msgstr ""
 
+#: ../app/forms/users/users_form.php:6
+msgid "Firstname"
+msgstr ""
+
 #: ../app/forms/users/users_form.php:11
+msgid "Lastname"
+msgstr ""
+
+#: ../app/forms/users/users_form.php:16
 msgid "Email address"
 msgstr ""
 
-#: ../app/forms/users/users_form.php:14
+#: ../app/forms/users/users_form.php:19
 msgid "We will not disclose this address"
 msgstr ""
 
-#: ../app/forms/users/users_form.php:25
+#: ../app/forms/users/users_form.php:30
 msgid "Password (repeat)"
 msgstr ""
 
-#: ../app/forms/users/users_form.php:38
+#: ../app/forms/users/users_form.php:43
 msgid "Password doesn't match"
 msgstr ""
 

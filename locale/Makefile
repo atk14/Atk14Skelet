@@ -20,6 +20,7 @@ pot: files-list
 	@> application.pot
 	@> application_admin.pot
 	@> vendor.pot
+	@> smarty.c
 	# Creating application.pot
 	@cat files_smarty_templates|xargs ../scripts/tsmarty2c.php >> smarty.c
 	@-xgettext --no-location -L c --from-code=UTF-8 smarty.c --output=- > application.pot
@@ -65,16 +66,19 @@ merge-$(1):
 	if [ ! -f  $(1)/LC_MESSAGES/application.po ]; then cp application.pot $(1)/LC_MESSAGES/application.po; fi
 	-mv $(1)/LC_MESSAGES/application.po $(1)/LC_MESSAGES/application.po.orig;
 	-msgmerge $(1)/LC_MESSAGES/application.po.orig application.pot --no-fuzzy-matching --output-file=$(1)/LC_MESSAGES/application.po
+	-if [ `diff $(1)/LC_MESSAGES/application.po.orig $(1)/LC_MESSAGES/application.po | egrep '^[><]' | egrep -v POT-Creation-Date | wc -l` -eq 0 ]; then cp $(1)/LC_MESSAGES/application.po.orig $(1)/LC_MESSAGES/application.po; fi
 	-rm $(1)/LC_MESSAGES/application.po.orig
 	# Merging application_admin.pot
 	if [ ! -f  $(1)/LC_MESSAGES/application_admin.po ]; then cp application_admin.pot $(1)/LC_MESSAGES/application_admin.po; fi
 	-mv $(1)/LC_MESSAGES/application_admin.po $(1)/LC_MESSAGES/application_admin.po.orig;
 	-msgmerge $(1)/LC_MESSAGES/application_admin.po.orig application_admin.pot --no-fuzzy-matching --output-file=$(1)/LC_MESSAGES/application_admin.po
+	-if [ `diff $(1)/LC_MESSAGES/application_admin.po.orig $(1)/LC_MESSAGES/application_admin.po | egrep '^[><]' | egrep -v POT-Creation-Date | wc -l` -eq 0 ]; then cp $(1)/LC_MESSAGES/application_admin.po.orig $(1)/LC_MESSAGES/application_admin.po; fi
 	-rm $(1)/LC_MESSAGES/application_admin.po.orig
 	# Merging vendor.po
 	if [ ! -f $(1)/LC_MESSAGES/vendor.po ]; then cp vendor.pot $(1)/LC_MESSAGES/vendor.po; fi
 	mv $(1)/LC_MESSAGES/vendor.po $(1)/LC_MESSAGES/vendor.po.orig
 	msgmerge $(1)/LC_MESSAGES/vendor.po.orig vendor.pot --no-fuzzy-matching --output-file=$(1)/LC_MESSAGES/vendor.po
+	-if [ `diff $(1)/LC_MESSAGES/vendor.po.orig $(1)/LC_MESSAGES/vendor.po | egrep '^[><]' | egrep -v POT-Creation-Date | wc -l` -eq 0 ]; then cp $(1)/LC_MESSAGES/vendor.po.orig $(1)/LC_MESSAGES/vendor.po; fi
 	rm $(1)/LC_MESSAGES/vendor.po.orig
 
 compile-$(1):

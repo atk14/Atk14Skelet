@@ -1,0 +1,4 @@
+// In Bootstrap 4 there is no style for btn-default
+.btn-default {
+	@extend .btn-light;
+}

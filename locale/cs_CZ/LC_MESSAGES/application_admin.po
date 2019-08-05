@@ -7,9 +7,9 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-05 11:00+0100\n"
-"PO-Revision-Date: 2017-11-23 22:47+0100\n"
-"Last-Translator: Yarri <do-not-write-me@ever.com>\n"
+"POT-Creation-Date: 2019-05-10 23:48+0200\n"
+"PO-Revision-Date: 2019-05-10 23:57+0200\n"
+"Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
@@ -26,6 +26,9 @@ msgstr ""
 
 msgid "Edit"
 msgstr "Upravit"
+
+msgid "Visit public link"
+msgstr "Navštívit veřejný odkaz"
 
 msgid "Delete article"
 msgstr "Smazat článek"
@@ -55,21 +58,21 @@ msgid "Delete"
 msgstr "Smazat"
 
 msgid "Add new redirection"
-msgstr ""
+msgstr "Přidat nové přesměrování"
 
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:6
 msgid "Source URL"
-msgstr ""
+msgstr "Zdrojová adresa URL"
 
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:15
 msgid "Target URL"
-msgstr ""
+msgstr "Cílová adresa URL"
 
 msgid "Created at"
 msgstr "Vytvořeno"
 
 msgid "Last access"
-msgstr ""
+msgstr "Poslední přístup"
 
 msgid "Welcome administrator!"
 msgstr "Vítejte administrátore!"
@@ -80,7 +83,6 @@ msgstr "Nebyl nalezen žádný záznam."
 msgid "Email"
 msgstr "E-mail"
 
-#: ../app/forms/admin/users/users_form.php:5
 msgid "Name"
 msgstr "Jméno"
 
@@ -144,16 +146,19 @@ msgstr "Vytvořit nového uživatele"
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: ../app/forms/admin/users/users_form.php:10
+#: ../app/forms/admin/users/users_form.php:16
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: ../app/forms/admin/users/users_form.php:15
+#: ../app/forms/admin/users/users_form.php:28
 msgid "Is admin?"
 msgstr "Je administrátor?"
 
 msgid "Updated at"
 msgstr "Změněno"
+
+msgid "not active"
+msgstr "neaktivní"
 
 msgid "Set new password"
 msgstr "Nastavit nové heslo"
@@ -189,7 +194,7 @@ msgid "Users"
 msgstr "Uživatelé"
 
 #: ../app/controllers/admin/admin.php:31
-#: ../app/controllers/admin/password_recoveries_controller.php:4
+#: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Obnovy hesel"
 
@@ -200,7 +205,7 @@ msgstr "Odběratelé newsletteru"
 #: ../app/controllers/admin/admin.php:33
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
-msgstr ""
+msgstr "Přesměrování 404"
 
 #: ../app/controllers/admin/admin.php:102
 msgid "The entry has been deleted"
@@ -235,26 +240,26 @@ msgstr "Článek byl úspěšně aktualizován"
 
 #: ../app/controllers/admin/error_redirections_controller.php:27
 msgid "Create redirection"
-msgstr ""
+msgstr "Vytvořit přesměrování"
 
 #: ../app/controllers/admin/error_redirections_controller.php:33
 #: ../app/controllers/admin/error_redirections_controller.php:51
 msgid "Another redirection with the same source URL already exists"
-msgstr ""
+msgstr "Jiné přesměrování se stejnou zdrojovou adresou URL již existuje"
 
 #: ../app/controllers/admin/error_redirections_controller.php:38
 msgid "The redirection has been created successfully"
-msgstr ""
+msgstr "Přesměrováná bylo úspěšně vytvořeno"
 
 #: ../app/controllers/admin/error_redirections_controller.php:44
 msgid "Editing redirection"
-msgstr ""
+msgstr "Editace přesměrování"
 
 #: ../app/controllers/admin/error_redirections_controller.php:56
 msgid "The redirection has been updated successfully"
-msgstr ""
+msgstr "Přesměrování bylo úspěšně změněno"
 
-#: ../app/controllers/admin/newsletter_subscribers_controller.php:4
+#: ../app/controllers/admin/newsletter_subscribers_controller.php:5
 msgid "Newsletter Subscribers"
 msgstr "Odběratelé newsletteru"
 
@@ -324,10 +329,6 @@ msgid "Now you are logged as <em>%s</em>"
 msgstr "Nyní jste přihlášen jako <em>%s</em>"
 
 #: ../app/forms/admin/admin_form.php:6
-#: ../app/forms/admin/articles/index_form.php:5
-#: ../app/forms/admin/newsletter_subscribers/index_form.php:5
-#: ../app/forms/admin/tags/index_form.php:5
-#: ../app/forms/admin/users/index_form.php:5
 msgid "Search"
 msgstr "Hledat"
 
@@ -343,17 +344,9 @@ msgstr "Je očekáván formát Markdown"
 msgid "Published At"
 msgstr "Publikováno dne"
 
-#: ../app/forms/admin/articles/index_form.php:9
-msgid "Search articles"
-msgstr "Vyhledat články"
-
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:24
 msgid "Moved permanently?"
-msgstr ""
-
-#: ../app/forms/admin/tags/index_form.php:9
-msgid "Search tags"
-msgstr "Vyhledat štítky"
+msgstr "Přesunuto trvale?"
 
 #: ../app/forms/admin/users/edit_password_form.php:5
 msgid "New password"
@@ -363,9 +356,30 @@ msgstr "Nové heslo"
 msgid "Set password"
 msgstr "Nastavit heslo"
 
-#: ../app/forms/admin/users/index_form.php:9
-msgid "Search users"
-msgstr "Hledat uživatele"
+#: ../app/forms/admin/users/users_form.php:6
+msgid "Firstname"
+msgstr "Jméno"
+
+#: ../app/forms/admin/users/users_form.php:11
+msgid "Lastname"
+msgstr "Příjmení"
+
+#: ../app/forms/admin/users/users_form.php:21
+msgid "Is active?"
+msgstr "Je aktivní?"
+
+#: ../app/forms/admin/users/users_form.php:24
+msgid "Inactive user can not be logged in"
+msgstr "Neaktivní uživatel se nemůže přihlásit"
+
+#~ msgid "Search articles"
+#~ msgstr "Vyhledat články"
+
+#~ msgid "Search tags"
+#~ msgstr "Vyhledat štítky"
+
+#~ msgid "Search users"
+#~ msgstr "Hledat uživatele"
 
 #~ msgid "Best regards"
 #~ msgstr "S pozdravem"
