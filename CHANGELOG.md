@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to Atk14Skelet will be documented in this file.
 
+## [1.1] - 2019-08-15
+
+- Boostrap 4
+
 ## [1.0.0] - 2018-12-06
 
 First official release.
