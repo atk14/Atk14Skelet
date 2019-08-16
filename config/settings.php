@@ -24,6 +24,8 @@ define("ATK14_HTTP_HOST",PRODUCTION ? "skelet.atk14.net" : "atk14skelet.localhos
 
 date_default_timezone_set('Europe/Prague');
 
+define("PUPIQ_API_KEY","101.DemoApiKeyForAccountWithLimitedFunctions");
+
 define("USING_BOOTSTRAP4",true);
 define("USING_FONTAWESOME",true);
 

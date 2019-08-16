@@ -1,5 +1,6 @@
 <tr>
 	<td class="item-id">{$article->getId()}</td>
+	<td class="item-thumbnail">{render partial="shared/list_thumbnail" image=$article->getImageUrl()}</td>
 	<td class="item-title">{$article->getTitle()}</td>
 	<td class="item-author">{$article->getAuthor()->getLogin()}</td>
 	<td class="item-published"><time datetime="{$article->getPublishedAt()}">{$article->getPublishedAt()|format_date}</time></td>

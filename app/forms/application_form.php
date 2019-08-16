@@ -69,4 +69,22 @@ class ApplicationForm extends Atk14Form{
 				return _("Save");
 		}
 	}
+
+	/**
+	 *
+	 * $this->add_search_field("q");
+	 * $this->add_search_field(array("label" => "Vyhledávání"));
+	 */
+	function add_search_field($name = "",$options = array()){
+		if(is_array($name)){
+			$options = $name;
+			$name = "";
+		}
+		$name = $name=="" ? "search" : $name;
+		$options += array(
+			"label" => _("Hledat"),
+			"required" => false,
+		);
+		$this->add_field($name,new SearchField($options));
+	}
 }

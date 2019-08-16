@@ -1,0 +1,1 @@
+../../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php

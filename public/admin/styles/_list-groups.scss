@@ -1,0 +1,54 @@
+// Support for nested list groups
+// For best results, use with list-group-flush class together with list-group class
+
+.list-group {
+	border-bottom: $list-group-border-width solid $list-group-border-color;
+	.list-group {
+		// Set margins to compensate unwanted padding
+		margin-bottom: 0-$list-group-item-padding-y;
+		margin-right: 0-$list-group-item-padding-x;
+		margin-top: $list-group-item-padding-y;
+		// Left border on nested list to improve structure readibility
+		border-left: 3px solid $gray-300;
+		border-bottom: none;
+	}
+	
+	li.list-group-item {
+		&:hover {
+			background-color: rgba( black, 0.05);
+		}
+	}
+}
+
+.list-thumbnail {
+	display: inline-block;
+	margin-right: 0.5rem;
+	border: 1px solid $gray-300;
+}
+
+
+// TODO: move this to better place.
+.list-sortable {
+	> .list-group-item {
+		// meke space for handle
+		padding-left: 3 * $spacer;
+		position: relative;
+		> div { // protoze to nema zadnou konkretni CLASS delam to takhle prasacky
+			flex-grow: 1;
+		}
+	}
+	// drag and drop cursor
+	.handle {
+		position: absolute;
+		left: 1 * $spacer;
+		top: 1.25 * $spacer;
+
+		&:hover {
+			cursor: grab;
+		}
+	}
+	// cursor when dragging
+	.ui-sortable-helper .handle {
+		cursor: grabbing;
+	}
+}

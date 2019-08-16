@@ -53,7 +53,7 @@ table.table {
 
 	// Specific table layouts for various content types - various cell widths, font sizes, flex layout for TR
 	
-	table.table--articles, table.table--tags, table.table--users, table.table--pwdrecoveries, table.table--newssubscribers, table.table--redirections {
+	table.table--articles, table.table--tags, table.table--users, table.table--pwdrecoveries, table.table--newssubscribers, table.table--redirections, table.table--products {
 		tr {
 			display: flex;
 			flex-wrap: wrap;

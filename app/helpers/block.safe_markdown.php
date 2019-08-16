@@ -1,0 +1,1 @@
+../../vendor/atk14/drink-markdown/src/helpers/smarty/block.safe_markdown.php
