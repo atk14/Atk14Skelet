@@ -7,8 +7,9 @@ class ApplicationController extends ApplicationBaseController{
 		$pages = array($page);
 		$p = $page;
 		while($parent = $p->getParentPage()){
-			$pages[] = $parent;
 			$p = $parent;
+			if($p->getCode()=="homepage"){ continue; }
+			$pages[] = $p;
 		}
 		$pages = array_reverse($pages);
 		foreach($pages as $p){
