@@ -1,5 +1,7 @@
 <?php
 class Article extends ApplicationModel implements Translatable, iSlug {
+
+	use TraitTags;
 	
 	static function GetTranslatableFields() { return array("title", "teaser", "body");}
 
@@ -17,24 +19,6 @@ class Article extends ApplicationModel implements Translatable, iSlug {
 
 	function getOlderArticle($tag_required = null){
 		return $this->_getNextArticle(false,$tag_required);
-	}
-
-	function getTagsLister(){
-		return $this->getLister("Tags");
-	}
-
-	function getTags(){
-		return Cache::Get("Tag",$this->getTagsLister()->getRecordIds());
-	}
-
-	function setTags($tags){
-		return $this->getTagsLister()->setRecords($tags);
-	}
-
-	function getPrimaryTag(){
-		if($tags = $this->getTags()){
-			return $tags[0];
-		}
 	}
 
 	protected function _getNextArticle($newer,$tag_required = null){

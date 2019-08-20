@@ -9,7 +9,7 @@ function smarty_modifier_link_to_page($code){
 	if(is_object($code)){
 		$page = $code;
 	}else{
-		$page = Page::FindByCode($code);
+		$page = Page::GetInstanceByCode($code);
 	}
 
 	if(!$page){

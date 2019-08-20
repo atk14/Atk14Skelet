@@ -1,6 +1,8 @@
 <?php
 class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 
+	use TraitGetInstanceByCode;
+
 	static function GetTranslatableFields() { return array("title", "teaser", "body"); }
 
 	/**
