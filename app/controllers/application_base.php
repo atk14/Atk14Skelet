@@ -20,7 +20,7 @@ class ApplicationBaseController extends Atk14Controller{
 			return;
 		}
 
-		$this->page_title = _("Page not found");
+		$this->page_title = $this->breadcrumbs[] = _("Page not found");
 		$this->response->setStatusCode(404);
 		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
 		if($this->request->xhr()){
@@ -30,7 +30,7 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function error403(){
-		$this->page_title = _("Forbidden");
+		$this->page_title = $this->breadcrumbs[] = _("Forbidden");
 		$this->response->setStatusCode(403);
 		$this->template_name = "application/error403";
 		if($this->request->xhr()){
