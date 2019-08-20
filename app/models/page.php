@@ -31,8 +31,23 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 		return Cache::Get("Page", $this->getParentPageId());
 	}
 
+	function getRootPage(){
+		$root = $this;
+		while($_root = $root->getParentPage()){
+			$root = $_root;
+		}
+		return $root;
+	}
+
 	function getChildPages() {
 		return Page::FindAll("parent_page_id", $this);
+	}
+
+	function getVisibleChildPages(){
+		$pages = $this->getChildPages();
+		$pages = array_filter($pages,function($page){ return $page->isVisible(); });
+		$pages = array_values($pages);
+		return $pages;
 	}
 
 	function getSlugSegment(){
@@ -58,6 +73,14 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 
 	function isDeletable() {
 		return !$this->hasSubpages();
+	}
+
+	function isVisible(){
+		return $this->getVisible();
+	}
+
+	function isIndexable(){
+		return $this->getIndexable();
 	}
 
 	function setRank($new_rank){

@@ -5,6 +5,9 @@ CREATE TABLE pages (
 	code VARCHAR(255), -- alternative key
 	--
 	parent_page_id INT,
+	indexable BOOLEAN NOT NULL DEFAULT TRUE,
+	visible BOOLEAN NOT NULL DEFAULT TRUE,
+	--
 	rank INT NOT NULL DEFAULT 999,
 	--
 	created_by_user_id INT,

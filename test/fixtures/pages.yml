@@ -11,6 +11,14 @@ testing_page:
   slug_en: "testing-page"
   slug_cs: "testovaci-stranka"
 
+another_testing_page:
+  id: 1001
+  code: "another_testing_page"
+  title_en: "Another testing Page"
+  title_cs: "Další testovací stránka"
+  slug_en: "another-testing-page"
+  slug_cs: "dalsi-testovaci-stranka"
+
 testing_subpage:
   parent_page_id: 1000
   title_en: "Testing Subpage",

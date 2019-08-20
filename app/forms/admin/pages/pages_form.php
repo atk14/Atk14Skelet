@@ -1,5 +1,6 @@
 <?php
 class PagesForm extends AdminForm {
+
 	function set_up() {
 
 		$this->add_translatable_field("title", new CharField(array(
@@ -20,6 +21,18 @@ class PagesForm extends AdminForm {
 			"required" => false,
 			"page_id" => isset($this->controller->page) ? $this->controller->page : null,
 		)));
+
+		$this->add_field("indexable", new BooleanField([
+			"label" => _("Show in sitemap?"),
+			"required" => false,
+			"initial" => true,
+		]));
+
+		$this->add_field("visible", new BooleanField([
+			"label" => _("Visible?"),
+			"required" => false,
+			"initial" => true,
+		]));
 
 		$this->add_code_field();
 	}

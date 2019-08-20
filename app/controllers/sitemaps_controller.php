@@ -10,7 +10,13 @@ class SitemapsController extends ApplicationController{
 	function detail(){
 		$this->page_title = _("Sitemap");
 
-		$this->tpl_data["pages"] = Page::FindAll("parent_page_id IS NULL");
+		$this->tpl_data["pages"] = Page::FindAll(array(
+			"conditions" => array(
+				"parent_page_id IS NULL",
+				"visible",
+				"indexable"
+			),
+		));
 
 		$this->tpl_data["articles"] = Article::FindAll(array(
 			"condition" => "published_at<:now",
