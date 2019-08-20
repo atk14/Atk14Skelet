@@ -1,5 +1,6 @@
 var gulp = require( "gulp" );
 var del = require( "del" );
+var rename = require( "gulp-rename" );
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 require( "./gulpfile-admin" );
@@ -89,6 +90,23 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/images/*" )
 		.pipe( gulp.dest( "public/dist/images" ) );
+
+	// Flags for languages
+	gulp.src( "node_modules/svg-country-flags/svg/*" )
+		.pipe( gulp.dest( "public/dist/images/languages" ) )
+		.on( "end", function() {
+
+			// Some corrections in language flags
+			var renameTr = {
+				"cz": "cs",
+				"gb": "en"
+			};
+			Object.keys( renameTr ).forEach( function( key ) {
+				gulp.src( "public/dist/images/languages/" + key + ".svg" )
+					.pipe( rename( renameTr[ key ] + ".svg" ) )
+					.pipe( gulp.dest( "public/dist/images/languages" ) );
+			} );
+		} );
 } );
 
 // Clean
@@ -99,7 +117,7 @@ gulp.task( "clean", function() {
 // Server
 gulp.task( "serve", [ "styles" ], function() {
 	browserSync.init( {
-		proxy: "atk14skelet.localhost"
+		proxy: "localhost:8000"
 	} );
 
 	// If these files change = reload browser

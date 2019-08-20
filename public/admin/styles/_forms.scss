@@ -24,10 +24,20 @@ form {
 			@extend .text-muted;
 			font-size: 0.85rem;
 			line-height: 1.1;
+			padding-top: 0.5rem;
+			ul {
+				margin-bottom: 0;
+				padding-left: 1rem;
+			}
 		}
 		> .alert {
 			padding: 0.1rem 0.25rem;
 			margin-bottom: 0;
+		}
+		label  {
+			.tip {
+				@extend .text-muted;
+			}
 		}
 	}
 }
@@ -36,24 +46,27 @@ form {
 
 .form-horizontal, .fieldset-horizontal {
 	.form-group {
-		@include media-breakpoint-up(sm){
+		@include media-breakpoint-up(md){
 			display: grid;
-			grid-template-columns: 3fr 4fr 5fr;
+			grid-template-columns: 3fr 5fr 4fr;
 			grid-template-rows: auto auto auto;
 			grid-template-areas: 
 				'label control help'
-				'middleleft instantfeedback instantfeedback'
-				'bottomleft feedback feedback';
+				'middleleft feedback help'
+				'bottomleft instantfeedback help';
 			grid-gap: 0 $grid-gutter-width/2;
 			margin: 0;
-			padding: 8px 0;
+			border-top: 1px solid $gray-200;
+		}
+		@include media-breakpoint-up(lg){
+			grid-template-columns: 2fr 5fr 3fr;
 		}
 		> label {
 			padding-top: calc(.375rem + 1px);
 			line-height: 1.5;
 			grid-area: label;
 		}
-		> .form-control, .custom-control, > .btn {
+		> .form-control, .custom-control, > .btn, > .button-container {
 			grid-area: control;
 		}
 		> ul.list--radios, > ul.list--checkboxes {
@@ -64,7 +77,7 @@ form {
 		}
 		> .help-block {
 			grid-area: help;
-			padding-top: 0.75rem;
+			padding-top: 0;
 		}
 		> .alert {
 			grid-area: instantfeedback;
@@ -77,11 +90,21 @@ form {
 		> .dummy-222  {
 			grid-area: middleleft;
 		}
+		.button-container {
+			display: inline-block;
+		}
+	}
+}
+
+// Lines between form-groups for better readiblity
+form {
+	.form-group {
+		padding: 1rem 0;
 	}
 }
 
 
-// validation states
+// Validation states
 form {
 	.form-group {
 		&.form-group--has-error {
@@ -99,6 +122,7 @@ form {
 		}
 	}
 }
+
 
 // search form
 .form-search {

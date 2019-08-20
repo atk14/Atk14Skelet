@@ -56,9 +56,32 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _before_render(){
+		global $ATK14_GLOBAL;
+
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
+
+		// data for language swith, see app/views/shared/_langswitch.tpl
+		$languages = array();
+		$current_language = null;
+		$params_homepage = array("namespace" => "", "controller" => "main", "action" => "index");
+		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
+		foreach($ATK14_GLOBAL->getConfig("locale") as $l => $locale){
+			$params["lang"] = $l;
+			$item = array(
+				"lang" => $l,
+				"name" => isset($locale["name"]) ? $locale["name"] : $l,
+				"switch_url" => $this->_link_to($params)
+			);
+			if($this->lang==$l){
+				$current_language = $item;
+				continue;
+			}
+			$languages[] = $item;
+		}
+		$this->tpl_data["current_language"] = $current_language;
+		$this->tpl_data["supported_languages"] = $languages;
 
 		// It's better to write
 		//	{$val|default:$mdash}
@@ -336,6 +359,12 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		return $this->_redirect_to($return_uri);
+	}
+
+	function _add_something_to_breadcrumbs($title,$link){
+		$title = strip_tags($title);
+		if(is_array($link)){ $link = $this->_link_to($link); }
+		$this->breadcrumbs[] = array($title,$link);
 	}
 
 	/**

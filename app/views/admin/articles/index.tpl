@@ -12,6 +12,7 @@
 		<thead>
 			<tr class="table-dark">
 				{sortable key=id}<th class="item-id">#</th>{/sortable}
+				<th></th>
 				{sortable key=title}<th class="item-title">{t}Title{/t}</th>{/sortable}
 				<th class="item-author">{t}Author{/t}</th>
 				{sortable key=published_at}<th class="item-published">{t}Date{/t}</th>{/sortable}

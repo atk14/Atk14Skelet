@@ -55,6 +55,7 @@
     "jshint-stylish": "^2.0.1",
     "node-sass": "^4.10.0",
     "respond.js": "^1.4.2",
-    "unobfuscatejs": "^1.0.0"
+    "unobfuscatejs": "^1.0.0",
+    "svg-country-flags": "^1.2.6"
   }
 }

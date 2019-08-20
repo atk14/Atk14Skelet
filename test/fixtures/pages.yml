@@ -1,0 +1,17 @@
+homepage:
+  code: "homepage"
+  title_en: "Welcome"
+  title_cs: "Vítejte"
+
+testing_page:
+  id: 1000
+  code: "testing_page"
+  title_en: "Testing Page"
+  title_cs: "Testovací stránka"
+  slug_en: "testing-page"
+  slug_cs: "testovaci-stranka"
+
+testing_subpage:
+  parent_page_id: 1000
+  title_en: "Testing Subpage",
+  title_cs: "Testovací podstránka"

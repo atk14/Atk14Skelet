@@ -9,10 +9,13 @@ class MainController extends ApplicationController{
 	 */
 	function index(){
 		$this->page_title = _("Welcome!");
-	}
 
-	function about(){
-		$this->page_title = $this->breadcrumbs[] = sprintf(_("About %s"),ATK14_APPLICATION_NAME);
+		$page = $this->tpl_data["page"] = Page::FindByCode("homepage");
+		if($page){
+			Atk14Require::Helper("modifier.markdown");
+			$this->page_title = $page->getTitle();
+			$this->page_description = strip_tags(smarty_modifier_markdown($page->getTeaser()));
+		}
 	}
 
 	function contact(){
