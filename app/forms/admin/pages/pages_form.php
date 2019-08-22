@@ -3,6 +3,8 @@ class PagesForm extends AdminForm {
 
 	function set_up() {
 
+		
+
 		$this->add_translatable_field("title", new CharField(array(
 			"label" => _("Title"),
 		)));
@@ -14,6 +16,20 @@ class PagesForm extends AdminForm {
 
 		$this->add_translatable_field("body", new MarkdownField(array(
 			"label" => _("Body"),
+		)));
+
+		$this->add_translatable_field("page_title",new CharField(array(
+			"label" => _("HTML title"),
+			"required" => false,
+			"max_length" => 255,
+			"help_text" => h(_("Content for <html><head><title>. If left empty, the title is used.")),
+		)));
+
+		$this->add_translatable_field("page_description", new CharField(array(
+			"label" => _("HTML description"),
+			"required" => false,
+			"max_length" => 255,
+			"help_text" => h(_('Content for <meta name="description">. If left empty, the teaser is used.')),
 		)));
 
 		$this->add_field("parent_page_id", new PageField(array(
@@ -41,7 +57,7 @@ class PagesForm extends AdminForm {
 		$d = $this->cleaned_data;
 
 		if (isset($d["parent_page_id"]) && isset($this->controller->page) && ($d["parent_page_id"]->getId()==$this->controller->page->getId())) {
-			$this->set_error("parent_page_id", _("Pro aktuální stránku nelze použít stejnou stránku jako nadřízenou."));
+			$this->set_error("parent_page_id", _("You cannot use the same page as the parent for the current page."));
 		}
 		return array(null, $d);
 	}

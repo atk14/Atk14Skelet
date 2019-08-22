@@ -3,7 +3,7 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 
 	use TraitGetInstanceByCode;
 
-	static function GetTranslatableFields() { return array("title", "teaser", "body"); }
+	static function GetTranslatableFields() { return array("title", "teaser", "body", "page_title", "page_description"); }
 
 	/**
 	 * $page_company = Page::GetInstanceByPath("company");
@@ -69,6 +69,19 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 
 	function hasSubpages() {
 		return sizeof($this->getChildPages())>0;
+	}
+
+	function getPageTitle(){
+		$out = parent::getPageTitle();
+		if(strlen($out)){ return $out; }
+		return $this->getTitle();
+	}
+
+	function getPageDescription(){
+		$out = parent::getPageDescription();
+		if(strlen($out)){ return $out; }
+		$out = $this->getTeaser();
+		if(strlen($out)){ return strip_tags($out); }
 	}
 
 	function isDeletable() {

@@ -8,6 +8,12 @@ testing_page:
   code: "testing_page"
   title_en: "Testing Page"
   title_cs: "Testovací stránka"
+  teaser_en: "Welcome at <em>Testing Page</em>"
+  teaser_cs: "Vítejte na <em>testovací stránce</em>"
+  page_title_en: "Just Testing Page"
+  page_title_cs: "Jen testovací stránka"
+  page_description_en: "This is a testing page"
+  page_description_cs: "Toto je testovací stránka"
   slug_en: "testing-page"
   slug_cs: "testovaci-stranka"
 
@@ -16,6 +22,10 @@ another_testing_page:
   code: "another_testing_page"
   title_en: "Another testing Page"
   title_cs: "Další testovací stránka"
+  teaser_en: "Welcome at <em>Another Testing Page</em>"
+  teaser_cs: "Vítejte na <em>další testovací stránce</em>"
+  page_description_en: "This is another testing page"
+  page_description_cs: "Toto je další testovací stránka"
   slug_en: "another-testing-page"
   slug_cs: "dalsi-testovaci-stranka"
 
