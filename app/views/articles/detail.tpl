@@ -16,7 +16,7 @@
 				{$article->getTeaser()}
 			</p>
 		{/if}
-		<p class="text-muted">{t author=$article->getAuthor()->getName()|h date=$article->getPublishedAt() date_human=$article->getPublishedAt()|format_date escape=no}Posted by <em>%1</em> on <time datetime="%2">%3</time>{/t}</p>
+		<p class="text-muted">{t author=$article->getAuthor()|user_name|h date=$article->getPublishedAt() date_human=$article->getPublishedAt()|format_date escape=no}Posted by <em>%1</em> on <time datetime="%2">%3</time>{/t}</p>
 	</header>
 
 	<section class="article-body">
