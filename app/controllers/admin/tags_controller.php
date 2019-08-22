@@ -1,5 +1,6 @@
 <?php
 class TagsController extends AdminController{
+
 	function index(){
 		$this->page_title = _("Listing Tags");
 
@@ -8,13 +9,20 @@ class TagsController extends AdminController{
 		$conditions = $bind_ar = array();
 
 		if($d["search"]){
-			$conditions[] = "id||' '||LOWER(tag) LIKE '%'||LOWER(:search)||'%'";
-			$bind_ar[":search"] = $d["search"];
-			$this->sorting->add("default","id||''=:search DESC, LOWER(tag) LIKE :search||'%' DESC, LOWER(tag)"); // in searching the default ordering is more usefull: exact match with id or at the beginning of a tag is prioritized
+			$_fields = array("id","tag","COALESCE(code,'')");
+			$_fields[] = "COALESCE((SELECT body FROM translations WHERE record_id=tags.id AND table_name='tags' AND key='tag_localized' AND lang=:lang),'')";
+			if($ft_cond = FullTextSearchQueryLike::GetQuery("LOWER(".join("||' '||",$_fields).")",Translate::Lower($d["search"]),$bind_ar)){
+				$conditions[] = $ft_cond;
+				$bind_ar[":lang"] = $this->lang;
+				$bind_ar[":search"] = Translate::Lower($d["search"]);
+			}
+
+			$this->sorting->add("default","LOWER(tag) LIKE :search||'%' DESC, id||''=:search DESC, LOWER(tag)"); // in searching the default ordering is more usefull: exact match with id or at the beginning of a tag is prioritized
 		}
 
 		$this->sorting->add("created_at",array("reverse" => true));
 		$this->sorting->add("tag","LOWER(tag)");
+		$this->sorting->add("code","code IS NULL, code, LOWER(tag)","code IS NULL, code DESC, LOWER(tag)");
 		$this->sorting->add("id");
 
 		$this->tpl_data["finder"] = Tag::Finder(array(
