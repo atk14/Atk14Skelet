@@ -5,7 +5,7 @@
 			{!"tag"|icon}
 			{foreach $tags as $tag}
 				{if !$tag@first}/{/if}
-				{a action="articles/index" tag_id=$tag _class="badge badge-primary"}{$tag}{/a}
+				{a action="articles/index" tag_id=$tag _class="badge badge-primary"}{$tag->getTagLocalized()}{/a}
 			{/foreach}
 			</p>
 		{/if}

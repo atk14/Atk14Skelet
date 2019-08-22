@@ -1,6 +1,8 @@
 <?php
 class SampleArticlesMigration extends Atk14Migration{
 	function up(){
+
+		$news = Tag::GetInstanceByCode("news");
 		
 		// *** Happy Millenium ***
 		$article = Article::CreateNewRecord(array(
@@ -17,7 +19,7 @@ class SampleArticlesMigration extends Atk14Migration{
 			"title_cs" => "Šťastné 21. století",
 			"body_cs" => "Přejeme Vám štastné 21. století!\n\nKéž všichni ATK14 vývojáři dělají svou práci v míru.\n\nVývojový tým ATK14",
 		));
-		$article->setTags(array(Tag::ID_NEWS));
+		$article->setTags(array($news));
 
 		// *** Welcome to ATK14 Skelet ***
 		$article = Article::CreateNewRecord(array(
@@ -55,7 +57,7 @@ Více informací naleznete na těchto adresách:
 Pamatujte si, že Váš další projekt by měl běžet na [frameworku ATK14](http://www.atk14.net/), od teď až na věky
 			"),
 		));
-		$article->setTags(array(Tag::ID_NEWS));
+		$article->setTags(array($news));
 
 		
 	}

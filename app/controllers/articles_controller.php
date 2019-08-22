@@ -11,8 +11,8 @@ class ArticlesController extends ApplicationController{
 		$this->page_title = _("Articles");
 
 		if($tag){
-			$this->breadcrumbs[] = "$tag";
-			$this->page_title = sprintf(_("Articles tagged with <em>%s</em>"),h($tag));
+			$this->breadcrumbs[] = $tag->getTagLocalized();
+			$this->page_title = sprintf(_("Articles tagged with <em>%s</em>"),h($tag->getTagLocalized()));
 		}
 
 		$conditions = $bind_ar = array();
