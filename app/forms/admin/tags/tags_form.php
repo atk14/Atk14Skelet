@@ -12,7 +12,7 @@ class TagsForm extends AdminForm{
 			"label" => _("Tag lokalized"),
 			"max_length" => 255,
 			"required" => false,
-			"help_text" => _("Enter proper value when the Tag is not good in the given language"),
+			"help_text" => _("Enter proper value when the tag itself is not good in the given language"),
 		]));
 
 		$this->add_code_field();
