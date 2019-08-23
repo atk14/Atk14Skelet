@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-03-05 11:00+0100\n"
-"PO-Revision-Date: 2017-11-23 22:46+0100\n"
+"POT-Creation-Date: 2019-08-23 13:24+0200\n"
+"PO-Revision-Date: 2019-08-23 13:56+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -32,3 +32,32 @@ msgstr "Prostý text"
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:71
 msgid "No mail has been sent"
 msgstr "Žádný e-mail nebyl odeslán"
+
+#: ../vendor/atk14/phone-field/src/phone_field.php:5
+msgid "Enter valid phone number (+420.605123456)"
+msgstr "Zadejte platné telefonní číslo (+420.605123456)"
+
+#: ../vendor/atk14/phone-field/src/phone_field.php:7
+msgid "Enter phone number in format +420.605123456"
+msgstr "Zadejte telefonní číslo ve formátu +420.605123456"
+
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:31
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:35
+msgid "remove"
+msgstr "odstranit"
+
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:32
+msgid "Download attachment"
+msgstr "Stáhnout přílohu"
+
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:36
+msgid "Display image"
+msgstr "Zobrazit obrázek"
+
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:84
+msgid "Unknown error"
+msgstr "Neznámá chyba"
+
+#: ../vendor/atk14/url-field/src/url_field.php:12
+msgid "This doesn't look like an URL"
+msgstr "Toto nevypadá jako URL"

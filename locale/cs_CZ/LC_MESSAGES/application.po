@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-10 23:48+0200\n"
-"PO-Revision-Date: 2019-05-10 23:54+0200\n"
+"POT-Creation-Date: 2019-08-23 13:24+0200\n"
+"PO-Revision-Date: 2019-08-23 13:30+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -230,14 +230,17 @@ msgstr "obr.1 <em>Stvoření prosí o fork na GitHubu</em>"
 msgid "The Skelet contains mainly"
 msgstr "Skelet obsahuje hlavně"
 
-msgid "About page"
-msgstr "Stránka O nás"
+msgid "Pages with a hierarchical structure"
+msgstr "Stránky s hierarchickou strukturou"
 
 msgid "Contact page with fast contact form"
 msgstr "Kontaktní stránka s formulářem pro rychlý kontakt"
 
 msgid "Articles section"
 msgstr "Sekce s články"
+
+msgid "Manageable link lists in header and footer"
+msgstr "Administrovatelné seznamy odkazů v hlavičce a patičce stránky"
 
 msgid "User registration"
 msgstr "Registrace uživatele"
@@ -251,7 +254,7 @@ msgstr "Základní administrace"
 msgid "RESTful API"
 msgstr "RESTful API"
 
-#: ../app/controllers/sitemaps_controller.php:10
+#: ../app/controllers/sitemaps_controller.php:11
 msgid "Sitemap"
 msgstr "Mapa stránek"
 
@@ -307,6 +310,9 @@ msgstr "ATK14 na GitHubu"
 msgid "ATK14 Skelet on GitHub"
 msgstr "ATK14 Skelet na GitHubu"
 
+msgid "Subpages"
+msgstr "Podstránky"
+
 msgid "The address has expired or already been used."
 msgstr "Tato adresa už není platné nebo již byla použita."
 
@@ -325,6 +331,9 @@ msgid ""
 msgstr ""
 "Pokud neobdržíte instrukce do několika minut, zkontrolujte spamovou složku a "
 "spamová filtry."
+
+msgid "Attachments"
+msgstr "Přílohy"
 
 msgid "The following difficulties have occurred during the form processing:"
 msgstr "Během zpracování formuláře došlo k následujícím chybám:"
@@ -357,6 +366,9 @@ msgstr "Vytvořit nový záznam"
 msgid "Show menu"
 msgstr "Ukázat nabídku"
 
+msgid "Change language"
+msgstr "Změnit jazyk"
+
 msgid ""
 "This site runs on <a href=\"http://www.atk14.net/\">ATK14 Framework</a>, for "
 "now and ever after"
@@ -379,28 +391,14 @@ msgstr "Administrace"
 msgid "Register"
 msgstr "Registrovat"
 
+msgid "Photo gallery"
+msgstr "Fotogalerie"
+
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr "Zde neleznete seznam příkazů v <em>%1</em>."
 
-msgid "Homepage"
-msgstr "Úvodní stránka"
-
-msgid "The most important page in the whole universe"
-msgstr "Vůbec nejdůležitější stránka v celém vesmíru"
-
-#: ../app/controllers/main_controller.php:19
-#: ../app/controllers/main_controller.php:42
-msgid "Contact"
-msgstr "Kontakt"
-
-msgid "Contact data and quick contact form"
-msgstr "Kontaktní údaje a formulář pro rychlý kontakt"
-
-msgid "About"
-msgstr "O nás"
-
-msgid "What is this site all about"
-msgstr "O čem jsou tyto stránky"
+msgid "Pages"
+msgstr "Stránky"
 
 #: ../app/controllers/users_controller.php:17
 msgid "New user registration"
@@ -473,7 +471,7 @@ msgstr "Stránka nebyla nalezena"
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:95
+#: ../app/controllers/application_base.php:118
 msgid "Home"
 msgstr "Domů"
 
@@ -553,10 +551,10 @@ msgstr "Byl jste úspěšně odhlášen"
 msgid "You've stayed logged in as <em>%s</em>"
 msgstr "Zůstal jste přihlášen jako <em>%s</em>"
 
-#: ../app/controllers/main_controller.php:15
-#, php-format
-msgid "About %s"
-msgstr "O %s"
+#: ../app/controllers/main_controller.php:21
+#: ../app/controllers/main_controller.php:44
+msgid "Contact"
+msgstr "Kontakt"
 
 #: ../app/controllers/password_recoveries_controller.php:10
 msgid "There is no such user with the given login or email"
@@ -629,6 +627,46 @@ msgstr "Toto uživatelské jméno je již zabráno"
 msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr "Zadávejte pouze písmena, číslice, tečky a pomlčky."
 
+#: ../app/fields/object_field.php:30
+msgid "There is no such record"
+msgstr "Takový záznam neexistuje"
+
+#: ../app/fields/oembed_video_field.php:7
+msgid ""
+"Zadejte URL videa. Lze vložit video ze služeb, které poskytují API podle "
+"specifikace <a href=\"http://oembed.com/\">oEmbed</a>."
+msgstr ""
+
+#: ../app/fields/oembed_video_field.php:19
+msgid ""
+"Nelze získat informace o videu. Ověřte URL videa a podporu oEmbed u "
+"poskytovatele videa."
+msgstr ""
+
+#: ../app/fields/oembed_video_field.php:22
+msgid "Typ souboru na tomto URL není video"
+msgstr ""
+
+#: ../app/fields/page_field.php:4
+msgid "page"
+msgstr "stránka"
+
+#: ../app/fields/page_field.php:32
+msgid "There is no such page"
+msgstr "Takový stránka neexistuje"
+
+#: ../app/fields/slug_field.php:6
+msgid "Slug"
+msgstr "Slug"
+
+#: ../app/fields/slug_field.php:8
+msgid "funny-green-mug"
+msgstr "zertovny-zeleny-hrnek"
+
+#: ../app/fields/slug_field.php:18
+msgid "Write something like black-cat-white-cat"
+msgstr "Napište něco jako cerna-kocka-bily-kocour"
+
 #: ../app/fields/tags_field.php:18
 msgid "Ensure that there are max %max% tags (now there are %count%)"
 msgstr ""
@@ -671,6 +709,10 @@ msgstr "Smazat"
 #: ../app/forms/application_form.php:69
 msgid "Save"
 msgstr "Uložit"
+
+#: ../app/forms/application_form.php:85
+msgid "Hledat"
+msgstr ""
 
 #: ../app/forms/logins/create_new_form.php:8
 msgid "Login"
@@ -763,6 +805,39 @@ msgstr "Ano"
 #: ../app/helpers/modifier.display_bool.php:14
 msgid "No"
 msgstr "Ne"
+
+#: ../app/helpers/modifier.iobject_type.php:15
+msgid "Video"
+msgstr ""
+
+#: ../app/helpers/modifier.iobject_type.php:19
+msgid "Galerie"
+msgstr ""
+
+#: ../app/helpers/modifier.iobject_type.php:23
+msgid "Obrázek"
+msgstr ""
+
+#~ msgid "About page"
+#~ msgstr "Stránka O nás"
+
+#~ msgid "Homepage"
+#~ msgstr "Úvodní stránka"
+
+#~ msgid "The most important page in the whole universe"
+#~ msgstr "Vůbec nejdůležitější stránka v celém vesmíru"
+
+#~ msgid "Contact data and quick contact form"
+#~ msgstr "Kontaktní údaje a formulář pro rychlý kontakt"
+
+#~ msgid "About"
+#~ msgstr "O nás"
+
+#~ msgid "What is this site all about"
+#~ msgstr "O čem jsou tyto stránky"
+
+#~ msgid "About %s"
+#~ msgstr "O %s"
 
 #~ msgid ""
 #~ "Password recovery can not be initiated for this user. Email address is "

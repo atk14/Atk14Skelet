@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-05-10 23:48+0200\n"
+"POT-Creation-Date: 2019-08-23 13:24+0200\n"
 "PO-Revision-Date: 2016-03-07 17:03+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -196,13 +196,16 @@ msgstr ""
 msgid "The Skelet contains mainly"
 msgstr ""
 
-msgid "About page"
+msgid "Pages with a hierarchical structure"
 msgstr ""
 
 msgid "Contact page with fast contact form"
 msgstr ""
 
 msgid "Articles section"
+msgstr ""
+
+msgid "Manageable link lists in header and footer"
 msgstr ""
 
 msgid "User registration"
@@ -217,7 +220,7 @@ msgstr ""
 msgid "RESTful API"
 msgstr ""
 
-#: ../app/controllers/sitemaps_controller.php:10
+#: ../app/controllers/sitemaps_controller.php:11
 msgid "Sitemap"
 msgstr ""
 
@@ -267,6 +270,9 @@ msgstr ""
 msgid "ATK14 Skelet on GitHub"
 msgstr ""
 
+msgid "Subpages"
+msgstr ""
+
 msgid "The address has expired or already been used."
 msgstr ""
 
@@ -282,6 +288,9 @@ msgstr ""
 msgid ""
 "If you don't receive instructions within a few minutes, check your email's "
 "spam and junk filters."
+msgstr ""
+
+msgid "Attachments"
 msgstr ""
 
 msgid "The following difficulties have occurred during the form processing:"
@@ -313,6 +322,9 @@ msgstr ""
 msgid "Show menu"
 msgstr ""
 
+msgid "Change language"
+msgstr ""
+
 msgid ""
 "This site runs on <a href=\"http://www.atk14.net/\">ATK14 Framework</a>, for "
 "now and ever after"
@@ -333,27 +345,13 @@ msgstr ""
 msgid "Register"
 msgstr ""
 
+msgid "Photo gallery"
+msgstr ""
+
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr ""
 
-msgid "Homepage"
-msgstr ""
-
-msgid "The most important page in the whole universe"
-msgstr ""
-
-#: ../app/controllers/main_controller.php:19
-#: ../app/controllers/main_controller.php:42
-msgid "Contact"
-msgstr ""
-
-msgid "Contact data and quick contact form"
-msgstr ""
-
-msgid "About"
-msgstr ""
-
-msgid "What is this site all about"
+msgid "Pages"
 msgstr ""
 
 #: ../app/controllers/users_controller.php:17
@@ -425,7 +423,7 @@ msgstr ""
 msgid "Forbidden"
 msgstr ""
 
-#: ../app/controllers/application_base.php:95
+#: ../app/controllers/application_base.php:118
 msgid "Home"
 msgstr ""
 
@@ -503,9 +501,9 @@ msgstr ""
 msgid "You've stayed logged in as <em>%s</em>"
 msgstr ""
 
-#: ../app/controllers/main_controller.php:15
-#, php-format
-msgid "About %s"
+#: ../app/controllers/main_controller.php:21
+#: ../app/controllers/main_controller.php:44
+msgid "Contact"
 msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:10
@@ -574,6 +572,46 @@ msgstr ""
 msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr ""
 
+#: ../app/fields/object_field.php:30
+msgid "There is no such record"
+msgstr ""
+
+#: ../app/fields/oembed_video_field.php:7
+msgid ""
+"Zadejte URL videa. Lze vložit video ze služeb, které poskytují API podle "
+"specifikace <a href=\"http://oembed.com/\">oEmbed</a>."
+msgstr ""
+
+#: ../app/fields/oembed_video_field.php:19
+msgid ""
+"Nelze získat informace o videu. Ověřte URL videa a podporu oEmbed u "
+"poskytovatele videa."
+msgstr ""
+
+#: ../app/fields/oembed_video_field.php:22
+msgid "Typ souboru na tomto URL není video"
+msgstr ""
+
+#: ../app/fields/page_field.php:4
+msgid "page"
+msgstr ""
+
+#: ../app/fields/page_field.php:32
+msgid "There is no such page"
+msgstr ""
+
+#: ../app/fields/slug_field.php:6
+msgid "Slug"
+msgstr ""
+
+#: ../app/fields/slug_field.php:8
+msgid "funny-green-mug"
+msgstr ""
+
+#: ../app/fields/slug_field.php:18
+msgid "Write something like black-cat-white-cat"
+msgstr ""
+
 #: ../app/fields/tags_field.php:18
 msgid "Ensure that there are max %max% tags (now there are %count%)"
 msgstr ""
@@ -614,6 +652,10 @@ msgstr ""
 
 #: ../app/forms/application_form.php:69
 msgid "Save"
+msgstr ""
+
+#: ../app/forms/application_form.php:85
+msgid "Hledat"
 msgstr ""
 
 #: ../app/forms/logins/create_new_form.php:8
@@ -706,6 +748,18 @@ msgstr ""
 
 #: ../app/helpers/modifier.display_bool.php:14
 msgid "No"
+msgstr ""
+
+#: ../app/helpers/modifier.iobject_type.php:15
+msgid "Video"
+msgstr ""
+
+#: ../app/helpers/modifier.iobject_type.php:19
+msgid "Galerie"
+msgstr ""
+
+#: ../app/helpers/modifier.iobject_type.php:23
+msgid "Obrázek"
 msgstr ""
 
 #~ msgid "atk14.date_format"
