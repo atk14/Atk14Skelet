@@ -1,6 +1,6 @@
 <?php
 /**
- * Model pro seznam odkazu
+ * Model class for a List of links
  */
 class LinkList extends ApplicationModel implements Translatable {
 
@@ -19,7 +19,7 @@ class LinkList extends ApplicationModel implements Translatable {
 		$conditions[] = "link_list_id=:link_list";
 		$bind_ar[":link_list"] = $this;
 
-		return LinkListItem::FindAll(["conditions" => $conditions,"bind_ar" => $bind_ar]);
+		return LinkListItem::FindAll("link_list_id",$this);
 	}
 
 	/**

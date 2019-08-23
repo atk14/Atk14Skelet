@@ -4,11 +4,8 @@ CREATE TABLE link_lists(
 	--
 	code VARCHAR(255),
 	--
-	-- orientacni nazev - v adminu
-	name VARCHAR(255) NOT NULL,
-	--
-	url VARCHAR(1000) NOT NULL,
-	url_params JSON, -- parametry pro sestaveni URL pomoci Atk14Url::BuildLink(), je-li to vubec mozne
+	-- a name useful in administration
+	system_name VARCHAR(255) NOT NULL,
 	--
 	created_by_user_id INT,
 	updated_by_user_id INT,
