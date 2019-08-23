@@ -51,7 +51,7 @@ class ArticlesController extends ApplicationController{
 		$this->tpl_data["newer_article"] = $article->getNewerArticle();
 
 		if($primary_tag = $article->getPrimaryTag()){
-			$this->breadcrumbs[] = array("$primary_tag",$this->_link_to(array("action" => "articles/index", "tag_id" => $primary_tag)));
+			$this->breadcrumbs[] = array($primary_tag->getTagLocalized(),$this->_link_to(array("action" => "articles/index", "tag_id" => $primary_tag)));
 		}
 		$this->breadcrumbs[] = $article->getTitle();
 	}
