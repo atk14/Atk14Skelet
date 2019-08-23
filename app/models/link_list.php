@@ -28,4 +28,8 @@ class LinkList extends ApplicationModel implements Translatable {
 	function getItems() {
 		return $this->getLinkListItems();
 	}
+
+	function isEmpty(){
+		return sizeof($this->getLinkListItems())==0;
+	}
 }
