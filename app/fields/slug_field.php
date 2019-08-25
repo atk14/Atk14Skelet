@@ -1,10 +1,12 @@
 <?php
+definedef("SLUG_MAX_LENGTH",200);
+
 class SlugField extends RegexField{
 
 	function __construct($options = array()){
 		$options += array(
 			"label" => _("Slug"),
-			"max_length" => 64,
+			"max_length" => SLUG_MAX_LENGTH,
 			"hint" => _("funny-green-mug"),
 			"auto_slugify" => true,
 		);

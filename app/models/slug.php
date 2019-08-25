@@ -1,4 +1,6 @@
 <?php
+definedef("SLUG_MAX_LENGTH",200);
+
 class Slug extends ApplicationModel{
 	protected static $CACHE = array();
 
@@ -144,7 +146,7 @@ class Slug extends ApplicationModel{
 
 	static function StringToSluggish($string) {
 		$_sluggish = new String4($string);
-		return $_sluggish->toSlug();
+		return $_sluggish->substr(0,SLUG_MAX_LENGTH)->toSlug();
 	}
 
 	/**
