@@ -116,13 +116,11 @@ class AdminForm extends ApplicationForm{
 	function add_code_field($options = array()){
 		$options += array(
 			"label" => _("Code"),
-			"null_empty_output" => true,
-			"max_length" => 255,
 			"required" => false,
 			"help_text" => _("An alternative key for system usage. Leave it unchanged if you are not sure.")
 		);
 
-		$this->add_field("code", new CharField($options));
+		$this->add_field("code", new CodeField($options));
 	}
 
 	function add_visible_field($options = array()){
