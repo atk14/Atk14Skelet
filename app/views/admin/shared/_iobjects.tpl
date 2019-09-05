@@ -44,14 +44,14 @@
 
 {else}
 
-	<p>{t}There are no objects.{/t}</p>
+	<p>{t}Currently there are no objects{/t}</p>
 
 {/if}
 
 <p>
-	{a action="pictures/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Add an image{/t}{/a}
-	{a action="galleries/create_new" table_name=$object->getTableName() record_id=$object return_uri=$request->getUri() _class="btn btn-default"}{t}Add a photogallery{/t}{/a}
-	{a action="files/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Add an attachment{/t}{/a}
-	{a action="videos/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Add a video{/t}{/a}
+	{a action="pictures/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Add image{/t}{/a}
+	{a action="galleries/create_new" table_name=$object->getTableName() record_id=$object return_uri=$request->getUri() _class="btn btn-default"}{t}Add photogallery{/t}{/a}
+	{a action="files/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Add attachment{/t}{/a}
+	{a action="videos/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Add video{/t}{/a}
 </p>
 
