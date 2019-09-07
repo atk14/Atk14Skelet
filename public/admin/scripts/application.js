@@ -12,6 +12,7 @@
 			init: function() {
 				ADMIN.utils.handleSortables();
 				ADMIN.utils.handleSuggestions();
+				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleGalleryImagesUpload();
 
 				// Form hints.
@@ -29,6 +30,23 @@
 
 					$field.popover( popoverOptions );
 				} );
+
+				UTILS.leaving_unsaved_page_checker.init();
+			}
+		},
+
+		articles: {
+			create_new: function() {
+				ADMIN.utils.tagsSuggest( "#id_tags" );
+			},
+			edit: function() {
+				ADMIN.utils.tagsSuggest( "#id_tags" );
+			}
+		},
+
+		utils: {
+
+			initializeMarkdonEditors: function() {
 
 				// Markdown Editor requires Ace
 				ace.config.set( "basePath", "/public/admin/dist/scripts/ace/" );
@@ -50,21 +68,8 @@
 						}
 					} );
 				} );
-
-				UTILS.leaving_unsaved_page_checker.init();
-			}
-		},
-
-		articles: {
-			create_new: function() {
-				ADMIN.utils.tagsSuggest( "#id_tags" );
 			},
-			edit: function() {
-				ADMIN.utils.tagsSuggest( "#id_tags" );
-			}
-		},
 
-		utils: {
 			handleGalleryImagesUpload: function() {
 				
 				$( ".js--image_to_gallery_link" ).each( function() {
