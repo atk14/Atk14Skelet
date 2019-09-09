@@ -3,11 +3,11 @@
 
 # vim: set et:
 
-en:
-  LANG: en_US.UTF-8
-  name: "english"
-
 cs:
   LANG: cs_CZ.UTF-8
   name: "česky"
-  fallback: "en" # for multi language objects it's possible to specify a fallback language
+	
+en:
+  LANG: en_US.UTF-8
+  name: "english"
+  fallback: "cs" # for multi language objects it's possible to specify a fallback language
