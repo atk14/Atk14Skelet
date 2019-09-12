@@ -16,9 +16,17 @@ trait TraitTags {
 		return $this->getTagsLister()->setRecords($tags);
 	}
 
+	function addTag($tag){
+		return $this->getTagsLister()->add($tag);
+	}
+
 	function getPrimaryTag(){
 		if($tags = $this->getTags()){
 			return $tags[0];
 		}
+	}
+
+	function containsTag($tag){
+		return $this->getTagsLister()->contains($tag);
 	}
 }
