@@ -29,6 +29,8 @@ define("PUPIQ_API_KEY","101.DemoApiKeyForAccountWithLimitedFunctions");
 define("USING_BOOTSTRAP4",true);
 define("USING_FONTAWESOME",true);
 
+define("REDIRECT_TO_SSL_AUTOMATICALLY",PRODUCTION);
+
 // If you don't want to let users to register freely (e.g. your app is an closed alpha),
 // set the constant INVITATION_CODE_FOR_USER_REGISTRATION.
 // See app/forms/users/create_new_form.php for more info

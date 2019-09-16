@@ -111,6 +111,10 @@ class ApplicationBaseController extends Atk14Controller{
 			return $this->_redirect_to("$proto://".ATK14_HTTP_HOST.$this->request->getUri());
 		}
 
+		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
+			return $this->_redirect_to_ssl();
+		}
+
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
 
