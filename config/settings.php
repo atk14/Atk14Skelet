@@ -31,6 +31,9 @@ definedef("USING_FONTAWESOME",true);
 
 definedef("REDIRECT_TO_SSL_AUTOMATICALLY",PRODUCTION);
 
+// Automatic redirection to the ATK14_HTTP_HOST
+definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
+
 // If you don't want to let users to register freely (e.g. your app is an closed alpha),
 // set the constant INVITATION_CODE_FOR_USER_REGISTRATION.
 // See app/forms/users/create_new_form.php for more info
