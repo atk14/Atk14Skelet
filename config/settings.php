@@ -24,8 +24,6 @@ definedef("ATK14_HTTP_HOST",PRODUCTION ? "skelet.atk14.net" : "atk14skelet.local
 
 date_default_timezone_set('Europe/Prague');
 
-definedef("PUPIQ_API_KEY","101.DemoApiKeyForAccountWithLimitedFunctions");
-
 definedef("USING_BOOTSTRAP4",true);
 definedef("USING_FONTAWESOME",true);
 
@@ -38,6 +36,8 @@ definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
 // set the constant INVITATION_CODE_FOR_USER_REGISTRATION.
 // See app/forms/users/create_new_form.php for more info
 // define("INVITATION_CODE_FOR_USER_REGISTRATION","some great secret");
+
+definedef("PUPIQ_API_KEY","101.DemoApiKeyForAccountWithLimitedFunctions");
 
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
