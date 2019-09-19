@@ -17,6 +17,15 @@
 			li.nav-item {
 				a.nav-link {
 					border-radius: 0;
+					transition: all 0.5s;
+					&:not(.active){
+						color: desaturate($link-color, 30%);
+					}
+					&:hover:not(.active) {
+						background-color: $gray-600;
+						color: white;
+						transition: all 0.1s;
+					}
 				}
 			}
 		}
