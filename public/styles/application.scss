@@ -9,7 +9,6 @@
 // or directly in _bootstrap_variables.scss
 
 // Bootstrap variables
-@import "node_modules/bootstrap/scss/variables"; // vendor defaults variables
 @import "bootstrap_variables"; // in the local copy of the vendor defaults, some variables may be overwritten if necessary
 
 // Application specific variables, overrides bootstrap vars.

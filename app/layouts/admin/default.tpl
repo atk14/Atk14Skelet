@@ -59,27 +59,26 @@
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
-		{render partial="shared/layout/header"}
-		<div class="container-fluid{if $section_navigation} has-nav-section{/if}">
+		<div class="body-wrap">
+			{render partial="shared/layout/header"}
+		
 			{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
 				{render partial="shared/breadcrumbs"}
 			{/if}
+			<div class="body{if $section_navigation} has-nav-section{/if}">
+					{if $section_navigation}
+						<nav class="nav-section">
+							{render partial="shared/layout/section_navigation"}
+						</nav>
+					{/if}
 
-			<div class="body">
-				{if $section_navigation}
-					<nav class="nav-section">
-						{render partial="shared/layout/section_navigation"}
-					</nav>
-				{/if}
+					<div class="content-main">
+						{render partial="shared/layout/flash_message"}
+						{placeholder}
+					</div>
 
-				<div class="content-main">
-					{render partial="shared/layout/flash_message"}
-					{placeholder}
-				</div>
 			</div>
-
 		</div>
-
 		{javascript_script_tag file="$public/admin/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/admin/dist/scripts/application.min.js"}
 	</body>

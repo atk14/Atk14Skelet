@@ -34,7 +34,7 @@ $grays: map-merge(
   $grays
 );
 
-$blue:    #007bff !default;
+$blue:    desaturate(#007bff, 30%) !default;
 $indigo:  #6610f2 !default;
 $purple:  #6f42c1 !default;
 $pink:    #e83e8c !default;
@@ -288,7 +288,7 @@ $font-weight-bolder:          bolder !default;
 $font-weight-base:            $font-weight-normal !default;
 $line-height-base:            1.5 !default;
 
-$h1-font-size:                $font-size-base * 2.5 !default;
+$h1-font-size:                $font-size-base * 1.75; //2.5 !default;
 $h2-font-size:                $font-size-base * 2 !default;
 $h3-font-size:                $font-size-base * 1.75 !default;
 $h4-font-size:                $font-size-base * 1.5 !default;
@@ -297,7 +297,7 @@ $h6-font-size:                $font-size-base !default;
 
 $headings-margin-bottom:      $spacer / 2 !default;
 $headings-font-family:        null !default;
-$headings-font-weight:        500 !default;
+$headings-font-weight:        900 !default;
 $headings-line-height:        1.2 !default;
 $headings-color:              null !default;
 
@@ -708,7 +708,7 @@ $nav-divider-margin-y:              $spacer / 2 !default;
 
 // Navbar
 
-$navbar-padding-y:                  $spacer / 2 !default;
+$navbar-padding-y:                  $spacer / 4 !default;
 $navbar-padding-x:                  $spacer !default;
 
 $navbar-nav-link-padding-x:         .5rem !default;
@@ -1035,18 +1035,18 @@ $figure-caption-color:              $gray-600 !default;
 
 // Breadcrumbs
 
-$breadcrumb-padding-y:              .75rem !default;
+$breadcrumb-padding-y:              .5rem !default;
 $breadcrumb-padding-x:              1rem !default;
 $breadcrumb-item-padding:           .5rem !default;
 
 $breadcrumb-margin-bottom:          1rem !default;
 
-$breadcrumb-bg:                     $gray-200 !default;
+$breadcrumb-bg:                     $gray-100 !default;
 $breadcrumb-divider-color:          $gray-600 !default;
 $breadcrumb-active-color:           $gray-600 !default;
 $breadcrumb-divider:                quote("/") !default;
 
-$breadcrumb-border-radius:          $border-radius !default;
+$breadcrumb-border-radius:          0;//$border-radius !default;
 
 
 // Carousel
