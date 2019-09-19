@@ -29,13 +29,13 @@
 
 	<ul class="list-inline pager d-flex justify-content-between">
 		<li class="list-inline-item previous">
-			{if $older_article}
-				<a class="btn btn-outline-primary" href="{link_to action=detail id=$older_article}" title="{t}older article{/t}">{!"arrow-left"|icon} {$older_article->getTitle()|truncate:24}</a>
+			{if $newer_article}
+				<a class="btn btn-outline-primary" href="{link_to action=detail id=$newer_article}" title="{t}newer article{/t}">{!"arrow-left"|icon} {$newer_article->getTitle()|truncate:24}</a>
 			{/if}
 		</li>
 		<li class="list-inline-item next">
-			{if $newer_article}
-				<a class="btn btn-outline-primary" href="{link_to action=detail id=$newer_article}" title="{t}newer article{/t}">{$newer_article->getTitle()|truncate:24} {!"arrow-right"|icon}</a>
+			{if $older_article}
+				<a class="btn btn-outline-primary" href="{link_to action=detail id=$older_article}" title="{t}older article{/t}">{$older_article->getTitle()|truncate:24} {!"arrow-right"|icon}</a>
 			{/if}
 		</li>
 	</ul>
