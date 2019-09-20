@@ -17,6 +17,12 @@
 		&:hover {
 			background-color: rgba( black, 0.05);
 		}
+		.iobject-code {
+			display: block;
+			margin-top: 0.25rem;
+			font-size: 0.875rem;
+			color: $gray-600;
+		}
 	}
 }
 

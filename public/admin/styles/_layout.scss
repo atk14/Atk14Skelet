@@ -17,7 +17,7 @@
 			li.nav-item {
 				a.nav-link {
 					border-radius: 0;
-					transition: all 0.5s;
+					transition: all 0.1s;
 					&:not(.active){
 						color: desaturate($link-color, 30%);
 					}
