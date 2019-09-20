@@ -1,8 +1,10 @@
 {assign var=video value=$iobject->getObject()}
-<div style="margin: 1em 0;">
+<div class="iobject iobject--video">
 	<div class="embed-responsive embed-responsive-16by9">
 	{!$video->getHtml()}
 	</div>
-	{if $video->getTitle() && $video->isTitleVisible()}<br><strong>{$video->getTitle()}</strong>{/if}
-	{if $video->getDescription()}<br>{$video->getDescription()}{/if}
+	<div class="iobject__caption">
+		{if $video->getTitle() && $video->isTitleVisible()}<div class="iobject__title">{$video->getTitle()}</div>{/if}
+		{if $video->getDescription()}<div class="iobject__description">{$video->getDescription()}</div>{/if}
+	</div>
 </div>

@@ -83,6 +83,8 @@
 
 			{render partial="shared/layout/footer"}
 		</div>
+		
+		{render partial="shared/layout/devcssinfo"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}

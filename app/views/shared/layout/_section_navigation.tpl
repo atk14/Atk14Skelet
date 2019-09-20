@@ -1,4 +1,4 @@
-<ul class="nav nav-pills flex-column">
+<ul class="nav nav-pills flex-column{if count($section_navigation)<15} nav--sticky{/if}">
 	{foreach $section_navigation as $item}
 		<li class="nav-item">
 			<a class="nav-link{if $item->isActive()} active{/if}" href="{$item->getUrl()}">{$item->getTitle()}</a>
