@@ -42,6 +42,13 @@
 			padding-top: $grid-gutter-width;
 		}	
 	}
+	@media(min-width:1700px){
+		.content-main {
+			padding-left: $grid-gutter-width*2;
+			padding-right: $grid-gutter-width*2;
+			padding-top: $grid-gutter-width*1.5;
+		}	
+	}
 	
 	@include media-breakpoint-up(md){
 		display: grid;
@@ -50,9 +57,10 @@
 		.nav-section {
 			grid-area: sidebar;
 			ul.nav {
-				// if there are too many nav items it may be better to remove sticky
-				position: sticky;
-				top: 0;
+				&--sticky {
+					position: sticky;
+					top: 0;
+				}
 			}
 		}
 		.content-main {

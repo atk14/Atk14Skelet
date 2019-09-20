@@ -1,4 +1,4 @@
-<nav class="navbar navbar-dark bg-dark navbar-expand-md nav-login">
+<nav class="navbar navbar-dark bg-dark navbar-expand-sm nav-login">
 	<div class="container">
 		{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
 		{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}
@@ -12,8 +12,18 @@
 			{!"bars"|icon}
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+			<span class="env-status">
+				{if $request->getHttpHost()|strstr:"localhost"}
+					<span class="badge badge-pill badge-info" title="{t}Localhost{/t}">LHOST</span>
+				{/if}
+				{if DEVELOPMENT}
+					<span class="badge badge-pill badge-warning" title="{t}Development server{/t}">DEV</span>
+				{/if}
+				{if PRODUCTION}
+					<span class="badge badge-pill badge-success" title="{t}Production server{/t}">PROD</span>
+				{/if}
+			</span>
 			<ul class="navbar-nav">
-
 				{if $logged_user}
 					{* user is logged in *}
 					{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
