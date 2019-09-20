@@ -58,18 +58,30 @@ form {
 			margin: 0;
 			border-top: 1px solid $gray-200;
 		}
-		@include media-breakpoint-up(lg){
+		/*@include media-breakpoint-up(lg){
 			grid-template-columns: 2fr 6fr 2fr;
-		}
+			grid-template-rows: auto auto auto;
+			grid-template-areas: 
+				'label control help'
+				'middleleft feedback help'
+				'bottomleft instantfeedback help';
+			grid-gap: 0 $grid-gutter-width/2;
+		}*/
 		@include media-breakpoint-up(xl){
 			grid-template-columns: 2fr 8fr 2fr;
+			grid-template-rows: auto auto auto;
+			grid-template-areas: 
+				'label control help'
+				'middleleft feedback help'
+				'bottomleft instantfeedback help';
+			grid-gap: 0 $grid-gutter-width/2;
 		}
 		> label {
 			padding-top: calc(.375rem + 1px);
 			line-height: 1.5;
 			grid-area: label;
 		}
-		> .form-control, .custom-control, > .btn, > .button-container {
+		> .form-control, .custom-control, > .btn, > .button-container, > .form-control-wrap, > .md-container {
 			grid-area: control;
 		}
 		> ul.list--radios, > ul.list--checkboxes {
