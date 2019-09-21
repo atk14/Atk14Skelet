@@ -12,5 +12,5 @@
 	{foreach $form->get_field_keys() as $key}
 	{!$form.$key} {* e.g. $form.search *}
 	{/foreach}
-	<button type="submit" class="btn btn-secondary">{$button_text}</button>
+	<button type="submit" class="btn btn-secondary">{!"search"|icon} {$button_text}</button>
 {/form}

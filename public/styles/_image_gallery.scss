@@ -1,0 +1,124 @@
+section.photo-gallery {
+	margin: $grid-gutter-width 0;
+	.gallery__images {
+		display: flex;
+		justify-content: flex-start;
+		flex-wrap: wrap;
+		.gallery__item {
+			display: inline-block;
+			position: relative;
+			margin: 0;
+			border: 1px solid $gray-500;
+			
+			// Little crop for extreme panoramatic images
+			max-width: 500px;
+			overflow: hidden;
+			
+			img {
+				height: 180px;
+				width: auto;
+				transition: filter 0.5s;
+			}
+			figcaption {
+				display: none;
+			}
+			a {
+				display: block;
+			}
+			&:hover {
+				&:after {
+					display: flex;
+					display: none;
+					justify-content: center;
+					align-items: center;
+					position: absolute;
+					left: 0;
+					top: 0;
+					width: 100%;
+					height: 100%;
+					//background-color: rgba( $primary, 0.25 );
+					font-family: "Font Awesome 5 Free";
+					font-weight: bold;
+					content: "\f00e";
+					color: white;
+					font-size: 3rem;
+				}
+				img {
+					filter: brightness(0.8);
+					transition: filter 0.25s;
+				}
+			}
+			&:focus {
+				outline: none;
+			}
+		}
+	}
+	.gallery__caption {
+		margin-top: 0.5rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid $border-color;
+		font-size: 0.875rem;
+		.gallery__title {
+			font-weight: 600;
+			.gallery__title__separator {
+				color: $gray-500;
+				font-weight: normal;
+			}
+		}
+		.iobject__description {
+			font-style: italic;
+		}
+	}
+	@include media-breakpoint-down(md){
+		.gallery__images {
+			.gallery__item {
+				// Little crop for extreme panoramatic images
+				max-width: 387px;
+				
+				img {
+					height: 140px;
+				}
+			}
+		}
+	}
+	@include media-breakpoint-down(sm){
+		.gallery__images {
+			.gallery__item {
+				img {
+					height: 120px;
+				}
+			}
+		}
+	}
+	@include media-breakpoint-down(xs){
+		.gallery__images {
+			.gallery__item {
+				img {
+					height: 100px;
+				}
+			}
+		}
+	}
+	
+	
+	&--compact {
+		margin: 0;
+		.gallery__images {
+			.gallery__item {
+				img {
+					height: 120px;
+				}
+			}
+		}
+		
+		@include media-breakpoint-down(md){
+			.gallery__images {
+				.gallery__item {
+					img {
+						height: 100px;
+					}
+				}
+			}
+		}
+	}
+}

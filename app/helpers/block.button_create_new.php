@@ -50,7 +50,7 @@ function smarty_block_button_create_new($params,$content,$template,&$repeat){
 	}
 
 	$attrs += array(
-		"class" => "btn btn-outline-primary",
+		"class" => "btn btn-primary",
 	);
 
 	$original_smarty_vars = $smarty->getTemplateVars();

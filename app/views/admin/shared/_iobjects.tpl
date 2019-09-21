@@ -35,7 +35,7 @@
 					{/if}
 				{/a}
 
-				<br><span title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span>
+				<span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span>
 			</li>
 
 		{/foreach}
@@ -49,9 +49,9 @@
 {/if}
 
 <p>
-	{a action="pictures/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Add image{/t}{/a}
-	{a action="galleries/create_new" table_name=$object->getTableName() record_id=$object return_uri=$request->getUri() _class="btn btn-default"}{t}Add photogallery{/t}{/a}
-	{a action="files/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Add attachment{/t}{/a}
-	{a action="videos/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-default"}{t}Add video{/t}{/a}
+	{a action="pictures/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-outline-primary"}{!"camera"|icon} {t}Add image{/t}{/a}
+	{a action="galleries/create_new" table_name=$object->getTableName() record_id=$object return_uri=$request->getUri() _class="btn btn-outline-primary"}{!"images"|icon} {t}Add photogallery{/t}{/a}
+	{a action="files/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-outline-primary"}{!"file"|icon} {t}Add attachment{/t}{/a}
+	{a action="videos/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-outline-primary"}{!"video"|icon} {t}Add video{/t}{/a}
 </p>
 
