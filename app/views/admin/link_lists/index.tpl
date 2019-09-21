@@ -6,9 +6,9 @@
 
 {else}
 
-	<table class="table table-striped">
+	<table class="table table-sm table-striped">
 		<thead>
-			<tr>
+			<tr class="table-dark">
 				<th>#</th>
 				<th>{t}System name{/t}</th>
 				<th>{t}Displayed title{/t}</th>
