@@ -12,6 +12,7 @@
 			init: function() {
 				ADMIN.utils.handleSortables();
 				ADMIN.utils.handleSuggestions();
+				ADMIN.utils.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleGalleryImagesUpload();
 
@@ -32,15 +33,6 @@
 				} );
 
 				UTILS.leaving_unsaved_page_checker.init();
-			}
-		},
-
-		articles: {
-			create_new: function() {
-				ADMIN.utils.tagsSuggest( "#id_tags" );
-			},
-			edit: function() {
-				ADMIN.utils.tagsSuggest( "#id_tags" );
 			}
 		},
 
@@ -201,76 +193,79 @@
 				}
 			},
 
-			tagsSuggest: function( selector ) {
-				var $input = $( selector ),
-					lang = $( "html" ).attr( "lang" ),
-					url = "/api/" + lang + "/tags_suggestions/?format=json&q=",
-					cache = {},
-					term, terms;
+			// Suggests anything according by an url
+			handleSuggestions: function() {
+				$( document ).on( "keyup.autocomplete", "[data-suggesting='yes']", function(){
+					$( this ).autocomplete( {
+						source: function( request, response ) {
+							var $el = this.element,
+								url = $el.data( "suggesting_url" ),
+								term;
+							term = request.term;
 
-				function split( val ) {
-					return val.split( /,\s*/ );
-				}
-				function extractLast( t ) {
-					return split( t ).pop();
-				}
-
-				if ( !$input.length ) {
-					return;
-				}
-
-				$input.autocomplete( {
-					minLength: 1,
-					source: function( request, response ) {
-						term = extractLast( request.term );
-
-						if ( term in cache ) {
-							response( cache[ term ] );
-						} else {
-							$.getJSON( url + term, function( data ) {
-								cache[ term ] = data;
+							$.getJSON( url, { q: term }, function( data ) {
 								response( data );
 							} );
 						}
-					},
-					search: function() {
-						term = extractLast( this.value );
-
-						if ( term.length < 1 ) {
-							return false;
-						}
-					},
-					focus: function() {
-						return false;
-					},
-					select: function( event, ui ) {
-						terms = split( this.value );
-						terms.pop();
-						terms.push( ui.item.value );
-						terms.push( "" );
-						this.value = terms.join( " , " );
-						return false;
-					}
+					} );
 				} );
 			},
 
-			handleSuggestions: function() {
+			// Suggests tags
+			handleTagsSuggestions: function() {
+				$( document ).on( "keyup.autocomplete", "[data-tags_suggesting='yes']", function() {
+					var $input = $( this ),
+						lang = $( "html" ).attr( "lang" ),
+						url = "/api/" + lang + "/tags_suggestions/?format=json&q=",
+						cache = {},
+						term, terms;
 
-				// Naseptavani cehokoli
-				$( "[data-suggesting='yes']" ).autocomplete( {
-					source: function( request, response ) {
-						var $el = this.element,
-							url = $el.data( "suggesting_url" ),
-							term;
-						term = request.term;
-
-						$.getJSON( url, { q: term }, function( data ) {
-							response( data );
-						} );
+					function split( val ) {
+						return val.split( /,\s*/ );
 					}
+					function extractLast( t ) {
+						return split( t ).pop();
+					}
+
+					if ( !$input.length ) {
+						return;
+					}
+
+					$input.autocomplete( {
+						minLength: 1,
+						source: function( request, response ) {
+							term = extractLast( request.term );
+
+							if ( term in cache ) {
+								response( cache[ term ] );
+							} else {
+								$.getJSON( url + term, function( data ) {
+									cache[ term ] = data;
+									response( data );
+								} );
+							}
+						},
+						search: function() {
+							term = extractLast( this.value );
+
+							if ( term.length < 1 ) {
+								return false;
+							}
+						},
+						focus: function() {
+							return false;
+						},
+						select: function( event, ui ) {
+							terms = split( this.value );
+							terms.pop();
+							terms.push( ui.item.value );
+							terms.push( "" );
+							this.value = terms.join( " , " );
+							return false;
+						}
+					} );
 				} );
 			}
-
 		}
 	};
 
