@@ -7,7 +7,8 @@ var vendorStyles = [
 	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
 	"node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
 	"node_modules/jquery-ui-bundle/jquery-ui.css",
-	"node_modules/@fortawesome/fontawesome-free/css/all.css"
+	"node_modules/@fortawesome/fontawesome-free/css/all.css",
+	"node_modules/animate.css/animate.css"
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
@@ -17,7 +18,9 @@ var vendorScripts = [
 	"node_modules/bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
-	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js"
+	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
+	"node_modules/popper.js/dist/umd/popper.js",
+	"node_modules/bootstrap4-notify/bootstrap-notify.js"
 ];
 
 var applicationScripts = [

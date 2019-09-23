@@ -45,6 +45,7 @@ class ArticlesController extends AdminController{
 			$d["author_id"] = $d["created_by_user_id"] = $this->logged_user;
 			$article = Article::CreateNewRecord($d);
 			$article->setTags($tags);
+
 			$this->flash->success(_("The article has been created successfully"));
 			$this->_redirect_back();
 		}
@@ -58,16 +59,19 @@ class ArticlesController extends AdminController{
 		$this->form->set_initial("tags",$this->article->getTags());
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if($d==$this->form->get_initial()){
-				$this->flash->notice(_("Nothing has been changed"));
-				return $this->_redirect_back();
+
+			if($d!=$this->form->get_initial()){
+				$this->article->setTags($d["tags"]);
+				unset($d["tags"]);
+				$this->article->s($d,array("reconstruct_missing_slugs" => true));
+				$this->flash->success(_("The article has been updated successfully"));
 			}
 
-			$d["updated_by_user_id"] = $this->logged_user;
-			$this->article->setTags($d["tags"]);
-			unset($d["tags"]);
-			$this->article->s($d,array("reconstruct_missing_slugs" => true));
-			$this->flash->success(_("The article has been updated successfully"));
+			if($this->params->defined("save_and_stay")){
+				if(!$this->request->xhr()){ $this->_redirect_to($this->request->getRequestUri()); }
+				return;
+			}
+
 			$this->_redirect_back();
 		}
 	}
