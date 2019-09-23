@@ -1,6 +1,6 @@
 <li class="list-group-item" data-id="{$page->getId()}">
 	<div class="d-flex justify-content-between align-items-center">
-	{$page->getTitle()}
+	{$page->getTitle()|default:$mdash}
 	{if strlen($page->getCode())}<small>{$page->getCode()}</small>{/if}
 	{if !$page->isIndexable()}<em>({t}not showing in sitemap{/t})</em>{/if}
 	{if !$page->isVisible()}<em>({t}invisible{/t})</em>{/if}
