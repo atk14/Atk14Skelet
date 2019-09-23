@@ -31,7 +31,7 @@ class ArticlesForm extends AdminForm {
 		$this->add_field("tags", new TagsField(array(
 			"label" => _("Tags"),
 			"required" => false,
-			"hint" => "news , webdesign",
+			"hints" => array("news", "news , webdesign"),
 			"create_tag_if_not_found" => true,
 		)));
 	}
