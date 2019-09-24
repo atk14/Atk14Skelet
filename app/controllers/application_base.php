@@ -110,8 +110,8 @@ class ApplicationBaseController extends Atk14Controller{
 			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
 		){
 			// redirecting from http://example.com/xyz to http://www.example.com/xyz
-			$proto = $this->request->ssl() ? "https" : "http";
-			return $this->_redirect_to("$proto://".ATK14_HTTP_HOST.$this->request->getUri());
+			$scheme = $this->request->getScheme();
+			return $this->_redirect_to("$scheme://".ATK14_HTTP_HOST.$this->request->getUri(),array("moved_permanently" => true));
 		}
 
 		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
