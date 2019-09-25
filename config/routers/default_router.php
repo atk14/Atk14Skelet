@@ -39,6 +39,9 @@ class DefaultRouter extends Atk14Router{
 	function setUp(){
 
 		$this->addRoute("/sitemap.xml","sitemaps/index");
+		$this->addRoute("/sitemap/","en/sitemaps/detail");
+		$this->addRoute("/mapa-stranek/","cs/sitemaps/detail");
+
 		$this->addRoute("/robots.txt","main/robots_txt");
 
 		// Shorter password recovery links are nicer in emails:
