@@ -23,5 +23,7 @@
 	</tbody>
 </table>
 
-{a action="edit" _class="btn btn-outline-primary"}{t}Change your account data{/t}{/a}</li>
-{a action="edit_password" _class="btn btn-outline-primary"}{t}Change your password{/t}{/a}</li>
+<p>
+	{a action="edit" _class="btn btn-outline-primary"}{t}Change your account data{/t}{/a}
+	{a action="edit_password" _class="btn btn-outline-primary"}{t}Change your password{/t}{/a}
+</p>
