@@ -35,7 +35,7 @@ class ArticlesController extends ApplicationController{
 
 	function detail(){
 		$article = $this->_just_find("article");
-		if(!$article || !$article->isPublished()){
+		if(!$article || (!$article->isPublished() && !($this->logged_user && $this->logged_user->isAdmin()))){
 			return $this->_execute_action("error404");
 		}
 

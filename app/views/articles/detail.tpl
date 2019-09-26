@@ -20,7 +20,9 @@
 	</header>
 
 	<section class="article-body">
-
+		{if !$article->isPublished()}
+			<p><em>{t}This is not a published article! It's not available to the public audience.{/t}</em></p>
+		{/if}
 		{!$article->getBody()|markdown}
 	</section>
 </article>
