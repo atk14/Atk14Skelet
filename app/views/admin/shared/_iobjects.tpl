@@ -35,7 +35,7 @@
 					{/if}
 				{/a}
 
-				<span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span>
+				<br><span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span>
 			</li>
 
 		{/foreach}
