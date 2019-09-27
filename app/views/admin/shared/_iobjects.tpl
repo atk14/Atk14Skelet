@@ -34,8 +34,9 @@
 						<em>{t}bez názvu{/t}</em>
 					{/if}
 				{/a}
-
-				<span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span>
+				<div class="iobject-code-wrap">
+					<span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span> <a href="#" class="iobject-copy-code" role="button" data-toggle="popover" data-trigger="focus" data-content="Copied!" data-placement="top" tabindex="0">{t}Copy{/t}</a>
+				</div>
 			</li>
 
 		{/foreach}
