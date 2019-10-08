@@ -82,9 +82,10 @@ class ApplicationForm extends Atk14Form{
 		}
 		$name = $name=="" ? "search" : $name;
 		$options += array(
-			"label" => _("Hledat"),
+			"label" => _("Search query"),
 			"required" => false,
 		);
-		$this->add_field($name,new SearchField($options));
+		$field = $this->add_field($name,new SearchField($options));
+		return $field;
 	}
 }

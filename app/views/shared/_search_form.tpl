@@ -11,7 +11,7 @@
 {form _class="form-search"}
 	{foreach $form->get_field_keys() as $key}
 		{assign var=is_checkbox value=$form->fields.$key->widget->input_type=="checkbox"}
-		{!$form.$key} {* e.g. $form.search *}
+		{!$form|field:$key:"label_to_placeholder"}
 		{if $is_checkbox}
 			{$form->fields.$key->label}
 		{/if}
