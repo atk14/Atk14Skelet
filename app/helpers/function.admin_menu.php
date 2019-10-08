@@ -15,7 +15,7 @@ function smarty_function_admin_menu($params,$template){
 
 	$params += array(
 		"for" => null, // a Book member
-		"class" => "pull-right", //
+		"class" => USING_BOOTSTRAP4 ? "float-right" : "pull-right", //
 	);
 
 	$object = $params["for"];

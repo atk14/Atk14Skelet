@@ -19,7 +19,7 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 
 	$params += array(
 		"pull" => "right", // "right", "left", ""
-		"clearfix" => null,
+		"clearfix" => null, // null, true, false
 		"class" => "",
 
 		"USING_BOOTSTRAP4" => defined("USING_BOOTSTRAP4") && USING_BOOTSTRAP4,
