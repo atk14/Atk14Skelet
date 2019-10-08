@@ -6,6 +6,12 @@ class PagesForm extends AdminForm {
 			"label" => _("Title"),
 		)));
 
+		$this->add_field("image_url",new PupiqImageField([
+			"label" => _("Image"),
+			"required" => false,
+			"help_text" => _("Image used on list of pages, social networks, etc.")
+		]));
+
 		$this->add_translatable_field("teaser", new MarkdownField(array(
 			"label" => _("Teaser"),
 			"required" => false,
