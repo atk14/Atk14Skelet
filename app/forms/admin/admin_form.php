@@ -63,6 +63,7 @@ class AdminForm extends ApplicationForm{
 		}
 		if(!$field->required){ $required_langs = array(); }
 
+		$out = array();
 		foreach($langs as $lang){
 			$w = clone($field->widget);
 			$required = in_array($lang,$required_langs);
@@ -82,16 +83,18 @@ class AdminForm extends ApplicationForm{
 				"null_empty_output" => isset($field->null_empty_output)?$field->null_empty_output:false,
 			));
 
-			$this->add_field($field_name."_$lang".$id_suffix, $lang_field);
+			$out[] = $this->add_field($field_name."_$lang".$id_suffix, $lang_field);
 		}
+
+		return $out;
 	}
 
 	function add_rank_field(){
-		$this->add_field("rank",new RankField());
+		return $this->add_field("rank",new RankField());
 	}
 
 	function add_slug_field(){
-		$this->add_translatable_field("slug",new SlugField(array(
+		return $this->add_translatable_field("slug",new SlugField(array(
 			"required" => false,
 		)));
 	}
@@ -102,7 +105,7 @@ class AdminForm extends ApplicationForm{
 			"required" => false,
 			"max_legth" => 255
 		);
-		$this->add_translatable_field("title",new CharField($options));
+		return $this->add_translatable_field("title",new CharField($options));
 	}
 
 	function add_description_field($options = array()){
@@ -110,7 +113,7 @@ class AdminForm extends ApplicationForm{
 			"label" => _("Popis"),
 			"required" => false,
 		);
-		$this->add_translatable_field("description",new CharField($options));
+		return $this->add_translatable_field("description",new CharField($options));
 	}
 
 	function add_code_field($options = array()){
@@ -120,7 +123,7 @@ class AdminForm extends ApplicationForm{
 			"help_text" => _("An alternative key for system usage. Leave it unchanged if you are not sure.")
 		);
 
-		$this->add_field("code", new CodeField($options));
+		return $this->add_field("code", new CodeField($options));
 	}
 
 	function add_visible_field($options = array()){
@@ -130,7 +133,7 @@ class AdminForm extends ApplicationForm{
 			"initial" => true,
 		];
 
-		$this->add_field("visible", new BooleanField($options));
+		return $this->add_field("visible", new BooleanField($options));
 	}
 
 	function has_storno_button(){
