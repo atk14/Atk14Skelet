@@ -30,7 +30,7 @@
 
 		<title>{trim}
 			{if $controller=="main" && $action=="index" && $namespace==""}
-				{"ATK14_APPLICATION_NAME"|dump_constant}
+				{$page_title|strip_tags}
 			{else}
 				{$page_title|strip_tags} | {"ATK14_APPLICATION_NAME"|dump_constant}
 			{/if}
