@@ -3,6 +3,7 @@
  * Renders pulldown menu with links to administration of the given object
  *
  *	{admin_menu for=$book}
+ *	{admin_menu for=$book align="left"}
  *
  */
 function smarty_function_admin_menu($params,$template){
@@ -15,7 +16,13 @@ function smarty_function_admin_menu($params,$template){
 
 	$params += array(
 		"for" => null, // a Book member
-		"class" => USING_BOOTSTRAP4 ? "float-right" : "pull-right", //
+		"align" => "right", // "right", "left",
+	);
+
+	$float = USING_BOOTSTRAP4 ? "float" : "pull"; // float-right, pull-right
+
+	$params += array(
+		"class" => $params["align"]=="left" ? "$float-left" : "$float-right", //
 	);
 
 	$object = $params["for"];
