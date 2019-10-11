@@ -44,8 +44,8 @@ class TcUsers extends TcBase{
 		// testing outgoing email
 		$mailer = $controller->mailer;
 		$this->assertEquals('john@doe.com',$mailer->to);
-		$this->assertContains('Thanks for signing up',$mailer->body);
-		$this->assertContains('login: john.doe.tester',$mailer->body);
+		$this->assertContains('Thanks for signing up',$mailer->body_html);
+		$this->assertContains('login: john.doe.tester',$mailer->body_html);
 
 		// we are visiting the front page again
 		$controller = $this->client->get("main/index");
