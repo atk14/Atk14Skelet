@@ -3,7 +3,7 @@
 	{$page->getTitle()|default:$mdash}
 	{if strlen($page->getCode())}<small>{$page->getCode()}</small>{/if}
 	{if !$page->isIndexable()}<em>({t}not showing in sitemap{/t})</em>{/if}
-	{if !$page->isVisible()}<em>({t}invisible{/t})</em>{/if}
+	{if !$page->isVisible()}<em>({!"eye-slash"|icon} {t}invisible{/t})</em>{/if}
 
 	{foreach $secondary_langs as $sl}
 		{a namespace="" controller=pages action=detail id=$page lang=$sl}{t 1=$sl}[%1]{/t}{/a}
