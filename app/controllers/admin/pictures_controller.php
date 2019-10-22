@@ -4,6 +4,15 @@ class PicturesController extends IobjectsBaseController{
 
 	function detail(){
 		parent::detail();
-		$this->tpl_data["image"] = new Pupiq($this->picture->getImageUrl());
+
+		if($this->params->getString("format")=="raw"){
+			$pupiq = new Pupiq($this->picture->getUrl());
+			
+			$content = $pupiq->downloadOriginal($headers);
+
+			$this->render_template = false;
+			$this->response->write($content);
+			$this->response->setHeaders($headers);
+		}
 	}
 }
