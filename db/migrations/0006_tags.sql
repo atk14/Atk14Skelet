@@ -19,5 +19,5 @@ CREATE TABLE tags (
 INSERT INTO tags (id,tag,code) VALUES(1,'news','news');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('tags',1,'cs','tag_localized','aktuality');
 
-INSERT INTO tags (id,tag) VALUES(2,'action');
+INSERT INTO tags (id,tag,code) VALUES(2,'action','action');
 INSERT INTO translations (table_name,record_id,lang,key,body) VALUES('tags',2,'cs','tag_localized','akce');
