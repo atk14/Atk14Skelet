@@ -9,6 +9,7 @@
 	<ul class="list-group list-sortable" data-sortable-url="{link_to action="set_rank"}">
 		{foreach $link_list_items as $link_list_item}
 			<li class="list-group-item" data-id="{$link_list_item->getId()}">
+				{render partial="shared/list_thumbnail" image=$link_list_item->getImageUrl()}
 				{$link_list_item->getTitle()}
 				(<a href="{$link_list_item->getUrl()}">{$link_list_item->getUrl()}</a>)
 				{dropdown_menu}
