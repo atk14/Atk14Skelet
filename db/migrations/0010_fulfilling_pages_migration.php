@@ -1,5 +1,5 @@
 <?php
-class FulfillingPagesMigration extends Atk14Migration{
+class FulfillingPagesMigration extends ApplicationMigration{
 
 	function up(){
     if(TEST){ return; }

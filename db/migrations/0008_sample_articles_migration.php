@@ -1,5 +1,6 @@
 <?php
-class SampleArticlesMigration extends Atk14Migration{
+class SampleArticlesMigration extends ApplicationMigration{
+
 	function up(){
 
 		$news = Tag::GetInstanceByCode("news");
