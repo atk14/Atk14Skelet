@@ -17,6 +17,10 @@
 	
 </article>
 
+{if $page->getCode()=="contact"}
+	{render_component controller="contact_messages" action="create_new"}
+{/if}
+
 {if $child_pages}
 	<section class="child-pages">
 		<h4>{t}Subpages{/t}</h4>

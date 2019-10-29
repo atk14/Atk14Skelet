@@ -1,5 +1,6 @@
 <?php
-class ContactForm extends ApplicationForm{
+class CreateNewForm extends ApplicationForm{
+
 	function set_up(){
 		$this->add_field("name",new CharField(array(
 			"label" => _("Your name"),
@@ -14,7 +15,7 @@ class ContactForm extends ApplicationForm{
 		$this->add_field("sign_up_for_newsletter",new BooleanField(array(
 			"label" => _("Sign up for newsletter"),
 			"required" => false,
-			"initial" => true,
+			"initial" => false,
 		)));
 
 		$this->add_field("body",new TextField(array(
