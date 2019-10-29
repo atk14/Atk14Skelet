@@ -97,10 +97,16 @@ class AdminController extends ApplicationBaseController{
 
 		$this->_initialize_prepared_sorting($options["sorting_by"]);
 
-		$this->finder = $this->_prepare_finder(array(
+		$_finder_options = [
+			"class_name" => $options["class_name"],
 			"conditions" => $conditions,
-			"bind_ar" => $bind_ar
-		));
+			"bind_ar" => $bind_ar,
+		];
+
+		if (array_key_exists("limit", $options)) {
+			$_finder_options["limit"] = $options["limit"];
+		}
+		$this->finder = $this->_prepare_finder($_finder_options);
 		
 	}
 
