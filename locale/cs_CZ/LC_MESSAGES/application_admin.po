@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-20 12:29+0200\n"
-"PO-Revision-Date: 2019-10-20 12:42+0200\n"
+"POT-Creation-Date: 2019-10-31 11:33+0100\n"
+"PO-Revision-Date: 2019-10-31 11:34+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -33,6 +33,15 @@ msgstr "Navštívit veřejný odkaz"
 msgid "Delete article"
 msgstr "Smazat článek"
 
+msgid "Save and continue editing"
+msgstr "Uložit a pokračovat v úpravách"
+
+msgid "Save and go back"
+msgstr "Uložit a vrátit se zpět"
+
+msgid "Saving failed."
+msgstr "Ukládání se nezdařilo."
+
 msgid "Add new article"
 msgstr "Přidat nový článek"
 
@@ -54,7 +63,7 @@ msgstr "Autor"
 msgid "Date"
 msgstr "Datum"
 
-#: ../app/controllers/admin/admin.php:31
+#: ../app/controllers/admin/admin.php:32
 #: ../app/forms/admin/articles/articles_form.php:33
 msgid "Tags"
 msgstr "Štítky"
@@ -84,6 +93,21 @@ msgstr "Vytvořeno"
 
 msgid "Last access"
 msgstr "Poslední přístup"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Filename"
+msgstr "Název souboru"
+
+msgid "File Type"
+msgstr "Typ souboru"
+
+msgid "Filesize"
+msgstr "Velikost souboru"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "bez popisu"
 msgstr "bez popisu"
@@ -126,6 +150,9 @@ msgstr "Přidat odkaz do seznamu"
 
 msgid "There is no link in the list."
 msgstr "V seznamu není žádný odkaz."
+
+msgid "Edit links"
+msgstr "Editovat odkazy"
 
 msgid "Create new link list"
 msgstr "Vytvořit nový odkaz"
@@ -177,6 +204,9 @@ msgstr "Tato stránka nemá podstránky"
 msgid "Add new page"
 msgstr "Přidat novou stránku"
 
+msgid "Create a subpage"
+msgstr "Vytvořit podstránku"
+
 msgid ""
 "You are about to delete page %1\n"
 "Are you sure?"
@@ -210,6 +240,25 @@ msgstr "Obnoveno dne"
 
 msgid "Recovered from address"
 msgstr "Obnoveno z adresy"
+
+#: ../app/forms/admin/images/images_form.php:16
+msgid "Description"
+msgstr "Popis"
+
+msgid "Dimensions of the original"
+msgstr "Rozměry originálu"
+
+msgid "Uploaded by"
+msgstr "Nahráno uživatelem"
+
+msgid "Updated at"
+msgstr "Změněno"
+
+msgid "Updated by"
+msgstr "Aktualizováno uživatelem"
+
+msgid "Download original"
+msgstr "Stáhněte si originál"
 
 msgid ""
 "You are about to delete the attachment %1\n"
@@ -245,38 +294,55 @@ msgstr "Momentálně tady nejsou žádné obrázky"
 msgid "Add an image"
 msgstr "Přidat obrázek"
 
-msgid "Objekty vkládané do textu"
-msgstr "Objekty vkládané do textu"
+msgid "Objects inserted into text"
+msgstr "Objekty vložené do textu"
 
-msgid "Zkopírujte značku daného objektu ([#...]) do textu."
-msgstr "Zkopírujte značku daného objektu ([#...]) do textu."
+msgid "Copy the desired object's marker ([# ...]) into the text."
+msgstr "Zkopírujte značku požadovaného objektu ([# ...]) do textu."
 
-msgid "Opravdu odstranit objekt?"
-msgstr "Opravdu odstranit objekt?"
+msgid "Do you really want to delete this object?"
+msgstr "Opravdu chcete tento objekt smazat?"
 
 msgid "bez názvu"
 msgstr "bez názvu"
 
-msgid "Změnit"
-msgstr "Změnit"
+msgid "copy this line to the text"
+msgstr "zkopírujte tento řádek do textu"
 
-msgid "tento řádek zkopírujte do textu"
-msgstr "tento řádek zkopírujte do textu"
+msgid "Currently there are no objects"
+msgstr "Momentálně tady nejsou žádné objekty"
 
-msgid "Momentálně tady nejsou žádné objekty."
-msgstr "Momentálně tady nejsou žádné objekty."
-
-msgid "Přidat obrázek"
-msgstr "Přidat obrázek"
-
-msgid "Přidat fotogalerii"
+msgid "Add photogallery"
 msgstr "Přidat fotogalerii"
 
-msgid "Přidat přílohu"
-msgstr "Přidat přílohu"
-
-msgid "Přidat video"
+msgid "Add video"
 msgstr "Přidat video"
+
+msgid "Localhost"
+msgstr "Localhost"
+
+msgid "Development server"
+msgstr "Vývojový server"
+
+msgid "Production server"
+msgstr "Produkční server"
+
+msgid "Profile"
+msgstr "Profil"
+
+msgid "Sign out"
+msgstr "Odhlásit se"
+
+#: ../app/controllers/admin/admin.php:9
+#: ../app/controllers/admin/main_controller.php:4
+msgid "Administration"
+msgstr "Administrace"
+
+msgid "Sign in"
+msgstr "Přihlásit se"
+
+msgid "Register"
+msgstr "Registrovat"
 
 msgid "Show larger image"
 msgstr "Zobrazit větší obrázek"
@@ -328,9 +394,6 @@ msgstr "E-mailová adresa"
 msgid "Is admin?"
 msgstr "Je administrátor?"
 
-msgid "Updated at"
-msgstr "Změněno"
-
 msgid "not active"
 msgstr "neaktivní"
 
@@ -364,147 +427,69 @@ msgstr "Náhledový obrázek"
 msgid "Není nastaven"
 msgstr "Není nastaven"
 
-msgid "Save and continue editing"
-msgstr "Uložit a pokračovat v úpravách"
-
-msgid "Save and go back"
-msgstr "Uložit a vrátit se zpět"
-
-msgid "Saving failed."
-msgstr "Ukládání se nezdařilo."
-
-msgid "ID"
-msgstr "ID"
-
-msgid "Filename"
-msgstr "Název souboru"
-
-msgid "File Type"
-msgstr "Typ souboru"
-
-msgid "Filesize"
-msgstr "Velikost souboru"
-
-msgid "URL"
-msgstr "URL"
-
-msgid "Create a subpage"
-msgstr "Vytvořit podstránku"
-
-msgid "velikost originálu:"
-msgstr "velikost originálu:"
-
-msgid "Objects inserted into text"
-msgstr "Objekty vložené do textu"
-
-msgid "Copy the desired object's marker ([# ...]) into the text."
-msgstr "Zkopírujte značku požadovaného objektu ([# ...]) do textu."
-
-msgid "Do you really want to delete this object?"
-msgstr "Opravdu chcete tento objekt smazat?"
-
-msgid "copy this line to the text"
-msgstr "zkopírujte tento řádek do textu"
-
-msgid "Currently there are no objects"
-msgstr "Momentálně tady nejsou žádné objekty"
-
-msgid "Add photogallery"
-msgstr "Přidat fotogalerii"
-
-msgid "Add video"
-msgstr "Přidat video"
-
-msgid "Localhost"
-msgstr "Localhost"
-
-msgid "Development server"
-msgstr "Vývojový server"
-
-msgid "Production server"
-msgstr "Produkční server"
-
-msgid "Profile"
-msgstr "Profil"
-
-msgid "Sign out"
-msgstr "Odhlásit se"
-
-#: ../app/controllers/admin/admin.php:8
-#: ../app/controllers/admin/main_controller.php:4
-msgid "Administration"
-msgstr "Administrace"
-
-msgid "Sign in"
-msgstr "Přihlásit se"
-
-msgid "Register"
-msgstr "Registrovat"
-
-#: ../app/controllers/admin/admin.php:27
+#: ../app/controllers/admin/admin.php:28
 msgid "Welcome screen"
 msgstr "Vítací obrazovka"
 
-#: ../app/controllers/admin/admin.php:28
+#: ../app/controllers/admin/admin.php:29
 msgid "Articles"
 msgstr "Články"
 
-#: ../app/controllers/admin/admin.php:29
+#: ../app/controllers/admin/admin.php:30
 #: ../app/controllers/admin/pages_controller.php:5
 msgid "Pages"
 msgstr "Stránky"
 
-#: ../app/controllers/admin/admin.php:30
-#: ../app/controllers/admin/link_list_items_controller.php:46
+#: ../app/controllers/admin/admin.php:31
 msgid "Link Lists"
 msgstr "Seznamy odkazů"
 
-#: ../app/controllers/admin/admin.php:32
+#: ../app/controllers/admin/admin.php:33
 msgid "Users"
 msgstr "Uživatelé"
 
-#: ../app/controllers/admin/admin.php:33
+#: ../app/controllers/admin/admin.php:34
 #: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Obnovy hesel"
 
-#: ../app/controllers/admin/admin.php:34
+#: ../app/controllers/admin/admin.php:35
 msgid "Newsletter subscribers"
 msgstr "Odběratelé newsletteru"
 
-#: ../app/controllers/admin/admin.php:35
+#: ../app/controllers/admin/admin.php:36
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
 msgstr "Přesměrování 404"
 
-#: ../app/controllers/admin/admin.php:85
+#: ../app/controllers/admin/admin.php:100
 #, php-format
 msgid "Seznam objektů typu %s"
 msgstr "Seznam objektů typu %s"
 
-#: ../app/controllers/admin/admin.php:114
+#: ../app/controllers/admin/admin.php:135
 msgid "The record has been created"
 msgstr "Záznam byl vytvořen"
 
-#: ../app/controllers/admin/admin.php:128
+#: ../app/controllers/admin/admin.php:149
 #, php-format
 msgid "Vytvořit objekt typu %s"
 msgstr "Vytvořit objekt typu %s"
 
-#: ../app/controllers/admin/admin.php:180
+#: ../app/controllers/admin/admin.php:201
 msgid "Změny byly uloženy"
 msgstr "Změny byly uloženy"
 
-#: ../app/controllers/admin/admin.php:206
+#: ../app/controllers/admin/admin.php:227
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editace objektu typu %s"
 
-#: ../app/controllers/admin/admin.php:330
+#: ../app/controllers/admin/admin.php:351
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:337
+#: ../app/controllers/admin/admin.php:358
 #: ../app/controllers/admin/galleries_controller.php:33
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -600,6 +585,10 @@ msgstr "Přidání odkazu do seznamu '%s'"
 #, php-format
 msgid "Editing link '%s'"
 msgstr "Editace odkazu '%s'"
+
+#: ../app/controllers/admin/link_list_items_controller.php:48
+msgid "Links"
+msgstr "Odkazy"
 
 #: ../app/controllers/admin/link_lists_controller.php:5
 msgid "Link lists"
@@ -787,10 +776,6 @@ msgstr "Nahrát fotografii"
 msgid "Fotografie"
 msgstr "Fotografie"
 
-#: ../app/forms/admin/images/images_form.php:16
-msgid "Description"
-msgstr "Popis"
-
 #: ../app/forms/admin/images/images_form.php:24
 msgid "Display image in gallery on the product card?"
 msgstr "Zobrazit obrázek ve fotogalerii na kartě produktu?"
@@ -921,6 +906,39 @@ msgstr "Automatické spuštění videa"
 #: ../app/forms/admin/videos/videos_form.php:13
 msgid "Po ukončení přehrát znovu"
 msgstr "Po ukončení přehrát znovu"
+
+#~ msgid "Objekty vkládané do textu"
+#~ msgstr "Objekty vkládané do textu"
+
+#~ msgid "Zkopírujte značku daného objektu ([#...]) do textu."
+#~ msgstr "Zkopírujte značku daného objektu ([#...]) do textu."
+
+#~ msgid "Opravdu odstranit objekt?"
+#~ msgstr "Opravdu odstranit objekt?"
+
+#~ msgid "Změnit"
+#~ msgstr "Změnit"
+
+#~ msgid "tento řádek zkopírujte do textu"
+#~ msgstr "tento řádek zkopírujte do textu"
+
+#~ msgid "Momentálně tady nejsou žádné objekty."
+#~ msgstr "Momentálně tady nejsou žádné objekty."
+
+#~ msgid "Přidat obrázek"
+#~ msgstr "Přidat obrázek"
+
+#~ msgid "Přidat fotogalerii"
+#~ msgstr "Přidat fotogalerii"
+
+#~ msgid "Přidat přílohu"
+#~ msgstr "Přidat přílohu"
+
+#~ msgid "Přidat video"
+#~ msgstr "Přidat video"
+
+#~ msgid "velikost originálu:"
+#~ msgstr "velikost originálu:"
 
 #~ msgid "Edit page"
 #~ msgstr "Editovat stránku"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-20 12:29+0200\n"
-"PO-Revision-Date: 2019-10-20 12:36+0200\n"
+"POT-Creation-Date: 2019-10-31 11:33+0100\n"
+"PO-Revision-Date: 2019-10-31 11:33+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -93,6 +93,16 @@ msgstr "starší článek"
 msgid "At the moment there are no news."
 msgstr "V této chvíli nejsou žádné novinky"
 
+msgid ""
+"If you have any question, contact us through the following form. We will "
+"reply to you as soon as we can."
+msgstr ""
+"Pokud máte nějakou otázku, kontaktujte nás prostřednictvím tohoto formuláře. "
+"Odpovíme vám, jak nejdříve budeme moct."
+
+msgid "The message has been sent to us. We will reply as soon as we can."
+msgstr "Zpráva nám byla odeslána. Odpovíme vám jak nejrychleji umíme."
+
 msgid "Have you forgotten password?"
 msgstr "Zapomněl jste heslo?"
 
@@ -110,6 +120,9 @@ msgstr "E-mail"
 
 msgid "Signing up for newsletter"
 msgstr "Přihlásit se k newsletteru"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "IP address"
 msgstr "IP adresa"
@@ -146,30 +159,6 @@ msgstr "login"
 
 msgid "name"
 msgstr "jméno"
-
-msgid "The message has been sent to us. We will reply as soon as we can."
-msgstr "Zpráva nám byla odeslána. Odpovíme vám jak nejrychleji umíme."
-
-msgid ""
-"If you have any question, contact us through the following form. We will "
-"reply to you as soon as we can. Below the form you'll find other contact "
-"information."
-msgstr ""
-"Pokud máte nějaký dotaz, napište nám prostřednictvím tohoto formuláře. "
-"Odpovíme, jak nejdříve to bude možné. Pod formulářem najdete naše další "
-"kontaktní údaje."
-
-msgid "%1 Team"
-msgstr "%1 Tým"
-
-msgid "Phone"
-msgstr "Telefon"
-
-msgid "Opening hours"
-msgstr "Otevírací hodiny"
-
-msgid "From dusk till dawn"
-msgstr "Od soumraku do úsvitu"
 
 msgid "The Skelet contains mainly"
 msgstr "Skelet obsahuje hlavně"
@@ -307,6 +296,9 @@ msgstr "Editovat objekt"
 msgid "Create new object"
 msgstr "Vytvořit nový objekt"
 
+msgid "Edit links"
+msgstr "Editovat odkazy"
+
 msgid "Create a new record"
 msgstr "Vytvořit nový záznam"
 
@@ -374,11 +366,11 @@ msgstr "Nejnovější články"
 msgid "Username (login)"
 msgstr "Uživatelské jméno (login)"
 
-#: ../app/forms/main/contact_form.php:5
+#: ../app/forms/contact_messages/create_new_form.php:6
 msgid "Your name"
 msgstr "Vaše jméno"
 
-#: ../app/forms/main/contact_form.php:10
+#: ../app/forms/contact_messages/create_new_form.php:11
 msgid "Your email"
 msgstr "Váš e-mail"
 
@@ -423,9 +415,8 @@ msgid "Home"
 msgstr "Domů"
 
 #: ../app/controllers/application_mailer.php:42
-#, php-format
-msgid "Welcome to %s"
-msgstr "Vítejte na %s"
+msgid "New registration"
+msgstr "Nová registrace"
 
 #: ../app/controllers/application_mailer.php:51
 msgid "Reset Your Password"
@@ -471,6 +462,15 @@ msgstr "Články"
 msgid "Articles tagged with <em>%s</em>"
 msgstr "Články se štítkem <em>%s</em>"
 
+#: ../app/controllers/contact_messages_controller.php:9
+#: ../app/controllers/contact_messages_controller.php:32
+msgid "Contact message"
+msgstr "Kontaktní zpráva"
+
+#: ../app/controllers/contact_messages_controller.php:33
+msgid "Contact message sent"
+msgstr "Kontaktní zpráva byla odeslána"
+
 #: ../app/controllers/logins_controller.php:16
 #, php-format
 msgid ""
@@ -501,11 +501,6 @@ msgstr "Zůstal jste přihlášen jako <em>%s</em>"
 #: ../app/controllers/main_controller.php:11
 msgid "Welcome!"
 msgstr "Vítejte"
-
-#: ../app/controllers/main_controller.php:21
-#: ../app/controllers/main_controller.php:44
-msgid "Contact"
-msgstr "Kontakt"
 
 #: ../app/controllers/password_recoveries_controller.php:10
 msgid "There is no such user with the given login or email"
@@ -669,6 +664,18 @@ msgstr "Uložit"
 msgid "Search query"
 msgstr "Vyhledávací dotaz"
 
+#: ../app/forms/contact_messages/create_new_form.php:16
+msgid "Sign up for newsletter"
+msgstr "Přihlásit se k odběru newsletteru"
+
+#: ../app/forms/contact_messages/create_new_form.php:22
+msgid "Text"
+msgstr "Text"
+
+#: ../app/forms/contact_messages/create_new_form.php:27
+msgid "Send message"
+msgstr "Poslat zprávu"
+
 #: ../app/forms/logins/create_new_form.php:8
 msgid "Login"
 msgstr "Přihlásit se"
@@ -678,18 +685,6 @@ msgstr "Přihlásit se"
 #: ../app/forms/users/users_form.php:25
 msgid "Password"
 msgstr "Heslo"
-
-#: ../app/forms/main/contact_form.php:15
-msgid "Sign up for newsletter"
-msgstr "Přihlásit se k odběru newsletteru"
-
-#: ../app/forms/main/contact_form.php:21
-msgid "Text"
-msgstr "Text"
-
-#: ../app/forms/main/contact_form.php:26
-msgid "Send message"
-msgstr "Poslat zprávu"
 
 #: ../app/forms/password_recoveries/create_new_form.php:5
 msgid "Login or email address"
@@ -759,6 +754,33 @@ msgstr "Galerie"
 #: ../app/helpers/modifier.iobject_type.php:23
 msgid "Obrázek"
 msgstr "Obrázek"
+
+#~ msgid ""
+#~ "If you have any question, contact us through the following form. We will "
+#~ "reply to you as soon as we can. Below the form you'll find other contact "
+#~ "information."
+#~ msgstr ""
+#~ "Pokud máte nějaký dotaz, napište nám prostřednictvím tohoto formuláře. "
+#~ "Odpovíme, jak nejdříve to bude možné. Pod formulářem najdete naše další "
+#~ "kontaktní údaje."
+
+#~ msgid "%1 Team"
+#~ msgstr "%1 Tým"
+
+#~ msgid "Phone"
+#~ msgstr "Telefon"
+
+#~ msgid "Opening hours"
+#~ msgstr "Otevírací hodiny"
+
+#~ msgid "From dusk till dawn"
+#~ msgstr "Od soumraku do úsvitu"
+
+#~ msgid "Welcome to %s"
+#~ msgstr "Vítejte na %s"
+
+#~ msgid "Contact"
+#~ msgstr "Kontakt"
 
 #~ msgid "recovery link"
 #~ msgstr "odkaz pro obnovu"
@@ -1517,13 +1539,6 @@ msgstr "Obrázek"
 #~ "%1 Support Team\n"
 #~ "web: %2\n"
 #~ "e-mail: %3"
-
-#~ msgid ""
-#~ "If you have any question, contact us through the following form. We will "
-#~ "reply to you as soon as we can."
-#~ msgstr ""
-#~ "Pokud máte nějakou otázku, kontaktujte nás prostřednictvím tohoto "
-#~ "formuláře. Odpovíme vám, jak nejdříve budeme moct."
 
 #~ msgid "Below the form you'll find other contact information."
 #~ msgstr "Pod tímto formulářem najdete další kontaktní informace"
