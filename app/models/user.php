@@ -60,14 +60,16 @@ class User extends ApplicationModel{
 	}
 
 	function getName(){
-		return trim($this->getFirstname()." ".$this->getLastname());
+		$name = trim($this->getFirstname()." ".$this->getLastname());
+		if(strlen($name)){ return $name; }
+		return $this->getLogin();
 	}
 
 	function isAdmin(){ return $this->getIsAdmin(); }
 
 	function isSuperAdmin(){ return $this->getId()==self::ID_SUPERADMIN; }
 
-	function toString(){ return $this->getLogin(); }
+	function toString(){ return (string)$this->getName(); }
 
 	function isActive(){ return $this->g("active"); }
 

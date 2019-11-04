@@ -8,6 +8,15 @@ class TcUser extends TcBase{
 		$rambo = $this->users["rambo"];
 
 		$this->assertEquals("John Rambo",$rambo->getName());
+		$this->assertEquals("John Rambo","$rambo"); // toString
+		$rambo->s([
+			"firstname" => "",
+			"lastname" => "",
+		]);
+		$this->assertEquals("rambo",$rambo->getName());
+		$this->assertEquals("rambo","$rambo"); // toString
+
+
 		$this->assertEquals(true,$rambo->isActive());
 		$this->assertEquals(false,$rambo->isAdmin());
 		$this->assertEquals(false,$rambo->isSuperAdmin());
