@@ -9,14 +9,14 @@ class UsersController extends AdminController{
 		$this->sorting->add("login","LOWER(login)");
 		$this->sorting->add("id");
 		$this->sorting->add("name","LOWER(COALESCE(firstname,'')), LOWER(COALESCE(lastname,''))","LOWER(COALESCE(firstname,'')) DESC, LOWER(COALESCE(lastname,'')) DESC");
-		$this->sorting->add("email","COALESCE(LOWER(name),'')");
+		$this->sorting->add("email","COALESCE(LOWER(email),'')");
 
 		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
 
 		$conditions = $bind_ar = array();
 
 		if($d["search"]){
-			$conditions[] = "UPPER(id||' '||login||' '||COALESCE(name,'')||' '||COALESCE(email,'')) LIKE UPPER('%'||:search||'%')";
+			$conditions[] = "UPPER(id||' '||login||' '||COALESCE(firstname,'')||' '||COALESCE(lastname,'')||' '||COALESCE(email,'')) LIKE UPPER('%'||:search||'%')";
 			$bind_ar[":search"] = $d["search"];
 		}
 

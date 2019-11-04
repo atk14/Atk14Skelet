@@ -9,9 +9,19 @@ class TcUser extends TcBase{
 
 		$this->assertEquals("John Rambo",$rambo->getName());
 		$this->assertEquals(true,$rambo->isActive());
+		$this->assertEquals(false,$rambo->isAdmin());
+		$this->assertEquals(false,$rambo->isSuperAdmin());
 
 		$rambo->s("active",false);
 		$this->assertEquals(false,$rambo->isActive());
+
+		$rambo->s("is_admin",true);
+		$this->assertEquals(true,$rambo->isAdmin());
+		$this->assertEquals(false,$rambo->isSuperAdmin());
+
+		$superadmin = User::FindById(User::ID_SUPERADMIN);
+		$this->assertEquals(true,$superadmin->isAdmin());
+		$this->assertEquals(true,$superadmin->isSuperAdmin());
 	}
 
 	function testHashingPassword(){
