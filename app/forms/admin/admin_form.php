@@ -25,6 +25,7 @@ class AdminForm extends ApplicationForm{
 		$options += array(
 			"required_langs" => $ATK14_GLOBAL->getDefaultLang(), // "_all_", "cs", "cs,en" nebo array("cs","en")
 			"additional_langs" => array(), // dalsi jazyky, ktere aplikace jinak nema aktivovane
+			"return" => "fields", // "fields" or "names"
 		);
 
 		foreach(array("required_langs","additional_langs") as $k){
@@ -63,7 +64,7 @@ class AdminForm extends ApplicationForm{
 		}
 		if(!$field->required){ $required_langs = array(); }
 
-		$out = array();
+		$fields = $names = array();
 		foreach($langs as $lang){
 			$w = clone($field->widget);
 			$required = in_array($lang,$required_langs);
@@ -83,10 +84,12 @@ class AdminForm extends ApplicationForm{
 				"null_empty_output" => isset($field->null_empty_output)?$field->null_empty_output:false,
 			));
 
-			$out[] = $this->add_field($field_name."_$lang".$id_suffix, $lang_field);
+			$name = $field_name."_$lang".$id_suffix;
+			$fields[] = $this->add_field($name, $lang_field);
+			$names[] = $name;
 		}
 
-		return $out;
+		return $options["return"]=="names" ? $names : $fields;
 	}
 
 	function add_rank_field(){
@@ -120,7 +123,10 @@ class AdminForm extends ApplicationForm{
 		$options += array(
 			"label" => _("Code"),
 			"required" => false,
-			"help_text" => _("An alternative key for system usage. Leave it unchanged if you are not sure.")
+		);
+
+		$options += array(
+			"help_text" => $options["required"] ? _("An alternative key for system usage.") : _("An alternative key for system usage. Leave it unchanged if you are not sure."),
 		);
 
 		return $this->add_field("code", new CodeField($options));
