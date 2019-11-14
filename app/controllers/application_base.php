@@ -20,12 +20,21 @@ class ApplicationBaseController extends Atk14Controller{
 			return;
 		}
 
-		$this->page_title = $this->breadcrumbs[] = _("Page not found");
 		$this->response->setStatusCode(404);
-		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
 		if($this->request->xhr()){
 			// there's no need to render anything for XHR requests
 			$this->render_template = false;
+			return;
+		}
+
+		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
+		$this->page_title = $this->breadcrumbs[] = _("Page not found");
+
+		$page = $this->tpl_data["page"] = Page::GetInstanceByCode("error404");
+
+		if($page){
+			$this->page_title = $page->getPageTitle();
+			$this->page_description = $page->getPageDescription();
 		}
 	}
 
