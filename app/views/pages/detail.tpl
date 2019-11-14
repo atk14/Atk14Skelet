@@ -9,7 +9,7 @@
 	</header>
 	
 	<section class="page-body">
-		{if !$page->isVisible()}
+		{if !$page->isVisible() && $page->getCode()!="error404"}
 			<p><em>{t}This is not a visible page! It's not available to the public audience.{/t}</em></p>
 		{/if}
 		{!$page->getBody()|markdown}

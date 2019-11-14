@@ -12,15 +12,12 @@ class ApplicationBaseController extends Atk14Controller{
 	var $breadcrumbs;
 
 	function error404(){
-		if($this->request->get() && !$this->request->xhr() && ($redirection = ErrorRedirection::GetInstanceByHttpRequest($this->request))){
-			$redirection->touch();
-			$this->_redirect_to($redirection->getDestinationUrl(),array(
-        "moved_permanently" => $redirection->movedPermanently(),
-      ));
+		if($this->_redirected_on_error404()){
 			return;
 		}
 
 		$this->response->setStatusCode(404);
+
 		if($this->request->xhr()){
 			// there's no need to render anything for XHR requests
 			$this->render_template = false;
@@ -29,12 +26,15 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
 		$this->page_title = $this->breadcrumbs[] = _("Page not found");
+	}
 
-		$page = $this->tpl_data["page"] = Page::GetInstanceByCode("error404");
-
-		if($page){
-			$this->page_title = $page->getPageTitle();
-			$this->page_description = $page->getPageDescription();
+	function _redirected_on_error404(){
+		if($this->request->get() && !$this->request->xhr() && ($redirection = ErrorRedirection::GetInstanceByHttpRequest($this->request))){
+			$redirection->touch();
+			$this->_redirect_to($redirection->getDestinationUrl(),array(
+        "moved_permanently" => $redirection->movedPermanently(),
+      ));
+			return true;
 		}
 	}
 
