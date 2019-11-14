@@ -32,7 +32,7 @@ class TcLinter extends TcBase {
 	}
 
 	function test_compile_all_templates(){
-		system(ATK14_DOCUMENT_ROOT."/scripts/compile_all_templates",$ret_val);
+		system("ATK14_ENV=test ".ATK14_DOCUMENT_ROOT."/scripts/compile_all_templates",$ret_val);
 		if($ret_val){
 			$this->fail("./scripts/compile_all_templates failed");
 		}
