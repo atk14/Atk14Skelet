@@ -1,6 +1,12 @@
 <tr>
 	<td class="item-id">{$tag->getId()}</td>
-	<td class="item-title">{$tag}</td>
+	<td class="item-title">
+		{$tag}
+		{if $tag->getTag()!=$tag->getTagLocalized()}
+			<small>({$tag->getTagLocalized()})</small>
+		{/if}
+	</td>
+	<td class="item-code">{$tag->getCode()|default:$mdash}</td>
 	<td class="item-created">{$tag->getCreatedAt()|format_datetime}</td>
 	<td class="text-right item-actions">
 		{dropdown_menu}

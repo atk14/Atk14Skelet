@@ -11,31 +11,35 @@ class ApplicationBaseController extends Atk14Controller{
 	 */
 	var $breadcrumbs;
 
-	function index(){
-		// acts like there's no index action by default
-		$this->_execute_action("error404");
+	function error404(){
+		if($this->_redirected_on_error404()){
+			return;
+		}
+
+		$this->response->setStatusCode(404);
+
+		if($this->request->xhr()){
+			// there's no need to render anything for XHR requests
+			$this->render_template = false;
+			return;
+		}
+
+		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
+		$this->page_title = $this->breadcrumbs[] = _("Page not found");
 	}
 
-	function error404(){
+	function _redirected_on_error404(){
 		if($this->request->get() && !$this->request->xhr() && ($redirection = ErrorRedirection::GetInstanceByHttpRequest($this->request))){
 			$redirection->touch();
 			$this->_redirect_to($redirection->getDestinationUrl(),array(
         "moved_permanently" => $redirection->movedPermanently(),
       ));
-			return;
-		}
-
-		$this->page_title = _("Page not found");
-		$this->response->setStatusCode(404);
-		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
-		if($this->request->xhr()){
-			// there's no need to render anything for XHR requests
-			$this->render_template = false;
+			return true;
 		}
 	}
 
 	function error403(){
-		$this->page_title = _("Forbidden");
+		$this->page_title = $this->breadcrumbs[] = _("Forbidden");
 		$this->response->setStatusCode(403);
 		$this->template_name = "application/error403";
 		if($this->request->xhr()){
@@ -61,9 +65,38 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _before_render(){
+		global $ATK14_GLOBAL;
+
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
+
+		// data for language swith, see app/views/shared/_langswitch.tpl
+		$languages = array();
+		$current_language = null;
+		$params_homepage = array("namespace" => "", "controller" => "main", "action" => "index");
+		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
+		foreach($ATK14_GLOBAL->getConfig("locale") as $l => $locale){
+			$params["lang"] = $l;
+			$item = array(
+				"lang" => $l,
+				"name" => isset($locale["name"]) ? $locale["name"] : $l,
+				"switch_url" => $this->_link_to($params)
+			);
+			if($this->lang==$l){
+				$current_language = $item;
+				continue;
+			}
+			$languages[] = $item;
+		}
+		$this->tpl_data["current_language"] = $current_language;
+		$this->tpl_data["supported_languages"] = $languages;
+
+		// It's better to write
+		//	{$val|default:$mdash}
+		// than
+		//	{!$val|h|default:"&mdash;"}
+		$this->tpl_data["mdash"] = "—";
 	}
 
 	function _application_before_filter(){
@@ -81,10 +114,17 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$this->response->setHeader("X-Powered-By","ATK14 Framework");
 
-		if(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)){
+		if(
+			(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)) ||
+			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
+		){
 			// redirecting from http://example.com/xyz to http://www.example.com/xyz
-			$proto = $this->request->ssl() ? "https" : "http";
-			return $this->_redirect_to("$proto://".ATK14_HTTP_HOST.$this->request->getUri());
+			$scheme = $this->request->getScheme();
+			return $this->_redirect_to("$scheme://".ATK14_HTTP_HOST.$this->request->getUri(),array("moved_permanently" => true));
+		}
+
+		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
+			return $this->_redirect_to_ssl();
 		}
 
 		// logged in user
@@ -163,6 +203,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 	function _get_logged_user(&$really_logged_user = null){
 		$really_logged_user = User::GetInstanceById($this->session->g("logged_user_id"));
+		if($really_logged_user && !$really_logged_user->isActive()){ $really_logged_user = null; }
 
 		if($really_logged_user && $really_logged_user->isAdmin()){
 			$fakely_logged_user = User::GetInstanceById($this->session->g("fake_logged_user_id"));
@@ -334,6 +375,12 @@ class ApplicationBaseController extends Atk14Controller{
 		}
 
 		return $this->_redirect_to($return_uri);
+	}
+
+	function _add_something_to_breadcrumbs($title,$link){
+		$title = strip_tags($title);
+		if(is_array($link)){ $link = $this->_link_to($link); }
+		$this->breadcrumbs[] = array($title,$link);
 	}
 
 	/**

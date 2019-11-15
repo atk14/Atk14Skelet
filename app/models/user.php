@@ -7,6 +7,8 @@
  */
 class User extends ApplicationModel{
 
+	const ID_SUPERADMIN = 1;
+
 	/**
 	 * Returns user when a correct combination of login and password is given.
 	 * 
@@ -16,6 +18,7 @@ class User extends ApplicationModel{
 		$bad_password = false;
 	  $user = User::FindByLogin($login);
 		if(!$user){ return; }
+		if(!$user->isActive()){ return; }
 	  if($user->isPasswordCorrect($password)){
 			return $user;
 		}
@@ -30,7 +33,7 @@ class User extends ApplicationModel{
 	 */
 	static function CreateNewRecord($values,$options = array()){
 		if(isset($values["password"])){
-			$values["password"] = MyBlowfish::Hash($values["password"]);
+			$values["password"] = MyBlowfish::Filter($values["password"]);
 		}
 
 	  return parent::CreateNewRecord($values,$options);
@@ -47,7 +50,7 @@ class User extends ApplicationModel{
 	 */
 	function setValues($values,$options = array()){
 		if(isset($values["password"])){
-			$values["password"] = MyBlowfish::Hash($values["password"]);
+			$values["password"] = MyBlowfish::Filter($values["password"]);
 		}
 		return parent::setValues($values,$options);
 	}
@@ -56,9 +59,19 @@ class User extends ApplicationModel{
 		return MyBlowfish::CheckPassword($password,$this->getPassword());
 	}
 
+	function getName(){
+		$name = trim($this->getFirstname()." ".$this->getLastname());
+		if(strlen($name)){ return $name; }
+		return $this->getLogin();
+	}
+
 	function isAdmin(){ return $this->getIsAdmin(); }
 
-	function toString(){ return $this->getLogin(); }
+	function isSuperAdmin(){ return $this->getId()==self::ID_SUPERADMIN; }
 
-	function isDeletable(){ return $this->getId()!=1; }
+	function toString(){ return (string)$this->getName(); }
+
+	function isActive(){ return $this->g("active"); }
+
+	function isDeletable(){ return !in_array($this->getId(),array(self::ID_SUPERADMIN)); }
 }

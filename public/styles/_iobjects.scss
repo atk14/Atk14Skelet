@@ -1,0 +1,123 @@
+.iobject {
+	
+	margin: $grid-gutter-width 0;
+	
+	// caption - title, description
+	.iobject__caption {
+		margin-top: 0.5rem;
+		padding-bottom: 0.5rem;
+		border-bottom: 1px solid $border-color;
+		font-size: 0.875rem;
+		.iobject__title {
+			font-weight: 600;
+			.iobject__title__separator {
+				color: $gray-500;
+				font-weight: normal;
+			}
+		}
+		.iobject__description {
+			font-style: italic;
+		}
+	}
+	
+	// type-specific props
+	&--video {
+	}
+	&--picture {
+	}
+	&--gallery {
+		section.photo-gallery {
+			margin: 0;
+		}
+	}
+	&--file {
+		border-top: 1px solid $border-color;
+		border-bottom: 1px solid $border-color;
+		& > a {
+			display: flex;
+			align-items: center;
+			justify-content: space-between;
+			padding: 0 0.2em;
+			&:hover {
+				background-color: $border-color;
+				text-decoration: none;
+			}
+			&:focus {
+				outline: none;
+			}
+		}
+		.fileicon {
+			padding-right: 0.5em;
+			font-size: 1.5em;
+		}
+		.iobject--file__meta {
+			color: $body-color;
+			font-size: 0.75rem;
+		}
+	}
+	&--card_promotion {
+		display: flex;
+		background-color: white;
+		text-decoration: none;
+		color: inherit;
+		.iobject__image {
+			flex-basis: 200px;
+			flex-shrink: 0;
+		}
+		.iobject__body {
+			padding: $grid-gutter-width/2;
+			.iobject__title {
+				font-size: 1.25rem;
+			}
+			.iobject__description {
+				font-size: 0.875rem;
+			}
+			.iobject__price {
+				display: block;
+				margin-top: 1rem;
+				font-size: 1.25rem;
+				font-weight: 600;
+				color: $primary;
+			}
+		}
+		@media(max-width: 700px){
+			display: block;
+		}
+		&:hover {
+			text-decoration: none;
+			color: inherit;
+			box-shadow: 0px 0px 34px 0px rgba(0,0,0,0.35);
+		}
+		& + & {
+			margin-top: 0 !important;
+		}
+	}
+	& + & {
+		margin-top: 0-$grid-gutter-width;
+		border-top: none;
+	}
+	@include media-breakpoint-down(xs){
+		& > a {
+			padding-top: 0.75rem;
+			padding-bottom: 0.75rem;
+			display: block;
+			.fileicon {
+				display: block;
+			}
+			.iobject--file__meta {
+				display: block;
+			}
+		}
+	}
+}
+
+// Photoswipe shows caption extracted from figcaption tag,
+// so we must hide unwanted zoom icon in photoswipe view
+.pswp__caption {
+	.iobject--picture__link, .iobject__title__separator {
+		display: none;
+	}
+	.iobject__title {
+		font-weight: 600;
+	}
+}

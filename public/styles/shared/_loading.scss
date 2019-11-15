@@ -1,0 +1,10 @@
+// Style applied during a XHR request
+// ==================================
+//
+// Atk14.js adds class "loading" on body while processing a XHR request
+
+body {
+	&.loading * {
+		cursor: wait !important;
+	}
+}

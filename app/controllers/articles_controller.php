@@ -11,8 +11,8 @@ class ArticlesController extends ApplicationController{
 		$this->page_title = _("Articles");
 
 		if($tag){
-			$this->breadcrumbs[] = "$tag";
-			$this->page_title = sprintf(_("Articles tagged with <em>%s</em>"),h($tag));
+			$this->breadcrumbs[] = $tag->getTagLocalized();
+			$this->page_title = sprintf(_("Articles tagged with <em>%s</em>"),h($tag->getTagLocalized()));
 		}
 
 		$conditions = $bind_ar = array();
@@ -35,7 +35,7 @@ class ArticlesController extends ApplicationController{
 
 	function detail(){
 		$article = $this->_just_find("article");
-		if(!$article || !$article->isPublished()){
+		if(!$article || (!$article->isPublished() && !($this->logged_user && $this->logged_user->isAdmin()))){
 			return $this->_execute_action("error404");
 		}
 
@@ -51,7 +51,7 @@ class ArticlesController extends ApplicationController{
 		$this->tpl_data["newer_article"] = $article->getNewerArticle();
 
 		if($primary_tag = $article->getPrimaryTag()){
-			$this->breadcrumbs[] = array("$primary_tag",$this->_link_to(array("action" => "articles/index", "tag_id" => $primary_tag)));
+			$this->breadcrumbs[] = array($primary_tag->getTagLocalized(),$this->_link_to(array("action" => "articles/index", "tag_id" => $primary_tag)));
 		}
 		$this->breadcrumbs[] = $article->getTitle();
 	}

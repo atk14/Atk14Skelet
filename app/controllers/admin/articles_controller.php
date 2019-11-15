@@ -1,5 +1,6 @@
 <?php
 class ArticlesController extends AdminController{
+
 	function index(){
 		$this->page_title = _("Listing Articles");
 
@@ -8,13 +9,22 @@ class ArticlesController extends AdminController{
 		$conditions = $bind_ar = array();
 
 		if($d["search"]){
-			$conditions[] = "UPPER(id||' '||' '||COALESCE(title,'')||' '||COALESCE(body,'')) LIKE UPPER('%'||:search||'%')";
-			$bind_ar[":search"] = $d["search"];
+			$_fields = array();
+			$_fields[] = "id";
+			foreach(array("title","body") as $_f){
+				$_fields[] = "COALESCE((SELECT body FROM translations WHERE record_id=articles.id AND table_name='articles' AND key='$_f' AND lang=:lang),'')";
+			}
+
+			if($ft_cond = FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",$_fields).")",Translate::Upper($d["search"]),$bind_ar)){
+				$conditions[] = $ft_cond;
+			}
 		}
 
 		$this->sorting->add("published_at",array("reverse" => true));
 		$this->sorting->add("id");
-		$this->sorting->add("title","LOWER(title)");
+		$this->sorting->add("title","UPPER(COALESCE((SELECT body FROM translations WHERE record_id=articles.id AND table_name='articles' AND key='title' AND lang=:lang),''))");
+		
+		$bind_ar[":lang"] = $this->lang;
 
 		$this->tpl_data["finder"] = Article::Finder(array(
 			"conditions" => $conditions,
@@ -35,6 +45,7 @@ class ArticlesController extends AdminController{
 			$d["author_id"] = $d["created_by_user_id"] = $this->logged_user;
 			$article = Article::CreateNewRecord($d);
 			$article->setTags($tags);
+
 			$this->flash->success(_("The article has been created successfully"));
 			$this->_redirect_back();
 		}
@@ -48,16 +59,19 @@ class ArticlesController extends AdminController{
 		$this->form->set_initial("tags",$this->article->getTags());
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if($d==$this->form->get_initial()){
-				$this->flash->notice(_("Nothing has been changed"));
-				return $this->_redirect_back();
+
+			if($d!=$this->form->get_initial()){
+				$this->article->setTags($d["tags"]);
+				unset($d["tags"]);
+				$this->article->s($d,array("reconstruct_missing_slugs" => true));
+				$this->flash->success(_("The article has been updated successfully"));
 			}
 
-			$d["updated_by_user_id"] = $this->logged_user;
-			$this->article->setTags($d["tags"]);
-			unset($d["tags"]);
-			$this->article->s($d);
-			$this->flash->success(_("The article has been updated successfully"));
+			if($this->params->defined("save_and_stay")){
+				if(!$this->request->xhr()){ $this->_redirect_to($this->request->getRequestUri()); }
+				return;
+			}
+
 			$this->_redirect_back();
 		}
 	}

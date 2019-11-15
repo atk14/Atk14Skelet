@@ -1,16 +1,21 @@
 <?php
 class UsersForm extends ApplicationForm{
+
 	function _add_basic_account_fields(){
-		$this->add_field("name", new CharField(array(
-			"label" => _("Your name"),
+		$this->add_field("firstname", new CharField(array(
+			"label" => _("Firstname"),
 			"max_length" => 255,
-			"hint" => "John Doe"
+		)));
+
+		$this->add_field("lastname", new CharField(array(
+			"label" => _("Lastname"),
+			"max_length" => 255,
 		)));
 
 		$this->add_field("email", new EmailField(array(
 			"label" => _("Email address"),
 			"max_length" => 255,
-			"hint" => "john.doe@email.com",
+			"initial" => "@",
 			"help_text" => _("We will not disclose this address"),
 		)));
 	}

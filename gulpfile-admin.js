@@ -7,21 +7,25 @@ var vendorStyles = [
 	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
 	"node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
 	"node_modules/jquery-ui-bundle/jquery-ui.css",
-	"node_modules/@fortawesome/fontawesome-free/css/all.css"
+	"node_modules/@fortawesome/fontawesome-free/css/all.css",
+	"node_modules/animate.css/animate.css"
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
 	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
-	"node_modules/markdown/lib/markdown.js",
 	"node_modules/ace-builds/src/ace.js",
 	"node_modules/bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
-	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js"
+	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
+	"node_modules/popper.js/dist/umd/popper.js",
+	"node_modules/bootstrap4-notify/bootstrap-notify.js"
 ];
 
 var applicationScripts = [
+	"public/scripts/utils/utils.js",
+	"public/scripts/utils/leaving_unsaved_page_checker.js",
 	"public/admin/scripts/application.js"
 ];
 
@@ -101,13 +105,13 @@ gulp.task( "copy-admin", function() {
 
 // Clean
 gulp.task( "clean-admin", function() {
-	del( "admin/dist" );
+	del.sync( "public/admin/dist" );
 } );
 
 // Server
 gulp.task( "serve-admin", [ "styles-admin", "styles-vendor-admin" ], function() {
 	browserSync.init( {
-		proxy: "atk14skelet.localhost/admin/"
+		proxy: "localhost:8000/admin/"
 	} );
 
 	// If these files change = reload browser

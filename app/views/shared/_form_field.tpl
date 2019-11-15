@@ -10,12 +10,7 @@
  *
  * Available variables:
  * - $field: Initially field's name. Later field object.
- * - $field->hint: Hint text for filling the field. Usually used as an input's
-     placeholder attribute. DEPRECATED, use $field->hints array instead.
- * - $field->hints: Array of hint texts for filling the field. Usually used as an input's
-     placeholder attribute. You're free to render it according to your needs.
- * - $field->hint_in_placeholder: Boolean indicating if hint was already used as a
-     placeholder.
+ * - $field->hints: Array of hint texts for filling the field. You're free to render it according to your needs.
  * - $field->required: Boolean indicating if the field is required. By default
  *   it's used for handling presence of field's required attribute. You can use
  *   it for setting additional classes in your markup for example.
@@ -124,9 +119,9 @@
 			{!$invalid_feedback}
 			{!$valid_feedback}
 
-			{if $field->hints && !$field->hint_in_placeholder}
+			{if $field->hints}
 				<div class="help-hint d-none" data-title="{t}Examples:{/t}">
-					<ul class="list-unstyled">
+					<ul class="list pl-3">
 						{foreach $field->hints as $hint}
 							<li>{!$hint}</li>
 						{/foreach}

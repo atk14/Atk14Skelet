@@ -30,7 +30,7 @@
 
 		<title>{trim}
 			{if $controller=="main" && $action=="index" && $namespace==""}
-				{"ATK14_APPLICATION_NAME"|dump_constant}
+				{$page_title|strip_tags}
 			{else}
 				{$page_title|strip_tags} | {"ATK14_APPLICATION_NAME"|dump_constant}
 			{/if}
@@ -56,6 +56,8 @@
 			{javascript_script_tag file="$public/dist/scripts/html5shiv.min.js"}
 			{javascript_script_tag file="$public/dist/scripts/respond.min.js"}
 		<![endif]-->
+
+		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
@@ -81,6 +83,8 @@
 
 			{render partial="shared/layout/footer"}
 		</div>
+		
+		{render partial="shared/layout/devcssinfo"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}

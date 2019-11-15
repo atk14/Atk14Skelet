@@ -1,16 +1,19 @@
 <?php
 class TagsField extends CharField{
+
 	function __construct($options = array()){
 		$options += array(
 			"separator" => ",",
 			"unique" => true,
 			"create_tag_if_not_found" => false,
 			"max_tags" => null, // 10
+			"widget" => new TextInput(),
 		);
 		$this->separator = $options["separator"];
 		$this->unique = $options["unique"];
 		$this->max_tags = $options["max_tags"];
 		$this->create_tag_if_not_found = $options["create_tag_if_not_found"];
+		$options["widget"]->attrs["data-tags_suggesting"] = "yes";
 
 		parent::__construct($options);
 

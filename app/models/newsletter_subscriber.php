@@ -10,9 +10,16 @@ class NewsletterSubscriber extends ApplicationModel{
 	 * NewsletterSubscriber::SignUp("john@doe",array("name" => "John Doe"));
 	 * NewsletterSubscriber::SignUp("john@doe",array("vocative" => "Mr.", "name" => "John Doe"));
 	 */
-	static function SignUp($email,$values = array()){
-		// TODO: What about different character sizes in the same email address?
-		$ns = NewsletterSubscriber::FindByEmail($email);
+	static function SignUp($user_or_email,$values = array()){
+		$values_create = array();
+		if(is_a($user_or_email,"User")){
+			$ns = NewsletterSubscriber::FindFirstByUserId($user_or_email);
+			$values_create["user_id"] = $user_or_email;
+		}else{
+			$ns = NewsletterSubscriber::FindFirst("LOWER(email)=LOWER(:email)",array(":email" => "$user_or_email"));
+			$values_create["email"] = $user_or_email;
+		}
+
 		if($ns){
 			$upd_array = array();
 			foreach($values as $k => $v){
@@ -26,9 +33,8 @@ class NewsletterSubscriber extends ApplicationModel{
 				$ns->s($upd_array);
 			}
 		}else{
-			$values["email"] = $email;
 			$values["created_from_addr"] = $GLOBALS["HTTP_REQUEST"]->getRemoteAddr();
-			$ns = NewsletterSubscriber::CreateNewRecord($values);
+			$ns = NewsletterSubscriber::CreateNewRecord($values + $values_create);
 		}
 
 		return $ns;

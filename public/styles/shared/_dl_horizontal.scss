@@ -1,0 +1,11 @@
+// In Bootstrap4, .dl-horizontal has been dropped. Instead, use .row on <dl> and use grid column classes (or mixins) on its <dt> and <dd> children.
+// https://getbootstrap.com/docs/4.0/content/typography/#description-list-alignment
+dl.dl-horizontal {
+	@extend .row;
+	dt {
+		@extend .col-sm-3;
+	}
+	dd {
+		@extend .col-sm-9;
+	}
+}

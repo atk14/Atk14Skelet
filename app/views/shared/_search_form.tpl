@@ -9,6 +9,13 @@
 {/if}
 
 {form _class="form-search"}
-	{!$form.search}
-	<button type="submit" class="btn btn-secondary">{$button_text}</button>
+	{foreach $form->get_field_keys() as $key}
+		{assign var=is_checkbox value=$form->fields.$key->widget->input_type=="checkbox"}
+		{!$form|field:$key:"label_to_placeholder"}
+		{if $is_checkbox}
+			{$form->fields.$key->label}
+		{/if}
+		&nbsp;
+	{/foreach}
+	<button type="submit" class="btn btn-secondary">{!"search"|icon} {$button_text}</button>
 {/form}

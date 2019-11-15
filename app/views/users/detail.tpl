@@ -1,6 +1,4 @@
-<header>
-	<h1>{$page_title}</h1>
-</header>
+<h1>{$page_title}</h1>
 
 <table class="table table-auto">
 	<tbody>
@@ -10,11 +8,11 @@
 		</tr>
 		<tr>
 			<th>{t}Your name{/t}</th>
-			<td>{$logged_user->getName()}</td>
+			<td>{$logged_user->getName()|default:$mdash}</td>
 		</tr>
 		<tr>
 			<th>{t}Your email{/t}</th>
-			<td>{$logged_user->getEmail()}</td>
+			<td>{$logged_user->getEmail()|default:$mdash}</td>
 		</tr>
 		{if $logged_user->isAdmin}
 			<tr>
@@ -25,7 +23,7 @@
 	</tbody>
 </table>
 
-<ul>
-	<li>{a action="edit"}{t}Change your account data{/t}{/a}</li>
-	<li>{a action="edit_password"}{t}Change your password{/t}{/a}</li>
-</ul>
+<p>
+	{a action="edit" _class="btn btn-outline-primary"}{t}Change your account data{/t}{/a}
+	{a action="edit_password" _class="btn btn-outline-primary"}{t}Change your password{/t}{/a}
+</p>

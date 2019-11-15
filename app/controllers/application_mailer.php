@@ -24,10 +24,22 @@ class ApplicationMailer extends Atk14Mailer {
 		// $this->bcc = "";
 	}
 
+	function _after_render(){
+		if(!$this->body && $this->body_html){
+			// Missing plain text body will be automatically created from the HTML body.
+			// Unwanted parts in the email layout can be marked with HTML comments and will be filtered out.
+			$html = $this->body_html;
+			$html = preg_replace('/<!-- header -->.+<!-- \/header -->/s','',$html);
+			$html = preg_replace('/<!-- footer -->.+<!-- \/footer -->/s','',$html);
+			$converter = new \Html2Text\Html2Text($html,array("width" => 80));
+			$this->body = trim($converter->getText());
+		}
+	}
+
 	function notify_user_registration($user){
 		$this->tpl_data["user"] = $user;
 		$this->to = $user->getEmail();
-		$this->subject = sprintf(_("Welcome to %s"),ATK14_APPLICATION_NAME);
+		$this->subject = _("New registration");
 		// body is rendered from app/views/mailer/notify_user_registration.tpl
 	}
 
@@ -55,13 +67,13 @@ class ApplicationMailer extends Atk14Mailer {
 	 *		"body" => "Hi, I just lost my password..."
 	 *	),$request->getRemoteAddr(),$logged_user);
 	 */
-	function contact_message($params,$remote_addr,$logged_user){
+	function contact_message($params,$request,$logged_user){
 		$this->to = DEFAULT_EMAIL;
 		$this->subject = _("Message sent from contact page");
 		$this->reply_to = $params["email"];
 		$this->reply_to_name = $params["name"];
 		$this->tpl_data += $params;
-		$this->tpl_data["remote_addr"] = $remote_addr;
+		$this->tpl_data["request"] = $request;
 		$this->tpl_data["logged_user"] = $logged_user;
 		$this->render_layout = false;
 	}

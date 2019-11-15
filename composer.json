@@ -3,9 +3,16 @@
         "atk14/dbmole-panel": "^1.0",
         "atk14/mail-panel": "^1.0",
         "atk14/templates-panel": "^1.0",
-        "michelf/php-markdown": "1.5.0",
+        "atk14/pupiq-client": "^1.9",
+        "atk14/url-field": "^1.0",
+        "atk14/phone-field": "^1.0",
+        "atk14/drink-markdown": "^0.2",
+        "essence/essence": ">=2.6.1",
         "atk14/menu14": "^1.1.1",
-        "yarri/my-blowfish": ">=1.1 <2.0",
-        "atk14/confirmation-field": "^1.0"
+        "yarri/my-blowfish": "^1.4",
+        "yarri/full-text-search-query-like": "^0.2",
+        "atk14/confirmation-field": "^1.0",
+        "atk14/sluggish-router": "^1.1",
+        "html2text/html2text": "^4.0"
     }
 }

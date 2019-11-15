@@ -1,19 +1,20 @@
 # vim:ts=2:sw=2:et
-dist: precise
+dist: trusty
 
 language: php
 
 services:
   - postgresql
 
+# Atk14Skelet is no more compatible with PHP5.3
 php:
-  - 5.3
   - 5.4
   - 5.5
   - 5.6
   - 7.0
   - 7.1
   - 7.2
+  - 7.3
 
 before_install:
   - echo 'en_US.UTF-8 UTF-8' | sudo tee --append /var/lib/locales/supported.d/local
@@ -27,6 +28,7 @@ before_install:
 before_script:
   - travis_retry composer install --dev --no-interaction --prefer-dist
   - echo "y" | ATK14_ENV=test ./scripts/create_database
+  - echo "SELECT VERSION()" | ATK14_ENV=test ./scripts/dbconsole
   - ATK14_ENV=test ./scripts/migrate
 
 script:

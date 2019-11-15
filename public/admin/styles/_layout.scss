@@ -1,27 +1,77 @@
 // Applies CSS Grid for layout w/sidebar
-
-.has-nav-section {
+.body-wrap {
+	display: flex;
+	flex-direction: column;
+	min-height: 100vh;
 	.body {
-		@include media-breakpoint-up(md){
-			display: grid;
-			grid-template-columns: 230px 1fr;
-			grid-template-areas: 'sidebar mainbody';
-			grid-gap: $grid-gutter-width/2;
-			.nav-section {
-				grid-area: sidebar;
-				border-right: 1px solid $gray-300;
-				padding-right: $grid-gutter-width/2;
-			}
-			.content-main {
-				grid-area: mainbody;
+		flex-grow: 10;
+	}
+}
+.has-nav-section {
+	.nav-section, .content-main {
+		padding-top: $grid-gutter-width/2;
+	}
+	.nav-section {
+		background-color: $gray-200;
+		ul.nav {
+			li.nav-item {
+				a.nav-link {
+					border-radius: 0;
+					transition: all 0.1s;
+					&:not(.active){
+						color: desaturate($link-color, 30%);
+					}
+					&:hover:not(.active) {
+						background-color: $gray-600;
+						color: white;
+						transition: all 0.1s;
+					}
+				}
 			}
 		}
-		@include media-breakpoint-down(sm){
-			.nav-section {
-				border-bottom: 1px solid $gray-300;
-				padding-bottom: $grid-gutter-width/2;
-				margin-bottom: $grid-gutter-width/2;
+	}
+	.content-main {
+		padding-left: $grid-gutter-width/2;
+		padding-right: $grid-gutter-width/2;
+		padding-bottom: $grid-gutter-width;
+	}
+	@include media-breakpoint-up(lg){
+		.content-main {
+			padding-left: $grid-gutter-width;
+			padding-right: $grid-gutter-width;
+			padding-top: $grid-gutter-width;
+		}	
+	}
+	@media(min-width:1700px){
+		.content-main {
+			padding-left: $grid-gutter-width*2;
+			padding-right: $grid-gutter-width*2;
+			padding-top: $grid-gutter-width*1.5;
+		}	
+	}
+	
+	@include media-breakpoint-up(md){
+		display: grid;
+		grid-template-columns: 200px 1fr;
+		grid-template-areas: 'sidebar mainbody';
+		.nav-section {
+			grid-area: sidebar;
+			ul.nav {
+				&--sticky {
+					position: sticky;
+					top: 0;
+				}
 			}
+		}
+		.content-main {
+			grid-area: mainbody;
+		}
+	}
+	@include media-breakpoint-down(sm){
+		.nav-section {
+			border-bottom: 1px solid $gray-300;
+			padding-bottom: $grid-gutter-width/2;
+			margin-bottom: $grid-gutter-width/2;
 		}
 	}
 }

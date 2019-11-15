@@ -1,0 +1,58 @@
+
+// Border under table
+table.table {
+	margin-bottom: 2rem;
+	// Border under table
+	border-bottom: 1px solid $table-border-color;
+	// last paragraph without margin bottom
+	p:last-child {
+		margin-bottom: 0;
+	}
+}
+
+// Dark table header
+tr.table-dark {
+	th{
+		background-color: $gray-600;
+		color: $gray-300;
+		border-bottom: none;
+		a {
+			color: white;
+			border-bottom: 1px solid $table-border-color;
+			&:hover {
+				text-decoration: none;
+				border-bottom: 2px solid $table-border-color;
+			}
+		}
+	}
+}
+
+// Responsive tables - display all as blocks
+
+@include media-breakpoint-down(xs){
+	table.table {
+		display: block;
+		thead, tbody {
+			display: block;
+		}
+		thead {
+			tr {
+				border-bottom: none;
+			}
+		}
+		tr {
+			display: block;
+			border-bottom: 1px solid $gray-600;
+			th, td {
+				display: block;
+				&:empty {
+					display: none;
+				}
+			}
+			th {
+				border-bottom: 1px solid $table-border-color;
+				border-top: none;
+			}
+		}
+	}
+}

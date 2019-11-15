@@ -8,7 +8,7 @@ class TcTagsField extends TcBase{
 	function test(){
 
 		// tag $news comes from migration
-		$news = Tag::FindById(Tag::ID_NEWS); // from migration
+		$news = Tag::GetInstanceByCode('news'); // from migration
 
 		// other tags come from fixture
 		$music = $this->tags["music"];

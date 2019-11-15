@@ -1,5 +1,12 @@
 <?php
-class Article extends ApplicationModel{
+class Article extends ApplicationModel implements Translatable, iSlug {
+
+	use TraitTags;
+	
+	static function GetTranslatableFields() { return array("title", "teaser", "body");}
+
+	function getSlugPattern($lang){ return $this->g("title_$lang"); }
+
 	function isPublished(){
 		return strtotime($this->getPublishedAt())<time();
 	}
@@ -14,27 +21,10 @@ class Article extends ApplicationModel{
 		return $this->_getNextArticle(false,$tag_required);
 	}
 
-	function getTagsLister(){
-		return $this->getLister("Tags");
-	}
-
-	function getTags(){
-		return Cache::Get("Tag",$this->getTagsLister()->getRecordIds());
-	}
-
-	function setTags($tags){
-		return $this->getTagsLister()->setRecords($tags);
-	}
-
-	function getPrimaryTag(){
-		if($tags = $this->getTags()){
-			return $tags[0];
-		}
-	}
-
 	protected function _getNextArticle($newer,$tag_required = null){
 		$conditions = $bind_ar = array();
-		$conditions[] = "published_at<NOW()";
+		$conditions[] = "published_at<:now";
+		$bind_ar[":now"] = now();
 		if($newer){
 			$conditions[] = "published_at>:published_at OR (published_at=:published_at AND id>:id)";
 		}else{

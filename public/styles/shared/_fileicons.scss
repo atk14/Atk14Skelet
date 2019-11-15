@@ -1,0 +1,118 @@
+// File icons for common file types
+// Usage:
+// <span class="fileicon">
+// <span class="fileicon fileicon-pdf">
+// <span class="fileicon fileicon-pdf fileicon-color">
+
+// Step 1: Common Properties: All required to make icons render reliably
+.fileicon:before {
+  display: inline-block;
+	font-weight: 900;
+  font-family: "Font Awesome 5 Free";
+  font-style: normal;
+  font-variant: normal;
+  text-rendering: auto;
+  -webkit-font-smoothing: antialiased;
+	content: "\f15b";
+}
+
+// Step 2: Reference Individual Icons 
+// Note: Make sure to include the correct weight and unicode value for the icon
+
+// Word
+.fileicon-doc, .fileicon-docx {
+	&:before {
+		font-weight: 900;
+		content: "\f1c2";
+	}
+	&.fileicon-color:before {
+		color: steelblue;
+	}
+}
+
+// Powerpoint
+.fileicon-ppt, .fileicon-pptx {
+  font-weight: 900;
+  content: "\f1c4";
+	
+	&.fileicon-color:before {
+		color: orangered;
+	}
+}
+
+// Excel
+.fileicon-xls, .fileicon-xlsx {
+	&:before {
+		font-weight: 900;
+		content: "\f1c3";
+	}
+	&.fileicon-color:before {
+		color: forestgreen;
+	}
+}
+
+// PDF
+.fileicon-pdf {
+	&:before{
+		font-weight: 900;
+		content: "\f1c1";
+	}
+	&.fileicon-color:before {
+		color: red;
+	}
+}
+
+// Code
+.fileicon-html, .fileicon-htm, .fileicon-js, .fileicon-css, .fileicon-scss, .fileicon-less, .fileicon-php, .fileicon-js {
+	&:before {
+		font-weight: 900;
+		content: "\f1c3";
+	}
+	&.fileicon-color:before {
+		color: darkorange;
+	}
+}
+
+// Image
+.fileicon-jpg, .fileicon-jpeg, .fileicon-png, .fileicon-gif, .fileicon-tif, .fileicon-tiff, .fileicon-psd, .fileicon-svg, .fileicon-bmp, .fileicon-webp {
+	&:before {
+		font-weight: 900;
+		content: "\f1c5";
+	}
+	&.fileicon-color:before {
+		color: darkslateblue;
+	}
+}
+
+// Video
+.fileicon-mpg, .fileicon-mpeg, .fileicon-mp4, .fileicon-avi, .fileicon-webm, .fileicon-mov, .fileicon-flv {
+	&:before {
+  	font-weight: 900;
+  	content: "\f1c8";
+	}
+	&.fileicon-color:before {
+		color: darkmagenta;
+	}
+}
+
+// Audio
+.fileicon-mp3, .fileicon-wav, .fileicon-ogg, .fileicon-aac, .fileicon-flac, .fileicon-aiff {
+	&:before {
+		font-weight: 900;
+		content: "\f1c7";
+	}
+	&.fileicon-color:before {
+		color: navy;
+	}
+}
+
+// Archives
+.fileicon-zip, .fileicon-tgz, .fileicon-rar, .fileicon-7zip, .fileicon-flac, .fileicon-aiff {
+	&:before {
+		font-weight: 900;
+		content: "\f1c6";
+	}
+	&.fileicon-color:before {
+		color: dodgerblue;
+	}
+}

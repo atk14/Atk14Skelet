@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: PACKAGE VERSION\n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2018-03-09 15:15+0100\n"
+"POT-Creation-Date: 2019-08-23 13:24+0200\n"
 "PO-Revision-Date: 2016-03-07 17:03+0100\n"
 "Last-Translator: Yarri <do-not-write-me@ever.com>\n"
 "Language-Team: Team <team@email.com>\n"
@@ -37,133 +37,6 @@ msgid ""
 "email: %3"
 msgstr ""
 
-msgid ""
-"Are you sure to delete article item\n"
-"%1?"
-msgstr ""
-
-msgid "Edit"
-msgstr ""
-
-msgid "Delete article"
-msgstr ""
-
-msgid "Add new article"
-msgstr ""
-
-msgid "The list is empty."
-msgstr ""
-
-msgid "Title"
-msgstr ""
-
-msgid "Author"
-msgstr ""
-
-msgid "Date"
-msgstr ""
-
-msgid "Tags"
-msgstr ""
-
-msgid "Welcome administrator!"
-msgstr ""
-
-msgid "No record has been found."
-msgstr ""
-
-msgid "Email"
-msgstr ""
-
-msgid "Name"
-msgstr ""
-
-msgid "Subscribed since"
-msgstr ""
-
-msgid "IP address"
-msgstr ""
-
-msgid "Export emails in CSV"
-msgstr ""
-
-#: ../app/forms/application_form.php:67
-msgid "Delete"
-msgstr ""
-
-msgid "Created at"
-msgstr ""
-
-msgid "User"
-msgstr ""
-
-msgid "Created from address"
-msgstr ""
-
-msgid "Password recovered?"
-msgstr ""
-
-msgid "Recovered at"
-msgstr ""
-
-msgid "Recovered from address"
-msgstr ""
-
-msgid "Add new tag"
-msgstr ""
-
-msgid "No tag has been found."
-msgstr ""
-
-msgid "Tag"
-msgstr ""
-
-msgid ""
-"You are about to permanently delete tag %1\n"
-"\tAre you sure about that?"
-msgstr ""
-
-msgid "Delete tag"
-msgstr ""
-
-msgid ""
-"At the moment no one knows the actual user's password because passwords are "
-"not stored in plain text form. In this form you can set a new password to "
-"the user <em>%1</em>"
-msgstr ""
-
-msgid "Create a new user"
-msgstr ""
-
-msgid "Username"
-msgstr ""
-
-#: ../app/forms/users/users_form.php:11
-msgid "Email address"
-msgstr ""
-
-msgid "Is admin?"
-msgstr ""
-
-msgid "Updated at"
-msgstr ""
-
-#: ../app/forms/password_recoveries/recovery_form.php:7
-#: ../app/forms/users/edit_password_form.php:8
-msgid "Set new password"
-msgstr ""
-
-msgid "Sign in as this user"
-msgstr ""
-
-msgid ""
-"You are about to permanently delete user %1\n"
-"\tAre you sure about that?"
-msgstr ""
-
-msgid "Delete user"
-msgstr ""
-
 msgid "Error 403: Forbidden"
 msgstr ""
 
@@ -183,8 +56,8 @@ msgid "Sign in as an admin user"
 msgstr ""
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:65
-#: ../app/forms/logins/create_new_form.php:13
+#: ../app/controllers/password_recoveries_controller.php:78
+#: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr ""
 
@@ -218,7 +91,16 @@ msgstr ""
 msgid "Click on the button to sign out."
 msgstr ""
 
+msgid "Name"
+msgstr ""
+
+msgid "Email"
+msgstr ""
+
 msgid "Signing up for newsletter"
+msgstr ""
+
+msgid "IP address"
 msgstr ""
 
 msgid "Logged user:"
@@ -301,20 +183,29 @@ msgstr ""
 msgid ""
 "<em>ATK14 Skelet</em> is a very basic application written on top of <a href="
 "\"http://atk14.net\">the ATK14 Framework</a>.\n"
-"\t\t\tAs the Skelet is simple and minimal it may be usefull for developers "
-"as a good start point for any other application."
+"\t\t\t\t\tAs the Skelet is simple and minimal it may be usefull for "
+"developers as a good start point for any other application."
+msgstr ""
+
+msgid "The ATK14 Skelet at age 5"
+msgstr ""
+
+msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
 msgstr ""
 
 msgid "The Skelet contains mainly"
 msgstr ""
 
-msgid "About page"
+msgid "Pages with a hierarchical structure"
 msgstr ""
 
 msgid "Contact page with fast contact form"
 msgstr ""
 
 msgid "Articles section"
+msgstr ""
+
+msgid "Manageable link lists in header and footer"
 msgstr ""
 
 msgid "User registration"
@@ -329,7 +220,7 @@ msgstr ""
 msgid "RESTful API"
 msgstr ""
 
-#: ../app/controllers/sitemaps_controller.php:10
+#: ../app/controllers/sitemaps_controller.php:11
 msgid "Sitemap"
 msgstr ""
 
@@ -379,16 +270,13 @@ msgstr ""
 msgid "ATK14 Skelet on GitHub"
 msgstr ""
 
-msgid "The ATK14 Skelet at age 5"
-msgstr ""
-
-msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
+msgid "Subpages"
 msgstr ""
 
 msgid "The address has expired or already been used."
 msgstr ""
 
-msgid "The URL is not valid."
+msgid "The URL is either expired or invalid."
 msgstr ""
 
 msgid "In the form bellow set the new password for user <em>%1</em>"
@@ -402,6 +290,9 @@ msgid ""
 "spam and junk filters."
 msgstr ""
 
+msgid "Attachments"
+msgstr ""
+
 msgid "The following difficulties have occurred during the form processing:"
 msgstr ""
 
@@ -410,10 +301,28 @@ msgid ""
 "correct the errors."
 msgstr ""
 
+msgid "OK"
+msgstr ""
+
+msgid "Optional"
+msgstr ""
+
 msgid "Examples:"
 msgstr ""
 
+msgid "Edit object"
+msgstr ""
+
+msgid "Create new object"
+msgstr ""
+
+msgid "Create a new record"
+msgstr ""
+
 msgid "Show menu"
+msgstr ""
+
+msgid "Change language"
 msgstr ""
 
 msgid ""
@@ -421,16 +330,7 @@ msgid ""
 "now and ever after"
 msgstr ""
 
-msgid "Go to home page"
-msgstr ""
-
-msgid "administrator"
-msgstr ""
-
 msgid "Profile"
-msgstr ""
-
-msgid "Administration"
 msgstr ""
 
 #: ../app/controllers/logins_controller.php:33
@@ -438,31 +338,20 @@ msgstr ""
 msgid "Sign out"
 msgstr ""
 
+msgid "Administration"
+msgstr ""
+
 #: ../app/forms/users/create_new_form.php:21
 msgid "Register"
+msgstr ""
+
+msgid "Photo gallery"
 msgstr ""
 
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr ""
 
-msgid "Homepage"
-msgstr ""
-
-msgid "The most important page in the whole universe"
-msgstr ""
-
-#: ../app/controllers/main_controller.php:21
-#: ../app/controllers/main_controller.php:44
-msgid "Contact"
-msgstr ""
-
-msgid "Contact data and quick contact form"
-msgstr ""
-
-msgid "About"
-msgstr ""
-
-msgid "What is this site all about"
+msgid "Pages"
 msgstr ""
 
 #: ../app/controllers/users_controller.php:17
@@ -490,7 +379,7 @@ msgstr ""
 msgid "Username (login)"
 msgstr ""
 
-#: ../app/forms/main/contact_form.php:5 ../app/forms/users/users_form.php:5
+#: ../app/forms/main/contact_form.php:5
 msgid "Your name"
 msgstr ""
 
@@ -504,11 +393,11 @@ msgstr ""
 msgid "Yes, you are"
 msgstr ""
 
-#: ../app/controllers/users_controller.php:36
+#: ../app/controllers/users_controller.php:35
 msgid "Change your account data"
 msgstr ""
 
-#: ../app/controllers/users_controller.php:53
+#: ../app/controllers/users_controller.php:52
 msgid "Change your password"
 msgstr ""
 
@@ -526,50 +415,54 @@ msgstr ""
 msgid "There is no such user"
 msgstr ""
 
-#: ../app/controllers/application_base.php:20
+#: ../app/controllers/application_base.php:23
 msgid "Page not found"
 msgstr ""
 
-#: ../app/controllers/application_base.php:30
+#: ../app/controllers/application_base.php:33
 msgid "Forbidden"
 msgstr ""
 
-#: ../app/controllers/application_mailer.php:30
+#: ../app/controllers/application_base.php:118
+msgid "Home"
+msgstr ""
+
+#: ../app/controllers/application_mailer.php:42
 #, php-format
 msgid "Welcome to %s"
 msgstr ""
 
-#: ../app/controllers/application_mailer.php:39
+#: ../app/controllers/application_mailer.php:51
 msgid "Reset Your Password"
 msgstr ""
 
-#: ../app/controllers/application_mailer.php:48
+#: ../app/controllers/application_mailer.php:60
 msgid "Your password was updated"
 msgstr ""
 
-#: ../app/controllers/application_mailer.php:60
+#: ../app/controllers/application_mailer.php:72
 msgid "Message sent from contact page"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:75
+#: ../app/controllers/application_rest_api.php:76
 #, php-format
 msgid "Commands in %s"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:173
+#: ../app/controllers/application_rest_api.php:172
 #, php-format
 msgid "submit using method %s"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:220
+#: ../app/controllers/application_rest_api.php:219
 msgid "Nothing has been found on this address"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:226
+#: ../app/controllers/application_rest_api.php:225
 msgid "You don't have access to the requested resource"
 msgstr ""
 
-#: ../app/controllers/application_rest_api.php:232
+#: ../app/controllers/application_rest_api.php:231
 msgid "Sorry, An internal error happened"
 msgstr ""
 
@@ -608,32 +501,38 @@ msgstr ""
 msgid "You've stayed logged in as <em>%s</em>"
 msgstr ""
 
-#: ../app/controllers/main_controller.php:15
-#, php-format
-msgid "About %s"
+#: ../app/controllers/main_controller.php:21
+#: ../app/controllers/main_controller.php:44
+msgid "Contact"
 msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:10
-msgid "There is not such user with the given login or email"
+msgid "There is no such user with the given login or email"
 msgstr ""
 
 #: ../app/controllers/password_recoveries_controller.php:14
 msgid ""
-"To reset admins password use console like ATK14 ninja: $ ./scripts/migrate -"
-"f 0002_reset_admins_password_migration.php"
+"This user account has been deactivated. Password recovery process can not be "
+"started."
 msgstr ""
 
-#: ../app/controllers/password_recoveries_controller.php:53
-#: ../app/controllers/users_controller.php:64
+#: ../app/controllers/password_recoveries_controller.php:18
+msgid ""
+"Password recovery can not be initiated for this user. Email address is not "
+"set."
+msgstr ""
+
+#: ../app/controllers/password_recoveries_controller.php:62
+#: ../app/controllers/users_controller.php:66
 msgid "Your password has been updated successfully"
 msgstr ""
 
-#: ../app/controllers/password_recoveries_controller.php:66
+#: ../app/controllers/password_recoveries_controller.php:79
 msgid "Password recovery"
 msgstr ""
 
 #: ../app/controllers/users_controller.php:4
-#: ../app/controllers/users_controller.php:77
+#: ../app/controllers/users_controller.php:79
 msgid "User profile"
 msgstr ""
 
@@ -641,32 +540,76 @@ msgstr ""
 msgid "To register as a new user, sign out first"
 msgstr ""
 
-#: ../app/controllers/users_controller.php:30
+#: ../app/controllers/users_controller.php:29
 #, php-format
 msgid ""
 "You have been successfully registered and now you are logged in as <em>%s</"
 "em>"
 msgstr ""
 
-#: ../app/controllers/users_controller.php:42
+#: ../app/controllers/users_controller.php:41
 msgid "Nothing has been changed"
 msgstr ""
 
-#: ../app/controllers/users_controller.php:47
+#: ../app/controllers/users_controller.php:46
 msgid "Your account data has been updated"
 msgstr ""
 
-#: ../app/controllers/users_controller.php:57
+#: ../app/controllers/users_controller.php:56
 msgid "This is not your current password"
 msgstr ""
 
-#: ../app/fields/login_field.php:6
+#: ../app/fields/login_field.php:7
 msgid ""
 "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
 msgstr ""
 
-#: ../app/fields/login_field.php:18
+#: ../app/fields/login_field.php:19
 msgid "This username has been already taken"
+msgstr ""
+
+#: ../app/fields/login_field.php:20
+msgid "Only letters, numbers, dots and dashes are allowed"
+msgstr ""
+
+#: ../app/fields/object_field.php:30
+msgid "There is no such record"
+msgstr ""
+
+#: ../app/fields/oembed_video_field.php:7
+msgid ""
+"Zadejte URL videa. Lze vložit video ze služeb, které poskytují API podle "
+"specifikace <a href=\"http://oembed.com/\">oEmbed</a>."
+msgstr ""
+
+#: ../app/fields/oembed_video_field.php:19
+msgid ""
+"Nelze získat informace o videu. Ověřte URL videa a podporu oEmbed u "
+"poskytovatele videa."
+msgstr ""
+
+#: ../app/fields/oembed_video_field.php:22
+msgid "Typ souboru na tomto URL není video"
+msgstr ""
+
+#: ../app/fields/page_field.php:4
+msgid "page"
+msgstr ""
+
+#: ../app/fields/page_field.php:32
+msgid "There is no such page"
+msgstr ""
+
+#: ../app/fields/slug_field.php:6
+msgid "Slug"
+msgstr ""
+
+#: ../app/fields/slug_field.php:8
+msgid "funny-green-mug"
+msgstr ""
+
+#: ../app/fields/slug_field.php:18
+msgid "Write something like black-cat-white-cat"
 msgstr ""
 
 #: ../app/fields/tags_field.php:18
@@ -703,17 +646,25 @@ msgstr ""
 msgid "Update"
 msgstr ""
 
+#: ../app/forms/application_form.php:67
+msgid "Delete"
+msgstr ""
+
 #: ../app/forms/application_form.php:69
 msgid "Save"
 msgstr ""
 
-#: ../app/forms/logins/create_new_form.php:5
+#: ../app/forms/application_form.php:85
+msgid "Hledat"
+msgstr ""
+
+#: ../app/forms/logins/create_new_form.php:8
 msgid "Login"
 msgstr ""
 
-#: ../app/forms/logins/create_new_form.php:9
+#: ../app/forms/logins/create_new_form.php:12
 #: ../app/forms/users/edit_password_form.php:5
-#: ../app/forms/users/users_form.php:20
+#: ../app/forms/users/users_form.php:25
 msgid "Password"
 msgstr ""
 
@@ -737,6 +688,11 @@ msgstr ""
 msgid "Send me a recovery link"
 msgstr ""
 
+#: ../app/forms/password_recoveries/recovery_form.php:7
+#: ../app/forms/users/edit_password_form.php:8
+msgid "Set new password"
+msgstr ""
+
 #: ../app/forms/users/create_new_form.php:16
 msgid "In order to register you need to obtain an invitation code"
 msgstr ""
@@ -745,28 +701,36 @@ msgstr ""
 msgid "This is not a valid invitation code"
 msgstr ""
 
-#: ../app/forms/users/create_new_form.php:48
-msgid "This login has been already taken"
-msgstr ""
-
 #: ../app/forms/users/edit_password_form.php:17
 msgid "The new password is the same as your current password"
 msgstr ""
 
-#: ../app/forms/users/users_form.php:14
+#: ../app/forms/users/users_form.php:6
+msgid "Firstname"
+msgstr ""
+
+#: ../app/forms/users/users_form.php:11
+msgid "Lastname"
+msgstr ""
+
+#: ../app/forms/users/users_form.php:16
+msgid "Email address"
+msgstr ""
+
+#: ../app/forms/users/users_form.php:19
 msgid "We will not disclose this address"
 msgstr ""
 
-#: ../app/forms/users/users_form.php:25
+#: ../app/forms/users/users_form.php:30
 msgid "Password (repeat)"
 msgstr ""
 
-#: ../app/forms/users/users_form.php:38
+#: ../app/forms/users/users_form.php:43
 msgid "Password doesn't match"
 msgstr ""
 
 #: ../app/helpers/function.paginator.php:89
-#: ../app/helpers/function.paginator.php:152
+#: ../app/helpers/function.paginator.php:153
 msgid "items total"
 msgstr ""
 
@@ -774,7 +738,7 @@ msgstr ""
 msgid "Prev"
 msgstr ""
 
-#: ../app/helpers/function.paginator.php:147
+#: ../app/helpers/function.paginator.php:148
 msgid "Next"
 msgstr ""
 
@@ -784,6 +748,18 @@ msgstr ""
 
 #: ../app/helpers/modifier.display_bool.php:14
 msgid "No"
+msgstr ""
+
+#: ../app/helpers/modifier.iobject_type.php:15
+msgid "Video"
+msgstr ""
+
+#: ../app/helpers/modifier.iobject_type.php:19
+msgid "Galerie"
+msgstr ""
+
+#: ../app/helpers/modifier.iobject_type.php:23
+msgid "Obrázek"
 msgstr ""
 
 #~ msgid "atk14.date_format"

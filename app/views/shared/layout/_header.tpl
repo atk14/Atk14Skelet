@@ -13,7 +13,15 @@
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
 			<ul class="navbar-nav">
+				{assign main_menu LinkList::GetInstanceByCode("main_menu")}
+				{if $main_menu}
+					{foreach $main_menu->getItems() as $item}
+						<li class="nav-item"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
+					{/foreach}
+				{/if}
+
 				{if $logged_user}
+					{* user is logged in *}
 					{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
 					<li class="nav-item dropdown">
 						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
@@ -30,10 +38,13 @@
 							{a action="main/index" namespace="admin" _class="nav-link"}{t}Administration{/t}{/a}
 						</li>
 					{/if}
-			{else}
-				<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{t}Sign in{/t}</a></li>
-				<li class="nav-item"><a href="{link_to namespace="" action="users/create_new"}" class="nav-link">{t}Register{/t}</a></li>
-			{/if}
+				{else}
+					{* user is not logged in *}
+					<li class="nav-item"><a href="{link_to namespace="" action="logins/create_new"}" class="nav-link">{t}Sign in{/t}</a></li>
+					<li class="nav-item"><a href="{link_to namespace="" action="users/create_new"}" class="nav-link">{t}Register{/t}</a></li>
+				{/if}
+
+				{render partial="shared/langswitch_navbar"}
 			</ul>
 		</div>
 	</div>

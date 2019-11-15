@@ -1,26 +1,32 @@
 <article>
-	<header>
-		<div class="jumbotron border border-secondary bg-transparent my-5">
-			<div class="row">
-				<div class="col-md-6 d-md-flex flex-column justify-content-center">
-					<h2 class="display-4">{t}Welcome!{/t}</h2>
-					<p class="lead">{t escape=no}<em>ATK14 Skelet</em> is a very basic application written on top of <a href="http://atk14.net">the ATK14 Framework</a>.
-					As the Skelet is simple and minimal it may be usefull for developers as a good start point for any other application.{/t}</p>
-				</div>
-				<div class="col-md-6">
-					<img src="{$public}images/skelet.png" alt="ATK14 Skelet" title="{t}The ATK14 Skelet at age 5{/t}" class="img-fluid">
-					<p style="font-size: 0.7em; text-align: center;">{t escape=no}fig.1 <em>The Creature is pleading for forking on GitHub</em>{/t}</p>
-				</div>
+
+	{if $page}
+
+		<header>
+			{admin_menu for=$page}
+			<h1>{$page->getTitle()}</h1>
+			<div class="teaser">
+			{!$page->getTeaser()|markdown}
 			</div>
-		</div>
-	</header>
+		</header>
+		
+		{!$page->getBody()|markdown}
+			
+	{else}
+
+		<header>
+			<h1>{$page_title}</h1>
+		</header>
+
+	{/if}
 
 	<section class="border-top-0">
 		<h3>{t}The Skelet contains mainly{/t}</h3>
 		<ul>
-			<li>{a action="main/about"}{t}About page{/t}{/a}</li>
+			<li><a href="{"about_us"|link_to_page}">{t}Pages with a hierarchical structure{/t}</a></li>
 			<li>{a action="main/contact"}{t}Contact page with fast contact form{/t}{/a}</li>
 			<li>{a action="articles/index"}{t}Articles section{/t}{/a}</li>
+			<li>{t}Manageable link lists in header and footer{/t}</li>
 			<li>{a action="users/create_new"}{t}User registration{/t}{/a} ({t}with strong blowfish passwords hashing{/t})</li>
 			<li>{a namespace="admin"}{t}Basic administration{/t}{/a}</li>
 			<li>{a namespace="api"}{t}RESTful API{/t}{/a}</li>
@@ -70,3 +76,9 @@ git push</code></pre>
 		</ul>
 	</section>
 </article>
+
+{if $page  && !$page->isIndexable()}
+	{content for=head}
+		<meta name="robots" content="noindex,noarchive">
+	{/content}
+{/if}
