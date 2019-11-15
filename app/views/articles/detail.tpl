@@ -12,9 +12,9 @@
 		{admin_menu for=$article}
 		<h1>{$article->getTitle()}</h1>
 		{if $article->getTeaser()}
-			<p class="lead">
-				{$article->getTeaser()}
-			</p>
+			<div class="lead">
+				{!$article->getTeaser()|markdown}
+			</div>
 		{/if}
 		<p class="text-muted">{t author=$article->getAuthor()|user_name|h date=$article->getPublishedAt() date_human=$article->getPublishedAt()|format_date escape=no}Posted by <em>%1</em> on <time datetime="%2">%3</time>{/t}</p>
 	</header>
