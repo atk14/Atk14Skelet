@@ -11,3 +11,21 @@
 	{/foreach}
 </ol>
 </nav>
+
+<script type="application/ld+json">
+{
+	"@context": "https://schema.org",
+	"@type": "BreadcrumbList",
+	"itemListElement": [
+	{foreach $breadcrumbs as $breadcrumb}
+	{
+		"@type": "ListItem",
+		"position": {$breadcrumb@iteration},
+		"name": "{$breadcrumb->getTitle()}",
+		"item": "{$request->getServerUrl()}{$breadcrumb->getUrl()}"
+	}
+	{if !$breadcrumb@last},{/if}
+	{/foreach}
+	]
+}
+</script>
