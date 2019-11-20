@@ -1,5 +1,5 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-md nav-login">
-	<div class="container">
+	<div class="container-fluid">
 		{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
 		{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}
 			{if $controller=="main" && $action=="index" && $namespace==""}
