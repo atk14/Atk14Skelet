@@ -21,6 +21,7 @@ class ArticlesForm extends AdminForm {
 		$this->add_translatable_field("body",new MarkdownField(array(
 			"label" => _("Body"),
 			"help_text" => _("Markdown format is expected"),
+			"required" => false,
 		)));
 
 		$this->add_field("published_at",new DateTimeField(array(

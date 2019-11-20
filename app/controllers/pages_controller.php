@@ -2,7 +2,7 @@
 class PagesController extends ApplicationController {
 
 	function detail() {
-		if(!$this->page->isVisible()){
+		if(!$this->page->isVisible() && !($this->logged_user && $this->logged_user->isAdmin())){
 			return $this->_execute_action("error404");
 		}
 		$this->page_title = $this->page->getPageTitle();

@@ -123,7 +123,7 @@ form {
 form {
 	.form-group {
 		&.form-group--has-error {
-			.form-control, .list--checkboxes, .list--radios {
+			.form-control {
 				border: 1px solid $danger;
 			}
 			label {

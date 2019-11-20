@@ -170,6 +170,14 @@ class Iobject extends ApplicationModel implements Translatable {
 		}
 	}
 
+	function getCreatedByUser(){
+		return Cache::Get("User",$this->getCreatedByUserId());
+	}
+
+	function getUpdatedByUser(){
+		return Cache::Get("User",$this->getUpdatedByUserId());
+	}
+
 	function prepareFulltextData(&$fulltext_ar){
 		Fulltext::Append($fulltext_ar,$this->getTitle());
 		if($this->hasKey("description")){

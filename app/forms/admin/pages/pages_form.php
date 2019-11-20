@@ -2,12 +2,15 @@
 class PagesForm extends AdminForm {
 
 	function set_up() {
-
-		
-
 		$this->add_translatable_field("title", new CharField(array(
 			"label" => _("Title"),
 		)));
+
+		$this->add_field("image_url",new PupiqImageField([
+			"label" => _("Image"),
+			"required" => false,
+			"help_text" => _("Image used on list of pages, social networks, etc.")
+		]));
 
 		$this->add_translatable_field("teaser", new MarkdownField(array(
 			"label" => _("Teaser"),
@@ -16,6 +19,7 @@ class PagesForm extends AdminForm {
 
 		$this->add_translatable_field("body", new MarkdownField(array(
 			"label" => _("Body"),
+			"required" => false,
 		)));
 
 		$this->add_translatable_field("page_title",new CharField(array(

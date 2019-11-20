@@ -31,10 +31,10 @@ appname_underscore=$(echo "$appname" | tr '-' '_') # book-store-org -> book_stor
 sed -r "s/(database|username): .+_(test|devel|production)/\1: ${appname_underscore}_\2/" ./config/database.yml > ./config/database.yml.new && mv ./config/database.yml.new ./config/database.yml
 
 # editing ATK14_HTTP_HOST in ./config/settings.php
-sed -r "s/define\(.ATK14_HTTP_HOST.*/define\(\"ATK14_HTTP_HOST\",PRODUCTION ? \"www.${appname}.com\" : \"${appname}.localhost\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
+sed -r "s/definedef\(.ATK14_HTTP_HOST.*/definedef\(\"ATK14_HTTP_HOST\",PRODUCTION ? \"www.${appname}.com\" : \"${appname}.localhost\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
 
 # editing ATK14_APPLICATION_NAME in ./config/settings.php
 appname_cap=$(echo "$appname" | tr '[a-z]' '[A-Z]' | tr '-' ' ') # book_store_org -> "BOOK STORE ORG"
-sed -r "s/define\(.ATK14_APPLICATION_NAME.*/define\(\"ATK14_APPLICATION_NAME\",\"${appname_cap}\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
+sed -r "s/definedef\(.ATK14_APPLICATION_NAME.*/definedef\(\"ATK14_APPLICATION_NAME\",\"${appname_cap}\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
 
 exit 0

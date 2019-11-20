@@ -43,9 +43,9 @@ class LinkListItemsController extends AdminController {
 			$link_list = $lli ? $lli->getLinkList() : null;
 		}
 
-		$this->breadcrumbs->add(_("Link Lists"),$this->_link_to("link_lists/index"));
 		if($link_list){
-			$this->breadcrumbs->add($link_list->getSystemName(),$this->_link_to(array("action" => "link_list_items/index", "link_list_id" => $link_list)));
+			$this->breadcrumbs->add($link_list->getSystemName(),$this->_link_to(array("action" => "link_lists/edit", "id" => $link_list)));
+			$this->breadcrumbs->add(_("Links"),$this->_link_to(array("action" => "link_list_items/index", "link_list_id" => $link_list)));
 		}
 	}
 }

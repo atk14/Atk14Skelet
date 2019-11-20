@@ -25,6 +25,7 @@ class AdminForm extends ApplicationForm{
 		$options += array(
 			"required_langs" => $ATK14_GLOBAL->getDefaultLang(), // "_all_", "cs", "cs,en" nebo array("cs","en")
 			"additional_langs" => array(), // dalsi jazyky, ktere aplikace jinak nema aktivovane
+			"return" => "fields", // "fields" or "names"
 		);
 
 		foreach(array("required_langs","additional_langs") as $k){
@@ -63,6 +64,7 @@ class AdminForm extends ApplicationForm{
 		}
 		if(!$field->required){ $required_langs = array(); }
 
+		$fields = $names = array();
 		foreach($langs as $lang){
 			$w = clone($field->widget);
 			$required = in_array($lang,$required_langs);
@@ -82,16 +84,20 @@ class AdminForm extends ApplicationForm{
 				"null_empty_output" => isset($field->null_empty_output)?$field->null_empty_output:false,
 			));
 
-			$this->add_field($field_name."_$lang".$id_suffix, $lang_field);
+			$name = $field_name."_$lang".$id_suffix;
+			$fields[] = $this->add_field($name, $lang_field);
+			$names[] = $name;
 		}
+
+		return $options["return"]=="names" ? $names : $fields;
 	}
 
 	function add_rank_field(){
-		$this->add_field("rank",new RankField());
+		return $this->add_field("rank",new RankField());
 	}
 
 	function add_slug_field(){
-		$this->add_translatable_field("slug",new SlugField(array(
+		return $this->add_translatable_field("slug",new SlugField(array(
 			"required" => false,
 		)));
 	}
@@ -102,7 +108,7 @@ class AdminForm extends ApplicationForm{
 			"required" => false,
 			"max_legth" => 255
 		);
-		$this->add_translatable_field("title",new CharField($options));
+		return $this->add_translatable_field("title",new CharField($options));
 	}
 
 	function add_description_field($options = array()){
@@ -110,17 +116,20 @@ class AdminForm extends ApplicationForm{
 			"label" => _("Popis"),
 			"required" => false,
 		);
-		$this->add_translatable_field("description",new CharField($options));
+		return $this->add_translatable_field("description",new CharField($options));
 	}
 
 	function add_code_field($options = array()){
 		$options += array(
 			"label" => _("Code"),
 			"required" => false,
-			"help_text" => _("An alternative key for system usage. Leave it unchanged if you are not sure.")
 		);
 
-		$this->add_field("code", new CodeField($options));
+		$options += array(
+			"help_text" => $options["required"] ? _("An alternative key for system usage.") : _("An alternative key for system usage. Leave it unchanged if you are not sure."),
+		);
+
+		return $this->add_field("code", new CodeField($options));
 	}
 
 	function add_visible_field($options = array()){
@@ -130,7 +139,7 @@ class AdminForm extends ApplicationForm{
 			"initial" => true,
 		];
 
-		$this->add_field("visible", new BooleanField($options));
+		return $this->add_field("visible", new BooleanField($options));
 	}
 
 	function has_storno_button(){

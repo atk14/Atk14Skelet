@@ -6,7 +6,8 @@
  *	{render partial="shared/photo_gallery" object=$brand compact=true}
  *	or
  *	{render partial="shared/photo_gallery" images=$object->getImages()}
-		
+ *
+ *	{render partial="shared/photo_gallery" object=$brand photo_gallery_title="Photo gallery"}	
  *}
 
 {if !$images && $object}
@@ -15,7 +16,7 @@
 {assign geometry_detail "1600"}
 
 {if $images}
-	{if !isset($photo_gallery_title)}{capture assign="photo_gallery_title"}{t}Photo gallery{/t}{/capture}{/if}
+	{* {if !isset($photo_gallery_title)}{capture assign="photo_gallery_title"}{t}Photo gallery{/t}{/capture}{/if} *}
 	<section class="photo-gallery{if $compact} photo-gallery--compact{/if}">
 		<div class="gallery__images">
 			{foreach $images as $image}

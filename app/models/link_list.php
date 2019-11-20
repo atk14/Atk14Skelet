@@ -32,4 +32,12 @@ class LinkList extends ApplicationModel implements Translatable {
 	function isEmpty(){
 		return sizeof($this->getLinkListItems())==0;
 	}
+
+	function destroy($destroy_for_real = null){
+		foreach($this->getItems() as $item){
+			$item->destroy($destroy_for_real);
+		}
+
+		return parent::destroy($destroy_for_real);
+	}
 }

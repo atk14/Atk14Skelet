@@ -7,6 +7,8 @@
  */
 class User extends ApplicationModel{
 
+	const ID_SUPERADMIN = 1;
+
 	/**
 	 * Returns user when a correct combination of login and password is given.
 	 * 
@@ -58,14 +60,18 @@ class User extends ApplicationModel{
 	}
 
 	function getName(){
-		return trim($this->getFirstname()." ".$this->getLastname());
+		$name = trim($this->getFirstname()." ".$this->getLastname());
+		if(strlen($name)){ return $name; }
+		return $this->getLogin();
 	}
 
 	function isAdmin(){ return $this->getIsAdmin(); }
 
-	function toString(){ return $this->getLogin(); }
+	function isSuperAdmin(){ return $this->getId()==self::ID_SUPERADMIN; }
+
+	function toString(){ return (string)$this->getName(); }
 
 	function isActive(){ return $this->g("active"); }
 
-	function isDeletable(){ return $this->getId()!=1; }
+	function isDeletable(){ return !in_array($this->getId(),array(self::ID_SUPERADMIN)); }
 }

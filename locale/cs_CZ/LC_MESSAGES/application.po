@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 13:24+0200\n"
-"PO-Revision-Date: 2019-08-23 13:30+0200\n"
+"POT-Creation-Date: 2019-10-31 11:33+0100\n"
+"PO-Revision-Date: 2019-10-31 11:33+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -80,14 +80,28 @@ msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
 msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr "Zaslal <em>%1</em> dne <time datetime=\"%2\">%3</time>"
 
-msgid "older article"
-msgstr "starší článek"
+msgid ""
+"This is not a published article! It's not available to the public audience."
+msgstr "Toto není publikovaný článek! Není dostupný veřejnosti."
 
 msgid "newer article"
 msgstr "novější článek"
 
+msgid "older article"
+msgstr "starší článek"
+
 msgid "At the moment there are no news."
 msgstr "V této chvíli nejsou žádné novinky"
+
+msgid ""
+"If you have any question, contact us through the following form. We will "
+"reply to you as soon as we can."
+msgstr ""
+"Pokud máte nějakou otázku, kontaktujte nás prostřednictvím tohoto formuláře. "
+"Odpovíme vám, jak nejdříve budeme moct."
+
+msgid "The message has been sent to us. We will reply as soon as we can."
+msgstr "Zpráva nám byla odeslána. Odpovíme vám jak nejrychleji umíme."
 
 msgid "Have you forgotten password?"
 msgstr "Zapomněl jste heslo?"
@@ -107,6 +121,9 @@ msgstr "E-mail"
 msgid "Signing up for newsletter"
 msgstr "Přihlásit se k newsletteru"
 
+msgid "URL"
+msgstr "URL"
+
 msgid "IP address"
 msgstr "IP adresa"
 
@@ -122,29 +139,8 @@ msgid ""
 msgstr ""
 "Zapomněl(a) jste své heslo? Pro reset hesla klikněte na následující odkaz"
 
-msgid "recovery link"
-msgstr "odkaz pro obnovu"
-
 msgid "Please note that this link is valid for 2 hours only."
 msgstr "Vezměte prosím na vědomí, že tento odkaz je platný pouze 2 hodiny."
-
-msgid ""
-"Hello %1!\n"
-"\n"
-"Have you forgotten your password? To reset your password, click on the "
-"following link\n"
-"\n"
-"%2\n"
-"\n"
-"Please note that this link is valid for 2 hours only."
-msgstr ""
-"Dobrý den %1!\n"
-"\n"
-"Zapomněl(a) jste své heslo? Pro reset hesla klikněte na následující odkaz\n"
-"\n"
-"%2\n"
-"\n"
-"Vezměte prosím na vědomí, že tento odkaz je platný pouze 2 hodiny."
 
 msgid "Your password was just updated in recovery mode."
 msgstr "Vaše heslo bylo právě změněno v režimu obnovení zapomenutého hesla."
@@ -152,80 +148,17 @@ msgstr "Vaše heslo bylo právě změněno v režimu obnovení zapomenutého hes
 msgid "The update has been executed upon a request from IP address %1"
 msgstr "Změna byla realizována na základě požadavku z IP adresy %1"
 
-msgid ""
-"Hello %1!\n"
-"\n"
-"Your password was just updated in recovery mode.\n"
-"\n"
-"The update has been executed upon a request from IP address %2"
-msgstr ""
-"Dobrý den %1!\n"
-"\n"
-"Vaše heslo bylo právě změněno v režimu obnovení zapomenutého hesla.\n"
-"\n"
-"Změna byla realizována na základě požadavku z IP adresy %2"
+msgid "Thanks for signing up for %1!"
+msgstr "Děkujeme za registraci na %1!"
 
-msgid ""
-"Thanks for signing up for %1!\n"
-"\n"
-"Here is your data summary\n"
-"\n"
-"login: %2\n"
-"email: %3\n"
-"name: %4\n"
-msgstr ""
-"Děkujeme za registraci na %1!\n"
-"\n"
-"Zde je rekapitulace vašich údajů\n"
-"\n"
-"login: %2\n"
-"e-mail: %3\n"
-"jméno: %4\n"
+msgid "Here is your data summary"
+msgstr "Zde je rekapitulace vašich údajů"
 
-msgid "The message has been sent to us. We will reply as soon as we can."
-msgstr "Zpráva nám byla odeslána. Odpovíme vám jak nejrychleji umíme."
+msgid "login"
+msgstr "login"
 
-msgid ""
-"If you have any question, contact us through the following form. We will "
-"reply to you as soon as we can. Below the form you'll find other contact "
-"information."
-msgstr ""
-"Pokud máte nějaký dotaz, napište nám prostřednictvím tohoto formuláře. "
-"Odpovíme, jak nejdříve to bude možné. Pod formulářem najdete naše další "
-"kontaktní údaje."
-
-msgid "%1 Team"
-msgstr "%1 Tým"
-
-msgid "Phone"
-msgstr "Telefon"
-
-msgid "Opening hours"
-msgstr "Otevírací hodiny"
-
-msgid "From dusk till dawn"
-msgstr "Od soumraku do úsvitu"
-
-#: ../app/controllers/main_controller.php:11
-msgid "Welcome!"
-msgstr "Vítejte"
-
-msgid ""
-"<em>ATK14 Skelet</em> is a very basic application written on top of <a href="
-"\"http://atk14.net\">the ATK14 Framework</a>.\n"
-"\t\t\t\t\tAs the Skelet is simple and minimal it may be usefull for "
-"developers as a good start point for any other application."
-msgstr ""
-"<em>ATK14 Skelet</em> je základní aplikace napsaná ve <a href=\"http://atk14."
-"net\">fameworku ATK14</a>.\n"
-"\t\t\t\t\tVzhledem k tomu, jak je Skelet jednoduchý a minimální, může být "
-"pro vývojáře užitečný jako dobrý výchozí bod pro jakoukoli jinou aplikaci."
-
-msgid "The ATK14 Skelet at age 5"
-msgstr "ATK14 Skelet ve věku 5 let"
-
-msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
-msgstr "obr.1 <em>Stvoření prosí o fork na GitHubu</em>"
+msgid "name"
+msgstr "jméno"
 
 msgid "The Skelet contains mainly"
 msgstr "Skelet obsahuje hlavně"
@@ -310,6 +243,9 @@ msgstr "ATK14 na GitHubu"
 msgid "ATK14 Skelet on GitHub"
 msgstr "ATK14 Skelet na GitHubu"
 
+msgid "This is not a visible page! It's not available to the public audience."
+msgstr "Toto není viditelná stránka! Není dostupná veřejnosti."
+
 msgid "Subpages"
 msgstr "Podstránky"
 
@@ -360,6 +296,9 @@ msgstr "Editovat objekt"
 msgid "Create new object"
 msgstr "Vytvořit nový objekt"
 
+msgid "Edit links"
+msgstr "Editovat odkazy"
+
 msgid "Create a new record"
 msgstr "Vytvořit nový záznam"
 
@@ -387,7 +326,7 @@ msgstr "Odhlásit se"
 msgid "Administration"
 msgstr "Administrace"
 
-#: ../app/forms/users/create_new_form.php:21
+#: ../app/forms/users/create_new_form.php:22
 msgid "Register"
 msgstr "Registrovat"
 
@@ -423,15 +362,15 @@ msgstr "Nabízíme skvělé restful API"
 msgid "Recent articles"
 msgstr "Nejnovější články"
 
-#: ../app/forms/users/create_new_form.php:5
+#: ../app/forms/users/create_new_form.php:6
 msgid "Username (login)"
 msgstr "Uživatelské jméno (login)"
 
-#: ../app/forms/main/contact_form.php:5
+#: ../app/forms/contact_messages/create_new_form.php:6
 msgid "Your name"
 msgstr "Vaše jméno"
 
-#: ../app/forms/main/contact_form.php:10
+#: ../app/forms/contact_messages/create_new_form.php:11
 msgid "Your email"
 msgstr "Váš e-mail"
 
@@ -471,14 +410,13 @@ msgstr "Stránka nebyla nalezena"
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:118
+#: ../app/controllers/application_base.php:125
 msgid "Home"
 msgstr "Domů"
 
 #: ../app/controllers/application_mailer.php:42
-#, php-format
-msgid "Welcome to %s"
-msgstr "Vítejte na %s"
+msgid "New registration"
+msgstr "Nová registrace"
 
 #: ../app/controllers/application_mailer.php:51
 msgid "Reset Your Password"
@@ -524,6 +462,15 @@ msgstr "Články"
 msgid "Articles tagged with <em>%s</em>"
 msgstr "Články se štítkem <em>%s</em>"
 
+#: ../app/controllers/contact_messages_controller.php:9
+#: ../app/controllers/contact_messages_controller.php:32
+msgid "Contact message"
+msgstr "Kontaktní zpráva"
+
+#: ../app/controllers/contact_messages_controller.php:33
+msgid "Contact message sent"
+msgstr "Kontaktní zpráva byla odeslána"
+
 #: ../app/controllers/logins_controller.php:16
 #, php-format
 msgid ""
@@ -551,10 +498,9 @@ msgstr "Byl jste úspěšně odhlášen"
 msgid "You've stayed logged in as <em>%s</em>"
 msgstr "Zůstal jste přihlášen jako <em>%s</em>"
 
-#: ../app/controllers/main_controller.php:21
-#: ../app/controllers/main_controller.php:44
-msgid "Contact"
-msgstr "Kontakt"
+#: ../app/controllers/main_controller.php:11
+msgid "Welcome!"
+msgstr "Vítejte"
 
 #: ../app/controllers/password_recoveries_controller.php:10
 msgid "There is no such user with the given login or email"
@@ -636,16 +582,20 @@ msgid ""
 "Zadejte URL videa. Lze vložit video ze služeb, které poskytují API podle "
 "specifikace <a href=\"http://oembed.com/\">oEmbed</a>."
 msgstr ""
+"Zadejte URL videa. Lze vložit video ze služeb, které poskytují API podle "
+"specifikace <a href=\"http://oembed.com/\">oEmbed</a>."
 
 #: ../app/fields/oembed_video_field.php:19
 msgid ""
 "Nelze získat informace o videu. Ověřte URL videa a podporu oEmbed u "
 "poskytovatele videa."
 msgstr ""
+"Nelze získat informace o videu. Ověřte URL videa a podporu oEmbed u "
+"poskytovatele videa."
 
 #: ../app/fields/oembed_video_field.php:22
 msgid "Typ souboru na tomto URL není video"
-msgstr ""
+msgstr "Typ souboru na tomto URL není video"
 
 #: ../app/fields/page_field.php:4
 msgid "page"
@@ -655,29 +605,29 @@ msgstr "stránka"
 msgid "There is no such page"
 msgstr "Takový stránka neexistuje"
 
-#: ../app/fields/slug_field.php:6
+#: ../app/fields/slug_field.php:8
 msgid "Slug"
 msgstr "Slug"
 
-#: ../app/fields/slug_field.php:8
+#: ../app/fields/slug_field.php:10
 msgid "funny-green-mug"
 msgstr "zertovny-zeleny-hrnek"
 
-#: ../app/fields/slug_field.php:18
+#: ../app/fields/slug_field.php:20
 msgid "Write something like black-cat-white-cat"
 msgstr "Napište něco jako cerna-kocka-bily-kocour"
 
-#: ../app/fields/tags_field.php:18
+#: ../app/fields/tags_field.php:21
 msgid "Ensure that there are max %max% tags (now there are %count%)"
 msgstr ""
 "Ujistěte se, že je zde nejvýše %max% štítků (nyní je tady %count% štítků) "
 
-#: ../app/fields/tags_field.php:19
+#: ../app/fields/tags_field.php:22
 #, php-format
 msgid "There is no tag <em>%s</em>"
 msgstr "Štítek <em>%s</em> neexistuje"
 
-#: ../app/fields/tags_field.php:20
+#: ../app/fields/tags_field.php:23
 #, php-format
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Štítek <em>%s</em> je uveden vícekrát"
@@ -711,8 +661,20 @@ msgid "Save"
 msgstr "Uložit"
 
 #: ../app/forms/application_form.php:85
-msgid "Hledat"
-msgstr ""
+msgid "Search query"
+msgstr "Vyhledávací dotaz"
+
+#: ../app/forms/contact_messages/create_new_form.php:16
+msgid "Sign up for newsletter"
+msgstr "Přihlásit se k odběru newsletteru"
+
+#: ../app/forms/contact_messages/create_new_form.php:22
+msgid "Text"
+msgstr "Text"
+
+#: ../app/forms/contact_messages/create_new_form.php:27
+msgid "Send message"
+msgstr "Poslat zprávu"
 
 #: ../app/forms/logins/create_new_form.php:8
 msgid "Login"
@@ -723,18 +685,6 @@ msgstr "Přihlásit se"
 #: ../app/forms/users/users_form.php:25
 msgid "Password"
 msgstr "Heslo"
-
-#: ../app/forms/main/contact_form.php:15
-msgid "Sign up for newsletter"
-msgstr "Přihlásit se k odběru newsletteru"
-
-#: ../app/forms/main/contact_form.php:21
-msgid "Text"
-msgstr "Text"
-
-#: ../app/forms/main/contact_form.php:26
-msgid "Send message"
-msgstr "Poslat zprávu"
 
 #: ../app/forms/password_recoveries/create_new_form.php:5
 msgid "Login or email address"
@@ -749,11 +699,11 @@ msgstr "Pošli mi odkaz pro obnovu"
 msgid "Set new password"
 msgstr "Nastavit nové heslo"
 
-#: ../app/forms/users/create_new_form.php:16
+#: ../app/forms/users/create_new_form.php:17
 msgid "In order to register you need to obtain an invitation code"
 msgstr "Pro registraci musíte znát kód platné pozvánky"
 
-#: ../app/forms/users/create_new_form.php:28
+#: ../app/forms/users/create_new_form.php:29
 msgid "This is not a valid invitation code"
 msgstr "Toto neni kód platné pozvánky"
 
@@ -785,19 +735,6 @@ msgstr "Heslo (opakování)"
 msgid "Password doesn't match"
 msgstr "Heslo se neshoduje"
 
-#: ../app/helpers/function.paginator.php:89
-#: ../app/helpers/function.paginator.php:153
-msgid "items total"
-msgstr "Položek celkem"
-
-#: ../app/helpers/function.paginator.php:103
-msgid "Prev"
-msgstr "Předchozí"
-
-#: ../app/helpers/function.paginator.php:148
-msgid "Next"
-msgstr "Následující"
-
 #: ../app/helpers/modifier.display_bool.php:13
 msgid "Yes"
 msgstr "Ano"
@@ -808,15 +745,120 @@ msgstr "Ne"
 
 #: ../app/helpers/modifier.iobject_type.php:15
 msgid "Video"
-msgstr ""
+msgstr "Video"
 
 #: ../app/helpers/modifier.iobject_type.php:19
 msgid "Galerie"
-msgstr ""
+msgstr "Galerie"
 
 #: ../app/helpers/modifier.iobject_type.php:23
 msgid "Obrázek"
-msgstr ""
+msgstr "Obrázek"
+
+#~ msgid ""
+#~ "If you have any question, contact us through the following form. We will "
+#~ "reply to you as soon as we can. Below the form you'll find other contact "
+#~ "information."
+#~ msgstr ""
+#~ "Pokud máte nějaký dotaz, napište nám prostřednictvím tohoto formuláře. "
+#~ "Odpovíme, jak nejdříve to bude možné. Pod formulářem najdete naše další "
+#~ "kontaktní údaje."
+
+#~ msgid "%1 Team"
+#~ msgstr "%1 Tým"
+
+#~ msgid "Phone"
+#~ msgstr "Telefon"
+
+#~ msgid "Opening hours"
+#~ msgstr "Otevírací hodiny"
+
+#~ msgid "From dusk till dawn"
+#~ msgstr "Od soumraku do úsvitu"
+
+#~ msgid "Welcome to %s"
+#~ msgstr "Vítejte na %s"
+
+#~ msgid "Contact"
+#~ msgstr "Kontakt"
+
+#~ msgid "recovery link"
+#~ msgstr "odkaz pro obnovu"
+
+#~ msgid ""
+#~ "Hello %1!\n"
+#~ "\n"
+#~ "Have you forgotten your password? To reset your password, click on the "
+#~ "following link\n"
+#~ "\n"
+#~ "%2\n"
+#~ "\n"
+#~ "Please note that this link is valid for 2 hours only."
+#~ msgstr ""
+#~ "Dobrý den %1!\n"
+#~ "\n"
+#~ "Zapomněl(a) jste své heslo? Pro reset hesla klikněte na následující "
+#~ "odkaz\n"
+#~ "\n"
+#~ "%2\n"
+#~ "\n"
+#~ "Vezměte prosím na vědomí, že tento odkaz je platný pouze 2 hodiny."
+
+#~ msgid ""
+#~ "Hello %1!\n"
+#~ "\n"
+#~ "Your password was just updated in recovery mode.\n"
+#~ "\n"
+#~ "The update has been executed upon a request from IP address %2"
+#~ msgstr ""
+#~ "Dobrý den %1!\n"
+#~ "\n"
+#~ "Vaše heslo bylo právě změněno v režimu obnovení zapomenutého hesla.\n"
+#~ "\n"
+#~ "Změna byla realizována na základě požadavku z IP adresy %2"
+
+#~ msgid ""
+#~ "Thanks for signing up for %1!\n"
+#~ "\n"
+#~ "Here is your data summary\n"
+#~ "\n"
+#~ "login: %2\n"
+#~ "email: %3\n"
+#~ "name: %4\n"
+#~ msgstr ""
+#~ "Děkujeme za registraci na %1!\n"
+#~ "\n"
+#~ "Zde je rekapitulace vašich údajů\n"
+#~ "\n"
+#~ "login: %2\n"
+#~ "e-mail: %3\n"
+#~ "jméno: %4\n"
+
+#~ msgid ""
+#~ "<em>ATK14 Skelet</em> is a very basic application written on top of <a "
+#~ "href=\"http://atk14.net\">the ATK14 Framework</a>.\n"
+#~ "\t\t\t\t\tAs the Skelet is simple and minimal it may be usefull for "
+#~ "developers as a good start point for any other application."
+#~ msgstr ""
+#~ "<em>ATK14 Skelet</em> je základní aplikace napsaná ve <a href=\"http://"
+#~ "atk14.net\">fameworku ATK14</a>.\n"
+#~ "\t\t\t\t\tVzhledem k tomu, jak je Skelet jednoduchý a minimální, může být "
+#~ "pro vývojáře užitečný jako dobrý výchozí bod pro jakoukoli jinou aplikaci."
+
+#~ msgid "The ATK14 Skelet at age 5"
+#~ msgstr "ATK14 Skelet ve věku 5 let"
+
+#~ msgid "fig.1 <em>The Creature is pleading for forking on GitHub</em>"
+#~ msgstr "obr.1 <em>Stvoření prosí o fork na GitHubu</em>"
+
+#~ msgid "items total"
+#~ msgstr "Položek celkem"
+
+#~ msgid "Prev"
+#~ msgstr "Předchozí"
+
+#~ msgid "Next"
+#~ msgstr "Následující"
 
 #~ msgid "About page"
 #~ msgstr "Stránka O nás"
@@ -1497,13 +1539,6 @@ msgstr ""
 #~ "%1 Support Team\n"
 #~ "web: %2\n"
 #~ "e-mail: %3"
-
-#~ msgid ""
-#~ "If you have any question, contact us through the following form. We will "
-#~ "reply to you as soon as we can."
-#~ msgstr ""
-#~ "Pokud máte nějakou otázku, kontaktujte nás prostřednictvím tohoto "
-#~ "formuláře. Odpovíme vám, jak nejdříve budeme moct."
 
 #~ msgid "Below the form you'll find other contact information."
 #~ msgstr "Pod tímto formulářem najdete další kontaktní informace"

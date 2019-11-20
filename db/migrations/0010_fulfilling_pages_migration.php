@@ -1,5 +1,5 @@
 <?php
-class FulfillingPagesMigration extends Atk14Migration{
+class FulfillingPagesMigration extends ApplicationMigration{
 
 	function up(){
     if(TEST){ return; }
@@ -7,13 +7,15 @@ class FulfillingPagesMigration extends Atk14Migration{
 		$homepage = Page::CreateNewRecord(array(
 			"code" => "homepage",
 
-			"title_en" => "Welcome at ATK14 Catalog!",
-			"teaser_en" => "ATK14 Catalog is an skeleton suitable for applications of kind like _Products introduction_, _E-shop_, etc. ATK14 Catalog is built on top of _ATK14 Skelet_ — another great skeleton.",
+			"title_en" => "Welcome at ATK14 Skelet!",
+			"teaser_en" => "_ATK14 Skelet_ is a very basic application written on top of [the ATK14 Framework](https://www.atk14.net/). As the Skelet is simple and minimal it may be usefull for developers as a good start point for any other application.",
 			"body_en" => "",
+			"page_title_en" => "ATK14 Skelet",
 
-			"title_cs" => "Vítejte v ATK14 Katalogu!",
-			"teaser_cs" => "ATK14 Katalog je skelet vhodný pro aplikace typu _produktový katalog_, _e-shop_ atd. ATK14 Katalog je postaven na _ATK14 Skeletu_ — dalším skvělém skeletu.",
+			"title_cs" => "Vítejte v ATK14 Skeletu!",
+			"teaser_cs" => "_ATK14 Skelet_ je základní aplikace napsaná ve [fameworku ATK14](https://www.atk14.net/). Vzhledem k tomu, jak je Skelet jednoduchý a minimální, může být pro vývojáře užitečný jako dobrý výchozí bod pro jakoukoli jinou aplikaci.",
 			"body_cs" => "",
+			"page_title_cs" => "ATK14 Skelet",
 		));
 
 		$about = Page::CreateNewRecord(array(

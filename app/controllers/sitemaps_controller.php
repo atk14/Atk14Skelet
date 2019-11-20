@@ -8,7 +8,7 @@ class SitemapsController extends ApplicationController{
 	}
 
 	function detail(){
-		$this->page_title = _("Sitemap");
+		$this->page_title = $this->breadcrumbs[] = _("Sitemap");
 
 		$this->tpl_data["pages"] = Page::FindAll(array(
 			"conditions" => array(

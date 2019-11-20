@@ -5,6 +5,9 @@ CREATE TABLE pages (
 	code VARCHAR(255), -- alternative key
 	--
 	parent_page_id INT,
+	--
+	image_url VARCHAR(255),
+	--
 	indexable BOOLEAN NOT NULL DEFAULT TRUE,
 	visible BOOLEAN NOT NULL DEFAULT TRUE,
 	--

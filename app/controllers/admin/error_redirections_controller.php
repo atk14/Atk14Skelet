@@ -14,12 +14,16 @@ class ErrorRedirectionsController extends AdminController {
 		}
 
 		$this->sorting->add("last_accessed_at","last_accessed_at IS NOT NULL DESC, last_accessed_at DESC, created_at DESC","last_accessed_at IS NOT NULL DESC, last_accessed_at ASC, created_at ASC");
+		$this->sorting->add("created_at",array("reverse" => true));
 		$this->sorting->add("id");
+		$this->sorting->add("target_url");
+		$this->sorting->add("source_url");
 
 		$this->tpl_data["finder"] = ErrorRedirection::Finder(array(
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
 			"offset" => $this->params->getInt("offset"),
+			"order_by" => $this->sorting,
 		));
 	}
 

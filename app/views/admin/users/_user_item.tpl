@@ -1,5 +1,14 @@
 <tr>
 	<td class="item-id">{$user->getId()}</td>
+	<td>
+		{if !$user->isActive()}
+			<span title="{t}inactive user{/t}">{!"user-slash"|icon}</span>
+		{elseif $user->isAdmin()}
+			<span title="{t}administrator{/t}">{!"user-shield"|icon}</span>
+		{else}
+			<span title="{t}regular user{/t}">{!"user"|icon:"regular"}</span>
+		{/if}
+	</td>
 	<td class="item-login">{$user->getLogin()}{if !$user->isActive()} <em>({t}not active{/t})</em>{/if}</td>
 	<td class="item-title">{$user->getName()}</td>
 	<td class="item-email">{$user->getEmail()}</td>

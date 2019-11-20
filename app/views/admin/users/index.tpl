@@ -12,6 +12,7 @@
 		<thead>
 			<tr class="table-dark">
 				{sortable key=id}<th class="item-id">#</th>{/sortable}
+				<th></th>
 				{sortable key=login}<th class="item-login">{t}Username{/t}</th>{/sortable}
 				{sortable key=name}<th class="item-title">{t}Name{/t}</th>{/sortable}
 				{sortable key=email}<th class="item-email">{t}Email address{/t}</th>{/sortable}

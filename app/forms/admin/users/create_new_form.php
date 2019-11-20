@@ -1,9 +1,9 @@
 <?php
 class CreateNewForm extends UsersForm{
-	function set_up(){
-		$this->add_field("login",new LoginField());
-		$this->add_field("password",new PasswordField());
 
+	var $has_password_field = true;
+
+	function set_up(){
 		parent::set_up();
 	}
 }

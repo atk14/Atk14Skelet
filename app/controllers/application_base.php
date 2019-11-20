@@ -12,20 +12,29 @@ class ApplicationBaseController extends Atk14Controller{
 	var $breadcrumbs;
 
 	function error404(){
+		if($this->_redirected_on_error404()){
+			return;
+		}
+
+		$this->response->setStatusCode(404);
+
+		if($this->request->xhr()){
+			// there's no need to render anything for XHR requests
+			$this->render_template = false;
+			return;
+		}
+
+		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
+		$this->page_title = $this->breadcrumbs[] = _("Page not found");
+	}
+
+	function _redirected_on_error404(){
 		if($this->request->get() && !$this->request->xhr() && ($redirection = ErrorRedirection::GetInstanceByHttpRequest($this->request))){
 			$redirection->touch();
 			$this->_redirect_to($redirection->getDestinationUrl(),array(
         "moved_permanently" => $redirection->movedPermanently(),
       ));
-			return;
-		}
-
-		$this->page_title = $this->breadcrumbs[] = _("Page not found");
-		$this->response->setStatusCode(404);
-		$this->template_name = "application/error404"; // see app/views/application/error404.tpl
-		if($this->request->xhr()){
-			// there's no need to render anything for XHR requests
-			$this->render_template = false;
+			return true;
 		}
 	}
 
@@ -110,8 +119,8 @@ class ApplicationBaseController extends Atk14Controller{
 			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
 		){
 			// redirecting from http://example.com/xyz to http://www.example.com/xyz
-			$proto = $this->request->ssl() ? "https" : "http";
-			return $this->_redirect_to("$proto://".ATK14_HTTP_HOST.$this->request->getUri());
+			$scheme = $this->request->getScheme();
+			return $this->_redirect_to("$scheme://".ATK14_HTTP_HOST.$this->request->getUri(),array("moved_permanently" => true));
 		}
 
 		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
