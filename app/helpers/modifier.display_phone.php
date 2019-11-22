@@ -10,5 +10,6 @@ function smarty_modifier_display_phone($phone){
 	}
 
 	$phone = preg_replace('/^(\+\d+)\.(\d{3})(\d{3})(\d+)$/','\1 \2 \3 \4',$phone);
+	$phone = str_replace(' ',html_entity_decode('&nbsp;'),$phone);
 	return $phone;
 }
