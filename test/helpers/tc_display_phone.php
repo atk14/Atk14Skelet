@@ -6,6 +6,8 @@ class TcDisplayPhone extends TcBase {
 
 		$this->assertEquals("",smarty_modifier_display_phone(""));
 
-		$this->assertEquals("+420 605 111 222",smarty_modifier_display_phone("+420.605111222"));
+		$nbsp = html_entity_decode("&nbsp;");
+
+		$this->assertEquals("+420{$nbsp}605{$nbsp}111{$nbsp}222",smarty_modifier_display_phone("+420.605111222"));
 	}
 }
