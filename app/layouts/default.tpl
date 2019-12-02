@@ -62,7 +62,7 @@
 
 	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
 		{render partial="shared/layout/header"}
-		<div class="container{if $section_navigation} has-nav-section{/if}">
+		<div class="container-fluid{if $section_navigation} has-nav-section{/if}">
 			
 			{if $breadcrumbs && sizeof($breadcrumbs)>=2} {* It makes no sense to display breadcrumbs with just 1 or no element *}
 				{render partial="shared/breadcrumbs"}
@@ -80,9 +80,9 @@
 					{placeholder}
 				</div>
 			</div>
-
-			{render partial="shared/layout/footer"}
 		</div>
+		
+		{render partial="shared/layout/footer"}
 		
 		{render partial="shared/layout/devcssinfo"}
 

@@ -6,7 +6,7 @@
 	<p>{t}At the moment there are no news.{/t}</p>
 
 {else}
-	<div class="article-items">
+	<div class="card-deck card-deck--4">
 		{render partial=article_item from=$finder->getRecords() item=article}
 	</div>
 	{paginator}

@@ -1,6 +1,15 @@
 .iobject {
+	// At which viewport size non-full-width iobjects expand to full width
+	$iObjectWidthBreakpoint: md;
 	
-	margin: $grid-gutter-width 0;
+	// Default top/bottom spacing for full-width iobjects
+	$defaultVMargin: $grid-gutter-width * 2;
+	
+	// Spacing for non-full-width iobjects
+	$floatVMargin: $grid-gutter-width * 2; 
+	
+	margin: $defaultVMargin 0;
+	clear: both;
 	
 	// caption - title, description
 	.iobject__caption {
@@ -19,6 +28,35 @@
 			font-style: italic;
 		}
 	}
+	
+	
+	
+	// layout props - placement, width 
+	
+	@include media-breakpoint-up( $iObjectWidthBreakpoint ) {
+		&--full_width {
+			width: 100%;
+		}
+		&--half_width {
+			width: 50%;
+		}
+		&--third_width {
+			width: 33.33%;
+		}
+		&--center {
+			margin: auto;
+		}
+		&--left {
+			float: left;
+			margin: 0 $floatVMargin $floatVMargin 0;
+		}
+		&--right {
+			float: right;
+			margin: 0 0 $floatVMargin $floatVMargin;
+		}
+	}
+	
+	
 	
 	// type-specific props
 	&--video {
@@ -93,7 +131,7 @@
 		}
 	}
 	& + & {
-		margin-top: 0-$grid-gutter-width;
+		margin-top: 0-$defaultVMargin;
 		border-top: none;
 	}
 	@include media-breakpoint-down(xs){
