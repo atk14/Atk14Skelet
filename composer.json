@@ -13,6 +13,7 @@
         "yarri/full-text-search-query-like": "^0.2",
         "atk14/confirmation-field": "^1.0",
         "atk14/sluggish-router": "^1.1",
-        "html2text/html2text": "^4.0"
+        "html2text/html2text": "^4.0",
+        "atk14/slug-field": "^1.1"
     }
 }
