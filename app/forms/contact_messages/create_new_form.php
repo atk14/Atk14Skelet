@@ -23,7 +23,22 @@ class CreateNewForm extends ApplicationForm{
 			"max_length" => 2000,
 		)));
 
+		if(defined("RECAPTCHA_SITE_KEY") && defined("RECAPTCHA_SECRET_KEY")){
+			$this->add_field("captcha",new RecaptchaField(array(
+				"label" => _("Spam protection"),
+			)));
+		}
+
 		$this->enable_csrf_protection();
 		$this->set_button_text(_("Send message"));
+	}
+
+	function clean(){
+		list($err,$values) = parent::clean();
+
+		// perhaps you may not want to have "captcha" in the cleaned data
+		if(is_array($values)){ unset($values["captcha"]); }
+
+		return array($err,$values);
 	}
 }
