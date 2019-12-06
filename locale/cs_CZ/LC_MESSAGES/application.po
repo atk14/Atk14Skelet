@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-31 11:33+0100\n"
-"PO-Revision-Date: 2019-10-31 11:33+0100\n"
+"POT-Creation-Date: 2019-12-06 13:15+0100\n"
+"PO-Revision-Date: 2019-12-06 13:15+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -74,9 +74,6 @@ msgstr ""
 "Je nám velmi líto, ale stránka s touto adresou URI <em>%1</em> nebyla "
 "nalezena."
 
-msgid "Please, write us to %1 if you think this is our mistake."
-msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
-
 msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr "Zaslal <em>%1</em> dne <time datetime=\"%2\">%3</time>"
 
@@ -101,7 +98,7 @@ msgstr ""
 "Odpovíme vám, jak nejdříve budeme moct."
 
 msgid "The message has been sent to us. We will reply as soon as we can."
-msgstr "Zpráva nám byla odeslána. Odpovíme vám jak nejrychleji umíme."
+msgstr "Zpráva nám byla odeslána. Odpovíme vám, jak nejrychleji umíme."
 
 msgid "Have you forgotten password?"
 msgstr "Zapomněl jste heslo?"
@@ -402,15 +399,15 @@ msgstr "Špatné heslo"
 msgid "There is no such user"
 msgstr "Takový uživatel tady není"
 
-#: ../app/controllers/application_base.php:23
+#: ../app/controllers/application_base.php:28
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
 
-#: ../app/controllers/application_base.php:33
+#: ../app/controllers/application_base.php:42
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:125
+#: ../app/controllers/application_base.php:134
 msgid "Home"
 msgstr "Domů"
 
@@ -605,18 +602,6 @@ msgstr "stránka"
 msgid "There is no such page"
 msgstr "Takový stránka neexistuje"
 
-#: ../app/fields/slug_field.php:8
-msgid "Slug"
-msgstr "Slug"
-
-#: ../app/fields/slug_field.php:10
-msgid "funny-green-mug"
-msgstr "zertovny-zeleny-hrnek"
-
-#: ../app/fields/slug_field.php:20
-msgid "Write something like black-cat-white-cat"
-msgstr "Napište něco jako cerna-kocka-bily-kocour"
-
 #: ../app/fields/tags_field.php:21
 msgid "Ensure that there are max %max% tags (now there are %count%)"
 msgstr ""
@@ -672,7 +657,11 @@ msgstr "Přihlásit se k odběru newsletteru"
 msgid "Text"
 msgstr "Text"
 
-#: ../app/forms/contact_messages/create_new_form.php:27
+#: ../app/forms/contact_messages/create_new_form.php:28
+msgid "Spam protection"
+msgstr ""
+
+#: ../app/forms/contact_messages/create_new_form.php:33
 msgid "Send message"
 msgstr "Poslat zprávu"
 
@@ -754,6 +743,18 @@ msgstr "Galerie"
 #: ../app/helpers/modifier.iobject_type.php:23
 msgid "Obrázek"
 msgstr "Obrázek"
+
+#~ msgid "Please, write us to %1 if you think this is our mistake."
+#~ msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
+
+#~ msgid "Slug"
+#~ msgstr "Slug"
+
+#~ msgid "funny-green-mug"
+#~ msgstr "zertovny-zeleny-hrnek"
+
+#~ msgid "Write something like black-cat-white-cat"
+#~ msgstr "Napište něco jako cerna-kocka-bily-kocour"
 
 #~ msgid ""
 #~ "If you have any question, contact us through the following form. We will "

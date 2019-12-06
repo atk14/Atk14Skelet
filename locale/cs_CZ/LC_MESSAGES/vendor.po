@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-20 12:29+0200\n"
-"PO-Revision-Date: 2019-08-23 13:56+0200\n"
+"POT-Creation-Date: 2019-12-06 13:15+0100\n"
+"PO-Revision-Date: 2019-12-06 13:19+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -57,6 +57,38 @@ msgstr "Zobrazit obrázek"
 #: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:95
 msgid "Unknown error"
 msgstr "Neznámá chyba"
+
+#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:11
+msgid ""
+"Please try to solve the test. It is important for us to be sure that we are "
+"communicating with a human."
+msgstr ""
+"Prosím, pokuste to vyřešit. Je pro nás důležité, abychom si byli jisti, že "
+"komunikujeme s člověkem."
+
+#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:12
+msgid "The test was not successful. Please try it again."
+msgstr "Test nebyl úspěšný. Zkuste to prosím znovu."
+
+#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:13
+msgid ""
+"We are experiencing some technical issue during the communication with "
+"Google. Please try it later."
+msgstr ""
+"Během komunikace se společností Google došlo k technickým problémům. Zkuste "
+"to prosím později."
+
+#: ../vendor/atk14/slug-field/src/slug_field.php:6
+msgid "Slug"
+msgstr "Slug"
+
+#: ../vendor/atk14/slug-field/src/slug_field.php:8
+msgid "funny-green-mug"
+msgstr "zabavny-zeleny-hrnek"
+
+#: ../vendor/atk14/slug-field/src/slug_field.php:12
+msgid "Write something like black-cat-white-cat"
+msgstr "Napište něco jako cerna-kocka-bily-kocour"
 
 #: ../vendor/atk14/url-field/src/url_field.php:12
 msgid "This doesn't look like an URL"

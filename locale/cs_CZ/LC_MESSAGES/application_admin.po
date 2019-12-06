@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-10-31 11:33+0100\n"
-"PO-Revision-Date: 2019-10-31 11:34+0100\n"
+"POT-Creation-Date: 2019-12-06 13:15+0100\n"
+"PO-Revision-Date: 2019-12-06 13:21+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -80,11 +80,11 @@ msgstr "Smazat"
 msgid "Add new redirection"
 msgstr "Přidat nové přesměrování"
 
-#: ../app/forms/admin/error_redirections/error_redirections_form.php:6
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:15
 msgid "Source URL"
 msgstr "Zdrojová adresa URL"
 
-#: ../app/forms/admin/error_redirections/error_redirections_form.php:15
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:26
 msgid "Target URL"
 msgstr "Cílová adresa URL"
 
@@ -164,7 +164,7 @@ msgstr "Systémový název"
 msgid "Displayed title"
 msgstr "Zobrazovaný název"
 
-#: ../app/forms/admin/admin_form.php:121
+#: ../app/forms/admin/admin_form.php:124
 msgid "Code"
 msgstr "Kód"
 
@@ -309,6 +309,9 @@ msgstr "bez názvu"
 msgid "copy this line to the text"
 msgstr "zkopírujte tento řádek do textu"
 
+msgid "Copy"
+msgstr "Kopírova"
+
 msgid "Currently there are no objects"
 msgstr "Momentálně tady nejsou žádné objekty"
 
@@ -386,13 +389,22 @@ msgstr "Vytvořit nového uživatele"
 msgid "Username"
 msgstr "Uživatelské jméno"
 
-#: ../app/forms/admin/users/users_form.php:16
+#: ../app/forms/admin/users/users_form.php:26
 msgid "Email address"
 msgstr "E-mailová adresa"
 
-#: ../app/forms/admin/users/users_form.php:28
+#: ../app/forms/admin/users/users_form.php:38
 msgid "Is admin?"
 msgstr "Je administrátor?"
+
+msgid "inactive user"
+msgstr "neaktivní uživatel"
+
+msgid "administrator"
+msgstr "administrátor"
+
+msgid "regular user"
+msgstr "běžný uživatel"
 
 msgid "not active"
 msgstr "neaktivní"
@@ -515,24 +527,24 @@ msgstr "Editace %s"
 msgid "The article has been updated successfully"
 msgstr "Článek byl úspěšně aktualizován"
 
-#: ../app/controllers/admin/error_redirections_controller.php:27
+#: ../app/controllers/admin/error_redirections_controller.php:31
 msgid "Create redirection"
 msgstr "Vytvořit přesměrování"
 
-#: ../app/controllers/admin/error_redirections_controller.php:33
-#: ../app/controllers/admin/error_redirections_controller.php:51
+#: ../app/controllers/admin/error_redirections_controller.php:37
+#: ../app/controllers/admin/error_redirections_controller.php:55
 msgid "Another redirection with the same source URL already exists"
 msgstr "Jiné přesměrování se stejnou zdrojovou adresou URL již existuje"
 
-#: ../app/controllers/admin/error_redirections_controller.php:38
+#: ../app/controllers/admin/error_redirections_controller.php:42
 msgid "The redirection has been created successfully"
 msgstr "Přesměrováná bylo úspěšně vytvořeno"
 
-#: ../app/controllers/admin/error_redirections_controller.php:44
+#: ../app/controllers/admin/error_redirections_controller.php:48
 msgid "Editing redirection"
 msgstr "Editace přesměrování"
 
-#: ../app/controllers/admin/error_redirections_controller.php:56
+#: ../app/controllers/admin/error_redirections_controller.php:60
 msgid "The redirection has been updated successfully"
 msgstr "Přesměrování bylo úspěšně změněno"
 
@@ -701,28 +713,32 @@ msgstr "Nové video"
 msgid "Vložili jste úspěšně video"
 msgstr "Vložili jste úspěšně video"
 
-#: ../app/forms/admin/admin_form.php:104
+#: ../app/forms/admin/admin_form.php:107
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
 msgid "Titulek"
 msgstr "Titulek"
 
-#: ../app/forms/admin/admin_form.php:113
+#: ../app/forms/admin/admin_form.php:116
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:16
 msgid "Popis"
 msgstr "Popis"
 
-#: ../app/forms/admin/admin_form.php:123
+#: ../app/forms/admin/admin_form.php:129
+msgid "An alternative key for system usage."
+msgstr "Alternativní klíč pro systémové potřeby."
+
+#: ../app/forms/admin/admin_form.php:129
 msgid ""
 "An alternative key for system usage. Leave it unchanged if you are not sure."
 msgstr ""
 "Alternativní klíč pro systémové použití. Pokud si nejste jisti, ponechte "
 "beze změny."
 
-#: ../app/forms/admin/admin_form.php:131
+#: ../app/forms/admin/admin_form.php:137
 msgid "Is visible?"
 msgstr "Je viditelné?"
 
-#: ../app/forms/admin/admin_form.php:162 ../app/forms/admin/admin_form.php:169
+#: ../app/forms/admin/admin_form.php:168 ../app/forms/admin/admin_form.php:175
 msgid "Stejný kód je již použit pro jiný záznam"
 msgstr "Stejný kód je již použit pro jiný záznam"
 
@@ -764,9 +780,29 @@ msgstr "Uživatelský manuál"
 msgid "File"
 msgstr "Soubor"
 
-#: ../app/forms/admin/error_redirections/error_redirections_form.php:24
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:12
+msgid "This doesn't look like an URL or URI"
+msgstr "Toto nevypadá to jako URL nebo URI"
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:16
+msgid ""
+"Address which cannot be found on this server. Here are some examples. The "
+"first one is usually the most appropriate."
+msgstr ""
+"Adresa, kterou nelze na tomto serveru najít. Zde jsou nějaké příklady. První "
+"z nich je obvykle nejvhodnější."
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:27
+msgid "Examples:"
+msgstr "Příklady"
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:37
 msgid "Moved permanently?"
 msgstr "Přesunuto trvale?"
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:47
+msgid "The Source URL and Target URL cannot be the same"
+msgstr "Zdrojová a cílová adresa URL nemohou být stejné"
 
 #: ../app/forms/admin/gallery_items/create_new_form.php:7
 msgid "Nahrát fotografii"
@@ -879,21 +915,25 @@ msgstr "Nové heslo"
 msgid "Set password"
 msgstr "Nastavit heslo"
 
-#: ../app/forms/admin/users/users_form.php:6
+#: ../app/forms/admin/users/users_form.php:16
 msgid "Firstname"
 msgstr "Jméno"
 
-#: ../app/forms/admin/users/users_form.php:11
+#: ../app/forms/admin/users/users_form.php:21
 msgid "Lastname"
 msgstr "Příjmení"
 
-#: ../app/forms/admin/users/users_form.php:21
+#: ../app/forms/admin/users/users_form.php:31
 msgid "Is active?"
 msgstr "Je aktivní?"
 
-#: ../app/forms/admin/users/users_form.php:24
+#: ../app/forms/admin/users/users_form.php:34
 msgid "Inactive user can not be logged in"
 msgstr "Neaktivní uživatel se nemůže přihlásit"
+
+#: ../app/forms/admin/users/users_form.php:48
+msgid "The same login is already used for another user"
+msgstr "Stejný login je již použit pro jiného uživatele"
 
 #: ../app/forms/admin/videos/create_new/get_url_form.php:6
 msgid "Pokračovat"
@@ -1259,9 +1299,6 @@ msgstr "Po ukončení přehrát znovu"
 #~ "Některé položky nebyly vyplněny správně. Zkontrolujte formulář a opravte "
 #~ "chyby."
 
-#~ msgid "Examples:"
-#~ msgstr "Příklady"
-
 #~ msgid "Show menu"
 #~ msgstr "Ukázat nabídku"
 
@@ -1274,9 +1311,6 @@ msgstr "Po ukončení přehrát znovu"
 
 #~ msgid "Go to home page"
 #~ msgstr "Přejděte na úvodní stránku"
-
-#~ msgid "administrator"
-#~ msgstr "administrátor"
 
 #~ msgid "Here you can find the list of all commands in <em>%1</em>."
 #~ msgstr "Zde neleznete seznam příkazů v <em>%1</em>."
