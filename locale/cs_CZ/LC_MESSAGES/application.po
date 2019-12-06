@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2019-12-06 13:15+0100\n"
-"PO-Revision-Date: 2019-12-06 13:15+0100\n"
+"PO-Revision-Date: 2019-12-06 13:30+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -659,7 +659,7 @@ msgstr "Text"
 
 #: ../app/forms/contact_messages/create_new_form.php:28
 msgid "Spam protection"
-msgstr ""
+msgstr "Ochrana proti spamu"
 
 #: ../app/forms/contact_messages/create_new_form.php:33
 msgid "Send message"
