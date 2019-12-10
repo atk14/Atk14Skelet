@@ -39,7 +39,6 @@ class PagesForm extends AdminForm {
 		$this->add_field("parent_page_id", new PageField(array(
 			"label" => _("Parent page"),
 			"required" => false,
-			"page_id" => isset($this->controller->page) ? $this->controller->page : null,
 		)));
 
 		$this->add_field("indexable", new BooleanField([
