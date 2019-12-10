@@ -60,9 +60,27 @@ class PagesForm extends AdminForm {
 	function clean() {
 		$d = $this->cleaned_data;
 
-		if (isset($d["parent_page_id"]) && isset($this->controller->page) && ($d["parent_page_id"]->getId()==$this->controller->page->getId())) {
-			$this->set_error("parent_page_id", _("You cannot use the same page as the parent for the current page."));
+		if (isset($d["parent_page_id"]) && isset($this->controller->page)) {
+			$page = $d["parent_page_id"];
+			$counter = 0;
+			while($page){
+				if($page->getId()==$this->controller->page->getId()){
+					$this->set_error("parent_page_id", _("The page cannot be placed under itself."));
+					break;
+				}
+				$page = $page->getParentPage();
+				$counter++;
+				if($counter>30){
+					$this->set_error("parent_page_id", _("Nesting is too deep."));
+					break;
+				}
+			}
 		}
+
+		if(isset($d["parent_page_id"])){
+			$d["parent_page_id"] = $d["parent_page_id"]->getId();
+		}
+
 		return array(null, $d);
 	}
 }
