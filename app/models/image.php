@@ -1,6 +1,8 @@
 <?php
 class Image extends LinkedObject implements Translatable{
 
+	use TraitPupiqImage;
+
 	static function GetTranslatableFields(){ return array("name","description"); }
 
 	static function CreateNewRecord($values,$options = array()){
@@ -38,23 +40,6 @@ class Image extends LinkedObject implements Translatable{
 		$class_name = "Image";
 		is_a($obj,"Product") && ($class_name = "ProductImage");
 		return $class_name::CreateNewFor($obj,$values,$options);
-	}
-
-	function toString(){ return $this->g("url"); }
-
-	function getOriginalWidth(){
-		return $this->_getPupiq()->getOriginalWidth();
-	}
-
-	function getOriginalHeight(){
-		return $this->_getPupiq()->getOriginalHeight();
-	}
-
-	function _getPupiq(){
-		if(!isset($this->_pupiq)){
-			$this->_pupiq = new Pupiq($this->getUrl());
-		}
-		return $this->_pupiq;
 	}
 
 	static function DeleteObjectImages($obj){

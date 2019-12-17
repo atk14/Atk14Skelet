@@ -39,6 +39,8 @@ definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
 
 definedef("PUPIQ_API_KEY","101.DemoApiKeyForAccountWithLimitedFunctions");
 
+definedef("ARTICLE_BODY_MAX_WIDTH",825);
+
 // If these two constant are properly defined (see https://github.com/atk14/RecaptchaField#installation),
 // the re-captcha field is being automatically added into the contact form.
 // define("RECAPTCHA_SITE_KEY","");

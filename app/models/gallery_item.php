@@ -22,12 +22,7 @@ class GalleryItem extends ApplicationModel implements Translatable, Rankable {
 		return new Pupiq($this->getImageUrl());
 	}
 
-	function getUrl() {
-		return $this->getImageUrl();
-	}
-
 	function getName($lang=null) {
 		return $this->getTitle($lang);
 	}
-
 }

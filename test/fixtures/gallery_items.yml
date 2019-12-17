@@ -1,0 +1,3 @@
+gallery__astronaut:
+  gallery_id: "<?= $galleries["gallery"]->getId() ?>"
+  image_url: "https://i.pupiq.net/i/65/65/27e/2927e/1272x920/9cUpr1_800x800xc_6c2a983e5ac4792b.jpg"

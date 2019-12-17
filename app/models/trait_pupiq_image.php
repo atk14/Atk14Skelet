@@ -41,7 +41,7 @@ trait TraitPupiqImage {
 		}
 
 		$field = $this->hasKey("image_url") ? "image_url" : "url"; // GalleryItem has image_url; Image or Picture has url
-		return $url ? $url : $this->g($field);
+		return $this->g($field);
 	}
 
 	function photoswipeData($options = []) {
