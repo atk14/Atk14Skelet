@@ -35,9 +35,13 @@ trait TraitPupiqImage {
 	}
 
 	function getUrl($transformation = null){
-		$pupiq = $this->_getPupiq();
-		$url = $pupiq->getUrl($transformation);
-		return $url ? $url : $this->g("url");
+		if(!is_null($transformation)){
+			$pupiq = $this->_getPupiq();
+			return $pupiq->getUrl($transformation);
+		}
+
+		$field = $this->hasKey("image_url") ? "image_url" : "url"; // GalleryItem has image_url; Image or Picture has url
+		return $url ? $url : $this->g($field);
 	}
 
 	function photoswipeData($options = []) {
@@ -46,17 +50,19 @@ trait TraitPupiqImage {
 			'thumbnail' => '120x120'
 		];
 
+		$pupiq = $this->_getPupiq();
+
 		return [
 			'w' => $this->getWidth(),
 			'h' => $this->getHeight(),
-			'src' => $this->getUrl($options['detail']),
-			'msrc' => $this->getUrl($options['thumbnail']),
+			'src' => $pupiq->getUrl($options['detail']),
+			'msrc' => $pupiq->getUrl($options['thumbnail']),
 		];
 	}
 
 	function _getPupiq(){
 		if(!isset($this->_pupiq)){
-			$this->_pupiq = new Pupiq($this->g("url"));
+			$this->_pupiq = new Pupiq($this->getUrl());
 		}
 		return $this->_pupiq;
 	}
