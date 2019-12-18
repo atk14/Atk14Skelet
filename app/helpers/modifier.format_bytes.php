@@ -5,9 +5,10 @@
  */
 function smarty_modifier_format_bytes($bytes){
 	if(!strlen($bytes)){ return ""; }
-	if($bytes>=(1024*1024*1024)){ return _format_bytes(($bytes/(1024 * 1024 * 1024)),"GB"); }
-	if($bytes>=(1024*1024)){ return _format_bytes(($bytes/(1024 * 1024)),"MB"); }
-	if($bytes>=1024){ return _format_bytes(($bytes/1024),"kB"); }
+	if($bytes>=(1000*1024*1024*1024)){ return _format_bytes(($bytes/(1024 * 1024 * 1024 * 1024)),"TB"); }
+	if($bytes>=(1000*1024*1024)){ return _format_bytes(($bytes/(1024 * 1024 * 1024)),"GB"); }
+	if($bytes>=(1000*1024)){ return _format_bytes(($bytes/(1024 * 1024)),"MB"); }
+	if($bytes>=1000){ return _format_bytes(($bytes/1024),"kB"); }
 	$bytes = (int)$bytes;
 	return $bytes." Bytes";
 }
