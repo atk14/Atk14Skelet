@@ -13,7 +13,7 @@ function smarty_modifier_display_bool($bool,$msg_yes = null,$msg_no = null){
 	if(!isset($msg_yes)){ $msg_yes = _("Yes"); }
 	if(!isset($msg_no)){ $msg_no = _("No"); }
 	if($bool===false){ return $msg_no; }
-	if($bool===true || in_array(strtolower($bool),"true","t","yes","y","1","on")){
+	if($bool===true || in_array(strtolower($bool),array("true","t","yes","y","1","on"))){
 		return $msg_yes;
 	}
 	return $msg_no;
