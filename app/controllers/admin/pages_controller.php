@@ -21,6 +21,7 @@ class PagesController extends AdminController {
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 
+			$d["parent_page_id"] = TableRecord::ObjToId($d["parent_page_id"]);
 			if($d!=$this->form->get_initial()){
 				$this->page->s($d,array("reconstruct_missing_slugs" => true));
 				$this->flash->success(_("The page has been updated successfully"));
