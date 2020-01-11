@@ -23,7 +23,7 @@
 
 {if $child_pages}
 	<section class="child-pages">
-		<h4>{t}Subpages{/t}</h4>
+		{*<h4>{t}Subpages{/t}</h4>*}
 		<ul class="list-unstyled">
 		{foreach $child_pages as $child_page}
 			<li>
