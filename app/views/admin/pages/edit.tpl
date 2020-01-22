@@ -1,3 +1,5 @@
+{render partial="page_item_dropdown_menu" page=$page clearfix=false}
+
 <h1>{$page_title}</h1>
 
 {render partial="edit_form"}
