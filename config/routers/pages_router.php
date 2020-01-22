@@ -23,6 +23,7 @@ class PagesRouter extends Atk14Router{
 			
 			if($page->getCode()=="homepage"){
 				return Atk14Url::BuildLink(array(
+					"namespace" => $this->namespace,
 					"controller" => "main",
 					"action" => "index",
 					"lang" => $this->lang,
