@@ -1,0 +1,22 @@
+.admin-object-menu {
+	z-index: 99;
+	position: relative;
+	height: 0px;
+	width: 100%;
+	&__wrapper {
+		position: absolute;
+		width: 100%;
+		top: -35px;
+		.btn, .btn-group {
+			background-color: rgba(white, 0.85);
+			&:hover, &:focus {
+				background-color: black;
+			}
+		}
+	}
+	& + & {
+		.admin-object-menu__wrapper {
+			top: 0;
+		}
+	}
+}
