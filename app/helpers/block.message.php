@@ -13,13 +13,17 @@ function smarty_block_message($params,$content,$template,&$repeat){
 	$params += array(
 		"type" => "warning",
 		"close_button" => 1,
-		"block" => 0
+		"block" => 0,
+		"extra_class" => "",
 	);
 
 	$classes = array();
 
-	$classes[] = "alert";
+	$classes[] = "alert fade show";
 	$classes[] = "alert-$params[type]";
+	if($params["extra_class"]){
+		$classes[] = $params["extra_class"];
+	}
 
 	$params["close_button"] && ( $content = '<button type="button" class="close" data-dismiss="alert">&times;</button>' . $content );
 
