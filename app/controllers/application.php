@@ -38,4 +38,17 @@ class ApplicationController extends ApplicationBaseController{
 			$this->breadcrumbs[] = array($p->getTitle(),$this->_link_to(array("action" => "pages/detail", "id" => $p)));
 		}
 	}
+
+	function _add_user_detail_breadcrumb(){
+		if(!$this->logged_user){ return; }
+
+		$title = _("User profile");
+		
+		if("$this->controller/$this->action"=="users/detail"){
+			$this->breadcrumbs[] = $title;
+			return;
+		}
+
+		$this->breadcrumbs[] = [$title,"users/detail"];
+	}
 }
