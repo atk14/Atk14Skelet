@@ -3,7 +3,7 @@ class SitemapsController extends ApplicationController{
 
 	function index(){
 		$this->render_layout = false;
-		$this->response->setContentType("text/xml");
+		$this->response->setContentType("application/xml");
 		$this->tpl_data["langs"] = $GLOBALS["ATK14_GLOBAL"]->getSupportedLangs();
 	}
 
@@ -29,7 +29,7 @@ class SitemapsController extends ApplicationController{
 
 		if($this->params->getString("format")=="xml"){
 			$this->render_template = false;
-			$this->response->setContentType("text/xml");
+			$this->response->setContentType("application/xml");
 			$this->response->writeln('<?xml version="1.0" encoding="UTF-8"?>');
 			$this->response->writeln('<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd">');
 
