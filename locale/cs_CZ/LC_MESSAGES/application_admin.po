@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-06 13:15+0100\n"
-"PO-Revision-Date: 2019-12-06 13:21+0100\n"
+"POT-Creation-Date: 2020-01-30 10:45+0100\n"
+"PO-Revision-Date: 2020-01-30 11:06+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -309,8 +309,11 @@ msgstr "bez názvu"
 msgid "copy this line to the text"
 msgstr "zkopírujte tento řádek do textu"
 
-msgid "Copy"
-msgstr "Kopírova"
+msgid "Copied!"
+msgstr "Zkopírováno!"
+
+msgid "Copy the line"
+msgstr "Kopírovat řádek"
 
 msgid "Currently there are no objects"
 msgstr "Momentálně tady nejsou žádné objekty"
@@ -882,17 +885,21 @@ msgstr ""
 msgid "Parent page"
 msgstr "Rodičovské stránka"
 
-#: ../app/forms/admin/pages/pages_form.php:46
+#: ../app/forms/admin/pages/pages_form.php:45
 msgid "Show in sitemap?"
 msgstr "Zobrazovat v mapě stránek?"
 
-#: ../app/forms/admin/pages/pages_form.php:52
+#: ../app/forms/admin/pages/pages_form.php:51
 msgid "Visible?"
 msgstr "Viditelné?"
 
-#: ../app/forms/admin/pages/pages_form.php:64
-msgid "You cannot use the same page as the parent for the current page."
-msgstr "Nemůžete nastavit stránku jako rodičovskou pro stejnou stránku."
+#: ../app/forms/admin/pages/pages_form.php:67
+msgid "The page cannot be placed under itself."
+msgstr "Stránku nelze umístit samu pod sebe."
+
+#: ../app/forms/admin/pages/pages_form.php:73
+msgid "Nesting is too deep."
+msgstr "Vnoření je příliš hluboké."
 
 #: ../app/forms/admin/pictures/pictures_form.php:8
 msgid "Obrázek"
@@ -946,6 +953,12 @@ msgstr "Automatické spuštění videa"
 #: ../app/forms/admin/videos/videos_form.php:13
 msgid "Po ukončení přehrát znovu"
 msgstr "Po ukončení přehrát znovu"
+
+#~ msgid "Copy"
+#~ msgstr "Kopírova"
+
+#~ msgid "You cannot use the same page as the parent for the current page."
+#~ msgstr "Nemůžete nastavit stránku jako rodičovskou pro stejnou stránku."
 
 #~ msgid "Objekty vkládané do textu"
 #~ msgstr "Objekty vkládané do textu"

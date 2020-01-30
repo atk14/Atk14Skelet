@@ -5,824 +5,951 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PACKAGE VERSION\n"
+"Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-08-23 13:24+0200\n"
-"PO-Revision-Date: 2016-03-07 17:03+0100\n"
-"Last-Translator: Yarri <do-not-write-me@ever.com>\n"
+"POT-Creation-Date: 2020-01-30 10:45+0100\n"
+"PO-Revision-Date: 2020-01-30 12:17+0100\n"
+"Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
-"Language: \n"
+"Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.5.4\n"
+"X-Generator: Poedit 1.8.7.1\n"
 
 msgid ""
 "Are you sure to delete article item\n"
 "%1?"
 msgstr ""
+"Are you sure to delete article item\n"
+"%1?"
 
 msgid "Edit"
-msgstr ""
+msgstr "Edit"
 
 msgid "Visit public link"
-msgstr ""
+msgstr "Visit public link"
 
 msgid "Delete article"
-msgstr ""
+msgstr "Delete article"
+
+msgid "Save and continue editing"
+msgstr "Save and continue editing"
+
+msgid "Save and go back"
+msgstr "Save and go back"
+
+msgid "Saving failed."
+msgstr "Saving failed."
 
 msgid "Add new article"
-msgstr ""
+msgstr "Add new article"
 
 msgid "The list is empty."
-msgstr ""
+msgstr "The list is empty."
 
 #: ../app/forms/admin/articles/articles_form.php:6
 #: ../app/forms/admin/attachments/attachments_form.php:6
+#: ../app/forms/admin/files/files_form.php:8
 #: ../app/forms/admin/images/images_form.php:10
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:6
-#: ../app/forms/admin/pages/pages_form.php:9
+#: ../app/forms/admin/pages/pages_form.php:6
 msgid "Title"
-msgstr ""
+msgstr "Title"
 
 msgid "Author"
-msgstr ""
+msgstr "Author"
 
 msgid "Date"
-msgstr ""
+msgstr "Date"
 
-#: ../app/controllers/admin/admin.php:31
-#: ../app/forms/admin/articles/articles_form.php:32
+#: ../app/controllers/admin/admin.php:32
+#: ../app/forms/admin/articles/articles_form.php:33
 msgid "Tags"
-msgstr ""
+msgstr "Tags"
 
 msgid "Add attachment"
-msgstr ""
+msgstr "Add attachment"
 
 msgid "Currently there are no attachments."
-msgstr ""
+msgstr "Currently there are no attachments."
 
 msgid "Delete"
-msgstr ""
+msgstr "Delete"
 
 msgid "Add new redirection"
-msgstr ""
-
-#: ../app/forms/admin/error_redirections/error_redirections_form.php:6
-msgid "Source URL"
-msgstr ""
+msgstr "Add new redirection"
 
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:15
+msgid "Source URL"
+msgstr "Source URL"
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:26
 msgid "Target URL"
-msgstr ""
+msgstr "Target URL"
 
 msgid "Created at"
-msgstr ""
+msgstr "Created at"
 
 msgid "Last access"
-msgstr ""
+msgstr "Last access"
+
+msgid "ID"
+msgstr "ID"
+
+msgid "Filename"
+msgstr "Filename"
+
+msgid "File Type"
+msgstr "File Type"
+
+msgid "Filesize"
+msgstr "Filesize"
+
+msgid "URL"
+msgstr "URL"
 
 msgid "bez popisu"
-msgstr ""
+msgstr "without description"
 
 msgid "Fotogalerie zatím neobsahuje žádný obrázek."
-msgstr ""
+msgstr "Photogallery has no image yet."
 
 msgid "Upravit"
-msgstr ""
+msgstr "Edit"
 
 msgid "Smazat"
-msgstr ""
+msgstr "Delete"
 
 msgid "editovat"
-msgstr ""
+msgstr "edit"
 
 msgid "bez titulku"
-msgstr ""
+msgstr "without a title"
 
 msgid "Přidat fotografii"
-msgstr ""
+msgstr "Add a photo"
 
 msgid "The image was uploaded at:"
-msgstr ""
+msgstr "The image was uploaded at:"
 
 msgid "The image was uploaded by:"
-msgstr ""
+msgstr "The image was uploaded by:"
 
 msgid "The size of the original:"
-msgstr ""
+msgstr "The size of the original:"
 
 msgid "Add image"
-msgstr ""
+msgstr "Add image"
 
 msgid "Currently there are no images."
-msgstr ""
+msgstr "Currently there are no images."
 
 msgid "Add a link to the list"
-msgstr ""
+msgstr "Add a link to the list"
 
 msgid "There is no link in the list."
-msgstr ""
+msgstr "There is no link in the list."
+
+msgid "Edit links"
+msgstr "Edit links"
 
 msgid "Create new link list"
-msgstr ""
+msgstr "Create new link list"
 
 msgid "System name"
-msgstr ""
+msgstr "System name"
 
 #: ../app/forms/admin/link_lists/link_lists_form.php:12
 msgid "Displayed title"
-msgstr ""
+msgstr "Displayed title"
 
-#: ../app/forms/admin/admin_form.php:118
+#: ../app/forms/admin/admin_form.php:124
 msgid "Code"
-msgstr ""
+msgstr "Code"
 
 msgid "Count of links"
-msgstr ""
+msgstr "Count of links"
 
 msgid "Link list"
-msgstr ""
+msgstr "Link list"
 
 msgid "Welcome administrator!"
-msgstr ""
+msgstr "Welcome administrator!"
 
 msgid "No record has been found."
-msgstr ""
+msgstr "No record has been found."
 
 msgid "Email"
-msgstr ""
+msgstr "Email"
 
 msgid "Name"
-msgstr ""
+msgstr "Name"
 
 msgid "Subscribed since"
-msgstr ""
+msgstr "Subscribed since"
 
 msgid "IP address"
-msgstr ""
+msgstr "IP address"
 
 msgid "Export emails in CSV"
-msgstr ""
+msgstr "Export emails in CSV"
 
 msgid "Subpages"
-msgstr ""
+msgstr "Subpages"
 
 msgid "This page has no subpages"
-msgstr ""
+msgstr "This page has no subpages"
 
 msgid "Add new page"
-msgstr ""
+msgstr "Add new page"
+
+msgid "Create a subpage"
+msgstr "Create a subpage"
 
 msgid ""
 "You are about to delete page %1\n"
 "Are you sure?"
 msgstr ""
+"You are about to delete page %1\n"
+"Are you sure?"
 
 msgid "Delete page"
-msgstr ""
+msgstr "Delete page"
 
 msgid "not showing in sitemap"
-msgstr ""
+msgstr "not showing in sitemap"
 
 msgid "invisible"
-msgstr ""
+msgstr "invisible"
 
 msgid "[%1]"
-msgstr ""
+msgstr "[%1]"
 
 msgid "User"
-msgstr ""
+msgstr "User"
 
 msgid "Created from address"
-msgstr ""
+msgstr "Created from address"
 
 msgid "Password recovered?"
-msgstr ""
+msgstr "Password recovered?"
 
 msgid "Recovered at"
-msgstr ""
+msgstr "Recovered at"
 
 msgid "Recovered from address"
-msgstr ""
+msgstr "Recovered from address"
+
+#: ../app/forms/admin/images/images_form.php:16
+msgid "Description"
+msgstr "Description"
+
+msgid "Dimensions of the original"
+msgstr "Dimensions of the original"
+
+msgid "Uploaded by"
+msgstr "Uploaded by"
+
+msgid "Updated at"
+msgstr "Updated at"
+
+msgid "Updated by"
+msgstr "Updated by"
+
+msgid "Download original"
+msgstr "Download original"
 
 msgid ""
 "You are about to delete the attachment %1\n"
 "Are you sure about that?"
 msgstr ""
+"You are about to delete the attachment %1\n"
+"Are you sure about that?"
 
 msgid "Remove"
-msgstr ""
+msgstr "Remove"
 
 msgid "Attachments"
-msgstr ""
+msgstr "Attachments"
 
 msgid "Currently there are no attachments"
-msgstr ""
+msgstr "Currently there are no attachments"
 
 msgid "Add an attachment"
-msgstr ""
+msgstr "Add an attachment"
 
 msgid "Remove image"
-msgstr ""
+msgstr "Remove image"
 
 msgid "Logos"
-msgstr ""
+msgstr "Logos"
 
 msgid "Photo gallery"
-msgstr ""
+msgstr "Photo gallery"
 
 msgid "Currently there are no images"
-msgstr ""
+msgstr "Currently there are no images"
 
 msgid "Add an image"
-msgstr ""
+msgstr "Add an image"
 
-msgid "Objekty vkládané do textu"
-msgstr ""
+msgid "Objects inserted into text"
+msgstr "Objects inserted into text"
 
-msgid "Zkopírujte značku daného objektu ([#...]) do textu."
-msgstr ""
+msgid "Copy the desired object's marker ([# ...]) into the text."
+msgstr "Copy the desired object's marker ([# ...]) into the text."
 
-msgid "Opravdu odstranit objekt?"
-msgstr ""
+msgid "Do you really want to delete this object?"
+msgstr "Do you really want to delete this object?"
 
 msgid "bez názvu"
-msgstr ""
+msgstr "without a name"
 
-msgid "Změnit"
-msgstr ""
+msgid "copy this line to the text"
+msgstr "copy this line to the text"
 
-msgid "tento řádek zkopírujte do textu"
-msgstr ""
+msgid "Copied!"
+msgstr "Copied!"
 
-msgid "Momentálně tady nejsou žádné objekty."
-msgstr ""
+msgid "Copy the line"
+msgstr "Copy the line"
 
-msgid "Přidat obrázek"
-msgstr ""
+msgid "Currently there are no objects"
+msgstr "Currently there are no objects"
 
-msgid "Přidat fotogalerii"
-msgstr ""
+msgid "Add photogallery"
+msgstr "Add photogallery"
 
-msgid "Přidat přílohu"
-msgstr ""
+msgid "Add video"
+msgstr "Add video"
 
-msgid "Přidat video"
-msgstr ""
+msgid "Localhost"
+msgstr "Localhost"
+
+msgid "Development server"
+msgstr "Development server"
+
+msgid "Production server"
+msgstr "Production server"
+
+msgid "Profile"
+msgstr "Profile"
+
+msgid "Sign out"
+msgstr "Sign out"
+
+#: ../app/controllers/admin/admin.php:9
+#: ../app/controllers/admin/main_controller.php:4
+msgid "Administration"
+msgstr "Administration"
+
+msgid "Sign in"
+msgstr "Sign in"
+
+msgid "Register"
+msgstr "Register"
 
 msgid "Show larger image"
-msgstr ""
+msgstr "Show larger image"
 
 msgid "no image"
-msgstr ""
+msgstr "no image"
 
 msgid "Add new tag"
-msgstr ""
+msgstr "Add new tag"
 
 msgid "No tag has been found."
-msgstr ""
+msgstr "No tag has been found."
 
 #: ../app/forms/admin/tags/tags_form.php:6
 msgid "Tag"
-msgstr ""
+msgstr "Tag"
 
 msgid ""
 "You are about to permanently delete tag %1\n"
 "\tAre you sure about that?"
 msgstr ""
+"You are about to permanently delete tag %1\n"
+"\tAre you sure about that?"
 
 msgid "Delete tag"
-msgstr ""
+msgstr "Delete tag"
 
 msgid ""
 "At the moment no one knows the actual user's password because passwords are "
 "not stored in plain text form. In this form you can set a new password to "
 "the user <em>%1</em>"
 msgstr ""
+"At the moment no one knows the actual user's password because passwords are "
+"not stored in plain text form. In this form you can set a new password to "
+"the user <em>%1</em>"
 
 #: ../app/controllers/admin/users_controller.php:32
 msgid "Create a new user"
-msgstr ""
+msgstr "Create a new user"
 
 msgid "Username"
-msgstr ""
+msgstr "Username"
 
-#: ../app/forms/admin/users/users_form.php:16
+#: ../app/forms/admin/users/users_form.php:26
 msgid "Email address"
-msgstr ""
+msgstr "Email address"
 
-#: ../app/forms/admin/users/users_form.php:28
+#: ../app/forms/admin/users/users_form.php:38
 msgid "Is admin?"
-msgstr ""
+msgstr "Is admin?"
 
-msgid "Updated at"
-msgstr ""
+msgid "inactive user"
+msgstr "inactive user"
+
+msgid "administrator"
+msgstr "administrator"
+
+msgid "regular user"
+msgstr "regular user"
 
 msgid "not active"
-msgstr ""
+msgstr "not active"
 
 msgid "Set new password"
-msgstr ""
+msgstr "Set new password"
 
 msgid "Sign in as this user"
-msgstr ""
+msgstr "Sign in as this user"
 
 msgid ""
 "You are about to permanently delete user %1\n"
 "\tAre you sure about that?"
 msgstr ""
+"You are about to permanently delete user %1\n"
+"\tAre you sure about that?"
 
 msgid "Delete user"
-msgstr ""
+msgstr "Delete user"
 
 msgid "Změnit video"
-msgstr ""
+msgstr "Edit video"
 
 #: ../app/forms/admin/videos/videos_form.php:20
 msgid "URL videa"
-msgstr ""
+msgstr "Video URL"
 
 #: ../app/forms/admin/videos/videos_form.php:26
 msgid "Náhledový obrázek"
-msgstr ""
+msgstr "Preview image"
 
 msgid "Není nastaven"
-msgstr ""
-
-#: ../app/controllers/admin/admin.php:8
-#: ../app/controllers/admin/main_controller.php:4
-msgid "Administration"
-msgstr ""
-
-#: ../app/controllers/admin/admin.php:27
-msgid "Welcome screen"
-msgstr ""
+msgstr "Not set"
 
 #: ../app/controllers/admin/admin.php:28
-msgid "Articles"
-msgstr ""
+msgid "Welcome screen"
+msgstr "Welcome screen"
 
 #: ../app/controllers/admin/admin.php:29
-#: ../app/controllers/admin/pages_controller.php:5
-msgid "Pages"
-msgstr ""
+msgid "Articles"
+msgstr "Articles"
 
 #: ../app/controllers/admin/admin.php:30
-#: ../app/controllers/admin/link_list_items_controller.php:46
-msgid "Link Lists"
-msgstr ""
+#: ../app/controllers/admin/pages_controller.php:5
+msgid "Pages"
+msgstr "Pages"
 
-#: ../app/controllers/admin/admin.php:32
-msgid "Users"
-msgstr ""
+#: ../app/controllers/admin/admin.php:31
+msgid "Link Lists"
+msgstr "Link Lists"
 
 #: ../app/controllers/admin/admin.php:33
-#: ../app/controllers/admin/password_recoveries_controller.php:5
-msgid "Password recoveries"
-msgstr ""
+msgid "Users"
+msgstr "Users"
 
 #: ../app/controllers/admin/admin.php:34
-msgid "Newsletter subscribers"
-msgstr ""
+#: ../app/controllers/admin/password_recoveries_controller.php:5
+msgid "Password recoveries"
+msgstr "Password recoveries"
 
 #: ../app/controllers/admin/admin.php:35
+msgid "Newsletter subscribers"
+msgstr "Newsletter subscribers"
+
+#: ../app/controllers/admin/admin.php:36
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
-msgstr ""
+msgstr "404 Redirections"
 
-#: ../app/controllers/admin/admin.php:85
+#: ../app/controllers/admin/admin.php:100
 #, php-format
 msgid "Seznam objektů typu %s"
-msgstr ""
+msgstr "List of objects of type %s"
 
-#: ../app/controllers/admin/admin.php:114
+#: ../app/controllers/admin/admin.php:135
 msgid "The record has been created"
-msgstr ""
+msgstr "The record has been created"
 
-#: ../app/controllers/admin/admin.php:128
+#: ../app/controllers/admin/admin.php:149
 #, php-format
 msgid "Vytvořit objekt typu %s"
-msgstr ""
+msgstr "Create an object of type %s"
 
-#: ../app/controllers/admin/admin.php:180
+#: ../app/controllers/admin/admin.php:201
 msgid "Změny byly uloženy"
-msgstr ""
+msgstr "The changes have been saved"
 
-#: ../app/controllers/admin/admin.php:206
+#: ../app/controllers/admin/admin.php:227
 #, php-format
 msgid "Editace objektu typu %s"
-msgstr ""
+msgstr "Editing object of type %s"
 
-#: ../app/controllers/admin/admin.php:330
+#: ../app/controllers/admin/admin.php:351
 msgid "The entry has been deleted"
-msgstr ""
+msgstr "The entry has been deleted"
 
-#: ../app/controllers/admin/admin.php:337
+#: ../app/controllers/admin/admin.php:358
 #: ../app/controllers/admin/galleries_controller.php:33
 msgid "Fotogalerie"
-msgstr ""
+msgstr "Photogallery"
 
 #: ../app/controllers/admin/articles_controller.php:5
 msgid "Listing Articles"
-msgstr ""
+msgstr "Listing Articles"
 
 #: ../app/controllers/admin/articles_controller.php:38
 msgid "Create article"
-msgstr ""
+msgstr "Create article"
 
-#: ../app/controllers/admin/articles_controller.php:48
+#: ../app/controllers/admin/articles_controller.php:49
 msgid "The article has been created successfully"
-msgstr ""
+msgstr "The article has been created successfully"
 
-#: ../app/controllers/admin/articles_controller.php:54
+#: ../app/controllers/admin/articles_controller.php:55
 #, php-format
 msgid "Editing %s"
-msgstr ""
+msgstr "Editing %s"
 
-#: ../app/controllers/admin/articles_controller.php:62
-#: ../app/controllers/admin/tags_controller.php:64
-#: ../app/controllers/admin/users_controller.php:51
-msgid "Nothing has been changed"
-msgstr ""
-
-#: ../app/controllers/admin/articles_controller.php:70
+#: ../app/controllers/admin/articles_controller.php:67
 msgid "The article has been updated successfully"
-msgstr ""
+msgstr "The article has been updated successfully"
 
-#: ../app/controllers/admin/error_redirections_controller.php:27
+#: ../app/controllers/admin/error_redirections_controller.php:31
 msgid "Create redirection"
-msgstr ""
+msgstr "Create redirection"
 
-#: ../app/controllers/admin/error_redirections_controller.php:33
-#: ../app/controllers/admin/error_redirections_controller.php:51
+#: ../app/controllers/admin/error_redirections_controller.php:37
+#: ../app/controllers/admin/error_redirections_controller.php:55
 msgid "Another redirection with the same source URL already exists"
-msgstr ""
+msgstr "Another redirection with the same source URL already exists"
 
-#: ../app/controllers/admin/error_redirections_controller.php:38
+#: ../app/controllers/admin/error_redirections_controller.php:42
 msgid "The redirection has been created successfully"
-msgstr ""
+msgstr "The redirection has been created successfully"
 
-#: ../app/controllers/admin/error_redirections_controller.php:44
+#: ../app/controllers/admin/error_redirections_controller.php:48
 msgid "Editing redirection"
-msgstr ""
+msgstr "Editing redirection"
 
-#: ../app/controllers/admin/error_redirections_controller.php:56
+#: ../app/controllers/admin/error_redirections_controller.php:60
 msgid "The redirection has been updated successfully"
-msgstr ""
+msgstr "The redirection has been updated successfully"
 
 #: ../app/controllers/admin/galleries_controller.php:10
 msgid "Nová fotogalerie"
-msgstr ""
+msgstr "New photogallery"
 
 #: ../app/controllers/admin/images_controller.php:5
 #, php-format
 msgid "Photo gallery of the object %s#%s, section %s"
-msgstr ""
+msgstr "Photo gallery of the object %s#%s, section %s"
 
 #: ../app/controllers/admin/images_controller.php:5
 #, php-format
 msgid "Photo gallery of the object %s#%s"
-msgstr ""
+msgstr "Photo gallery of the object %s#%s"
 
 #: ../app/controllers/admin/images_controller.php:11
 msgid "Adding an image into the photo gallery"
-msgstr ""
+msgstr "Adding an image into the photo gallery"
 
 #: ../app/controllers/admin/images_controller.php:41
 msgid "Image has been created"
-msgstr ""
+msgstr "Image has been created"
 
 #: ../app/controllers/admin/images_controller.php:47
 #, php-format
 msgid "Editing of the Image #%s"
-msgstr ""
+msgstr "Editing of the Image #%s"
 
 #: ../app/controllers/admin/images_controller.php:59
 msgid "Changes have been saved"
-msgstr ""
+msgstr "Changes have been saved"
 
 #: ../app/controllers/admin/images_controller.php:72
 msgid "The image has been deleted"
-msgstr ""
+msgstr "The image has been deleted"
 
 #: ../app/controllers/admin/link_list_items_controller.php:5
 #, php-format
 msgid "Links in the list '%s'"
-msgstr ""
+msgstr "Links in the list '%s'"
 
 #: ../app/controllers/admin/link_list_items_controller.php:12
 #, php-format
 msgid "Adding link to the list '%s'"
-msgstr ""
+msgstr "Adding link to the list '%s'"
 
 #: ../app/controllers/admin/link_list_items_controller.php:23
 #, php-format
 msgid "Editing link '%s'"
-msgstr ""
+msgstr "Editing link '%s'"
+
+#: ../app/controllers/admin/link_list_items_controller.php:48
+msgid "Links"
+msgstr "Links"
 
 #: ../app/controllers/admin/link_lists_controller.php:5
 msgid "Link lists"
-msgstr ""
+msgstr "Link lists"
 
 #: ../app/controllers/admin/link_lists_controller.php:14
 msgid "Creating new link list"
-msgstr ""
+msgstr "Creating new link list"
 
 #: ../app/controllers/admin/link_lists_controller.php:20
 msgid "Editing link list"
-msgstr ""
+msgstr "Editing link list"
 
 #: ../app/controllers/admin/newsletter_subscribers_controller.php:5
 msgid "Newsletter Subscribers"
-msgstr ""
+msgstr "Newsletter Subscribers"
 
 #: ../app/controllers/admin/pages_controller.php:11
 msgid "Create page"
-msgstr ""
+msgstr "Create page"
 
 #: ../app/controllers/admin/pages_controller.php:12
 msgid "The page has been created successfully"
-msgstr ""
+msgstr "The page has been created successfully"
 
-#: ../app/controllers/admin/pages_controller.php:18
-msgid "Edit page"
-msgstr ""
+#: ../app/controllers/admin/pages_controller.php:17
+#, php-format
+msgid "Editing page %s"
+msgstr "Editing page %s"
+
+#: ../app/controllers/admin/pages_controller.php:26
+msgid "The page has been updated successfully"
+msgstr "The page has been updated successfully"
 
 #: ../app/controllers/admin/tags_controller.php:5
 msgid "Listing Tags"
-msgstr ""
+msgstr "Listing Tags"
 
 #: ../app/controllers/admin/tags_controller.php:37
 msgid "Create a new tag"
-msgstr ""
+msgstr "Create a new tag"
 
 #: ../app/controllers/admin/tags_controller.php:44
 msgid "The tag has been created successfully"
-msgstr ""
+msgstr "The tag has been created successfully"
 
 #: ../app/controllers/admin/tags_controller.php:52
 #, php-format
 msgid "Editing tag %s"
-msgstr ""
+msgstr "Editing tag %s"
 
 #: ../app/controllers/admin/tags_controller.php:59
 #: ../app/forms/admin/tags/create_new_form.php:7
 msgid "The same tag already exists"
-msgstr ""
+msgstr "The same tag already exists"
+
+#: ../app/controllers/admin/tags_controller.php:64
+#: ../app/controllers/admin/users_controller.php:51
+msgid "Nothing has been changed"
+msgstr "Nothing has been changed"
 
 #: ../app/controllers/admin/tags_controller.php:70
 msgid "The tag has been updated"
-msgstr ""
+msgstr "The tag has been updated"
 
 #: ../app/controllers/admin/users_controller.php:4
 msgid "Users list"
-msgstr ""
+msgstr "Users list"
 
 #: ../app/controllers/admin/users_controller.php:38
 msgid "The user has been created successfully"
-msgstr ""
+msgstr "The user has been created successfully"
 
 #: ../app/controllers/admin/users_controller.php:44
 #, php-format
 msgid "Editing user %s"
-msgstr ""
+msgstr "Editing user %s"
 
 #: ../app/controllers/admin/users_controller.php:57
 msgid "The user entry has been updated"
-msgstr ""
+msgstr "The user entry has been updated"
 
 #: ../app/controllers/admin/users_controller.php:63
 #, php-format
 msgid "Setting a new password to the user %s"
-msgstr ""
+msgstr "Setting a new password to the user %s"
 
 #: ../app/controllers/admin/users_controller.php:72
 msgid ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
 msgstr ""
+"The new password has been set to the user <em>%user%</em>.<br>Would be nice "
+"to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
 
 #: ../app/controllers/admin/users_controller.php:89
 msgid "The user entry has been deleted"
-msgstr ""
+msgstr "The user entry has been deleted"
 
 #: ../app/controllers/admin/users_controller.php:100
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
-msgstr ""
+msgstr "Now you are logged as <em>%s</em>"
 
 #: ../app/controllers/admin/videos_controller.php:6
 msgid "Nové video"
-msgstr ""
+msgstr "New video"
 
 #: ../app/controllers/admin/videos_controller.php:53
 msgid "Vložili jste úspěšně video"
-msgstr ""
+msgstr "You have successfully inserted a video"
 
-#: ../app/forms/admin/admin_form.php:101
+#: ../app/forms/admin/admin_form.php:107
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
 msgid "Titulek"
-msgstr ""
+msgstr "Title"
 
-#: ../app/forms/admin/admin_form.php:110
+#: ../app/forms/admin/admin_form.php:116
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:16
 msgid "Popis"
-msgstr ""
+msgstr "Description"
 
-#: ../app/forms/admin/admin_form.php:122
+#: ../app/forms/admin/admin_form.php:129
+msgid "An alternative key for system usage."
+msgstr "An alternative key for system usage."
+
+#: ../app/forms/admin/admin_form.php:129
 msgid ""
 "An alternative key for system usage. Leave it unchanged if you are not sure."
 msgstr ""
+"An alternative key for system usage. Leave it unchanged if you are not sure."
 
-#: ../app/forms/admin/admin_form.php:130
+#: ../app/forms/admin/admin_form.php:137
 msgid "Is visible?"
-msgstr ""
+msgstr "Is visible?"
 
-#: ../app/forms/admin/admin_form.php:161 ../app/forms/admin/admin_form.php:168
+#: ../app/forms/admin/admin_form.php:168 ../app/forms/admin/admin_form.php:175
 msgid "Stejný kód je již použit pro jiný záznam"
-msgstr ""
+msgstr "The same code is already used for another record"
 
 #: ../app/forms/admin/articles/articles_form.php:11
 #: ../app/forms/admin/images/images_form.php:6
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:16
+#: ../app/forms/admin/pages/pages_form.php:10
 msgid "Image"
-msgstr ""
+msgstr "Image"
 
 #: ../app/forms/admin/articles/articles_form.php:13
 msgid "Image used in article overview"
-msgstr ""
+msgstr "Image used in article overview"
 
 #: ../app/forms/admin/articles/articles_form.php:17
-#: ../app/forms/admin/pages/pages_form.php:13
+#: ../app/forms/admin/pages/pages_form.php:16
 msgid "Teaser"
-msgstr ""
+msgstr "Teaser"
 
 #: ../app/forms/admin/articles/articles_form.php:22
-#: ../app/forms/admin/pages/pages_form.php:18
+#: ../app/forms/admin/pages/pages_form.php:21
 msgid "Body"
-msgstr ""
+msgstr "Body"
 
 #: ../app/forms/admin/articles/articles_form.php:23
 msgid "Markdown format is expected"
-msgstr ""
+msgstr "Markdown format is expected"
 
-#: ../app/forms/admin/articles/articles_form.php:27
+#: ../app/forms/admin/articles/articles_form.php:28
 msgid "Published At"
-msgstr ""
+msgstr "Published At"
 
 #: ../app/forms/admin/attachments/attachments_form.php:7
 msgid "User Manual"
-msgstr ""
+msgstr "User Manual"
 
 #: ../app/forms/admin/attachments/create_new_form.php:6
+#: ../app/forms/admin/files/files_form.php:6
 msgid "File"
-msgstr ""
+msgstr "File"
 
-#: ../app/forms/admin/error_redirections/error_redirections_form.php:24
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:12
+msgid "This doesn't look like an URL or URI"
+msgstr "This doesn't look like an URL or URI"
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:16
+msgid ""
+"Address which cannot be found on this server. Here are some examples. The "
+"first one is usually the most appropriate."
+msgstr ""
+"Address which cannot be found on this server. Here are some examples. The "
+"first one is usually the most appropriate."
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:27
+msgid "Examples:"
+msgstr "Examples:"
+
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:37
 msgid "Moved permanently?"
-msgstr ""
+msgstr "Moved permanently?"
 
-#: ../app/forms/admin/files/files_form.php:5
-msgid "Soubor"
-msgstr ""
-
-#: ../app/forms/admin/files/files_form.php:7
-msgid "Název"
-msgstr ""
+#: ../app/forms/admin/error_redirections/error_redirections_form.php:47
+msgid "The Source URL and Target URL cannot be the same"
+msgstr "The Source URL and Target URL cannot be the same"
 
 #: ../app/forms/admin/gallery_items/create_new_form.php:7
 msgid "Nahrát fotografii"
-msgstr ""
+msgstr "Upload photo"
 
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:6
 msgid "Fotografie"
-msgstr ""
-
-#: ../app/forms/admin/images/images_form.php:16
-msgid "Description"
-msgstr ""
+msgstr "Photo"
 
 #: ../app/forms/admin/images/images_form.php:24
 msgid "Display image in gallery on the product card?"
-msgstr ""
+msgstr "Display image in gallery on the product card?"
 
 #: ../app/forms/admin/iobjects_form.php:12
 msgid "Titulek viditelný na webu?"
-msgstr ""
+msgstr "Is title visible on web?"
 
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:10
 msgid "URL / path"
-msgstr ""
+msgstr "URL / path"
 
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:11
 msgid ""
 "An internal link should be set as an URI (e.g. /about-us/). An external link "
 "has to be set in the full format (e.g. https://example.com/file.pdf)."
 msgstr ""
+"An internal link should be set as an URI (e.g. /about-us/). An external link "
+"has to be set in the full format (e.g. https://example.com/file.pdf)."
 
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:18
 msgid "In some cases the link looks better with an image."
-msgstr ""
+msgstr "In some cases the link looks better with an image."
 
 #: ../app/forms/admin/link_lists/link_lists_form.php:6
 msgid "System title"
-msgstr ""
+msgstr "System title"
 
 #: ../app/forms/admin/link_lists/link_lists_form.php:7
 msgid "Useful in administration. This title is not shown in the application."
-msgstr ""
+msgstr "Useful in administration. This title is not shown in the application."
 
 #: ../app/forms/admin/link_lists/link_lists_form.php:13
 msgid "About us"
-msgstr ""
+msgstr "About us"
 
 #: ../app/forms/admin/pages/create_new_form.php:8
 #: ../app/forms/admin/pages/edit_form.php:13
 msgid "The same code is used on a different page"
-msgstr ""
+msgstr "The same code is used on a different page"
 
-#: ../app/forms/admin/pages/pages_form.php:22
+#: ../app/forms/admin/pages/pages_form.php:12
+msgid "Image used on list of pages, social networks, etc."
+msgstr "Image used on list of pages, social networks, etc."
+
+#: ../app/forms/admin/pages/pages_form.php:26
 msgid "HTML title"
-msgstr ""
-
-#: ../app/forms/admin/pages/pages_form.php:25
-msgid "Content for <html><head><title>. If left empty, the title is used."
-msgstr ""
+msgstr "HTML title"
 
 #: ../app/forms/admin/pages/pages_form.php:29
-msgid "HTML description"
-msgstr ""
+msgid "Content for <html><head><title>. If left empty, the title is used."
+msgstr "Content for <html><head><title>. If left empty, the title is used."
 
-#: ../app/forms/admin/pages/pages_form.php:32
+#: ../app/forms/admin/pages/pages_form.php:33
+msgid "HTML description"
+msgstr "HTML description"
+
+#: ../app/forms/admin/pages/pages_form.php:36
 msgid ""
 "Content for <meta name=\"description\">. If left empty, the teaser is used."
 msgstr ""
+"Content for <meta name=\"description\">. If left empty, the teaser is used."
 
-#: ../app/forms/admin/pages/pages_form.php:36
+#: ../app/forms/admin/pages/pages_form.php:40
 msgid "Parent page"
-msgstr ""
+msgstr "Parent page"
 
-#: ../app/forms/admin/pages/pages_form.php:42
+#: ../app/forms/admin/pages/pages_form.php:45
 msgid "Show in sitemap?"
-msgstr ""
+msgstr "Show in sitemap?"
 
-#: ../app/forms/admin/pages/pages_form.php:48
+#: ../app/forms/admin/pages/pages_form.php:51
 msgid "Visible?"
-msgstr ""
+msgstr "Visible?"
 
-#: ../app/forms/admin/pages/pages_form.php:60
-msgid "You cannot use the same page as the parent for the current page."
-msgstr ""
+#: ../app/forms/admin/pages/pages_form.php:67
+msgid "The page cannot be placed under itself."
+msgstr "The page cannot be placed under itself."
+
+#: ../app/forms/admin/pages/pages_form.php:73
+msgid "Nesting is too deep."
+msgstr "Nesting is too deep."
 
 #: ../app/forms/admin/pictures/pictures_form.php:8
 msgid "Obrázek"
-msgstr ""
+msgstr "Picture"
 
 #: ../app/forms/admin/tags/tags_form.php:12
 msgid "Tag lokalized"
-msgstr ""
+msgstr "Tag localized"
 
 #: ../app/forms/admin/tags/tags_form.php:15
 msgid ""
 "Enter proper value when the tag itself is not good in the given language"
 msgstr ""
+"Enter proper value when the tag itself is not good in the given language"
 
 #: ../app/forms/admin/users/edit_password_form.php:5
 msgid "New password"
-msgstr ""
+msgstr "New password"
 
 #: ../app/forms/admin/users/edit_password_form.php:11
 msgid "Set password"
-msgstr ""
+msgstr "Set password"
 
-#: ../app/forms/admin/users/users_form.php:6
+#: ../app/forms/admin/users/users_form.php:16
 msgid "Firstname"
-msgstr ""
-
-#: ../app/forms/admin/users/users_form.php:11
-msgid "Lastname"
-msgstr ""
+msgstr "Firstname"
 
 #: ../app/forms/admin/users/users_form.php:21
-msgid "Is active?"
-msgstr ""
+msgid "Lastname"
+msgstr "Lastname"
 
-#: ../app/forms/admin/users/users_form.php:24
+#: ../app/forms/admin/users/users_form.php:31
+msgid "Is active?"
+msgstr "Is active?"
+
+#: ../app/forms/admin/users/users_form.php:34
 msgid "Inactive user can not be logged in"
-msgstr ""
+msgstr "Inactive user can not be logged in"
+
+#: ../app/forms/admin/users/users_form.php:48
+msgid "The same login is already used for another user"
+msgstr "The same login is already used for another user"
 
 #: ../app/forms/admin/videos/create_new/get_url_form.php:6
 msgid "Pokračovat"
-msgstr ""
+msgstr "Continue"
 
 #: ../app/forms/admin/videos/videos_form.php:9
 msgid "Automatické spuštění videa"
-msgstr ""
+msgstr "Auto-start video"
 
 #: ../app/forms/admin/videos/videos_form.php:13
 msgid "Po ukončení přehrát znovu"
-msgstr ""
+msgstr "Play again when finished"
 
 #~ msgid "atk14.date_format"
 #~ msgstr "m/d/Y"

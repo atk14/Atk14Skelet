@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2019-12-06 13:15+0100\n"
-"PO-Revision-Date: 2019-12-06 13:30+0100\n"
+"POT-Creation-Date: 2020-01-30 10:45+0100\n"
+"PO-Revision-Date: 2020-01-30 11:01+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -293,6 +293,9 @@ msgstr "Editovat objekt"
 msgid "Create new object"
 msgstr "Vytvořit nový objekt"
 
+msgid "Objects administration"
+msgstr "Správa objektů"
+
 msgid "Edit links"
 msgstr "Editovat odkazy"
 
@@ -336,7 +339,7 @@ msgstr "Zde neleznete seznam příkazů v <em>%1</em>."
 msgid "Pages"
 msgstr "Stránky"
 
-#: ../app/controllers/users_controller.php:17
+#: ../app/controllers/users_controller.php:18
 msgid "New user registration"
 msgstr "Registrace nového uživatele"
 
@@ -359,6 +362,24 @@ msgstr "Nabízíme skvělé restful API"
 msgid "Recent articles"
 msgstr "Nejnovější články"
 
+msgid ""
+"You have been successfully registered and now you are logged in as <em>%1</"
+"em>."
+msgstr ""
+"Byl(a) jste úspěšně zaregistrován(a) a teď jste přihlášen(a) jako <em>%1</"
+"em>."
+
+msgid ""
+"Now you can <a href=\"%1\">go to the homepage</a> and enjoy our website."
+msgstr ""
+"Nyní můžete přejít <a href=\"%1\">na úvodní stránku</a> a užít si náš web."
+
+msgid "You have been successfully registered."
+msgstr "Byl(a) jste úspěšně zaregistrován(a)."
+
+msgid "Now you can <a href=\"%1\">sign in</a> and enjoy our website."
+msgstr "Nyní se můžete <a href=\"%1\">přihlásit</a> a užít si náš web."
+
 #: ../app/forms/users/create_new_form.php:6
 msgid "Username (login)"
 msgstr "Uživatelské jméno (login)"
@@ -377,11 +398,11 @@ msgstr "Jste administrátor?"
 msgid "Yes, you are"
 msgstr "Ano, jste"
 
-#: ../app/controllers/users_controller.php:35
+#: ../app/controllers/users_controller.php:44
 msgid "Change your account data"
 msgstr "Změnit vaše údaje"
 
-#: ../app/controllers/users_controller.php:52
+#: ../app/controllers/users_controller.php:61
 msgid "Change your password"
 msgstr "Změna vašeho hesla"
 
@@ -426,6 +447,11 @@ msgstr "Vaše heslo bylo změněno"
 #: ../app/controllers/application_mailer.php:72
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
+
+#: ../app/controllers/application.php:45
+#: ../app/controllers/users_controller.php:5
+msgid "User profile"
+msgstr "Profil uživatele"
 
 #: ../app/controllers/application_rest_api.php:76
 #, php-format
@@ -519,7 +545,7 @@ msgstr ""
 "nastavena."
 
 #: ../app/controllers/password_recoveries_controller.php:62
-#: ../app/controllers/users_controller.php:66
+#: ../app/controllers/users_controller.php:75
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
@@ -527,31 +553,31 @@ msgstr "Vaše heslo bylo úspěšně změněno"
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
-#: ../app/controllers/users_controller.php:4
-#: ../app/controllers/users_controller.php:79
-msgid "User profile"
-msgstr "Profil uživatele"
-
-#: ../app/controllers/users_controller.php:9
+#: ../app/controllers/users_controller.php:10
 msgid "To register as a new user, sign out first"
 msgstr "Abyste se mohl zaregistrovat, napřed se odhlaste"
 
-#: ../app/controllers/users_controller.php:29
+#: ../app/controllers/users_controller.php:31
 #, php-format
 msgid ""
 "You have been successfully registered and now you are logged in as <em>%s</"
 "em>"
-msgstr "Byl jste úspěšně zaregistrován a teď jste přihlášen jako <em>%s</em>"
+msgstr ""
+"Byl(a) jste úspěšně zaregistrován(a) a teď jste přihlášen(a) jako <em>%s</em>"
 
-#: ../app/controllers/users_controller.php:41
+#: ../app/controllers/users_controller.php:40
+msgid "Thank you for your registration!"
+msgstr "Děkujeme za vaši registraci!"
+
+#: ../app/controllers/users_controller.php:50
 msgid "Nothing has been changed"
 msgstr "Nic nebylo změněno"
 
-#: ../app/controllers/users_controller.php:46
+#: ../app/controllers/users_controller.php:55
 msgid "Your account data has been updated"
 msgstr "Údaje vašeho účtu byly změněny"
 
-#: ../app/controllers/users_controller.php:56
+#: ../app/controllers/users_controller.php:65
 msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
@@ -594,11 +620,11 @@ msgstr ""
 msgid "Typ souboru na tomto URL není video"
 msgstr "Typ souboru na tomto URL není video"
 
-#: ../app/fields/page_field.php:4
+#: ../app/fields/page_field.php:5
 msgid "page"
 msgstr "stránka"
 
-#: ../app/fields/page_field.php:32
+#: ../app/fields/page_field.php:29
 msgid "There is no such page"
 msgstr "Takový stránka neexistuje"
 
