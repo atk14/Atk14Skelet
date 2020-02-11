@@ -5,8 +5,8 @@
 	width: 100%;
 	&__wrapper {
 		position: absolute;
-		width: 100%;
 		top: -35px;
+		right: 0;
 		.btn, .btn-group {
 			background-color: rgba(white, 0.85);
 			&:hover, &:focus {
@@ -15,6 +15,7 @@
 		}
 	}
 	& + & {
+		z-index: 98;
 		.admin-object-menu__wrapper {
 			top: 0;
 		}
