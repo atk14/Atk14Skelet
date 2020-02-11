@@ -38,6 +38,7 @@ definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
 // define("INVITATION_CODE_FOR_USER_REGISTRATION","some great secret");
 
 definedef("PUPIQ_API_KEY","101.DemoApiKeyForAccountWithLimitedFunctions");
+definedef("PUPIQ_HTTPS",REDIRECT_TO_SSL_AUTOMATICALLY);
 
 definedef("ARTICLE_BODY_MAX_WIDTH",825);
 
