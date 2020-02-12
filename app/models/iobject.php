@@ -128,9 +128,16 @@ class Iobject extends ApplicationModel implements Translatable {
 		$type = $this->getObjectType(); // "galleries" -> "Gallery"
 		$title = strip_tags($this->getTitle());
 		$title = preg_replace('/[\[\]\n\r]/','_',$title);
+		$title = trim($title);
+		if(!strlen($title)){
+			return sprintf('[#%s %s]',$this->getId(),$this->_getObjectClassName()); // [#123 Video]
+		}
 		return sprintf('[#%s %s: %s]',$this->getId(),$this->_getObjectClassName(),$title); // [#123 Video: Arnold jede na kole]
 	}
 
+	/**
+	 * Returns HTML snippet to be inserted into a content (article, page...)
+	 */
 	function getHtmlSource($options = array()){
 		$smarty = Atk14Utils::GetSmarty(array(
 			ATK14_DOCUMENT_ROOT."app/views/"
@@ -138,6 +145,31 @@ class Iobject extends ApplicationModel implements Translatable {
 		Atk14Require::Helper("function.iobject_to_html",$smarty);
 		return smarty_function_iobject_to_html(array("iobject" => $this), $smarty);
 		//return sprintf('<div style="background-color: red;">%s %s</div>',$this->_getObjectClassName(),$this->getId());
+	}
+
+	/**
+	 * A public URL of detail of the given object
+	 *
+	 * If the object is an image, it could be a link to the image itself.
+	 *
+	 * If the object is a video, it could be an external link to the video on YouTube, Vimeo, etc.
+	 */
+	function getDetailUrl(){
+		$object = $this->getObject();
+		if(method_exists($object,"getUrl")){
+			return $object->getUrl();
+		}
+		if(is_a($object,"TableRecord") && $object->hasKey("url")){
+			return $object->g("url");
+		}
+
+		$controller = String4::ToObject(get_class($object))->underscore()->pluralize()->toString(); // "Gallery" -> "galleries"
+		return Atk14Url::BuildLink(array(
+			"namespace" => "",
+			"controller" => $controller,
+			"action" => "detail",
+			"id" => $object,
+		));
 	}
 
 	/**
