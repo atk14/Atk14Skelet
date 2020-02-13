@@ -13,8 +13,9 @@ class ArticlesForm extends AdminForm {
 			"help_text" => _("Image used in article overview")
 		]));
 
-		$this->add_translatable_field("teaser",new TextField(array(
+		$this->add_translatable_field("teaser",new MarkdownField(array(
 			"label" => _("Teaser"),
+			"help_text" => _("Markdown format is expected"),
 			"required" => false,
 		)));
 
