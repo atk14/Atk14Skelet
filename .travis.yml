@@ -24,13 +24,14 @@ before_install:
   - locale -a
   - composer global require "phpunit/phpunit=4.8.*|5.7.*"
   - git submodule init && git submodule update
-  - ./scripts/check_system || echo "FIX REQUIREMENTS!"
+  - ./scripts/check_system || echo "FIX SYSTEM REQUIREMENTS!"
 
 before_script:
   - travis_retry composer install --dev --no-interaction --prefer-dist
   - echo "y" | ATK14_ENV=test ./scripts/create_database
   - echo "SELECT VERSION()" | ATK14_ENV=test ./scripts/dbconsole
   - ATK14_ENV=test ./scripts/migrate
+  - ./scripts/check_installation || echo "FIX APPLICATION REQUIREMENTS!"
 
 script:
   - ./scripts/run_all_tests && echo "EVERYTHING IS FINE"
