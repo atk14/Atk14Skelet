@@ -31,6 +31,7 @@ before_script:
   - echo "y" | ATK14_ENV=test ./scripts/create_database
   - echo "SELECT VERSION()" | ATK14_ENV=test ./scripts/dbconsole
   - ATK14_ENV=test ./scripts/migrate
+  - echo '127.0.0.1 atk14skelet.localhost' | sudo tee --append /etc/hosts
   - ./scripts/check_installation || echo "FIX APPLICATION REQUIREMENTS!"
 
 script:
