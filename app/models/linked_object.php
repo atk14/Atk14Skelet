@@ -47,6 +47,24 @@ class LinkedObject extends ApplicationModel implements Rankable {
 	}
 
 	/**
+	 * Deletes instances for the given object
+	 *
+	 *	Image::DeleteInstancesFor($article);
+	 *	Attachment::DeleteInstancesFor($article);
+	 *
+	 */
+	static function DeleteInstancesFor($obj){
+		$class_name = get_called_class();
+		$holder = new $class_name(); // Image, Attachment
+		$holder_table_name = $holder->getTableName(); // images, attachments
+		$dbmole = $class_name::GetDbmole();
+		$dbmole->doQuery("DELETE FROM $holder_table_name WHERE table_name=:table_name AND record_id=:record_id",array(
+			":table_name" => $obj->getTableName(),
+			":record_id" => $obj,
+		));
+	}
+
+	/**
 	 * Vrati objekty pripojene k jinemu objektu
 	 *
 	 *	$images = Image::GetInstancesFor($article);

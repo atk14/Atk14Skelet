@@ -424,6 +424,9 @@ class ApplicationModel extends TableRecord{
 		}
 
 		Translation::DeleteObjectStrings($this);
+		IobjectLink::DeleteInstancesFor($this);
+		Image::DeleteInstancesFor($this);
+		Attachment::DeleteInstancesFor($this);
 		return parent::destroy();
 	}
 
