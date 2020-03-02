@@ -144,9 +144,12 @@ class Slug extends ApplicationModel{
 		Slug::$CACHE = array(); // mazeme uplne vsechno...
 	}
 
-	static function StringToSluggish($string) {
+	static function StringToSluggish($string,$suffix = "") {
+		// just checking whether there is a proper version of String4
+		myAssert(String4::ToObject("test 123")->toSlug(array("suffix" => "456"))->toString() === "test-123-456");
+
 		$_sluggish = new String4($string);
-		return $_sluggish->substr(0,SLUG_MAX_LENGTH)->toSlug();
+		return $_sluggish->substr(0,SLUG_MAX_LENGTH)->toSlug(array("max_length" => SLUG_MAX_LENGTH, "suffix" => $suffix));
 	}
 
 	/**
@@ -182,11 +185,14 @@ class Slug extends ApplicationModel{
 			return;
 		}
 
-		$suffix = 0;
+		$suffix = 2;
 		$slug = Slug::StringToSluggish($pattern);
 		while($class_name::GetInstanceBySlug($slug,$lang,$object->getSlugSegment())){
+			if($suffix>=100){ throw new Exception("Slug::_BuildSlug(): Too many retries"); }
+
+			$slug = Slug::StringToSluggish($pattern,$suffix);
+
 			$suffix++;
-			$slug = Slug::StringToSluggish("$pattern $suffix");
 		}
 		return $slug;
 	}
