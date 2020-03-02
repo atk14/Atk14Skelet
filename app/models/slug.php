@@ -149,7 +149,7 @@ class Slug extends ApplicationModel{
 		myAssert(String4::ToObject("test 123")->toSlug(array("suffix" => "456"))->toString() === "test-123-456");
 
 		$_sluggish = new String4($string);
-		return $_sluggish->substr(0,SLUG_MAX_LENGTH)->toSlug(array("max_length" => SLUG_MAX_LENGTH, "suffix" => $suffix));
+		return $_sluggish->toSlug(array("max_length" => SLUG_MAX_LENGTH, "suffix" => $suffix));
 	}
 
 	/**
