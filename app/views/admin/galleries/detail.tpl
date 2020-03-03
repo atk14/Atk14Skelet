@@ -1,42 +1,45 @@
 {assign var=gallery_items value=$gallery->getGalleryItems()}
 
+{dropdown_menu clearfix=false}
+	{a action="edit" id=$gallery}{!"edit"|icon} {t}Edit{/t}{/a}
+{/dropdown_menu}
+
 <h1>{$page_title}</h1>
 
 <p>
-{$gallery->getDescription()|default:"{t}bez popisu{/t}"}
+{!$gallery->getDescription()|h|default:"<em>{t}bez popisu{/t}</em>"}
 </p>
+
+
+<h3>{t}Photos{/t}</h3>
+
+<div class="js--image_gallery_wrap">
 
 {if !$gallery_items}
 
-	<p>{t}Fotogalerie zatím neobsahuje žádný obrázek.{/t}</p>
-
-{else}
-
-	<ul class="list-group list-sortable" data-sortable-url="{link_to action="gallery_items/set_rank"}">
-	{foreach $gallery->getGalleryItems() as $item}
-
-		<li class="list-group-item clearfix" data-id="{$item->getId()}">
-
-				<div class="pull-left" style="padding-right: 1em;">
-					{render partial="shared/list_thumbnail" image=$item->getImageUrl()}
-				</div>
-
-				<div class="pull-right">
-					{dropdown_menu}
-						{a action="gallery_items/edit" id=$item}<i class="glyphicon glyphicon-edit"></i> {t}Upravit{/t}{/a}
-						{a_destroy controller="gallery_items" id=$item}<i class="glyphicon glyphicon-remove"></i> {t}Smazat{/t}{/a_destroy}
-					{/dropdown_menu}
-				</div>
-
-				<strong>{a action="gallery_items/edit" id=$item _title="{t}editovat{/t}"}{$item->getTitle()|default:"{t}bez titulku{/t}"}{/a}</strong><br>
-				{$item->getDescription()|default:"{t}bez popisu{/t}"}
-		</li>
-	{/foreach}
-	</ul>
+	<div class="img-message">
+		<p>{t}Fotogalerie zatím neobsahuje žádný obrázek.{/t}</p>
+	</div>
 
 {/if}
 
+<ul class="list-group list-group-images list-sortable" data-sortable-url="{link_to action="gallery_items/set_rank"}">
+	{render partial="gallery_item_item" from=$gallery->getGalleryItems()}
+</ul>
+
+<div class="progress">
+  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
+    <span class="sr-only">0%</span>
+  </div>
+</div>
+
+<p>{a action="gallery_items/create_new" gallery_id=$gallery _class="btn btn-default js--image_to_gallery_link"}<i class="glyphicon glyphicon-plus-sign"></i> {t}Add an image{/t}{/a}</p>
+
+</div>
+
+{*
 <h3>{t}Přidat fotografii{/t}</h3>
 
 {render partial="shared/form" form=$create_item_form}
+*}
 
