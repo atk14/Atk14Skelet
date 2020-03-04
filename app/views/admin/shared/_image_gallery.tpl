@@ -8,6 +8,8 @@
 {if !$section_title}{assign section_title "{t}Photo gallery{/t}"}{/if}
 {if !$empty_list_message}{assign empty_list_message "{t}Currently there are no images{/t}"}{/if}
 
+<div class="drop-zone">
+
 <h3>{$section_title}</h3>
 
 <div class="js--image_gallery_wrap">
@@ -26,12 +28,10 @@
 	{/if}
 </ul>
 
-<div class="progress">
-  <div class="progress-bar" role="progressbar" aria-valuenow="0" aria-valuemin="0" aria-valuemax="100" style="width: 0%;">
-    <span class="sr-only">0%</span>
-  </div>
-</div>
+<br>
 
-<p>{a action="images/create_new" table_name=$object->getTableName() record_id=$object->getId() section=$section _class="btn btn-default js--image_to_gallery_link"}<i class="glyphicon glyphicon-plus-sign"></i> {t}Add an image{/t}{/a}</p>
+{render partial="shared/xhr_upload_image_form" url="{link_to action="images/create_new" table_name=$object->getTableName() record_id=$object->getId() section=$section _connector="&"}" label="{t}Přidat obrázky do fotogalerie{/t}"}
 
-</div>
+</div> {* class="js--image_gallery_wrap" *}
+
+</div> {* class="drop-zone" *}

@@ -14,7 +14,7 @@
 				ADMIN.utils.handleSuggestions();
 				ADMIN.utils.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
-				ADMIN.utils.handleGalleryImagesUpload();
+				ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
 
 				// Form hints.
@@ -80,29 +80,30 @@
 				} );
 			},
 
-			handleGalleryImagesUpload: function() {
+			handleXhrImageUpload: function() {
 				
-				$( ".js--image_to_gallery_link" ).each( function() {
+				$( ".js--xhr_upload_image_form" ).each( function() {
 
-					var $link = $( this );
-					var $wrap = $link.closest(".js--image_gallery_wrap");
+					var $form = $( this );
+					var $wrap = $form.closest(".js--image_gallery_wrap");
+					var $dropZone = $form.closest(".drop-zone");
+					var highglightDropZone = function() { $dropZone.addClass("drop-zone-highlight"); };
+					var unhighglightDropZone = function() { $dropZone.removeClass("drop-zone-highlight"); };
 
-					$link.hide();
+					$dropZone.on( "dragenter",  highglightDropZone );
+					$dropZone.on( "dragover",  highglightDropZone );
+					$dropZone.on( "dragleave",  unhighglightDropZone );
+					$dropZone.on( "drop",  unhighglightDropZone );
 
-					var url = $link.attr( "href" ),
+					var url = $form.attr( "action" ),
 						$progress = $wrap.find( ".progress-bar" ),
 						$msg = $wrap.find( ".img-message" ),
 						$list = $wrap.find( ".list-group-images" ),
-						$input = $( "<input>", {
-							"type": "file",
-							"name": "files[]",
-							"data-url": url,
-							"multiple": "multiple"
-						} );
-
-					$input.insertBefore( $link );
+						$input = $form.find("input");
+						$input.data("url",url);
 
 					$input.fileupload( {
+						dropZone: $dropZone,
 						dataType: "json",
 						multipart: false,
 						start: function() {
