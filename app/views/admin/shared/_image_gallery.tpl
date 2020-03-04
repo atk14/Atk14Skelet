@@ -14,13 +14,9 @@
 
 <div class="js--image_gallery_wrap">
 
-{assign var=images value=Image::GetImages($object,$section)}
+{render partial="shared/xhr_upload_image_form" url="{link_to action="images/create_new" table_name=$object->getTableName() record_id=$object->getId() section=$section _connector="&"}" label="{t}Přidat obrázky do fotogalerie{/t}"}
 
-{if !$images}
-	<div class="img-message">
-		<p>{$empty_list_message}</p>
-	</div>
-{/if}
+{assign var=images value=Image::GetImages($object,$section)}
 
 <ul class="list-group list-group-images list-sortable" data-sortable-url="{link_to action="images/set_rank"}">
 	{if $images}
@@ -28,9 +24,11 @@
 	{/if}
 </ul>
 
-<br>
-
-{render partial="shared/xhr_upload_image_form" url="{link_to action="images/create_new" table_name=$object->getTableName() record_id=$object->getId() section=$section _connector="&"}" label="{t}Přidat obrázky do fotogalerie{/t}"}
+{if !$images}
+	<div class="img-message">
+		<em>{$empty_list_message}</em>
+	</div>
+{/if}
 
 </div> {* class="js--image_gallery_wrap" *}
 

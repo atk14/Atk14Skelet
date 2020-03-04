@@ -7,6 +7,8 @@
 
 <form action="{$url}" class="form-horizontal js--xhr_upload_image_form" method="post" enctype="multipart/form-data">
 
+	<p>{t}Upload multiple files with the file dialog or by dragging and dropping images onto the dashed region{/t}</p>
+
 	<div class="custom-file">
 		<input type="file" name="files[]" class="custom-file-input" id="{$uniqid}" required multiple>
 		<label class="custom-file-label" for="{$uniqid}">{$label}</label>

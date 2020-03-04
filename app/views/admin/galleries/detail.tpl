@@ -16,6 +16,12 @@
 
 <div class="js--image_gallery_wrap">
 
+{render partial="shared/xhr_upload_image_form" url="{link_to action="gallery_items/create_new" gallery_id=$gallery _connector="&"}" label="{t}Přidat obrázky do fotogalerie{/t}"}
+
+<ul class="list-group list-group-images list-sortable" data-sortable-url="{link_to action="gallery_items/set_rank"}">
+	{render partial="gallery_item_item" from=$gallery->getGalleryItems()}
+</ul>
+
 {if !$gallery_items}
 
 	<div class="img-message">
@@ -23,14 +29,6 @@
 	</div>
 
 {/if}
-
-<ul class="list-group list-group-images list-sortable" data-sortable-url="{link_to action="gallery_items/set_rank"}">
-	{render partial="gallery_item_item" from=$gallery->getGalleryItems()}
-</ul>
-
-<br>
-
-{render partial="shared/xhr_upload_image_form" url="{link_to action="gallery_items/create_new" gallery_id=$gallery _connector="&"}" label="{t}Přidat obrázky do fotogalerie{/t}"}
 
 </div> {* class="js--image_gallery_wrap" *}
 
