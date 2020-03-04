@@ -1,0 +1,15 @@
+// Use .js-only for content displayable with enabled javascript.
+// Use .nojs-only for content displayable with disabled (or missing) javascript.
+html {
+	.js-only {
+		display: none;
+	}
+	&.js {
+		.js-only {
+			display: normal;
+		}
+		.nojs-only {
+			display: none;
+		}
+	}
+}
