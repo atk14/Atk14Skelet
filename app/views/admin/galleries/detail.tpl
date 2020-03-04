@@ -22,14 +22,6 @@
 	{render partial="gallery_item_item" from=$gallery->getGalleryItems()}
 </ul>
 
-{if !$gallery_items}
-
-	<div class="img-message">
-		<p>{t}Fotogalerie zatím neobsahuje žádný obrázek.{/t}</p>
-	</div>
-
-{/if}
-
 </div> {* class="js--image_gallery_wrap" *}
 
 </div> {* class="drop-zone" *}

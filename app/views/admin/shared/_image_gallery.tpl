@@ -6,7 +6,6 @@
  *}
 
 {if !$section_title}{assign section_title "{t}Photo gallery{/t}"}{/if}
-{if !$empty_list_message}{assign empty_list_message "{t}Currently there are no images{/t}"}{/if}
 
 <div class="drop-zone">
 
@@ -23,12 +22,6 @@
 		{render partial="shared/image_gallery_item" from=$images item=image}
 	{/if}
 </ul>
-
-{if !$images}
-	<div class="img-message">
-		<em>{$empty_list_message}</em>
-	</div>
-{/if}
 
 </div> {* class="js--image_gallery_wrap" *}
 

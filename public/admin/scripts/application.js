@@ -97,7 +97,6 @@
 
 					var url = $form.attr( "action" ),
 						$progress = $wrap.find( ".progress-bar" ),
-						$msg = $wrap.find( ".img-message" ),
 						$list = $wrap.find( ".list-group-images" ),
 						$input = $form.find("input");
 						$input.data("url",url);
@@ -129,8 +128,6 @@
 								.appendTo( $list );
 
 							$list.sortable( "refresh" );
-
-							$msg.remove();
 						},
 						stop: function() {
 							$list.find( ".not-processed" )
