@@ -1,0 +1,9 @@
+.drop-zone {
+	border: 2px dashed $gray-400;
+  border-radius: 20px;
+  padding: 20px;
+}
+
+.drop-zone-highlight {
+	border-color: $orange;
+}
