@@ -12,7 +12,13 @@
 	{render partial="shared/list_thumbnail" image=$image align="left"}
 	</div>
 
-	{if $image->getName()}<strong>{$image->getName()}</strong><br>{/if}
-	{$image->getDescription()}
+	{if !$image->getName()|strlen && !$image->getDescription()|strlen}
+		<small><em>{t}bez titulku nebo popisu{/t}</em></small>
+	{else}
+		{if $image->getName()|strlen}
+			<strong>{$image->getName()}</strong><br>
+		{/if}
+		{$image->getDescription()}
+	{/if}
 
 </li>

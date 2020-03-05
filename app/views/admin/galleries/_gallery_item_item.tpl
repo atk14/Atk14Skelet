@@ -8,6 +8,12 @@
 		{render partial="shared/list_thumbnail" image=$gallery_item->getImageUrl()}
 	</div>
 
-	<strong>{!$gallery_item->getTitle()|h|default:"<em>{t}bez titulku{/t}</em>"}</strong><br>
-	{!$gallery_item->getDescription()|h|default:"<em>{t}bez popisu{/t}</em>"}
+	{if !$gallery_item->getTitle()|strlen && !$gallery_item->getDescription()|strlen}
+		<small><em>{t}bez titulku nebo popisu{/t}</em></small>
+	{else}
+		{if $gallery_item->getTitle()|strlen}
+			<strong>{$gallery_item->getTitle()}</strong><br>
+		{/if}
+		{$gallery_item->getDescription()}
+	{/if}
 </li>
