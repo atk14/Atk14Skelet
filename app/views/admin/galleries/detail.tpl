@@ -10,7 +10,7 @@
 {!$gallery->getDescription()|h|default:"<em>{t}bez popisu{/t}</em>"}
 </p>
 
-<div class="drop-zone">
+<div class="drop-zone" data-dragdrop-hint="{t}Drag files here{/t}">
 
 <h3>{t}Photos{/t}</h3>
 
@@ -18,9 +18,9 @@
 
 {render partial="shared/xhr_upload_image_form" url="{link_to action="gallery_items/create_new" gallery_id=$gallery _connector="&"}" label="{t}Přidat obrázky do fotogalerie{/t}"}
 
-<ul class="list-group list-group-images list-sortable" data-sortable-url="{link_to action="gallery_items/set_rank"}">
+<ul class="list-group list-group-images list-sortable" data-sortable-url="{link_to action="gallery_items/set_rank"}">{trim}
 	{render partial="gallery_item_item" from=$gallery->getGalleryItems()}
-</ul>
+{/trim}</ul>
 
 </div> {* class="js--image_gallery_wrap" *}
 

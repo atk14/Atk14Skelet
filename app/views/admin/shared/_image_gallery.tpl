@@ -7,7 +7,7 @@
 
 {if !$section_title}{assign section_title "{t}Photo gallery{/t}"}{/if}
 
-<div class="drop-zone">
+<div class="drop-zone" data-dragdrop-hint="{t}Drag files here{/t}">
 
 <h3>{$section_title}</h3>
 
@@ -17,11 +17,11 @@
 
 {assign var=images value=Image::GetImages($object,$section)}
 
-<ul class="list-group list-group-images list-sortable" data-sortable-url="{link_to action="images/set_rank"}">
+<ul class="list-group list-group-images list-sortable" data-sortable-url="{link_to action="images/set_rank"}">{trim}
 	{if $images}
 		{render partial="shared/image_gallery_item" from=$images item=image}
 	{/if}
-</ul>
+{/trim}</ul>
 
 </div> {* class="js--image_gallery_wrap" *}
 
