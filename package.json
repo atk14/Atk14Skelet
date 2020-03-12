@@ -59,6 +59,7 @@
     "svg-country-flags": "^1.2.6",
     "bootstrap4-notify": "4.0.3",
     "popper.js": "^1.15.0",
-    "animate.css": "^3.7.2"
+    "animate.css": "^3.7.2",
+    "favicons": "^6.0.0"
   }
 }

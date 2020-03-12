@@ -56,6 +56,8 @@
 			{javascript_script_tag file="$public/dist/scripts/html5shiv.min.js"}
 			{javascript_script_tag file="$public/dist/scripts/respond.min.js"}
 		<![endif]-->
+		
+		{render partial="shared/layout/favicons"}
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 	</head>

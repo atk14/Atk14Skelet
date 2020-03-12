@@ -3,6 +3,7 @@ var del = require( "del" );
 var rename = require( "gulp-rename" );
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
+var favicons = require("favicons").stream;
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
@@ -68,6 +69,41 @@ gulp.task( "scripts", function() {
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/scripts" ) )
 		.pipe( browserSync.stream() );
+} );
+
+// Favicons
+gulp.task( "favicons", function() {
+	gulp.src( [ "public/favicons/favicon.png" ] )
+	.pipe(
+		favicons( {
+			appName: "ATK14 Skelet Application",
+			appShortName: "ATK14 Skelet",
+			appDescription: "This is my application",
+			background: "#ffffff",
+			path: "/public/dist/favicons/",
+			url: "http://skelet.atk14.net/",
+			display: "standalone",
+			orientation: "portrait",
+			scope: "/",
+			start_url: "/?homescreen=1",
+			version: 1.0,
+			logging: false,
+			html: "index.html",
+			pipeHTML: false,
+			replace: true,
+			icons: {
+				android: { overlayShadow: false, overlayGlow: false },
+				appleIcon: { overlayShadow: false, overlayGlow: false },
+				appleStartup: false,
+				coast: false,
+				favicons: { overlayShadow: false, overlayGlow: false },
+				firefox: false,
+				windows: { overlayShadow: false, overlayGlow: false },
+				yandex: false
+			}
+		} )
+	)
+	.pipe( gulp.dest( "public/dist/favicons" ) );
 } );
 
 // Lint & Code style
@@ -139,6 +175,7 @@ var buildTasks = [
 	"styles",
 	"styles-vendor",
 	"scripts",
+	"favicons",
 	"copy"
 ];
 
