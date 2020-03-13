@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="16" height="16">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #808080 } 
+		.shp1 { fill: #ffffff } 
+	</style>
+	<g id="rows">
+		<path id="Shape 2 copy" class="shp0" d="M0 0L20 0L20 14L0 14L0 0Z" />
+		<path id="Shape 2 copy 2" class="shp0" d="M22 0L30 0L30 14L22 14L22 0Z" />
+		<path id="Shape 2 copy 3" class="shp0" d="M32 0L52 0L52 14L32 14L32 0Z" />
+		<path id="Shape 3" class="shp0" d="M0 16L23 16L23 29L0 29L0 16Z" />
+		<path id="Shape 2 copy 5" class="shp0" d="M25 16L43 16L43 29L25 29L25 16Z" />
+		<path id="Shape 2 copy 6" class="shp0" d="M45 16L58 16L58 29L45 29L45 16Z" />
+		<path id="Shape 2 copy 4" class="shp0" d="M0 31L20 31L20 45L0 45L0 31Z" />
+		<path id="Shape 2 copy 8" class="shp0" d="M39 31L50 31L50 45L39 45L39 31Z" />
+		<path id="Shape 2 copy 9" class="shp0" d="M0 47L11 47L11 60L0 60L0 47Z" />
+		<path id="Shape 2 copy 7" class="shp0" d="M22 31L37 31L37 45L22 45L22 31Z" />
+		<path id="Shape 2 copy 10" class="shp0" d="M13 47L33 47L33 60L13 60L13 47Z" />
+		<path id="Shape 2 copy 11" class="shp0" d="M35 47L56 47L56 60L35 60L35 47Z" />
+	</g>
+</svg>

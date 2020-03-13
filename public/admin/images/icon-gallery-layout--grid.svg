@@ -1,0 +1,15 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 60 60" width="16" height="16">
+	<style>
+		tspan { white-space:pre }
+		.shp0 { fill: #808080 } 
+		.shp1 { fill: #ffffff } 
+	</style>
+	<g id="grid">
+		<path id="Background" class="shp0" d="M0 40.95L19 40.95L19 60L0 60L0 40.95Z" />
+		<path id="Layer 1 copy" class="shp0" d="M42 40.95L60 40.95L60 60L42 60L42 40.95Z" />
+		<path id="Shape 1" class="shp0" d="M21 41L40 41L40 60L21 60L21 41Z" />
+		<path id="Shape 2" class="shp0" d="M0 0L60 0L60 39L0 39L0 0Z" />
+		<path id="Layer 1" class="shp1" d="M49 45L52 45L52 56L49 56L49 45Z" />
+		<path id="Layer 1 copy 2" class="shp1" d="M45 49L56 49L56 52L45 52L45 49Z" />
+	</g>
+</svg>
