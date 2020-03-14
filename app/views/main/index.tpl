@@ -24,7 +24,7 @@
 		<h3>{t}The Skelet contains mainly{/t}</h3>
 		<ul>
 			<li><a href="{"about_us"|link_to_page}">{t}Pages with a hierarchical structure{/t}</a></li>
-			<li>{a action="main/contact"}{t}Contact page with fast contact form{/t}{/a}</li>
+			<li><a href="{"contact"|link_to_page}">{t}Contact page with fast contact form{/t}</a></li>
 			<li>{a action="articles/index"}{t}Articles section{/t}{/a}</li>
 			<li>{t}Manageable link lists in header and footer{/t}</li>
 			<li>{a action="users/create_new"}{t}User registration{/t}{/a} ({t}with strong blowfish passwords hashing{/t})</li>
