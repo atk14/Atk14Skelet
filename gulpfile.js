@@ -73,19 +73,25 @@ gulp.task( "scripts", function() {
 
 // Favicons
 gulp.task( "favicons", function() {
+	var execSync = require( "child_process" ).execSync;
+	var appName = execSync( "./scripts/dump_settings ATK14_APPLICATION_NAME" ).toString().trim();
+	var appDescription = execSync( "./scripts/dump_settings ATK14_APPLICATION_DESCRIPTION" ).toString().trim();
+	var appUrl = execSync( "./scripts/dump_settings ATK14_APPLICATION_URL" ).toString().trim();
+	var baseHref = execSync( "./scripts/dump_settings ATK14_BASE_HREF" ).toString().trim(); // e.g. "/"
+
 	gulp.src( [ "public/favicons/favicon.png" ] )
 	.pipe(
 		favicons( {
-			appName: "ATK14 Skelet Application",
-			appShortName: "ATK14 Skelet",
-			appDescription: "This is my application",
+			appName: appName,
+			appShortName: null,
+			appDescription: appDescription,
 			background: "#ffffff",
-			path: "/public/dist/favicons/",
-			url: "http://skelet.atk14.net/",
+			path: baseHref + "public/dist/favicons/",
+			url: appUrl,
 			display: "standalone",
 			orientation: "portrait",
-			scope: "/",
-			start_url: "/?homescreen=1",
+			scope: baseHref,
+			start_url: baseHref,
 			version: 1.0,
 			logging: false,
 			html: "index.html",
