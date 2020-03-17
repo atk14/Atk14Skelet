@@ -19,6 +19,7 @@
 {assign var="geometry_thumb_half_h" "900x450xcrop"}
 {assign var="geometry_thumb_half_v" "450x900xcrop"}
 {assign var="geometry_thumb_half_square" "450x450xcrop"}
+{assign var="geometry_thumb_mini" "32x32,format=png"}
 
 {if $images}
 	
@@ -38,7 +39,7 @@
 	{assign var="num_remaining" $images|@count - $max_num_show}
 		
 	{if !isset($photo_gallery_title)}{capture assign="photo_gallery_title"}{t}Photo gallery{/t}{/capture}{/if}
-	<section class="photo-gallery photo-gallery--square">
+	<section class="photo-gallery photo-gallery--square{if $compact} photo-gallery--compact{/if}">
 		<div class="gallery__images orientation-{$orientation} num-{$num_show}">
 			{foreach $images as $image}
 				{assign var="i" $image@iteration}
@@ -52,7 +53,7 @@
 				{else}
 					{if $i > $max_num_show}
 						{* hidden thumbnails must be there bc of photoswipe *}
-						{assign var="thumb_geometry" "2x"}
+						{assign var="thumb_geometry" $geometry_thumb_mini}
 					{else}
 						{* other visible thumbnails *}
 						{assign var="thumb_geometry" $geometry_thumb_square}
@@ -81,7 +82,7 @@
 				{/if}
 			
 				<figure class="gallery__item{if $i > $max_num_show} d-none{/if}">
-					<a href="{$image|img_url:$geometry_detail}" title="{if $image->getDescription()}{$image->getDescription()}{/if}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
+					<a href="{$image|img_url:$geometry_detail}" title="{if $image->getDescription()}{$image->getDescription()}{/if}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl" data-minithumb="{$image|img_url:$geometry_thumb_mini}">
 						<img {!$image|img_attrs:$thumb_geometry} alt="{$image->getName()}" class="img-fluid">
 					</a>
 					<figcaption>
