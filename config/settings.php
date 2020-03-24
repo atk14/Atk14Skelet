@@ -47,6 +47,10 @@ definedef("ARTICLE_BODY_MAX_WIDTH",825);
 // define("RECAPTCHA_SITE_KEY","");
 // define("RECAPTCHA_SECRET_KEY","");
 
+// Google Analytics tracking code,
+// see app/views/shared/trackers/google/_analytics.tpl and app/layouts/default.tpl.
+// definedef("GOOGLE_ANALYTICS_TRACKING_ID","UA-123456789-1");
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 

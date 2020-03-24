@@ -26,6 +26,7 @@
 <html lang="{$lang}" class="no-js">
 
 	<head>
+		{render partial="shared/trackers/google/analytics"}
 		<meta charset="utf-8">
 
 		<title>{trim}
