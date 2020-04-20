@@ -1,0 +1,1 @@
+../../../../../vendor/atk14/drink-markdown/src/app/views/shared/helpers/drink_shortcodes/_row.tpl

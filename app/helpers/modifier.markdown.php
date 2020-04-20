@@ -1,1 +1,1 @@
-../../vendor/atk14/drink-markdown/src/helpers/smarty/modifier.markdown.php
+../../vendor/atk14/drink-markdown/src/app/helpers/modifier.markdown.php

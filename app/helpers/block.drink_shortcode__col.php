@@ -1,0 +1,1 @@
+../../vendor/atk14/drink-markdown/src/app/helpers/block.drink_shortcode__col.php
