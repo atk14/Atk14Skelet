@@ -130,7 +130,7 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/webfonts" ) );
 	gulp.src( "public/fonts/*" )
 		.pipe( gulp.dest( "public/dist/fonts" ) );
-	gulp.src( "public/images/*" )
+	gulp.src( "public/images/**/*" )
 		.pipe( gulp.dest( "public/dist/images" ) );
 
 	// Flags for languages
