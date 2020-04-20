@@ -1,22 +1,15 @@
 <article>
 
 	{if $page}
-
-		<header>
-			{admin_menu for=$page}
-			<h1>{$page->getTitle()}</h1>
-			<div class="teaser">
-			{!$page->getTeaser()|markdown}
-			</div>
-		</header>
+		
+		{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown}
+		{admin_menu for=$page}
 		
 		{!$page->getBody()|markdown}
 			
 	{else}
 
-		<header>
-			<h1>{$page_title}</h1>
-		</header>
+		{render partial="shared/layout/content_header" title=$page_title}
 
 	{/if}
 

@@ -1,5 +1,5 @@
-<h1>{t}Error 403: Forbidden{/t}</h1>
-
+{capture assign="page_title"}{t}Error 403: Forbidden{/t}{/capture}
+{render partial="shared/layout/content_header" title=$page_title}
 <p class="alert alert-warning">
 	{t escape=no uri=$request->getRequestUri()}You don`t have a permission to access <em>%1</em> on this server.{/t}<br />
 </p>

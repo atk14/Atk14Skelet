@@ -1,5 +1,5 @@
 {if !$rendering_component}
-	<h1>{$page_title}</h1>
+	{render partial="shared/layout/content_header" title=$page_title}
 {else}
 	<h2>{$page_title}</h2>
 {/if}

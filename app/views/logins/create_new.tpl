@@ -1,7 +1,4 @@
-<header>
-	<h1>{$page_title}</h1>
-</header>
-
+{render partial="shared/layout/content_header" title=$page_title}
 <section>
 	{render partial="shared/form"}
 

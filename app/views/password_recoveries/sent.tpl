@@ -1,6 +1,4 @@
-<header>
-	<h1>{$page_title}</h1>
-</header>
+{render partial="shared/layout/content_header" title=$page_title}
 
 <div class="alert alert-success">
 	<p>{t}The password recovery link has been sent to your email address.{/t}</p>

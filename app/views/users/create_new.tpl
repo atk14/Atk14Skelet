@@ -1,6 +1,4 @@
-<header>
-	<h1>{$page_title}</h1>
-</header>
+{render partial="shared/layout/content_header" title=$page_title}
 
 <section class="border-top-0">
 	{form _class="form-horizontal" _novalidate="novalidate"}
