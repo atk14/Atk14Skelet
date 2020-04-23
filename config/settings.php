@@ -37,6 +37,9 @@ definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
 // See app/forms/users/create_new_form.php for more info
 // define("INVITATION_CODE_FOR_USER_REGISTRATION","some great secret");
 
+// Or if you don't want to let users to register at all, set USER_REGISTRATION_ENABLED to false.
+definedef("USER_REGISTRATION_ENABLED",true);
+
 definedef("PUPIQ_API_KEY","101.DemoApiKeyForAccountWithLimitedFunctions");
 definedef("PUPIQ_HTTPS",REDIRECT_TO_SSL_AUTOMATICALLY);
 

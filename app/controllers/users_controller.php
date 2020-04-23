@@ -6,6 +6,10 @@ class UsersController extends ApplicationController{
 	}
 
 	function create_new(){
+		if(defined("USER_REGISTRATION_ENABLED") && !constant("USER_REGISTRATION_ENABLED")){
+			return $this->_execute_action("error404");
+		}
+
 		if($this->logged_user){
 			$this->flash->warning(_("To register as a new user, sign out first"));
 			$this->_redirect_to(array(
