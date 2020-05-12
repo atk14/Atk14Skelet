@@ -16,6 +16,9 @@
 					dotstring: "[dot-sign]"
 				} );
 
+				// Links with the "blank" class are pointing to new window
+				$( "a.blank" ).attr( "target", "_blank" );
+
 				// Form hints.
 				$( ".help-hint" ).each( function() {
 					var $this = $( this ),
