@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-30 10:45+0100\n"
-"PO-Revision-Date: 2020-01-30 12:17+0100\n"
+"POT-Creation-Date: 2020-05-12 15:14+0200\n"
+"PO-Revision-Date: 2020-05-12 15:29+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -64,7 +64,7 @@ msgid "Date"
 msgstr "Date"
 
 #: ../app/controllers/admin/admin.php:32
-#: ../app/forms/admin/articles/articles_form.php:33
+#: ../app/forms/admin/articles/articles_form.php:34
 msgid "Tags"
 msgstr "Tags"
 
@@ -112,23 +112,20 @@ msgstr "URL"
 msgid "bez popisu"
 msgstr "without description"
 
-msgid "Fotogalerie zatím neobsahuje žádný obrázek."
-msgstr "Photogallery has no image yet."
+msgid "Drag files here"
+msgstr "Drag files here"
 
-msgid "Upravit"
-msgstr "Edit"
+msgid "Photos"
+msgstr "Photos"
 
-msgid "Smazat"
-msgstr "Delete"
-
-msgid "editovat"
-msgstr "edit"
-
-msgid "bez titulku"
-msgstr "without a title"
+msgid "Přidat obrázky do fotogalerie"
+msgstr "Add images to the photo gallery"
 
 msgid "Přidat fotografii"
 msgstr "Add a photo"
+
+msgid "bez titulku nebo popisu"
+msgstr "without title or description"
 
 msgid "The image was uploaded at:"
 msgstr "The image was uploaded at:"
@@ -288,12 +285,6 @@ msgstr "Logos"
 msgid "Photo gallery"
 msgstr "Photo gallery"
 
-msgid "Currently there are no images"
-msgstr "Currently there are no images"
-
-msgid "Add an image"
-msgstr "Add an image"
-
 msgid "Objects inserted into text"
 msgstr "Objects inserted into text"
 
@@ -355,6 +346,19 @@ msgstr "Show larger image"
 
 msgid "no image"
 msgstr "no image"
+
+msgid "Add images"
+msgstr "Add images"
+
+msgid ""
+"Upload multiple files with the file dialog or by dragging and dropping "
+"images onto the dashed region"
+msgstr ""
+"Upload multiple files with the file dialog or by dragging and dropping "
+"images onto the dashed region"
+
+msgid "Submit form"
+msgstr "Submit form"
 
 msgid "Add new tag"
 msgstr "Add new tag"
@@ -495,16 +499,16 @@ msgstr "Create an object of type %s"
 msgid "Změny byly uloženy"
 msgstr "The changes have been saved"
 
-#: ../app/controllers/admin/admin.php:227
+#: ../app/controllers/admin/admin.php:229
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editing object of type %s"
 
-#: ../app/controllers/admin/admin.php:351
+#: ../app/controllers/admin/admin.php:353
 msgid "The entry has been deleted"
 msgstr "The entry has been deleted"
 
-#: ../app/controllers/admin/admin.php:358
+#: ../app/controllers/admin/admin.php:360
 #: ../app/controllers/admin/galleries_controller.php:33
 msgid "Fotogalerie"
 msgstr "Photogallery"
@@ -760,16 +764,20 @@ msgstr "Image used in article overview"
 msgid "Teaser"
 msgstr "Teaser"
 
-#: ../app/forms/admin/articles/articles_form.php:22
-#: ../app/forms/admin/pages/pages_form.php:21
+#: ../app/forms/admin/articles/articles_form.php:18
+#: ../app/forms/admin/articles/articles_form.php:24
+#: ../app/forms/admin/pages/pages_form.php:17
+#: ../app/forms/admin/pages/pages_form.php:23
+#, php-format
+msgid "<a href=\"%s\">Markdown</a> format is expected"
+msgstr "<a href=\"%s\">Markdown</a> format is expected"
+
+#: ../app/forms/admin/articles/articles_form.php:23
+#: ../app/forms/admin/pages/pages_form.php:22
 msgid "Body"
 msgstr "Body"
 
-#: ../app/forms/admin/articles/articles_form.php:23
-msgid "Markdown format is expected"
-msgstr "Markdown format is expected"
-
-#: ../app/forms/admin/articles/articles_form.php:28
+#: ../app/forms/admin/articles/articles_form.php:29
 msgid "Published At"
 msgstr "Published At"
 
@@ -859,41 +867,41 @@ msgstr "The same code is used on a different page"
 msgid "Image used on list of pages, social networks, etc."
 msgstr "Image used on list of pages, social networks, etc."
 
-#: ../app/forms/admin/pages/pages_form.php:26
+#: ../app/forms/admin/pages/pages_form.php:28
 msgid "HTML title"
 msgstr "HTML title"
 
-#: ../app/forms/admin/pages/pages_form.php:29
+#: ../app/forms/admin/pages/pages_form.php:31
 msgid "Content for <html><head><title>. If left empty, the title is used."
 msgstr "Content for <html><head><title>. If left empty, the title is used."
 
-#: ../app/forms/admin/pages/pages_form.php:33
+#: ../app/forms/admin/pages/pages_form.php:35
 msgid "HTML description"
 msgstr "HTML description"
 
-#: ../app/forms/admin/pages/pages_form.php:36
+#: ../app/forms/admin/pages/pages_form.php:38
 msgid ""
 "Content for <meta name=\"description\">. If left empty, the teaser is used."
 msgstr ""
 "Content for <meta name=\"description\">. If left empty, the teaser is used."
 
-#: ../app/forms/admin/pages/pages_form.php:40
+#: ../app/forms/admin/pages/pages_form.php:42
 msgid "Parent page"
 msgstr "Parent page"
 
-#: ../app/forms/admin/pages/pages_form.php:45
+#: ../app/forms/admin/pages/pages_form.php:47
 msgid "Show in sitemap?"
 msgstr "Show in sitemap?"
 
-#: ../app/forms/admin/pages/pages_form.php:51
+#: ../app/forms/admin/pages/pages_form.php:53
 msgid "Visible?"
 msgstr "Visible?"
 
-#: ../app/forms/admin/pages/pages_form.php:67
+#: ../app/forms/admin/pages/pages_form.php:69
 msgid "The page cannot be placed under itself."
 msgstr "The page cannot be placed under itself."
 
-#: ../app/forms/admin/pages/pages_form.php:73
+#: ../app/forms/admin/pages/pages_form.php:75
 msgid "Nesting is too deep."
 msgstr "Nesting is too deep."
 
@@ -950,6 +958,30 @@ msgstr "Auto-start video"
 #: ../app/forms/admin/videos/videos_form.php:13
 msgid "Po ukončení přehrát znovu"
 msgstr "Play again when finished"
+
+#~ msgid "Fotogalerie zatím neobsahuje žádný obrázek."
+#~ msgstr "Photogallery has no image yet."
+
+#~ msgid "Upravit"
+#~ msgstr "Edit"
+
+#~ msgid "Smazat"
+#~ msgstr "Delete"
+
+#~ msgid "editovat"
+#~ msgstr "edit"
+
+#~ msgid "bez titulku"
+#~ msgstr "without a title"
+
+#~ msgid "Currently there are no images"
+#~ msgstr "Currently there are no images"
+
+#~ msgid "Add an image"
+#~ msgstr "Add an image"
+
+#~ msgid "Markdown format is expected"
+#~ msgstr "Markdown format is expected"
 
 #~ msgid "atk14.date_format"
 #~ msgstr "m/d/Y"

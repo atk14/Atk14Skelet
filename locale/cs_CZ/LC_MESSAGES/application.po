@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-30 10:45+0100\n"
-"PO-Revision-Date: 2020-01-30 11:01+0100\n"
+"POT-Creation-Date: 2020-05-12 15:14+0200\n"
+"PO-Revision-Date: 2020-05-12 15:25+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -16,6 +16,9 @@ msgstr ""
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 1.8.7.1\n"
+
+msgid "Nahoru"
+msgstr "Nahoru"
 
 msgid "Best regards"
 msgstr "S pozdravem"
@@ -299,6 +302,15 @@ msgstr "Správa objektů"
 msgid "Edit links"
 msgstr "Editovat odkazy"
 
+msgid "Edit page"
+msgstr "Upravit stránku"
+
+msgid "Create a subpage"
+msgstr "Vytvořit podstránku"
+
+msgid "List of pages"
+msgstr "Seznam stránek"
+
 msgid "Create a new record"
 msgstr "Vytvořit nový záznam"
 
@@ -339,7 +351,7 @@ msgstr "Zde neleznete seznam příkazů v <em>%1</em>."
 msgid "Pages"
 msgstr "Stránky"
 
-#: ../app/controllers/users_controller.php:18
+#: ../app/controllers/users_controller.php:22
 msgid "New user registration"
 msgstr "Registrace nového uživatele"
 
@@ -398,11 +410,11 @@ msgstr "Jste administrátor?"
 msgid "Yes, you are"
 msgstr "Ano, jste"
 
-#: ../app/controllers/users_controller.php:44
+#: ../app/controllers/users_controller.php:48
 msgid "Change your account data"
 msgstr "Změnit vaše údaje"
 
-#: ../app/controllers/users_controller.php:61
+#: ../app/controllers/users_controller.php:65
 msgid "Change your password"
 msgstr "Změna vašeho hesla"
 
@@ -545,7 +557,7 @@ msgstr ""
 "nastavena."
 
 #: ../app/controllers/password_recoveries_controller.php:62
-#: ../app/controllers/users_controller.php:75
+#: ../app/controllers/users_controller.php:79
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
@@ -553,11 +565,11 @@ msgstr "Vaše heslo bylo úspěšně změněno"
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
-#: ../app/controllers/users_controller.php:10
+#: ../app/controllers/users_controller.php:14
 msgid "To register as a new user, sign out first"
 msgstr "Abyste se mohl zaregistrovat, napřed se odhlaste"
 
-#: ../app/controllers/users_controller.php:31
+#: ../app/controllers/users_controller.php:35
 #, php-format
 msgid ""
 "You have been successfully registered and now you are logged in as <em>%s</"
@@ -565,19 +577,19 @@ msgid ""
 msgstr ""
 "Byl(a) jste úspěšně zaregistrován(a) a teď jste přihlášen(a) jako <em>%s</em>"
 
-#: ../app/controllers/users_controller.php:40
+#: ../app/controllers/users_controller.php:44
 msgid "Thank you for your registration!"
 msgstr "Děkujeme za vaši registraci!"
 
-#: ../app/controllers/users_controller.php:50
+#: ../app/controllers/users_controller.php:54
 msgid "Nothing has been changed"
 msgstr "Nic nebylo změněno"
 
-#: ../app/controllers/users_controller.php:55
+#: ../app/controllers/users_controller.php:59
 msgid "Your account data has been updated"
 msgstr "Údaje vašeho účtu byly změněny"
 
-#: ../app/controllers/users_controller.php:65
+#: ../app/controllers/users_controller.php:69
 msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 

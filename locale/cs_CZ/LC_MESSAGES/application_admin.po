@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-01-30 10:45+0100\n"
-"PO-Revision-Date: 2020-01-30 11:06+0100\n"
+"POT-Creation-Date: 2020-05-12 15:14+0200\n"
+"PO-Revision-Date: 2020-05-12 15:17+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -64,7 +64,7 @@ msgid "Date"
 msgstr "Datum"
 
 #: ../app/controllers/admin/admin.php:32
-#: ../app/forms/admin/articles/articles_form.php:33
+#: ../app/forms/admin/articles/articles_form.php:34
 msgid "Tags"
 msgstr "Štítky"
 
@@ -112,23 +112,20 @@ msgstr "URL"
 msgid "bez popisu"
 msgstr "bez popisu"
 
-msgid "Fotogalerie zatím neobsahuje žádný obrázek."
-msgstr "Fotogalerie zatím neobsahuje žádný obrázek."
+msgid "Drag files here"
+msgstr "Přetáhněte soubory sem"
 
-msgid "Upravit"
-msgstr "Upravit"
+msgid "Photos"
+msgstr "Fotky"
 
-msgid "Smazat"
-msgstr "Smazat"
-
-msgid "editovat"
-msgstr "editovat"
-
-msgid "bez titulku"
-msgstr "bez titulku"
+msgid "Přidat obrázky do fotogalerie"
+msgstr "Přidat obrázky do fotogalerie"
 
 msgid "Přidat fotografii"
 msgstr "Přidat fotografii"
+
+msgid "bez titulku nebo popisu"
+msgstr "bez titulku nebo popisu"
 
 msgid "The image was uploaded at:"
 msgstr "Obrázek byl nahrán:"
@@ -288,12 +285,6 @@ msgstr "Loga"
 msgid "Photo gallery"
 msgstr "Fotogalerie"
 
-msgid "Currently there are no images"
-msgstr "Momentálně tady nejsou žádné obrázky"
-
-msgid "Add an image"
-msgstr "Přidat obrázek"
-
 msgid "Objects inserted into text"
 msgstr "Objekty vložené do textu"
 
@@ -355,6 +346,19 @@ msgstr "Zobrazit větší obrázek"
 
 msgid "no image"
 msgstr "bez obrázku"
+
+msgid "Add images"
+msgstr "Přidat obrázky"
+
+msgid ""
+"Upload multiple files with the file dialog or by dragging and dropping "
+"images onto the dashed region"
+msgstr ""
+"Nahrajte více souborů v souborovém dialogu nebo přetažením obrázků do "
+"vyčárkované oblasti"
+
+msgid "Submit form"
+msgstr "Odeslat formulář"
 
 msgid "Add new tag"
 msgstr "Přidat nový štítek"
@@ -495,16 +499,16 @@ msgstr "Vytvořit objekt typu %s"
 msgid "Změny byly uloženy"
 msgstr "Změny byly uloženy"
 
-#: ../app/controllers/admin/admin.php:227
+#: ../app/controllers/admin/admin.php:229
 #, php-format
 msgid "Editace objektu typu %s"
 msgstr "Editace objektu typu %s"
 
-#: ../app/controllers/admin/admin.php:351
+#: ../app/controllers/admin/admin.php:353
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:358
+#: ../app/controllers/admin/admin.php:360
 #: ../app/controllers/admin/galleries_controller.php:33
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -761,16 +765,20 @@ msgstr "Obrázek používaný v přehledu článků"
 msgid "Teaser"
 msgstr "Teaser"
 
-#: ../app/forms/admin/articles/articles_form.php:22
-#: ../app/forms/admin/pages/pages_form.php:21
+#: ../app/forms/admin/articles/articles_form.php:18
+#: ../app/forms/admin/articles/articles_form.php:24
+#: ../app/forms/admin/pages/pages_form.php:17
+#: ../app/forms/admin/pages/pages_form.php:23
+#, php-format
+msgid "<a href=\"%s\">Markdown</a> format is expected"
+msgstr "Je očekáván formát <a href=\"%s\">Markdown</a>"
+
+#: ../app/forms/admin/articles/articles_form.php:23
+#: ../app/forms/admin/pages/pages_form.php:22
 msgid "Body"
 msgstr "Tělo"
 
-#: ../app/forms/admin/articles/articles_form.php:23
-msgid "Markdown format is expected"
-msgstr "Je očekáván formát Markdown"
-
-#: ../app/forms/admin/articles/articles_form.php:28
+#: ../app/forms/admin/articles/articles_form.php:29
 msgid "Published At"
 msgstr "Publikováno dne"
 
@@ -860,44 +868,44 @@ msgstr "Stejný kód je použit na jiné stránce"
 msgid "Image used on list of pages, social networks, etc."
 msgstr "Obrázek použitý v seznamu stránek, na sociálních sítí atd."
 
-#: ../app/forms/admin/pages/pages_form.php:26
+#: ../app/forms/admin/pages/pages_form.php:28
 msgid "HTML title"
 msgstr "HTML název"
 
-#: ../app/forms/admin/pages/pages_form.php:29
+#: ../app/forms/admin/pages/pages_form.php:31
 msgid "Content for <html><head><title>. If left empty, the title is used."
 msgstr ""
 "Obsah pro <html><head><title>. Pokud bude ponecháno prázdné, bude použit "
 "název."
 
-#: ../app/forms/admin/pages/pages_form.php:33
+#: ../app/forms/admin/pages/pages_form.php:35
 msgid "HTML description"
 msgstr "HTML popis"
 
-#: ../app/forms/admin/pages/pages_form.php:36
+#: ../app/forms/admin/pages/pages_form.php:38
 msgid ""
 "Content for <meta name=\"description\">. If left empty, the teaser is used."
 msgstr ""
 "Obsah pro <meta name=\"description\">. Pokud bude ponecháno prázdné, použije "
 "se teaser."
 
-#: ../app/forms/admin/pages/pages_form.php:40
+#: ../app/forms/admin/pages/pages_form.php:42
 msgid "Parent page"
 msgstr "Rodičovské stránka"
 
-#: ../app/forms/admin/pages/pages_form.php:45
+#: ../app/forms/admin/pages/pages_form.php:47
 msgid "Show in sitemap?"
 msgstr "Zobrazovat v mapě stránek?"
 
-#: ../app/forms/admin/pages/pages_form.php:51
+#: ../app/forms/admin/pages/pages_form.php:53
 msgid "Visible?"
 msgstr "Viditelné?"
 
-#: ../app/forms/admin/pages/pages_form.php:67
+#: ../app/forms/admin/pages/pages_form.php:69
 msgid "The page cannot be placed under itself."
 msgstr "Stránku nelze umístit samu pod sebe."
 
-#: ../app/forms/admin/pages/pages_form.php:73
+#: ../app/forms/admin/pages/pages_form.php:75
 msgid "Nesting is too deep."
 msgstr "Vnoření je příliš hluboké."
 
@@ -953,6 +961,30 @@ msgstr "Automatické spuštění videa"
 #: ../app/forms/admin/videos/videos_form.php:13
 msgid "Po ukončení přehrát znovu"
 msgstr "Po ukončení přehrát znovu"
+
+#~ msgid "Fotogalerie zatím neobsahuje žádný obrázek."
+#~ msgstr "Fotogalerie zatím neobsahuje žádný obrázek."
+
+#~ msgid "Upravit"
+#~ msgstr "Upravit"
+
+#~ msgid "Smazat"
+#~ msgstr "Smazat"
+
+#~ msgid "editovat"
+#~ msgstr "editovat"
+
+#~ msgid "bez titulku"
+#~ msgstr "bez titulku"
+
+#~ msgid "Currently there are no images"
+#~ msgstr "Momentálně tady nejsou žádné obrázky"
+
+#~ msgid "Add an image"
+#~ msgstr "Přidat obrázek"
+
+#~ msgid "Markdown format is expected"
+#~ msgstr "Je očekáván formát Markdown"
 
 #~ msgid "Copy"
 #~ msgstr "Kopírova"
