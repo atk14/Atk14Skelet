@@ -14,11 +14,13 @@ class PagesForm extends AdminForm {
 
 		$this->add_translatable_field("teaser", new MarkdownField(array(
 			"label" => _("Teaser"),
+			"help_text" => sprintf(_('<a href="%s">Markdown</a> format is expected'),Atk14Url::BuildLink(["namespace" => "", "action" => "markdown_manual/index"])),
 			"required" => false,
 		)));
 
 		$this->add_translatable_field("body", new MarkdownField(array(
 			"label" => _("Body"),
+			"help_text" => sprintf(_('<a href="%s">Markdown</a> format is expected'),Atk14Url::BuildLink(["namespace" => "", "action" => "markdown_manual/index"])),
 			"required" => false,
 		)));
 
