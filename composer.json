@@ -16,6 +16,6 @@
         "html2text/html2text": "^4.0",
         "atk14/slug-field": "^1.1",
         "atk14/recaptcha-field": "^0.1.2",
-        "yarri/markdown-manual.mdbook": "^0.2"
+        "yarri/markdown-manual.mdbook": "^0.2.1"
     }
 }
