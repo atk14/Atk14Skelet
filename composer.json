@@ -6,7 +6,7 @@
         "atk14/pupiq-client": "^1.10",
         "atk14/url-field": "^1.0",
         "atk14/phone-field": "^1.0",
-        "atk14/drink-markdown": "^0.5",
+        "atk14/drink-markdown": "^0.6",
         "essence/essence": ">=2.6.1",
         "atk14/menu14": "^1.1.1",
         "yarri/my-blowfish": "^1.4",
