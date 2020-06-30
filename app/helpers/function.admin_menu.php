@@ -29,6 +29,7 @@ function smarty_function_admin_menu($params,$template){
 	);
 
 	$object = $params["for"];
+	if(!$object){ return; }
 	$class_name = new String4(get_class($object)); // "Book"
 	$controller = $class_name->underscore()->pluralize()->toString(); // "books"
 	$object_name = $class_name->underscore()->toString(); // "book"
