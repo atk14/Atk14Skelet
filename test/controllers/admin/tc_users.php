@@ -1,8 +1,10 @@
 <?php
 /**
+ *
  * @fixture users
  */
 class TcUsers extends TcBase{
+
 	function test_destroy(){
 		// attempt to destroy non existing user
 		$this->client->post("users/destroy",array(
@@ -34,5 +36,18 @@ class TcUsers extends TcBase{
 
 		$this->assertEquals(false,!!User::Login("rocky","secret"));
 		$this->assertEquals(true,!!User::Login("rocky","Bimbo"));
+
+		// clearing rocky's password
+		$this->client->post("users/edit_password",array(
+			"id" => $this->users["rocky"]->getId(),
+			"password" => "",
+		));
+
+		$rocky = User::GetInstanceById($this->users["rocky"]->getId());
+		$this->assertNull($rocky->getPassword());
+
+		$this->assertEquals(false,!!User::Login("rocky","secret"));
+		$this->assertEquals(false,!!User::Login("rocky","Bimbo"));
+		$this->assertEquals(false,!!User::Login("rocky",""));
 	}
 }
