@@ -9,7 +9,11 @@ class UsersForm extends AdminForm{
 		)));
 
 		if($this->has_password_field){
-			$this->add_field("password",new PasswordField());
+			$this->add_field("password",new PasswordField(array(
+				"required" => false,
+				"trim_value" => true,
+				"null_empty_output" => true,
+			)));
 		}
 	
 		$this->add_field("firstname", new CharField(array(

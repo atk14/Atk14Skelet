@@ -1,5 +1,6 @@
 <?php
 class UsersController extends AdminController{
+
 	function index(){
 		$this->page_title = _("Users list");
 
@@ -60,20 +61,35 @@ class UsersController extends AdminController{
 	}
 
 	function edit_password(){
-		$this->page_title = sprintf(_("Setting a new password to the user %s"),h($this->user));
+		$user = $this->user;
+
+		$this->page_title = sprintf(_("Setting a new password to the user %s"),h($user));
 
 		$this->form->set_initial("password",String4::RandomPassword(10));
 
 		$this->_save_return_uri();
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
+			if(strlen($d["password"])==0 && strlen($user->getPassword())==0){
+				$this->flash->success(_("Nothing needs to be updated"));
+				$this->_redirect_back();
+				return;
+			}
+
 			$d["updated_by_user_id"] = $this->logged_user;
-			$this->user->s($d);
-			$this->flash->success(strtr(_('The new password has been set to the user <em>%user%</em>.<br>Would be nice to let him know at email address <a href="mailto:%email%">%email%</a>.'),array(
-				"%user%" => h($this->user),
-				"%email%" => h($this->user->getEmail()
-			))));
-			$this->logger->info("administrator $this->logged_user just set new password to user $this->user (#".$this->user->getId().")");
+			$user->s($d);
+			if(strlen($user->getPassword())>0){
+				$this->flash->success(strtr(_('The new password has been set to the user <em>%user%</em>.<br>Would be nice to let him know at email address <a href="mailto:%email%">%email%</a>.'),array(
+					"%user%" => h($user),
+					"%email%" => h($user->getEmail())
+				)));
+				$this->logger->info("administrator $this->logged_user just set new password to user $user (User#".$user->getId().")");
+			}else{
+				$this->flash->success(strtr(_('The password for the user <em>%user%</em> has been deleted.'),array(
+					"%user%" => h($user),
+				)));
+				$this->logger->info("administrator $this->logged_user just deleted password for user $user (User#".$user->getId().")");
+			}
 			$this->_redirect_back();
 		}
 	}

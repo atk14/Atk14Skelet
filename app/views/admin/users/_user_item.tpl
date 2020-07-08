@@ -2,9 +2,11 @@
 	<td class="item-id">{$user->getId()}</td>
 	<td>
 		{if !$user->isActive()}
-			<span title="{t}inactive user{/t}">{!"user-slash"|icon}</span>
+			<span title="{t}inactive user{/t}" class="text-secondary">{!"user-times"|icon}</span>
+		{elseif !$user->getPassword()|strlen}
+			<span title="{t}user without password{/t}" class="text-secondary">{!"user-minus"|icon}</span>
 		{elseif $user->isAdmin()}
-			<span title="{t}administrator{/t}">{!"user-shield"|icon}</span>
+			<span title="{t}administrator{/t}" class="text-danger">{!"user-shield"|icon}</span>
 		{else}
 			<span title="{t}regular user{/t}">{!"user"|icon:"regular"}</span>
 		{/if}
