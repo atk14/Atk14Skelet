@@ -12,15 +12,33 @@ class LoginsController extends ApplicationController{
 			if(!$user = User::Login($d["login"],$d["password"])){
 				$this->logger->warn("bad login attempt on $d[login] from ".$this->request->getRemoteAddr());
 
-				if(User::FindByLogin($d["login"])){
+				if($user = User::FindByLogin($d["login"])){
 					$this->form->set_error(sprintf(_('Wrong login and password combination. <a href="%s">Have you forgotten your password?</a>'),$this->_link_to(array("action" => "password_recoveries/create_new", "login" => $d["login"]))));
+					AuthlogEntry::CreateNewRecord([
+						"login" => $d["login"],
+						"user_id" => $user->getId(),
+						"admin_user" => $user->isAdmin(),
+						"authenticated" => false,
+					]);
 				}else{
 					$this->form->set_error(_('Wrong login and password combination'));
+					AuthlogEntry::CreateNewRecord([
+						"login" => $d["login"],
+						"user_id" => null,
+						"admin_user" => null,
+						"authenticated" => false,
+					]);
 				}
 				return;
 			}
 
 			$this->_login_user($user);
+			AuthlogEntry::CreateNewRecord([
+				"login" => $d["login"],
+				"user_id" => $user->getId(),
+				"admin_user" => $user->isAdmin(),
+				"authenticated" => true,
+			]);
 
 			$this->flash->success(sprintf(_("You have been successfully logged in as <em>%s</em>"),h($user->getLogin())));
 			$this->_redirect_after_login_or_logout();
