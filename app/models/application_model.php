@@ -332,7 +332,7 @@ class ApplicationModel extends TableRecord{
 		$o = new $class_name();
 		$table_name = $o->getTableName();
 
-		$record_id = Slug::GetRecordIdBySlug($table_name,$slug,$lang,(string)$segment);
+		$record_id = Slug::GetRecordIdBySlug($table_name,$slug,$lang,$segment);
 		return Cache::Get("$class_name",$record_id);
 	}
 

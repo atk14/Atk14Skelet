@@ -2,7 +2,9 @@
 definedef("SLUG_MAX_LENGTH",200);
 
 class Slug extends ApplicationModel{
+
 	protected static $CACHE = array();
+	protected static $CACHE_WITHOUT_SEGMENT = array();
 
 	 /**
 	  *
@@ -11,8 +13,38 @@ class Slug extends ApplicationModel{
 		*/
 	function getSlug($lang = null,$segment = ''){ return $this->g("slug"); }
 	
+	/**
+	 *
+	 *	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation"); // 123
+	 *
+	 *	// language detection
+	 *	$lang = null;
+	 *	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang); // 123
+	 *	echo $lang; // "en"
+	 *
+	 *	$lang = "en";
+	 *	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang); // 123
+	 *
+	 *	// invalid language passed
+	 *	$lang = "cs";
+	 *	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang); // null
+	 *
+	 *	// finding id in context of a specific segment
+	 *	$lang = null;
+	 *	$segment = "";
+	 * 	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang,$segment); // 123
+	 *
+	 *	// finding id regardless of a segment
+	 *	$lang = null;
+	 *	$segment = null;
+	 * 	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang,$segment); // 123
+	 */
 	static function GetRecordIdBySlug($table_name,$slug,&$lang = null,$segment = ''){
 		global $ATK14_GLOBAL;
+
+		if(!is_null($segment)){
+			$segment = (string)$segment;
+		}
 
 		$table_name_sluggish = Slug::StringToSluggish($table_name);
 		// matching the generic form
@@ -25,12 +57,18 @@ class Slug extends ApplicationModel{
 
 		Slug::_ReadCache($table_name,$segment);
 
+		if(is_null($segment)){
+			$CACHE = &Slug::$CACHE_WITHOUT_SEGMENT["$table_name"];
+		}else{
+			$CACHE = &Slug::$CACHE["$table_name,$segment"];
+		}
+
 		if($lang){
-			if(isset(Slug::$CACHE["$table_name,$segment"]) && isset(Slug::$CACHE["$table_name,$segment"][$lang]) && is_int($id = array_search($slug,Slug::$CACHE["$table_name,$segment"][$lang]))){
+			if(isset($CACHE) && isset($CACHE[$lang]) && is_int($id = array_search($slug,$CACHE[$lang]))){
 				return $id;
 			}
 		}else{
-			foreach(Slug::$CACHE["$table_name,$segment"] as $l => $ary){
+			foreach($CACHE as $l => $ary){
 				if(is_int($id = array_search($slug,$ary))){
 					$lang = $l;
 					return $id;
@@ -46,7 +84,9 @@ class Slug extends ApplicationModel{
 	 */
 	static function SetObjectSlug($obj,$slug,$lang = null,$segment = '',$options = array()){
 		global $ATK14_GLOBAL;
+
 		if(!$lang){ $lang = $ATK14_GLOBAL->getDefaultLang(); } // !! default language
+		$segment = (string)$segment;
 		$options += array(
 			"reconstruct_missing_slugs" => false,
 		);
@@ -114,7 +154,17 @@ class Slug extends ApplicationModel{
 	static function _ReadCache($table_name,$segment = '',$force_read = false){
 		global $ATK14_GLOBAL;
 
-		if(!$force_read && isset(Slug::$CACHE["$table_name,$segment"])){
+		if(is_null($segment)){
+			return self::_ReadCacheWithoutSegment($table_name,$force_read);
+		}
+
+		$segment = (string)$segment;
+
+		if($force_read){
+			Slug::$CACHE = array();
+		}
+
+		if(isset(Slug::$CACHE["$table_name,$segment"])){
 			return;
 		}
 		
@@ -133,6 +183,32 @@ class Slug extends ApplicationModel{
 		}
 	}
 
+	static function _ReadCacheWithoutSegment($table_name,$force_read = false){
+		global $ATK14_GLOBAL;
+
+		if($force_read){
+			Slug::$CACHE_WITHOUT_SEGMENT = array();
+		}
+
+		if(isset(Slug::$CACHE_WITHOUT_SEGMENT["$table_name"])){
+			return;
+		}
+
+		Slug::$CACHE_WITHOUT_SEGMENT["$table_name"] = array();
+		$CACHE_WITHOUT_SEGMENT = &Slug::$CACHE_WITHOUT_SEGMENT["$table_name"];
+		foreach($ATK14_GLOBAL->getSupportedLangs() as $l){
+			$CACHE_WITHOUT_SEGMENT[$l] = array();
+		}
+
+		$dbmole = Slug::GetDbmole();
+		$rows = $dbmole->selectRows("SELECT lang,record_id,slug FROM slugs WHERE table_name=:table_name",array(":table_name" => $table_name));
+		foreach($rows as $row){
+			$l = $row["lang"];
+			$id = (int)$row["record_id"];
+			$CACHE_WITHOUT_SEGMENT[$l][$id] = $row["slug"];
+		}
+	}
+
 	static function DeleteObjectSlugs($obj){
 		$table_name = $obj->getTableName();
 		$record_id = $obj->getId();
@@ -142,6 +218,7 @@ class Slug extends ApplicationModel{
 			":record_id" => $record_id,
 		));
 		Slug::$CACHE = array(); // mazeme uplne vsechno...
+		Slug::$CACHE_WITHOUT_SEGMENT = array();
 	}
 
 	static function StringToSluggish($string,$suffix = "") {

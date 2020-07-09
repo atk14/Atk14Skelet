@@ -2,3 +2,12 @@ testing_article:
   title_en: "Testing Article"
   title_cs: "Testovací článek"
   author_id: "1" # admin
+  slug_en: "testing-article"
+  slug_cs: "testovaci-clanek"
+
+interesting_article:
+  title_en: "Interesting Article"
+  title_cs: "Zajímavý článek"
+  author_id: "1" # admin
+  slug_en: "interesting-article"
+  slug_cs: "zajimavy-clanek"
