@@ -77,7 +77,10 @@ class UsersController extends AdminController{
 			}
 
 			$d["updated_by_user_id"] = $this->logged_user;
-			$user->s($d);
+			$user->s(array(
+				"password" => $d["password"],
+				"password_administratively_changed_at" => now(),
+			));
 			if(strlen($user->getPassword())>0){
 				$this->flash->success(strtr(_('The new password has been set to the user <em>%user%</em>.<br>Would be nice to let him know at email address <a href="mailto:%email%">%email%</a>.'),array(
 					"%user%" => h($user),

@@ -74,7 +74,7 @@ class UsersController extends ApplicationController{
 
 			$this->logged_user->s(array(
 				"password" => $d["password"],
-				"updated_by_user_id" => $this->logged_user
+				"password_changed_at" => now(),
 			));
 			$this->flash->success(_("Your password has been updated successfully"));
 			$this->_redirect_to("detail");

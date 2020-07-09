@@ -163,6 +163,14 @@ class ApplicationBaseController extends Atk14Controller{
 			$this->logger->info(sprintf("User#%s (%s) just logged in administratively as User#%s (%s) from %s",$this->logged_user->getId(),"$this->logged_user",$user->getId(),"$user",$this->request->getRemoteAddr()));
 		}else{
 			$this->logger->info(sprintf("User#%s (%s) just logged in from %s",$user->getId(),"$user",$this->request->getRemoteAddr()));
+			$user->s(array(
+				"last_signed_in_at" => now(),
+				"last_signed_in_from_addr" => $this->request->getRemoteAddr(),
+				"last_signed_in_from_hostname" => $this->request->getRemoteHostname(),
+				//
+				"updated_at" => $user->g("updated_at"),
+				"updated_by_user_id" => $user->g("updated_by_user_id"),
+			));
 		}
 	}
 
