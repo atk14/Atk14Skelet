@@ -31,20 +31,29 @@ class Slug extends ApplicationModel{
 	 *
 	 *	// finding id in context of a specific segment
 	 *	$lang = null;
-	 *	$segment = "";
-	 * 	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang,$segment); // 123
+	 * 	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang,["segment" => ""]); // 123
+	 *	// or
+	 * 	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang,""); // 123
 	 *
 	 *	// finding id regardless of a segment
 	 *	$lang = null;
 	 *	$segment = null;
-	 * 	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang,$segment); // 123
+	 * 	$id = Slug::GetRecordIdBySlug("articles","on-the-future-of-innovation",$lang,["consider_segment" => false]); // 123
 	 */
-	static function GetRecordIdBySlug($table_name,$slug,&$lang = null,$segment = ''){
+	static function GetRecordIdBySlug($table_name,$slug,&$lang = null,$segment = '',$options = array()){
 		global $ATK14_GLOBAL;
 
-		if(!is_null($segment)){
-			$segment = (string)$segment;
+		if(is_array($segment)){
+			$options = $segment;
+			$segment = '';
 		}
+
+		$options += array(
+			"segment" => $segment,
+			"consider_segment" => true,
+		);
+
+		$segment = $options["consider_segment"] ? (string)$options["segment"] : null;
 
 		$table_name_sluggish = Slug::StringToSluggish($table_name);
 		// matching the generic form
@@ -57,10 +66,10 @@ class Slug extends ApplicationModel{
 
 		Slug::_ReadCache($table_name,$segment);
 
-		if(is_null($segment)){
-			$CACHE = &Slug::$CACHE_WITHOUT_SEGMENT["$table_name"];
-		}else{
+		if($options["consider_segment"]){
 			$CACHE = &Slug::$CACHE["$table_name,$segment"];
+		}else{
+			$CACHE = &Slug::$CACHE_WITHOUT_SEGMENT["$table_name"];
 		}
 
 		if($lang){

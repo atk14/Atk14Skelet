@@ -327,12 +327,21 @@ class ApplicationModel extends TableRecord{
 		Slug::SetObjectSlug($this,$slug,$lang,$segment,$options);
 	}
 
-	static function GetInstanceBySlug($slug,&$lang = null,$segment = ''){
+	static function GetInstanceBySlug($slug,&$lang = null,$options = array()){
+		if(!is_array($options)){
+			$options = array("segment" => $options);
+		}
+
+		$options += array(
+			"segment" => "",
+			"consider_segment" => true,
+		);
+
 		$class_name = get_called_class();
 		$o = new $class_name();
 		$table_name = $o->getTableName();
 
-		$record_id = Slug::GetRecordIdBySlug($table_name,$slug,$lang,$segment);
+		$record_id = Slug::GetRecordIdBySlug($table_name,$slug,$lang,$options);
 		return Cache::Get("$class_name",$record_id);
 	}
 
