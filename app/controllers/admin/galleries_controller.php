@@ -1,5 +1,6 @@
 <?php
 require(__DIR__ . "/iobjects_base.php");
+
 class GalleriesController extends IobjectsBaseController {
 
 	function create_new(){
@@ -33,8 +34,6 @@ class GalleriesController extends IobjectsBaseController {
 		$title = _("Fotogalerie");
 		if($this->gallery->getTitle()){ $title .= ": ".strip_tags($this->gallery->getTitle()); }
 		$this->page_title = $title;
-
-		$this->_set_up_breadcrumbs();
 
 		$return_uri = $this->_get_return_uri();
 		$form = $this->_get_form("gallery_items/create_new_form");
