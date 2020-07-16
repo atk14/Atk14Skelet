@@ -83,7 +83,7 @@
 				{/if}
 			
 				<figure class="gallery__item{if $i > $max_num_show} d-none{/if}">
-					<a href="{$image|img_url:$geometry_detail}" title="{if $image->getDescription()}{$image->getDescription()}{/if}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl" data-minithumb="{$image|img_url:$geometry_thumb_transition}">
+					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl" data-minithumb="{$image|img_url:$geometry_thumb_transition}">
 						<img {!$image|img_attrs:$thumb_geometry} alt="{$image->getName()}" class="img-fluid">
 					</a>
 					<figcaption>
