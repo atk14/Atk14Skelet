@@ -41,7 +41,7 @@
 		
 	{if !isset($photo_gallery_title)}{capture assign="photo_gallery_title"}{t}Photo gallery{/t}{/capture}{/if}
 	<section class="photo-gallery photo-gallery--square{if $compact} photo-gallery--compact{/if}">
-		<div class="gallery__images orientation-{$orientation} num-{$num_show}">
+		<div class="gallery__images orientation-{$orientation} num-{$num_show}" itemscope itemtype="http://schema.org/ImageGallery">
 			{foreach $images as $image}
 				{assign var="i" value=$image@iteration}
 				{if $i == 1 }
@@ -82,9 +82,9 @@
 					{/if}
 				{/if}
 			
-				<figure class="gallery__item{if $i > $max_num_show} d-none{/if}">
+				<figure class="gallery__item{if $i > $max_num_show} d-none{/if}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl" data-minithumb="{$image|img_url:$geometry_thumb_transition}">
-						<img {!$image|img_attrs:$thumb_geometry} alt="{$image->getName()}" class="img-fluid">
+						<img {!$image|img_attrs:$thumb_geometry} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
 					</a>
 					<figcaption>
 						<div><strong>{$image->getName()}</strong></div>

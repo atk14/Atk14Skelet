@@ -13,16 +13,16 @@
 {if !$images && $object}
 	{assign var=images value=Image::GetImages($object)}
 {/if}
-{assign geometry_detail "1600"}
+{assign geometry_detail "2000x1600"}
 
 {if $images}
 	{* {if !isset($photo_gallery_title)}{capture assign="photo_gallery_title"}{t}Photo gallery{/t}{/capture}{/if} *}
 	<section class="photo-gallery{if $compact} photo-gallery--compact{/if}">
-		<div class="gallery__images">
+		<div class="gallery__images" itemscope itemtype="http://schema.org/ImageGallery">
 			{foreach $images as $image}
-				<figure class="gallery__item">
-					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}">
-						<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="">
+				<figure class="gallery__item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
+					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
+						<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" itemprop="thumbnail">
 					</a>
 					<figcaption>
 						<div><strong>{$image->getName()}</strong></div>
