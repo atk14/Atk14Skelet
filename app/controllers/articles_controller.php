@@ -39,13 +39,11 @@ class ArticlesController extends ApplicationController{
 			return $this->_execute_action("error404");
 		}
 
+		$this->page_title = $article->getPageTitle();
+		$this->page_description = $article->getPageDescription();
+
+		$this->tpl_data["article"] = $article;
 		$this->tpl_data["tags"] = $article->getTags();
-
-		$this->page_title = $article->getTitle();
-		$this->tpl_data["article"] = $article;
-
-		$this->page_title = $article->getTitle();
-		$this->tpl_data["article"] = $article;
 
 		$this->tpl_data["older_article"] = $article->getOlderArticle();
 		$this->tpl_data["newer_article"] = $article->getNewerArticle();

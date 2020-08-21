@@ -1,13 +1,23 @@
 testing_article:
   title_en: "Testing Article"
   title_cs: "Testovací článek"
+  teaser_en: "Testing teaser"
+  teaser_cs: "Testovací teaser"
   author_id: "1" # admin
   slug_en: "testing-article"
   slug_cs: "testovaci-clanek"
+  published_at: "2020-08-20"
 
 interesting_article:
   title_en: "Interesting Article"
   title_cs: "Zajímavý článek"
+  teaser_en: "Interesting teaser"
+  teaser_cs: "Zajímavý teaser"
+  page_title_en: "Page title"
+  page_title_cs: "Název stránky"
+  page_description_en: "Page description"
+  page_description_cs: "Popis stránky"
   author_id: "1" # admin
   slug_en: "interesting-article"
   slug_cs: "zajimavy-clanek"
+  published_at: "2020-08-21"

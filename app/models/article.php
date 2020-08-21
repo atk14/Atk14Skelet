@@ -3,9 +3,23 @@ class Article extends ApplicationModel implements Translatable, iSlug {
 
 	use TraitTags;
 	
-	static function GetTranslatableFields() { return array("title", "teaser", "body");}
+	static function GetTranslatableFields() { return array("title", "teaser", "body", "page_title", "page_description");}
 
 	function getSlugPattern($lang){ return $this->g("title_$lang"); }
+
+	function getPageTitle(){
+		$out = parent::getPageTitle();
+		if(strlen($out)){ return $out; }
+		return $this->getTitle();
+	}
+
+	function getPageDescription(){
+		$out = parent::getPageDescription();
+		if(strlen($out)){ return $out; }
+		$out = $this->getTeaser();
+		if(strlen($out)){ return strip_tags($out); }
+	}
+
 
 	function isPublished(){
 		return strtotime($this->getPublishedAt())<time();
