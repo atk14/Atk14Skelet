@@ -97,6 +97,7 @@ class ApplicationBaseController extends Atk14Controller{
 		// than
 		//	{!$val|h|default:"&mdash;"}
 		$this->tpl_data["mdash"] = "—";
+		$this->tpl_data["nbsp"] = " ";
 	}
 
 	function _application_before_filter(){
