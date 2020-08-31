@@ -9,15 +9,18 @@ class TagsController extends AdminController{
 		$conditions = $bind_ar = array();
 
 		if($d["search"]){
-			$_fields = array("id","tag","COALESCE(code,'')");
+			$_fields = array();
+			$_fields[] = "id";
+			$_fields[] = "tag";
+			$_fields[] = "COALESCE(code,'')";
 			$_fields[] = "COALESCE((SELECT body FROM translations WHERE record_id=tags.id AND table_name='tags' AND key='tag_localized' AND lang=:lang),'')";
 			if($ft_cond = FullTextSearchQueryLike::GetQuery("LOWER(".join("||' '||",$_fields).")",Translate::Lower($d["search"]),$bind_ar)){
 				$conditions[] = $ft_cond;
 				$bind_ar[":lang"] = $this->lang;
-				$bind_ar[":search"] = Translate::Lower($d["search"]);
 			}
 
 			$this->sorting->add("default","LOWER(tag) LIKE :search||'%' DESC, id||''=:search DESC, LOWER(tag)"); // in searching the default ordering is more usefull: exact match with id or at the beginning of a tag is prioritized
+			$bind_ar[":search"] = Translate::Lower($d["search"]);
 		}
 
 		$this->sorting->add("created_at",array("reverse" => true));
