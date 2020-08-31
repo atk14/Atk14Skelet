@@ -26,6 +26,12 @@ class TcUsers extends TcBase{
 
 		// we are visiting the page for user registration
 		$controller = $this->client->get("users/create_new");
+
+		if(defined("USER_REGISTRATION_ENABLED") && !constant("USER_REGISTRATION_ENABLED")){
+			$this->assertEquals(404,$this->client->getStatusCode());
+			return;
+		}
+
 		$this->assertEquals(200,$this->client->getStatusCode());
 		$this->assertEquals(null,$controller->logged_user);
 
@@ -67,6 +73,12 @@ class TcUsers extends TcBase{
 		$params["password"] = '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta'; // hash for secret
 		$params["password_repeat"] = '$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta';
 		$controller = $this->client->post("users/create_new",$params);
+
+		if(defined("USER_REGISTRATION_ENABLED") && !constant("USER_REGISTRATION_ENABLED")){
+			$this->assertEquals(404,$this->client->getStatusCode());
+			return;
+		}
+
 		$this->assertEquals(false,$controller->form->has_errors());
 		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting to $params["return_uri"]...
 		$this->assertContains('You have been successfully registered',(string)$controller->flash->success());
