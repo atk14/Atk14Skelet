@@ -9,8 +9,17 @@ class ErrorRedirectionsController extends AdminController {
 		$conditions = $bind_ar = array();
 
 		if($d["search"]){
-			$conditions[] = "UPPER(id||' '||source_url||' '||target_url) LIKE UPPER('%'||:search||'%')";
-			$bind_ar[":search"] = $d["search"];
+			$_fields = array();
+			$_fields[] = "id";
+			$_fields[] = "source_url";
+			$_fields[] = "target_url";
+
+			if($ft_cond = FullTextSearchQueryLike::GetQuery("LOWER(".join("||' '||",$_fields).")",Translate::Lower($d["search"]),$bind_ar)){
+				$conditions[] = $ft_cond;
+			}
+
+			$this->sorting->add("default","id||''=:search DESC, LOWER(source_url) LIKE :search||'%' DESC, LOWER(target_url) LIKE :search||'%' DESC, last_accessed_at IS NOT NULL DESC, last_accessed_at DESC, created_at DESC"); // default ordering is tuned in searching
+			$bind_ar[":search"] = Translate::Lower($d["search"]);
 		}
 
 		$this->sorting->add("last_accessed_at","last_accessed_at IS NOT NULL DESC, last_accessed_at DESC, created_at DESC","last_accessed_at IS NOT NULL DESC, last_accessed_at ASC, created_at ASC");
