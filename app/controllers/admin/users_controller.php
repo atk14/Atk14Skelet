@@ -17,8 +17,20 @@ class UsersController extends AdminController{
 		$conditions = $bind_ar = array();
 
 		if($d["search"]){
-			$conditions[] = "UPPER(id||' '||login||' '||COALESCE(firstname,'')||' '||COALESCE(lastname,'')||' '||COALESCE(email,'')) LIKE UPPER('%'||:search||'%')";
-			$bind_ar[":search"] = $d["search"];
+			$_fields = array();
+			$_fields[] = "id";
+			foreach(array(
+				"login",
+				"firstname",
+				"lastname",
+				"email",
+			) as $_f){
+				$_fields[] = "COALESCE($_f,'')";
+			}
+
+			if($ft_cond = FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",$_fields).")",Translate::Upper($d["search"]),$bind_ar)){
+				$conditions[] = $ft_cond;
+			}
 		}
 
 		$this->tpl_data["finder"] = User::Finder(array(
