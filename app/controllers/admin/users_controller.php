@@ -4,14 +4,6 @@ class UsersController extends AdminController{
 	function index(){
 		$this->page_title = _("Users list");
 
-		$this->sorting->add("created_at",array("reverse" => "true"));
-		$this->sorting->add("updated_at","COALESCE(updated_at,'2000-01-01') DESC, created_at DESC, id DESC","COALESCE(updated_at,'2099-01-01'), created_at, id");
-		$this->sorting->add("is_admin","is_admin DESC, LOWER(login)","is_admin ASC, LOWER(login)");
-		$this->sorting->add("login","LOWER(login)");
-		$this->sorting->add("id");
-		$this->sorting->add("name","LOWER(COALESCE(firstname,'')), LOWER(COALESCE(lastname,''))","LOWER(COALESCE(firstname,'')) DESC, LOWER(COALESCE(lastname,'')) DESC");
-		$this->sorting->add("email","COALESCE(LOWER(email),'')");
-
 		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
 
 		$conditions = $bind_ar = array();
@@ -19,8 +11,8 @@ class UsersController extends AdminController{
 		if($d["search"]){
 			$_fields = array();
 			$_fields[] = "id";
+			$_fields[] = "login";
 			foreach(array(
-				"login",
 				"firstname",
 				"lastname",
 				"email",
@@ -28,10 +20,21 @@ class UsersController extends AdminController{
 				$_fields[] = "COALESCE($_f,'')";
 			}
 
-			if($ft_cond = FullTextSearchQueryLike::GetQuery("UPPER(".join("||' '||",$_fields).")",Translate::Upper($d["search"]),$bind_ar)){
+			if($ft_cond = FullTextSearchQueryLike::GetQuery("LOWER(".join("||' '||",$_fields).")",Translate::Lower($d["search"]),$bind_ar)){
 				$conditions[] = $ft_cond;
 			}
+
+			$this->sorting->add("default","id||''=:search DESC, LOWER(login) LIKE :search||'%' DESC, LOWER(COALESCE(email,'')) LIKE :search||'%' DESC, created_at DESC"); // default ordering is tuned in searching
+			$bind_ar[":search"] = Translate::Lower($d["search"]);
 		}
+
+		$this->sorting->add("created_at",array("reverse" => "true"));
+		$this->sorting->add("updated_at","COALESCE(updated_at,'2000-01-01') DESC, created_at DESC, id DESC","COALESCE(updated_at,'2099-01-01'), created_at, id");
+		$this->sorting->add("is_admin","is_admin DESC, LOWER(login)","is_admin ASC, LOWER(login)");
+		$this->sorting->add("login","LOWER(login)");
+		$this->sorting->add("id");
+		$this->sorting->add("name","LOWER(COALESCE(firstname,'')), LOWER(COALESCE(lastname,''))","LOWER(COALESCE(firstname,'')) DESC, LOWER(COALESCE(lastname,'')) DESC");
+		$this->sorting->add("email","COALESCE(LOWER(email),'')");
 
 		$this->tpl_data["finder"] = User::Finder(array(
 			"conditions" => $conditions,
