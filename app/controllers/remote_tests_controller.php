@@ -47,7 +47,7 @@ class RemoteTestsController extends ApplicationController{
 	 * Filters out Tracy's log files which are no older than 30 minutes
 	 */
 	function php_errors(){
-		$this->_check_for_files(ATK14_DOCUMENT_ROOT."log/",array(
+		$this->_check_for_files(LOG_DIR,array(
 			"pattern" => '/(php_error\.log|exception|error\.log)/',
 			"min_mtime" => time() - 30 * 60, // not older than 30 minutes
 		));
@@ -57,12 +57,22 @@ class RemoteTestsController extends ApplicationController{
 	 * Filters out Tracy's exception log files which are no older than 30 minutes
 	 */
 	function php_exceptions(){
-		$this->_check_for_files(ATK14_DOCUMENT_ROOT."log/",array(
+		$this->_check_for_files(LOG_DIR,array(
 			"pattern" => '/exception/',
 			"min_mtime" => time() - 30 * 60, // not older than 30 minutes
 		));
 	}
-	
+
+	/**
+	 * Reports fresh changes to the robots error log
+	 */
+	function robot_errors(){
+		$this->_check_for_files(LOG_DIR,array(
+			"pattern" => '/(robots_error\.log)/',
+			"min_mtime" => time() - 30 * 60, // not older than 30 minutes
+		));
+	}
+
 	function _before_filter(){
 		/*
 		// Here you can restrict access to the controller's actions for listed IP addresses
