@@ -5,6 +5,7 @@ class Slug extends ApplicationModel{
 
 	protected static $CACHE = array();
 	protected static $CACHE_WITHOUT_SEGMENT = array();
+	protected static $CACHE_SLUGS = array();
 
 	 /**
 	  *
@@ -64,7 +65,31 @@ class Slug extends ApplicationModel{
 			}
 		}
 
-		Slug::_ReadCache($table_name,$segment);
+		$cache_key = "$table_name" . (isset($segment) ? ",$segment" : "");
+		
+		if(!isset(Slug::$CACHE_SLUGS[$cache_key])){
+			Slug::$CACHE_SLUGS[$cache_key] = array();
+		}
+
+		if(!isset(Slug::$CACHE_SLUGS[$cache_key]["$slug"])){
+			//echo "<font color='green'>$table_name ($segment)...$slug</font><br>";
+			$dbmole = Slug::GetDbmole();
+			$slugs = isset($segment) ? $dbmole->selectIntoArray("SELECT slug FROM slugs WHERE table_name=:table_name AND segment=:segment LIMIT 100",[":table_name" => $table_name, ":segment" => $segment]) : $dbmole->selectIntoArray("SELECT slug FROM slugs WHERE table_name=:table_name LIMIT 1000",[":table_name" => $table_name]);
+			$slugs[] = $slug;
+			$slugs = array_unique($slugs);
+			$slugs_to_read = [];
+			foreach($slugs as $s){
+				if(!isset(Slug::$CACHE_SLUGS[$cache_key]["$s"])){
+					Slug::$CACHE_SLUGS[$cache_key]["$s"] = array();
+					$slugs_to_read[] = $s;
+				}
+			}
+			$rows = $dbmole->selectRows("SELECT record_id,slug FROM slugs WHERE table_name=:table_name AND slug IN :slgs",[":table_name" => $table_name, ":slgs" => $slugs_to_read]);
+			foreach($rows as $row){
+				Slug::$CACHE_SLUGS[$cache_key][$row["slug"]][] = $row["record_id"];
+			}
+		}
+		Slug::_ReadCache($table_name,Slug::$CACHE_SLUGS[$cache_key]["$slug"],$segment);
 
 		if($options["consider_segment"]){
 			$CACHE = &Slug::$CACHE["$table_name,$segment"];
@@ -109,8 +134,9 @@ class Slug extends ApplicationModel{
 			$slug = self::_BuildSlug($obj,$lang);
 		}
 
-		$cache_key = "$table_name,$segment";
-		unset(Slug::$CACHE[$cache_key]);
+		unset(Slug::$CACHE["$table_name,$segment"]);
+		unset(Slug::$CACHE_WITHOUT_SEGMENT["$table_name"]);
+		Slug::$CACHE_SLUGS = array();
 
 		$values = array(
 			"table_name" => $table_name,
@@ -148,9 +174,13 @@ class Slug extends ApplicationModel{
 
 		$table_name = $obj->getTableName();
 		$id = $obj->getId();
+		$class_name = get_class($obj);
 
-		$cache_key = "$table_name,$segment";
-		Slug::_ReadCache($table_name,$segment);
+		$record_ids = Cache::CachedIds($class_name);
+		if(!in_array($id,$record_ids)){
+			$record_ids[] = $id;
+		}
+		Slug::_ReadCache($table_name,$record_ids,$segment);
 
 		if(isset(Slug::$CACHE["$table_name,$segment"][$lang][$id])){
 			return Slug::$CACHE["$table_name,$segment"][$lang][$id];
@@ -160,12 +190,15 @@ class Slug extends ApplicationModel{
 		return "$table_name_sluggish-$lang-$id";
 	}
 
-	static function _ReadCache($table_name,$segment = '',$force_read = false){
+	static function _ReadCache($table_name,$record_ids,$segment = '',$force_read = false){
 		global $ATK14_GLOBAL;
 
 		if(is_null($segment)){
-			return self::_ReadCacheWithoutSegment($table_name,$force_read);
+			return self::_ReadCacheWithoutSegment($table_name,$record_ids,$force_read);
 		}
+
+		$languages = $ATK14_GLOBAL->getSupportedLangs();
+		$def_language = $languages[0];
 
 		$segment = (string)$segment;
 
@@ -173,18 +206,30 @@ class Slug extends ApplicationModel{
 			Slug::$CACHE = array();
 		}
 
-		if(isset(Slug::$CACHE["$table_name,$segment"])){
-			return;
+		if(!isset(Slug::$CACHE["$table_name,$segment"])){
+			Slug::$CACHE["$table_name,$segment"] = array();
+			foreach($languages as $l){
+				Slug::$CACHE["$table_name,$segment"][$l] = array();
+			}
 		}
-		
-		Slug::$CACHE["$table_name,$segment"] = array();
 		$CACHE = &Slug::$CACHE["$table_name,$segment"];
-		foreach($ATK14_GLOBAL->getSupportedLangs() as $l){
-			$CACHE[$l] = array();
+
+		$ids_to_read = array();
+		foreach($record_ids as $id){
+			if(!array_key_exists($id,$CACHE[$def_language])){
+				$ids_to_read[] = $id;
+				foreach($languages as $l){
+					$CACHE[$l][$id] = null;
+				}
+			}
+		}
+
+		if(!$ids_to_read){
+			return;
 		}
 
 		$dbmole = Slug::GetDbmole();
-		$rows = $dbmole->selectRows("SELECT lang,record_id,slug FROM slugs WHERE table_name=:table_name AND segment=:segment",array(":table_name" => $table_name,":segment" => $segment));
+		$rows = $dbmole->selectRows("SELECT lang,record_id,slug FROM slugs WHERE table_name=:table_name AND segment=:segment AND record_id IN :ids",array(":table_name" => $table_name,":segment" => $segment,":ids" => $ids_to_read));
 		foreach($rows as $row){
 			$l = $row["lang"];
 			$id = (int)$row["record_id"];
@@ -192,25 +237,40 @@ class Slug extends ApplicationModel{
 		}
 	}
 
-	static function _ReadCacheWithoutSegment($table_name,$force_read = false){
+	static function _ReadCacheWithoutSegment($table_name,$record_ids,$force_read = false){
 		global $ATK14_GLOBAL;
+
+		$languages = $ATK14_GLOBAL->getSupportedLangs();
+		$def_language = $languages[0];
 
 		if($force_read){
 			Slug::$CACHE_WITHOUT_SEGMENT = array();
 		}
 
-		if(isset(Slug::$CACHE_WITHOUT_SEGMENT["$table_name"])){
+		if(!isset(Slug::$CACHE_WITHOUT_SEGMENT["$table_name"])){
+			Slug::$CACHE_WITHOUT_SEGMENT["$table_name"] = array();
+			foreach($languages as $l){
+				Slug::$CACHE_WITHOUT_SEGMENT["$table_name"][$l] = array();
+			}
+		}
+		$CACHE_WITHOUT_SEGMENT = &Slug::$CACHE_WITHOUT_SEGMENT["$table_name"];
+
+		$ids_to_read = array();
+		foreach($record_ids as $id){
+			if(!array_key_exists($id,$CACHE_WITHOUT_SEGMENT[$def_language])){
+				$ids_to_read[] = $id;
+				foreach($languages as $l){
+					$CACHE_WITHOUT_SEGMENT[$l][$id] = null;
+				}
+			}
+		}
+
+		if(!$ids_to_read){
 			return;
 		}
 
-		Slug::$CACHE_WITHOUT_SEGMENT["$table_name"] = array();
-		$CACHE_WITHOUT_SEGMENT = &Slug::$CACHE_WITHOUT_SEGMENT["$table_name"];
-		foreach($ATK14_GLOBAL->getSupportedLangs() as $l){
-			$CACHE_WITHOUT_SEGMENT[$l] = array();
-		}
-
 		$dbmole = Slug::GetDbmole();
-		$rows = $dbmole->selectRows("SELECT lang,record_id,slug FROM slugs WHERE table_name=:table_name",array(":table_name" => $table_name));
+		$rows = $dbmole->selectRows("SELECT lang,record_id,slug FROM slugs WHERE table_name=:table_name AND record_id IN :ids",array(":table_name" => $table_name,":ids" => $ids_to_read));
 		foreach($rows as $row){
 			$l = $row["lang"];
 			$id = (int)$row["record_id"];
@@ -228,6 +288,7 @@ class Slug extends ApplicationModel{
 		));
 		Slug::$CACHE = array(); // mazeme uplne vsechno...
 		Slug::$CACHE_WITHOUT_SEGMENT = array();
+		Slug::$CACHE_SLUGS = array();
 	}
 
 	static function StringToSluggish($string,$suffix = "") {
