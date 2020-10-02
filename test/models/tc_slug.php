@@ -46,6 +46,30 @@ class TcSlug extends TcBase {
 		}
 	}
 
+	function test_reconstruct_missing_slugs(){
+		$article = Article::CreateNewRecord(array(
+			"title_en" => "Nice Reading",
+			"title_cs" => "Krásné čtení",
+			"slug_cs" => "krasne-cteni"
+		),array(
+			"reconstruct_missing_slugs" => false,
+		));
+
+		$this->assertEquals("articles-en-".$article->getId(),$article->getSlug("en"));
+		$this->assertEquals("krasne-cteni",$article->getSlug("cs"));
+
+		$article = Article::CreateNewRecord(array(
+			"title_en" => "Very Nice Reading",
+			"title_cs" => "Moc krásné čtení",
+			"slug_cs" => "moc-krasne-cteni"
+		),array(
+			"reconstruct_missing_slugs" => true,
+		));
+
+		$this->assertEquals("very-nice-reading",$article->getSlug("en"));
+		$this->assertEquals("moc-krasne-cteni",$article->getSlug("cs"));
+	}
+
 	function test_GetRecordIdBySlug(){
 		$testing_article = $this->articles["testing_article"];
 		$interesting_article = $this->articles["interesting_article"];

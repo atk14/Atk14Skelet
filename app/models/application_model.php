@@ -17,6 +17,12 @@ class ApplicationModel extends TableRecord{
 		global $ATK14_GLOBAL,$HTTP_REQUEST;
 		$obj = new static();
 
+		$options += array(
+			"reconstruct_missing_slugs" => true,
+		);
+		$reconstruct_missing_slugs = $options["reconstruct_missing_slugs"];
+		unset($options["reconstruct_missing_slugs"]);
+
 		// there is a auto setting of created_at, created_on or create_date field
 		$v_keys = array_keys($values);
 		foreach(array("created_at","created_on","create_date") as $f){
@@ -73,7 +79,7 @@ class ApplicationModel extends TableRecord{
 			$out->setSlug($slugs);
 		}
 
-		if($obj instanceof iSlug){
+		if($obj instanceof iSlug && $reconstruct_missing_slugs){
 			Slug::ComplementSlugs($out);
 		}
 
