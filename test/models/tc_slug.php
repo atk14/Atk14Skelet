@@ -30,6 +30,20 @@ class TcSlug extends TcBase {
 			"title_en" => "Sample Article",
 		));
 		$this->assertEquals("sample-article-2",$a3->getSlug("en"));
+
+		// There is an internal limit 50, after that uniqid() is added to the slug
+		for($i=1;$i<=52;$i++){
+			$a = Article::CreateNewRecord(array("title_en" => "Nice Reading"));
+			$expected_slug = "nice-reading";
+			if($i>=2 && $i<=50){
+				$expected_slug .= "-$i";
+			}
+			if($i>50){
+				$this->assertTrue(!!preg_match('/^nice-reading-[a-z0-9]{5,}$/',$a->getSlug("en")));
+				return;
+			}
+			$this->assertEquals($expected_slug,$a->getSlug("en"));
+		}
 	}
 
 	function test_GetRecordIdBySlug(){
