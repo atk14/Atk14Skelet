@@ -47,6 +47,7 @@ class TcSlug extends TcBase {
 	}
 
 	function test_reconstruct_missing_slugs(){
+		// false
 		$article = Article::CreateNewRecord(array(
 			"title_en" => "Nice Reading",
 			"title_cs" => "Krásné čtení",
@@ -54,10 +55,10 @@ class TcSlug extends TcBase {
 		),array(
 			"reconstruct_missing_slugs" => false,
 		));
-
 		$this->assertEquals("articles-en-".$article->getId(),$article->getSlug("en"));
 		$this->assertEquals("krasne-cteni",$article->getSlug("cs"));
 
+		// true
 		$article = Article::CreateNewRecord(array(
 			"title_en" => "Very Nice Reading",
 			"title_cs" => "Moc krásné čtení",
@@ -65,9 +66,17 @@ class TcSlug extends TcBase {
 		),array(
 			"reconstruct_missing_slugs" => true,
 		));
-
 		$this->assertEquals("very-nice-reading",$article->getSlug("en"));
 		$this->assertEquals("moc-krasne-cteni",$article->getSlug("cs"));
+
+		// defaul
+		$article = Article::CreateNewRecord(array(
+			"title_en" => "Very, Very Nice Reading",
+			"title_cs" => "Moc, moc krásné čtení",
+			"slug_cs" => "moc-moc-krasne-cteni"
+		));
+		$this->assertEquals("very-very-nice-reading",$article->getSlug("en"));
+		$this->assertEquals("moc-moc-krasne-cteni",$article->getSlug("cs"));
 	}
 
 	function test_GetRecordIdBySlug(){
