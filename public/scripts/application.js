@@ -92,7 +92,13 @@
 					}
 				} ).change();
 			}
+		},
+
+		// In this json, the actions for namespace "api" can be defined
+		api: {
+
 		}
+
 	};
 
 	/*
@@ -100,10 +106,14 @@
 	 * See: http://goo.gl/z9dmd
 	 */
 	APPLICATION.INITIALIZER = {
-		exec: function( controller, action ) {
+		exec: function( namespace, controller, action ) {
 			var ns = APPLICATION,
 				c = controller,
 				a = action;
+
+			if( namespace && namespace.length > 0 && ns[ namespace ] ) {
+				ns = ns[ namespace ];
+			}
 
 			if ( a === undefined ) {
 				a = "init";
@@ -116,12 +126,13 @@
 
 		init: function() {
 			var body = document.body,
+			namespace = body.getAttribute( "data-namespace" ),
 			controller = body.getAttribute( "data-controller" ),
 			action = body.getAttribute( "data-action" );
 
-			APPLICATION.INITIALIZER.exec( "common" );
-			APPLICATION.INITIALIZER.exec( controller );
-			APPLICATION.INITIALIZER.exec( controller, action );
+			APPLICATION.INITIALIZER.exec( namespace, "common" );
+			APPLICATION.INITIALIZER.exec( namespace, controller );
+			APPLICATION.INITIALIZER.exec( namespace, controller, action );
 		}
 	};
 

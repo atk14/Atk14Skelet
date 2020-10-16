@@ -61,7 +61,7 @@
 		
 	</head>
 
-	<body class="body_{$controller}_{$action}" data-controller="{$controller}" data-action="{$action}">
+	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}">
 		<div class="body-wrap">
 			{render partial="shared/layout/header"}
 		
