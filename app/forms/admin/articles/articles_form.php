@@ -25,6 +25,12 @@ class ArticlesForm extends AdminForm {
 			"required" => false,
 		)));
 
+		$this->add_field("author_id", new UserField(array(
+			"label" => _("Author"),
+			"return_object" => false,
+			"initial" => $this->controller->logged_user,
+		)));
+
 		$this->add_translatable_field("page_title",new CharField(array(
 			"label" => _("HTML title"),
 			"required" => false,

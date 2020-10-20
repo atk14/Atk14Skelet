@@ -42,7 +42,7 @@ class ArticlesController extends AdminController{
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$tags = $d["tags"];
 			unset($d["tags"]);
-			$d["author_id"] = $d["created_by_user_id"] = $this->logged_user;
+
 			$article = Article::CreateNewRecord($d);
 			$article->setTags($tags);
 
