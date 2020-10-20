@@ -74,4 +74,13 @@ class User extends ApplicationModel{
 	function isActive(){ return $this->g("active"); }
 
 	function isDeletable(){ return !in_array($this->getId(),array(self::ID_SUPERADMIN)); }
+
+	function toHumanReadableString(){
+		$out = [];
+		$out[] = trim($this->getFirstname()." ".$this->getLastname());
+		$out[] = $this->getCompany();
+		$out = array_filter($out);
+		
+		return sprintf("%s (%s)",$this->getLogin(),join(",",$out));
+	}
 }
