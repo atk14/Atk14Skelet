@@ -78,7 +78,6 @@ class User extends ApplicationModel{
 	function toHumanReadableString(){
 		$out = [];
 		$out[] = trim($this->getFirstname()." ".$this->getLastname());
-		$out[] = $this->getCompany();
 		$out = array_filter($out);
 		
 		return sprintf("%s (%s)",$this->getLogin(),join(",",$out));
