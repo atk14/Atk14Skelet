@@ -78,8 +78,14 @@ class User extends ApplicationModel{
 	function toHumanReadableString(){
 		$out = [];
 		$out[] = trim($this->getFirstname()." ".$this->getLastname());
+		if(!$this->isActive()){
+			$out[] = _("inactive user");
+		}
+		if($this->isAdmin()){
+			$out[] = _("administrator");
+		}
 		$out = array_filter($out);
 		
-		return sprintf("%s (%s)",$this->getLogin(),join(",",$out));
+		return sprintf("%s (%s)",$this->getLogin(),join(", ",$out));
 	}
 }

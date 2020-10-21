@@ -12,7 +12,8 @@ class SuggestionsController extends ApiController{
 			"fields" => [
 				"login",
 				"firstname",
-				"lastname"
+				"lastname",
+				"email"
 			],
 			"order_by" => "
 				LOWER(login) LIKE LOWER(:q)||'%' DESC,
