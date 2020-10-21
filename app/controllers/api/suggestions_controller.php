@@ -9,8 +9,17 @@ class SuggestionsController extends ApiController{
 		}
 
 		$this->_suggest([
-			"fields" => ["login","firstname","lastname"],
-			"order_by" => "LOWER(login) LIKE LOWER(:q)||'%' DESC, LOWER(lastname) LIKE LOWER(:q)||'%' DESC, LOWER(firstname) LIKE LOWER(:q)||'%' DESC, login",
+			"fields" => [
+				"login",
+				"firstname",
+				"lastname"
+			],
+			"order_by" => "
+				LOWER(login) LIKE LOWER(:q)||'%' DESC,
+				LOWER(lastname) LIKE LOWER(:q)||'%' DESC,
+				LOWER(firstname) LIKE LOWER(:q)||'%' DESC,
+				login
+			",
 		]);
 	}
 
