@@ -28,6 +28,7 @@ git submodule update
 composer install
 ./scripts/create_database
 ./scripts/migrate
+chmod 777 tmp log
 ```
 If you are experiencing a trouble make sure that all requirements are met: <http://book.atk14.net/czech/installation%3Arequirements/>
 
@@ -50,7 +51,6 @@ This is optional step. If you have Apache installed, you may want to install the
 ```bash
 ./scripts/virtual_host_configuration -f
 sudo service apache2 reload
-chmod 777 tmp log
 ```
 
 Visit <http://atk14skelet.localhost/>. Is it running? Great!
