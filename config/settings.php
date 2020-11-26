@@ -35,7 +35,7 @@ definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
 // If you don't want to let users to register freely (e.g. your app is an closed alpha),
 // set the constant INVITATION_CODE_FOR_USER_REGISTRATION.
 // See app/forms/users/create_new_form.php for more info
-// define("INVITATION_CODE_FOR_USER_REGISTRATION","some great secret");
+// definedef("INVITATION_CODE_FOR_USER_REGISTRATION","some great secret");
 
 // Or if you don't want to let users to register at all, set USER_REGISTRATION_ENABLED to false.
 definedef("USER_REGISTRATION_ENABLED",true);
