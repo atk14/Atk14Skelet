@@ -19,6 +19,9 @@ class OembedVideoField extends UrlField {
 			return array(_("Nelze získat informace o videu. Ověřte URL videa a podporu oEmbed u poskytovatele videa."), null);
 		}
 		if ($media->type!="video") {
+			if($media->error && strlen($media->error["message"])){
+				trigger_error(sprintf("Essence\Essence: an error occurred: %s (code: %s, video url: %s)",$media->error["message"],$media->error["code"],$value));
+			}
 			return array(_("Typ souboru na tomto URL není video"), null);
 		}
 
