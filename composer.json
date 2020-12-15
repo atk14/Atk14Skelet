@@ -1,4 +1,10 @@
 {
+    "repositories": [
+        {
+          "type": "git",
+          "url": "https://github.com/yarri/essence.git"
+        }
+    ],
     "require": {
         "atk14/dbmole-panel": "^1.0",
         "atk14/mail-panel": "^1.0",
@@ -7,7 +13,7 @@
         "atk14/url-field": "^1.0",
         "atk14/phone-field": "^1.0",
         "atk14/drink-markdown": "^0.6",
-        "essence/essence": ">=2.6.1",
+        "essence/essence": "dev-master",
         "atk14/menu14": "^1.1.1",
         "yarri/my-blowfish": "^1.4",
         "yarri/full-text-search-query-like": "^0.2",
