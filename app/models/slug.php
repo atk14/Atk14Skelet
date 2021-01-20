@@ -7,6 +7,10 @@ class Slug extends ApplicationModel{
 	protected static $CACHE_WITHOUT_SEGMENT = array();
 	protected static $CACHE_SLUGS = array();
 
+	static function SlugMaxLength(){
+		return SLUG_MAX_LENGTH;
+	}
+
 	 /**
 	  *
 	 	* Tato metoda musi byt! ApplicationModel ma totiz svuj jiny getSlug()
