@@ -7,14 +7,17 @@ var favicons = require("favicons").stream;
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
-	"node_modules/@fortawesome/fontawesome-free/css/all.css"
+	"node_modules/@fortawesome/fontawesome-free/css/all.css",
+	"node_modules/blueimp-file-upload/css/jquery.fileupload.css"
 ];
 
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
-	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js"
+	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
+	"node_modules/jquery-ui-bundle/jquery-ui.js",
+	"node_modules/blueimp-file-upload/js/jquery.fileupload.js"
 ];
 
 var applicationScripts = [
