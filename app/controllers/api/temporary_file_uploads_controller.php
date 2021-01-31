@@ -4,6 +4,18 @@ class TemporaryFileUploadsController extends ApiController {
 	function create_new(){
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			$file = $d["file"];
+			class_exists("TemporaryFileUpload"); // make sure that all the relevant constants are defined
+
+			if($file->getTotalFileSize() > TEMPORARY_FILE_MAX_FILESIZE){
+				$this->_report_fail(sprintf(_("The file exceeds the maximum file size, which is %s"),$this->_format_bytes(TEMPORARY_FILE_MAX_FILESIZE)));
+				return;
+			}
+
+			// TODO: To be removed...
+			if($file->getFileName()=="error.txt"){
+				$this->_report_fail("Testing error message!");
+				return;
+			}
 
 			if($file->chunkedUpload()){
 				$token = $file->getToken();
@@ -58,8 +70,6 @@ class TemporaryFileUploadsController extends ApiController {
 	}
 
 	function _dump_temporary_file_upload($temporary_file_upload){
-		Atk14Require::Helper("modifier.format_bytes");
-
 		$bytes_uploaded = !is_null($temporary_file_upload->getBytesUploaded()) ? $temporary_file_upload->getBytesUploaded() : $temporary_file_upload->getFilesize();
 		$filesize = $temporary_file_upload->getFilesize();
 
@@ -68,7 +78,7 @@ class TemporaryFileUploadsController extends ApiController {
 			"token" => $temporary_file_upload->getToken(),
 			"filename" => $temporary_file_upload->getFilename(),
 			"filesize" => $temporary_file_upload->getFilesize(),
-			"filesize_localized" => smarty_modifier_format_bytes($temporary_file_upload->getFilesize()),
+			"filesize_localized" => $this->_format_bytes($temporary_file_upload->getFilesize()),
 			"mime_type" => $temporary_file_upload->getMimeType(),
 
 			"chunked_upload" => $temporary_file_upload->chunkedUpload(),
@@ -77,5 +87,10 @@ class TemporaryFileUploadsController extends ApiController {
 
 			"destroy_url" => $this->_link_to(["action" => "destroy", "token" => $temporary_file_upload->getToken(), "format" => "json"],["with_hostname" => true]),
 		);
+	}
+
+	function _format_bytes($bytes){
+		Atk14Require::Helper("modifier.format_bytes");
+		return smarty_modifier_format_bytes($bytes);
 	}
 }

@@ -98,6 +98,7 @@
 			async_file_upload: function() {
 					var fileuploadOptions,
 						removeButtonHandler,
+						confirmButtonHandler,
 						escapeHtml = function( unsafe ) {
 							return unsafe
 								.replace( /&/g, "&amp;" )
@@ -141,7 +142,18 @@
 
 							$wrap.find( ".js--remove" ).on( "click",  removeButtonHandler );
 						},
-						stop: function() {
+						fail: function( e, data ) {
+							var $wrap = this.$wrap;
+							var errMsg = "Error occurred";
+							if( data._response && data._response.jqXHR && data._response.jqXHR.responseJSON && data._response.jqXHR.responseJSON[ 0 ] ) {
+								errMsg = data._response.jqXHR.responseJSON[ 0 ];
+							}
+							var template = $wrap.data( "template_error" );
+							template = template
+								.replace( "%error_message%", escapeHtml( errMsg ) );
+
+							$wrap.html( template );
+							$wrap.find( ".js--confirm" ).on( "click",  confirmButtonHandler );
 						}
 					};
 
@@ -152,6 +164,13 @@
 							url: $button.data( "destroy_url" ),
 							method: "POST",
 						} );
+						$wrap.html( $wrap.data( "input" ) );
+						$wrap.find( "input[type=file]" ).fileupload( fileuploadOptions );
+					};
+
+					confirmButtonHandler = function() {
+						var $button = $( this );
+						var $wrap = $button.parent( ".js--async-file" );
 						$wrap.html( $wrap.data( "input" ) );
 						$wrap.find( "input[type=file]" ).fileupload( fileuploadOptions );
 					};

@@ -16,6 +16,8 @@ class AsyncFileInput extends FileInput {
 			<input type="hidden" name="%name%" value="%token%">
 		';
 
+		$template_error = '<span class="text text-danger">%error_message%</span> <button type="button" class="js--confirm">ok</button>';
+
 		$default = $input;
 
 		if(is_string($value) && ($file = TemporaryFileUpload::GetInstanceByToken($value))){
@@ -38,7 +40,7 @@ class AsyncFileInput extends FileInput {
 		}
 
 		$out = '
-			<div class="js--async-file" data-name="'.h($name).'" data-input="'.h($input).'" data-template_loading="'.h($template_loading).'" data-template_done="'.h($template_done).'">
+			<div class="js--async-file" data-name="'.h($name).'" data-input="'.h($input).'" data-template_loading="'.h($template_loading).'" data-template_done="'.h($template_done).'" data-template_error="'.h($template_error).'">
 				'.$default.'
 			</div>
 		';

@@ -1,5 +1,6 @@
 <?php
 definedef("TEMPORARY_FILE_UPLOADS_DIRECTORY",TEMP . "/temporary_file_uploads/");
+definedef("TEMPORARY_FILE_MAX_FILESIZE",512 * 1024 * 1024); // 512MB
 
 class TemporaryFileUpload extends ApplicationModel {
 
@@ -61,6 +62,8 @@ class TemporaryFileUpload extends ApplicationModel {
 
 		$full_path = $this->getFullPath();
 		myAssert(file_exists($full_path));
+
+		myAssert((filesize($full_path)+$file->getFileSize())<=$this->getFilesize());
 
 		$f = fopen($full_path,"ab");
 		fwrite($f,$file->getContent(),$file->getFileSize());
