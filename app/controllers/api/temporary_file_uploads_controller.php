@@ -6,8 +6,8 @@ class TemporaryFileUploadsController extends ApiController {
 			$file = $d["file"];
 			class_exists("TemporaryFileUpload"); // make sure that all the relevant constants are defined
 
-			if($file->getTotalFileSize() > TEMPORARY_FILE_MAX_FILESIZE){
-				$this->_report_fail(sprintf(_("The file exceeds the maximum file size, which is %s"),$this->_format_bytes(TEMPORARY_FILE_MAX_FILESIZE)));
+			if($file->getTotalFileSize() > TEMPORARY_FILE_UPLOADS_MAX_FILESIZE){
+				$this->_report_fail(sprintf(_("The file exceeds the maximum file size, which is %s"),$this->_format_bytes(TEMPORARY_FILE_UPLOADS_MAX_FILESIZE)));
 				return;
 			}
 
