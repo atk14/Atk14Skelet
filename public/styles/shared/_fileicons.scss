@@ -3,8 +3,12 @@
 // <span class="fileicon">
 // <span class="fileicon fileicon-pdf">
 // <span class="fileicon fileicon-pdf fileicon-color">
+// <span class="fileicon fileicon-pdf fileicon-color" data-icon-text="pdf">
+//
+// If data-icon-text attribute is set, its content will be rendered on icon.
+// Length 4 letters max, may not work well with extreme line-height values of parent or with small font sizes.
 
-// Step 1: Common Properties: All required to make icons render reliably
+//  Common Properties: All required to make icons render reliably
 .fileicon:before {
   display: inline-block;
 	font-weight: 900;
@@ -58,7 +62,7 @@
 		content: "\f1c1";
 	}
 	&.fileicon-color:before {
-		color: red;
+		color: #e00;
 	}
 }
 
@@ -114,5 +118,65 @@
 	}
 	&.fileicon-color:before {
 		color: dodgerblue;
+	}
+}
+
+// Ebooks (except pdf)
+.fileicon-ebook, .fileicon-opf, .fileicon-cbr, .fileicon-fb2, .fileicon-lit, .fileicon-prc, .fileicon-tcr, .fileicon-lrf, .fileicon-mpb, .fileicon-azw, .fileicon-mobi, .fileicon-epub, , .fileicon-azw3 {
+	&:before {
+		font-weight: 900;
+		content: "\f15c";
+	}
+	
+	
+	&.fileicon-color:before {
+		color: dodgerblue;
+	}
+	
+	&.fileicon-color {
+		&.fileicon-lit, &.fileicon-prc, &.fileicon-azw {
+			&:before {
+				color: #fcb040;
+			}
+		}
+		&.fileicon-epub {
+			&:before {
+				color: #93c12f;
+			}
+		}
+	}
+}
+
+// Folder
+.fileicon-folder {
+	&:before {
+		font-weight: 900;
+		content: "\f07b";
+		color: #aaa;
+	}
+}
+
+// Icon with text (i.e. file extension) in data-text attribute
+.fileicon[data-icon-text] {
+	position: relative;
+	&:before {
+		content: "\f15b";
+	}
+	&:after {
+		position: absolute;
+		left: 0;
+		top: 0;
+		width: 100%;
+		height: 100%;
+		content: attr(data-icon-text);
+		text-transform: uppercase;
+		font-size: 0.25em;
+		font-weight: 700;
+		display: flex;
+		justify-content: center;
+		text-align: center;
+		align-items: flex-end;
+		padding-bottom: 0.65em;
+		color: white;
 	}
 }
