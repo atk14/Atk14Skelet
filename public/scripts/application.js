@@ -115,7 +115,7 @@
 						multipart: false,
 						sequentialUploads: true,
 						start: function() {
-							this.$wrap = $( this ).parent( ".js--async-file" );
+							this.$wrap = $( this ).parents( ".js--async-file" );
 							this.$wrap.html( this.$wrap.data( "template_loading" ) );
 							this.$progress = this.$wrap.find( ".progress-bar" );
 						},
@@ -133,6 +133,7 @@
 							var template = $wrap.data( "template_done" );
 							template = template
 								.replace( "%filename%", escapeHtml( data.result.filename ) )
+								.replace( "%fileext%", escapeHtml( data.result.filename.split( "." ).pop().toLowerCase() ) )
 								.replace( "%filesize_localized%", escapeHtml( data.result.filesize_localized ) )
 								.replace( "%token%", escapeHtml( data.result.token ) )
 								.replace( "%name%", escapeHtml( $wrap.data( "name" ) ) )
@@ -159,7 +160,7 @@
 
 					removeButtonHandler = function() {
 						var $button = $( this );
-						var $wrap = $button.parent( ".js--async-file" );
+						var $wrap = $button.parents( ".js--async-file" );
 						$.ajax( {
 							url: $button.data( "destroy_url" ),
 							method: "POST",
@@ -170,7 +171,7 @@
 
 					confirmButtonHandler = function() {
 						var $button = $( this );
-						var $wrap = $button.parent( ".js--async-file" );
+						var $wrap = $button.parents( ".js--async-file" );
 						$wrap.html( $wrap.data( "input" ) );
 						$wrap.find( "input[type=file]" ).fileupload( fileuploadOptions );
 					};

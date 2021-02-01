@@ -1,0 +1,38 @@
+
+// file input and async file input
+
+.form-control-file {
+	border: $input-border-width solid $input-border-color;
+	border-radius: $input-border-radius;
+	padding: $input-padding-y $input-padding-x;
+}
+.async-file-input__result {
+	border: $input-border-width solid $input-border-color;
+	border-radius: $input-border-radius;
+	padding: $input-padding-y $input-padding-x;
+	display: flex;
+	align-items: center;
+	flex-wrap: wrap;
+	& > .fileicon, & > .fas, & > .far {
+		margin-right: 0.5em;
+		font-size: 1.75em;
+	}
+	.file-text {
+		display: block;
+		flex-grow: 100;
+		margin-right: 1em;
+		.text-muted {
+			display: inline-block;
+			margin-left: 0.5em;
+			font-size: $font-size-sm;
+		}
+	}
+	&.done {
+
+	}
+	&.error {
+		color: white;
+		background-color: $danger;
+		border-color: white;
+	}
+}
