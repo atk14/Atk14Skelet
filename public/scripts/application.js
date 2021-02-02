@@ -114,6 +114,7 @@
 						maxChunkSize: 1024 * 1024,
 						multipart: false,
 						sequentialUploads: true,
+						dropZone: $(this),
 						start: function() {
 							this.$wrap = $( this ).parents( ".js--async-file" );
 							this.$wrap.html( this.$wrap.data( "template_loading" ) );
