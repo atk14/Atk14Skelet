@@ -22,6 +22,8 @@ class TemporaryFileUploadsController extends ApiController {
 				if($file->firstChunk()){
 					$temporary_file_upload = TemporaryFileUpload::CreateNewRecordByHttpUploadedFile($file);
 					$this->session->s("temporary_file_upload_id_$token",$temporary_file_upload->getId());
+
+					$this->_selfclean();
 				}else{
 					$id = $this->session->g("temporary_file_upload_id_$token");
 					if(is_null($id)){
@@ -44,6 +46,8 @@ class TemporaryFileUploadsController extends ApiController {
 			}else{
 
 				$temporary_file_upload = TemporaryFileUpload::CreateNewRecordByHttpUploadedFile($file);
+
+				$this->_selfclean();
 
 			}
 
@@ -87,6 +91,22 @@ class TemporaryFileUploadsController extends ApiController {
 
 			"destroy_url" => $this->_link_to(["action" => "destroy", "token" => $temporary_file_upload->getToken(), "format" => "json"],["with_hostname" => true]),
 		);
+	}
+
+	function _selfclean(){
+		class_exists("TemporaryFileUpload"); // make sure that all the relevant constants are defined
+
+		$records = TemporaryFileUpload::FindAll(array(
+			"conditions" => "COALESCE(last_chunk_uploaded_at,created_at)<:limit_date",
+			"bind_ar" => array(
+				":limit_date" => date("Y-m-d H:i:s",time() - TEMPORARY_FILE_UPLOADS_MAX_AGE)
+			),
+			"limit" => 100,
+			"order_by" => "COALESCE(last_chunk_uploaded_at,created_at)",
+		));
+		foreach($records as $record){
+			$record->destroy();
+		}
 	}
 
 	function _format_bytes($bytes){
