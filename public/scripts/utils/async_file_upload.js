@@ -15,10 +15,11 @@ window.UTILS.async_file_upload.init = function() {
 				.replace( /"/g, "&quot;" )
 				.replace( /'/g, "&#039;" );
 		};
+	var lang = $( "html" ).attr( "lang" );
 
 	fileuploadOptions = {
 		dataType: "json",
-		url: "/api/en/temporary_file_uploads/create_new/?format=json",
+		url: "/api/" + lang + "/temporary_file_uploads/create_new/?format=json",
 		maxChunkSize: 1024 * 1024,
 		multipart: false,
 		sequentialUploads: true,
