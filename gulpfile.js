@@ -22,6 +22,7 @@ var vendorScripts = [
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
+	"public/scripts/utils/async_file_upload.js",
 	"public/scripts/application.js"
 ];
 
