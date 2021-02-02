@@ -16,17 +16,20 @@ class AsyncFileField extends FileField {
 
 	function clean($value){
 		if(is_string($value) && !is_numeric($value)){
-			$file = TemporaryFileUpload::GetInstanceByToken($value);
-			if(!$file){
+			$value = TemporaryFileUpload::GetInstanceByToken($value);
+			if(!$value){
 				return array($this->messages["temporary_file_not_found"],null);
 			}
+		}
+		if(is_a($value,"TemporaryFileUpload")){
+			$file = $value;
 			if(!file_exists($file->getFullPath())){
 				return array($this->messages["temporary_file_not_found"],null);
 			}
 			if(!$file->fullyUploaded()){
 				return array($this->messages["temporary_file_not_fully_uploaded"],null);
 			}
-			$value = $file;
+			$value = new TemporaryFileUpload_as_HTTPUploadedFile($file);
 		}
 
 		return parent::clean($value);

@@ -5,6 +5,8 @@ definedef("TEMPORARY_FILE_UPLOADS_MAX_AGE", 2 * 60 * 60); // 2 hours
 
 class TemporaryFileUpload extends ApplicationModel {
 
+	var $_Name = "file";
+
 	static function CreateNewRecordByHttpUploadedFile($file,$options = array()){
 		$now = now();
 		$values = array(
@@ -87,5 +89,26 @@ class TemporaryFileUpload extends ApplicationModel {
 			Files::Unlink($this->getFullPath());
 		}
 		return parent::destroy();
+	}
+
+	// This method is called in widget AsyncFileInput
+	function setFormName($name){
+		$this->_Name = (string)$name;
+	}
+
+	// This method is called in TemporaryFileUpload_as_HTTPUploadedFile
+	function getFormName(){
+		return $this->_Name;
+	}
+}
+
+class TemporaryFileUpload_as_HTTPUploadedFile extends HTTPUploadedFile{
+
+	function __construct($temporary_file_upload){
+		// TODO: This may lead to troubles in the future because the private stuff of HTTPUploadedFile is manipulated
+		$this->_TmpFileName = $temporary_file_upload->getFullPath();
+		$this->_Name = $temporary_file_upload->getFormName();
+		$this->_FileName = $temporary_file_upload->getFilename();
+		$this->_MimeType = $temporary_file_upload->getMimeType();
 	}
 }

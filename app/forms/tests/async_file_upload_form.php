@@ -5,6 +5,7 @@ class AsyncFileUploadForm extends ApplicationForm {
 		$this->add_field("name", new CharField(array(
 			"label" => _("Name"),
 			"max_length" => 255,
+			"initial" => "John Doe",
 		)));
 
 		$this->add_field("image", new AsyncFileField(array(

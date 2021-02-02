@@ -24,10 +24,14 @@ class AsyncFileInput extends FileInput {
 
 		$default = $input;
 
-		if(is_string($value) && ($file = TemporaryFileUpload::GetInstanceByToken($value))){
+		if(
+			(is_a($value,"TemporaryFileUpload") && ($file = $value)) ||
+			(is_string($value) && ($file = TemporaryFileUpload::GetInstanceByToken($value)))
+		){
 			Atk14Require::Helper("modifier.format_bytes");
 			$default = strtr($template_done,array(
 				"%filename%" => h($file->getFilename()),
+				"%fileext%" => h($file->getSuffix()),
 				"%filesize_localized%" => smarty_modifier_format_bytes($file->getFilesize()),
 				"%name%" => h($name),
 				"%token%" => $file->getToken(),
@@ -54,7 +58,13 @@ class AsyncFileInput extends FileInput {
 
 	function value_from_datadict($data, $name){
 		if(isset($data[$name]) && is_string($data[$name]) && strlen($data[$name])){
-			return $data[$name];
+			$token = $data[$name];
+			$temporary_file_upload = TemporaryFileUpload::GetInstanceByToken($token);
+			if($temporary_file_upload){
+				$temporary_file_upload->setFormName($name);
+				return $temporary_file_upload;
+			}
+			return $token;
 		}
 		return parent::value_from_datadict($data, $name);
 	}
