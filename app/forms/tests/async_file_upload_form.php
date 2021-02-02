@@ -16,6 +16,11 @@ class AsyncFileUploadForm extends ApplicationForm {
 		$this->add_field("file2", new AsyncFileField(array(
 			"required" => false,
 		)));
+
+		$this->add_field("file3", new FileField(array(
+			"label" => _("Ordinary file input"),
+			"required" => false,
+		)));
 	}
 
 	function is_small(){
