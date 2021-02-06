@@ -29,7 +29,9 @@ class AttachmentsController extends ApplicationController{
 
 			$headers = $uf->getResponseHeaders(array("as_hash" => true));
 
-			$tmp_body = Files::WriteToTemp($uf->getContent());
+			$tmp_body = Files::GetTempFilename();
+			$content = $uf->getContent();
+			$content->writeToFile($tmp_body);
 			$tmp_headers = Files::WriteToTemp(serialize($headers));
 
 			if(!$tmp_body || !$tmp_headers){ return $this->_execute_action("error500"); }
