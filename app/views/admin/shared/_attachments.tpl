@@ -6,11 +6,12 @@
  *}
 
 {if !$section_title}{assign section_title "{t}Attachments{/t}"}{/if}
+{if !$section_id}{assign section_id $section|default:"attachments"}{/if}
 {if !$empty_list_message}{assign empty_list_message "{t}Currently there are no attachments{/t}"}{/if}
 
 {assign var=attachments value=Attachment::GetAttachments($object,$section)}
 
-<h3 id="attachments">{button_create_new action="attachments/create_new" table_name=$object->getTableName() record_id=$object->getId() section=$section return_to_anchor=attachments}{t}Add an attachment{/t}{/button_create_new} {$section_title}</h3>
+<h3 id="{$section_id}">{button_create_new action="attachments/create_new" table_name=$object->getTableName() record_id=$object->getId() section=$section return_to_anchor=$section_id}{t}Add an attachment{/t}{/button_create_new} {$section_title}</h3>
 
 {if !$attachments}
 
