@@ -355,6 +355,18 @@ class AdminController extends ApplicationBaseController{
 		}
 	}
 
+	function _add_page_to_breadcrumbs($page){
+		if(!$page){ return; }
+		$pages = [$page];
+		while($parent = $page->getParentPage()){
+			$pages[] = $parent;
+			$page = $parent;
+		}
+		foreach(array_reverse($pages) as $p){
+			$this->breadcrumbs[] = [$p->getTitle(),$this->_link_to(["action" => "pages/edit", "id" => $p])];
+		}
+	}
+
 	function _add_gallery_to_breadcrumbs($gallery){
 		if(!$gallery){ return; }
 		$title = _("Fotogalerie");
