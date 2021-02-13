@@ -4,6 +4,14 @@ class EditForm extends PagesForm {
 	function set_up() {
 		parent::set_up();
 		$this->add_slug_field();
+
+		if($this->controller->page->getCode()=="homepage"){
+			$this->disable_fields(array(
+				"code",
+				"visible"
+			));
+			$this->fields["visible"]->help_text = _("The homepage should always be visible.");
+		}
 	}
 
 	function clean(){
