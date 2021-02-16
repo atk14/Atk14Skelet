@@ -1,7 +1,10 @@
 <?php
 class AttachmentsForm extends AdminForm{
 
-	function add_name_field($options = array()){
+	function set_up($options = array()){
+		$this->add_field("url",new AsyncPupiqAttachmentField(array(
+			"label" => _("File"),
+		)));
 		$options += array(
 			"label" => _("Title"),
 			"hint" => _("User Manual"),

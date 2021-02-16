@@ -98,6 +98,7 @@ class AdminForm extends ApplicationForm{
 
 	function add_slug_field(){
 		return $this->add_translatable_field("slug",new SlugField(array(
+			"max_length" => Slug::SlugMaxLength(),
 			"required" => false,
 		)));
 	}

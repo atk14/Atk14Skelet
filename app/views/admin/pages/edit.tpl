@@ -21,7 +21,7 @@
 		<li class="list-group-item" data-id="{$sp->getId()}">
 			{$sp->getTitle()}
 
-			{render partial="page_item_dropdown_menu" page=$sp pull="right"}
+			{render partial="page_item_dropdown_menu" page=$sp pull="right" show_edit_link=true}
 		</li>
 	{/foreach}
 	</ul>

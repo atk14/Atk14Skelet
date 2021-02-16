@@ -108,7 +108,8 @@ class IobjectsBaseController extends AdminController{
 		}
 
 		if(is_a($object,"Page")){
-			$this->breadcrumbs[] = array(_("Pages"),$this->_link_to("articles/index"));
+			$this->breadcrumbs[] = array(_("Pages"),$this->_link_to("pages/index"));
+			$this->_add_page_to_breadcrumbs($object->getParentPage());
 			$title = $object->getTitle();
 		}
 

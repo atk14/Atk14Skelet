@@ -3,12 +3,12 @@
         "atk14/dbmole-panel": "^1.0",
         "atk14/mail-panel": "^1.0",
         "atk14/templates-panel": "^1.0",
-        "atk14/pupiq-client": "^1.10",
+        "atk14/pupiq-client": "^1.13",
         "atk14/url-field": "^1.0",
-        "atk14/phone-field": "^1.0",
+        "atk14/phone-field": "^1.1",
         "atk14/drink-markdown": "^0.6",
-        "essence/essence": "^3.5.3",
-        "atk14/menu14": "^1.1.1",
+        "essence/essence": "^2.6.1|^3.5.3",
+        "atk14/menu14": "^1.4",
         "yarri/my-blowfish": "^1.4",
         "yarri/full-text-search-query-like": "^0.2",
         "atk14/confirmation-field": "^1.0",
@@ -16,6 +16,7 @@
         "html2text/html2text": "^4.0",
         "atk14/slug-field": "^1.1",
         "atk14/recaptcha-field": "^0.1.2",
-        "yarri/markdown-manual.mdbook": "^0.2.1"
+        "yarri/markdown-manual.mdbook": "^0.2.1",
+        "atk14/async-file-field": "^1.0"
     }
 }

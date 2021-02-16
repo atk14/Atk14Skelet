@@ -1,6 +1,6 @@
 {if is_null($pull)}{assign pull right}{/if}
 {dropdown_menu pull=$pull clearfix=$clearfix}
-	{if $action=="index"}
+	{if $action=="index" || ($show_edit_link)}
 	{a action=edit id=$page}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
 	{/if}
 

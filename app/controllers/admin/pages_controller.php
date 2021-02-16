@@ -16,6 +16,8 @@ class PagesController extends AdminController {
 	function edit() {
 		$this->page_title = sprintf(_("Editing page %s"),$this->page->getTitle());
 
+		$this->_add_page_to_breadcrumbs($this->page->getParentPage());
+
 		$this->_save_return_uri();
 		$this->form->set_initial($this->page);
 

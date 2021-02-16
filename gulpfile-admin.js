@@ -26,6 +26,7 @@ var vendorScripts = [
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
+	"public/scripts/utils/async_file_upload.js",
 	"public/admin/scripts/application.js"
 ];
 

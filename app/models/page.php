@@ -15,7 +15,7 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 		$path = (string)$path;
 
 		if(!$path){ return null; }
-		
+
 		$parent_page_id = null;
 		foreach(explode('/',$path) as $slug){
 			if(!$_sp = Page::GetInstanceBySlug($slug,$lang,$parent_page_id)){
@@ -40,7 +40,21 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 	}
 
 	function getChildPages() {
-		return Page::FindAll("parent_page_id", $this);
+		static $CACHE;
+		if(is_null($CACHE)){
+			$CACHE = [];
+			$rows = $this->dbmole->selectRows("SELECT parent_page_id, id FROM pages ORDER BY rank, id");
+			foreach($rows as $row){
+				$parent_page_id = $row["parent_page_id"];
+				$id = $row["id"];
+				if(!isset($CACHE[$parent_page_id])){ $CACHE[$parent_page_id] = []; }
+				$CACHE[$parent_page_id][] = $id;
+			}
+		}
+		if(!isset($CACHE[$this->getId()])){
+			return [];
+		}
+		return Cache::Get("Page",$CACHE[$this->getId()]);
 	}
 
 	function getVisibleChildPages(){
