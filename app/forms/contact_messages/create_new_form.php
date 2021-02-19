@@ -2,6 +2,8 @@
 class CreateNewForm extends ApplicationForm{
 
 	function set_up(){
+		global $HTTP_REQUEST;
+
 		$this->add_field("name",new CharField(array(
 			"label" => _("Your name"),
 			"max_length" => 200,
@@ -29,6 +31,7 @@ class CreateNewForm extends ApplicationForm{
 			)));
 		}
 
+		$this->set_action($HTTP_REQUEST->getRequestUri()."#form_contact_messages_create_new");
 		$this->enable_csrf_protection();
 		$this->set_button_text(_("Send message"));
 	}
