@@ -2,12 +2,16 @@
 /**
  * Model class for a List of links
  */
-class LinkList extends ApplicationModel implements Translatable {
+class LinkList extends ApplicationModel implements Translatable, Rankable {
 
 	use TraitGetInstanceByCode;
 
 	static function GetTranslatableFields() {
 		return array("title");
+	}
+
+	function setRank($rank){
+		$this->_setRank($rank);
 	}
 
 	/**
@@ -29,8 +33,25 @@ class LinkList extends ApplicationModel implements Translatable {
 		return $this->getLinkListItems();
 	}
 
-	function isEmpty(){
-		return sizeof($this->getLinkListItems())==0;
+	function getVisibleLinkListItems(){
+		$items = $this->getLinkListItems();
+		$items = array_filter($items,function($item){ return $item->isVisible(); });
+		return $items;
+	}
+
+	/**
+	 * @alias
+	 */
+	function getVisibleItems(){
+		return $this->getVisibleLinkListItems();
+	}
+
+	function isEmpty($consider_visibility = true){
+		return sizeof($consider_visibility ? $this->getVisibleLinkListItems() : $this->getLinkListItems())==0;
+	}
+
+	function isDeletable(){
+		return true;
 	}
 
 	function destroy($destroy_for_real = null){

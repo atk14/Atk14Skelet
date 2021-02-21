@@ -21,6 +21,10 @@ class LinkListsController extends AdminController {
 		]);
 	}
 
+	function set_rank(){
+		$this->_set_rank();
+	}
+
 	function destroy(){
 		$this->_destroy();
 	}

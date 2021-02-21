@@ -16,4 +16,6 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 	function getLinkList() {
 		return Cache::Get("LinkList", $this->getLinkListId());
 	}
+
+	function isVisible(){ return $this->g("visible"); }
 }

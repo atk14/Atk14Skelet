@@ -17,5 +17,7 @@ class LinkListItemsForm extends AdminForm {
 			"required" => false,
 			"help_text" => _("In some cases the link looks better with an image."),
 		]));
+
+		$this->add_visible_field();
 	}
 }

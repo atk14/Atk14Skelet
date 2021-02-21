@@ -7,7 +7,7 @@
 	{/if}
 
 	<ul class="list-unstyled">
-		{foreach $link_list->getItems() as $item}
+		{foreach $link_list->getVisibleItems() as $item}
 			<li>
 				<a href="{$item->getUrl()}">{$item->getTitle()}</a>
 			</li>
