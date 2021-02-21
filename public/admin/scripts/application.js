@@ -172,9 +172,18 @@
 				$form.find( ".help-block-errors" ).remove();
 			},
 
-			handleSortables: function() {
+			// ADMIN.utils.handleFormErrors();
+			// ADMIN.utils.handleFormErrors( ".list-sortable" );
+			// ADMIN.utils.handleFormErrors( $element.find( "ul" ) );
+			handleSortables: function( sortable ) {
 
 				// Sortable lists.
+				if ( sortable === undefined ) {
+					$sortable = $( ".list-sortable" );
+				} else {
+					$sortable = $( sortable );
+				}
+
 				var $sortable = $( ".list-sortable" ),
 					glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
 						" title='sorting'></span>",
