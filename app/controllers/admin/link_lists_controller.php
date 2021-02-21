@@ -3,10 +3,7 @@ class LinkListsController extends AdminController {
 
 	function index(){
 		$this->page_title = _("Link lists");
-
-		$this->tpl_data["link_lists"] = LinkList::FindAll(array(
-			"order_by" => "system_name",
-		));
+		$this->tpl_data["link_lists"] = LinkList::FindAll();
 	}
 
 	function create_new(){
