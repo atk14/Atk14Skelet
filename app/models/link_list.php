@@ -29,7 +29,7 @@ class LinkList extends ApplicationModel implements Translatable, Rankable {
 	/**
 	 * @alias
 	 */
-	function getItems() {
+	function getItems(){
 		return $this->getLinkListItems();
 	}
 
@@ -46,8 +46,20 @@ class LinkList extends ApplicationModel implements Translatable, Rankable {
 		return $this->getVisibleLinkListItems();
 	}
 
-	function isEmpty($consider_visibility = true){
-		return sizeof($consider_visibility ? $this->getVisibleLinkListItems() : $this->getLinkListItems())==0;
+	/**
+	 *
+	 *	$link_list->isEmpty();
+	 *	$link_list->isEmpty(["consider_visibility" => true]); // this is default
+	 *	$link_list->isEmpty(true);
+	 */
+	function isEmpty($options = array()){
+		if(!is_array($options)){
+			$options = array("consider_visibility" => $options);
+		}
+		$options += array(
+			"consider_visibility" => true,
+		);
+		return sizeof($options["consider_visibility"] ? $this->getVisibleLinkListItems() : $this->getLinkListItems())==0;
 	}
 
 	function isDeletable(){

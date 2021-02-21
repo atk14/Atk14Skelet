@@ -13,6 +13,8 @@ class TcLinkList extends TcBase {
 		$this->assertEquals(2,sizeof($test_list->getVisibleItems()));
 
 		$this->assertEquals(false,$test_list->isEmpty());
+		$this->assertEquals(false,$test_list->isEmpty(array("consider_visibility" => true)));
+		$this->assertEquals(false,$test_list->isEmpty(array("consider_visibility" => false)));
 		$this->assertEquals(false,$test_list->isEmpty(true));
 		$this->assertEquals(false,$test_list->isEmpty(false));
 
@@ -24,6 +26,8 @@ class TcLinkList extends TcBase {
 		$this->assertEquals(0,sizeof($test_list->getVisibleItems()));
 
 		$this->assertEquals(true,$test_list->isEmpty());
+		$this->assertEquals(true,$test_list->isEmpty(array("consider_visibility" => true)));
+		$this->assertEquals(false,$test_list->isEmpty(array("consider_visibility" => false)));
 		$this->assertEquals(true,$test_list->isEmpty(true));
 		$this->assertEquals(false,$test_list->isEmpty(false));
 	}
