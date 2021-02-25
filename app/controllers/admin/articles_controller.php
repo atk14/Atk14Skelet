@@ -20,7 +20,7 @@ class ArticlesController extends AdminController{
 			}
 		}
 
-		$this->sorting->add("published_at",array("reverse" => true));
+		$this->sorting->add("published_at","published_at DESC, created_at DESC, id DESC");
 		$this->sorting->add("id");
 		$this->sorting->add("title","UPPER(COALESCE((SELECT body FROM translations WHERE record_id=articles.id AND table_name='articles' AND key='title' AND lang=:lang),''))");
 		
