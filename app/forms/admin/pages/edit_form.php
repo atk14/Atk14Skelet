@@ -21,6 +21,8 @@ class EditForm extends PagesForm {
 			$this->set_error("code",_("The same code is used on a different page"));
 		}
 
+		$this->_clean_slugs($values);
+
 		return array($err,$values);
 	}
 }
