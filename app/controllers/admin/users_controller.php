@@ -35,7 +35,12 @@ class UsersController extends AdminController{
 		$this->sorting->add("id");
 		$this->sorting->add("name","LOWER(COALESCE(firstname,'')), LOWER(COALESCE(lastname,''))","LOWER(COALESCE(firstname,'')) DESC, LOWER(COALESCE(lastname,'')) DESC");
 		$this->sorting->add("email","COALESCE(LOWER(email),'')");
-		$this->sorting->add("role","is_admin DESC, active DESC, COALESCE(password,'')='', LOWER(login) ASC");
+		$this->sorting->add("role","
+			is_admin DESC,
+			active DESC,
+			COALESCE(password,'')='',
+			LOWER(login) ASC
+		");
 
 		$this->tpl_data["finder"] = User::Finder(array(
 			"conditions" => $conditions,
