@@ -42,6 +42,10 @@ HTML;
 		));
 		}
 
+		if(!preg_match('/<iframe[^>]* loading="/',$out)){
+			$out = preg_replace('/(<iframe[^>]*)>/','\1 loading="lazy">',$out);
+		}
+
 		if($this->g("autoplay")){
 			$out = preg_replace('/(src=".*?)"/','\1&amp;autoplay=1"',$out);
 		}
