@@ -26,8 +26,9 @@
 <html lang="{$lang}" class="no-js">
 
 	<head>
-		{render partial="shared/trackers/google/analytics"}
 		<meta charset="utf-8">
+
+		{render partial="shared/trackers/google/analytics"}
 
 		<title>{trim}
 			{if $controller=="main" && $action=="index" && $namespace==""}
