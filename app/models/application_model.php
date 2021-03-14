@@ -384,15 +384,26 @@ class ApplicationModel extends TableRecord{
 	}
 
 	/**
-	 * Tento __call zachytava tato volani:
+	 * The __call catches the following:
+	 *
+	 *	$brand->getCreatedByUser();
+	 *	$brand->getUpdatedByUser();
 	 *
 	 *	$brand->getInfo();
 	 *	$brand->getInfo("en");
 	 *
-	 * Pokud je info policko z Brand::$translations, tak to zafunguje, podle ocekavani!
+	 * If the "info" field is provided by Translation, it would work.
 	 */
 	function __call($name,$arguments){
 		global $ATK14_GLOBAL;
+
+		if($name == "getCreatedByUser" && $this->hasKey("created_by_user_id")){
+			return Cache::Get("User",$this->getCreatedByUserId());
+		}
+
+		if($name == "getUpdatedByUser" && $this->hasKey("updated_by_user_id")){
+			return Cache::Get("User",$this->getUpdatedByUserId());
+		}
 
 		if(! $this instanceof Translatable) {
 			return parent::__call($name,$arguments);
