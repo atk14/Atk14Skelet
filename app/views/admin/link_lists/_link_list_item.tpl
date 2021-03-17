@@ -1,13 +1,13 @@
 <li class="list-group-item" data-id="{$link_list->getId()}">
-	<div class="d-flex justify-content-between align-items-center">
-		<div>
+	<div class="item__properties">
+		<div class="item__title">
 			{$link_list->getSystemName()}<br>
 			{$link_list->getTitle()}
 		</div>
-		
-		{if strlen($link_list->getCode())}<small>{$link_list->getCode()}</small>{/if}
-
-		<div>
+		<span class="item__code">
+		{if strlen($link_list->getCode())}{$link_list->getCode()}{/if}
+		</span>
+		<div class="item__controls">
 			{dropdown_menu}
 				{a action="link_list_items/index" link_list_id=$link_list}{!"list"|icon} {t}Link list{/t}{/a}
 				{a action=edit id=$link_list}{!"pencil-alt"|icon} {t}Edit{/t}{/a}
