@@ -7,6 +7,10 @@ class PicturesForm extends IobjectsForm{
 		$this->add_field("url", new PupiqImageField(array(
 			"label" => _("Obrázek"),
 		)));
-		$this->add_iobjects_common_fields();
+		$this->add_iobjects_common_fields(array(
+			"extra_themes" => array(
+				"alternative" => _("Alternative look")
+			),
+		));
 	}
 }

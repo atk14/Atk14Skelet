@@ -1,0 +1,1 @@
+ALTER TABLE iobjects ADD theme VARCHAR(255) NOT NULL DEFAULT 'default';
