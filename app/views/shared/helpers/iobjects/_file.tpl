@@ -1,4 +1,3 @@
-{assign var=file value=$iobject->getObject()}
 <div class="iobject iobject--file">
 	<a href="{$file->getUrl()}">
 		<span>

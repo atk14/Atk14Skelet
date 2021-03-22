@@ -1,4 +1,3 @@
-{assign var=video value=$iobject->getObject()}
 <div class="iobject iobject--video">
 	<div class="embed-responsive embed-responsive-16by9">
 	{!$video->getHtml()}

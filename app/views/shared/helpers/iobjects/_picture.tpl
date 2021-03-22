@@ -1,4 +1,3 @@
-{assign var=picture value=$iobject->getObject()}
 {assign geometry_detail "1600"}
 <div class="iobject iobject--picture">
 	<figure>

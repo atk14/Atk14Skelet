@@ -1,4 +1,3 @@
-{assign var=gallery value=$iobject->getObject()}
 <div class="iobject iobject--gallery">
 {capture assign=title}
 {if $gallery->isTitleVisible()}{$gallery->getTitle()}{/if}

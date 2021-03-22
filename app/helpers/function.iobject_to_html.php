@@ -8,11 +8,12 @@
  */
 function smarty_function_iobject_to_html($params,$template){
 	$smarty = atk14_get_smarty_from_template($template);
+
 	$iobject = $params["iobject"];
+	$tpl_name = $object_name = String4::ToObject($iobject->getObjectType())->underscore()->toString(); // "DynamicMap" -> "dynamic_map"
 
 	$smarty->assign("iobject",$iobject);
-
-	$tpl_name = String4::ToObject($iobject->getObjectType())->underscore(); // "DynamicMap" -> "dynamic_map"
+	$smarty->assign($object_name,$iobject->getObject());
 
 	return $smarty->fetch("shared/helpers/iobjects/_$tpl_name.tpl");
 }
