@@ -1,6 +1,10 @@
 <?php
 class IobjectsForm extends AdminForm {
 
+	function set_up(){
+		$this->add_iobjects_common_fields();
+	}
+
 	function add_iobjects_common_fields(){
 		$this->add_title_field();
 		$this->add_title_visible_field();
