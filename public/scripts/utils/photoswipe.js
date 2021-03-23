@@ -21,9 +21,11 @@ window.UTILS.initPhotoSwipeFromDOM = function( gallerySelector ) {
 
 				for ( var i = 0; i < numNodes; i++ ) {
 
-						figureEl = $( thumbElements[ i ] ); // <figure> element
+					figureEl = $( thumbElements[ i ] ); // <figure> element
 
-						linkEl = figureEl.find( "a[data-size]" ); // <a> element
+					linkEl = figureEl.find( "a[data-size]" ); // <a> element
+
+					if ( linkEl.length > 0 ) {
 
 						size = linkEl.attr( "data-size" ).split( "x" );
 
@@ -56,6 +58,7 @@ window.UTILS.initPhotoSwipeFromDOM = function( gallerySelector ) {
 						// Save link to element for getThumbBoundsFn
 						item.el = figureEl[ 0 ];
 						items.push( item );
+					}
 				}
 
 				return items;

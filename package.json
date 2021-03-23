@@ -60,6 +60,7 @@
     "bootstrap4-notify": "4.0.3",
     "popper.js": "^1.15.0",
     "animate.css": "^3.7.2",
-    "favicons": "^6.0.0"
+    "favicons": "^6.0.0",
+    "photoswipe": "^4.1.3"
   }
 }

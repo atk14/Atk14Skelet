@@ -2,7 +2,7 @@
 ( function( window, $, undefined ) {
 	"use strict";
 	var document = window.document,
-		//UTILS = window.UTILS, // Uncomment this if you need something from UTILS
+	UTILS = window.UTILS, // Uncomment this if you need something from UTILS
 
 	APPLICATION = {
 		common: {
@@ -34,6 +34,9 @@
 
 					$field.popover( popoverOptions );
 				} );
+
+				// Init PhotoSwipe
+				UTILS.initPhotoSwipeFromDOM( ".gallery__images, .iobject--picture" );
 			}
 		},
 

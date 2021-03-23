@@ -1,4 +1,5 @@
 {assign geometry_detail "1600"}
+{assign use_link 0}
 <div class="iobject iobject--picture iobject--picture-fullwidth">
 	<figure>
 		{if $use_link}

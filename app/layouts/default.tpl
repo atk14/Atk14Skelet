@@ -51,6 +51,7 @@
 		{/javascript_tag}
 
 		{stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true}
+		{stylesheet_link_tag file="$public/dist/styles/default-skin/default-skin.css" hide_when_file_not_found=true}
 		{stylesheet_link_tag file="$public/dist/styles/application.min.css"}
 
 		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
@@ -89,6 +90,7 @@
 		{render partial="shared/layout/footer"}
 		
 		{render partial="shared/layout/devcssinfo"}
+		{render partial="shared/photoswipe_root_element"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
