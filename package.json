@@ -61,6 +61,7 @@
     "popper.js": "^1.15.0",
     "animate.css": "^3.7.2",
     "favicons": "^6.0.0",
+    "swiper": "^6.4.5",
     "photoswipe": "^4.1.3"
   }
 }

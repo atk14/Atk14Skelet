@@ -8,6 +8,7 @@ require( "./gulpfile-admin" );
 
 var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
+	"node_modules/swiper/swiper-bundle.css",
 	"node_modules/photoswipe/dist/photoswipe.css"
 ];
 
@@ -16,6 +17,7 @@ var vendorScripts = [
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
+	"node_modules/swiper/swiper-bundle.js",
 	"node_modules/photoswipe/dist/photoswipe.js",
 	"node_modules/photoswipe/dist/photoswipe-ui-default.js"
 ];
@@ -23,6 +25,7 @@ var vendorScripts = [
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/photoswipe.js",
+	"public/scripts/utils/swiper.js",
 	"public/scripts/application.js"
 ];
 
