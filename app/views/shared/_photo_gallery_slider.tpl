@@ -7,33 +7,36 @@
  *	or
  *	{render partial="shared/photo_gallery" images=$object->getImages()}
  *
- *	{render partial="shared/photo_gallery" object=$brand photo_gallery_title="Photo gallery"}	
+ *	{render partial="shared/photo_gallery" object=$brand photo_gallery_title="Photo gallery" style="dark" image_height=400}
  *}
 
+{assign geometry_detail "2000x1600"}
 {if !$images && $object}
 	{assign var=images value=Image::GetImages($object)}
 {/if}
-{assign geometry_detail "2000x1600"}
+{if !$image_height}
+	{assign var=image_height value=400}
+{/if}
+{assign var=geometry_image value="x"|cat:$image_height}
 
 {if $images}
 	{assign uniqid uniqid()}
 	<section class="section--slider">
 
-		<div class="swiper-container swiper--images gallery__images" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if}>
+		<div class="swiper-container swiper--images gallery__images{if $style=="dark"} swiper--images--dark{/if}" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if}>
 			<div class="swiper-wrapper">
 
 				{foreach $images as $image}
 					<div class="swiper-slide slider-item-{$item@iteration-1}" style="width: auto">
 						<figure class="gallery__item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 							<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
-								<img {!$image|img_attrs:"x400"} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
+								<img {!$image|img_attrs:$geometry_image} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
 							</a>
-							<figcaption>
+							<figcaption{if $image->getName()=="" && $image->getDescription()==""} class="d-none"{/if}>
 								<div><strong>{$image->getName()}</strong></div>
 								<div>{$image->getDescription()}</div>
 							</figcaption>
 						</figure>
-						{*<div class="position-absolute d-block bg-primary text-light p-1">slide {$item@iteration-1}</div>*}
 					</div>
 				{/foreach}
 

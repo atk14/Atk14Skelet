@@ -8,6 +8,8 @@ class GalleriesForm extends IobjectsForm{
 			"extra_themes" => array(
 				"square" => _("Square"),
 				"slider" => _("Slider"),
+				"slider_dark" => _("Slider darker & bigger"),
+				"slider_thumbnails" => _("Slider with thumbnails"),
 			),
 		));
 
