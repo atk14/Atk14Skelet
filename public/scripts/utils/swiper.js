@@ -12,6 +12,9 @@ window.UTILS.initSwiper = function() {
 		var sliderId = $container.data( "slider_id" );
 		var breakpoint = $container.data( "breakpoint" );
 		var centeredSlides = $container.data( "centered_slides" );
+		var thumbsFor = $container.data( "thumbsfor" );
+		var thumbs = $container.data( "thumbs" );
+		console.log( "thumbsFor", thumbsFor );
 
 		if( typeof( autoplay ) === "number" ){
 			autoplay = {
@@ -77,8 +80,25 @@ window.UTILS.initSwiper = function() {
 				}
 			};
 		}
+		if ( thumbsFor ) {
+			initObject.watchSlidesVisibility = true;
+			initObject.watchSlidesProgress = true;
+			initObject.freeMode = true;
+		}
+		if ( thumbs ) {
+			initObject.thumbs = { swiper: document.querySelector( thumbs ).swiper };
+		}
 
 		// eslint-disable-next-line
 		var swiper = new Swiper( container, initObject );
+		
+		if ( thumbsFor ) {
+			var thumbsTarget = document.querySelector( thumbsFor ).swiper;
+			thumbsTarget.params.thumbs = { swiper: swiper };
+			thumbsTarget.init();
+			//console.log( document.querySelector( thumbsFor ).swiper.params );
+			console.log( thumbsTarget.params.thumbs );
+		}
+		
 	} );
 };
