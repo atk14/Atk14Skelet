@@ -27,7 +27,7 @@
 			<div class="swiper-wrapper">
 
 				{foreach $images as $image}
-					<div class="swiper-slide slider-item-{$item@iteration-1}" style="width: auto">
+					<div class="swiper-slide slider-item-{$image@iteration-1}" style="width: auto">
 						<figure class="gallery__item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 							<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
 								<img {!$image|img_attrs:$geometry_image} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">

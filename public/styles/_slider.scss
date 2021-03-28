@@ -40,12 +40,38 @@
 		}
 	}
 	
+	&--thumbnails {
+		// set correct order for sliders.
+		// thumbnails must be placed before main slider in markup.
+		// this css just swaps them
+		// also fixes problems with swiper inside flexbox elem.
+		display: flex;
+		flex-direction: column;
+		& > * {
+			width: auto !important;
+			max-width: 100%;
+		}
+		.swiper--thumbnails {
+			order: 1;
+		}
+		.swiper--images {
+			order: 0;
+			.swiper-wrapper, .swiper-slide {
+				width: auto;
+				max-width: 100%;
+			}
+		}
+		.iobject__caption {
+			order: 2;
+		}
+	}
+	
 }
 .swiper-container {
 	//max-width: $maxContainerWidth -($grid-gutter-width*3);
 	//max-width: $maxContainerWidth;
 
-	&[data-slides_per_view="auto"] {
+	&[data-slides_per_view="auto"]:not(.swiper--thumbnails) {
 		.swiper-wrapper {
 			.swiper-slide {
 				filter: brightness(0.5);
@@ -230,3 +256,20 @@
 		}
 	}
 }
+
+.swiper--thumbnails {
+	background-color: $dark;
+	//border-top: 1px solid $gray-600;
+	padding: 5px 0;
+	.swiper-slide {
+		filter: brightness(0.7);
+		transition: filter 0.35s;
+	}
+	.swiper-slide-thumb-active, .swiper-slide:hover {
+		filter: brightness(1);
+	}
+	.swiper-slide-thumb-active {
+		outline: 2px solid $primary;
+	}
+}
+

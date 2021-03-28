@@ -6,6 +6,8 @@ window.UTILS.initSwiper = function() {
 
 	$( ".swiper-container" ).each( function( index, container ) {
 		var $container = $( container );
+
+		// Acquire some parameters from HTML data attributes.
 		var slidesPerView = $container.data( "slides_per_view" );
 		var loop = $container.data( "loop" );
 		var autoplay = $container.data( "autoplay" );
@@ -14,6 +16,7 @@ window.UTILS.initSwiper = function() {
 		var centeredSlides = $container.data( "centered_slides" );
 		var thumbsFor = $container.data( "thumbsfor" );
 		var thumbs = $container.data( "thumbs" );
+		var spaceBetween = $container.data( "spacebetween" );
 		console.log( "thumbsFor", thumbsFor );
 
 		if( typeof( autoplay ) === "number" ){
@@ -38,12 +41,20 @@ window.UTILS.initSwiper = function() {
 			speed: 600,
 			roundLengths: false,
 			watchOverflow: true,
-			spaceBetween: 0,
+			spaceBetween: spaceBetween,
 		};
 
 		// More Swiper init params for some specific layouts
+		if( !spaceBetween ) {
+			initObject.spaceBetween = 0;
+		} else {
+			initObject.spaceBetween = spaceBetween;
+		}
+	
 		if ( slidesPerView === "auto" ) {
-			initObject.spaceBetween = 10;
+			if( !spaceBetween ){
+				initObject.spaceBetween = 10;
+			}
 
 			// One slide per view on small viewports, auto on screen width > breakpoint
 			if ( typeof( breakpoint ) === "number" ) {
@@ -80,25 +91,12 @@ window.UTILS.initSwiper = function() {
 				}
 			};
 		}
-		if ( thumbsFor ) {
-			initObject.watchSlidesVisibility = true;
-			initObject.watchSlidesProgress = true;
-			initObject.freeMode = true;
-		}
 		if ( thumbs ) {
 			initObject.thumbs = { swiper: document.querySelector( thumbs ).swiper };
 		}
 
 		// eslint-disable-next-line
 		var swiper = new Swiper( container, initObject );
-		
-		if ( thumbsFor ) {
-			var thumbsTarget = document.querySelector( thumbsFor ).swiper;
-			thumbsTarget.params.thumbs = { swiper: swiper };
-			thumbsTarget.init();
-			//console.log( document.querySelector( thumbsFor ).swiper.params );
-			console.log( thumbsTarget.params.thumbs );
-		}
-		
+
 	} );
 };
