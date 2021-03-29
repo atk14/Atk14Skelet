@@ -6,6 +6,6 @@
 {if $gallery->isTitleVisible()}{$gallery->getDescription()}{/if}
 {/capture}
 
-{render partial="shared/photo_gallery_slider_thumbs_2" images=$gallery->getGalleryItems() photo_gallery_title=$title style="dark" image_height=600 show_captions=true}
+{render partial="shared/photo_gallery_slider_thumbs" images=$gallery->getGalleryItems() photo_gallery_title=$title style="dark" image_height=600 show_captions=true}
 
 </div>

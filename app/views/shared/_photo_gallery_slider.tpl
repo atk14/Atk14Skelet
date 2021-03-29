@@ -18,8 +18,15 @@
 {/if}
 {assign var=geometry_image value="x"|cat:$image_height}
 {assign geometry_detail "2000x1600"}
-
-{if $images}
+{if $images|count == 1}
+	<section class="section--slider">
+		<div class="swiper--images gallery__images">
+			{foreach $images as $image}
+					{render partial="shared/photo_gallery_slider_item" image=$image}
+			{/foreach}
+		</div>
+	</section>
+{else if $images}
 	{assign uniqid uniqid()}
 	<section class="section--slider">
 
@@ -27,17 +34,7 @@
 			<div class="swiper-wrapper">
 
 				{foreach $images as $image}
-					<div class="swiper-slide slider-item-{$image@iteration-1}" style="width: auto">
-						<figure class="gallery__item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-							<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
-								<img {!$image|img_attrs:$geometry_image} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
-							</a>
-							<figcaption{if $image->getName()=="" && $image->getDescription()==""} class="d-none"{/if}>
-								<div><strong>{$image->getName()}</strong></div>
-								<div>{$image->getDescription()}</div>
-							</figcaption>
-						</figure>
-					</div>
+					{render partial="shared/photo_gallery_slider_item" image=$image}
 				{/foreach}
 
 			</div>

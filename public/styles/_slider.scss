@@ -179,8 +179,8 @@
 	}
 }
 
-.swiper-container {
-	&.swiper--images {
+//.swiper-container {
+	.swiper--images {
 		.swiper-slide {
 			height: auto;
 			display: block;
@@ -235,7 +235,7 @@
 		}
 	}
 	
-	&.swiper--images--dark {
+	.swiper--images--dark {
 		.swiper-slide {
 			background-color: $dark;
 			figure {
@@ -255,7 +255,7 @@
 			margin-top: $grid-gutter-width/2;
 		}
 	}
-}
+//}
 
 .swiper--thumbnails {
 	background-color: $dark;
