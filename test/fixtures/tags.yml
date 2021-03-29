@@ -8,4 +8,5 @@ wisdom:
   tag: wisdom
 
 spring:
+  code: "spring_2000"
   tag: "spring 2000"
