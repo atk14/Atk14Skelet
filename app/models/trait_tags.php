@@ -39,6 +39,14 @@ trait TraitTags {
 		return $this->getTagsLister()->contains($tag);
 	}
 
+	/**
+	 *
+	 * @alias
+	 */
+	function hasTag($tag){
+		return $this->containsTag($tag);
+	}
+
 	private function _cleanTag($tag){
 		if(is_array($tag)){
 			$out = array();
