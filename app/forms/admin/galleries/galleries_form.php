@@ -4,7 +4,14 @@ require_once(__DIR__ . "/../iobjects_form.php");
 class GalleriesForm extends IobjectsForm{
 
 	function set_up(){
-		$this->add_iobjects_common_fields();
+		$this->add_iobjects_common_fields(array(
+			"extra_themes" => array(
+				"square" => _("Square"),
+				"slider" => _("Slider"),
+				"slider_dark" => _("Slider darker & bigger"),
+				"slider_thumbnails" => _("Slider with thumbnails"),
+			),
+		));
 
 		/*
 		$this->add_field("title", new CharField(array(
