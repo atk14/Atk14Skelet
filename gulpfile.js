@@ -4,6 +4,8 @@ var rename = require( "gulp-rename" );
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 const { series, parallel } = require( "gulp" );
+// var favicons = require("favicons").stream;
+var favicons = require("gulp-favicons");
 var admin = require( "./gulpfile-admin" );
 
 var vendorStyles = [
@@ -80,6 +82,48 @@ var scripts = function() {
 		.pipe( browserSync.stream() );
 };
 
+// Favicons
+var favicon = function( done ) {
+	var execSync = require( "child_process" ).execSync;
+	var appName = execSync( "./scripts/dump_settings ATK14_APPLICATION_NAME" ).toString().trim();
+	var appDescription = execSync( "./scripts/dump_settings ATK14_APPLICATION_DESCRIPTION" ).toString().trim();
+	var appUrl = execSync( "./scripts/dump_settings ATK14_APPLICATION_URL" ).toString().trim();
+	var baseHref = execSync( "./scripts/dump_settings ATK14_BASE_HREF" ).toString().trim(); // e.g. "/"
+
+	gulp.src( [ "public/favicons/favicon.png" ] )
+	.pipe(
+		favicons( {
+			appName: appName,
+			appShortName: null,
+			appDescription: appDescription,
+			background: "#ffffff",
+			path: baseHref + "public/dist/favicons/",
+			url: appUrl,
+			display: "standalone",
+			orientation: "portrait",
+			scope: baseHref,
+			start_url: baseHref,
+			version: 1.0,
+			logging: false,
+			html: "index.html",
+			pipeHTML: false,
+			replace: true,
+			icons: {
+				android: { overlayShadow: false, overlayGlow: false },
+				appleIcon: { overlayShadow: false, overlayGlow: false },
+				appleStartup: false,
+				coast: false,
+				favicons: { overlayShadow: false, overlayGlow: false },
+				firefox: false,
+				windows: { overlayShadow: false, overlayGlow: false },
+				yandex: false
+			}
+		} )
+	)
+	.pipe( gulp.dest( "public/dist/favicons" ) );
+	done();
+}
+
 // Lint & Code style
 var lint = function() {
 	return gulp.src( [ "public/scripts/**/*.js", "gulpfile.js" ] )
@@ -154,13 +198,14 @@ var afterbuild = function(){
 }
 
 // Build
-var build = series( parallel( lint, styles, styles_vendor, scripts_vendor, scripts, copy ), afterbuild );
+var build = series( parallel( lint, styles, styles_vendor, scripts_vendor, scripts, favicon, copy ), afterbuild );
 
 // Export public tasks
 exports.styles = styles;
 exports.styles_vendor = styles_vendor;
 exports.scripts = scripts;
 exports.scripts = scripts_vendor;
+exports.favicon = favicon;
 exports.lint = lint;
 exports.copy = copy;
 exports.clean = clean;
