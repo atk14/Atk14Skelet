@@ -1,7 +1,7 @@
 // To allow to redefine variables in application-variables,
 // first we need to load functions and variables from bootstrap package.
 
-@import "node_modules/bootstrap/scss/functions";
+@import "./node_modules/bootstrap-5/scss/functions";
 
 // We may overrdide Bootstrap variables here 
 // (before loading bootstrap_variables) like this:

@@ -126,7 +126,8 @@ form {
 
 // search form
 .form-search {
-	@extend .form-inline;
+	// bs4 legacy
+	// @extend .form-inline;
 	margin-bottom: 1rem;
 	input {
 		margin-right: 0.5em;
