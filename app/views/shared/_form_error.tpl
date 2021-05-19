@@ -23,7 +23,7 @@
 					<p>
 						<em>{t}The following difficulties have occurred during the form processing:{/t}</em>
 					</p>
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<button type="button" class="close" data-dismiss="alert" data-bs-dismiss="alert">&times;</button>
 					<ul>
 						{render partial="shared/form_error_item" from=$form->non_field_errors() item=error}
 					</ul>
@@ -33,13 +33,13 @@
 				{assign var=errors value=$form->non_field_errors()}
 				<p class="alert alert-danger">
 					<em>{!$errors.0}</em>
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<button type="button" class="close" data-dismiss="alert" data-bs-dismiss="alert">&times;</button>
 				</p>
 			{/if}
 		{elseif !$small_form}
 			<p class="alert alert-danger">
 				<em>{t}Some of the items were filled incorrectly. Please, check the form and correct the errors.{/t}</em>
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					<button type="button" class="close" data-dismiss="alert" data-bs-dismiss="alert">&times;</button>
 			</p>
 		{/if}
 {/if}

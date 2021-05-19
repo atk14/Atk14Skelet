@@ -5,7 +5,7 @@
 		<div class="btn-group btn-group-sm{if $pull=="right"} float-right{/if}{if $pull=="left"} float-left{/if}{if $class} {$class}{/if}">
 			{!$first_line}
 			{if $lines}
-				<button class="btn btn-outline-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button class="btn btn-outline-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="caret"></span>
 					<span class="sr-only">{t}Show menu{/t}</span>
 				</button>
@@ -20,7 +20,7 @@
 	{else}
 
 		<div class="btn-group btn-group-sm{if $pull=="right"} float-right{/if}{if $pull=="left"} float-left{/if}{if $class} {$class}{/if}">
-			<button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				{!$first_line}
 			</button>
 			{if $lines}
@@ -43,7 +43,7 @@
 		<div class="btn-group btn-group-sm{if $pull=="right"} pull-right{/if}{if $pull=="left"} pull-left{/if}{if $class} {$class}{/if}">
 			{!$first_line}
 			{if $lines}
-				<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" href="#">
+				<button class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" href="#">
 					<span class="caret"></span>
 					<span class="sr-only">{t}Show menu{/t}</span>
 				</button>
@@ -58,7 +58,7 @@
 	{else}
 
 		<div class="btn-group{if $pull=="right"} pull-right{/if}{if $pull=="left"} pull-left{/if}{if $class} {$class}{/if}">
-			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<button type="button" class="btn btn-default dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				{!$first_line} <span class="caret"></span>
 			</button>
 			<ul class="dropdown-menu">

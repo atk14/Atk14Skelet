@@ -8,7 +8,7 @@
 				<span class="h1">{$appname}</span>
 			{/if}
 		{/a}		
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" data-toggle="collapse" data-bs-toggle="collapse" data-target="#navbarNavDropdown" data-bs-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			{!"bars"|icon}
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
@@ -28,7 +28,7 @@
 					{* user is logged in *}
 					{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							{!"user"|icon} {$logged_user->getLogin()}
 						</a>
 						<div class="dropdown-menu">
