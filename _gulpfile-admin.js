@@ -2,7 +2,6 @@ var gulp = require( "gulp" );
 var del = require( "del" );
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
-const { series, parallel } = require( "gulp" );
 
 var vendorStyles = [
 	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
@@ -28,11 +27,11 @@ var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
 	"public/scripts/utils/async_file_upload.js",
-	"public/admin/scripts/application.js",
+	"public/admin/scripts/application.js"
 ];
 
 // CSS
-var styles_admin = function() {
+gulp.task( "styles-admin", function() {
 	return gulp.src( "public/admin/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.sass( {
@@ -46,9 +45,9 @@ var styles_admin = function() {
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-};
+} );
 
-var styles_vendor_admin = function() {
+gulp.task( "styles-vendor-admin", function() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css", { rebaseUrls: false } ) )
@@ -58,40 +57,37 @@ var styles_vendor_admin = function() {
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-};
+} );
 
 // JS
-var scripts_vendor_admin = function() {
-	return gulp.src( vendorScripts )
+gulp.task( "scripts-admin", function() {
+	gulp.src( vendorScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "vendor.js" ) )
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
-};
 
-var scripts_admin = function() {
-
-	return gulp.src( applicationScripts )
+	gulp.src( applicationScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "application.js" ) )
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
-};
+} );
 
 // Lint
-var lint_admin = function() {
+gulp.task( "lint-admin", function() {
 	return gulp.src( [ "public/admin/scripts/**/*.js", "gulpfile-admin.js" ] )
 		.pipe( $.eslint() )
 		.pipe( $.eslint.format() )
 		.pipe( $.eslint.failAfterError() );
-};
+} );
 
 // Copy
-var copy_admin = function( done ) {
+gulp.task( "copy-admin", function() {
 	gulp.src( "node_modules/html5shiv/dist/html5shiv.min.js" )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
@@ -106,17 +102,15 @@ var copy_admin = function( done ) {
 		.pipe( gulp.dest( "public/admin/dist/images" ) );
 	gulp.src( "node_modules/ace-builds/src-min/**" )
 		.pipe( gulp.dest( "public/admin/dist/scripts/ace" ) );
-	done();
-};
+} );
 
 // Clean
-var clean_admin = function( done ) {
+gulp.task( "clean-admin", function() {
 	del.sync( "public/admin/dist" );
-	done();
-};
+} );
 
 // Server
-var serve_admin = function() {
+gulp.task( "serve-admin", [ "styles-admin", "styles-vendor-admin" ], function() {
 	browserSync.init( {
 		proxy: "localhost:8000/admin/"
 	} );
@@ -128,30 +122,28 @@ var serve_admin = function() {
 	] ).on( "change", browserSync.reload );
 
 	// If javascript files change = run 'scripts' task, then reload browser
-	gulp.watch( "public/admin/scripts/**/*.js", scripts_admin )
+	gulp.watch( "public/admin/scripts/**/*.js", [ "scripts-admin" ] )
 		.on( "change", browserSync.reload );
 
 	// If styles files change = run 'styles' task with style injection
-	gulp.watch( "public/admin/styles/**/*.scss", styles_admin );
-};
-
-// Get size after build
-var afterbuild_admin = function(){
-	return gulp.src( "public/admin/dist/**/*" )
-		.pipe( $.size( { title: "build", gzip: true } ) );
-}
+	gulp.watch( "public/admin/styles/**/*.scss", [ "styles-admin" ] );
+} );
 
 // Build
-var build_admin = series( parallel( lint_admin, styles_admin, styles_vendor_admin, scripts_vendor_admin, scripts_admin, copy_admin ), afterbuild_admin );
+var buildTasks = [
+	"lint-admin",
+	"styles-admin",
+	"styles-vendor-admin",
+	"scripts-admin",
+	"copy-admin"
+];
 
-// Export public tasks
-exports.styles_admin = styles_admin;
-exports.styles_vendor_admin = styles_vendor_admin;
-exports.scripts_admin = scripts_admin;
-exports.scripts_vendor_admin = scripts_vendor_admin;
-exports.lint_admin = lint_admin;
-exports.copy_admin = copy_admin;
-exports.clean_admin = clean_admin;
-exports.serve_admin = series( styles_admin, serve_admin );
-exports.build_admin = build_admin;
-exports.admin = series( clean_admin, build_admin );
+gulp.task( "build-admin", buildTasks,  function() {
+	return gulp.src( "public/admin/dist/**/*" )
+		.pipe( $.size( { title: "build", gzip: true } ) );
+} );
+
+// Default (Admin)
+gulp.task( "admin", [ "clean-admin" ], function() {
+	gulp.start( "build-admin" );
+} );

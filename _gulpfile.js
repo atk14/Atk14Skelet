@@ -3,13 +3,13 @@ var del = require( "del" );
 var rename = require( "gulp-rename" );
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
-const { series, parallel } = require( "gulp" );
-var admin = require( "./gulpfile-admin" );
+var favicons = require("favicons").stream;
+require( "./gulpfile-admin" );
 
 var vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/swiper/swiper-bundle.css",
-	"node_modules/photoswipe/dist/photoswipe.css",
+	"node_modules/photoswipe/dist/photoswipe.css"
 ];
 
 var vendorScripts = [
@@ -19,7 +19,7 @@ var vendorScripts = [
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/swiper/swiper-bundle.js",
 	"node_modules/photoswipe/dist/photoswipe.js",
-	"node_modules/photoswipe/dist/photoswipe-ui-default.js",
+	"node_modules/photoswipe/dist/photoswipe-ui-default.js"
 ];
 
 var applicationScripts = [
@@ -30,7 +30,7 @@ var applicationScripts = [
 ];
 
 // CSS
-var styles = function() {
+gulp.task( "styles", function() {
 	return gulp.src( "public/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.sass( {
@@ -44,9 +44,9 @@ var styles = function() {
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-};
+} );
 
-var styles_vendor = function() {
+gulp.task( "styles-vendor", function() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css" ) )
@@ -56,21 +56,19 @@ var styles_vendor = function() {
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-};
+} );
 
 // JS
-var scripts_vendor = function() {
-	return gulp.src( vendorScripts )
+gulp.task( "scripts", function() {
+	gulp.src( vendorScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "vendor.js" ) )
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
-};
 
-var scripts = function() {
-	return gulp.src( applicationScripts )
+	gulp.src( applicationScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "application.js" ) )
 		.pipe( $.uglify() )
@@ -78,18 +76,59 @@ var scripts = function() {
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/scripts" ) )
 		.pipe( browserSync.stream() );
-};
+} );
+
+// Favicons
+gulp.task( "favicons", function() {
+	var execSync = require( "child_process" ).execSync;
+	var appName = execSync( "./scripts/dump_settings ATK14_APPLICATION_NAME" ).toString().trim();
+	var appDescription = execSync( "./scripts/dump_settings ATK14_APPLICATION_DESCRIPTION" ).toString().trim();
+	var appUrl = execSync( "./scripts/dump_settings ATK14_APPLICATION_URL" ).toString().trim();
+	var baseHref = execSync( "./scripts/dump_settings ATK14_BASE_HREF" ).toString().trim(); // e.g. "/"
+
+	gulp.src( [ "public/favicons/favicon.png" ] )
+	.pipe(
+		favicons( {
+			appName: appName,
+			appShortName: null,
+			appDescription: appDescription,
+			background: "#ffffff",
+			path: baseHref + "public/dist/favicons/",
+			url: appUrl,
+			display: "standalone",
+			orientation: "portrait",
+			scope: baseHref,
+			start_url: baseHref,
+			version: 1.0,
+			logging: false,
+			html: "index.html",
+			pipeHTML: false,
+			replace: true,
+			icons: {
+				android: { overlayShadow: false, overlayGlow: false },
+				appleIcon: { overlayShadow: false, overlayGlow: false },
+				appleStartup: false,
+				coast: false,
+				favicons: { overlayShadow: false, overlayGlow: false },
+				firefox: false,
+				windows: { overlayShadow: false, overlayGlow: false },
+				yandex: false
+			}
+		} )
+	)
+	.pipe( gulp.dest( "public/dist/favicons" ) );
+} );
 
 // Lint & Code style
-var lint = function() {
+gulp.task( "lint", function() {
 	return gulp.src( [ "public/scripts/**/*.js", "gulpfile.js" ] )
 		.pipe( $.eslint() )
 		.pipe( $.eslint.format() )
 		.pipe( $.eslint.failAfterError() );
-};
+} );
 
 // Copy
-var copy = function( done ) {
+gulp.task( "copy", function() {
 	gulp.src( "node_modules/html5shiv/dist/html5shiv.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
@@ -119,21 +158,19 @@ var copy = function( done ) {
 					.pipe( gulp.dest( "public/dist/images/languages" ) );
 			} );
 		} );
-	done();
-};
+} );
 
 // Clean
-var clean = function( done ) {
+gulp.task( "clean", function() {
 	del.sync( "public/dist" );
-	done();
-};
+} );
 
 // Server
-var serve = function(){
+gulp.task( "serve", [ "styles" ], function() {
 	browserSync.init( {
 		proxy: "localhost:8000"
 	} );
-	
+
 	// If these files change = reload browser
 	gulp.watch( [
 		"app/**/*.tpl",
@@ -141,41 +178,28 @@ var serve = function(){
 	] ).on( "change", browserSync.reload );
 
 	// If javascript files change = run 'scripts' task, then reload browser
-	gulp.watch( "public/scripts/**/*.js", scripts ).on( "change", browserSync.reload );
+	gulp.watch( "public/scripts/**/*.js", [ "scripts" ] ).on( "change", browserSync.reload );
 
 	// If styles files change = run 'styles' task with style injection
-	gulp.watch( "public/styles/**/*.scss", styles );
-}
-
-// Get size after build
-var afterbuild = function(){
-	return gulp.src( "public/dist/**/*" )
-		.pipe( $.size( { title: "build", gzip: true } ) );
-}
+	gulp.watch( "public/styles/**/*.scss", [ "styles" ] );
+} );
 
 // Build
-var build = series( parallel( lint, styles, styles_vendor, scripts_vendor, scripts, copy ), afterbuild );
+var buildTasks = [
+	"lint",
+	"styles",
+	"styles-vendor",
+	"scripts",
+	"favicons",
+	"copy"
+];
 
-// Export public tasks
-exports.styles = styles;
-exports.styles_vendor = styles_vendor;
-exports.scripts = scripts;
-exports.scripts = scripts_vendor;
-exports.lint = lint;
-exports.copy = copy;
-exports.clean = clean;
-exports.serve = series( styles, serve );
-exports.build = build;
-exports.default = series( clean, build );
+gulp.task( "build", buildTasks, function() {
+	return gulp.src( "public/dist/**/*" )
+		.pipe( $.size( { title: "build", gzip: true } ) );
+} );
 
-// Export public admin tasks
-exports.styles_admin = admin.styles_admin;
-exports.styles_vendor_admin = admin.styles_vendor_admin;
-exports.scripts_admin = admin.scripts_admin;
-exports.scripts_vendor_admin = admin.scripts_vendor_admin;
-exports.lint_admin = admin.lint_admin;
-exports.copy_admin = admin.copy_admin;
-exports.clean_admin = admin.clean_admin;
-exports.serve_admin = admin.serve_admin;
-exports.build_admin = admin.build_admin;
-exports.admin = admin.admin;
+// Default
+gulp.task( "default", [ "clean" ], function() {
+	gulp.start( "build" );
+} );
