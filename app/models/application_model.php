@@ -547,7 +547,8 @@ class ApplicationModel extends TableRecord{
 		$session = $GLOBALS["ATK14_GLOBAL"]->getSession();
 		// ($user_id = $session->g("fake_logged_user_id")) || // asi bych ukladal pouze skutecne prihlaseneho uzivatele
 		($user_id = $session->g("logged_user_id"));
-		return $user_id;
+		$user = Cache::Get("User",$user_id); // this conversion (id -> User -> id) is needed in testing
+		return $user ? $user->getId() : null;
 	}
 
 	static function FindAll(){
