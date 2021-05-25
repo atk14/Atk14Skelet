@@ -4,7 +4,7 @@
 	<p>{t}At the moment there are no news.{/t}</p>
 
 {else}
-	<div class="card-deck card-deck--4">
+	<div class="xcard-deck xcard-deck--4 row row-cols-md-4 gx-5">
 		{render partial=article_item from=$finder->getRecords() item=article}
 	</div>
 	{paginator}
