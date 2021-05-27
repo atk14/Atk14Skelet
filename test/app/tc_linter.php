@@ -23,18 +23,13 @@ class TcLinter extends TcBase {
 			if(preg_match('#^('.join('|',$forbidden_folders).')/#',$_file)){
 				continue;
 			}
-			//echo $_file,"\n"; continue;
 			system("php -l ".escapeshellarg($file),$ret_val);
-			if($ret_val){
-				$this->fail("There is syntax error in file $_file");
-			}
+			$this->assertTrue(!$ret_val,"There is syntax error in file $_file");
 		}
 	}
 
 	function test_compile_all_templates(){
 		system("ATK14_ENV=test ".ATK14_DOCUMENT_ROOT."/scripts/compile_all_templates",$ret_val);
-		if($ret_val){
-			$this->fail("./scripts/compile_all_templates failed");
-		}
+		$this->assertTrue(!$ret_val,"./scripts/compile_all_templates failed");
 	}
 }
