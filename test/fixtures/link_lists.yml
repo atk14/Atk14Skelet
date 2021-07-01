@@ -1,2 +1,5 @@
 test_list:
   system_name: "Test List"
+
+main_menu:
+  system_name: "Main menu"
