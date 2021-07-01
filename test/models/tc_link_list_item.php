@@ -1,8 +1,10 @@
 <?php
 /**
  *
- * @fixture link_list_items
  * @fixture pages
+ *
+ * this needs to be the last fixture
+ * @fixture link_list_items
  */
 class TcLinkListItem extends TcBase {
 
