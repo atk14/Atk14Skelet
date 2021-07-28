@@ -25,7 +25,11 @@ class CreateNewForm extends ApplicationForm{
 			"max_length" => 2000,
 		)));
 
-		if(defined("RECAPTCHA_SITE_KEY") && defined("RECAPTCHA_SECRET_KEY")){
+		if(defined("HCAPTCHA_SITE_KEY") && strlen(constant("HCAPTCHA_SITE_KEY"))>0 && defined("HCAPTCHA_SECRET_KEY") && strlen(constant("HCAPTCHA_SECRET_KEY"))>0){
+			$this->add_field("captcha",new HcaptchaField(array(
+				"label" => _("Spam protection"),
+			)));
+		}elseif(defined("RECAPTCHA_SITE_KEY") && strlen(constant("RECAPTCHA_SITE_KEY"))>0 && defined("RECAPTCHA_SECRET_KEY") && strlen(constant("RECAPTCHA_SECRET_KEY"))>0){
 			$this->add_field("captcha",new RecaptchaField(array(
 				"label" => _("Spam protection"),
 			)));
