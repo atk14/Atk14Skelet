@@ -55,7 +55,7 @@
     "jshint-stylish": "^2.0.1",
     "node-sass": "^4.12.0",
     "respond.js": "^1.4.2",
-    "unobfuscatejs": "^1.0.0",
+    "unobfuscatejs": "^1.0.2",
     "svg-country-flags": "^1.2.6",
     "bootstrap4-notify": "4.0.3",
     "popper.js": "^1.15.0",
