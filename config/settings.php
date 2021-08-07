@@ -45,7 +45,14 @@ definedef("PUPIQ_HTTPS",REDIRECT_TO_SSL_AUTOMATICALLY);
 
 definedef("ARTICLE_BODY_MAX_WIDTH",825);
 
-// If these two constant are properly defined (see https://github.com/atk14/RecaptchaField#installation),
+// == hCaptcha ==
+// If these two constant are properly defined (see https://github.com/atk14/HcaptchaField#installation),
+// the hcaptcha field is being automatically added into the contact form...
+// define("HCAPTCHA_SITE_KEY","");
+// define("HCAPTCHA_SECRET_KEY","");
+
+// == reCAPTCHA ==
+// Or if these two constant are properly defined (see https://github.com/atk14/RecaptchaField#installation),
 // the re-captcha field is being automatically added into the contact form.
 // define("RECAPTCHA_SITE_KEY","");
 // define("RECAPTCHA_SECRET_KEY","");
