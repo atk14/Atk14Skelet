@@ -83,6 +83,49 @@
 				padding: 0;
 			}
 		}
+		
+		&-card {
+			margin-top: 0 !important;
+			background-color: white;
+			&:hover {
+				background-color: white;
+			}
+			figure {
+				margin: 0;
+				height: 100%;
+				.image-wrap {
+					display: block;
+					
+					// uncomment only if known fixed image aspect ratio is used
+					// in this case 4:3
+					/*
+					position: relative;
+					padding-top: percentage(3/4);
+					img {
+						position: absolute;
+						left: 0;
+						top: 0;
+					}
+					*/
+				}
+				figcaption.card-body {
+					background-color: transparent;
+					border-bottom: none;
+					margin: 0;
+					padding: 1.25rem;
+					.card-title {
+						margin-bottom: 0.5em;	
+					}
+					.card-text {
+						font-size: 1em;
+						font-style: normal;
+						//margin-bottom: 1em;
+					}
+				}
+			}
+		}
+		
+		
 	}
 	&--gallery {
 		section.photo-gallery {
@@ -173,8 +216,9 @@
 		}
 	}
 	& + & {
-		margin-top: 0-$defaultVMargin;
-		border-top: none;
+		&:not(.iobject--picture-card){
+			margin-top: 0-$defaultVMargin;
+		}
 	}
 	@include media-breakpoint-down(xs){
 		& > a {
