@@ -12,6 +12,12 @@ class LinkListItemsForm extends AdminForm {
 			"max_length" => 1000,
 		)));
 
+		$this->add_field("css_class", new CharField(array(
+			"label" => _("CSS class"),
+			"max_length" => 255,
+			"required" => false,
+		)));
+
 		$this->add_field("image_url", new PupiqImageField([
 			"label" => _("Image"),
 			"required" => false,
