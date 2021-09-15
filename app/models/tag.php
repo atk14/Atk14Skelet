@@ -36,6 +36,12 @@ class Tag extends ApplicationModel implements Translatable {
 	function isDeletable(){
 		return
 			is_null($this->getCode()) &&
-			0==($this->dbmole->selectInt("SELECT COUNT(*) FROM article_tags WHERE tag_id=:id",array(":id" => $this)));
+			0==($this->dbmole->selectInt("
+				SELECT SUM(cnt) FROM (
+					SELECT COUNT(*) AS cnt FROM article_tags WHERE tag_id=:id UNION
+					-- here is a place for other queries
+					SELECT 0 AS cnt
+				)q
+			",array(":id" => $this)));
 	}
 }
