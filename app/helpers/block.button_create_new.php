@@ -12,6 +12,8 @@
  *	<h3>{button_create_new controller=attachments article_id=$article}Add attachment{/button_create_new} Attachments</h3>
  *
  *	<h3 id="images">{button_create_new return_to_anchor="images"}Add new image{/button_create_new} Images</h3>
+ *
+ *	<h1>{button_create_new action="upload" icon="file-import"}Import from CSV file{/button_create_new} Records</h1>
  */
 function smarty_block_button_create_new($params,$content,$template,&$repeat){
 	global $HTTP_REQUEST;
@@ -23,11 +25,15 @@ function smarty_block_button_create_new($params,$content,$template,&$repeat){
 	$params += array(
 		"action" => "create_new",
 		"return_to_anchor" => "",
+		"icon" => "plus-circle",
 	);
 
 	$return_to_anchor = $params["return_to_anchor"];
 	unset($params["return_to_anchor"]);
 	$return_to_anchor = preg_replace('/^#/','',$return_to_anchor); // "#images" -> "images"
+
+	$icon = $params["icon"];
+	unset($params["icon"]);
 
 	$attrs = array();
 	foreach($params as $k => $v){
@@ -61,6 +67,7 @@ function smarty_block_button_create_new($params,$content,$template,&$repeat){
 	}
 	$smarty->assign("create_new_url",Atk14Url::BuildLink($params));
 	$smarty->assign("attrs",$attrs);
+	$smarty->assign("icon",$icon);
 	$out = $smarty->fetch("shared/helpers/_button_create_new.tpl");
 	$smarty->clearAllAssign();
 	$smarty->assign($original_smarty_vars);
