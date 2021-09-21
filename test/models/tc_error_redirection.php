@@ -45,6 +45,14 @@ class TcErrorRedirection extends TcBase {
 		$this->assertNull($r);
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request,["strict_match" => true]);
 		$this->assertNull($r);
+
+		// URI with parameters
+		$request->setUri("/old-site/about-us/");
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
+		$this->assertEquals("/about-us/",$r->getDestinationUrl());
+		$request->setUri("/old-site/about-us/?param1=val1&param2=val2");
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
+		$this->assertEquals("/about-us/",$r->getDestinationUrl());
 	}
 
 	function test_touch(){

@@ -10,4 +10,6 @@ lang_en_partners:
   source_url: //partner.example.com/scripts/home.php?lang=en
   target_url: /en/partners/
 
-
+about_us:
+  source_url: /old-site/about-us/
+  target_url: /about-us/

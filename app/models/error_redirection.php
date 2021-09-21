@@ -36,17 +36,16 @@ class ErrorRedirection extends ApplicationModel {
 		};
 
 		foreach($rows as $source_url => $row){
-			if($match($url,$source_url)){
-				$id = $row["id"];
-				break;
-			}
-			if($match($url_without_proto,$source_url)){
-				$id = $row["id"];
-				break;
-			}
-			if($match($uri,$source_url)){
-				$id = $row["id"];
-				break;
+			foreach([$url,$url_without_proto,$uri] as $u){
+				if($match($u,$source_url)){
+					$id = $row["id"];
+					break 2;
+				}
+				$u_without_params = preg_replace('/\?.*$/','',$u);
+				if($u!==$u_without_params && $match($u_without_params,$source_url)){
+					$id = $row["id"];
+					break 2;
+				}
 			}
 		}
 
