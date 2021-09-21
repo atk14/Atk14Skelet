@@ -13,25 +13,37 @@ class TcErrorRedirection extends TcBase {
 		$request->setUri("/scripts/home.php?lang=cs");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/cs/",$r->getDestinationUrl());
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request,["strict_match" => true]);
+		$this->assertEquals("/cs/",$r->getDestinationUrl());
 
 		$request->setUri("/scripts/home.php?lang=en");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/",$r->getDestinationUrl());
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request,["strict_match" => true]);
+		$this->assertEquals("/en/",$r->getDestinationUrl());
 
 		$request->setUri("/scripts/home.php?lang=en&utm_source=twiddler");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/",$r->getDestinationUrl());
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request,["strict_match" => true]);
+		$this->assertNull($r);
 
 		$request->setHttpHost("partner.example.com");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/partners/",$r->getDestinationUrl());
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request,["strict_match" => true]);
+		$this->assertNull($r);
 
 		$request->setUri("/scripts/home.php?lang=en&utm_source=twiddler");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
 		$this->assertEquals("/en/partners/",$r->getDestinationUrl());
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request,["strict_match" => true]);
+		$this->assertNull($r);
 
 		$request->setUri("/scripts/home.php?lang=xx");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
+		$this->assertNull($r);
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request,["strict_match" => true]);
 		$this->assertNull($r);
 	}
 

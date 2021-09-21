@@ -5,7 +5,11 @@
  */
 class ErrorRedirection extends ApplicationModel {
 
-	static function GetInstanceByHttpRequest($request){
+	static function GetInstanceByHttpRequest($request,$options = []){
+		$options += [
+			"strict_match" => false,
+		];
+
 		$url = $request->getUrl(); // "http://example.com/documents/manual.pdf"
 		$url_without_proto = preg_replace('/^https?:/','',$url); // "//example.com/documents/manual.pdf"
 		$uri = $request->getUri(); // "/documents/manual.pdf";
@@ -23,16 +27,24 @@ class ErrorRedirection extends ApplicationModel {
 
 		if(!is_null($id)){ return Cache::Get("ErrorRedirection",$id); }
 
+		$strict_match = $options["strict_match"];
+		$match = function($url,$source_url) use($strict_match){
+			if($strict_match){
+				return $url === $source_url;
+			}
+			return strpos($url,$source_url)===0;
+		};
+
 		foreach($rows as $source_url => $row){
-			if(strpos($url,$source_url)===0){
+			if($match($url,$source_url)){
 				$id = $row["id"];
 				break;
 			}
-			if(strpos($url_without_proto,$source_url)===0){
+			if($match($url_without_proto,$source_url)){
 				$id = $row["id"];
 				break;
 			}
-			if(strpos($uri,$source_url)===0){
+			if($match($uri,$source_url)){
 				$id = $row["id"];
 				break;
 			}
