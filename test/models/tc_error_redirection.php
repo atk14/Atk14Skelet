@@ -82,4 +82,12 @@ class TcErrorRedirection extends TcBase {
 		$redirection2 = ErrorRedirection::GetInstanceById($redirection2);
 		$this->assertEquals(null,$redirection2->getLastAccessedAt());
 	}
+
+	function test__NormalizeUrl(){
+		$this->assertEquals("https://www.example.com/document.pdf",ErrorRedirection::_NormalizeUrl("https://www.example.com/document.pdf"));
+		$this->assertEquals("https://www.example.com/search/?q=test",ErrorRedirection::_NormalizeUrl("https://www.example.com/search/?q=test"));
+		$this->assertEquals("/search/?q=test",ErrorRedirection::_NormalizeUrl("/search/?q=test"));
+		$this->assertEquals("/search/?q=lampi%C4%8Dka+Moleskine",ErrorRedirection::_NormalizeUrl("/search/?q=lampička+Moleskine"));
+		$this->assertEquals("/search/?q=lampi%C4%8Dka+Moleskine&offset=100",ErrorRedirection::_NormalizeUrl("/search/?q=lampička+Moleskine&offset=100"));
+	}
 }

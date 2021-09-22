@@ -11,6 +11,7 @@ class ErrorRedirection extends ApplicationModel {
 		];
 
 		$url = $request->getUrl(); // "http://example.com/documents/manual.pdf"
+		$url = self::_NormalizeUrl($url);
 		$url_without_proto = preg_replace('/^https?:/','',$url); // "//example.com/documents/manual.pdf"
 		$uri = $request->getUri(); // "/documents/manual.pdf";
 
@@ -36,6 +37,7 @@ class ErrorRedirection extends ApplicationModel {
 		};
 
 		foreach($rows as $source_url => $row){
+			$source_url = self::_NormalizeUrl($source_url);
 			foreach([$url,$url_without_proto,$uri] as $u){
 				if($match($u,$source_url)){
 					$id = $row["id"];
@@ -98,5 +100,25 @@ class ErrorRedirection extends ApplicationModel {
 		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
 
 		return array($rows,$regex_rows);
+	}
+
+	static function _NormalizeUrl($url){
+		if(!preg_match('/(^.*)\?([^?]+)$/',$url,$matches)){ return $url; }
+
+		$url_without_params = $matches[1];
+		$params = $matches[2];
+
+		$params_ar = [];
+		foreach(explode("&",$params) as $item){
+			list($k,$v) = explode("=",$item);
+			$k = urldecode($k);
+			$v = urldecode($v);
+			$k = urlencode($k);
+			$v = urlencode($v);
+			$params_ar[] = "$k=$v";
+		}
+		$params = join("&",$params_ar);
+
+		return "$url_without_params?$params";
 	}
 }
