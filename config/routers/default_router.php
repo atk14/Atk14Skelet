@@ -49,6 +49,9 @@ class DefaultRouter extends Atk14Router{
 		//      nice route: http://example.cz/recovery/123.xyz
 		$this->addRoute("/recovery/<token>","en/password_recoveries/recovery");
 		$this->addRoute("/obnova/<token>","cs/password_recoveries/recovery");
+		//
+		$this->addRoute("/password-recovery/","en/password_recoveries/create_new");
+		$this->addRoute("/obnova-hesla/","cs/password_recoveries/create_new");
 
 		// Nice URIs for attachments
 		$this->addRoute("/attachment/<token>/<filename>","$this->default_lang/attachments/detail");
