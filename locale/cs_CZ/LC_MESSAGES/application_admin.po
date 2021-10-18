@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-12 15:14+0200\n"
-"PO-Revision-Date: 2020-05-12 15:17+0200\n"
+"PO-Revision-Date: 2021-10-18 13:14+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 msgid ""
 "Are you sure to delete article item\n"
@@ -137,7 +137,7 @@ msgid "The size of the original:"
 msgstr "Velikost originálu:"
 
 msgid "Add image"
-msgstr "Přidat obrázek:"
+msgstr "Přidat obrázek"
 
 msgid "Currently there are no images."
 msgstr "Momentálně tady nejsou žádné obrázky."
@@ -805,7 +805,7 @@ msgstr ""
 
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:27
 msgid "Examples:"
-msgstr "Příklady"
+msgstr "Příklady:"
 
 #: ../app/forms/admin/error_redirections/error_redirections_form.php:37
 msgid "Moved permanently?"

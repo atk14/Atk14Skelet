@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2020-05-12 15:14+0200\n"
-"PO-Revision-Date: 2020-05-12 15:25+0200\n"
+"PO-Revision-Date: 2021-10-18 13:18+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 msgid "Nahoru"
 msgstr "Nahoru"
@@ -55,7 +55,7 @@ msgid "Go to the homepage"
 msgstr "Jděte na homepage"
 
 msgid "Currently you are not logged as an admin user."
-msgstr "Momentálně nejste přihlášen jako administrátor"
+msgstr "Momentálně nejste přihlášen jako administrátor."
 
 msgid "or"
 msgstr "nebo"
@@ -70,7 +70,7 @@ msgid "Sign in"
 msgstr "Přihlásit se"
 
 msgid "Error 404: Page not found"
-msgstr "Chyba 404: Stránka nebyla nalezena."
+msgstr "Chyba 404: Stránka nebyla nalezena"
 
 msgid "We are deeply sorry, but the page on the URI <em>%1</em> wasn't found."
 msgstr ""
@@ -91,7 +91,7 @@ msgid "older article"
 msgstr "starší článek"
 
 msgid "At the moment there are no news."
-msgstr "V této chvíli nejsou žádné novinky"
+msgstr "V této chvíli nejsou žádné novinky."
 
 msgid ""
 "If you have any question, contact us through the following form. We will "
@@ -110,7 +110,7 @@ msgid "You are signed in as <em>%1</em>."
 msgstr "Jste přihlášen jako <em>%1</em>."
 
 msgid "Click on the button to sign out."
-msgstr "Pro odhlášení klikněte na tlačítko"
+msgstr "Pro odhlášení klikněte na tlačítko."
 
 msgid "Name"
 msgstr "Jméno"
@@ -288,7 +288,7 @@ msgid "Optional"
 msgstr "Volitelné"
 
 msgid "Examples:"
-msgstr "Příklady"
+msgstr "Příklady:"
 
 msgid "Edit object"
 msgstr "Editovat objekt"
@@ -360,7 +360,7 @@ msgid ""
 "procedure"
 msgstr ""
 "Pokud ješte nemáte účet na těchto stránkách, měli byste se rozhodně "
-"zaregistrovat "
+"zaregistrovat"
 
 msgid "Sign in to our site"
 msgstr "Přihlaste se na naše stránky"
@@ -473,7 +473,7 @@ msgstr "Přikazy v %s"
 #: ../app/controllers/application_rest_api.php:172
 #, php-format
 msgid "submit using method %s"
-msgstr "Odeslat metodou %s"
+msgstr "odeslat metodou %s"
 
 #: ../app/controllers/application_rest_api.php:219
 msgid "Nothing has been found on this address"
@@ -535,7 +535,7 @@ msgstr "Zůstal jste přihlášen jako <em>%s</em>"
 
 #: ../app/controllers/main_controller.php:11
 msgid "Welcome!"
-msgstr "Vítejte"
+msgstr "Vítejte!"
 
 #: ../app/controllers/password_recoveries_controller.php:10
 msgid "There is no such user with the given login or email"
@@ -606,7 +606,7 @@ msgstr "Toto uživatelské jméno je již zabráno"
 
 #: ../app/fields/login_field.php:20
 msgid "Only letters, numbers, dots and dashes are allowed"
-msgstr "Zadávejte pouze písmena, číslice, tečky a pomlčky."
+msgstr "Zadávejte pouze písmena, číslice, tečky a pomlčky"
 
 #: ../app/fields/object_field.php:30
 msgid "There is no such record"
@@ -643,7 +643,7 @@ msgstr "Takový stránka neexistuje"
 #: ../app/fields/tags_field.php:21
 msgid "Ensure that there are max %max% tags (now there are %count%)"
 msgstr ""
-"Ujistěte se, že je zde nejvýše %max% štítků (nyní je tady %count% štítků) "
+"Ujistěte se, že je zde nejvýše %max% štítků (nyní je tady %count% štítků)"
 
 #: ../app/fields/tags_field.php:22
 #, php-format
