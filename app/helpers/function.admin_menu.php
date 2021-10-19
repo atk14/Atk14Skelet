@@ -8,9 +8,12 @@
  *	{admin_menu for=$book only_edit=true edit_title="Edit this book"}
  */
 function smarty_function_admin_menu($params,$template){
+	global $ATK14_GLOBAL;
 	$smarty = atk14_get_smarty_from_template($template);
 
-	$logged_user = $smarty->getTemplateVars("logged_user");
+	($logged_user = $smarty->getTemplateVars("logged_user")) ||
+	($logged_user = $ATK14_GLOBAL->getValue("logged_user")); // in app/helpers/function.iobject_to_html.php, there is no info about the logged in user in $template
+	
 	if(!$logged_user || !$logged_user->isAdmin()){
 		return;
 	}

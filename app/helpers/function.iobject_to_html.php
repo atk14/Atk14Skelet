@@ -20,5 +20,12 @@ function smarty_function_iobject_to_html($params,$template){
 	$smarty->assign("iobject",$iobject);
 	$smarty->assign($object_name,$iobject->getObject());
 
-	return $smarty->fetch("shared/helpers/iobjects/_$tpl_name.tpl");
+	Atk14Require::Helper("function.admin_menu");
+
+	$out = "";
+	$out .= smarty_function_admin_menu([
+		"for" => $iobject->getObject(),
+	],$template);
+	$out .= $smarty->fetch("shared/helpers/iobjects/_$tpl_name.tpl");
+	return $out;
 }
