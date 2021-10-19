@@ -52,6 +52,12 @@
 				} );
 
 				UTILS.async_file_upload.init();
+
+				// Admin menu toggle on small devices
+				$( ".nav-section__toggle" ).on( "click", function( e ) {
+					e.preventDefault();
+					$( this ).closest( ".nav-section" ).toggleClass( "expanded" );
+				} );
 			}
 
 		},
