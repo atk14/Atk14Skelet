@@ -110,7 +110,16 @@ class ErrorRedirection extends ApplicationModel {
 
 		$params_ar = [];
 		foreach(explode("&",$params) as $item){
-			list($k,$v) = explode("=",$item);
+			if($item==""){ continue; }
+			$item_ar = explode("=",$item);
+			if(sizeof($item_ar)==1){
+				$v = $item_ar[0];
+				$v = urldecode($v);
+				$v = urlencode($v);
+				$params_ar[] = "$v";
+				continue;
+			}
+			list($k,$v) = $item_ar;
 			$k = urldecode($k);
 			$v = urldecode($v);
 			$k = urlencode($k);
