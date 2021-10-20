@@ -1,5 +1,4 @@
 <div class="iobject iobject--file">
-	{!$admin_menu}
 	<a href="{$file->getUrl()}">
 		<span>
 			<span class="fileicon fileicon-{$file->getSuffix()} fileicon-color"></span>

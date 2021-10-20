@@ -20,14 +20,24 @@ function smarty_function_iobject_to_html($params,$template){
 	$smarty->assign("iobject",$iobject);
 	$smarty->assign($object_name,$iobject->getObject());
 
-	Atk14Require::Helper("function.admin_menu");
 
-	$admin_menu = smarty_function_admin_menu([
+	$out = $smarty->fetch("shared/helpers/iobjects/_$tpl_name.tpl");
+
+	// rendering admin menu for the object
+	Atk14Require::Helper("function.admin_menu");
+	$admin_menu .= smarty_function_admin_menu([
 		"for" => $iobject->getObject(),
 	],$template);
-	$smarty->assign( "admin_menu", $admin_menu );
+	$admin_menu = trim($admin_menu);
 
-	$out = "";
-	$out .= $smarty->fetch("shared/helpers/iobjects/_$tpl_name.tpl");
+	if(strlen($admin_menu)>0){
+		if(preg_match('/^\s*<.*?>/s',$out)){
+			// placing $admin_menu after the first opening tag
+			$out = preg_replace('/^(\s*<.*?>)/s','\1'.$admin_menu,$out);
+		}else{
+			$out = $admin_menu.$out;
+		}
+	}
+
 	return $out;
 }
