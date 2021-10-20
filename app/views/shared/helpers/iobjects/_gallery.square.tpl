@@ -1,5 +1,4 @@
 <div class="iobject iobject--gallery">
-{!$admin_menu}
 {capture assign=title}
 {if $gallery->isTitleVisible()}{$gallery->getTitle()}{/if}
 {/capture}

@@ -22,12 +22,10 @@ function smarty_function_iobject_to_html($params,$template){
 
 	Atk14Require::Helper("function.admin_menu");
 
-	$admin_menu = smarty_function_admin_menu([
+	$out = "";
+	$out .= smarty_function_admin_menu([
 		"for" => $iobject->getObject(),
 	],$template);
-	$smarty->assign( "admin_menu", $admin_menu );
-
-	$out = "";
 	$out .= $smarty->fetch("shared/helpers/iobjects/_$tpl_name.tpl");
 	return $out;
 }
