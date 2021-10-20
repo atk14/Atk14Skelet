@@ -1,4 +1,5 @@
 <div class="iobject iobject--video">
+	{!$admin_menu}
 	<div class="embed-responsive embed-responsive-16by9">
 	{!$video->getHtml()}
 	</div>

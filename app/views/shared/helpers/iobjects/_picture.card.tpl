@@ -5,6 +5,7 @@
 	{assign render_link 0}
 {/if}
 <div class="iobject iobject--picture iobject--picture-card card">
+	{!$admin_menu}
 	<figure class="">
 		{if $render_link}<a class="iobject--picture__link image-wrap" href="{!$picture|img_url:$geometry_detail}" title="{$picture->getTitle()}" data-size="{$picture|img_width:$geometry_detail}x{$picture|img_height:$geometry_detail}">{else}<div class="image-wrap">{/if}
 			<img class="iobject--picture__img img-fluid card-img-top" {!$picture->getUrl()|img_attrs:1500} alt="{$picture->getTitle()}" 

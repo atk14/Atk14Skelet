@@ -6,6 +6,7 @@
 {/if}
 
 <div class="iobject iobject--picture iobject--picture-fullwidth">
+	{!$admin_menu}
 	<figure>
 		{if $render_link}
 		<a class="iobject--picture__link" href="{!$picture|img_url:$geometry_detail}" title="{$picture->getTitle()}" data-size="{$picture|img_width:$geometry_detail}x{$picture|img_height:$geometry_detail}">
