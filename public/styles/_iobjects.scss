@@ -61,6 +61,11 @@
 	// type-specific props
 	&--video {
 	}
+	&--audio {
+		audio {
+			width: 100%;
+		}
+	}
 	&--picture {
 		
 		picture {
