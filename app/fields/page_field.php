@@ -5,15 +5,34 @@ class PageField extends ChoiceField {
 		$choices = array("" => "-- "._("page")." --");
 		$conditions = $bind_ar = array();
 
-		foreach(Page::FindAll(array(
-			"conditions" => $conditions,
-			"bind_ar" => $bind_ar,
-			"order_by" => Translation::BuildOrderSqlForTranslatableField("pages","title")
-		)) as $_b) {
-			$choices[$_b->getId()] = $_b->getTitle();
+		foreach(Page::FindAll("parent_page_id",null) as $page){
+			$choices[$page->getId()] = $page->getTitle();
+			$this->_append_child_pages_to_choices($choices,$page,"");
 		}
+
 		$options["choices"] = $choices;
 		parent::__construct($options);
+	}
+
+	function _append_child_pages_to_choices(&$choices,$parent_page,$prefix){
+		static $nbsp;
+		if(is_null($nbsp)){ $nbsp = html_entity_decode("&nbsp;"); }
+
+		$pages = $parent_page->getChildPages();
+		for($i=0;$i<sizeof($pages);$i++){
+			$page = $pages[$i];
+			$first = ($i === 0);
+			$last = ($i === sizeof($pages) - 1);
+
+			if($last){
+				$my_prefix = "└";
+			}else{
+				$my_prefix = "├";
+			}
+
+			$choices[$page->getId()] = $prefix . $nbsp . $my_prefix . $nbsp . $page->getTitle();
+			$this->_append_child_pages_to_choices($choices,$page,$prefix . $nbsp . ($last ? $nbsp : "│") . $nbsp);
+		}
 	}
 
 	function clean($value) {
