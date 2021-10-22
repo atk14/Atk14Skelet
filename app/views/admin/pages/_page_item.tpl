@@ -3,7 +3,7 @@
 	<span class="item__title">{$page->getTitle()|default:$mdash}</span>
 	<span class="item__code">{if strlen($page->getCode())}{$page->getCode()}{/if}</span>
 	<span class="item__visibility-properties">
-		{if !$page->isIndexable()}<span class="item__map-visibility">{!"stream"|icon} {t}not showing in sitemap{/t}</span>{/if}
+		{if !$page->isIndexable(false)}<span class="item__map-visibility">{!"stream"|icon} {t}not showing in sitemap{/t}</span>{/if}
 		{if !$page->isVisible()}<span class="item__visibility">{!"eye-slash"|icon} {t}invisible{/t}</span>{/if}
 	</span>
 	<span class="item__languages">{trim}
