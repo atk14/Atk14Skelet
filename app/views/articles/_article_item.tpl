@@ -9,7 +9,7 @@
 	<div class="card-body">
 		<h2 class="card-title">{$article->getTitle()}</h2>
 		{if $article->getTeaser()}
-		<div class="card-teaser">{$article->getTeaser()|markdown|strip_tags|truncate:200}</div>
+		<div class="card-teaser">{$article->getTeaser()|markdown|strip_html|truncate:200}</div>
 		{/if}
 	</div>
 	<div class="card-footer">
