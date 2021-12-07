@@ -23,6 +23,12 @@
 					<span class="badge badge-pill badge-success" title="{t}Production server{/t}">PROD</span>
 				{/if}
 			</span>
+			<div class="dark-mode-switch">
+				<div class="custom-control custom-switch">
+					<input type="checkbox" class="custom-control-input" id="js--darkmode-switch">
+					<label class="custom-control-label" for="js--darkmode-switch">{!"moon"|icon}</label>
+				</div>
+			</div>
 			<ul class="navbar-nav">
 				{if $logged_user}
 					{* user is logged in *}
