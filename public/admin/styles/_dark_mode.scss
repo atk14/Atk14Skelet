@@ -106,7 +106,7 @@
       }
     }
 
-    .form-control, textarea, .md-editor, .form-control-file {
+    .form-control, textarea, .md-editor, .form-control-file, .custom-file-input {
       background-color: $dark-input-bg;
       border-color: $dark-border-color;
       color: white;
@@ -127,7 +127,10 @@
       border-color: $dark-border-color;
     }
 
-
+    // progress
+    .progress {
+      background-color: $dark-input-bg;
+    }
 
     // pagination 
     .pagination {
