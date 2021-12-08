@@ -53,7 +53,7 @@
     // nav left
     .has-nav-section{
       .nav-section {
-        background-color: black;
+        background-color: #121212; //black;
         #nav-filter {
           border-color: $dark-border-color;
           #nav-filter__submit {
@@ -75,7 +75,7 @@
 
     // breadcrumb
     ol.breadcrumb {
-      background-color: black;
+      background-color: #121212;
       border-color: $dark-border-color;
     }
 
@@ -140,6 +140,13 @@
           border-color: $dark-border-color;
           color: white;
         }
+      }
+    }
+
+    // dashboard
+    .dashboard-indiators {
+      .dashboard-number-indicator{
+        border-color: $dark-border-color;
       }
     }
 

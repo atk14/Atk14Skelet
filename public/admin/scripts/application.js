@@ -61,11 +61,18 @@
 
 				// Dark mode toggle 
 				$( "#js--darkmode-switch" ).on( "click", function(){
+					var mode;
 					if( $(this).prop( "checked" ) ) {
 						$( "body" ).addClass( "dark-mode" );
+						mode = "dark";
 					} else {
 						$( "body" ).removeClass( "dark-mode" );
+						mode = "light";
 					}
+
+					// darkModeChange event is triggered on dark mode de/activation
+					var evt = new CustomEvent( "darkModeChange", { detail: mode } );
+					document.dispatchEvent(evt);
 				} );
 			}
 
