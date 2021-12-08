@@ -45,5 +45,27 @@
 		opacity: 0.9;
 		margin-right: 1em;
 	}
+
+	.dark-mode-switch {
+		margin-right: 1em;
+	}
+
+	&.navbar-dark {
+		ul.navbar-nav {
+			li.nav-item {
+				color: $navbar-dark-color;
+			}
+		}
+	}
+	ul.navbar-nav {
+		li.nav-item {
+			display: flex;
+			align-items: center;
+			& > *:not(a) {
+				padding-left: $navbar-nav-link-padding-x;
+				padding-right: $navbar-nav-link-padding-x;
+			}
+		}
+	}
 	
 }
