@@ -150,6 +150,15 @@
       }
     }
 
+    // list tree
+    ul.list--tree {
+      li {
+        &:after, &:before {
+          border-color: $dark-border-color;
+        }
+      }
+    }
+
   }
 }
 
