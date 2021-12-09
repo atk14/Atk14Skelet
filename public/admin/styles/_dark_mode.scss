@@ -162,3 +162,9 @@
   }
 }
 
+// few small animations for smoother change 
+body {
+  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item {
+    transition: background-color 0.75s;
+  }
+}
