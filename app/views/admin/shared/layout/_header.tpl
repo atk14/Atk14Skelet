@@ -31,7 +31,7 @@
 				<li class="nav-item">
 					<div class="dark-mode-switch">
 						<div class="custom-control custom-switch">
-							<input type="checkbox" class="custom-control-input" id="js--darkmode-switch">
+							<input type="checkbox" class="custom-control-input" id="js--darkmode-switch"{if $request->getCookieVar("dark_mode")} checked{/if}>
 							<label class="custom-control-label" for="js--darkmode-switch">{!"moon"|icon}</label>
 						</div>
 					</div>
