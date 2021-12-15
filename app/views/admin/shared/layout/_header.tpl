@@ -12,17 +12,31 @@
 			{!"bars"|icon}
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
-			<span class="env-status">
-				{if $request->getHttpHost()|strstr:"localhost"}
-					<span class="badge badge-pill badge-info" title="{t}Localhost{/t}">LHOST</span>
-				{/if}
-				{if DEVELOPMENT}
-					<span class="badge badge-pill badge-warning" title="{t}Development server{/t}">DEV</span>
-				{/if}
-				{if PRODUCTION}
-					<span class="badge badge-pill badge-success" title="{t}Production server{/t}">PROD</span>
-				{/if}
-			</span>
+			
+			<ul class="navbar-nav">
+				<li class="nav-item">
+					<span class="env-status">
+						{if $request->getHttpHost()|strstr:"localhost"}
+							<span class="badge badge-pill badge-info" title="{t}Localhost{/t}">LHOST</span>
+						{/if}
+						{if DEVELOPMENT}
+							<span class="badge badge-pill badge-warning" title="{t}Development server{/t}">DEV</span>
+						{/if}
+						{if PRODUCTION}
+							<span class="badge badge-pill badge-success" title="{t}Production server{/t}">PROD</span>
+						{/if}
+					</span>
+				</li>
+				</li>
+				<li class="nav-item">
+					<div class="dark-mode-switch">
+						<div class="custom-control custom-switch">
+							<input type="checkbox" class="custom-control-input" id="js--darkmode-switch"{if $request->getCookieVar("dark_mode")} checked{/if}>
+							<label class="custom-control-label" for="js--darkmode-switch">{!"moon"|icon}</label>
+						</div>
+					</div>
+				</li>
+			</ul>
 			<ul class="navbar-nav">
 				{if $logged_user}
 					{* user is logged in *}

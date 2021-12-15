@@ -58,6 +58,24 @@
 					e.preventDefault();
 					$( this ).closest( ".nav-section" ).toggleClass( "expanded" );
 				} );
+
+				// Dark mode toggle 
+				$( "#js--darkmode-switch" ).on( "click", function(){
+					var mode;
+					if( $(this).prop( "checked" ) ) {
+						$( "body" ).addClass( "dark-mode" );
+						mode = "dark";
+						document.cookie = "dark_mode=1;path=/";
+					} else {
+						$( "body" ).removeClass( "dark-mode" );
+						mode = "light";
+						document.cookie = "dark_mode=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";
+					}
+
+					// darkModeChange event is triggered on dark mode de/activation
+					var evt = new CustomEvent( "darkModeChange", { detail: mode } );
+					document.dispatchEvent(evt);
+				} );
 			}
 
 		},
