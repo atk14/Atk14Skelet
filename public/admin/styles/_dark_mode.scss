@@ -106,7 +106,7 @@
       }
     }
 
-    .form-control, textarea, .md-editor, .form-control-file, .custom-file-input {
+    .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .drop-zone {
       background-color: $dark-input-bg;
       border-color: $dark-border-color;
       color: white;
@@ -164,7 +164,7 @@
 
 // few small animations for smoother change 
 body {
-  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item, .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .progress {
+  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item, .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .progress, .drop-zone {
     transition: background-color 0.75s, border-color 0.75s;
   }
 }
