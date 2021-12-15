@@ -164,7 +164,7 @@
 
 // few small animations for smoother change 
 body {
-  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item {
-    transition: background-color 0.75s;
+  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item, .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .progress {
+    transition: background-color 0.75s, border-color 0.75s;
   }
 }
