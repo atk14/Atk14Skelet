@@ -9,11 +9,11 @@ files-list:
 	> files_vendor
 	> files_smarty_templates
 	> files_smarty_templates_admin
-	find ../ -type f -name '*.php' -o -name '*.inc' | egrep -v '^\.\.\/(tmp|atk14|vendor|app\/controllers\/admin|app\/forms\/admin)\/' | grep -v -F ".svn" | sort >> files_php
-	find ../ -type f -name '*.php' -o -name '*.inc' | egrep '^\.\.\/(app\/controllers\/admin|app\/forms\/admin)\/' | grep -v -F ".svn" | sort >> files_php_admin
-	find ../vendor/ -type f -name '*.php' -o -name '*.inc' | grep -v -F ".svn" | sort >> files_vendor
-	find ../app/ -type f -name "*.tpl" | grep -v -F ".svn" | grep -v '../app/views/admin' | sort >> files_smarty_templates
-	find ../app/ -type f -name "*.tpl" | grep -v -F ".svn" | grep '../app/views/admin' | sort >> files_smarty_templates_admin
+	find ../ -follow -type f -name '*.php' -o -name '*.inc' | egrep -v '^\.\.\/(tmp|atk14|vendor|app\/controllers\/admin|app\/forms\/admin)\/' | grep -v -F ".svn" | sort >> files_php
+	find ../ -follow -type f -name '*.php' -o -name '*.inc' | egrep '^\.\.\/(app\/controllers\/admin|app\/forms\/admin)\/' | grep -v -F ".svn" | sort >> files_php_admin
+	find ../vendor/ -follow -type f -name '*.php' -o -name '*.inc' | grep -v -F ".svn" | sort >> files_vendor
+	find ../app/ -follow -type f -name "*.tpl" | grep -v -F ".svn" | grep -v '../app/views/admin' | sort >> files_smarty_templates
+	find ../app/ -follow -type f -name "*.tpl" | grep -v -F ".svn" | grep '../app/views/admin' | sort >> files_smarty_templates_admin
 
 pot: files-list
 	# Creating and emptying destination files
