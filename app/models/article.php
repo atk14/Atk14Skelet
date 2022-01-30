@@ -17,7 +17,12 @@ class Article extends ApplicationModel implements Translatable, iSlug {
 		$out = parent::getPageDescription();
 		if(strlen($out)){ return $out; }
 		$out = $this->getTeaser();
-		if(strlen($out)){ return strip_tags($out); }
+		if(strlen($out)){
+			Atk14Require::Helper("modifier.markdown");
+			$out = smarty_modifier_markdown($out);
+			$out = String4::ToObject($out)->stripHtml()->toString();
+			return $out;
+		}
 	}
 
 
