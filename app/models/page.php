@@ -85,19 +85,18 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 		return sizeof($this->getChildPages())>0;
 	}
 
-	function getPageTitle(){
-		$out = parent::getPageTitle();
+	function getPageTitle($lang = null){
+		$out = parent::getPageTitle($lang);
 		if(strlen($out)){ return $out; }
-		return $this->getTitle();
+		return $this->getTitle($lang);
 	}
 
-	function getPageDescription(){
-		$out = parent::getPageDescription();
+	function getPageDescription($lang = null){
+		$out = parent::getPageDescription($lang);
 		if(strlen($out)){ return $out; }
-		$out = $this->getTeaser();
+		$out = $this->getTeaser($lang);
 		if(strlen($out)){
-			Atk14Require::Helper("modifier.markdown");
-			$out = smarty_modifier_markdown($out);
+			$out = Markdown($out);
 			$out = String4::ToObject($out)->stripHtml()->toString();
 			return $out;
 		}
