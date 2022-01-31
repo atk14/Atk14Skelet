@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 15:14+0200\n"
-"PO-Revision-Date: 2020-05-12 15:28+0200\n"
+"POT-Creation-Date: 2022-01-31 15:14+0100\n"
+"PO-Revision-Date: 2022-01-31 15:26+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.4.2\n"
 
 msgid "Nahoru"
 msgstr "Top"
@@ -64,7 +64,7 @@ msgid "Sign in as an admin user"
 msgstr "Sign in as an admin user"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:78
+#: ../app/controllers/password_recoveries_controller.php:81
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Sign in"
@@ -244,6 +244,9 @@ msgstr "ATK14 on GitHub"
 msgid "ATK14 Skelet on GitHub"
 msgstr "ATK14 Skelet on GitHub"
 
+msgid "Table of contents"
+msgstr "Table of contents"
+
 msgid "This is not a visible page! It's not available to the public audience."
 msgstr "This is not a visible page! It's not available to the public audience."
 
@@ -291,6 +294,15 @@ msgstr "Optional"
 msgid "Examples:"
 msgstr "Examples:"
 
+msgid "Edit article"
+msgstr "Edit article"
+
+msgid "Edit attachment"
+msgstr "Edit attachment"
+
+msgid "Edit photogallery"
+msgstr "Edit photogallery"
+
 msgid "Edit object"
 msgstr "Edit object"
 
@@ -311,6 +323,12 @@ msgstr "Create a subpage"
 
 msgid "List of pages"
 msgstr "List of pages"
+
+msgid "Edit image"
+msgstr "Edit image"
+
+msgid "Edit video"
+msgstr "Edit video"
 
 msgid "Create a new record"
 msgstr "Create a new record"
@@ -343,8 +361,32 @@ msgstr "Administration"
 msgid "Register"
 msgstr "Register"
 
+msgid "Menu"
+msgstr "Menu"
+
 msgid "Photo gallery"
 msgstr "Photo gallery"
+
+msgid "Previous"
+msgstr "Previous"
+
+msgid "Next"
+msgstr "Next"
+
+msgid "Zavřít"
+msgstr "Close"
+
+msgid "Zobrazování přes celou obrazovka"
+msgstr "Full screen display"
+
+msgid "Přiblížení"
+msgstr "Zoom in"
+
+msgid "Předchozí (šipka doleva)"
+msgstr "Previous (left arrow)"
+
+msgid "Další (šipka doprava)"
+msgstr "Next (right arrow)"
 
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr "Here you can find the list of all commands in <em>%1</em>."
@@ -397,11 +439,11 @@ msgstr "Now you can <a href=\"%1\">sign in</a> and enjoy our website."
 msgid "Username (login)"
 msgstr "Username (login)"
 
-#: ../app/forms/contact_messages/create_new_form.php:6
+#: ../app/forms/contact_messages/create_new_form.php:8
 msgid "Your name"
 msgstr "Your name"
 
-#: ../app/forms/contact_messages/create_new_form.php:11
+#: ../app/forms/contact_messages/create_new_form.php:13
 msgid "Your email"
 msgstr "Your email"
 
@@ -433,6 +475,23 @@ msgstr "Bad password"
 msgid "There is no such user"
 msgstr "There is no such user"
 
+#: ../app/controllers/api/temporary_file_uploads_controller.php:36
+msgid "Temporary file uploading is not enabled"
+msgstr "Temporary file uploading is not enabled"
+
+#: ../app/controllers/api/temporary_file_uploads_controller.php:45
+#, php-format
+msgid "The file exceeds the maximum file size, which is %s"
+msgstr "The file exceeds the maximum file size, which is %s"
+
+#: ../app/controllers/api/temporary_file_uploads_controller.php:65
+msgid "Error 1"
+msgstr "Error 1"
+
+#: ../app/controllers/api/temporary_file_uploads_controller.php:70
+msgid "Error 2"
+msgstr "Error 2"
+
 #: ../app/controllers/application_base.php:28
 msgid "Page not found"
 msgstr "Page not found"
@@ -441,7 +500,7 @@ msgstr "Page not found"
 msgid "Forbidden"
 msgstr "Forbidden"
 
-#: ../app/controllers/application_base.php:134
+#: ../app/controllers/application_base.php:138
 msgid "Home"
 msgstr "Home"
 
@@ -489,7 +548,7 @@ msgid "Sorry, An internal error happened"
 msgstr "Sorry, An internal error happened"
 
 #: ../app/controllers/articles_controller.php:11
-#: ../app/controllers/articles_controller.php:60
+#: ../app/controllers/articles_controller.php:58
 msgid "Articles"
 msgstr "Articles"
 
@@ -558,12 +617,12 @@ msgstr ""
 "Password recovery can not be initiated for this user. Email address is not "
 "set."
 
-#: ../app/controllers/password_recoveries_controller.php:62
+#: ../app/controllers/password_recoveries_controller.php:65
 #: ../app/controllers/users_controller.php:79
 msgid "Your password has been updated successfully"
 msgstr "Your password has been updated successfully"
 
-#: ../app/controllers/password_recoveries_controller.php:79
+#: ../app/controllers/password_recoveries_controller.php:82
 msgid "Password recovery"
 msgstr "Password recovery"
 
@@ -596,6 +655,15 @@ msgstr "Your account data has been updated"
 msgid "This is not your current password"
 msgstr "This is not your current password"
 
+#: ../app/fields/async_file_field.php:12
+msgid "The file has been already deleted on the server, please upload it again"
+msgstr ""
+"The file has been already deleted on the server, please upload it again"
+
+#: ../app/fields/async_file_field.php:13
+msgid "The file was not fully uploaded, please upload it again"
+msgstr "The file was not fully uploaded, please upload it again"
+
 #: ../app/fields/login_field.php:7
 msgid ""
 "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
@@ -610,7 +678,7 @@ msgstr "This username has been already taken"
 msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr "Only letters, numbers, dots and dashes are allowed"
 
-#: ../app/fields/object_field.php:30
+#: ../app/fields/object_field.php:33
 msgid "There is no such record"
 msgstr "There is no such record"
 
@@ -630,7 +698,7 @@ msgstr ""
 "Unable to get video information. Check video URL and oEmbed support with "
 "your video provider."
 
-#: ../app/fields/oembed_video_field.php:22
+#: ../app/fields/oembed_video_field.php:25
 msgid "Typ souboru na tomto URL není video"
 msgstr "The file type at this URL is not a video"
 
@@ -638,9 +706,21 @@ msgstr "The file type at this URL is not a video"
 msgid "page"
 msgstr "page"
 
-#: ../app/fields/page_field.php:29
+#: ../app/fields/page_field.php:48
 msgid "There is no such page"
 msgstr "There is no such page"
+
+#: ../app/fields/slug_field.php:6
+msgid "Slug"
+msgstr "Slug"
+
+#: ../app/fields/slug_field.php:8
+msgid "funny-green-mug"
+msgstr "funny-green-mug"
+
+#: ../app/fields/slug_field.php:12
+msgid "Write something like black-cat-white-cat"
+msgstr "Write something like black-cat-white-cat"
 
 #: ../app/fields/tags_field.php:21
 msgid "Ensure that there are max %max% tags (now there are %count%)"
@@ -656,6 +736,7 @@ msgstr "There is no tag <em>%s</em>"
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Tag <em>%s</em> is there more than once"
 
+#: ../app/forms/api/suggestions/index_form.php:5
 #: ../app/forms/api/tags_suggestions/index_form.php:5
 msgid "Search term"
 msgstr "Search term"
@@ -688,25 +769,26 @@ msgstr "Save"
 msgid "Search query"
 msgstr "Search query"
 
-#: ../app/forms/contact_messages/create_new_form.php:16
+#: ../app/forms/contact_messages/create_new_form.php:18
 msgid "Sign up for newsletter"
 msgstr "Sign up for newsletter"
 
-#: ../app/forms/contact_messages/create_new_form.php:22
+#: ../app/forms/contact_messages/create_new_form.php:24
 msgid "Text"
 msgstr "Text"
 
-#: ../app/forms/contact_messages/create_new_form.php:28
+#: ../app/forms/contact_messages/create_new_form.php:30
+#: ../app/forms/contact_messages/create_new_form.php:34
 msgid "Spam protection"
 msgstr "Spam protection"
 
-#: ../app/forms/contact_messages/create_new_form.php:33
+#: ../app/forms/contact_messages/create_new_form.php:40
 msgid "Send message"
 msgstr "Send message"
 
 #: ../app/forms/logins/create_new_form.php:8
-msgid "Login"
-msgstr "Login"
+msgid "Login name"
+msgstr "Login name"
 
 #: ../app/forms/logins/create_new_form.php:12
 #: ../app/forms/users/edit_password_form.php:5
@@ -782,6 +864,32 @@ msgstr "Gallery"
 #: ../app/helpers/modifier.iobject_type.php:23
 msgid "Obrázek"
 msgstr "Picture"
+
+#: ../app/models/user.php:82
+msgid "inactive user"
+msgstr "inactive user"
+
+#: ../app/models/user.php:85
+msgid "administrator"
+msgstr "administrator"
+
+#: ../app/widgets/async_pupiq_attachment_input.php:41
+#: ../app/widgets/pupiq_attachment_input.php:41
+#: ../app/widgets/pupiq_image_input.php:45
+msgid "remove"
+msgstr "remove"
+
+#: ../app/widgets/async_pupiq_attachment_input.php:42
+#: ../app/widgets/pupiq_attachment_input.php:42
+msgid "Download attachment"
+msgstr "Download attachment"
+
+#: ../app/widgets/pupiq_image_input.php:46
+msgid "Display image"
+msgstr "Display image"
+
+#~ msgid "Login"
+#~ msgstr "Login"
 
 #~ msgid "atk14.date_format"
 #~ msgstr "m/d/Y"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 15:14+0200\n"
-"PO-Revision-Date: 2021-10-18 13:18+0200\n"
+"POT-Creation-Date: 2022-01-31 15:14+0100\n"
+"PO-Revision-Date: 2022-01-31 15:18+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -64,7 +64,7 @@ msgid "Sign in as an admin user"
 msgstr "Přihlaste se jako administrátor"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:78
+#: ../app/controllers/password_recoveries_controller.php:81
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Přihlásit se"
@@ -243,6 +243,9 @@ msgstr "ATK14 na GitHubu"
 msgid "ATK14 Skelet on GitHub"
 msgstr "ATK14 Skelet na GitHubu"
 
+msgid "Table of contents"
+msgstr "Obsah"
+
 msgid "This is not a visible page! It's not available to the public audience."
 msgstr "Toto není viditelná stránka! Není dostupná veřejnosti."
 
@@ -290,6 +293,15 @@ msgstr "Volitelné"
 msgid "Examples:"
 msgstr "Příklady:"
 
+msgid "Edit article"
+msgstr "Upravit článek"
+
+msgid "Edit attachment"
+msgstr "Upravit přílohu"
+
+msgid "Edit photogallery"
+msgstr "Upravit fotogalerii"
+
 msgid "Edit object"
 msgstr "Editovat objekt"
 
@@ -310,6 +322,12 @@ msgstr "Vytvořit podstránku"
 
 msgid "List of pages"
 msgstr "Seznam stránek"
+
+msgid "Edit image"
+msgstr "Upravit obrázek"
+
+msgid "Edit video"
+msgstr "Upravit video"
 
 msgid "Create a new record"
 msgstr "Vytvořit nový záznam"
@@ -342,8 +360,32 @@ msgstr "Administrace"
 msgid "Register"
 msgstr "Registrovat"
 
+msgid "Menu"
+msgstr "Nabídka"
+
 msgid "Photo gallery"
 msgstr "Fotogalerie"
+
+msgid "Previous"
+msgstr "Předchozí"
+
+msgid "Next"
+msgstr "Následující"
+
+msgid "Zavřít"
+msgstr "Zavřít"
+
+msgid "Zobrazování přes celou obrazovka"
+msgstr "Zobrazování přes celou obrazovka"
+
+msgid "Přiblížení"
+msgstr "Přiblížení"
+
+msgid "Předchozí (šipka doleva)"
+msgstr "Předchozí (šipka doleva)"
+
+msgid "Další (šipka doprava)"
+msgstr "Další (šipka doprava)"
 
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr "Zde neleznete seznam příkazů v <em>%1</em>."
@@ -396,11 +438,11 @@ msgstr "Nyní se můžete <a href=\"%1\">přihlásit</a> a užít si náš web."
 msgid "Username (login)"
 msgstr "Uživatelské jméno (login)"
 
-#: ../app/forms/contact_messages/create_new_form.php:6
+#: ../app/forms/contact_messages/create_new_form.php:8
 msgid "Your name"
 msgstr "Vaše jméno"
 
-#: ../app/forms/contact_messages/create_new_form.php:11
+#: ../app/forms/contact_messages/create_new_form.php:13
 msgid "Your email"
 msgstr "Váš e-mail"
 
@@ -432,6 +474,23 @@ msgstr "Špatné heslo"
 msgid "There is no such user"
 msgstr "Takový uživatel tady není"
 
+#: ../app/controllers/api/temporary_file_uploads_controller.php:36
+msgid "Temporary file uploading is not enabled"
+msgstr "Nahrávání dočasných souborů není povoleno"
+
+#: ../app/controllers/api/temporary_file_uploads_controller.php:45
+#, php-format
+msgid "The file exceeds the maximum file size, which is %s"
+msgstr "Soubor překračuje maximální velikost, která je %s"
+
+#: ../app/controllers/api/temporary_file_uploads_controller.php:65
+msgid "Error 1"
+msgstr "Chyba 1"
+
+#: ../app/controllers/api/temporary_file_uploads_controller.php:70
+msgid "Error 2"
+msgstr "Chyba 2"
+
 #: ../app/controllers/application_base.php:28
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
@@ -440,7 +499,7 @@ msgstr "Stránka nebyla nalezena"
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:134
+#: ../app/controllers/application_base.php:138
 msgid "Home"
 msgstr "Domů"
 
@@ -488,7 +547,7 @@ msgid "Sorry, An internal error happened"
 msgstr "Omlouváme se, nastala vnitřní chyba"
 
 #: ../app/controllers/articles_controller.php:11
-#: ../app/controllers/articles_controller.php:60
+#: ../app/controllers/articles_controller.php:58
 msgid "Articles"
 msgstr "Články"
 
@@ -556,12 +615,12 @@ msgstr ""
 "Obnovení hesla nelze pro tohoto uživatele iniciovat. E-mailová adresa není "
 "nastavena."
 
-#: ../app/controllers/password_recoveries_controller.php:62
+#: ../app/controllers/password_recoveries_controller.php:65
 #: ../app/controllers/users_controller.php:79
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
-#: ../app/controllers/password_recoveries_controller.php:79
+#: ../app/controllers/password_recoveries_controller.php:82
 msgid "Password recovery"
 msgstr "Obnovení hesla"
 
@@ -593,6 +652,14 @@ msgstr "Údaje vašeho účtu byly změněny"
 msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
+#: ../app/fields/async_file_field.php:12
+msgid "The file has been already deleted on the server, please upload it again"
+msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
+
+#: ../app/fields/async_file_field.php:13
+msgid "The file was not fully uploaded, please upload it again"
+msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
+
 #: ../app/fields/login_field.php:7
 msgid ""
 "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
@@ -608,7 +675,7 @@ msgstr "Toto uživatelské jméno je již zabráno"
 msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr "Zadávejte pouze písmena, číslice, tečky a pomlčky"
 
-#: ../app/fields/object_field.php:30
+#: ../app/fields/object_field.php:33
 msgid "There is no such record"
 msgstr "Takový záznam neexistuje"
 
@@ -628,7 +695,7 @@ msgstr ""
 "Nelze získat informace o videu. Ověřte URL videa a podporu oEmbed u "
 "poskytovatele videa."
 
-#: ../app/fields/oembed_video_field.php:22
+#: ../app/fields/oembed_video_field.php:25
 msgid "Typ souboru na tomto URL není video"
 msgstr "Typ souboru na tomto URL není video"
 
@@ -636,9 +703,21 @@ msgstr "Typ souboru na tomto URL není video"
 msgid "page"
 msgstr "stránka"
 
-#: ../app/fields/page_field.php:29
+#: ../app/fields/page_field.php:48
 msgid "There is no such page"
 msgstr "Takový stránka neexistuje"
+
+#: ../app/fields/slug_field.php:6
+msgid "Slug"
+msgstr "Slug"
+
+#: ../app/fields/slug_field.php:8
+msgid "funny-green-mug"
+msgstr "zertovny-zeleny-hrnek"
+
+#: ../app/fields/slug_field.php:12
+msgid "Write something like black-cat-white-cat"
+msgstr "Napište něco jako cerna-kocka-bily-kocour"
 
 #: ../app/fields/tags_field.php:21
 msgid "Ensure that there are max %max% tags (now there are %count%)"
@@ -655,6 +734,7 @@ msgstr "Štítek <em>%s</em> neexistuje"
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Štítek <em>%s</em> je uveden vícekrát"
 
+#: ../app/forms/api/suggestions/index_form.php:5
 #: ../app/forms/api/tags_suggestions/index_form.php:5
 msgid "Search term"
 msgstr "Hledat výraz"
@@ -687,25 +767,26 @@ msgstr "Uložit"
 msgid "Search query"
 msgstr "Vyhledávací dotaz"
 
-#: ../app/forms/contact_messages/create_new_form.php:16
+#: ../app/forms/contact_messages/create_new_form.php:18
 msgid "Sign up for newsletter"
 msgstr "Přihlásit se k odběru newsletteru"
 
-#: ../app/forms/contact_messages/create_new_form.php:22
+#: ../app/forms/contact_messages/create_new_form.php:24
 msgid "Text"
 msgstr "Text"
 
-#: ../app/forms/contact_messages/create_new_form.php:28
+#: ../app/forms/contact_messages/create_new_form.php:30
+#: ../app/forms/contact_messages/create_new_form.php:34
 msgid "Spam protection"
 msgstr "Ochrana proti spamu"
 
-#: ../app/forms/contact_messages/create_new_form.php:33
+#: ../app/forms/contact_messages/create_new_form.php:40
 msgid "Send message"
 msgstr "Poslat zprávu"
 
 #: ../app/forms/logins/create_new_form.php:8
-msgid "Login"
-msgstr "Přihlásit se"
+msgid "Login name"
+msgstr "Přihlašovací jméno"
 
 #: ../app/forms/logins/create_new_form.php:12
 #: ../app/forms/users/edit_password_form.php:5
@@ -782,17 +863,34 @@ msgstr "Galerie"
 msgid "Obrázek"
 msgstr "Obrázek"
 
+#: ../app/models/user.php:82
+msgid "inactive user"
+msgstr "neaktivní uživatel"
+
+#: ../app/models/user.php:85
+msgid "administrator"
+msgstr "administrátor"
+
+#: ../app/widgets/async_pupiq_attachment_input.php:41
+#: ../app/widgets/pupiq_attachment_input.php:41
+#: ../app/widgets/pupiq_image_input.php:45
+msgid "remove"
+msgstr "odstranit"
+
+#: ../app/widgets/async_pupiq_attachment_input.php:42
+#: ../app/widgets/pupiq_attachment_input.php:42
+msgid "Download attachment"
+msgstr "Stáhnout přílohu"
+
+#: ../app/widgets/pupiq_image_input.php:46
+msgid "Display image"
+msgstr "Zobrazit obrázek"
+
+#~ msgid "Login"
+#~ msgstr "Přihlásit se"
+
 #~ msgid "Please, write us to %1 if you think this is our mistake."
 #~ msgstr "Napište nám na adresu %1, pokud si myslíte, že je to naše chyba."
-
-#~ msgid "Slug"
-#~ msgstr "Slug"
-
-#~ msgid "funny-green-mug"
-#~ msgstr "zertovny-zeleny-hrnek"
-
-#~ msgid "Write something like black-cat-white-cat"
-#~ msgstr "Napište něco jako cerna-kocka-bily-kocour"
 
 #~ msgid ""
 #~ "If you have any question, contact us through the following form. We will "
@@ -895,9 +993,6 @@ msgstr "Obrázek"
 
 #~ msgid "Prev"
 #~ msgstr "Předchozí"
-
-#~ msgid "Next"
-#~ msgstr "Následující"
 
 #~ msgid "About page"
 #~ msgstr "Stránka O nás"
@@ -1064,9 +1159,6 @@ msgstr "Obrázek"
 
 #~ msgid "Go to home page"
 #~ msgstr "Přejděte na úvodní stránku"
-
-#~ msgid "administrator"
-#~ msgstr "administrátor"
 
 #~ msgid "This login has been already taken"
 #~ msgstr "Tento login je již zabrán"
