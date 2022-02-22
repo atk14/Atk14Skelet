@@ -9,3 +9,10 @@ $container-max-width: 1400px;
 // Breadcrumbs
 $breadcrumb-bg:            $white;
 $breadcrumb-padding-x:		 0;
+
+// Font Awesome font names
+// Use these variables instead font names for easy Font Awesome upgrades
+// When upgading from FA 5, replace all occurences of "Font Awesome 5 Free" with $fa-font-family
+// And replace "Font Awesome 5 Brands" with $fa-brands-font-family
+$fa-font-family: "Font Awesome 6 Free";
+$fa-brands-font-family: "Font Awesome 6 Brands";
