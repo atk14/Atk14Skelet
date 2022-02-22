@@ -25,5 +25,7 @@ class LinkListItemsForm extends AdminForm {
 		]));
 
 		$this->add_visible_field();
+
+		$this->add_code_field();
 	}
 }
