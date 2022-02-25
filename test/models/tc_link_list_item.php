@@ -35,7 +35,7 @@ class TcLinkListItem extends TcBase {
 
 	function test_changing_url_according_to_language(){
 		$item = $this->link_list_items["main_menu__testing_page"];
-		$this->assertEquals("/en/testing-page/",$item->getUrl());
+		$this->assertEquals("/testing-page/",$item->getUrl());
 
 		$lang = "cs";
 		Atk14Locale::Initialize($lang);
@@ -44,9 +44,9 @@ class TcLinkListItem extends TcBase {
 		$lang = "en";
 		Atk14Locale::Initialize($lang);
 		
-		$item->s("url","/en/testing-page/#anchor");
+		$item->s("url","/testing-page/#anchor");
 
-		$this->assertEquals("/en/testing-page/#anchor",$item->getUrl());
+		$this->assertEquals("/testing-page/#anchor",$item->getUrl());
 
 		$lang = "cs";
 		Atk14Locale::Initialize($lang);
@@ -58,16 +58,16 @@ class TcLinkListItem extends TcBase {
 	function test_specific_url_for_language(){
 		$item = $this->link_list_items["main_menu__testing_page"];
 
-		$item->s("url_localized_en","/en/testing-page/?english=1");
+		$item->s("url_localized_en","/testing-page/?english=1");
 
-		$this->assertEquals("/en/testing-page/?english=1",$item->getUrl());
-		$this->assertEquals("/en/testing-page/?english=1",$item->getUrl("en"));
+		$this->assertEquals("/testing-page/?english=1",$item->getUrl());
+		$this->assertEquals("/testing-page/?english=1",$item->getUrl("en"));
 		$this->assertEquals("/testovaci-stranka/",$item->getUrl("cs"));
 
 		$lang = "cs";
 		Atk14Locale::Initialize($lang);
 		$this->assertEquals("/testovaci-stranka/",$item->getUrl());
-		$this->assertEquals("/en/testing-page/?english=1",$item->getUrl("en"));
+		$this->assertEquals("/testing-page/?english=1",$item->getUrl("en"));
 		$this->assertEquals("/testovaci-stranka/",$item->getUrl("cs"));
 	}
 }
