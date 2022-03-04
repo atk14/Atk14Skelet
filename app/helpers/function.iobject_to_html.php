@@ -25,7 +25,7 @@ function smarty_function_iobject_to_html($params,$template){
 
 	// rendering admin menu for the object
 	Atk14Require::Helper("function.admin_menu");
-	$admin_menu .= smarty_function_admin_menu([
+	$admin_menu = smarty_function_admin_menu([
 		"for" => $iobject->getObject(),
 	],$template);
 	$admin_menu = trim($admin_menu);
