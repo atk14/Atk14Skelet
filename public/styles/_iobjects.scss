@@ -245,3 +245,26 @@
 		font-weight: 600;
 	}
 }
+
+// Picture iObjects in a table
+// Removes excessive margins and borders
+table.table {
+	tr, tbody tr {
+		td, th {
+			.iobject--picture {
+				///outline: 1px dashed red;
+				margin: 0;
+				figure {
+					margin: 0;
+					///outline: 1px dotted blue;
+					figcaption {
+						border-bottom: none;
+						margin-bottom: 0;
+						padding-bottom: 0;
+					}
+				}
+			}
+		}
+	}
+}
+
