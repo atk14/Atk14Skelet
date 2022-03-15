@@ -31,6 +31,21 @@ class TcLinkListItem extends TcBase {
 
 		$lli = $this->link_list_items["main_menu__external"];
 		$this->assertEquals(null,$lli->getSubmenu());
+
+		// submenu linked by the same code (main_menu_code)
+		$lli = $this->link_list_items["test_list__main_menu"];
+		$submenu = $lli->getSubmenu();
+		$items = $submenu->getItems();
+		$this->assertEquals(3,sizeof($items));
+		$this->assertEquals("Home",$items[0]->getTitle());
+		$this->assertEquals("/",$items[0]->getUrl());
+		$this->assertEquals("Testing page",$items[1]->getTitle());
+		$this->assertEquals("/en/testing-page/",$items[1]->getUrl());
+		$this->assertEquals("ATK14 Framework",$items[2]->getTitle());
+		$this->assertEquals("https://www.atk14.net/",$items[2]->getUrl());
+
+		$lli->s("code","different_code");
+		$this->assertEquals(null,$lli->getSubmenu());
 	}
 
 	function test_changing_url_according_to_language(){

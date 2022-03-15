@@ -2,4 +2,5 @@ test_list:
   system_name: "Test List"
 
 main_menu:
+  code: "main_menu_code"
   system_name: "Main menu"

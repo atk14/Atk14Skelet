@@ -61,7 +61,12 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 
 		$menu = new Menu14();
 
-		if(is_a($target,"Page")){
+		if(strlen($code = $this->getCode()) && ($list = LinkList::GetInstanceByCode($code))){
+			foreach($list->getVisibleItems() as $l_item){
+				$item = $menu->addItem($l_item->getTitle(),$l_item->getUrl());
+				$item->setMeta("image_url",$l_item->getImageUrl());
+			}
+		}elseif(is_a($target,"Page")){
 			$menu->setMeta("image_url",$target->getImageUrl());
 			foreach($target->getVisibleChildPages() as $chi){
 				$item = $menu->addItem($chi->getTitle(),Atk14Url::BuildLink(["namespace" => "", "action" => "pages/detail", "id" => $chi]));
