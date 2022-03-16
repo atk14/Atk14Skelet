@@ -65,6 +65,7 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 			foreach($list->getVisibleItems() as $l_item){
 				$item = $menu->addItem($l_item->getTitle(),$l_item->getUrl());
 				$item->setMeta("image_url",$l_item->getImageUrl());
+				$item->setMeta("css_class",$l_item->getCssClass());
 			}
 		}elseif(is_a($target,"Page")){
 			$menu->setMeta("image_url",$target->getImageUrl());
