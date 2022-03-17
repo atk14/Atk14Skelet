@@ -59,7 +59,7 @@ HTML;
 		}
 
 		// Privacy-enhanced mode
-		$out = preg_replace('/\bsrc="https:\/\/www.youtube.com/','src="https:\/\/www.youtube-nocookie.com/',$out);
+		$out = preg_replace('/\bsrc="https:\/\/www.youtube.com/','src="https://www.youtube-nocookie.com/',$out);
 
 		return $out;
 	}
