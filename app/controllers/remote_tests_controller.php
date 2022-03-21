@@ -104,7 +104,10 @@ class RemoteTestsController extends ApplicationController{
 	}
 
 	function _check_for_files($directory,$check_options){
-		if(!file_exists($directory) || !is_dir($directory)){
+		if(!file_exists($directory)){
+			return; // ok....
+		}
+		if(!is_dir($directory)){
 			$this->_fail("$directory doesn't exist or is not directory");
 			return;
 		}
