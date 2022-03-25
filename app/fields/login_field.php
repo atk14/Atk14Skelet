@@ -4,7 +4,9 @@ class LoginField extends RegexField{
 	function __construct($options = array()){
 		$options += array(
 			"max_length" => 50,
-			"help_text" => _("Only letters, numbers, dots and dashes are allowed. Up to 50 characters."),
+		);
+		$options += array(
+			"help_text" => sprintf(_("Only letters, numbers, dots and dashes are allowed. Up to %s characters."),$options["max_length"]),
 			"hints" => array("john.doe","samantha92"),
 			"check_for_conflicted_user_existence" => true,
 		);
