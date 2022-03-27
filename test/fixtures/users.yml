@@ -19,6 +19,20 @@ rocky:
   password: "$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta" # secret
   email: "rocky@balboa.com"
 
+john_doe:
+  login: "john@doe.com"
+  firstname: "John"
+  lastname: "Doe"
+  password: "Samantha111"
+  email: "john@doe.com"
+
+samantha_doe:
+  login: "samantha@doe.com"
+  firstname: "Samantha"
+  lastname: "Doe"
+  password: "John123"
+  email: "samantha@doe.com"
+
 inactive_user:
   login: "inactive.user"
   firstname: "Ivor"

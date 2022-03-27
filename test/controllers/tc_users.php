@@ -91,6 +91,64 @@ class TcUsers extends TcBase{
 		$this->assertTrue($john->isPasswordCorrect('$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta'));
 	}
 
+	function test_edit(){
+		// no one is logged in
+		$this->client->get("users/edit");
+		$this->assertEquals(403,$this->client->getStatusCode());
+
+		// user has different login name and email
+		$this->_login_user("rambo","secret");
+
+		$data = $this->users["rambo"]->toArray();
+		$data["email"] = "info@rambo.com";
+
+		$this->client->post("users/edit",$data);
+		$this->assertTrue($this->client->redirected());
+
+		$rambo = User::GetInstanceById($this->users["rambo"]->getId());
+		$this->assertEquals("info@rambo.com",$rambo->getEmail());
+		$this->assertEquals("rambo",$rambo->getLogin());
+
+		$this->_logout_user();
+
+		// user has the same both login name and email
+		$this->_login_user("john@doe.com","Samantha111");
+
+		$data = $this->users["john_doe"]->toArray();
+		$data["email"] = "info@doe.com";
+
+		$this->client->post("users/edit",$data);
+		$this->assertTrue($this->client->redirected());
+
+		$john_doe = User::GetInstanceById($this->users["john_doe"]->getId());
+		$this->assertEquals("info@doe.com",$john_doe->getEmail());
+		$this->assertEquals("info@doe.com",$john_doe->getLogin());
+
+		$this->_logout_user();
+
+		// another user with the same login name and email
+		$this->_login_user("samantha@doe.com","John123");
+
+		$data = $this->users["samantha_doe"]->toArray();
+		$data["email"] = "info@doe.com";
+
+		$controller = $this->client->post("users/edit",$data);
+		$this->assertFalse($this->client->redirected());
+
+		$this->assertEquals(array("This email address is used by another user."),$controller->form->get_errors("email"));
+
+		$data["email"] = "samantha.doe@gmail.com";
+
+		$this->client->post("users/edit",$data);
+		$this->assertTrue($this->client->redirected());
+
+		$samantha_doe = User::GetInstanceById($this->users["samantha_doe"]->getId());
+		$this->assertEquals("samantha.doe@gmail.com",$samantha_doe->getEmail());
+		$this->assertEquals("samantha.doe@gmail.com",$samantha_doe->getLogin());
+
+		$this->_logout_user();
+	}
+
 	function test_edit_password(){
 		// no one is logged in
 		$this->client->post("users/edit_password",array(
@@ -148,5 +206,19 @@ class TcUsers extends TcBase{
 		$this->assertTrue($rambo->isPasswordCorrect('$2a$12$SxmsCtPdm.EP8O6GFpEZ/OcUg5GLTuH6qPEb5T3sdgcJpgBasOzoy'));
 		$this->assertTrue(MyBlowfish::IsHash($rambo->getPassword()));
 		$this->assertNotEquals('$2a$12$SxmsCtPdm.EP8O6GFpEZ/OcUg5GLTuH6qPEb5T3sdgcJpgBasOzoy',$rambo->getPassword());
+	}
+
+	function _login_user($login,$password){
+		$controller = $this->client->post("logins/create_new",array(
+			"login" => $login,
+			"password" => $password,
+		));
+		$this->assertEquals(false,$controller->form->has_errors());
+		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting...
+	}
+
+	function _logout_user(){
+		$this->client->post("logins/destroy");
+		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting...
 	}
 }
