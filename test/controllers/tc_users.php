@@ -91,7 +91,7 @@ class TcUsers extends TcBase{
 		$this->assertTrue($john->isPasswordCorrect('$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta'));
 	}
 
-	function test_edit(){
+	function test_edit_email(){
 		// no one is logged in
 		$this->client->get("users/edit");
 		$this->assertEquals(403,$this->client->getStatusCode());
@@ -102,8 +102,9 @@ class TcUsers extends TcBase{
 		$data = $this->users["rambo"]->toArray();
 		$data["email"] = "info@rambo.com";
 
-		$this->client->post("users/edit",$data);
+		$controller = $this->client->post("users/edit",$data);
 		$this->assertTrue($this->client->redirected());
+		$this->assertEquals("Your account data has been updated",(string)$controller->flash->success());
 
 		$rambo = User::GetInstanceById($this->users["rambo"]->getId());
 		$this->assertEquals("info@rambo.com",$rambo->getEmail());
@@ -117,8 +118,9 @@ class TcUsers extends TcBase{
 		$data = $this->users["john_doe"]->toArray();
 		$data["email"] = "info@doe.com";
 
-		$this->client->post("users/edit",$data);
+		$controller = $this->client->post("users/edit",$data);
 		$this->assertTrue($this->client->redirected());
+		$this->assertEquals("Your account data has been updated. Next time you should sign-in with login name <em>info@doe.com</em>.",(string)$controller->flash->success());
 
 		$john_doe = User::GetInstanceById($this->users["john_doe"]->getId());
 		$this->assertEquals("info@doe.com",$john_doe->getEmail());
@@ -139,8 +141,9 @@ class TcUsers extends TcBase{
 
 		$data["email"] = "samantha.doe@gmail.com";
 
-		$this->client->post("users/edit",$data);
+		$controller = $this->client->post("users/edit",$data);
 		$this->assertTrue($this->client->redirected());
+		$this->assertEquals("Your account data has been updated. Next time you should sign-in with login name <em>samantha.doe@gmail.com</em>.",(string)$controller->flash->success());
 
 		$samantha_doe = User::GetInstanceById($this->users["samantha_doe"]->getId());
 		$this->assertEquals("samantha.doe@gmail.com",$samantha_doe->getEmail());
@@ -159,12 +162,7 @@ class TcUsers extends TcBase{
 		$this->assertEquals(403,$this->client->getStatusCode()); // 403 Forbidden
 
 		// login
-		$controller = $this->client->post("logins/create_new",array(
-			"login" => "rambo",
-			"password" => "secret",
-		));
-		$this->assertEquals(false,$controller->form->has_errors());
-		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting...
+		$this->_login_user("rambo","secret");
 
 		// editing password successfully
 		$controller = $this->client->post("users/edit_password",array(
