@@ -17,7 +17,7 @@ class ApplicationController extends ApplicationBaseController{
 			return parent::error404();
 		}
 
-		$this->page_title = $page->getTitle();
+		$this->page_title = $page->getPageTitle();
 		$this->page_description = $page->getPageDescription();
 		$this->_add_page_to_breadcrumbs($page);
 		$this->response->setStatusCode(404);
