@@ -101,6 +101,8 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	function _application_before_filter(){
+		global $ATK14_GLOBAL;
+
 		$this->response->setContentType("text/html");
 		$this->response->setContentCharset(DEFAULT_CHARSET);
 		$this->response->setHeader("Cache-Control","private, max-age=0, must-revalidate");
@@ -130,6 +132,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		// logged in user
 		$this->logged_user = $this->tpl_data["logged_user"] = $this->_get_logged_user();
+		$ATK14_GLOBAL->setValue("logged_user",$this->logged_user); // we need this in app/helpers/function.admin_menu.php
 
 		$this->breadcrumbs = new Menu14();
 		$this->breadcrumbs[] = array(_("Home"),$this->_link_to(array("namespace" => "", "action" => "main/index")));

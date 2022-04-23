@@ -21,3 +21,9 @@ interesting_article:
   slug_en: "interesting-article"
   slug_cs: "zajimavy-clanek"
   published_at: "2020-08-21"
+
+way_too_markdown:
+  title_en: "Way Too Markdown"
+  title_cs: "Příliš moc Markdownu"
+  teaser_en: " *Italic*  **Bold**  [Link](https://example.com)  www.example.org"
+  teaser_cs: " *Italika*  **Tučně**  [Odkaz](https://example.com)  www.example.org"

@@ -1,0 +1,17 @@
+// Styles for shortcodes 
+
+.col--shortcode > .iobject {
+	margin-top: 0;
+}
+
+// Vertical borders for row--shortcode
+.row--shortcode {
+	&.row--borders {
+		// all columns except the first one have border-left on sm+ viewport
+		.col--shortcode:first-child ~ .col--shortcode {
+			@include media-breakpoint-up(xs) {
+				border-left: 1px solid $border-color;
+			}
+		}
+	}
+}

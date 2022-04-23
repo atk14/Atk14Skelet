@@ -1,5 +1,5 @@
 <?php
 function Markdown($raw){
-	$out = Michelf\Markdown::defaultTransform($raw);
-	return $out;
+	Atk14Require::Helper("modifier.markdown");
+	return smarty_modifier_markdown($raw);
 }

@@ -16,6 +16,7 @@ class SitemapsController extends ApplicationController{
 				"visible",
 				"indexable"
 			),
+			"use_cache" => true,
 		));
 
 		$this->tpl_data["articles"] = Article::FindAll(array(
@@ -25,6 +26,7 @@ class SitemapsController extends ApplicationController{
 			),
 			"order_by" => "published_at DESC",
 			"limit" => 20,
+			"use_cache" => true,
 		));
 
 		if($this->params->getString("format")=="xml"){

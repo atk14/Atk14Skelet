@@ -33,5 +33,58 @@ class TcLinkListItem extends TcBase {
 
 		$lli = $this->link_list_items["main_menu__external"];
 		$this->assertEquals(null,$lli->getSubmenu());
+
+		// submenu linked by the same code (main_menu_code)
+		$lli = $this->link_list_items["test_list__main_menu"];
+		$submenu = $lli->getSubmenu();
+		$items = $submenu->getItems();
+		$this->assertEquals(3,sizeof($items));
+		$this->assertEquals("Home",$items[0]->getTitle());
+		$this->assertEquals("/",$items[0]->getUrl());
+		$this->assertEquals("Testing page",$items[1]->getTitle());
+		$this->assertEquals("/testing-page/",$items[1]->getUrl());
+		$this->assertEquals("ATK14 Framework",$items[2]->getTitle());
+		$this->assertEquals("https://www.atk14.net/",$items[2]->getUrl());
+
+		$lli->s("code","different_code");
+		$this->assertEquals(null,$lli->getSubmenu());
+	}
+
+	function test_changing_url_according_to_language(){
+		$item = $this->link_list_items["main_menu__testing_page"];
+		$this->assertEquals("/testing-page/",$item->getUrl());
+
+		$lang = "cs";
+		Atk14Locale::Initialize($lang);
+		$this->assertEquals("/testovaci-stranka/",$item->getUrl());
+
+		$lang = "en";
+		Atk14Locale::Initialize($lang);
+		
+		$item->s("url","/testing-page/#anchor");
+
+		$this->assertEquals("/testing-page/#anchor",$item->getUrl());
+
+		$lang = "cs";
+		Atk14Locale::Initialize($lang);
+		$this->assertEquals("/testovaci-stranka/#anchor",$item->getUrl());
+		$this->assertEquals("/testovaci-stranka/#test",$item->getUrl(["anchor" => "test"]));
+		$this->assertEquals("/testovaci-stranka/",$item->getUrl(["anchor" => ""]));
+	}
+
+	function test_specific_url_for_language(){
+		$item = $this->link_list_items["main_menu__testing_page"];
+
+		$item->s("url_localized_en","/testing-page/?english=1");
+
+		$this->assertEquals("/testing-page/?english=1",$item->getUrl());
+		$this->assertEquals("/testing-page/?english=1",$item->getUrl("en"));
+		$this->assertEquals("/testovaci-stranka/",$item->getUrl("cs"));
+
+		$lang = "cs";
+		Atk14Locale::Initialize($lang);
+		$this->assertEquals("/testovaci-stranka/",$item->getUrl());
+		$this->assertEquals("/testing-page/?english=1",$item->getUrl("en"));
+		$this->assertEquals("/testovaci-stranka/",$item->getUrl("cs"));
 	}
 }

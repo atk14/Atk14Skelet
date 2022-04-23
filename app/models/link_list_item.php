@@ -1,10 +1,12 @@
 <?php
 class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 
-	use TraitUrlParams;
+	use TraitUrlParams {
+		getUrl as _getUrl;
+	}
 
 	static function GetTranslatableFields() {
-		return array("title");
+		return array("title","url_localized");
 	}
 
 	function setRank($new_rank) {
@@ -59,7 +61,13 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 
 		$menu = new Menu14();
 
-		if(is_a($target,"Page")){
+		if(strlen($code = $this->getCode()) && ($list = LinkList::GetInstanceByCode($code))){
+			foreach($list->getVisibleItems() as $l_item){
+				$item = $menu->addItem($l_item->getTitle(),$l_item->getUrl());
+				$item->setMeta("image_url",$l_item->getImageUrl());
+				$item->setMeta("css_class",$l_item->getCssClass());
+			}
+		}elseif(is_a($target,"Page")){
 			$menu->setMeta("image_url",$target->getImageUrl());
 			foreach($target->getVisibleChildPages() as $chi){
 				$item = $menu->addItem($chi->getTitle(),Atk14Url::BuildLink(["namespace" => "", "action" => "pages/detail", "id" => $chi]));
@@ -76,5 +84,35 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 		}
 
 		return $menu;
+	}
+
+	function getUrl($lang = null,$options = []){
+		global $ATK14_GLOBAL;
+
+		if(is_array($lang)){
+			$options = $lang;
+		}else{
+			$options += [
+				"lang" => $lang,
+			];
+		}
+
+		$options += [
+			"with_hostname" => false,
+			"lang" => null,
+		];
+
+		$lang = $options["lang"];
+		unset($options["lang"]);
+
+		if(is_null($lang)){
+			$lang = $ATK14_GLOBAL->getLang();
+		}
+
+		if(strlen($this->g("url_localized_$lang"))){
+			return $this->g("url_localized_$lang");
+		}
+
+		return $this->_getUrl($lang,$options);
 	}
 }

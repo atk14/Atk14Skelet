@@ -54,9 +54,20 @@ class UsersController extends ApplicationController{
 				$this->flash->notice(_("Nothing has been changed"));
 				return $this->_redirect_to("detail");
 			}
+
+			$login_changed = false;
+			if($this->logged_user->getEmail()===$this->logged_user->getLogin() && $this->logged_user->getEmail()!==$d["email"]){
+				if(User::FindFirst("login",$d["email"])){
+					$this->form->set_error("email",_("This email address is used by another user."));
+					return;
+				}
+				$d["login"] = $d["email"];
+				$login_changed = true;
+			}
 			$d["updated_by_user_id"] = $this->logged_user;
 			$this->logged_user->s($d);
-			$this->flash->success(_("Your account data has been updated"));
+
+			$this->flash->success($login_changed ? sprintf(_("Your account data has been updated. Next time you should sign-in with login name <em>%s</em>."),h($d["email"])) : _("Your account data has been updated"));
 			$this->_redirect_to("detail");
 		}
 	}

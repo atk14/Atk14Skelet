@@ -13,7 +13,7 @@
 				{foreach from=$item.commands item=cmd}
 					<li>
 						<a href="{$cmd.url}">{$cmd.action}</a>
-						{if $cmd.inline_description}{$cmd.inline_description|strip_tags}{/if}
+						{if $cmd.inline_description}{$cmd.inline_description|strip_html}{/if}
 					</li>
 				{/foreach}
 			</ul>

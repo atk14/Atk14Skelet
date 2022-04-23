@@ -85,17 +85,21 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 		return sizeof($this->getChildPages())>0;
 	}
 
-	function getPageTitle(){
-		$out = parent::getPageTitle();
+	function getPageTitle($lang = null){
+		$out = parent::getPageTitle($lang);
 		if(strlen($out)){ return $out; }
-		return $this->getTitle();
+		return $this->getTitle($lang);
 	}
 
-	function getPageDescription(){
-		$out = parent::getPageDescription();
+	function getPageDescription($lang = null){
+		$out = parent::getPageDescription($lang);
 		if(strlen($out)){ return $out; }
-		$out = $this->getTeaser();
-		if(strlen($out)){ return strip_tags($out); }
+		$out = $this->getTeaser($lang);
+		if(strlen($out)){
+			$out = Markdown($out);
+			$out = String4::ToObject($out)->stripHtml()->toString();
+			return $out;
+		}
 	}
 
 	function isDeletable() {
@@ -106,8 +110,14 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 		return $this->getVisible();
 	}
 
-	function isIndexable(){
-		return $this->getIndexable();
+	function isIndexable($check_parents = true){
+		$page = $this;
+		while($page){
+			if(!$page->g("indexable")){ return false; }
+			if(!$check_parents){ return true; }
+			$page = $page->getParentPage();
+		}
+		return true;
 	}
 
 	function setRank($new_rank){

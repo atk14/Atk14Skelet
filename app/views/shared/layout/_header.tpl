@@ -16,7 +16,7 @@
 				{assign main_menu LinkList::GetInstanceByCode("main_menu")}
 				{if $main_menu}
 					{foreach $main_menu->getVisibleItems() as $item}
-						<li class="nav-item"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
+						<li class="nav-item{if $item->getCssClass()} {$item->getCssClass()}{/if}"><a href="{$item->getUrl()}" class="nav-link">{$item->getTitle()}</a></li>
 					{/foreach}
 				{/if}
 

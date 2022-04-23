@@ -18,6 +18,9 @@
 					<span class="item__visibility-properties">
 						{if !$link_list_item->isVisible()}<span class="item__visibility">{!"eye-slash"|icon} {t}invisible{/t}</span>{/if}
 					</span>
+					<span class="item__code">
+						{$link_list_item->getCode()}
+					</span>
 					<div class="item__controls">
 						{dropdown_menu}
 							{a action=edit id=$link_list_item}{!"edit"|icon} {t}Edit{/t}{/a}

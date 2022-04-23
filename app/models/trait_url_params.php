@@ -52,6 +52,14 @@ trait TraitUrlParams {
 			$lang = $ATK14_GLOBAL->getLang();
 		}
 
+		$anchor = null;
+		if(preg_match('/#(.+)$/',$this->g("url"),$matches)){
+			$anchor = $matches[1];
+		}
+		$options += [
+			"anchor" => $anchor
+		];
+
 		$params["lang"] = $lang;
 		return Atk14Url::BuildLink($params,$options);
 	}
@@ -60,6 +68,8 @@ trait TraitUrlParams {
 		if(!preg_match('/^\/([^\/].*|)$/',$uri)){
 			return null;
 		}
+
+		$uri = preg_replace('/#.*$/','',$uri); // removing anchor
 
 		$params = Atk14Url::RecognizeRoute($uri,["get_params" => Atk14Url::ParseParamsFromUri($uri)]);
 

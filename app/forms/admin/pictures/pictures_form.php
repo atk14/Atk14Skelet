@@ -9,7 +9,8 @@ class PicturesForm extends IobjectsForm{
 		)));
 		$this->add_iobjects_common_fields(array(
 			"extra_themes" => array(
-				"alternative" => _("Alternative look")
+				"alternative" => _("Alternative look"),
+				"card" => _("Card")
 			),
 		));
 	}

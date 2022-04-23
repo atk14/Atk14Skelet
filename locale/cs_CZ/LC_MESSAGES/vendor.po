@@ -7,15 +7,62 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2020-05-12 15:14+0200\n"
-"PO-Revision-Date: 2020-05-12 15:27+0200\n"
+"POT-Creation-Date: 2022-01-31 15:14+0100\n"
+"PO-Revision-Date: 2022-01-31 15:24+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 1.8.7.1\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
+msgid "Temporary file uploading is not enabled"
+msgstr "Nahrávání dočasných souborů není povoleno"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:45
+#, php-format
+msgid "The file exceeds the maximum file size, which is %s"
+msgstr "Soubor překračuje maximální velikost, která je %s."
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:65
+msgid "Error 1"
+msgstr "Chyba 1"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:70
+msgid "Error 2"
+msgstr "Chyba 2"
+
+#: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:12
+msgid "The file has been already deleted on the server, please upload it again"
+msgstr "Soubor byl na serveru již smazán, nahrajte jej prosím znovu."
+
+#: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
+msgid "The file was not fully uploaded, please upload it again"
+msgstr "Soubor nebyl zcela nahrán, nahrajte jej prosím znovu."
+
+#: ../vendor/atk14/hcaptcha-field/src/app/fields/hcaptcha_field.php:8
+#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:11
+msgid ""
+"Please try to solve the test. It is important for us to be sure that we are "
+"communicating with a human."
+msgstr ""
+"Prosím, pokuste to vyřešit. Je pro nás důležité, abychom si byli jisti, že "
+"komunikujeme s člověkem."
+
+#: ../vendor/atk14/hcaptcha-field/src/app/fields/hcaptcha_field.php:9
+#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:12
+msgid "The test was not successful. Please try it again."
+msgstr "Test nebyl úspěšný. Zkuste to prosím znovu."
+
+#: ../vendor/atk14/hcaptcha-field/src/app/fields/hcaptcha_field.php:10
+msgid ""
+"We are experiencing some technical issue during the communication with an "
+"captcha API. Please try it later."
+msgstr ""
+"Při komunikaci s rozhraním captcha API se vyskytl technický problém. Zkuste "
+"to prosím později."
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:44
 msgid "Headers"
@@ -45,11 +92,13 @@ msgstr "Zadejte platné telefonní číslo (%sample_phone_number%)"
 msgid "Enter phone number"
 msgstr "Zadejte telefonní číslo"
 
+#: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
 msgid "remove"
 msgstr "odstranit"
 
+#: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:42
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:42
 msgid "Download attachment"
 msgstr "Stáhnout přílohu"
@@ -58,29 +107,9 @@ msgstr "Stáhnout přílohu"
 msgid "Display image"
 msgstr "Zobrazit obrázek"
 
-#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:95
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:115
 msgid "Unknown error"
 msgstr "Neznámá chyba"
-
-#: ../vendor/atk14/pupiq-client/vendor/atk14/http/test/tc_http_response.php:188
-msgid "Hello World!"
-msgstr "Ahoj světe!"
-
-#: ../vendor/atk14/pupiq-client/vendor/atk14/http/test/tc_http_response.php:193
-msgid "Hello Another World!"
-msgstr "Ahoj jiný světe!"
-
-#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:11
-msgid ""
-"Please try to solve the test. It is important for us to be sure that we are "
-"communicating with a human."
-msgstr ""
-"Prosím, pokuste to vyřešit. Je pro nás důležité, abychom si byli jisti, že "
-"komunikujeme s člověkem."
-
-#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:12
-msgid "The test was not successful. Please try it again."
-msgstr "Test nebyl úspěšný. Zkuste to prosím znovu."
 
 #: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:13
 msgid ""
@@ -102,9 +131,15 @@ msgstr "zabavny-zeleny-hrnek"
 msgid "Write something like black-cat-white-cat"
 msgstr "Napište něco jako cerna-kocka-bily-kocour"
 
-#: ../vendor/atk14/url-field/src/url_field.php:12
+#: ../vendor/atk14/url-field/src/url_field.php:13
 msgid "This doesn't look like an URL"
 msgstr "Toto nevypadá jako URL"
+
+#~ msgid "Hello World!"
+#~ msgstr "Ahoj světe!"
+
+#~ msgid "Hello Another World!"
+#~ msgstr "Ahoj jiný světe!"
 
 #~ msgid "Enter valid phone number (+420.605123456)"
 #~ msgstr "Zadejte platné telefonní číslo (+420.605123456)"

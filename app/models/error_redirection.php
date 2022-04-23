@@ -5,8 +5,13 @@
  */
 class ErrorRedirection extends ApplicationModel {
 
-	static function GetInstanceByHttpRequest($request){
+	static function GetInstanceByHttpRequest($request,$options = []){
+		$options += [
+			"strict_match" => false,
+		];
+
 		$url = $request->getUrl(); // "http://example.com/documents/manual.pdf"
+		$url = self::_NormalizeUrl($url);
 		$url_without_proto = preg_replace('/^https?:/','',$url); // "//example.com/documents/manual.pdf"
 		$uri = $request->getUri(); // "/documents/manual.pdf";
 
@@ -23,18 +28,26 @@ class ErrorRedirection extends ApplicationModel {
 
 		if(!is_null($id)){ return Cache::Get("ErrorRedirection",$id); }
 
+		$strict_match = $options["strict_match"];
+		$match = function($url,$source_url) use($strict_match){
+			if($strict_match){
+				return $url === $source_url;
+			}
+			return strpos($url,$source_url)===0;
+		};
+
 		foreach($rows as $source_url => $row){
-			if(strpos($url,$source_url)===0){
-				$id = $row["id"];
-				break;
-			}
-			if(strpos($url_without_proto,$source_url)===0){
-				$id = $row["id"];
-				break;
-			}
-			if(strpos($uri,$source_url)===0){
-				$id = $row["id"];
-				break;
+			$source_url = self::_NormalizeUrl($source_url);
+			foreach([$url,$url_without_proto,$uri] as $u){
+				if($match($u,$source_url)){
+					$id = $row["id"];
+					break 2;
+				}
+				$u_without_params = preg_replace('/\?.*$/','',$u);
+				if($u!==$u_without_params && $match($u_without_params,$source_url)){
+					$id = $row["id"];
+					break 2;
+				}
 			}
 		}
 
@@ -87,5 +100,34 @@ class ErrorRedirection extends ApplicationModel {
 		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
 
 		return array($rows,$regex_rows);
+	}
+
+	static function _NormalizeUrl($url){
+		if(!preg_match('/(^.*)\?([^?]+)$/',$url,$matches)){ return $url; }
+
+		$url_without_params = $matches[1];
+		$params = $matches[2];
+
+		$params_ar = [];
+		foreach(explode("&",$params) as $item){
+			if($item==""){ continue; }
+			$item_ar = explode("=",$item);
+			if(sizeof($item_ar)==1){
+				$v = $item_ar[0];
+				$v = urldecode($v);
+				$v = urlencode($v);
+				$params_ar[] = "$v";
+				continue;
+			}
+			list($k,$v) = $item_ar;
+			$k = urldecode($k);
+			$v = urldecode($v);
+			$k = urlencode($k);
+			$v = urlencode($v);
+			$params_ar[] = "$k=$v";
+		}
+		$params = join("&",$params_ar);
+
+		return "$url_without_params?$params";
 	}
 }
