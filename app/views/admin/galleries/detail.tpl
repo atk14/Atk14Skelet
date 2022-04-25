@@ -1,7 +1,7 @@
 {assign var=gallery_items value=$gallery->getGalleryItems()}
 
 {dropdown_menu clearfix=false}
-	{a action="edit" id=$gallery}{!"edit"|icon} {t}Edit{/t}{/a}
+	{a action="edit" id=$gallery}{!"edit"|icon} {t}Upravit fotogalerii{/t}{/a}
 {/dropdown_menu}
 
 <h1>{$page_title}</h1>
