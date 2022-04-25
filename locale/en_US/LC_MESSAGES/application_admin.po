@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 15:14+0100\n"
-"PO-Revision-Date: 2022-01-31 15:28+0100\n"
+"POT-Creation-Date: 2022-04-25 16:27+0200\n"
+"PO-Revision-Date: 2022-04-25 16:29+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -110,6 +110,9 @@ msgstr "Filesize"
 msgid "URL"
 msgstr "URL"
 
+msgid "Upravit fotogalerii"
+msgstr "Edit photo gallery"
+
 msgid "bez popisu"
 msgstr "without description"
 
@@ -124,6 +127,9 @@ msgstr "Add images to the photo gallery"
 
 msgid "Přidat fotografii"
 msgstr "Add a photo"
+
+msgid "Upravit obrázky fotogalerie"
+msgstr "Edit photo gallery images"
 
 msgid "bez titulku nebo popisu"
 msgstr "without title or description"
@@ -798,7 +804,7 @@ msgstr "The same slug is used in a different object"
 
 #: ../app/forms/admin/articles/articles_form.php:11
 #: ../app/forms/admin/images/images_form.php:6
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:22
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:29
 #: ../app/forms/admin/pages/pages_form.php:10
 msgid "Image"
 msgstr "Image"
@@ -937,10 +943,18 @@ msgstr ""
 "has to be set in the full format (e.g. https://example.com/file.pdf)."
 
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:16
+msgid "Specific URL for the given language"
+msgstr "Specific URL for the given language"
+
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:19
+msgid "If necessary, a specific URL can be specified for the given language."
+msgstr "If necessary, a specific URL can be specified for the given language."
+
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:23
 msgid "CSS class"
 msgstr "CSS class"
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:24
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:31
 msgid "In some cases the link looks better with an image."
 msgstr "In some cases the link looks better with an image."
 

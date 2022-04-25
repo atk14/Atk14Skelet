@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 15:14+0100\n"
-"PO-Revision-Date: 2022-01-31 15:26+0100\n"
+"POT-Creation-Date: 2022-04-25 16:27+0200\n"
+"PO-Revision-Date: 2022-04-25 16:28+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -336,6 +336,9 @@ msgstr "Create a new record"
 msgid "Show menu"
 msgstr "Show menu"
 
+msgid "zavřít"
+msgstr "close"
+
 msgid "Change language"
 msgstr "Change language"
 
@@ -457,7 +460,7 @@ msgstr "Yes, you are"
 msgid "Change your account data"
 msgstr "Change your account data"
 
-#: ../app/controllers/users_controller.php:65
+#: ../app/controllers/users_controller.php:76
 msgid "Change your password"
 msgstr "Change your password"
 
@@ -618,7 +621,7 @@ msgstr ""
 "set."
 
 #: ../app/controllers/password_recoveries_controller.php:65
-#: ../app/controllers/users_controller.php:79
+#: ../app/controllers/users_controller.php:90
 msgid "Your password has been updated successfully"
 msgstr "Your password has been updated successfully"
 
@@ -647,11 +650,24 @@ msgstr "Thank you for your registration!"
 msgid "Nothing has been changed"
 msgstr "Nothing has been changed"
 
-#: ../app/controllers/users_controller.php:59
+#: ../app/controllers/users_controller.php:61
+msgid "This email address is used by another user."
+msgstr "This email address is used by another user."
+
+#: ../app/controllers/users_controller.php:70
+#, php-format
+msgid ""
+"Your account data has been updated. Next time you should sign-in with login "
+"name <em>%s</em>."
+msgstr ""
+"Your account data has been updated. Next time you should sign-in with login "
+"name <em>%s</em>."
+
+#: ../app/controllers/users_controller.php:70
 msgid "Your account data has been updated"
 msgstr "Your account data has been updated"
 
-#: ../app/controllers/users_controller.php:69
+#: ../app/controllers/users_controller.php:80
 msgid "This is not your current password"
 msgstr "This is not your current password"
 
@@ -664,17 +680,26 @@ msgstr ""
 msgid "The file was not fully uploaded, please upload it again"
 msgstr "The file was not fully uploaded, please upload it again"
 
-#: ../app/fields/login_field.php:7
-msgid ""
-"Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
-msgstr ""
-"Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
+#: ../app/fields/boolean_with_select_field.php:7
+msgid "Ano"
+msgstr "Yes"
 
-#: ../app/fields/login_field.php:19
+#: ../app/fields/boolean_with_select_field.php:8
+msgid "Ne"
+msgstr "No"
+
+#: ../app/fields/login_field.php:9
+#, php-format
+msgid ""
+"Only letters, numbers, dots and dashes are allowed. Up to %s characters."
+msgstr ""
+"Only letters, numbers, dots and dashes are allowed. Up to %s characters."
+
+#: ../app/fields/login_field.php:21
 msgid "This username has been already taken"
 msgstr "This username has been already taken"
 
-#: ../app/fields/login_field.php:20
+#: ../app/fields/login_field.php:22
 msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr "Only letters, numbers, dots and dashes are allowed"
 
@@ -887,6 +912,11 @@ msgstr "Download attachment"
 #: ../app/widgets/pupiq_image_input.php:46
 msgid "Display image"
 msgstr "Display image"
+
+#~ msgid ""
+#~ "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
+#~ msgstr ""
+#~ "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
 
 #~ msgid "Login"
 #~ msgstr "Login"

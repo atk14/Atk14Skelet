@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 15:14+0100\n"
-"PO-Revision-Date: 2022-01-31 15:23+0100\n"
+"POT-Creation-Date: 2022-04-25 16:27+0200\n"
+"PO-Revision-Date: 2022-04-25 17:21+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -110,6 +110,9 @@ msgstr "Velikost souboru"
 msgid "URL"
 msgstr "URL"
 
+msgid "Upravit fotogalerii"
+msgstr "Upravit fotogalerii"
+
 msgid "bez popisu"
 msgstr "bez popisu"
 
@@ -124,6 +127,9 @@ msgstr "Přidat obrázky do fotogalerie"
 
 msgid "Přidat fotografii"
 msgstr "Přidat fotografii"
+
+msgid "Upravit obrázky fotogalerie"
+msgstr "Upravit obrázky fotogalerie"
 
 msgid "bez titulku nebo popisu"
 msgstr "bez titulku nebo popisu"
@@ -800,7 +806,7 @@ msgstr "Stejný slug je použit u jiného objektu"
 
 #: ../app/forms/admin/articles/articles_form.php:11
 #: ../app/forms/admin/images/images_form.php:6
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:22
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:29
 #: ../app/forms/admin/pages/pages_form.php:10
 msgid "Image"
 msgstr "Obrázek"
@@ -942,10 +948,18 @@ msgstr ""
 "být zadán v úplném tvaru (např. https://example.com/file.pdf)."
 
 #: ../app/forms/admin/link_list_items/link_list_items_form.php:16
+msgid "Specific URL for the given language"
+msgstr "Specifická adresa URL pro daný jazyk"
+
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:19
+msgid "If necessary, a specific URL can be specified for the given language."
+msgstr "V případě potřeby lze zadat specifickou adresu URL pro daný jazyk."
+
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:23
 msgid "CSS class"
 msgstr "Třída CSS"
 
-#: ../app/forms/admin/link_list_items/link_list_items_form.php:24
+#: ../app/forms/admin/link_list_items/link_list_items_form.php:31
 msgid "In some cases the link looks better with an image."
 msgstr "V některých případech vypadá odkaz lépe s obrázkem."
 

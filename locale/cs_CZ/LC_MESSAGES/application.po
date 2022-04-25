@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-01-31 15:14+0100\n"
-"PO-Revision-Date: 2022-01-31 15:18+0100\n"
+"POT-Creation-Date: 2022-04-25 16:27+0200\n"
+"PO-Revision-Date: 2022-04-25 17:20+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -335,6 +335,9 @@ msgstr "Vytvořit nový záznam"
 msgid "Show menu"
 msgstr "Ukázat nabídku"
 
+msgid "zavřít"
+msgstr "zavřít"
+
 msgid "Change language"
 msgstr "Změnit jazyk"
 
@@ -456,7 +459,7 @@ msgstr "Ano, jste"
 msgid "Change your account data"
 msgstr "Změnit vaše údaje"
 
-#: ../app/controllers/users_controller.php:65
+#: ../app/controllers/users_controller.php:76
 msgid "Change your password"
 msgstr "Změna vašeho hesla"
 
@@ -616,7 +619,7 @@ msgstr ""
 "nastavena."
 
 #: ../app/controllers/password_recoveries_controller.php:65
-#: ../app/controllers/users_controller.php:79
+#: ../app/controllers/users_controller.php:90
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
@@ -644,11 +647,24 @@ msgstr "Děkujeme za vaši registraci!"
 msgid "Nothing has been changed"
 msgstr "Nic nebylo změněno"
 
-#: ../app/controllers/users_controller.php:59
+#: ../app/controllers/users_controller.php:61
+msgid "This email address is used by another user."
+msgstr "Stejná e-mailová adresa je již použita pro jiného uživatele."
+
+#: ../app/controllers/users_controller.php:70
+#, php-format
+msgid ""
+"Your account data has been updated. Next time you should sign-in with login "
+"name <em>%s</em>."
+msgstr ""
+"Údaje vašeho účtu byly aktualizovány. Příště byste se měl/a přihlásit pomocí "
+"přihlašovacího jména <em>%s</em>."
+
+#: ../app/controllers/users_controller.php:70
 msgid "Your account data has been updated"
 msgstr "Údaje vašeho účtu byly změněny"
 
-#: ../app/controllers/users_controller.php:69
+#: ../app/controllers/users_controller.php:80
 msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
@@ -660,18 +676,26 @@ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
 msgid "The file was not fully uploaded, please upload it again"
 msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
 
-#: ../app/fields/login_field.php:7
-msgid ""
-"Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
-msgstr ""
-"Zadávejte pouze písmena, číslice, tečky a pomlčky. Max. délka je omezena na "
-"50 znaků."
+#: ../app/fields/boolean_with_select_field.php:7
+msgid "Ano"
+msgstr "Ano"
 
-#: ../app/fields/login_field.php:19
+#: ../app/fields/boolean_with_select_field.php:8
+msgid "Ne"
+msgstr "Ne"
+
+#: ../app/fields/login_field.php:9
+#, php-format
+msgid ""
+"Only letters, numbers, dots and dashes are allowed. Up to %s characters."
+msgstr ""
+"Povolena jsou pouze písmena, číslice, tečky a pomlčky. Maximálně %s znaků."
+
+#: ../app/fields/login_field.php:21
 msgid "This username has been already taken"
 msgstr "Toto uživatelské jméno je již zabráno"
 
-#: ../app/fields/login_field.php:20
+#: ../app/fields/login_field.php:22
 msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr "Zadávejte pouze písmena, číslice, tečky a pomlčky"
 
@@ -885,6 +909,12 @@ msgstr "Stáhnout přílohu"
 #: ../app/widgets/pupiq_image_input.php:46
 msgid "Display image"
 msgstr "Zobrazit obrázek"
+
+#~ msgid ""
+#~ "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."
+#~ msgstr ""
+#~ "Zadávejte pouze písmena, číslice, tečky a pomlčky. Max. délka je omezena "
+#~ "na 50 znaků."
 
 #~ msgid "Login"
 #~ msgstr "Přihlásit se"
