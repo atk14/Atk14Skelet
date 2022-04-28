@@ -18,6 +18,11 @@ class NewsletterSubscribersController extends AdminController {
 			}
 		}
 
+		if($d["language"]){
+			$conditions[] = "language=:language";
+			$bind_ar[":language"] = $d["language"];
+		}
+
 		// building URL for CSV export
 		$params = $this->params->toArray();
 		unset($params["offset"]);

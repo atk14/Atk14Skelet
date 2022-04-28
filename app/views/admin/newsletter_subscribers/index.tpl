@@ -14,6 +14,7 @@
 				{sortable key=id}<th class="item-id">#</th>{/sortable}
 				{sortable key=email}<th class="item-email">{t}Email{/t}</th>{/sortable}
 				{sortable key=name}<th class="item-title">{t}Name{/t}</th>{/sortable}
+				<th>{t}Language{/t}</th>
 				{sortable key=created_at}<th class="item-created">{t}Subscribed since{/t}</th>{/sortable}
 				<th class="item-addresscreated">{t}IP address{/t}</th>
 				<th class="item-actions"></th>

@@ -1,6 +1,16 @@
 <?php
 class NewsletterSubscriber extends ApplicationModel{
 
+	static function CreateNewRecord($values,$options = []){
+		global $ATK14_GLOBAL;
+		
+		$values += [
+			"language" => $ATK14_GLOBAL->getLang(),
+		];
+
+		return parent::CreateNewRecord($values,$options);
+	}
+
 	/**
 	 * Signing up for newsletter
 	 *
@@ -11,6 +21,12 @@ class NewsletterSubscriber extends ApplicationModel{
 	 * NewsletterSubscriber::SignUp("john@doe",array("vocative" => "Mr.", "name" => "John Doe"));
 	 */
 	static function SignUp($user_or_email,$values = array()){
+		global $ATK14_GLOBAL;
+
+		$values += [
+			"language" => $ATK14_GLOBAL->getLang(),
+		];
+
 		$values_create = array();
 		if(is_a($user_or_email,"User")){
 			$ns = NewsletterSubscriber::FindFirstByUserId($user_or_email);

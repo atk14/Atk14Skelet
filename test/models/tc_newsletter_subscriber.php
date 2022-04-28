@@ -1,7 +1,13 @@
 <?php
 class TcNewsletterSubscriber extends TcBase{
+
 	function test(){
 		global $HTTP_REQUEST;
+
+		$HTTP_REQUEST->setRemoteAddr("1.2.3.4");
+
+		$lang = "en";
+		Atk14Locale::Initialize($lang);
 
 		$HTTP_REQUEST->setRemoteAddr("1.2.3.4");
 
@@ -9,6 +15,7 @@ class TcNewsletterSubscriber extends TcBase{
 		$ns2 = NewsletterSubscriber::SignUp("john@doe.com");
 
 		$this->assertEquals($ns->getId(),$ns2->getId());
+		$this->assertEquals("en",$ns->getLanguage());
 		$this->assertEquals("1.2.3.4",$ns->getCreatedFromAddr());
 		$this->assertEquals(null,$ns->getUpdatedAt());
 		$this->assertEquals(null,$ns->getUpdatedFromAddr());
@@ -17,12 +24,16 @@ class TcNewsletterSubscriber extends TcBase{
 
 		$HTTP_REQUEST->setRemoteAddr("5.5.5.5");
 
+		$lang = "cs";
+		Atk14Locale::Initialize($lang);
+
 		$ns3 = NewsletterSubscriber::SignUp("john@doe.com",array(
 			"vocative" => "mr",
 			"name" => "John Doe",
 		));
 
 		$this->assertEquals($ns->getId(),$ns3->getId());
+		$this->assertEquals("cs",$ns3->getLanguage());
 		$this->assertEquals("1.2.3.4",$ns3->getCreatedFromAddr());
 		$this->assertEquals("5.5.5.5",$ns3->getUpdatedFromAddr());
 		$this->assertEquals("mr",$ns3->getVocative());
