@@ -34,7 +34,7 @@
     "blueimp-file-upload": "^9.34.0",
     "bootstrap": "4.6.0",
     "bootstrap-markdown-editor-4": "https://github.com/yarri/bootstrap-markdown-editor.git#1566a6b",
-    "browser-sync": "^2.26.7",
+    "browser-sync": "^2.27.9",
     "del": "^2.0.2",
     "gulp": "^3.9.1",
     "gulp-autoprefixer": "^6.1.0",
