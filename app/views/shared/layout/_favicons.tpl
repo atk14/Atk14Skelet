@@ -5,7 +5,7 @@
 <link rel="manifest" href="{$public}dist/favicons/manifest.json">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#fff">
-<meta name="application-name" content="ATK14 Skelet Application">
+<meta name="application-name" content="{"ATK14_APPLICATION_NAME"|dump_constant}">
 <link rel="apple-touch-icon" sizes="57x57" href="{$public}dist/favicons/apple-touch-icon-57x57.png">
 <link rel="apple-touch-icon" sizes="60x60" href="{$public}dist/favicons/apple-touch-icon-60x60.png">
 <link rel="apple-touch-icon" sizes="72x72" href="{$public}dist/favicons/apple-touch-icon-72x72.png">
