@@ -93,7 +93,7 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 
 	function getPageDescription($lang = null){
 		$out = parent::getPageDescription($lang);
-		if(strlen($out)){ return $out; }
+		if(strlen((string)$out)){ return $out; }
 		$out = $this->getTeaser($lang);
 		if(strlen($out)){
 			$out = Markdown($out);

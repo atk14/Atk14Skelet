@@ -61,7 +61,7 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 
 		$menu = new Menu14();
 
-		if(strlen($code = $this->getCode()) && ($list = LinkList::GetInstanceByCode($code))){
+		if(strlen($code = (string)$this->getCode()) && ($list = LinkList::GetInstanceByCode($code))){
 			foreach($list->getVisibleItems() as $l_item){
 				$item = $menu->addItem($l_item->getTitle(),$l_item->getUrl());
 				$item->setMeta("image_url",$l_item->getImageUrl());
@@ -109,7 +109,7 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 			$lang = $ATK14_GLOBAL->getLang();
 		}
 
-		if(strlen($this->g("url_localized_$lang"))){
+		if(strlen((string)$this->g("url_localized_$lang"))){
 			return $this->g("url_localized_$lang");
 		}
 

@@ -28,7 +28,7 @@ function smarty_function_iobject_to_html($params,$template){
 	$admin_menu = smarty_function_admin_menu([
 		"for" => $iobject->getObject(),
 	],$template);
-	$admin_menu = trim($admin_menu);
+	$admin_menu = trim((string)$admin_menu);
 
 	if(strlen($admin_menu)>0){
 		if(preg_match('/^\s*<.*?>/s',$out)){
