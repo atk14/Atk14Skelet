@@ -150,7 +150,8 @@ gulp.task( "copy", function() {
 			// Some corrections in language flags
 			var renameTr = {
 				"cz": "cs",
-				"gb": "en"
+				"gb": "en",
+				"rs": "sr" // sr: Srpski
 			};
 			Object.keys( renameTr ).forEach( function( key ) {
 				gulp.src( "public/dist/images/languages/" + key + ".svg" )
