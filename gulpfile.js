@@ -151,7 +151,10 @@ gulp.task( "copy", function() {
 			var renameTr = {
 				"cz": "cs",
 				"gb": "en",
-				"rs": "sr" // sr: Srpski
+				"rs": "sr", // sr: Srpski
+				"si": "sl", // sl: Slovenščina
+				"ee": "et", // et: eesti
+				"kz": "kk" // kk: Қазақ
 			};
 			Object.keys( renameTr ).forEach( function( key ) {
 				gulp.src( "public/dist/images/languages/" + key + ".svg" )
