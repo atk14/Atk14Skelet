@@ -21,6 +21,10 @@ class LinkListItemsController extends AdminController {
 	function edit(){
 		$this->_edit([
 			"page_title" => sprintf(_("Editing link '%s'"),$this->link_list_item->getTitle()),
+			"set_initial_closure" => function($form,$link_list_item){
+				$form->set_initial($link_list_item);
+				$form->set_initial("url",$link_list_item->getUrl()); // may differ from $link_list_item->g("url")
+			}
 		]);
 	}
 
