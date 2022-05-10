@@ -77,6 +77,8 @@ class TcLinkListItem extends TcBase {
 
 		$item->s("url_localized_en","/testing-page/?english=1");
 
+		$lang = "en";
+		Atk14Locale::Initialize($lang);
 		$this->assertEquals("/testing-page/?english=1",$item->getUrl());
 		$this->assertEquals("/testing-page/?english=1",$item->getUrl("en"));
 		$this->assertEquals("/testovaci-stranka/",$item->getUrl("cs"));
