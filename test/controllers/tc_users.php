@@ -65,6 +65,8 @@ class TcUsers extends TcBase{
 		$john = User::FindByLogin("john.doe.tester");
 		$this->assertNotEquals("no_more_fears",$john->getPassword());
 		$this->assertTrue(MyBlowfish::IsHash($john->getPassword()));
+
+		$this->_logout_user();
 	}
 
 	function test_user_gives_a_proper_hash_as_password(){
