@@ -5,7 +5,7 @@
 			{$link_list->getTitle()}
 		</div>
 		<span class="item__code">
-		{if strlen($link_list->getCode())}{$link_list->getCode()}{/if}
+		{if $link_list->getCode()|strlen}{$link_list->getCode()}{/if}
 		</span>
 		<div class="item__controls">
 			{dropdown_menu}
