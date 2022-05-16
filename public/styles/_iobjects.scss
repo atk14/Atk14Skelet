@@ -29,8 +29,10 @@
 		}
 	}
 	
-	
-	
+	&__heading {
+		@extend h3;
+	}
+
 	// layout props - placement, width 
 	
 	@include media-breakpoint-up( $iObjectWidthBreakpoint ) {
@@ -167,59 +169,7 @@
 			border-top: none;
 		}
 	}
-	&--card_promotion {
-		display: flex;
-		background-color: white;
-		text-decoration: none;
-		color: inherit;
-		border-bottom: 1px solid $border-color;
-		border-top: 1px solid $border-color;
-		.iobject__image {
-			flex-basis: 200px;
-			flex-shrink: 0;
-			position: relative;
-			.iobject__flags {
-				position: absolute;
-				right: 1rem;
-				top: 1rem;
-			}
-		}
-		.iobject__body {
-			display: flex;
-			flex-direction: column;
-			flex-grow: 10;
-			justify-content: space-between;
-			padding: $grid-gutter-width/2;
-			.iobject__title {
-				font-size: 1.25rem;
-			}
-			.iobject__description {
-				font-size: 0.875rem;
-			}
-			.iobject__footer {
-				display: flex;
-				justify-content: space-between;
-				align-items: flex-end;
-				margin-top: 1rem;
-				.card-footer-icon {
-					font-size: 1.25rem;
-				}
-			}
-		}
-		@media(max-width: 700px){
-			display: block;
-		}
-		&:hover {
-			text-decoration: none;
-			color: inherit;
-			//box-shadow: 0px 0px 34px 0px rgba(0,0,0,0.35);
-			background-color: $gray-100;
-		}
-		& + & {
-			margin-top: 0-$grid-gutter-width;
-			border-top: none;
-		}
-	}
+	
 	@include media-breakpoint-down(xs){
 		& > a {
 			padding-top: 0.75rem;

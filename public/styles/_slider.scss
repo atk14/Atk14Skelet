@@ -1,5 +1,5 @@
 .section--slider {
-	//max-width: $max-page-width;
+	max-width: $max-page-width;
 	margin: auto;
 	padding: 0;
 	border: none;
@@ -10,9 +10,11 @@
 		align-items: center;
 		background-color: $gray-100;
 		position: relative;
+		height: auto;
 		&__image {
 			//height: 425px;
 			flex-basis: 50%;
+			flex-grow: 1.5;
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-position: center center;
@@ -34,8 +36,16 @@
 		}
 
 		@include media-breakpoint-down(xs){
+			height: unset;
 			&__text {
 				flex-basis: 45vw;
+			}
+		}
+		@media (max-width: 380px) {
+			&__text {
+				padding: $grid-gutter-width/4 $grid-gutter-width/4;
+				font-size: $font-size-sm;
+				line-height: 1.2;
 			}
 		}
 	}
@@ -50,6 +60,7 @@
 		& > * {
 			width: auto !important;
 			max-width: 100%;
+			min-width: 100%;
 		}
 		.swiper--thumbnails {
 			order: 1;
@@ -92,6 +103,7 @@
 	justify-content: center;
 	align-items: center;
 	background-image: none;
+	margin-top: calc(var(--swiper-navigation-size) / -2);
 	&:before {
 		font-family: $fa-font-family;
 		color: white;
@@ -202,6 +214,13 @@
 					padding: $grid-gutter-width/4 $grid-gutter-width/2;
 					font-size: $font-size-sm;
 					text-align: center;
+					line-height: 1.25;
+					.gallery-item__title {
+						font-weight: bold;
+					}
+					.gallery-item__description {
+						font-weight: normal;
+					}
 				}
 			}
 		}
@@ -260,7 +279,7 @@
 .swiper--thumbnails {
 	background-color: $dark;
 	//border-top: 1px solid $gray-600;
-	padding: 5px 0;
+	padding: 5px;
 	.swiper-slide {
 		filter: brightness(0.7);
 		transition: filter 0.35s;
