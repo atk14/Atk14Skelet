@@ -30,7 +30,7 @@
 	{assign uniqid uniqid()}
 	<section class="section--slider">
 
-		<div class="swiper-container swiper--images gallery__images{if $style=="dark"} swiper--images--dark{/if}" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if}>
+		<div class="swiper swiper--images gallery__images{if $style=="dark"} swiper--images--dark{/if}" data-slides_per_view="{$slides_per_view|default: 1}" data-loop="{$loop|default: true}" data-autoplay="{$autoplay|default:6000}" data-slider_id="{$uniqid}" id="swiper_{$uniqid}"{if $breakpoint} data-breakpoint="{$breakpoint}"{/if}{if $centered_slides} data-centered_slides="{$centered_slides}"{/if}>
 			<div class="swiper-wrapper">
 
 				{foreach $images as $image}
