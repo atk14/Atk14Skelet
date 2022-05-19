@@ -112,6 +112,11 @@
       color: white;
     }
 
+    .pickr .pcr-button {
+      border-color: $dark-border-color;
+      background-color: rgba(white,0.4);
+    }
+
     .md-toolbar {
       background-color: $dark-medium-bg;
       border-color: $dark-border-color;

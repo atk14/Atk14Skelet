@@ -150,3 +150,10 @@ form {
 		}
 	}
 }
+
+// color picker style enhancements
+.pickr {
+	.pcr-button {
+		border: 1px solid $input-border-color;
+	}
+}
