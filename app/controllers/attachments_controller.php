@@ -24,7 +24,8 @@ class AttachmentsController extends ApplicationController{
 		if(!file_exists($cached_body_filename) || !file_exists($cached_headers_filename)){
 			$uf = new UrlFetcher($pupiq_url);
 			if(!$uf->found()){
-				return $this->_execute_action("error500");
+				//return $this->_execute_action("error500");
+				throw new Exception("UrlFetcher error: status_code=".$uf->getStatusCode().", error_message=".$uf->getErrorMessage());
 			}
 
 			$headers = $uf->getResponseHeaders(array("as_hash" => true));
@@ -32,12 +33,16 @@ class AttachmentsController extends ApplicationController{
 			$tmp_body = Files::GetTempFilename();
 			$content = $uf->getContent();
 			$content->writeToFile($tmp_body);
-			$tmp_headers = Files::WriteToTemp(serialize($headers));
+			$tmp_headers = Files::WriteToTemp(serialize($headers),$error,$error_str);
 
-			if(!$tmp_body || !$tmp_headers){ return $this->_execute_action("error500"); }
+			if(!$tmp_body || !$tmp_headers){
+				//return $this->_execute_action("error500");
+				throw new Exception("Tmp file cannot be created ($error_str)");
+			}
 
-			if(!Files::MoveFile($tmp_body,$cached_body_filename) || !Files::MoveFile($tmp_headers,$cached_headers_filename)){
-				return $this->_execute_action("error500");
+			if(!Files::MoveFile($tmp_body,$cached_body_filename,$error,$error_str) || !Files::MoveFile($tmp_headers,$cached_headers_filename,$error2,$error_str2)){
+				//return $this->_execute_action("error500");
+				throw new Exception("File cannot be moved ($error_str, $error_str2)");
 			}
 		}
 
