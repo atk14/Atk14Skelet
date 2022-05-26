@@ -25,7 +25,7 @@ class AttachmentsController extends ApplicationController{
 			$uf = new UrlFetcher($pupiq_url);
 			if(!$uf->found()){
 				//return $this->_execute_action("error500");
-				throw new Exception("UrlFetcher error: status_code=".$uf->getStatusCode().", error_message=".$uf->getErrorMessage());
+				throw new Exception("UrlFetcher error: url: $pupiq_url, status_code=".$uf->getStatusCode().", error_message=".$uf->getErrorMessage());
 			}
 
 			$headers = $uf->getResponseHeaders(array("as_hash" => true));
