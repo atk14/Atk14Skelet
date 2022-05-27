@@ -90,6 +90,12 @@ class TcUser extends TcBase{
 	function test_Login(){
 		$rambo = User::Login("rambo","secret",$bad_password);
 		$this->assertTrue(!!$rambo);
+		$this->assertEquals("rambo",$rambo->getLogin());
+		$this->assertFalse($bad_password);
+
+		$rambo_tester = User::Login("rambo.tester","Secret123",$bad_password);
+		$this->assertTrue(!!$rambo_tester);
+		$this->assertEquals("rambo.tester",$rambo_tester->getLogin());
 		$this->assertFalse($bad_password);
 
 		$rambo = User::Login("rambo","badguess",$bad_password);
@@ -100,9 +106,50 @@ class TcUser extends TcBase{
 		$this->assertNull($rambo);
 		$this->assertFalse($bad_password);
 
+		// inactive user
 		$this->users["rambo"]->s("active",false);
 		$rambo = User::Login("rambo","secret",$bad_password);
 		$this->assertNull($rambo);
 		$this->assertFalse($bad_password);
+
+		// deleted user
+		$this->users["rambo_tester"]->destroy(false);
+		$rambo_tester = User::Login("rambo.tester","Secret123",$bad_password);
+		$this->assertNull($rambo_tester);
+		$this->assertFalse($bad_password);
+
+		$rambo_tester = User::Login("rambo.tester~deleted-".$this->users["rambo_tester"]->getId(),"Secret123",$bad_password);
+		$this->assertNull($rambo_tester);
+		$this->assertFalse($bad_password);
+	}
+
+	function test_destroy(){
+		$rambo = $this->users["rambo"];
+		$rambo_id = $rambo->getId();
+
+		$this->assertFalse($rambo->isDeleted());
+		$this->assertNull($rambo->getDeletedAt());
+		$this->assertTrue($rambo->isActive());
+		$this->assertNotNull($rambo->getPassword());
+		
+		// destroy not for real
+		$rambo->destroy();
+
+		$rambo = User::GetInstanceById($rambo_id);
+		$this->assertNotNull($rambo);
+
+		$this->assertTrue($rambo->isDeleted());
+		$this->assertNotNull($rambo->getDeletedAt());
+		$this->assertFalse($rambo->isActive());
+		$this->assertTrue($rambo->g("active"));
+		$this->assertEquals("rambo~deleted-$rambo_id",$rambo->g("login"));
+		$this->assertEquals("rambo",$rambo->getLogin());
+		$this->assertNull($rambo->getPassword());
+
+		// destroy for real
+		$rambo->destroy(true);
+
+		$rambo = User::GetInstanceById($rambo_id);
+		$this->assertNull($rambo);
 	}
 }

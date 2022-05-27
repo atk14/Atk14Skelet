@@ -2,7 +2,9 @@
 	{highlight_search_query}
 	<td class="item-id">{$user->getId()}</td>
 	<td>
-		{if !$user->isActive()}
+		{if $user->isDeleted()}
+			<span title="{t}deleted user{/t}" class="text-secondary">{!"user-times"|icon}</span>
+		{elseif !$user->isActive()}
 			<span title="{t}inactive user{/t}" class="text-secondary">{!"user-times"|icon}</span>
 		{elseif !$user->getPassword()|strlen}
 			<span title="{t}user without password{/t}" class="text-secondary">{!"user-minus"|icon}</span>
@@ -12,7 +14,7 @@
 			<span title="{t}regular user{/t}">{!"user"|icon:"regular"}</span>
 		{/if}
 	</td>
-	<td class="item-login">{$user->getLogin()}{if !$user->isActive()} <em>({t}not active{/t})</em>{/if}</td>
+	<td class="item-login">{$user->getLogin()}{if $user->isDeleted()} <em>({t}deleted{/t})</em>{elseif !$user->isActive()} <em>({t}not active{/t})</em>{/if}</td>
 	<td class="item-title">{$user->getName()}</td>
 	<td class="item-email">{$user->getEmail()}</td>
 	{/highlight_search_query}

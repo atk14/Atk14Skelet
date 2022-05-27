@@ -18,6 +18,7 @@ class User extends ApplicationModel{
 		$bad_password = false;
 	  $user = User::FindByLogin($login);
 		if(!$user){ return; }
+		if($user->isDeleted()){ return; }
 		if(!$user->isActive()){ return; }
 	  if($user->isPasswordCorrect($password)){
 			return $user;
@@ -37,6 +38,15 @@ class User extends ApplicationModel{
 		}
 
 	  return parent::CreateNewRecord($values,$options);
+	}
+
+	function getLogin(){
+		$login = $this->g("login");
+		if($this->isDeleted()){
+			// john.doe~deleted-123 -> john.doe
+			$login = preg_replace('/~deleted-\d+$/','',$login);
+		}
+		return $login;
 	}
 
 	/**
@@ -71,14 +81,37 @@ class User extends ApplicationModel{
 
 	function toString(){ return (string)$this->getName(); }
 
-	function isActive(){ return $this->g("active"); }
+	function isActive(){ return !$this->isDeleted() && $this->g("active"); }
 
 	function isDeletable(){ return !in_array($this->getId(),array(self::ID_SUPERADMIN)); }
+
+	function isDeleted(){
+		return $this->getDeleted();
+	}
+
+	function destroy($delete_for_real = false){
+		if($delete_for_real){
+			return parent::destroy($delete_for_real);
+		}
+
+		if($this->isDeleted()){
+			return null;
+		}
+
+		$this->s(array(
+			"deleted" => true,
+			"deleted_at" => now(),
+			"login" => sprintf("%s~deleted-%s",$this->getLogin(),$this->getId()),
+			"password" => null,
+		));
+	}
 
 	function toHumanReadableString(){
 		$out = [];
 		$out[] = trim($this->getFirstname()." ".$this->getLastname());
-		if(!$this->isActive()){
+		if($this->isDeleted()){
+			$out[] = _("deleted user");
+		}elseif(!$this->isActive()){
 			$out[] = _("inactive user");
 		}
 		if($this->isAdmin()){
