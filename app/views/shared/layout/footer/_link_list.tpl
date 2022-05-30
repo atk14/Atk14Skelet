@@ -1,4 +1,6 @@
-{if $link_list && !$link_list->isEmpty()}
+{remove_if_contains_no_text}
+
+{if $link_list}
 	<div class="col-12 col-sm-6 col-md-3">
 
 	{admin_menu for=$link_list align=left}
@@ -17,3 +19,5 @@
 	</div>
 
 {/if}
+
+{/remove_if_contains_no_text}
