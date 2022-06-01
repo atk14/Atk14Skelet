@@ -7,6 +7,7 @@ class UsersController extends AdminController{
 		($d = $this->form->validate($this->params)) || ($d = $this->form->get_initial());
 
 		$conditions = $bind_ar = array();
+		$conditions[] = "NOT deleted";
 
 		if($d["search"]){
 			$_fields = array();
@@ -143,7 +144,10 @@ class UsersController extends AdminController{
 
 	function _before_filter(){
 		if(in_array($this->action,array("edit","edit_password","destroy","login_as_user"))){
-			$this->_find("user");
+			$user = $this->_find("user");
+			if($user && $user->isDeleted()){
+				return $this->_execute_action("error404");
+			}
 		}
 	}
 }
