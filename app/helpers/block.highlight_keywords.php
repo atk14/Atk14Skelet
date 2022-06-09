@@ -24,7 +24,7 @@ function smarty_block_highlight_keywords($params,$content,$template,&$repeat){
 	];
 
 	$keywords = $params["keywords"];
-	$keywords = trim($keywords);
+	$keywords = trim((string)$keywords);
 	if(!strlen($keywords)){ return $content; }
 
 	if(preg_match('/([^\s]+)[^\s]$/u',$keywords,$matches) && strlen($matches[1])>=3){
