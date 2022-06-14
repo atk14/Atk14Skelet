@@ -65,7 +65,7 @@ trait TraitUrlParams {
 	}
 
 	static protected function _GetUrlParamsJson($uri){
-		if(!preg_match('/^\/([^\/].*|)$/',$uri)){
+		if(!preg_match('/^\/([^\/].*|)$/',(string)$uri)){
 			return null;
 		}
 
