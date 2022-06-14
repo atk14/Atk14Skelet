@@ -126,7 +126,7 @@ class Iobject extends ApplicationModel implements Translatable {
 	 */
 	function getInsertMark(){
 		$type = $this->getObjectType(); // "galleries" -> "Gallery"
-		$title = strip_tags($this->getTitle());
+		$title = strip_tags((string)$this->getTitle());
 		$title = preg_replace('/[\[\]\n\r]/','_',$title);
 		$title = trim($title);
 		if(!strlen($title)){
