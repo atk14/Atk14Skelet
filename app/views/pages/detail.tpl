@@ -2,9 +2,6 @@
 	{render partial="shared/layout/content_header" title=$page->getTitle() teaser=$page->getTeaser()|markdown}
 	{admin_menu for=$page}
 	<section class="page-body">
-		{if !$page->isVisible() && $page->getCode()!="error404"}
-			<p><em>{t}This is not a visible page! It's not available to the public audience.{/t}</em></p>
-		{/if}
 		{!$page->getBody()|markdown}
 	</section>
 	
