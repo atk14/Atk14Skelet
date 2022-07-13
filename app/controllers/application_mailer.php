@@ -25,6 +25,11 @@ class ApplicationMailer extends Atk14Mailer {
 	}
 
 	function _after_render(){
+		if(preg_match('/<mjml\b/',$this->body_html)){
+			$renderer = new \Qferrer\Mjml\Renderer\BinaryRenderer(ATK14_DOCUMENT_ROOT . '/node_modules/.bin/mjml');
+			$this->body_html = $renderer->render($this->body_html);
+		}
+
 		if(!$this->body && $this->body_html){
 			// Missing plain text body will be automatically created from the HTML body.
 			// Unwanted parts in the email layout can be marked with HTML comments and will be filtered out.

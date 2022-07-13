@@ -63,5 +63,8 @@
     "favicons": "^6.0.0",
     "swiper": "^8.1.5",
     "photoswipe": "^4.1.3"
+  },
+  "dependencies": {
+    "mjml": "^4.13.0"
   }
 }
