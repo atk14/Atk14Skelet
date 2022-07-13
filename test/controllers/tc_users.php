@@ -181,6 +181,16 @@ class TcUsers extends TcBase{
 		$this->assertTrue($rambo->isPasswordCorrect("secret_no_more"));
 		$this->assertTrue(MyBlowfish::IsHash($rambo->getPassword()));
 
+		// password mismatch
+		$controller = $this->client->post("users/edit_password",array(
+			"current_password" => "secret_no_more",
+			"password" => "Secret1",
+			"password_repeat" => "Secret2",
+		));
+		$this->assertEquals(200,$this->client->getStatusCode());
+		$this->assertEquals(true,$controller->form->has_errors());
+		$this->assertEquals(["Password doesn't match"],$controller->form->get_errors("password_repeat"));
+
 		// bad try
 		$controller = $this->client->post("users/edit_password",array(
 			"current_password" => "BadTry",

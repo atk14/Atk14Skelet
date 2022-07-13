@@ -38,7 +38,7 @@ class UsersForm extends ApplicationForm{
 		if(
 			isset($d["password"]) &&
 			isset($d["password_repeat"]) &&
-			$d["password"]!=$d["password_repeat"]
+			$d["password"]!==$d["password_repeat"]
 		){
 			$this->set_error("password_repeat",_("Password doesn't match"));
 		}
