@@ -26,6 +26,7 @@ var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/photoswipe.js",
 	"public/scripts/utils/swiper.js",
+	"public/scripts/utils/reveal_password_field.js",
 	"public/scripts/application.js"
 ];
 
