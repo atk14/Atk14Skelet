@@ -10,8 +10,7 @@ window.UTILS.enableRevealPassword = function() {
       var pwContainer = $( el );
       var pwInput = pwContainer.find( "input" );
       var revealButton = pwContainer.find( ".password-reveal-button" );
-      //var props=[ "display", "margin", "order", "flex-basis", "left", "right", "top", "bottom" ];
-      pwContainer.css( "display", pwInput.css( "display" ) );
+      // pwContainer.css( "display", pwInput.css( "display" ) );
       var posH = pwInput.offset().left - pwContainer.offset().left + pwContainer.width() - revealButton.width();
       console.log( "posH", posH  );
       revealButton.css( "left", posH + "px" );
@@ -31,6 +30,7 @@ window.UTILS.enableRevealPassword = function() {
     var pwContainer = $( "<div class='password-input-container'></div>" ).insertAfter( pwInput );
     pwContainer.css( "background-color", "yellow" );
     pwContainer.css( "display", pwInput.css( "display" ) );
+    pwInput.css( "display", "block" )
 
     // Move password input to new container
     pwContainer.append( pwInput );
