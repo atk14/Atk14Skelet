@@ -1,0 +1,1 @@
+../../../vendor/atk14/extended-password-field/src/app/controllers/api/password_strength_analyzer_controller.php

@@ -1,0 +1,1 @@
+../../vendor/atk14/extended-password-field/src/app/widgets/extended_password_widget.php

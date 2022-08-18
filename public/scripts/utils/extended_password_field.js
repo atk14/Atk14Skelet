@@ -1,0 +1,1 @@
+../../../vendor/atk14/extended-password-field/src/public/scripts/utils/extended_password_field.js

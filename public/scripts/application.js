@@ -100,6 +100,12 @@
 			}
 		},
 
+		tests: {
+			extended_password_field: function() {
+				UTILS.extended_password_field.init();
+			}
+		},
+
 		// In this json, the actions for namespace "api" can be defined
 		api: {
 
