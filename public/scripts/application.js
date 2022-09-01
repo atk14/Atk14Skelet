@@ -38,8 +38,6 @@
 				// Init Swiper
 				UTILS.initSwiper();
 
-				// Init PhotoSwipe
-				UTILS.initPhotoSwipeFromDOM( ".gallery__images, .iobject--picture" );
 			}
 		},
 
