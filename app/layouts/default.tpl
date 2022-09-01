@@ -93,6 +93,7 @@
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
+		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"}
 
 		{javascript_tag}
 			{placeholder for="js"}
