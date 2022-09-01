@@ -21,12 +21,12 @@
 		<div class="gallery__images" itemscope itemtype="http://schema.org/ImageGallery">
 			{foreach $images as $image}
 				<figure class="gallery__item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-size="{$image|img_width:$geometry_detail}x{$image|img_height:$geometry_detail}" itemprop="contentUrl">
+					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-pswp-width="{$image|img_width:$geometry_detail}" data-pswp-height="{$image|img_height:$geometry_detail}" itemprop="contentUrl">
 						<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" itemprop="thumbnail">
 					</a>
 					<figcaption>
-						<div><strong>{$image->getName()}</strong></div>
-						<div>{$image->getDescription()}</div>
+						<div class="gallery-item__title">{$image->getName()}</div>
+						<div class="gallery-item__description">{$image->getDescription()}</div>
 					</figcaption>
 			</figure>
 			{/foreach}

@@ -1,6 +1,7 @@
 var gulp = require( "gulp" );
 var del = require( "del" );
 var rename = require( "gulp-rename" );
+var babel = require( "gulp-babel");
 var $ = require( "gulp-load-plugins" )();
 var browserSync = require( "browser-sync" ).create();
 var favicons = require("favicons").stream;
@@ -24,10 +25,13 @@ var vendorScripts = [
 
 var applicationScripts = [
 	"public/scripts/utils/utils.js",
-	"public/scripts/utils/photoswipe.js",
 	"public/scripts/utils/swiper.js",
 	"public/scripts/application.js"
 ];
+
+var applicationESModules = [
+	"public/scripts/modules/application_es6.js"
+]
 
 // CSS
 gulp.task( "styles", function() {
@@ -75,6 +79,16 @@ gulp.task( "scripts", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/dist/scripts" ) )
+		.pipe( browserSync.stream() );
+
+	// ES6 modules need different processing
+	gulp.src( applicationESModules )
+		.pipe( $.sourcemaps.init() )
+		.pipe( babel() )
+		.pipe( $.uglify() )
+		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.rename( { suffix: ".min" } ) )
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
 		.pipe( browserSync.stream() );
 } );
 
@@ -139,8 +153,10 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/fonts" ) );
 	gulp.src( "public/images/**/*" )
 		.pipe( gulp.dest( "public/dist/images" ) );
-	gulp.src( "node_modules/photoswipe/dist/default-skin/*" )
-		.pipe( gulp.dest( "public/dist/styles/default-skin/" ) );
+	gulp.src( "node_modules/photoswipe/dist/photoswipe.esm.min.js" )
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
+	gulp.src( "node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js" )
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
 
 	// Flags for languages
 	gulp.src( "node_modules/svg-country-flags/svg/*" )
