@@ -119,14 +119,14 @@ class ApplicationBaseController extends Atk14Controller{
 
 		if(
 			(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)) ||
-			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
+			(defined("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && constant("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY") && $this->request->getHttpHost()!=ATK14_HTTP_HOST)
 		){
 			// redirecting from http://example.com/xyz to http://www.example.com/xyz
-			$scheme = $this->request->getScheme();
+			$scheme = (defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")) ? "https" : $this->request->getScheme();
 			return $this->_redirect_to("$scheme://".ATK14_HTTP_HOST.$this->request->getUri(),array("moved_permanently" => true));
 		}
 
-		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && REDIRECT_TO_SSL_AUTOMATICALLY){
+		if(!$this->request->ssl() && defined("REDIRECT_TO_SSL_AUTOMATICALLY") && constant("REDIRECT_TO_SSL_AUTOMATICALLY")){
 			return $this->_redirect_to_ssl();
 		}
 
