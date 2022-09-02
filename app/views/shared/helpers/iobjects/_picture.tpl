@@ -8,7 +8,7 @@
 <div class="iobject iobject--picture">
 	<figure>
 		{if $render_link}<a class="iobject--picture__link" href="{!$picture|img_url:$geometry_detail}" title="{$picture->getTitle()}" data-pswp-width="{$picture|img_width:$geometry_detail}" data-pswp-height="{$picture|img_height:$geometry_detail}">{/if}
-			<img class="iobject--picture__img img-fluid" {!$picture->getUrl()|img_attrs:1500} alt="{$picture->getTitle()}" 
+			<img class="iobject--picture__img img-fluid" {!$picture->getUrl()|img_attrs:1500} alt="{$picture->getAlt()}" 
 srcset="{!$picture|img_url:600} 600w, {!$picture|img_url:800} 800w, {!$picture|img_url:1500} 1500w" 
 sizes="(max-width:1400px) 100vw, 1400px">
 		{if $render_link}</a>{/if}

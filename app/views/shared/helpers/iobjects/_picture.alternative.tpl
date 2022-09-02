@@ -12,7 +12,7 @@
 		{/if}
 		<picture>
 			<source srcset="{!$picture|img_url:600} 600w, {!$picture|img_url:800} 800w, {!$picture|img_url:1500} 1500w, {!$picture|img_url:1920} 1920w, {!$picture|img_url:2560} 2560w " sizes="(max-width:1400px) 100vw, 1400px">
-			<img class="iobject--picture__img img-fluid" {!$picture->getUrl()|img_attrs:2560} alt="{$picture->getTitle()}">
+			<img class="iobject--picture__img img-fluid" {!$picture->getUrl()|img_attrs:2560} alt="{$picture->getAlt()}">
 		</picture>
 		{if $render_link}</a>{/if}
 		{if ($picture->getTitle() && $picture->isTitleVisible()) || $picture->getDescription()}

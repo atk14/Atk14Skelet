@@ -13,5 +13,10 @@ class PicturesForm extends IobjectsForm{
 				"card" => _("Card")
 			),
 		));
+		$this->add_translatable_field("alt", new CharField([
+			"label" => _("Alt"),
+			"help_text" => _("Alternate text for the image, if the image cannot be displayed."),
+			"required" => false,
+		]));
 	}
 }
