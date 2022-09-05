@@ -22,7 +22,10 @@
 			{foreach $images as $image}
 				<figure class="gallery__item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-pswp-width="{$image|img_width:$geometry_detail}" data-pswp-height="{$image|img_height:$geometry_detail}" itemprop="contentUrl">
-						<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" itemprop="thumbnail">
+						<picture>
+							<source srcset="{!$image|img_url:"x200"}">
+							<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" itemprop="thumbnail">
+						</picture>
 					</a>
 					<figcaption>
 						<div class="gallery-item__title">{$image->getName()}</div>
