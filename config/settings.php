@@ -42,6 +42,8 @@ definedef("USER_REGISTRATION_ENABLED",true);
 
 definedef("PUPIQ_API_KEY","101.DemoApiKeyForAccountWithLimitedFunctions");
 definedef("PUPIQ_HTTPS",REDIRECT_TO_SSL_AUTOMATICALLY);
+//
+definedef("WEBP_FORMAT_SUPPORTED",true);
 
 definedef("ARTICLE_BODY_MAX_WIDTH",825);
 
