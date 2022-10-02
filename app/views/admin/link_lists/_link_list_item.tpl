@@ -5,8 +5,15 @@
 			{$link_list->getTitle()}
 		</div>
 		<span class="item__code">
-		{if $link_list->getCode()|strlen}{$link_list->getCode()}{/if}
+			{if $link_list->getCode()|strlen}{$link_list->getCode()}{/if}
 		</span>
+		<div>
+			{if $link_list->getCode()|strlen && LinkListItem::GetInstanceByCode($link_list->getCode())}
+				{assign linked_item LinkListItem::GetInstanceByCode($link_list->getCode())}
+				<small>{t}This is a submenu for:{/t}</small><br>
+				{a action="link_list_items/index" link_list_id=$linked_item->getLinkList()}{$linked_item->getLinkList()->getSystemName()}{/a} / {a action="link_list_items/edit" id=$linked_item}{$linked_item->getTitle()}{/a}
+			{/if}
+		</div>
 		<div class="item__controls">
 			{dropdown_menu}
 				{a action="link_list_items/index" link_list_id=$link_list}{!"list"|icon} {t}Link list{/t}{/a}

@@ -21,6 +21,13 @@
 					<span class="item__code">
 						{$link_list_item->getCode()}
 					</span>
+					<div>
+						{if $link_list_item->getCode()|strlen && LinkList::GetInstanceByCode($link_list_item->getCode())}
+							{assign submenu LinkList::GetInstanceByCode($link_list_item->getCode())}
+							<small>{t}This item has an administrable submenu:{/t}</small><br>
+							{a action="link_list_items/index" link_list_id=$submenu}{$submenu->getSystemName()}{/a}
+						{/if}
+					</div>
 					<div class="item__controls">
 						{dropdown_menu}
 							{a action=edit id=$link_list_item}{!"edit"|icon} {t}Edit{/t}{/a}
