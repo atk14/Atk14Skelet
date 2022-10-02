@@ -14,7 +14,7 @@ class PagesController extends AdminController {
 	}
 
 	function edit() {
-		$this->page_title = sprintf(_("Editing page %s"),$this->page->getTitle());
+		$this->page_title = sprintf(_("Editing page %s"),String4::ToObject($this->page->getTitle())->stripHtml()->toString());
 
 		$this->_add_page_to_breadcrumbs($this->page->getParentPage());
 
