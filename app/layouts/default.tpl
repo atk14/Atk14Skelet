@@ -27,7 +27,8 @@
 
 	<head>
 		<meta charset="utf-8">
-
+	
+		{!$head_tags}
 		{render partial="shared/trackers/google/analytics"}
 
 		<title>{trim}

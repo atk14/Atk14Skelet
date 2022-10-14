@@ -11,6 +11,11 @@ class PagesController extends ApplicationController {
 		$this->tpl_data["child_pages"] = $this->page->getVisibleChildPages();
 
 		$this->_add_page_to_breadcrumbs($this->page);
+
+		if (!$this->page->isIndexable()) {
+			$this->head_tags->setMetaTag("robots", "noindex,nofollow,noarchive");
+			$this->head_tags->setMetaTag("googlebot", "noindex");
+		}
 	}
 
 	function _before_filter(){
