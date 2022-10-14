@@ -88,7 +88,6 @@ class HeadTags {
 
 	function __toString() {
 		$out = [];
-		DEVELOPMENT && ($out[] = "<!-- HeadTags class output - START -->\n");
 		# name, property, http-equiv
 		foreach($this->getMetaTags() as $type => $i) {
 			# type name like google-site-verification in <meta name>, og:title in <meta property>
@@ -113,10 +112,7 @@ class HeadTags {
 			}
 		}
 
-		DEVELOPMENT && ($out[] = "\n<!-- HeadTags class output - END -->\n");
-
 		$out = join("\n", $out);
-		DEVELOPMENT && trigger_error($out);
 		return $out;
 	}
 
