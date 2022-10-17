@@ -5,7 +5,7 @@
 <body>
 	{placeholder}
 
-	{capture assign=url}{link_to action="main/index" _with_hostname=true _ssl=false}{/capture}
+	{capture assign=url}{link_to action="main/index" _with_hostname=true}{/capture}
 	<p>
 		{t}Best regards{/t}<br /><br />
 
