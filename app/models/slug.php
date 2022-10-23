@@ -175,6 +175,7 @@ class Slug extends ApplicationModel{
 	static function GetObjectSlug($obj,$lang = null,$segment = ''){
 		global $ATK14_GLOBAL;
 		if(!$lang){ $lang = $ATK14_GLOBAL->getLang(); } // !! current language
+		$lang = (string)$lang;
 
 		$table_name = $obj->getTableName();
 		$id = $obj->getId();
