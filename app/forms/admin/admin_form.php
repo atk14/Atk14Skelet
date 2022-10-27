@@ -75,7 +75,7 @@ class AdminForm extends ApplicationForm{
 			}
 			$lang_field = new $class(array(
 				"required" => $required,
-				"label" => "$label [$lang]",
+				"label" => sizeof($langs)>1 ? "$label [$lang]" : "$label",
 				"initial" => $field->initial,
 				"help_text" => $field->help_text,
 				"hint" => $field->hint,
