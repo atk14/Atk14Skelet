@@ -31,6 +31,7 @@ class ArticlesController extends ApplicationController{
 			"order_by" => "published_at DESC",
 			"offset" => $this->params->getInt("offset")
 		));
+		$this->head_tags->setCanonical(Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action], ["with_hostname" => true]));
 	}
 
 	function detail(){
@@ -52,6 +53,7 @@ class ArticlesController extends ApplicationController{
 			$this->breadcrumbs[] = array($primary_tag->getTagLocalized(),$this->_link_to(array("action" => "articles/index", "tag_id" => $primary_tag)));
 		}
 		$this->breadcrumbs[] = $article->getTitle();
+		$this->head_tags->setCanonical(Atk14Url::BuildLink(["controller" => $this->controller, "action" => $this->action, "id" => $article], ["with_hostname" => true]));
 	}
 
 	function _before_filter(){
