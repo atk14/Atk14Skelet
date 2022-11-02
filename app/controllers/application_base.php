@@ -92,7 +92,7 @@ class ApplicationBaseController extends Atk14Controller{
 			$item = array(
 				"lang" => $l,
 				"name" => isset($locale["name"]) ? $locale["name"] : $l,
-				"switch_url" => $this->_link_to($params)
+				"switch_url" => $this->_link_to($params,["with_hostname" => true]),
 			);
 			if($this->lang==$l){
 				$current_language = $item;
@@ -109,6 +109,7 @@ class ApplicationBaseController extends Atk14Controller{
 		//	{!$val|h|default:"&mdash;"}
 		$this->tpl_data["mdash"] = "—";
 		$this->tpl_data["nbsp"] = " ";
+		$this->_setup_hreflang_for_head_tags();
 	}
 
 	function _application_before_filter(){
@@ -499,5 +500,36 @@ class ApplicationBaseController extends Atk14Controller{
 		)){
 			$this->template_name = "application/$this->action";
 		}
+	}
+
+	/**
+	 *
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url();
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url("index");
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url(["action" => "pages/detail", "id" => $this->page]);
+	 */
+	function _build_canonical_url($action_or_params = "",$params = []){
+		if(!$action_or_params){
+			$action_or_params = $this->action;
+		}
+		if(is_array($action_or_params)){
+			$params = $action_or_params;
+		}else{
+			$params["action"] = $action_or_params;
+		}
+		return $this->_link_to($params,["with_hostname" => true]);
+	}
+
+	protected function _setup_hreflang_for_head_tags() {
+		$current_language = null;
+		foreach($this->tpl_data["supported_languages"] as $lang) {
+			$this->head_tags->addLinkTag("alternate", ["hreflang" => $lang["lang"], "href" => $lang["switch_url"]]);
+			# @TODO think about it. Some combinations may not have sense (en-cz, cs-ro ...)
+			$this->head_tags->addLinkTag("alternate", ["hreflang" => sprintf("%s-%s", $lang["lang"], strtolower(CURRENT_COUNTRY)), "href" => $lang["switch_url"]]);
+			if ($this->lang == $lang["lang"]) {
+				$current_language = $lang;
+			}
+		}
+		$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $current_language["switch_url"]]);
 	}
 }
