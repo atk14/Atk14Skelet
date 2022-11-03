@@ -522,18 +522,33 @@ class ApplicationBaseController extends Atk14Controller{
 
 	protected function _setup_hreflang_for_head_tags() {
 		global $ATK14_GLOBAL;
-		$_CURRENT_COUNTRY = $ATK14_GLOBAL->getDefaultLang();
+		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
+
 		$current_language = null;
-		$langs = array_merge($this->tpl_data["supported_languages"], [$this->tpl_data["current_language"]]);
+
+		$langs = [];
+		foreach($ATK14_GLOBAL->getConfig("locale") as $lang => $locale) {
+			$params["lang"] = $lang;
+			$_url = $this->_link_to($params,["with_hostname" => true]);
+			# first hreflang with just a language code
+			$langs[] = [
+				"lang" => $lang,
+				"url" => $_url,
+			];
+			list($locale_lang,$encoding) = preg_split("/\./", $locale["LANG"].".");
+			# second hreflang for language-country code
+			$langs[] = [
+				"lang" => strtr($locale_lang, "_", "-"),
+				"url" => $_url,
+			];
+		}
 
 		foreach($langs as $lang) {
-			$this->head_tags->addLinkTag("alternate", ["hreflang" => $lang["lang"], "href" => $lang["switch_url"]]);
-			# @TODO think about it. Some combinations may not have sense (en-cz, cs-ro ...)
-			$this->head_tags->addLinkTag("alternate", ["hreflang" => sprintf("%s-%s", $lang["lang"], strtolower($_CURRENT_COUNTRY)), "href" => $lang["switch_url"]]);
-			if ($this->lang == $lang["lang"]) {
+			$this->head_tags->addLinkTag("alternate", ["hreflang" => $lang["lang"], "href" => $lang["url"]]);
+			if ($ATK14_GLOBAL->getDefaultLang() == $lang["lang"]) {
 				$current_language = $lang;
 			}
 		}
-		$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $current_language["switch_url"]]);
+		$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $current_language["url"]]);
 	}
 }
