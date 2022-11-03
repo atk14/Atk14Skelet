@@ -521,11 +521,15 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	protected function _setup_hreflang_for_head_tags() {
+		global $ATK14_GLOBAL;
+		$_CURRENT_COUNTRY = $ATK14_GLOBAL->getDefaultLang();
 		$current_language = null;
-		foreach($this->tpl_data["supported_languages"] as $lang) {
+		$langs = array_merge($this->tpl_data["supported_languages"], [$this->tpl_data["current_language"]]);
+
+		foreach($langs as $lang) {
 			$this->head_tags->addLinkTag("alternate", ["hreflang" => $lang["lang"], "href" => $lang["switch_url"]]);
 			# @TODO think about it. Some combinations may not have sense (en-cz, cs-ro ...)
-			$this->head_tags->addLinkTag("alternate", ["hreflang" => sprintf("%s-%s", $lang["lang"], strtolower(CURRENT_COUNTRY)), "href" => $lang["switch_url"]]);
+			$this->head_tags->addLinkTag("alternate", ["hreflang" => sprintf("%s-%s", $lang["lang"], strtolower($_CURRENT_COUNTRY)), "href" => $lang["switch_url"]]);
 			if ($this->lang == $lang["lang"]) {
 				$current_language = $lang;
 			}

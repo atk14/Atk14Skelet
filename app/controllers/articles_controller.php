@@ -53,7 +53,7 @@ class ArticlesController extends ApplicationController{
 			$this->breadcrumbs[] = array($primary_tag->getTagLocalized(),$this->_link_to(array("action" => "articles/index", "tag_id" => $primary_tag)));
 		}
 		$this->breadcrumbs[] = $article->getTitle();
-		$this->head_tags->setCanonical($this->_build_canonical_url(["action => "articles/detail", "id" => $article]));
+		$this->head_tags->setCanonical($this->_build_canonical_url(["action" => "articles/detail", "id" => $article]));
 	}
 
 	function _before_filter(){
