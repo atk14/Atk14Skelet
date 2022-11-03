@@ -109,7 +109,6 @@ class ApplicationBaseController extends Atk14Controller{
 		//	{!$val|h|default:"&mdash;"}
 		$this->tpl_data["mdash"] = "—";
 		$this->tpl_data["nbsp"] = " ";
-		$this->_setup_hreflang_for_head_tags();
 	}
 
 	function _application_before_filter(){
@@ -451,6 +450,7 @@ class ApplicationBaseController extends Atk14Controller{
 		if (isset($analytics_tracking_id) || isset($gtm_container_id)) {
 			$this->head_tags->addPreconnect("https://www.googletagmanager.com");
 		}
+		$this->_setup_hreflang_for_head_tags();
 		return;
 		# @note next tags are set in templates for now
 		# meta tags
