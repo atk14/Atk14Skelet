@@ -528,7 +528,12 @@ class ApplicationBaseController extends Atk14Controller{
 		$current_language = null;
 
 		$langs = [];
-		foreach($ATK14_GLOBAL->getConfig("locale") as $lang => $locale) {
+		$locales = $ATK14_GLOBAL->getConfig("locale");
+		# do not setup hreflang when only one locale
+		if (!(sizeof($locales)>1)) {
+			return;
+		}
+		foreach($locales as $lang => $locale) {
 			$params["lang"] = $lang;
 			$_url = $this->_link_to($params,["with_hostname" => true]);
 			# first hreflang with just a language code
