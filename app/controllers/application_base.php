@@ -522,6 +522,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 	protected function _setup_hreflang_for_head_tags() {
 		global $ATK14_GLOBAL;
+		$params_homepage = array("namespace" => "", "controller" => "main", "action" => "index");
 		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
 
 		$current_language = null;
