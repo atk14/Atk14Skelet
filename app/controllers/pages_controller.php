@@ -16,6 +16,7 @@ class PagesController extends ApplicationController {
 			$this->head_tags->setMetaTag("robots", "noindex,noarchive");
 			$this->head_tags->setMetaTag("googlebot", "noindex");
 		}
+		$this->head_tags->setCanonical($this->_build_canonical_url(["id" => $this->page]));
 	}
 
 	function _before_filter(){

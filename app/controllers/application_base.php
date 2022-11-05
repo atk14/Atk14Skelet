@@ -92,7 +92,7 @@ class ApplicationBaseController extends Atk14Controller{
 			$item = array(
 				"lang" => $l,
 				"name" => isset($locale["name"]) ? $locale["name"] : $l,
-				"switch_url" => $this->_link_to($params)
+				"switch_url" => $this->_link_to($params,["with_hostname" => true]),
 			);
 			if($this->lang==$l){
 				$current_language = $item;
@@ -450,6 +450,7 @@ class ApplicationBaseController extends Atk14Controller{
 		if (isset($analytics_tracking_id) || isset($gtm_container_id)) {
 			$this->head_tags->addPreconnect("https://www.googletagmanager.com");
 		}
+		$this->_setup_hreflang_for_head_tags();
 		return;
 		# @note next tags are set in templates for now
 		# meta tags
@@ -499,5 +500,61 @@ class ApplicationBaseController extends Atk14Controller{
 		)){
 			$this->template_name = "application/$this->action";
 		}
+	}
+
+	/**
+	 *
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url();
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url("index");
+	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url(["action" => "pages/detail", "id" => $this->page]);
+	 */
+	function _build_canonical_url($action_or_params = "",$params = []){
+		if(!$action_or_params){
+			$action_or_params = $this->action;
+		}
+		if(is_array($action_or_params)){
+			$params = $action_or_params;
+		}else{
+			$params["action"] = $action_or_params;
+		}
+		return $this->_link_to($params,["with_hostname" => true]);
+	}
+
+	protected function _setup_hreflang_for_head_tags() {
+		global $ATK14_GLOBAL;
+		$params_homepage = array("namespace" => "", "controller" => "main", "action" => "index");
+		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
+
+		$current_language = null;
+
+		$langs = [];
+		$locales = $ATK14_GLOBAL->getConfig("locale");
+		# do not setup hreflang when only one locale
+		if (!(sizeof($locales)>1)) {
+			return;
+		}
+		foreach($locales as $lang => $locale) {
+			$params["lang"] = $lang;
+			$_url = $this->_link_to($params,["with_hostname" => true]);
+			# first hreflang with just a language code
+			$langs[] = [
+				"lang" => $lang,
+				"url" => $_url,
+			];
+			list($locale_lang,$encoding) = preg_split("/\./", $locale["LANG"].".");
+			# second hreflang for language-country code
+			$langs[] = [
+				"lang" => strtr($locale_lang, "_", "-"),
+				"url" => $_url,
+			];
+		}
+
+		foreach($langs as $lang) {
+			$this->head_tags->addLinkTag("alternate", ["hreflang" => $lang["lang"], "href" => $lang["url"]]);
+			if ($ATK14_GLOBAL->getDefaultLang() == $lang["lang"]) {
+				$current_language = $lang;
+			}
+		}
+		$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $current_language["url"]]);
 	}
 }
