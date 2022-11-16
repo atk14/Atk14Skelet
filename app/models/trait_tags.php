@@ -22,6 +22,11 @@ trait TraitTags {
 		return $this->getTagsLister()->add($tag);
 	}
 
+	function removeTag($tag){
+		$tag = $this->_cleanTag($tag);
+		return $this->getTagsLister()->remove($tag);
+	}
+
 	function getPrimaryTag(){
 		if($tags = $this->getTags()){
 			return $tags[0];
