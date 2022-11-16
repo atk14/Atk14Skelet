@@ -59,10 +59,27 @@ class TcTraitTags extends TcBase {
 		$this->assertEquals(false,$article->hasTag("spring_2000"));
 		$this->assertEquals(false,$article->hasTag($spring->getId()));
 
+		// -- removeTag()
+
 		$article->addTag($spring);
 
 		$this->assertEquals(true,$article->hasTag($spring));
 		$this->assertEquals(true,$article->hasTag("spring_2000"));
 		$this->assertEquals(true,$article->hasTag($spring->getId()));
+
+		$article->addTag($fun);
+
+		$tags = $article->getTags();
+		$this->assertEquals(2,sizeof($tags));
+
+		$this->assertEquals("spring 2000","$tags[0]");
+		$this->assertEquals("fun","$tags[1]");
+
+		$article->removeTag($spring);
+
+		$tags = $article->getTags();
+		$this->assertEquals(1,sizeof($tags));
+
+		$this->assertEquals("fun","$tags[0]");
 	}
 }
