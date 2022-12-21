@@ -51,6 +51,8 @@ class TcLinkListItem extends TcBase {
 	}
 
 	function test_changing_url_according_to_language(){
+		// local URI
+
 		$item = $this->link_list_items["main_menu__testing_page"];
 		$this->assertEquals("/testing-page/",$item->getUrl());
 
@@ -70,6 +72,35 @@ class TcLinkListItem extends TcBase {
 		$this->assertEquals("/testovaci-stranka/#anchor",$item->getUrl());
 		$this->assertEquals("/testovaci-stranka/#test",$item->getUrl(["anchor" => "test"]));
 		$this->assertEquals("/testovaci-stranka/",$item->getUrl(["anchor" => ""]));
+
+		// complete local URL
+
+		$item = $this->link_list_items["test_list__testing_subpage"];
+		$http_host = ATK14_HTTP_HOST;
+
+		$this->assertEquals("http://".$http_host."/testing-page/testing-subpage/",$item->g("url"));
+
+		$lang = "en";
+		Atk14Locale::Initialize($lang);
+		$this->assertEquals("http://$http_host/testing-page/testing-subpage/",$item->getUrl());
+		$this->assertEquals("/testing-page/testing-subpage/",$item->getUrl(["with_hostname" => false]));
+
+		$lang = "cs";
+		Atk14Locale::Initialize($lang);
+		$this->assertEquals("http://$http_host/testovaci-stranka/testovaci-podstranka/",$item->getUrl());
+		$this->assertEquals("/testovaci-stranka/testovaci-podstranka/",$item->getUrl(["with_hostname" => false]));
+		
+		// external URL
+
+		$item = $this->link_list_items["main_menu__external"];
+
+		$lang = "en";
+		Atk14Locale::Initialize($lang);
+		$this->assertEquals("https://www.atk14.net/",$item->getUrl());
+
+		$lang = "cs";
+		Atk14Locale::Initialize($lang);
+		$this->assertEquals("https://www.atk14.net/",$item->getUrl());
 	}
 
 	function test_specific_url_for_language(){

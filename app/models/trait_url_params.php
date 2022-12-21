@@ -34,9 +34,12 @@ trait TraitUrlParams {
 			];
 		}
 
+		$url = $this->g("url");
+
 		$options += [
-			"with_hostname" => false,
+			"with_hostname" => (bool)preg_match('/^https?:\/\//',$url),
 			"lang" => null,
+			"ssl" => preg_match('/^https:\/\//',$url) ? true : null,
 		];
 
 		$lang = $options["lang"];
@@ -45,7 +48,7 @@ trait TraitUrlParams {
 		$params = $this->getUrlParams();
 		if($params){ $params = json_decode($params,true); }
 		if(is_null($params)){
-			return $this->g("url");
+			return $url;
 		}
 		
 		if(is_null($lang)){
@@ -53,7 +56,7 @@ trait TraitUrlParams {
 		}
 
 		$anchor = null;
-		if(preg_match('/#(.+)$/',$this->g("url"),$matches)){
+		if(preg_match('/#(.+)$/',$url,$matches)){
 			$anchor = $matches[1];
 		}
 		$options += [
@@ -65,9 +68,14 @@ trait TraitUrlParams {
 	}
 
 	static protected function _GetUrlParamsJson($uri){
-		if(!preg_match('/^\/([^\/].*|)$/',(string)$uri)){
+		global $HTTP_REQUEST;
+		$uri = (string)$uri;
+
+		if(!preg_match('/^\/([^\/].*|)$/',(string)$uri) && !preg_match('/^https?:\/\/'.preg_quote($HTTP_REQUEST->getHttpHost(),'/').'\//',$uri) && !preg_match('/^https?:\/\/'.preg_quote(ATK14_HTTP_HOST,'/').'\//',$uri)){
 			return null;
 		}
+
+		$uri = preg_replace('/^https?:\/\/.+?\//','/',$uri);
 
 		$uri = preg_replace('/#.*$/','',$uri); // removing anchor
 

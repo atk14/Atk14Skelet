@@ -25,6 +25,12 @@ test_list__main_menu:
   url: "#"
   visible: false
 
+test_list__testing_subpage:
+  link_list_id: "<?= $link_lists["test_list"]->getId() ?>"
+  title_en: "Testing subpage"
+  title_cs: "Testovací podstránka"
+  url: "<?= Atk14Url::BuildLink(array("action" => "pages/detail", "id" => $pages["testing_subpage"]->getId()),array("with_hostname" => true)) ?>"
+
 main_menu__homepage:
   link_list_id: "<?= $link_lists["main_menu"]->getId() ?>"
   title_en: "Home"

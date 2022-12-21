@@ -100,7 +100,6 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 		}
 
 		$options += [
-			"with_hostname" => false,
 			"lang" => null,
 		];
 
