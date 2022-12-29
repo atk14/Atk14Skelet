@@ -39,7 +39,7 @@ trait TraitUrlParams {
 		$options += [
 			"with_hostname" => (bool)preg_match('/^https?:\/\//',$url),
 			"lang" => null,
-			"ssl" => preg_match('/^https:\/\//',$url) ? true : null,
+			"ssl" => preg_match('/^https:\/\//',(string)$url) ? true : null,
 		];
 
 		$lang = $options["lang"];
