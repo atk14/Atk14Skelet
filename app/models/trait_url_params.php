@@ -37,7 +37,7 @@ trait TraitUrlParams {
 		$url = $this->g("url");
 
 		$options += [
-			"with_hostname" => (bool)preg_match('/^https?:\/\//',$url),
+			"with_hostname" => (bool)preg_match('/^https?:\/\//',(string)$url),
 			"lang" => null,
 			"ssl" => preg_match('/^https:\/\//',(string)$url) ? true : null,
 		];
@@ -56,7 +56,7 @@ trait TraitUrlParams {
 		}
 
 		$anchor = null;
-		if(preg_match('/#(.+)$/',$url,$matches)){
+		if(preg_match('/#(.+)$/',(string)$url,$matches)){
 			$anchor = $matches[1];
 		}
 		$options += [
