@@ -2,6 +2,7 @@
 	{dropdown_menu clearfix=false}
 		{a action="gallery_items/edit" id=$gallery_item}{!"edit"|icon} {t}Edit{/t}{/a}
 		{a_destroy controller="gallery_items" id=$gallery_item}{!"remove"|icon} {t}Delete{/t}{/a_destroy}
+		{a action="gallery_items/image_download" id=$gallery_item}{!"download"|icon} {t}Download original image{/t}{/a}
 	{/dropdown_menu}
 
 	<div class="float-left">

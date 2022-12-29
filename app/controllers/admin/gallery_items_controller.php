@@ -52,12 +52,22 @@ class GalleryItemsController extends AdminController{
 		$this->_destroy();
 	}
 
+	function image_download(){
+		$pupiq = new Pupiq($this->gallery_item->getImageUrl());
+		
+		$content = $pupiq->downloadOriginal($headers);
+
+		$this->render_template = false;
+		$this->response->write($content);
+		$this->response->setHeaders($headers);
+	}
+
 	function _before_filter(){
 		if(in_array($this->action,array("create_new"))){
 			$this->_find("gallery","gallery_id");
 		}
 
-		if(in_array($this->action,array("destroy","edit"))){
+		if(in_array($this->action,array("destroy","edit","image_download"))){
 			$this->_find("gallery_item");
 		}
 	}
