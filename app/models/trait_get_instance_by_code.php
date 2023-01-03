@@ -8,7 +8,12 @@ trait TraitGetInstanceByCode {
 			"refresh_cache" => false,
 		);
 
-		if(!$instances || $options["refresh_cache"]){
+		if($options["refresh_cache"]){
+			$instances = null;
+			Cache::Clear(get_called_class());
+		}
+
+		if(!isset($instances)){
 			$instances = [];
 			foreach(self::FindAll("code IS NOT NULL",[],["use_cache" => true]) as $c){
 				$instances[$c->getCode()] = $c;
