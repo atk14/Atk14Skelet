@@ -10,6 +10,7 @@ class GalleriesForm extends IobjectsForm{
 				"slider" => _("Slider"),
 				"slider_dark" => _("Slider darker & bigger"),
 				"slider_thumbnails" => _("Slider with thumbnails"),
+				"slider_logo" => _( "Logo slider" ),
 			),
 		));
 

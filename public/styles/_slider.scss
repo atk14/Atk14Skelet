@@ -276,6 +276,30 @@
 	}
 //}
 
+.swiper--logo {
+	padding: 0 $grid-gutter-width*0.8;
+	.swiper-slide {
+		padding: $grid-gutter-width;
+		background-color: transparent;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		figure {
+		}
+	}
+	@include media-breakpoint-down(xs){
+		padding: 0;
+		.swiper-slide {
+			padding: $grid-gutter-width/2;
+		}
+	}
+	@include media-breakpoint-up(xl){
+		.swiper-slide {
+			padding: $grid-gutter-width $grid-gutter-width*1.25;
+		}
+	}
+}
+
 .swiper--thumbnails {
 	background-color: $dark;
 	//border-top: 1px solid $gray-600;
