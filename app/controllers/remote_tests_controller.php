@@ -73,6 +73,13 @@ class RemoteTestsController extends ApplicationController{
 		));
 	}
 
+	/**
+	 * Test fails when admin has default password
+	 */
+	function admin_default_password(){
+		$this->_assert_true(is_null(User::Login("admin","admin")));
+	}
+
 	function _before_filter(){
 		/*
 		// Here you can restrict access to the controller's actions for listed IP addresses
