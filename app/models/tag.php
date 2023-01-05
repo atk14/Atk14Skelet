@@ -9,7 +9,7 @@ class Tag extends ApplicationModel implements Translatable {
 	 * $tag = Tag::GetOrCreateTag("Nikon");
 	 */
 	static function GetOrCreateTag($tag){
-		if(!strlen($tag)){ return null; }
+		if(!strlen((string)$tag)){ return null; }
 
 		($out = Tag::FindByTag($tag)) ||
 		($out = Tag::CreateNewRecord(array("tag" => $tag)));
@@ -24,7 +24,7 @@ class Tag extends ApplicationModel implements Translatable {
 			$lang = $ATK14_GLOBAL->getLang();
 		}
 
-		if(strlen($out = $this->g("tag_localized_$lang"))>0){
+		if(strlen($out = (string)$this->g("tag_localized_$lang"))>0){
 			return $out;
 		}
 
