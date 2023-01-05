@@ -287,6 +287,9 @@
 		figure {
 		}
 	}
+	.swiper-pagination {
+		width: 100% !important;
+	}
 	@include media-breakpoint-down(xs){
 		padding: 0;
 		.swiper-slide {
