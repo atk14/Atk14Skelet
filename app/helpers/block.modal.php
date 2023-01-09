@@ -28,6 +28,8 @@ function smarty_block_modal($params,$content,$template,&$repeat){
 		"vertically_centered" => false,
 		"animation" => true,
 		"close_button" => true,
+		"closable_by_keyboard" => true,
+		"closable_by_clicking_on_backdrop" => true,
 	);
 
 	$smarty = atk14_get_smarty_from_template($template);
@@ -50,6 +52,8 @@ function smarty_block_modal($params,$content,$template,&$repeat){
 	$smarty->assign("vertically_centered",$params["vertically_centered"]);
 	$smarty->assign("animation",$params["animation"]);
 	$smarty->assign("close_button",$params["close_button"]);
+	$smarty->assign("closable_by_keyboard",$params["closable_by_keyboard"]);
+	$smarty->assign("closable_by_clicking_on_backdrop",$params["closable_by_clicking_on_backdrop"]);
 
 	$out = $smarty->fetch("shared/helpers/modal/".(USING_BOOTSTRAP4 ? "_bootstrap4.tpl" : "_bootstrap3.tpl"));
 
