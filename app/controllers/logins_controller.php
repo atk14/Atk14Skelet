@@ -8,6 +8,8 @@ class LoginsController extends ApplicationController{
 
 		if($this->request->get()){ $this->form->set_initial($this->params); }
 
+		$this->head_tags->setCanonical($this->_build_canonical_url());
+
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			if(!$user = User::Login($d["login"],$d["password"])){
 				$this->logger->warn("bad login attempt on $d[login] from ".$this->request->getRemoteAddr());
