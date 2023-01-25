@@ -339,7 +339,7 @@ class Slug extends ApplicationModel{
 
 		$suffix = 2;
 		$slug = Slug::StringToSluggish($pattern);
-		while($class_name::GetInstanceBySlug($slug,$lang,$object->getSlugSegment())){
+		while(Slug::FindFirst("table_name",$object->getTableName(),"lang",$lang,"slug",$slug,"segment",$object->getSlugSegment())){
 			if($suffix>=100){ throw new Exception("Slug::_BuildSlug(): Too many retries"); }
 
 			$_suffix = $suffix<=50 ? $suffix : uniqid();
