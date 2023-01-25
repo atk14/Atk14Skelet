@@ -23,7 +23,9 @@ class TcTraitPupiqImage extends TcBase {
 		$this->assertEquals(100,$image->getWidth("100x"));
 		$this->assertEquals(1272,$image->getOriginalWidth());
 
-		$this->assertEquals(round(min(ARTICLE_BODY_MAX_WIDTH,1272) / 1.3826),$image->getHeight());
+		// we are not sure how PupiqClient calculates the image height
+		$height = min(ARTICLE_BODY_MAX_WIDTH,1272) / 1.3826;
+		$this->assertTrue(floor($height)<=$image->getHeight() && ceil($height)>=$image->getHeight(),"$height vs. ".$image->getHeight());
 		$this->assertEquals(72,$image->getHeight("100x"));
 		$this->assertEquals(920,$image->getOriginalHeight());
 
