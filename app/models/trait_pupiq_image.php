@@ -35,11 +35,14 @@ trait TraitPupiqImage {
 	}
 
 	function getUrl($transformation = null){
-		if(!is_null($transformation)){
-			$pupiq = $this->_getPupiq();
-			return $pupiq->getUrl($transformation);
+		if(is_null($transformation) && defined("ARTICLE_BODY_MAX_WIDTH") && constant("ARTICLE_BODY_MAX_WIDTH")>0){
+			$transformation = constant("ARTICLE_BODY_MAX_WIDTH");
 		}
+		$pupiq = $this->_getPupiq();
+		return $pupiq->getUrl($transformation);
+	}
 
+	function _getUrl(){
 		$field = $this->hasKey("image_url") ? "image_url" : "url"; // GalleryItem has image_url; Image or Picture has url
 		return $this->g($field);
 	}
@@ -62,7 +65,7 @@ trait TraitPupiqImage {
 
 	function _getPupiq(){
 		if(!isset($this->_pupiq)){
-			$this->_pupiq = new Pupiq($this->getUrl());
+			$this->_pupiq = new Pupiq($this->_getUrl());
 		}
 		return $this->_pupiq;
 	}

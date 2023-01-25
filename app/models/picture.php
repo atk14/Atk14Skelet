@@ -7,7 +7,7 @@ class Picture extends Iobject{
 
 	function getPreviewImageUrl(){ return $this->getUrl(); }
 
-	function getImageUrl(){ return $this->getUrl(); }
+	function getImageUrl($transformation = null){ return $this->getUrl($transformation); }
 
 	function getName( $lang=null ) { return $this->getTitle($lang); }
 
