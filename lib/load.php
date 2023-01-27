@@ -12,7 +12,6 @@ if(file_exists(__DIR__."/../vendor/autoload.php")){
 
 if(
 	!TEST &&
-	!$HTTP_REQUEST->xhr() &&
 	class_exists("Tracy\Debugger") &&
 	php_sapi_name()!="cli" // we do not want Tracy in cli
 ){
@@ -21,5 +20,5 @@ if(
 
 require_once(__DIR__ . "/functions.php");
 require_once(__DIR__ . "/markdown.php");
-class_autoload(__DIR__ . '/head_tags/src');
+require_once(__DIR__ . "/head_tags/load.php");
 
