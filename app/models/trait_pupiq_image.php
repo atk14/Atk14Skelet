@@ -39,7 +39,9 @@ trait TraitPupiqImage {
 			$transformation = constant("ARTICLE_BODY_MAX_WIDTH");
 		}
 		$pupiq = $this->_getPupiq();
-		return $pupiq->getUrl($transformation);
+		$url = $pupiq->getUrl($transformation);
+		if(!$url){ $url = $this->_getUrl(); }
+		return $url;
 	}
 
 	function _getUrl(){
