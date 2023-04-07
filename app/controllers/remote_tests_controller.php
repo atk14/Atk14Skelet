@@ -123,7 +123,7 @@ class RemoteTestsController extends ApplicationController{
 
 		chdir($directory);
 		$files = Files::FindFiles(".",$check_options);
-		array_filter($files,function($file){ return filesize($file)>0; }); // fresh files with zero size creates log rotate
+		$files = array_filter($files,function($file){ return filesize($file)>1; }); // fresh files with zero size creates log rotate
 
 		if($files){
 			$this->_fail(join("\n",$files));
