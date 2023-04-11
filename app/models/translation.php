@@ -8,13 +8,13 @@ class Translation extends ApplicationModel{
 	 * print_r(Translation::GetObjectStrings($brand)); // array("name_cs" => "...", "name_en" => )
 	 */
 	static function GetObjectStrings($obj){
-		$class_name = get_class($obj);
 		$table_name = $obj->getTableName();
 		$record_id = $obj->getId();
 		$cache_key = "$table_name,$record_id";
 
 		if(!isset(Translation::$CACHE[$cache_key])){
 			// nacteme najednou translations stringy pro vsechny pomoci Cache nacachovane objekty
+			$class_name = get_class($obj);
 			$ids = Cache::CachedIds($class_name);
 			$ids[] = $record_id;
 
@@ -53,6 +53,11 @@ class Translation extends ApplicationModel{
 			$lang = $matches[2];
 			$existing = Translation::FindFirst("table_name",$table_name,"record_id",$record_id,"key",$key,"lang",$lang);
 
+			if(!strlen((string)$value)){ // "" or null
+				$existing && $existing->destroy(); // there is no need to store empty strings
+				continue;
+			}
+
 			if($existing){
 				if($existing->getBody()!=$value){ $existing->s("body",$value); }
 			}else{
@@ -76,6 +81,10 @@ class Translation extends ApplicationModel{
 			":table_name" => $table_name,
 			":record_id" => $record_id,
 		));
+		self::ClearCache();
+	}
+
+	static function ClearCache() {
 		Translation::$CACHE = array();
 	}
 
