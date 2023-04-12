@@ -48,3 +48,5 @@ main_menu__external:
   title_en: "ATK14 Framework"
   title_cs: "ATK14 Framework"
   url: "https://www.atk14.net/"
+  code: "atk14_framework"
+  image_url: "http://www.atk14.net/public/images/atk14.png"

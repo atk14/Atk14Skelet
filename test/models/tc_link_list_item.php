@@ -45,6 +45,9 @@ class TcLinkListItem extends TcBase {
 		$this->assertEquals("/testing-page/",$items[1]->getUrl());
 		$this->assertEquals("ATK14 Framework",$items[2]->getTitle());
 		$this->assertEquals("https://www.atk14.net/",$items[2]->getUrl());
+		$this->assertEquals("atk14_framework",$items[2]->getMeta("code"));
+		$this->assertEquals("http://www.atk14.net/public/images/atk14.png",$items[2]->getMeta("image_url"));
+
 
 		$lli->s("code","different_code");
 		$this->assertEquals(null,$lli->getSubmenu());
