@@ -1,6 +1,10 @@
 # Change Log
 All notable changes to Atk14Skelet will be documented in this file.
 
+## [1.9] - 2023-04-15
+
+- Versioning schema of the skeleton synced with ATK14 Framework
+
 ## [1.1] - 2019-08-15
 
 - Boostrap 4
