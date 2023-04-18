@@ -243,6 +243,26 @@
 					flex-basis: 50%;
 				}
 			}
+
+			.list--icons {
+				text-align: initial;
+				@extend .list-unstyled;
+				li {
+					display: flex;
+					.list--icons__icon {
+						display: block;
+						flex-basis: 3ch;
+						flex-grow: 0;
+						color: $secondary;
+						flex-shrink: 0;
+					}
+					.list--icons__value {
+						display: block;
+						line-break: anywhere;
+					}
+				}
+			}
+
 		}
 		.iobject__qr-code {
 			width: 5cm;
