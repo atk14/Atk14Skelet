@@ -6,7 +6,8 @@
   {/if}
   <div class="iobject__body">
     <h4 class="iobject__title">
-      {$name} <span>{$position}</span>
+      {$name}
+      <span>{$position}</span>
     </h4>
     <div class="iobject__description">
       {!$content}
@@ -57,9 +58,10 @@
       </ul>
       
     </div>
-    {* TODO: QR code generation*}
-    {*<div class="iobject__body-bottom">
-      <div>
+    {if $more_link || $show_qr}
+    <div class="iobject__body-bottom">
+      {* TODO: optional QR code generation *}
+      <div>{if $show_qr}
         <a href="#person_qr_{$uniqid}" data-toggle="collapse" role="button" aria-expanded="false" aria-controls="person_qr_5f57a6054b046" class="qr-code-link">
           <ul class="list--icons mb-0">
             <li>
@@ -71,11 +73,15 @@
         <div class="collapse" id="person_qr_{$uniqid}">
           <img src="http://api.qrserver.com/v1/create-qr-code/?color=000000&amp;bgcolor=FFFFFF&amp;data=https%3A%2F%2Fsnapps.eu&amp;qzone=1&amp;margin=0&amp;size=400x400&amp;ecc=L" alt="QR kód" class="iobject__qr-code">
         </div>
-      </div>
+      {/if}</div>
+      
+      {if $more_link}
       <div class="text-right align-self-start">
-        <a href="#" class="btn btn-sm btn-outline-primary">Více… <i class="fas fa-chevron-right"></i></a>
+        <a href="{!$more_link}" class="btn btn-sm btn-outline-primary">{$more_text} <i class="fas fa-chevron-right"></i></a>
       </div>
-    </div>*}
+      {/if}
+    </div>
+    {/if}
   </div>
 </div>
 

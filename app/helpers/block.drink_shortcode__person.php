@@ -4,14 +4,19 @@ function smarty_block_drink_shortcode__person($params,$content,$template,&$repea
 
 	$params += [
 		"class"			=> "",
+		"image"			=> "",
 		"name"			=> "",
+		"position"	=> "",
 		"email"			=> "",
 		"phone"			=> "",
 		"phone2"		=> "",
-		"position"	=> "",
+		"web"				=> "",
 		"facebook"	=> "",
 		"twitter"		=> "",
 		"instagram" => "",
+		"more_text"	=> _("More"),
+		"more_link"	=> "",
+		"show_qr"		=> "", // qr not implemented
 	];
 
 	foreach($params as $k => $v){
@@ -19,7 +24,7 @@ function smarty_block_drink_shortcode__person($params,$content,$template,&$repea
 	}
 
 	$template->assign("content",$content);
-	$template->assign("uniqid",uniqid());
+	$template->assign("uniqid", uniqid());
 
 	return $template->fetch("shared/helpers/drink_shortcodes/_person.tpl");
 }
