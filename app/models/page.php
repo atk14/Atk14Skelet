@@ -18,7 +18,7 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 
 		$parent_page_id = null;
 		foreach(explode('/',$path) as $slug){
-			if(!$_sp = Page::GetInstanceBySlug($slug,$lang,$parent_page_id)){
+			if(!$_sp = self::GetInstanceBySlug($slug,$lang,$parent_page_id)){
 				$lang = $orig_lang; // we don't want to rewrite $lang unpredictable
 				return null;
 			}
