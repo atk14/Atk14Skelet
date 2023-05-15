@@ -16,7 +16,7 @@
 			<ul class="navbar-nav">
 				<li class="nav-item">
 					<span class="env-status">
-						{if $request->getHttpHost()|strstr:"localhost"}
+						{if strstr($request->getHttpHost(),"localhost")}
 							<span class="badge badge-pill badge-info" title="{t}Localhost{/t}">LHOST</span>
 						{/if}
 						{if DEVELOPMENT}
