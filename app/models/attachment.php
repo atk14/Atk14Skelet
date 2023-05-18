@@ -6,7 +6,8 @@ class Attachment extends LinkedObject implements Translatable{
 	static function GetTranslatableFields(){ return array("name"); }
 
 	/**
-	 * $attachments = Attachment::GetAttachments($card_section);
+	 * $attachments = Attachment::GetAttachments($article);
+	 * $attachments = Attachment::GetAttachments($card,"reviews"); // "reviews" is a section name
 	 */
 	static function GetAttachments($obj,$options = array()){
 		return Attachment::GetInstancesFor($obj,$options);
