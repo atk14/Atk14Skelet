@@ -90,7 +90,7 @@
 		<div class="{$form_group_class}">
 			<div class="form-check custom-control custom-checkbox">
 				{!$field->as_widget($widget_options)|customize_checkbox} {* helper customize_checkbox prida do checkboxu css tridu custom-control-input *}
-				<label class="form-check-label custom-control-label" for="{$field->id_for_label()}">
+				<label class="{if USING_BOOTSTRAP5}form-check-label{else}form-check-label custom-control-label{/if}" for="{$field->id_for_label()}">
 					{$field->label}
 				</label>
 			</div>
@@ -101,7 +101,7 @@
 	{else}
 		<div class="{$form_group_class}">
 			{if !$no_label_rendering}
-			<label for="{$field->id_for_label()}" class="control-label">{$field->label}{!$tip_optional}</label>
+			<label for="{$field->id_for_label()}" class="{if USING_BOOTSTRAP5}form-label{else}control-label{/if}">{$field->label}{!$tip_optional}</label>
 			{/if}
 			{if $addon}
 				<div class="input-group">

@@ -86,9 +86,8 @@
 				</div>
 			</div>
 		</div>
-		
 		{render partial="shared/layout/footer"}
-		
+		<div class="alert alert-info">USING_BOOTSTRAP4: {USING_BOOTSTRAP4}, USING_BOOTSTRAP5 {USING_BOOTSTRAP5}</div>
 		{render partial="shared/layout/devcssinfo"}
 
 		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
