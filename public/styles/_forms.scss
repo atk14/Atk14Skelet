@@ -45,7 +45,7 @@ form {
 // Applies CSS grid to .form-group to create horizontal form.
 
 .form-horizontal, .fieldset-horizontal {
-	.form-group {
+  .form-group {
 		@include media-breakpoint-up(md){
 			display: grid;
 			grid-template-columns: 3fr 5fr 4fr;
@@ -103,7 +103,6 @@ form {
 	}
 }
 
-
 // Validation states
 form {
 	.form-group {
@@ -119,19 +118,6 @@ form {
 			.form-control {
 				border: 1px solid $success;
 			}
-		}
-	}
-}
-
-
-// search form
-.form-search {
-	@extend .form-inline;
-	margin-bottom: 1rem;
-	input {
-		margin-right: 0.5em;
-		@include media-breakpoint-down(xs){
-			margin-bottom: 0.5rem;
 		}
 	}
 }
