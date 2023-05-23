@@ -2,7 +2,7 @@
   <ul class="nav nav-pills" id="{$uniqid}-tabnav" role="tablist">
     {foreach $tab_names as $tab_name}
       <li class="nav-item" role="presentation">
-        <button class="nav-link{if $tab_name@iteration==1} active{/if}" id="{$uniqid}-{!$tab_name|slugify}-tab" data-toggle="pill" data-target="#{$uniqid}-{!$tab_name|slugify}" type="button" role="tab" aria-controls="{$uniqid}-{!$tab_name|slugify}" aria-selected="{if $tab_name@iteration==1}true{else}false{/if}">{!$tab_name}</button>
+        <button class="nav-link{if $tab_name@iteration==1} active{/if}" id="{$uniqid}-{!$tab_name|slugify}-tab" {if USING_BOOTSTRAP5}data-bs-toggle="pill" data-bs-target="#{$uniqid}-{!$tab_name|slugify}"{else}data-toggle="pill" data-target="#{$uniqid}-{!$tab_name|slugify}"{/if} type="button" role="tab" aria-controls="{$uniqid}-{!$tab_name|slugify}" aria-selected="{if $tab_name@iteration==1}true{else}false{/if}">{!$tab_name}</button>
       </li>
     {/foreach}
   </ul>
