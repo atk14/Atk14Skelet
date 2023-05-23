@@ -16,3 +16,17 @@ form {
     }
   }
 }
+/*
+// to demonstrate bs5 breakpoints mixins system
+@include media-breakpoint-up(lg){
+  body {
+    background-color: red;
+  }
+}
+
+@include media-breakpoint-down(lg){
+  body {
+    border: 1cm dotted violet;
+  }
+}
+*/

@@ -126,7 +126,7 @@
 	&:active, &:focus {
 		outline: none;
 	}
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){
 		display: none;
 	}
 }
