@@ -170,7 +170,7 @@
 		}
 	}
 	
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){
 		& > a {
 			padding-top: 0.75rem;
 			padding-bottom: 0.75rem;

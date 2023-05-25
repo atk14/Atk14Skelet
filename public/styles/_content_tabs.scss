@@ -32,7 +32,7 @@
         }
       }
     }
-    @include media-breakpoint-down(sm) {
+    @include media-breakpoint-down(md) {
       margin-left: $grid-gutter-width/-4;
       margin-right: $grid-gutter-width/-4;
       & > li.nav-item {
