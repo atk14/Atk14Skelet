@@ -37,12 +37,12 @@
 							title: title,
 							content: content
 						};
-					if( window.bootstrapVersion !== 5 ){
-						// Bootstrap 4
-						$field.popover( popoverOptions );
-					}else{
+					if( window.bootstrapVersion === 5 ){
 						// Bootstrap 5
 						alert("bs5 popover");
+					}else{
+						// Bootstrap 4
+						//$field.popover( popoverOptions );
 					}
 				} );
 
@@ -334,12 +334,12 @@
 
 			// Copy iobject to clipboard
 			handleCopyIobjectCode: function() {
-				if( window.bootstrapVersion !== 5 ){
-					// Bootstrap 4
-					$( ".iobject-copy-code" ).popover();
-				} else {
+				if( window.bootstrapVersion === 5 ){
 					// Bootstrap 5
 					alert( "BS  popover" );
+				} else {
+					// Bootstrap 4
+					//$( ".iobject-copy-code" ).popover();
 				}
 				$( ".iobject-copy-code" ).on( "click", function( e ) {
 					e.preventDefault();
