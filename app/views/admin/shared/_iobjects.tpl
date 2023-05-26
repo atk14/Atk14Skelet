@@ -35,7 +35,7 @@
 					{/if}
 				{/a}
 				<div class="iobject-code-wrap">
-					<span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span> <a href="#" class="iobject-copy-code btn btn-sm btn-outline-default" role="button" data-toggle="popover" data-trigger="focus" data-content="{t}Copied!{/t}" data-placement="top" tabindex="0"><span title="{t}Copy the line{/t}">{!"copy"|icon:"regular"}</span></a>
+					<span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span> <a href="#" class="iobject-copy-code btn btn-sm btn-outline-default" role="button" {if USING_BOOTSTRAP5}data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="{t}Copied!{/t}" data-placement="top"{else}data-toggle="popover" data-trigger="focus" data-content="{t}Copied!{/t}" data-placement="top"{/if} tabindex="0"><span title="{t}Copy the line{/t}">{!"copy"|icon:"regular"}</span></a>
 				</div>
 			</li>
 

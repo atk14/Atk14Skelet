@@ -17,6 +17,14 @@
 				ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
 
+				// Detect Bootstrap version
+				if( typeof bootstrap.Tooltip.VERSION !== undefined ){
+					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );
+				} else {
+					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
+				}
+				console.log( "Bootstrap verion:", window.bootstrapVersion );
+
 				// Form hints.
 				$( ".help-hint" ).each( function() {
 					var $this = $( this ),
@@ -29,8 +37,13 @@
 							title: title,
 							content: content
 						};
-
-					$field.popover( popoverOptions );
+					if( window.bootstrapVersion !== 5 ){
+						// Bootstrap 4
+						$field.popover( popoverOptions );
+					}else{
+						// Bootstrap 5
+						alert("bs5 popover");
+					}
 				} );
 
 				UTILS.leaving_unsaved_page_checker.init();
@@ -321,7 +334,13 @@
 
 			// Copy iobject to clipboard
 			handleCopyIobjectCode: function() {
-				$( ".iobject-copy-code" ).popover();
+				if( window.bootstrapVersion !== 5 ){
+					// Bootstrap 4
+					$( ".iobject-copy-code" ).popover();
+				} else {
+					// Bootstrap 5
+					alert( "BS  popover" );
+				}
 				$( ".iobject-copy-code" ).on( "click", function( e ) {
 					e.preventDefault();
 					var code = $( this ).closest( ".iobject-code-wrap" ).find( ".iobject-code" ).text();
