@@ -33,7 +33,7 @@
     "atk14js": "^1.2.1",
     "babel-eslint": "^10.1.0",
     "blueimp-file-upload": "^9.34.0",
-    "bootstrap": "5.2.3",
+    "bootstrap": "5.3.0-alpha3",
     "bootstrap-markdown-editor-4": "https://github.com/yarri/bootstrap-markdown-editor.git#1566a6b",
     "browser-sync": "^2.27.9",
     "del": "^2.0.2",
