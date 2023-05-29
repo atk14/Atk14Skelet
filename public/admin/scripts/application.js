@@ -16,7 +16,6 @@
 				} else {
 					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
 				}
-				console.log( "Bootstrap version:", window.bootstrapVersion );
 
 				ADMIN.utils.handleSortables();
 				ADMIN.utils.handleSuggestions();
@@ -38,10 +37,8 @@
 							content: content
 						};
 					if( window.bootstrapVersion === 5 ){
-						// Bootstrap 5
 						new bootstrap.Popover( $field.get(0), popoverOptions );
 					}else{
-						// Bootstrap 4
 						$field.popover( popoverOptions );
 					}
 				} );
@@ -335,11 +332,10 @@
 			// Copy iobject to clipboard
 			handleCopyIobjectCode: function() {
 				if( window.bootstrapVersion === 5 ){
-					// Bootstrap 5
-					const popoverTriggerList = document.querySelectorAll( ".iobject-copy-code" );
-					const popoverList = [ ...popoverTriggerList ].map( popoverTriggerEl => new bootstrap.Popover( popoverTriggerEl ) );
+					$( ".iobject-copy-code" ).each( function() {
+						new bootstrap.Popover( this );
+					} );
 				} else {
-					// Bootstrap 4
 					$( ".iobject-copy-code" ).popover();
 				}
 				$( ".iobject-copy-code" ).on( "click", function( e ) {
