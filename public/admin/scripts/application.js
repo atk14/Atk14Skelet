@@ -10,20 +10,20 @@
 
 			// Application-wide code.
 			init: function() {
+				// Detect Bootstrap version
+				if( typeof bootstrap.Tooltip.VERSION !== "undefined" ){
+					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );
+				} else {
+					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
+				}
+				console.log( "Bootstrap version:", window.bootstrapVersion );
+
 				ADMIN.utils.handleSortables();
 				ADMIN.utils.handleSuggestions();
 				ADMIN.utils.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
-
-				// Detect Bootstrap version
-				if( typeof bootstrap.Tooltip.VERSION !== undefined ){
-					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );
-				} else {
-					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
-				}
-				console.log( "Bootstrap verion:", window.bootstrapVersion );
 
 				// Form hints.
 				$( ".help-hint" ).each( function() {
@@ -39,10 +39,10 @@
 						};
 					if( window.bootstrapVersion === 5 ){
 						// Bootstrap 5
-						alert("bs5 popover");
+						new bootstrap.Popover( $field.get(0), popoverOptions );
 					}else{
 						// Bootstrap 4
-						//$field.popover( popoverOptions );
+						$field.popover( popoverOptions );
 					}
 				} );
 
@@ -336,10 +336,11 @@
 			handleCopyIobjectCode: function() {
 				if( window.bootstrapVersion === 5 ){
 					// Bootstrap 5
-					alert( "BS  popover" );
+					const popoverTriggerList = document.querySelectorAll( ".iobject-copy-code" );
+					const popoverList = [ ...popoverTriggerList ].map( popoverTriggerEl => new bootstrap.Popover( popoverTriggerEl ) );
 				} else {
 					// Bootstrap 4
-					//$( ".iobject-copy-code" ).popover();
+					$( ".iobject-copy-code" ).popover();
 				}
 				$( ".iobject-copy-code" ).on( "click", function( e ) {
 					e.preventDefault();
