@@ -69,7 +69,11 @@
 	{assign render_helpblock !!true}
 	{if $helptext_as=="popover"}
 		{if $field->help_text}
-			{assign widget_options ["attrs" => ["data-toggle" => "popover", "data-container" => "body", "data-placement" => "auto" , "data-fallbackPlacement" => "flip", "data-boundary" => "viewport", "data-content" => trim($field->help_text), "data-trigger" => "focus", "data-html" => "true"]]}
+			{if USING_BOOTSTRAP5}
+				{assign widget_options ["attrs" => ["data-toggle" => "popover", "data-container" => "body", "data-placement" => "auto" , "data-fallbackPlacement" => "flip", "data-boundary" => "viewport", "data-content" => trim($field->help_text), "data-trigger" => "focus", "data-html" => "true"]]}
+			{else}
+				{assign widget_options ["attrs" => ["data-bs-toggle" => "popover", "data-bs-container" => "body", "data-bs-placement" => "auto" , "data-bs-fallbackPlacement" => "flip", "data-bs-boundary" => "viewport", "data-bs-content" => trim($field->help_text), "data-bs-trigger" => "focus", "data-bs-html" => "true"]]}
+			{/if}
 		{/if}
 		{assign render_helpblock !!false}
 	{/if}
@@ -90,7 +94,7 @@
 		<div class="{$form_group_class}">
 			<div class="form-check custom-control custom-checkbox">
 				{!$field->as_widget($widget_options)|customize_checkbox} {* helper customize_checkbox prida do checkboxu css tridu custom-control-input *}
-				<label class="form-check-label custom-control-label" for="{$field->id_for_label()}">
+				<label class="{if USING_BOOTSTRAP5}form-label{else}form-check-label custom-control-label{/if}" for="{$field->id_for_label()}">
 					{$field->label}
 				</label>
 			</div>
@@ -101,7 +105,7 @@
 	{else}
 		<div class="{$form_group_class}">
 			{if !$no_label_rendering}
-			<label for="{$field->id_for_label()}" class="control-label">{$field->label}{!$tip_optional}</label>
+			<label for="{$field->id_for_label()}" class="{if USING_BOOTSTRAP5}form-label{else}control-label{/if}">{$field->label}{!$tip_optional}</label>
 			{/if}
 			{if $addon}
 				<div class="input-group">
@@ -120,7 +124,7 @@
 			{!$valid_feedback}
 
 			{if $field->hints}
-				<div class="help-hint d-none" data-title="{t}Examples:{/t}">
+				<div class="help-hint d-none" data-title="{t}Examples:{/t}" data-bs-title="{t}Examples:{/t}">
 					<ul class="list pl-3">
 						{foreach $field->hints as $hint}
 							<li>{!$hint}</li>

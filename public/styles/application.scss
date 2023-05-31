@@ -34,7 +34,7 @@
 
 @import "header";
 
-@import "forms";
+@import "forms";  //bs5 incompatible
 
 @import "tables";
 
@@ -54,3 +54,4 @@
 @import "shared/js_utils";
 @import "shared/fileicons";
 @import "shared/mark";
+@import "temp";

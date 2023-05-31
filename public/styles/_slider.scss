@@ -18,7 +18,7 @@
 			background-size: cover;
 			background-repeat: no-repeat;
 			background-position: center center;
-			@include media-breakpoint-down(xs){
+			@include media-breakpoint-down(sm){
 				height: 300px;
 			}
 		}
@@ -28,14 +28,14 @@
 			padding: $grid-gutter-width/2 $grid-gutter-width;
 		}
 
-		@include media-breakpoint-down(sm){
+		@include media-breakpoint-down(md){
 			flex-direction: column;
 			&__text {
 				flex-basis: 30vw;
 			}
 		}
 
-		@include media-breakpoint-down(xs){
+		@include media-breakpoint-down(sm){
 			height: unset;
 			&__text {
 				flex-basis: 45vw;
@@ -126,7 +126,7 @@
 	&:active, &:focus {
 		outline: none;
 	}
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(md){
 		display: none;
 	}
 }
@@ -184,7 +184,7 @@
 		}
 	}
 	
-	@include media-breakpoint-down(sm) {
+	@include media-breakpoint-down(md) {
 		width: 100% !important;
 		position: static;
 		padding-top: $grid-gutter-width/4;
@@ -235,17 +235,17 @@
 			margin: $grid-gutter-width/4 0;
 			margin: 0;
 		}
-		@include media-breakpoint-down(sm) {
+		@include media-breakpoint-down(md) {
 			//margin-top: 0 - $grid-gutter-width/2;
 			.swiper-pagination {
 				width: 100% !important;
-				@include media-breakpoint-down(sm) {
+				@include media-breakpoint-down(md) {
 					position: absolute;
 					bottom: 5px;
 				}
 			}
 		}
-		@include media-breakpoint-down(xs) {	
+		@include media-breakpoint-down(sm) {	
 			//margin-left: 0 - $grid-gutter-width/2;
 			//margin-right: 0 - $grid-gutter-width/2;
 			.swiper-pagination {
@@ -290,7 +290,7 @@
 	.swiper-pagination {
 		width: 100% !important;
 	}
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){
 		padding: 0;
 		.swiper-slide {
 			padding: $grid-gutter-width/2;

@@ -10,6 +10,13 @@
 
 			// Application-wide code.
 			init: function() {
+				// Detect Bootstrap version
+				if( typeof bootstrap.Tooltip.VERSION !== "undefined" ){
+					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );
+				} else {
+					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
+				}
+
 				ADMIN.utils.handleSortables();
 				ADMIN.utils.handleSuggestions();
 				ADMIN.utils.handleTagsSuggestions();
@@ -29,8 +36,11 @@
 							title: title,
 							content: content
 						};
-
-					$field.popover( popoverOptions );
+					if( window.bootstrapVersion === 5 ){
+						new bootstrap.Popover( $field.get(0), popoverOptions );
+					}else{
+						$field.popover( popoverOptions );
+					}
 				} );
 
 				UTILS.leaving_unsaved_page_checker.init();
@@ -321,7 +331,13 @@
 
 			// Copy iobject to clipboard
 			handleCopyIobjectCode: function() {
-				$( ".iobject-copy-code" ).popover();
+				if( window.bootstrapVersion === 5 ){
+					$( ".iobject-copy-code" ).each( function() {
+						new bootstrap.Popover( this );
+					} );
+				} else {
+					$( ".iobject-copy-code" ).popover();
+				}
 				$( ".iobject-copy-code" ).on( "click", function( e ) {
 					e.preventDefault();
 					var code = $( this ).closest( ".iobject-code-wrap" ).find( ".iobject-code" ).text();

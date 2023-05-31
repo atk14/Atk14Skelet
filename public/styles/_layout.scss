@@ -21,7 +21,7 @@
 				grid-area: mainbody;
 			}
 		}
-		@include media-breakpoint-down(sm){
+		@include media-breakpoint-down(md){
 			.nav-section {
 				border-bottom: 1px solid $gray-300;
 				padding-bottom: $grid-gutter-width/2;

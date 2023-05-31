@@ -5,10 +5,16 @@
 	UTILS = window.UTILS, // Uncomment this if you need something from UTILS
 
 	APPLICATION = {
-		common: {
-
+		common: {			
 			// Application-wide code.
 			init: function() {
+
+				// Detect Bootstrap version
+				if( typeof bootstrap.Tooltip.VERSION !== "undefined" ){
+					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );
+				} else {
+					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
+				}
 
 				// Restores email addresses misted by the no_spam helper
 				$( ".atk14_no_spam" ).unobfuscate( {
@@ -32,7 +38,11 @@
 							content: content
 						};
 
-					$field.popover( popoverOptions );
+						if( window.bootstrapVersion === 5 ){
+							new bootstrap.Popover( $field.get(0), popoverOptions );
+						}else{
+							$field.popover( popoverOptions );
+						}
 				} );
 
 				// Init Swiper

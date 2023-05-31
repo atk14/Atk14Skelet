@@ -40,7 +40,7 @@ gulp.task( "styles-admin", function() {
 			]
 		} ) )
 		.pipe( $.autoprefixer( { grid: true } ) )
-		.pipe( $.cssnano() )
+		//.pipe( $.cssnano() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )

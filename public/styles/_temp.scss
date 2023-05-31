@@ -1,0 +1,32 @@
+form {
+  outline: 1px dotted black;
+  .form-group {
+    outline: 1px dotted aqua;
+  }
+  .form-label {
+    outline: 1px dotted red;
+  }
+  label {
+    background-color: rgba(yellow, 0.1);
+  }
+
+  .form-horizontal {
+    .form-group {
+      background-color: rgba(aqua,0.1);
+    }
+  }
+}
+/*
+// to demonstrate bs5 breakpoints mixins system
+@include media-breakpoint-up(lg){
+  body {
+    background-color: red;
+  }
+}
+
+@include media-breakpoint-down(lg){
+  body {
+    border: 1cm dotted violet;
+  }
+}
+*/

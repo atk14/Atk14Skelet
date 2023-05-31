@@ -3,7 +3,9 @@
 		"browser": true,
     "node": true
   },
-  "globals": {},
+  "globals": {
+    "bootstrap": true
+  },
   "rules": {
     "no-cond-assign": [
       2,
