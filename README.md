@@ -66,20 +66,20 @@ Front-end Assets Installation
 #### Install dependencies.
 With [Node.js](http://nodejs.org) and npm installed, run the following one liner from the root of your Skelet application:
 ```bash
-$ npm install -g gulp && npm install
+$ npm install
 ```
 
-This will install all the tools you will need to serve and build your front-end assets.
+This will install all the tools and dependencies you will need to serve and build your front-end assets.
 
 ### Run initial build
 Run initial Gulp build process for presentation and admininstration.
 ```bash
-$ gulp && gulp admin
+$ npm run build
 ```
 
 ### Serve / watch
 ```bash
-$ gulp serve
+$ npm run serve
 ```
 
 This outputs an IP address you can use to locally test and another that can be used on devices connected to your network.
