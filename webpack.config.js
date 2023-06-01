@@ -12,7 +12,7 @@ var vendorScripts = [
 
 var applicationScripts = [
 	"./public/scripts/utils/utils.js",
-	"./public/scripts/utils/swiper.js",
+	//"./public/scripts/utils/swiper.js",
 	"./public/scripts/application.js",
   
 ];
@@ -20,7 +20,7 @@ var applicationScripts = [
 module.exports = {
   entry: {
     application: applicationScripts,
-    //application_es6: "./public/scripts/modules/application_es6.js",
+    application_es6: "./public/scripts/modules/application_es6.js",
     //vendor: vendorScripts,
     //test: "./public/test/test.js",
     //vendor: "./public/test/vendor.js"

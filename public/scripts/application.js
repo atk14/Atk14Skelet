@@ -1,8 +1,9 @@
 /* Imports */
-import * as bootstrap from 'bootstrap';
+//import * as bootstrap from 'bootstrap';
+bootstrap = require ('bootstrap');
 window.$ = window.jQuery = require('jquery');
 require('unobfuscatejs');
-import 'swiper';
+//import 'swiper';
 //Swiper.use([Navigation, Pagination, Scrollbar]);
 
 
@@ -54,7 +55,7 @@ import 'swiper';
 				} );
 
 				// Init Swiper
-				UTILS.initSwiper();
+				//UTILS.initSwiper();
 
 			}
 		},

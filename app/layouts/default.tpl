@@ -95,7 +95,7 @@
 		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"*}
 		{javascript_script_tag file="$public/dist2/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist2/scripts/application.min.js"}
-
+		{javascript_script_tag file="$public/dist2/scripts/application_es6.min.js" type="module"}
 		{javascript_tag}
 			{placeholder for="js"}
 		{/javascript_tag}
