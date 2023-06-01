@@ -1,3 +1,4 @@
+import 'swiper';
 window.UTILS = window.UTILS || { };
 
 window.UTILS.initSwiper = function() {

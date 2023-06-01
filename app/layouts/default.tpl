@@ -90,9 +90,11 @@
 		<div class="alert alert-info">USING_BOOTSTRAP4: {USING_BOOTSTRAP4}, USING_BOOTSTRAP5 {USING_BOOTSTRAP5}</div>
 		{render partial="shared/layout/devcssinfo"}
 
-		{javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
-		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
-		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"}
+		{*javascript_script_tag file="$public/dist2/scripts/vendor.min.js"}
+		{javascript_script_tag file="$public/dist2/scripts/application.min.js"}
+		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"*}
+		{javascript_script_tag file="$public/dist2/scripts/vendor.min.js"}
+		{javascript_script_tag file="$public/dist2/scripts/application.min.js"}
 
 		{javascript_tag}
 			{placeholder for="js"}

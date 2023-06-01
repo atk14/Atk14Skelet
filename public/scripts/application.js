@@ -1,3 +1,11 @@
+/* Imports */
+import * as bootstrap from 'bootstrap';
+window.$ = window.jQuery = require('jquery');
+require('unobfuscatejs');
+import 'swiper';
+//Swiper.use([Navigation, Pagination, Scrollbar]);
+
+
 /* global window */
 ( function( window, $, undefined ) {
 	"use strict";
