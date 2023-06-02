@@ -29,6 +29,7 @@
   },
   "scripts": {
     "build": "webpack --mode development",
+    "dist": "webpack --mode production",
     "serve": "webpack --watch"
   },
   "devDependencies": {
@@ -46,7 +47,8 @@
     "browser-sync": "^2.27.9",
     "browser-sync-webpack-plugin": "^2.3.0",
     "del": "^2.0.2",
-    "favicons": "^6.0.0",
+    "favicons": "^7.1.3",
+    "favicons-webpack-plugin": "^6.0.0",
     "html5shiv": "^3.7.0",
     "jquery": "~3.6.1",
     "jquery-ui-bundle": "^1.11.2",

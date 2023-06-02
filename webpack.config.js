@@ -1,6 +1,7 @@
 const path = require("path");
 const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const webpack = require('webpack');
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 
 var vendorScripts = [
 	"./node_modules/jquery/dist/jquery.js",
@@ -46,11 +47,11 @@ module.exports = {
         reload: false
       }
     ),
-    /*new webpack.ProvidePlugin({
-      $: 'jquery',
-      jQuery: 'jquery',
-      bootstrap: 'bootstrap',
-    })*/
+    new FaviconsWebpackPlugin( {
+      logo: "./public/favicons/favicon.png",
+      prefix: "favicons/",
+      inject: false
+    } )
   ],
   module: { 
     "rules": [ 
