@@ -71,8 +71,14 @@ $ npm install
 
 This will install all the tools and dependencies you will need to serve and build your front-end assets.
 
-### Run initial build
-Run initial Gulp build process for presentation and admininstration.
+### Run initial development mode build
+Run initial Webpack build process for presentation and admininstration.
+```bash
+$ npm run build
+```
+
+### Run production mode build
+Run initial Webpack build process for presentation and admininstration.
 ```bash
 $ npm run build
 ```
