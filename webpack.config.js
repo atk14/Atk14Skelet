@@ -37,9 +37,6 @@ module.exports = {
         // browse to http://localhost:3000/ during development
         host: 'localhost',
         port: 3000,
-        // proxy the Webpack Dev Server endpoint
-        // (which should be serving on http://localhost:3100/)
-        // through BrowserSync
         proxy: 'http://localhost:8000/'
       },
       // plugin options
@@ -78,7 +75,7 @@ module.exports = {
     splitChunks: {
       chunks: 'all',
       cacheGroups: {
-        reactVendor: {
+        vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
           chunks: 'all',

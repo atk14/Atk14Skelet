@@ -3,8 +3,6 @@
 bootstrap = require ('bootstrap');
 window.$ = window.jQuery = require('jquery');
 require('unobfuscatejs');
-//import 'swiper';
-//Swiper.use([Navigation, Pagination, Scrollbar]);
 
 
 /* global window */
@@ -53,10 +51,6 @@ require('unobfuscatejs');
 							$field.popover( popoverOptions );
 						}
 				} );
-
-				// Init Swiper
-				//UTILS.initSwiper();
-
 			}
 		},
 
