@@ -1,4 +1,4 @@
-$card-deck-margin: $grid-gutter-width/4;
+$card-deck-margin: divide($grid-gutter-width, 4);
 
 .card {
 	background-size: cover;

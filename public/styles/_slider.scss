@@ -25,7 +25,7 @@
 		&__text {
 			flex-basis: 50%;
 			//color: white;
-			padding: $grid-gutter-width/2 $grid-gutter-width;
+			padding: divide($grid-gutter-width, 2) $grid-gutter-width;
 		}
 
 		@include media-breakpoint-down(md){
@@ -43,7 +43,7 @@
 		}
 		@media (max-width: 380px) {
 			&__text {
-				padding: $grid-gutter-width/4 $grid-gutter-width/4;
+				padding: divide($grid-gutter-width, 4) divide($grid-gutter-width, 4);
 				font-size: $font-size-sm;
 				line-height: 1.2;
 			}
@@ -113,7 +113,7 @@
 		width: $sliderButtonSize;
 		height: $sliderButtonSize;
 		font-size: $sliderButtonSize*0.6;
-		border-radius: $sliderButtonSize/2;
+		border-radius: divide($sliderButtonSize,2);
 		display: flex;
 		justify-content: center;
 		align-items: center;
@@ -169,7 +169,7 @@
 			width: $bulletSize;
 			height: $bulletSize;
 			background-color: rgba($gray-200,0.5);
-			border-radius: $bulletSize/2;
+			border-radius: divide($bulletSize,2);
 			border: 1px solid $primary;
 		}
 		&-active {
@@ -187,7 +187,7 @@
 	@include media-breakpoint-down(md) {
 		width: 100% !important;
 		position: static;
-		padding-top: $grid-gutter-width/4;
+		padding-top: divide($grid-gutter-width, 4);
 	}
 }
 
@@ -211,7 +211,7 @@
 					margin: auto;
 				}
 				figcaption {
-					padding: $grid-gutter-width/4 $grid-gutter-width/2;
+					padding: divide($grid-gutter-width, 4) divide($grid-gutter-width, 2);
 					font-size: $font-size-sm;
 					text-align: center;
 					line-height: 1.25;
@@ -232,11 +232,10 @@
 		.swiper-pagination {
 			width: 100% !important;
 			position: static !important;
-			margin: $grid-gutter-width/4 0;
+			margin: divide($grid-gutter-width, 4) 0;
 			margin: 0;
 		}
 		@include media-breakpoint-down(md) {
-			//margin-top: 0 - $grid-gutter-width/2;
 			.swiper-pagination {
 				width: 100% !important;
 				@include media-breakpoint-down(md) {
@@ -246,8 +245,8 @@
 			}
 		}
 		@include media-breakpoint-down(sm) {	
-			//margin-left: 0 - $grid-gutter-width/2;
-			//margin-right: 0 - $grid-gutter-width/2;
+			//margin-left: 0 - divide($grid-gutter-width, 2);
+			//margin-right: 0 - divide($grid-gutter-width, 2);
 			.swiper-pagination {
 				//display: none;
 			}
@@ -271,7 +270,7 @@
 			}
 		}
 		.swiper-pagination {
-			margin-top: $grid-gutter-width/2;
+			margin-top: divide($grid-gutter-width, 2);
 		}
 	}
 //}
@@ -293,7 +292,7 @@
 	@include media-breakpoint-down(sm){
 		padding: 0;
 		.swiper-slide {
-			padding: $grid-gutter-width/2;
+			padding: divide($grid-gutter-width, 2);
 		}
 	}
 	@include media-breakpoint-up(xl){
