@@ -57,12 +57,18 @@ module.exports = {
     new FaviconsWebpackPlugin( {
       logo: "./public/favicons/favicon.png",
       //prefix: "favicons/",
-      outputPath: '../favicons',
+      outputPath: 'favicons',
       inject: false,
       favicons: {
         icons : {
-          yandex: false,
-          appleStartup: false
+          android: { overlayShadow: false, overlayGlow: false },
+          appleIcon: { overlayShadow: false, overlayGlow: false },
+          appleStartup: false,
+          coast: false,
+          favicons: { overlayShadow: false, overlayGlow: false },
+          firefox: false,
+          windows: { overlayShadow: false, overlayGlow: false },
+          yandex: false
         }
       }
     } ),
