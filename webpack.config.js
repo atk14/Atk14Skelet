@@ -76,6 +76,7 @@ module.exports = {
     require ('autoprefixer'),
     new MiniCssExtractPlugin(),
     new CopyWebpackPlugin({
+      // TODO copy fontawesome fonts
       patterns: [
         { from: 'public/images', to: 'images' },
         { from: 'public/fonts', to: 'fonts', noErrorOnMissing: true },
@@ -116,7 +117,12 @@ module.exports = {
         test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
-          "css-loader",
+          {
+            loader: "css-loader",
+            options: {
+              url: false
+            }
+          },
           {
             loader: "postcss-loader",
           },
