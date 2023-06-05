@@ -51,9 +51,10 @@
 			document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/, "js" );
 		{/javascript_tag}
 
-		{stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true}
+		{*stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true*}
 		{*stylesheet_link_tag file="$public/dist/styles/application.min.css"*}
-		{stylesheet_link_tag file="$public/dist2/scripts/styles.css"}
+		{stylesheet_link_tag file="$public/dist2/vendor.css"}
+		{stylesheet_link_tag file="$public/dist2/application.css"}
 
 		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -94,9 +95,9 @@
 		{*javascript_script_tag file="$public/dist2/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/dist2/scripts/application.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"*}
-		{javascript_script_tag file="$public/dist2/scripts/vendor.min.js"}
-		{javascript_script_tag file="$public/dist2/scripts/application.min.js"}
-		{javascript_script_tag file="$public/dist2/scripts/application_es6.min.js" type="module"}
+		{javascript_script_tag file="$public/dist2/vendor.min.js"}
+		{javascript_script_tag file="$public/dist2/application.min.js"}
+		{javascript_script_tag file="$public/dist2/application_es6.min.js" type="module"}
 		{javascript_tag}
 			{placeholder for="js"}
 		{/javascript_tag}

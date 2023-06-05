@@ -14,31 +14,33 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 	"./node_modules/swiper/swiper-bundle.js"
 ];*/
 
-var applicationScripts = [
+var application_assets = [
 	"./public/scripts/utils/utils.js",
 	"./public/scripts/application.js",
-  
+  "./public/styles/application.scss"
+];
+
+var vendorStyles = [
+  "./node_modules/@fortawesome/fontawesome-free/css/all.css",
+	"./node_modules/swiper/swiper-bundle.css",
+	"./node_modules/photoswipe/dist/photoswipe.css"
 ];
 
 module.exports = {
   entry: {
-    application: applicationScripts,
+    application: application_assets,
     application_es6: "./public/scripts/modules/application_es6.js",
-    styles: "./public/styles/application.scss",
-    //vendor: vendorScripts,
-    //test: "./public/test/test.js",
-    //vendor: "./public/test/vendor.js"
+    vendor_styles: vendorStyles,
   },
   output: {
     clean: true,
-    path: path.resolve( __dirname, "public", "dist2", "scripts" ),
+    path: path.resolve( __dirname, "public", "dist2" ),
     filename: "[name].min.js"
   },
   plugins: [
     new BrowserSyncPlugin(
       // BrowserSync options
       {
-        // browse to http://localhost:3000/ during development
         host: 'localhost',
         port: 3000,
         proxy: 'http://localhost:8000/'
@@ -89,14 +91,6 @@ module.exports = {
           "css-loader",
           {
             loader: "postcss-loader",
-            /*options: {
-              plugins: function () { // post css plugins, can be exported to postcss.config.js
-                return [
-                  require('precss'),
-                  require('autoprefixer')
-                ];
-              }
-            }*/
           },
           "sass-loader",
         ],
