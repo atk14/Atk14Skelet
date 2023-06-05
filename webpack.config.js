@@ -5,7 +5,9 @@ const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
 const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
 
+// TODO some scripts from vendorScripts are missing in application.js imports
 /*var vendorScripts = [
 	"./node_modules/jquery/dist/jquery.js",
 	"./node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
@@ -67,13 +69,33 @@ module.exports = {
     new MiniCssExtractPlugin(),
     require ('autoprefixer'),
     new MiniCssExtractPlugin(),
+    new CopyWebpackPlugin({
+      patterns: [
+        { from: 'public/images', to: 'images' },
+        { from: 'public/fonts', to: 'fonts', noErrorOnMissing: true },
+        {from: './node_modules/svg-country-flags/svg/*', to({ context, absoluteFilename }) {
+          // rename some flags according to locale codes
+          var renameTr = {
+            "cz": "cs",
+            "gb": "en",
+            "rs": "sr", // sr: Srpski
+            "si": "sl", // sl: Slovenščina
+            "ee": "et", // et: eesti
+            "kz": "kk" // kk: Қазақ
+          };
+          var filename = path.basename( absoluteFilename, ".svg" );
+          Object.keys( renameTr ).forEach( function( key ) {
+              if (filename === key) {
+                filename = renameTr[ key ];
+              }
+          } );
+          return "images/languages/" + filename + "[ext]";
+        }}
+      ]
+    }),
   ],
   module: { 
     "rules": [ 
-      /*{ 
-        "test": /\.css$/, 
-        "use": [ "style-loader", "css-loader" ] 
-      }, */
       { 
         test: /\.js$/, 
         exclude: /node_modules/, 
@@ -95,39 +117,6 @@ module.exports = {
           "sass-loader",
         ],
       },
-      /*{
-        test: /\.(scss)$/,
-        //test: /\.s[ac]ss$/i,
-        use: [{
-          loader: 'style-loader', // inject CSS to page
-        }, {
-          loader: 'css-loader', // translates CSS into CommonJS modules
-        }, {
-          loader: 'postcss-loader', // Run post css actions
-          options: {
-            plugins: function () { // post css plugins, can be exported to postcss.config.js
-              return [
-                require('precss'),
-                require('autoprefixer')
-              ];
-            }
-          }
-        }, {
-          loader: 'sass-loader' // compiles Sass to CSS
-        }]
-      },*/
-      /*{
-        test: /\.scss$/,
-        exclude: /node_modules/,
-        use: [
-            {
-                loader: 'file-loader',
-                options: { outputPath: 'css/', name: '[name].min.css'}
-            },
-            'sass-loader'
-        ]
-      }*/
-
     ] 
   },
   devtool: false,
