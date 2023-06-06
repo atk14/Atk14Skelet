@@ -168,10 +168,12 @@ var config = {
 
 module.exports = (env, args) => {
   if( env.clean_dist ) {
+    // clean dist folder if clean_dist
     config.output.clean = true;
   }
   console.log("mode----", args.mode);
   if( args.mode !== "production" ) {
+    // minimize outputs only in production mode
     config.optimization.minimize = false;
   }
   return config;

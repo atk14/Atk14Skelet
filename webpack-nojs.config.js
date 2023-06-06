@@ -105,12 +105,5 @@ var config = {
 };
 
 module.exports = (env, args) => {
-  if( env.clean_dist ) {
-    config.output.clean = true;
-  }
-  console.log("mode----", args.mode);
-  if( args.mode !== "production" ) {
-    config.optimization.minimize = false;
-  }
   return config;
 }
