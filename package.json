@@ -28,9 +28,10 @@
     "url": "https://github.com/atk14/Atk14Skelet/issues"
   },
   "scripts": {
-    "build": "webpack --mode development",
-    "dist": "webpack --mode production",
-    "serve": "webpack --watch"
+    "build": "webpack --mode development --env clean_dist=true --progress",
+    "dist": "webpack --mode production --env clean_dist=true --progress",
+    "serve": "webpack --watch",
+    "servenojs": "webpack --watch --config webpack-nojs.config.js"
   },
   "devDependencies": {
     "@babel/core": "^7.22.1",
@@ -67,6 +68,7 @@
     "sass-loader": "^13.3.1",
     "svg-country-flags": "^1.2.6",
     "swiper": "^8.3.2",
+    "terser-webpack-plugin": "^5.3.9",
     "unobfuscatejs": "^1.0.2",
     "webpack": "^5.85.0",
     "webpack-cli": "^5.1.1"

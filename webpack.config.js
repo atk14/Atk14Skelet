@@ -6,6 +6,7 @@ const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
 // TODO some scripts from vendorScripts are missing in application.js imports
 /*var vendorScripts = [
@@ -19,8 +20,10 @@ const CopyWebpackPlugin = require('copy-webpack-plugin');
 var application_assets = [
 	"./public/scripts/utils/utils.js",
 	"./public/scripts/application.js",
-  "./public/styles/application.scss"
+  //"./public/styles/application.scss"
 ];
+
+var application_styles = "./public/styles/application.scss";
 
 var vendorStyles = [
   "./node_modules/@fortawesome/fontawesome-free/css/all.css",
@@ -28,15 +31,16 @@ var vendorStyles = [
 	"./node_modules/photoswipe/dist/photoswipe.css"
 ];
 
-module.exports = {
+var config = {
   entry: {
     application: application_assets,
     application_es6: "./public/scripts/modules/application_es6.js",
+    application_styles: application_styles,
     vendor_styles: vendorStyles,
   },
   output: {
-    clean: true,
-    path: path.resolve( __dirname, "public", "dist2" ),
+    //clean: true,
+    path: path.resolve( __dirname, "public", "dist" ),
     filename: "[name].min.js"
   },
   plugins: [
@@ -46,7 +50,7 @@ module.exports = {
         host: 'localhost',
         port: 3000,
         proxy: 'http://localhost:8000/',
-        files: [ "app/**/*.tpl", "public/images/**/*", "public/dist2/**/*" ],
+        files: [ "app/**/*.tpl", "public/images/**/*", "public/dist/**/*" ],
         //files: [ "app/**/*.tpl", "public/images/**/*" ],
         injectChanges: true,
         injectFileTypes: ["css"],
@@ -141,7 +145,7 @@ module.exports = {
       },
     ] 
   },
-  devtool: false,
+  //devtool: false,
   optimization: {
     splitChunks: {
       chunks: 'all',
@@ -154,10 +158,21 @@ module.exports = {
       },
     },
     minimizer: [
-      // For webpack@5 you can use the `...` syntax to extend existing minimizers (i.e. `terser-webpack-plugin`), uncomment the next line
-      // `...`,
+      new TerserPlugin(),
       new CssMinimizerPlugin(),
     ],
     minimize: true
-  }
+  },
+  cache: true
 };
+
+module.exports = (env, args) => {
+  if( env.clean_dist ) {
+    config.output.clean = true;
+  }
+  console.log("mode----", args.mode);
+  if( args.mode !== "production" ) {
+    config.optimization.minimize = false;
+  }
+  return config;
+}

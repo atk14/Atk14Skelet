@@ -53,14 +53,9 @@
 
 		{*stylesheet_link_tag file="$public/dist/styles/vendor.min.css" hide_when_file_not_found=true*}
 		{*stylesheet_link_tag file="$public/dist/styles/application.min.css"*}
-		{stylesheet_link_tag file="$public/dist2/styles/vendor.css"}
-		{stylesheet_link_tag file="$public/dist2/styles/application.css"}
+		{stylesheet_link_tag file="$public/dist/styles/vendor.css"}
+		{stylesheet_link_tag file="$public/dist/styles/application_styles.css"}
 
-		<!-- HTML5 shiv and Respond.js IE8 support of HTML5 elements and media queries -->
-		<!--[if lt IE 9]>
-			{javascript_script_tag file="$public/dist/scripts/html5shiv.min.js"}
-			{javascript_script_tag file="$public/dist/scripts/respond.min.js"}
-		<![endif]-->
 		
 		{render partial="shared/layout/favicons"}
 
@@ -92,12 +87,12 @@
 		<div class="alert alert-info">USING_BOOTSTRAP4: {USING_BOOTSTRAP4}, USING_BOOTSTRAP5 {USING_BOOTSTRAP5}</div>
 		{render partial="shared/layout/devcssinfo"}
 
-		{*javascript_script_tag file="$public/dist2/scripts/vendor.min.js"}
-		{javascript_script_tag file="$public/dist2/scripts/application.min.js"}
+		{*javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
+		{javascript_script_tag file="$public/dist/scripts/application.min.js"}
 		{javascript_script_tag file="$public/dist/scripts/modules/application_es6.min.js" type="module"*}
-		{javascript_script_tag file="$public/dist2/vendor.min.js"}
-		{javascript_script_tag file="$public/dist2/application.min.js"}
-		{javascript_script_tag file="$public/dist2/application_es6.min.js" type="module"}
+		{javascript_script_tag file="$public/dist/vendor.min.js"}
+		{javascript_script_tag file="$public/dist/application.min.js"}
+		{javascript_script_tag file="$public/dist/application_es6.min.js" type="module"}
 		{javascript_tag}
 			{placeholder for="js"}
 		{/javascript_tag}

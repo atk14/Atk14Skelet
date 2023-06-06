@@ -87,6 +87,10 @@ $ npm run build
 ```bash
 $ npm run serve
 ```
+### Faster serve / watch without processing JS files
+```bash
+$ npm run servenojs
+```
 
 This outputs an IP address you can use to locally test and another that can be used on devices connected to your network.
 
