@@ -5,7 +5,7 @@ let PhotoSwipeInitializer = function() {
   const lightbox = new PhotoSwipeLightbox({
     gallery: ".gallery__images, .iobject--picture",
     children: "figure a[data-pswp-width]",
-    pswpModule: () => import("/public/dist/scripts/modules/photoswipe.esm.min.js")
+    pswpModule: () => import("photoswipe")
   });
 
   // Get image titles and captions
