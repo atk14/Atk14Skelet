@@ -47,14 +47,15 @@ module.exports = {
         port: 3000,
         proxy: 'http://localhost:8000/',
         files: [ "app/**/*.tpl", "public/images/**/*", "public/dist2/**/*" ],
+        //files: [ "app/**/*.tpl", "public/images/**/*" ],
         injectChanges: true,
-        //injectFileTypes: [],
+        injectFileTypes: ["css"],
       },
       // plugin options
       {
         // prevent BrowserSync from reloading the page
         // and let Webpack Dev Server take care of this
-        //reload: false
+        reload: false,
         injectCss: true,
       }
     ),
@@ -78,12 +79,14 @@ module.exports = {
     } ),
     new MiniCssExtractPlugin(),
     require ('autoprefixer'),
-    new MiniCssExtractPlugin(),
+    new MiniCssExtractPlugin( {
+      filename: "styles/[name].css"
+    } ),
     new CopyWebpackPlugin({
       // TODO copy fontawesome fonts
       patterns: [
         { from: 'public/images', to: 'images' },
-        { from: 'public/fonts', to: 'fonts', noErrorOnMissing: true },
+        { from: 'public/fonts', to: 'webfonts', noErrorOnMissing: true },
         {from: './node_modules/svg-country-flags/svg/*', to({ context, absoluteFilename }) {
           // rename some flags according to locale codes
           var renameTr = {
@@ -101,7 +104,10 @@ module.exports = {
               }
           } );
           return "images/languages/" + filename + "[ext]";
-        }}
+        }},
+        {from: "./node_modules/@fortawesome/fontawesome-free/webfonts/*", to({ context, absoluteFilename }) {
+          return "webfonts/[name][ext]";
+        }},
       ]
     }),
   ],
