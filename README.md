@@ -72,22 +72,22 @@ $ npm install
 This will install all the tools and dependencies you will need to serve and build your front-end assets.
 
 ### Run initial development mode build
-Run initial Webpack build process for presentation and admininstration.
+Run initial development Webpack build process for presentation and admininstration.
 ```bash
 $ npm run build
 ```
 
 ### Run production mode build
-Run initial Webpack build process for presentation and admininstration.
+Run production Webpack build process for presentation and admininstration.
 ```bash
-$ npm run build
+$ npm run dist
 ```
 
 ### Serve / watch
 ```bash
 $ npm run serve
 ```
-### Faster serve / watch without processing JS files
+### Faster serve / watch processes only CSS files. Run npm run build beforehand.
 ```bash
 $ npm run servenojs
 ```
