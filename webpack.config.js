@@ -45,13 +45,17 @@ module.exports = {
       {
         host: 'localhost',
         port: 3000,
-        proxy: 'http://localhost:8000/'
+        proxy: 'http://localhost:8000/',
+        files: [ "app/**/*.tpl", "public/images/**/*", "public/dist2/**/*" ],
+        injectChanges: true,
+        //injectFileTypes: [],
       },
       // plugin options
       {
         // prevent BrowserSync from reloading the page
         // and let Webpack Dev Server take care of this
-        reload: false
+        //reload: false
+        injectCss: true,
       }
     ),
     new FaviconsWebpackPlugin( {

@@ -12,7 +12,11 @@
 		{render partial="shared/layout/content_header" title=$page_title}
 
 	{/if}
-
+	<div class="row text-center mb-5">
+		<div class="col-12 col-md-5 p-4 bg-warning h2 text-light rounded-4">Bootstrap 5</div>
+		<div class="col-12 col-md-2 p-4 h2 text-info rounded-4">+</div>
+		<div class="col-12 col-md-5 p-4 bg-success h2 text-light rounded-4">Webpack</div>
+	</div>
 	<section class="border-top-0">
 		<h3>{t}The Skelet contains mainly{/t}</h3>
 		<ul>
