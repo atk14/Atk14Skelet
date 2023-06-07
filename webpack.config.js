@@ -8,19 +8,9 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 const CopyWebpackPlugin = require('copy-webpack-plugin');
 const TerserPlugin = require("terser-webpack-plugin");
 
-// TODO some scripts from vendorScripts are missing in application.js imports
-/*var vendorScripts = [
-	"./node_modules/jquery/dist/jquery.js",
-	"./node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
-	"./node_modules/atk14js/src/atk14.js",
-	"./node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
-	"./node_modules/swiper/swiper-bundle.js"
-];*/
-
-var application_assets = [
+var application_scripts = [
 	"./public/scripts/utils/utils.js",
 	"./public/scripts/application.js",
-  //"./public/styles/application.scss"
 ];
 
 var application_styles = "./public/styles/application.scss";
@@ -33,7 +23,7 @@ var vendorStyles = [
 
 var config = {
   entry: {
-    application: application_assets,
+    application: application_scripts,
     application_es6: "./public/scripts/modules/application_es6.js",
     application_styles: application_styles,
     vendor_styles: vendorStyles,
@@ -87,7 +77,6 @@ var config = {
       filename: "styles/[name].css"
     } ),
     new CopyWebpackPlugin({
-      // TODO copy fontawesome fonts
       patterns: [
         { from: 'public/images', to: 'images' },
         { from: 'public/fonts', to: 'webfonts', noErrorOnMissing: true },
