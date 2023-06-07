@@ -15,7 +15,7 @@ const ATK14 = require('atk14js');
 		common: {			
 			// Application-wide code.
 			init: function() {
-				console.log("unobfuscate", unobfuscate);
+				
 				// Detect Bootstrap version
 				if( typeof bootstrap.Tooltip.VERSION !== "undefined" ){
 					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );

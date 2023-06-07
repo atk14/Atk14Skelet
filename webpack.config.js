@@ -134,7 +134,7 @@ var config = {
       },
     ] 
   },
-  //devtool: false,
+  devtool: "source-map",
   optimization: {
     splitChunks: {
       chunks: 'all',
