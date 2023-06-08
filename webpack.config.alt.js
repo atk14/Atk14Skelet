@@ -1,41 +1,28 @@
 const path = require("path");
+const BrowserSyncPlugin = require('browser-sync-webpack-plugin');
 const webpack = require('webpack');
-const BrowserSyncPlugin = require('browser-sync-webpack-plugin'); // browsersync
-const FaviconsWebpackPlugin = require('favicons-webpack-plugin'); // favicons generation
-const autoprefixer = require('autoprefixer'); // autoprefixer
-const MiniCssExtractPlugin = require("mini-css-extract-plugin"); // extracts css from js
-const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); // css minimizer
-const CopyWebpackPlugin = require('copy-webpack-plugin'); // copy files
-const TerserPlugin = require("terser-webpack-plugin"); // js minimizer
-const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin'); // do not output some unnecessary files
+const FaviconsWebpackPlugin = require('favicons-webpack-plugin');
+const autoprefixer = require('autoprefixer');
+const MiniCssExtractPlugin = require("mini-css-extract-plugin");
+const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
+const CopyWebpackPlugin = require('copy-webpack-plugin');
+const TerserPlugin = require("terser-webpack-plugin");
 
-// Aplication JS scripts. Vendor scripts referenced inside app JS files.
 var application_scripts = [
 	"./public/scripts/utils/utils.js",
 	"./public/scripts/application.js",
 ];
 
-// Appllication styles incl. Bootstrap
 var application_styles = "./public/styles/application.scss";
 
-// Other vendor styles
 var vendorStyles = [
   "./node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"./node_modules/swiper/swiper-bundle.css",
 	"./node_modules/photoswipe/dist/photoswipe.css"
 ];
 
-// Files to be ignored
-// typically unnecessary almost empty JS files created during styles compilation
-var ignoredFiles = [
-  "vendor_styles.min.js", "vendor_styles.min.js.map", // unused JS from CSS compile
-  "application_styles.min.js", "application_styles.min.js.map", // unused JS from CSS compile
-  /^application_styles\.css/, 
-  /^vendor\.css/, 
-];
-
 var config = {
-  entry: {
+  /*entry: {
     application: application_scripts,
     application_es6: "./public/scripts/modules/application_es6.js",
     application_styles: application_styles,
@@ -44,8 +31,8 @@ var config = {
   output: {
     //clean: true,
     path: path.resolve( __dirname, "public", "dist" ),
-    filename: "scripts/[name].min.js"
-  },
+    filename: "[name].min.js"
+  },*/
   plugins: [
     new BrowserSyncPlugin(
       // BrowserSync options
@@ -60,6 +47,8 @@ var config = {
       },
       // plugin options
       {
+        // prevent BrowserSync from reloading the page
+        // and let Webpack Dev Server take care of this
         reload: false,
         injectCss: true,
       }
@@ -82,13 +71,10 @@ var config = {
         }
       }
     } ),
-    //new FixStyleOnlyEntriesPlugin(),
-    new IgnoreEmitPlugin( ignoredFiles ),
     new MiniCssExtractPlugin(),
     require ('autoprefixer'),
     new MiniCssExtractPlugin( {
-      filename: "styles/[name].css",
-      runtime: false,
+      filename: "styles/[name].css"
     } ),
     new CopyWebpackPlugin({
       patterns: [
@@ -169,16 +155,39 @@ var config = {
   cache: true
 };
 
+var configScripts = Object.assign({}, config, {
+  entry: {
+    application: application_scripts,
+    application_es6: "./public/scripts/modules/application_es6.js",
+  },
+  output: {
+    path: path.resolve( __dirname, "public", "dist", "scripts" ),
+    filename: "[name].min.js"
+  }
+});
+
+var configStyles = Object.assign({}, config, {
+  entry: {
+    application_styles: application_styles,
+    vendor_styles: vendorStyles,
+  },
+  output: {
+    path: path.resolve( __dirname, "public", "dist" ),
+    filename: "[name].min.js"
+  }
+});
+
 module.exports = (env, args) => {
   if( env.clean_dist ) {
     // clean dist folder if clean_dist
-    console.log( "dist directory will be cleaned" );
-    config.output.clean = true;
+    configScripts.output.clean = true;
+    configStyles.output.clean = true;
   }
   console.log("mode----", args.mode);
   if( args.mode !== "production" ) {
     // minimize outputs only in production mode
-    config.optimization.minimize = false;
+    configScripts.optimization.minimize = false;
+    configStyles.optimization.minimize = false;
   }
-  return config;
+  return [ configScripts, configStyles ];
 }
