@@ -30,8 +30,6 @@ var vendorStyles = [
 var ignoredFiles = [
   "vendor_styles.min.js", "vendor_styles.min.js.map", // unused JS from CSS compile
   "application_styles.min.js", "application_styles.min.js.map", // unused JS from CSS compile
-  /^application_styles\.css/, 
-  /^vendor\.css/, 
 ];
 
 var config = {
@@ -66,7 +64,6 @@ var config = {
     ),
     new FaviconsWebpackPlugin( {
       logo: "./public/favicons/favicon.png",
-      //prefix: "favicons/",
       outputPath: 'favicons',
       inject: false,
       favicons: {
@@ -82,9 +79,7 @@ var config = {
         }
       }
     } ),
-    //new FixStyleOnlyEntriesPlugin(),
     new IgnoreEmitPlugin( ignoredFiles ),
-    new MiniCssExtractPlugin(),
     require ('autoprefixer'),
     new MiniCssExtractPlugin( {
       filename: "styles/[name].css",
