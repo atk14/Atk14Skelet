@@ -23,6 +23,8 @@ function smarty_function_admin_menu($params,$template){
 		"align" => "right", // "right", "left",
 		"only_edit" => false,
 		"edit_title" => "", // e.g. "Edit address"
+		"opacity" => 100, // 100, 80, 50 (percent)
+		"pull_down" => 0, // 1,2,3...
 	);
 
 	$float = USING_BOOTSTRAP4 ? "float" : "pull"; // float-right, pull-right
@@ -30,6 +32,19 @@ function smarty_function_admin_menu($params,$template){
 	$params += array(
 		"class" => $params["align"]=="left" ? "$float-left" : "$float-right", //
 	);
+
+	$opacity = (float)$params["opacity"];
+	$pull_down = (float)$params["pull_down"];
+
+	$style = [];
+	if($opacity!==100.0){
+		$style[] = sprintf("opacity: %.2f",$opacity)."%";
+	}
+	if($pull_down!==0.0){
+		$style[] = sprintf("margin-top: %.2fem",3.0 * $pull_down);
+	}
+	$style = join("; ",$style);
+
 
 	$object = $params["for"];
 	if(!$object){ return; }
@@ -44,6 +59,7 @@ function smarty_function_admin_menu($params,$template){
 	$smarty->assign("class",$params["class"]);
 	$smarty->assign("only_edit",$params["only_edit"]);
 	$smarty->assign("edit_title",$params["edit_title"]);
+	$smarty->assign("style",$style);
 
 	if($smarty->templateExists("shared/helpers/admin_menu/_$object_name.tpl")){ // e.g. "shared/helpers/admin_menu/_book.tpl"
 		$subtemplate = "shared/helpers/admin_menu/$object_name";

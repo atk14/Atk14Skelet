@@ -9,7 +9,7 @@
 </div>*}
 <div class="admin-object-menu">
 	<div class="admin-object-menu__wrapper">
-		<div class="{$class}">
+		<div class="{$class}"{if $style} style="{$style}"{/if}>
 			{dropdown_menu clearfix=false}
 				{render partial=$subtemplate}
 			{/dropdown_menu}
