@@ -14,22 +14,27 @@ const autoprefixer = require('autoprefixer');
 const MiniCssExtractPlugin = require("mini-css-extract-plugin");
 const CssMinimizerPlugin = require("css-minimizer-webpack-plugin");
 var application_styles = "./public/styles/application.scss";
+const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin'); // do not output some unnecessary files
 
-var vendorStyles = [
-  "./node_modules/@fortawesome/fontawesome-free/css/all.css",
-	"./node_modules/swiper/swiper-bundle.css",
-	"./node_modules/photoswipe/dist/photoswipe.css"
+
+// Appllication styles incl. Bootstrap
+var application_styles = "./public/styles/application.scss";
+
+
+// Files to be ignored
+// typically unnecessary almost empty JS files created during styles compilation
+var ignoredFiles = [
+  "application_styles.min.js", "application_styles.min.js.map", // unused JS from CSS compile
 ];
 
 var config = {
   entry: {
     application_styles: application_styles,
-    //vendor_styles: vendorStyles,
   },
   output: {
     //clean: true,
     path: path.resolve( __dirname, "public", "dist" ),
-    filename: "[name].min.js"
+    filename: "scripts/[name].min.js"
   },
   plugins: [
     new BrowserSyncPlugin(
@@ -39,22 +44,20 @@ var config = {
         port: 3000,
         proxy: 'http://localhost:8000/',
         files: [ "app/**/*.tpl", "public/images/**/*", "public/dist/**/*" ],
-        //files: [ "app/**/*.tpl", "public/images/**/*" ],
         injectChanges: true,
         injectFileTypes: ["css"],
       },
       // plugin options
       {
-        // prevent BrowserSync from reloading the page
-        // and let Webpack Dev Server take care of this
         reload: false,
         injectCss: true,
       }
     ),
-    new MiniCssExtractPlugin(),
+    new IgnoreEmitPlugin( ignoredFiles ),
     require ('autoprefixer'),
     new MiniCssExtractPlugin( {
-      filename: "styles/[name].css"
+      filename: "styles/[name].css",
+      runtime: false,
     } ),
   ],
   module: { 
@@ -87,7 +90,7 @@ var config = {
       },
     ] 
   },
-  //devtool: false,
+  devtool: "source-map",
   optimization: {
     splitChunks: {
       chunks: 'all',
