@@ -1,3 +1,16 @@
+/* Imports */
+const bootstrap = require ('bootstrap');
+window.$ = window.jQuery = require('jquery');
+//const jqueryUI = require ( "jquery-ui-bundle/jquery-ui.js" );
+const jqueryUI = require ( "jquery-ui-bundle" );
+//const blueimp = require ( "blueimp-file-upload/js/jquery.fileupload.js" );
+//const fileupload = require ( "blueimp-file-upload" );
+import "blueimp-file-upload/js/vendor/jquery.ui.widget.js";
+import "blueimp-file-upload/js/jquery.iframe-transport.js";
+import "blueimp-file-upload/js/jquery.fileupload.js";
+import "blueimp-file-upload/js/jquery.fileupload-image.js";
+const ace = require('ace-builds');
+
 /* global window */
 ( function( window, $, undefined ) {
 	var document = window.document,

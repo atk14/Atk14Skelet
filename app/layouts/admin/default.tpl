@@ -48,8 +48,10 @@
 			document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/, "js" );
 		{/javascript_tag}
 
-		{stylesheet_link_tag file="$public/admin/dist/styles/vendor.min.css"}
-		{stylesheet_link_tag file="$public/admin/dist/styles/application.min.css"}
+		{*stylesheet_link_tag file="$public/admin/dist/styles/vendor.min.css"}
+		{stylesheet_link_tag file="$public/admin/dist/styles/application.min.css"*}
+		{stylesheet_link_tag file="$public/dist2/styles/vendor.css"}
+		{stylesheet_link_tag file="$public/dist2/styles/application_styles.css"}
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -84,7 +86,9 @@
 		</div>
 		<div class="alert alert-info">USING_BOOTSTRAP4: {USING_BOOTSTRAP4}, USING_BOOTSTRAP5 {USING_BOOTSTRAP5}</div>
 		<a href="#" id="js-scroll-to-top" title="{t}Nahoru{/t}">{!"arrow-up"|icon}</a>
-		{javascript_script_tag file="$public/admin/dist/scripts/vendor.min.js"}
-		{javascript_script_tag file="$public/admin/dist/scripts/application.min.js"}
+		{*javascript_script_tag file="$public/admin/dist/scripts/vendor.min.js"}
+		{javascript_script_tag file="$public/admin/dist/scripts/application.min.js"*}
+		{javascript_script_tag file="$public/dist2/scripts/vendor.min.js"}
+		{javascript_script_tag file="$public/dist2/scripts/application.min.js"}
 	</body>
 </html>

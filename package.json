@@ -29,7 +29,9 @@
   },
   "scripts": {
     "build": "webpack --mode development --env clean_dist=true --progress",
+    "build-admin": "webpack --mode development --env clean_dist=true --progress --config webpack.admin.config.js",
     "dist": "webpack --mode production --env clean_dist=true --progress",
+    "dist-admin": "webpack --mode production --env clean_dist=true --progress --config webpack.admin.config.js",
     "serve": "webpack --watch",
     "servenojs": "webpack --watch --config webpack-nojs.config.js"
   },
