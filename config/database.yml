@@ -1,0 +1,17 @@
+development:
+  host: 127.0.0.1
+  database: atk14miniskelet_devel
+  username: atk14miniskelet_devel
+  password: skelet
+
+test:
+  host: 127.0.0.1
+  database: atk14miniskelet_test
+  username: atk14miniskelet_test
+  password: skelet
+
+production:
+  host: 127.0.0.1
+  database: atk14miniskelet_production
+  username: atk14miniskelet_production
+  password: "<?=sha1(SECRET_TOKEN."Very_Sophisticated_Production_Password_Hiding")?>"

@@ -1,0 +1,35 @@
+#!/usr/bin/env php
+<?php
+// TODO: This is going to be the basis for a commont backup script
+
+require_once(__DIR__."/../atk14/load.php");
+
+chdir(ATK14_DOCUMENT_ROOT);
+
+// my-app.localhost -> my_app
+$appname = ATK14_HTTP_HOST;
+$appname = preg_replace('/.localhost$/','',$appname);
+$appname = preg_replace('/[^a-z0-9]/i','_',$appname);
+
+$HOME = $_SERVER["HOME"];
+$BACKUP_DIR = "$HOME/backup/$appname/".date("Y-m-d_H_i").".".uniqid();
+
+echo "about to backup to $BACKUP_DIR\n";
+sleep(2);
+
+$first_conf = null;
+foreach(Atk14DeploymentStage::GetStages() as $stage_name => $stage){
+	$b_dir = "$BACKUP_DIR/$stage_name";
+	Files::Mkdir($b_dir,$err);
+	if($err){
+		echo "can't create directory $b_dir\n";
+		exit(1);
+	}
+	$command = "./scripts/shell $stage_name  ATK14_ENV=production ./scripts/dump_db | gzip - > $b_dir/dump.sql.gz";
+	`$command`;
+
+	$command = "./scripts/shell $stage_name crontab -l > $b_dir/crontab";
+	`$command`;
+
+	echo "done in $b_dir\n";
+}

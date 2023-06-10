@@ -1,0 +1,175 @@
+@media screen {
+  body.dark-mode {
+
+    $dark-border-color: $gray-600;
+    $dark-body-bg: $gray-900;
+    $dark-input-bg: $gray-800;
+    $dark-medium-bg: $gray-700;
+    $dark-text-muted: $gray-500;
+    $dark-primary-color: lighten( $primary, 15% );
+
+    $table-dark-border-color: $dark-border-color;
+
+
+    background-color: $dark-body-bg;
+    color: white;
+
+    a {
+      color: $dark-primary-color
+    }
+
+    // tables
+    .table {
+      color: $table-dark-color;
+      background-color: $table-dark-bg;
+      border-color: $table-dark-border-color;
+
+      th,
+      td,
+      thead th {
+        border-color: $table-dark-border-color;
+      }
+  
+      &.table-bordered {
+        border: 0;
+      }
+    
+      &.table-striped {
+        tbody tr:nth-of-type(#{$table-striped-order}) {
+          background-color: $table-dark-accent-bg;
+        }
+      }
+    
+      &.table-hover {
+        tbody tr {
+          @include hover() {
+            color: $table-dark-hover-color;
+            background-color: $table-dark-hover-bg;
+          }
+        }
+      }
+    }
+
+    // nav left
+    .has-nav-section{
+      .nav-section {
+        background-color: #121212; //black;
+        #nav-filter {
+          border-color: $dark-border-color;
+          #nav-filter__submit {
+            color: $dark-primary-color;
+          }
+        }
+        ul.nav {
+          li.nav-item {
+            a.nav-link:not(.active) {
+              color: $gray-300;
+              &:hover {
+                color: white;
+              }
+            }
+          }
+        }
+      }
+    }
+
+    // breadcrumb
+    ol.breadcrumb {
+      background-color: #121212;
+      border-color: $dark-border-color;
+    }
+
+    // list groups
+    .list-group {
+      background-color: $table-dark-bg;
+      .list-group-item {
+        background-color: $table-dark-bg;
+        border-color: $dark-border-color;
+        .list-thumbnail {
+          border-color: $dark-border-color;
+        }
+      }
+    }
+
+    // forms 
+    form {
+      .form-group {
+        border-color: $dark-border-color;
+        & > .help-block {
+          color: $dark-text-muted !important;
+        }
+      }
+      label {
+        .tip {
+          color: $dark-text-muted !important;
+        }
+      }
+    }
+
+    .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .drop-zone {
+      background-color: $dark-input-bg;
+      border-color: $dark-border-color;
+      color: white;
+    }
+
+    .pickr .pcr-button {
+      border-color: $dark-border-color;
+      background-color: rgba(white,0.4);
+    }
+
+    .md-toolbar {
+      background-color: $dark-medium-bg;
+      border-color: $dark-border-color;
+      .md-btn {
+        background-color: inherit;
+        color: white;
+        border-color: $dark-medium-bg;
+      }
+    }
+
+    .img-thumbnail {
+      background-color: $dark-input-bg;
+      border-color: $dark-border-color;
+    }
+
+    // progress
+    .progress {
+      background-color: $dark-input-bg;
+    }
+
+    // pagination 
+    .pagination {
+      .page-item:not(.active){
+        .page-link {
+          background-color: $dark-input-bg;
+          border-color: $dark-border-color;
+          color: white;
+        }
+      }
+    }
+
+    // dashboard
+    .dashboard-indiators {
+      .dashboard-number-indicator{
+        border-color: $dark-border-color;
+      }
+    }
+
+    // list tree
+    ul.list--tree {
+      li {
+        &:after, &:before {
+          border-color: $dark-border-color;
+        }
+      }
+    }
+
+  }
+}
+
+// few small animations for smoother change 
+body {
+  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item, .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .progress, .drop-zone {
+    transition: background-color 0.75s, border-color 0.75s;
+  }
+}

@@ -1,0 +1,222 @@
+# SOME DESCRIPTIVE TITLE.
+# Copyright (C) YEAR THE PACKAGE'S COPYRIGHT HOLDER
+# This file is distributed under the same license as the PACKAGE package.
+# FIRST AUTHOR <EMAIL@ADDRESS>, YEAR.
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: \n"
+"Report-Msgid-Bugs-To: \n"
+"POT-Creation-Date: 2022-04-25 16:27+0200\n"
+"PO-Revision-Date: 2022-04-25 16:30+0200\n"
+"Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
+"Language-Team: \n"
+"Language: en_US\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"X-Generator: Poedit 2.4.2\n"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
+msgid "Temporary file uploading is not enabled"
+msgstr "Temporary file uploading is not enabled"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:45
+#, php-format
+msgid "The file exceeds the maximum file size, which is %s"
+msgstr "The file exceeds the maximum file size, which is %s"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:65
+msgid "Error 1"
+msgstr "Error 1"
+
+#: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:70
+msgid "Error 2"
+msgstr "Error 2"
+
+#: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:12
+msgid "The file has been already deleted on the server, please upload it again"
+msgstr ""
+"The file has been already deleted on the server, please upload it again"
+
+#: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
+msgid "The file was not fully uploaded, please upload it again"
+msgstr "The file was not fully uploaded, please upload it again"
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_dispatcher.php:73
+msgid "Service Unavailable"
+msgstr "Service Unavailable"
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_dispatcher.php:74
+msgid "This site is in maintenance. Please come back later."
+msgstr "This site is in maintenance. Please come back later."
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_form.php:247
+msgid "The form contains errors, therefore it cannot be processed."
+msgstr "The form contains errors, therefore it cannot be processed."
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_form.php:539
+msgid "Please, submit the form again"
+msgstr "Please, submit the form again"
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_locale.php:70
+msgid "atk14.date_format"
+msgstr ""
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_locale.php:90
+msgid "atk14.parse_date_pattern"
+msgstr ""
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_locale.php:124
+msgid "atk14.datetime_format"
+msgstr ""
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_locale.php:137
+msgid "atk14.parse_datetime_pattern"
+msgstr ""
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_locale.php:150
+msgid "atk14.datetime_with_seconds_format"
+msgstr ""
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_locale.php:162
+msgid "atk14.parse_datetime_with_seconds_pattern"
+msgstr ""
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_locale.php:179
+msgid "atk14.number_format.decimal_point"
+msgstr ""
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_locale.php:194
+msgid "atk14.number_format.thousands_separator"
+msgstr ""
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_sorting.php:162
+msgid "Sort table by this column"
+msgstr ""
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/helpers/block.a_destroy.php:42
+msgid "Are you sure?"
+msgstr "Are you sure?"
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/helpers/function.paginator.php:58
+msgid "items total"
+msgstr "items total"
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/helpers/function.paginator.php:93
+msgid "Prev"
+msgstr "Prev"
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/helpers/function.paginator.php:94
+msgid "Next"
+msgstr "Next"
+
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/helpers/function.to_sentence.php:13
+#: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/helpers/modifier.to_sentence.php:12
+msgid "and"
+msgstr "and"
+
+#: ../vendor/atk14/hcaptcha-field/src/app/fields/hcaptcha_field.php:8
+#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:11
+msgid ""
+"Please try to solve the test. It is important for us to be sure that we are "
+"communicating with a human."
+msgstr ""
+"Please try to solve the test. It is important for us to be sure that we are "
+"communicating with a human."
+
+#: ../vendor/atk14/hcaptcha-field/src/app/fields/hcaptcha_field.php:9
+#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:12
+msgid "The test was not successful. Please try it again."
+msgstr "The test was not successful. Please try it again."
+
+#: ../vendor/atk14/hcaptcha-field/src/app/fields/hcaptcha_field.php:10
+msgid ""
+"We are experiencing some technical issue during the communication with an "
+"captcha API. Please try it later."
+msgstr ""
+"We are experiencing some technical issue during the communication with an "
+"captcha API. Please try it later."
+
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:44
+msgid "Headers"
+msgstr "Headers"
+
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:55
+msgid "HTML body"
+msgstr "HTML body"
+
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:61
+msgid "Plain text body"
+msgstr "Plain text body"
+
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:71
+msgid "No mail has been sent"
+msgstr "No mail has been sent"
+
+#: ../vendor/atk14/phone-field/src/phone_field.php:7
+msgid "Enter phone number in format %sample_phone_number%"
+msgstr "Enter phone number in format %sample_phone_number%"
+
+#: ../vendor/atk14/phone-field/src/phone_field.php:18
+msgid "Enter valid phone number (%sample_phone_number%)"
+msgstr "Enter valid phone number (%sample_phone_number%)"
+
+#: ../vendor/atk14/phone-field/src/phone_field.php:19
+msgid "Enter phone number"
+msgstr "Enter phone number"
+
+#: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:41
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:41
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
+msgid "remove"
+msgstr "remove"
+
+#: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:42
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:42
+msgid "Download attachment"
+msgstr "Download attachment"
+
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:46
+msgid "Display image"
+msgstr "Display image"
+
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:113
+msgid "Unknown error"
+msgstr "Unknown error"
+
+#: ../vendor/atk14/recaptcha-field/src/app/fields/recaptcha_field.php:13
+msgid ""
+"We are experiencing some technical issue during the communication with "
+"Google. Please try it later."
+msgstr ""
+"We are experiencing some technical issue during the communication with "
+"Google. Please try it later."
+
+#: ../vendor/atk14/slug-field/src/slug_field.php:6
+msgid "Slug"
+msgstr "Slug"
+
+#: ../vendor/atk14/slug-field/src/slug_field.php:8
+msgid "funny-green-mug"
+msgstr "funny-green-mug"
+
+#: ../vendor/atk14/slug-field/src/slug_field.php:12
+msgid "Write something like black-cat-white-cat"
+msgstr "Write something like black-cat-white-cat"
+
+#: ../vendor/atk14/url-field/src/url_field.php:13
+msgid "This doesn't look like an URL"
+msgstr "This doesn't look like an URL"
+
+#~ msgid "Hello World!"
+#~ msgstr "Hello World!"
+
+#~ msgid "Hello Another World!"
+#~ msgstr "Hello Another World!"
+
+#~ msgid "Enter valid phone number (+420.605123456)"
+#~ msgstr "Enter valid phone number (+420.605123456)"
+
+#~ msgid "Enter phone number in format +420.605123456"
+#~ msgstr "Enter phone number in format +420.605123456"

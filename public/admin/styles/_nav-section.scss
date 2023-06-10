@@ -1,0 +1,74 @@
+nav.nav-section {
+	$nav-collapse-breakpoint: sm; // breakpoint for admin sidebar menu colapsing
+
+	ul.nav {
+		li.nav-item {
+			.nav-link {
+				
+				// Less padding for denser display
+				
+				padding: 0.35rem 0.65rem;
+			}
+		}
+		
+		// Nav in two columns on SM screens to make it shorter
+		
+		@include media-breakpoint-only(sm){
+			flex-direction: row !important;
+			flex-wrap: wrap;
+			li.nav-item {
+				flex-basis: 50%;
+			}
+		}
+	}
+
+	// nav collapse/expand toggler
+	.nav-section__toggle {
+		display: none !important;
+		justify-content: space-between;
+		align-items: center;
+		width: 100%;
+		border-radius: 0;
+		border: none;
+		.fas {
+			font-size: 1.25em;
+			transition: transform 0.25s;
+		}
+		&:focus {
+			box-shadow: none;
+			background-color: $light;
+			border-width: $btn-border-width;
+		}
+	}
+
+	// nav collapse/expand toggle behavior
+	html.js & {
+		@include media-breakpoint-down($nav-collapse-breakpoint) {
+			padding: 0 !important;
+			.nav-section__toggle {
+				display: flex !important;
+			}
+			
+			// collapsed state
+			&:not(.expanded) {
+				// all things hidden by default when not expanded
+				.nav-section__collapsible {
+					display: none;
+				}
+			}
+
+			// expanded state
+			&.expanded {
+				.nav-section__toggle {
+					background-color: $gray-200 !important;
+					border-bottom: 1px solid white;
+					.fas {
+						transform: rotate(180deg);
+					}
+				}
+			}
+
+		}
+	}
+
+}

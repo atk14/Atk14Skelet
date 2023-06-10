@@ -1,0 +1,37 @@
+.nav-login {
+	margin-bottom: $grid-gutter-width/2;
+	
+	// Adjust image height for SVG scaling proplerly
+	.navbar-brand {
+		img {
+			height: 30px;
+			width: auto;
+		}
+	}
+	
+	// No border on hamburger
+	.navbar-toggler {
+		border: none;
+		color: white;
+		font-size: 1.5rem;
+	}
+	
+	// App name
+	h1, .h1 {
+		font-size: inherit;
+		margin: inherit;
+		padding: inherit;
+		font-weight: inherit;
+		line-height: inherit;
+		display: inline;
+	}
+	
+	.langswitch {
+		.langswitch-flag {
+			// Sizing for SVG flag. Flags do not have the same aspect ratios so we set fixed height only.
+			height: 0.8rem;
+			width: auto;
+		}
+	}
+	
+}

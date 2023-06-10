@@ -1,0 +1,160 @@
+// Dark table header
+
+tr.table-dark {
+	th{
+		background-color: $gray-600;
+		color: $gray-300;
+		border-bottom: none;
+		a {
+			color: white;
+			border-bottom: 1px solid $table-border-color;
+			&:hover {
+				text-decoration: none;
+				border-bottom: 2px solid $table-border-color;
+			}
+		}
+	}
+}
+
+// Border under table
+
+table.table {
+	border-bottom: 1px solid $table-border-color;
+}
+
+// Responsive tables - display all as blocks
+
+@include media-breakpoint-down(xs){
+	table.table {
+		display: block;
+		thead, tbody {
+			display: block;
+		}
+		thead {
+			tr {
+				border-bottom: none;
+			}
+		}
+		tr {
+			display: block;
+			border-bottom: 1px solid $gray-600;
+			th, td {
+				display: block;
+				&:empty {
+					display: none;
+				}
+			}
+			th {
+				border-bottom: 1px solid $table-border-color;
+				border-top: none;
+			}
+		}
+	}
+
+	// Specific table layouts for various content types - various cell widths, font sizes, flex layout for TR
+	
+	table.table--articles, table.table--tags, table.table--users, table.table--pwdrecoveries, table.table--newssubscribers, table.table--redirections, table.table--products {
+		tr {
+			display: flex;
+			flex-wrap: wrap;
+			th, td {
+				flex-basis: 100%;
+				flex-shrink: 0;
+				flex-grow: 2;
+				&.item-id {
+					flex-basis: 10%;
+					font-size: 0.8em;
+					display: flex;
+					flex-direction: column;
+					justify-content: center;
+				}
+				&.item-title, &.item-login {
+					flex-basis: 90%;
+				}
+				&.item-author {
+					flex-basis: 50%;
+					font-size: 0.8em;
+				}
+				&.item-published {
+					flex-basis: 50%;
+					font-size: 0.8em;
+				}
+				&.item-created {
+					flex-basis: 50%;
+					font-size: 0.8em;
+				}
+				&.item-updated {
+					flex-basis: 50%;
+					font-size: 0.8em;
+				}
+				&.item-tags {
+					font-size: 0.8em;
+				}
+				&.item-email {
+					flex-basis: 50%;
+					font-size: 0.8em;
+					&:empty {
+						display: block;
+					}
+				}
+				&.item-isadmin {
+					flex-basis: 50%;
+					font-size: 0.8em;
+				}
+			}
+		}
+	}
+	table.table--pwdrecoveries {
+		tr {
+			th, td {
+				&.item-email {
+					flex-basis: 100%;
+					font-size: 1em;
+				}
+				&.item-addresscreated, &.item-isrecovered, &.item-daterecovered, &.item-addressrecovered {
+					flex-basis: 50%;
+					font-size: 0.8em;
+					&:empty {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+	table.table--newssubscribers {
+		tr {
+			th, td {
+				&.item-email {
+					flex-basis: 90%;
+					font-size: 1em;
+				}
+				&.item-addresscreated, &.item-created {
+					flex-basis: 50%;
+					font-size: 0.8em;
+					&:empty {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+	table.table--redirections {
+		tr {
+			th, td {
+				&.item-sourceurl {
+					flex-basis: 90%;
+				}
+				&.item-targeturl {
+					padding-left: calc(10% + 0.3rem);
+				}
+				&.item-lastaccess, &.item-created {
+					flex-basis: 50%;
+					font-size: 0.8em;
+					&:empty {
+						display: block;
+					}
+				}
+			}
+		}
+	}
+}

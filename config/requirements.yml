@@ -1,0 +1,10 @@
+php:
+  extensions:
+  - "readline"
+  constants:
+  - "CRYPT_BLOWFISH" # required by package yarri/my-blowfish
+  expressions:
+  - "strlen(hash('sha256', 'Secret'))>0"
+  - "CRYPT_BLOWFISH==1" # required by package yarri/my-blowfish
+
+# vim: set et:

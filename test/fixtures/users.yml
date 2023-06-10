@@ -1,0 +1,41 @@
+rambo:
+  login: "rambo"
+  firstname: "John"
+  lastname: "Rambo"
+  password: "secret"
+  email: "john@rambo.com"
+
+rambo_tester:
+  login: "rambo.tester"
+  firstname: "John Tester"
+  lastname: "Rambo"
+  password: "Secret123"
+  email: "tester@rambo.com"
+
+rocky:
+  login: "rocky"
+  firstname: "Rocky"
+  lastname: "Balboa"
+  password: "$2a$12$K9oI83nd6DHKaovZleAxcea3YbEuUmKZISehASGthpMzZweUqOhta" # secret
+  email: "rocky@balboa.com"
+
+john_doe:
+  login: "john@doe.com"
+  firstname: "John"
+  lastname: "Doe"
+  password: "Samantha111"
+  email: "john@doe.com"
+
+samantha_doe:
+  login: "samantha@doe.com"
+  firstname: "Samantha"
+  lastname: "Doe"
+  password: "John123"
+  email: "samantha@doe.com"
+
+inactive_user:
+  login: "inactive.user"
+  firstname: "Ivor"
+  lastname: "Inactivator"
+  email: "ivor@inactivator.com"
+  active: false

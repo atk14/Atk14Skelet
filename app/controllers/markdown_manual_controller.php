@@ -1,0 +1,1 @@
+../../vendor/yarri/markdown-manual.mdbook/src/app/controllers/markdown_manual_controller.php

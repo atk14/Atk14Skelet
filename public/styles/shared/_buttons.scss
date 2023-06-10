@@ -1,0 +1,11 @@
+// In Bootstrap 4 there is no style for btn-default
+.btn-default {
+	@extend .btn-light;
+}
+
+.btn-group-xs > .btn, .btn-xs {
+	padding: .25rem .4rem;
+	font-size: .875rem;
+	line-height: .5;
+	border-radius: .2rem;
+}

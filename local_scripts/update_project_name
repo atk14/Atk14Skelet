@@ -1,0 +1,40 @@
+#!/usr/bin/env bash
+#
+# This script changes configuration according to the given application name.
+# It could be called after the clone of a skeleton.
+#
+#   $ ./local_scripts/update_project_name bookstore
+#
+# If the parameter is missing, it will be detected automatically according to the current directory.
+#
+#   $ ./local_scripts/update_project_name
+#
+
+cd $(dirname $0)
+cd ..
+
+pwd=$(pwd) # /home/yarri/www/atk14skelet
+appname=$(basename $pwd) # atk14skelet
+
+if [ ! -z "$1" ]; then
+	appname="$1"
+fi
+
+appname=$(echo "$appname" | tr '[A-Z]' '[a-z]') # Book_Store_org -> book_store_org
+appname=$(echo "$appname" | sed -r 's/[^a-z0-9]/-/g') # book_store_org -> book-store-org
+appname_underscore=$(echo "$appname" | tr '-' '_') # book-store-org -> book_store-org
+
+# Remember! The following lines need to be runnable both on Linux or FreeBSD
+# On FreeBSD the sed command has -i option with other meaning than on Linux
+
+# editing ./config/database.yml
+sed -r "s/(database|username): .+_(test|devel|production)/\1: ${appname_underscore}_\2/" ./config/database.yml > ./config/database.yml.new && mv ./config/database.yml.new ./config/database.yml
+
+# editing ATK14_HTTP_HOST in ./config/settings.php
+sed -r "s/definedef\(.ATK14_HTTP_HOST.*/definedef\(\"ATK14_HTTP_HOST\",PRODUCTION ? \"www.${appname}.com\" : \"${appname}.localhost\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
+
+# editing ATK14_APPLICATION_NAME in ./config/settings.php
+appname_cap=$(echo "$appname" | tr '[a-z]' '[A-Z]' | tr '-' ' ') # book_store_org -> "BOOK STORE ORG"
+sed -r "s/definedef\(.ATK14_APPLICATION_NAME.*/definedef\(\"ATK14_APPLICATION_NAME\",\"${appname_cap}\"\);/" ./config/settings.php > ./config/settings.php.new && mv ./config/settings.php.new ./config/settings.php
+
+exit 0

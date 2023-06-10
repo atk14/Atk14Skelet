@@ -1,0 +1,10 @@
+#!/usr/bin/env bash
+
+# Daily robots
+#
+# See README.md for more information.
+
+cd $(dirname $0)
+cd ..
+
+./scripts/robot_runner reindex_database

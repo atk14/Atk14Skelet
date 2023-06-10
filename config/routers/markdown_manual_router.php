@@ -1,0 +1,1 @@
+../../vendor/yarri/markdown-manual.mdbook/src/config/routers/markdown_manual_router.php

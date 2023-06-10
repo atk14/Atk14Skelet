@@ -1,0 +1,321 @@
+.section--slider {
+	max-width: $max-page-width;
+	margin: auto;
+	padding: 0;
+	border: none;
+	margin-bottom: $grid-gutter-width;
+	
+	.swiper-slide {
+		display: flex;
+		align-items: center;
+		background-color: $gray-100;
+		position: relative;
+		height: auto;
+		&__image {
+			//height: 425px;
+			flex-basis: 50%;
+			flex-grow: 1.5;
+			background-size: cover;
+			background-repeat: no-repeat;
+			background-position: center center;
+			@include media-breakpoint-down(xs){
+				height: 300px;
+			}
+		}
+		&__text {
+			flex-basis: 50%;
+			//color: white;
+			padding: $grid-gutter-width/2 $grid-gutter-width;
+		}
+
+		@include media-breakpoint-down(sm){
+			flex-direction: column;
+			&__text {
+				flex-basis: 30vw;
+			}
+		}
+
+		@include media-breakpoint-down(xs){
+			height: unset;
+			&__text {
+				flex-basis: 45vw;
+			}
+		}
+		@media (max-width: 380px) {
+			&__text {
+				padding: $grid-gutter-width/4 $grid-gutter-width/4;
+				font-size: $font-size-sm;
+				line-height: 1.2;
+			}
+		}
+	}
+	
+	&--thumbnails {
+		// set correct order for sliders.
+		// thumbnails must be placed before main slider in markup.
+		// this css just swaps them
+		// also fixes problems with swiper inside flexbox elem.
+		display: flex;
+		flex-direction: column;
+		& > * {
+			width: auto !important;
+			max-width: 100%;
+			min-width: 100%;
+		}
+		.swiper--thumbnails {
+			order: 1;
+		}
+		.swiper--images {
+			order: 0;
+			.swiper-wrapper, .swiper-slide {
+				width: auto;
+				max-width: 100%;
+			}
+		}
+		.iobject__caption {
+			order: 2;
+		}
+	}
+	
+}
+.swiper {
+	//max-width: $maxContainerWidth -($grid-gutter-width*3);
+	//max-width: $maxContainerWidth;
+
+	&[data-slides_per_view="auto"]:not(.swiper--thumbnails) {
+		.swiper-wrapper {
+			.swiper-slide {
+				filter: brightness(0.5);
+				transition: filter 0.35s;
+				&.swiper-slide-active {
+					//outline: 2px solid orange;
+					filter: brightness(1);
+				}
+			}
+		}
+	}
+}
+
+
+.swiper-button-next, .swiper-button-prev {
+	$sliderButtonSize: 24px;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	background-image: none;
+	margin-top: calc(var(--swiper-navigation-size) / -2);
+	&:before {
+		font-family: $fa-font-family;
+		color: white;
+		font-weight: bold;
+		//text-shadow: -1px -1px 1px rgba(255,255,255,.1), 1px 1px 1px rgba(0,0,0,.5);
+		background-color: $primary;
+		width: $sliderButtonSize;
+		height: $sliderButtonSize;
+		font-size: $sliderButtonSize*0.6;
+		border-radius: $sliderButtonSize/2;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		line-height: 1;
+		
+	}
+	&:after {
+		display: none;
+	}
+	&:active, &:focus {
+		outline: none;
+	}
+	@include media-breakpoint-down(xs){
+		display: none;
+	}
+}
+
+.swiper-button-next {
+	&:before {
+		content: "\f061";
+	}
+}
+.swiper-button-prev {
+	&:before {
+		content: "\f060";
+	}
+}
+
+
+.swiper-pagination {
+	//margin: auto;
+	//position: relative;
+	width: 50% !important;
+	display: flex;
+	justify-content: center;
+	flex-wrap: wrap;
+	//padding-top: 1rem;
+	$bulletSize: 12px;
+	$clickableSize: 20px;
+	.swiper-pagination-bullet {
+		position: relative;
+		border-radius: 0;
+		width: $clickableSize;
+		height: $clickableSize;
+		background-color: transparent;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		opacity: 1;
+		&:before {
+			display: block;
+			content: "";
+			width: $bulletSize;
+			height: $bulletSize;
+			background-color: rgba($gray-200,0.5);
+			border-radius: $bulletSize/2;
+			border: 1px solid $primary;
+		}
+		&-active {
+			background-color: transparent;
+			opacity: 1;
+			&:before {
+				background-color: $primary;
+			}
+		}
+		&:active, &:focus {
+			outline: none;
+		}
+	}
+	
+	@include media-breakpoint-down(sm) {
+		width: 100% !important;
+		position: static;
+		padding-top: $grid-gutter-width/4;
+	}
+}
+
+//.swiper {
+	.swiper--images {
+		.swiper-slide {
+			height: auto;
+			display: block;
+			background-color: transparent;
+			figure {
+				display: block;
+				margin: 0;
+				a {
+					display: block;
+				}
+				picture {
+					display: block;
+				}
+				img {
+					display: block;
+					margin: auto;
+				}
+				figcaption {
+					padding: $grid-gutter-width/4 $grid-gutter-width/2;
+					font-size: $font-size-sm;
+					text-align: center;
+					line-height: 1.25;
+					.gallery-item__title {
+						font-weight: bold;
+					}
+					.gallery-item__description {
+						font-weight: normal;
+					}
+				}
+			}
+		}
+		
+		
+		img {
+			background-color: white;
+		}
+		.swiper-pagination {
+			width: 100% !important;
+			position: static !important;
+			margin: $grid-gutter-width/4 0;
+			margin: 0;
+		}
+		@include media-breakpoint-down(sm) {
+			//margin-top: 0 - $grid-gutter-width/2;
+			.swiper-pagination {
+				width: 100% !important;
+				@include media-breakpoint-down(sm) {
+					position: absolute;
+					bottom: 5px;
+				}
+			}
+		}
+		@include media-breakpoint-down(xs) {	
+			//margin-left: 0 - $grid-gutter-width/2;
+			//margin-right: 0 - $grid-gutter-width/2;
+			.swiper-pagination {
+				//display: none;
+			}
+		}
+	}
+	
+	.swiper--images--dark {
+		.swiper-slide {
+			background-color: $dark;
+			figure {
+				figcaption {
+					position: absolute;
+					bottom: 0;
+					left: 0;
+					right: 0;
+					height: auto;
+					background-color: rgba(black,0.5);
+					color: white;
+					text-align: left;
+				}
+			}
+		}
+		.swiper-pagination {
+			margin-top: $grid-gutter-width/2;
+		}
+	}
+//}
+
+.swiper--logo {
+	padding: 0 $grid-gutter-width*0.8;
+	.swiper-slide {
+		padding: $grid-gutter-width;
+		background-color: transparent;
+		display: flex;
+		justify-content: center;
+		align-items: center;
+		figure {
+		}
+	}
+	.swiper-pagination {
+		width: 100% !important;
+	}
+	@include media-breakpoint-down(xs){
+		padding: 0;
+		.swiper-slide {
+			padding: $grid-gutter-width/2;
+		}
+	}
+	@include media-breakpoint-up(xl){
+		.swiper-slide {
+			padding: $grid-gutter-width $grid-gutter-width*1.25;
+		}
+	}
+}
+
+.swiper--thumbnails {
+	background-color: $dark;
+	//border-top: 1px solid $gray-600;
+	padding: 5px;
+	.swiper-slide {
+		filter: brightness(0.7);
+		transition: filter 0.35s;
+	}
+	.swiper-slide-thumb-active, .swiper-slide:hover {
+		filter: brightness(1);
+	}
+	.swiper-slide-thumb-active {
+		outline: 2px solid $primary;
+	}
+}
+

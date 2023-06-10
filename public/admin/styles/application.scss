@@ -1,0 +1,51 @@
+// To allow to redefine variables in application-variables,
+// first we need to load functions and variables from bootstrap package.
+
+@import "node_modules/bootstrap/scss/functions";
+
+// We may overrdide Bootstrap variables here 
+// (before loading bootstrap_variables) like this:
+// $primary: deeppink;
+// or directly in _bootstrap_variables.scss
+
+// Bootstrap variables
+@import "bootstrap_variables"; // in the local copy of the vendor defaults, some variables may be overwritten if necessary
+
+// Application specific variables, overrides bootstrap vars.
+@import "application_variables";
+
+// Bootstrap
+@import "bootstrap";
+
+// Other SCSS
+@import "header";
+
+@import "breadcrumb";
+
+@import "layout";
+
+@import "typography";
+
+@import "tables";
+
+@import "list-groups";
+
+@import "forms";
+
+@import "nav-login";
+
+@import "nav-section";
+
+@import "scroll-to-top";
+
+@import "drag_and_drop";
+
+@import "dark_mode";
+
+@import "shared/clearfix";
+@import "shared/loading";
+@import "shared/buttons";
+@import "shared/js_utils";
+@import "shared/fileicons";
+@import "shared/dl_horizontal";
+@import "shared/mark";

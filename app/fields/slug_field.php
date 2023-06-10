@@ -1,0 +1,1 @@
+../../vendor/atk14/slug-field/src/slug_field.php

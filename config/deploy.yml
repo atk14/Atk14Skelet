@@ -1,0 +1,37 @@
+# This is a recipe how to deploy this application to our production environment
+#
+# You can run the deployment process by typing
+#  $ ./scripts/deploy production
+#
+# or just
+#  $ ./scripts/deploy
+#
+
+production:
+  url: "https://miniskelet.atk14.net/"
+  server: "cloudkicker.plovarna.cz"                                           # we are deploying on this server
+  user: "devel"                                                               # we are deploying as this user
+  directory: "/home/{{user}}/apps/miniskelet.atk14.net/production/"               # in this directory is this application installed on the server
+  deploy_repository: "{{user}}@{{server}}:apps/miniskelet.atk14.net/repos/production.git" # this is the URL of deployment git repository with a proper post-receive hook
+  before_deploy:                                                              # some tasks may be run before deployment
+  - "@local composer update"
+  - "@local npm install"
+  - "@local gulp"
+  - "@local gulp admin"
+  rsync:
+  - "public/dist/"                                                            # since the directory public/dist is ignored in .gitignore we need to synchronize it by deployment process
+  - "public/admin/dist/"
+  - "vendor/"
+  after_deploy:
+  - "./scripts/migrate && ./scripts/delete_temporary_files dbmole_cache"
+
+# You can have another stage to deploy application on it (eg. preview).
+# In this recipe you can mention only items which differ from the first recipe.
+#
+# preview:
+#   server: server.example.com
+#   user: deploy
+#   directory: /home/deploy/previews/miniskelet.atk14.net/
+#   deploy_repository: deploy@server.example.com:repos/atk14skelet.git
+
+# vim: et:ts=2

@@ -1,0 +1,29 @@
+#js-scroll-to-top {
+	
+	$btnSize: 40px;
+	
+	position: fixed;
+	display: flex;
+	justify-content: center;
+	align-items: center;
+	line-height: 1;
+	width: $btnSize;
+	height: $btnSize;
+	border-radius: $btnSize/2;
+	bottom: 0 - $btnSize;
+	right: $grid-gutter-width/4;
+	opacity: 0;
+	background-color: $primary;
+	color: white;
+	font-size: 1.1rem;
+	transition: right 0.5s, bottom 0.5s, opacity 0.5s;
+	&:hover {
+		background-color: $link-hover-color;
+		text-decoration: none;
+	}
+	&.active {
+		right: $grid-gutter-width/4;
+		bottom: $grid-gutter-width/2;
+		opacity: 1;
+	}
+}

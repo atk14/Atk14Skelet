@@ -1,0 +1,15 @@
+!tmp/README.md
+tmp/*
+!log/README.md
+log/*
+!robots/lock/README.md
+robots/lock/*
+node_modules
+config/.secret_token.txt
+config/secret_token.txt
+public/dist
+public/admin/dist
+vendor/*
+composer.lock
+package-lock.json
+.well-known/*
