@@ -1,6 +1,6 @@
-!tmp/README
+!tmp/README.md
 tmp/*
-!log/README
+!log/README.md
 log/*
 !robots/lock/README.md
 robots/lock/*
