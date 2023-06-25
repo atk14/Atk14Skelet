@@ -8,4 +8,4 @@
 	{t}If you have any question, contact us through the following form. We will reply to you as soon as we can.{/t}
 </p>
 
-{render partial="shared/form" form_class="form-horizontal"}
+{render partial="shared/form" form_class="form-horizontal" enabled_fields_only=1}

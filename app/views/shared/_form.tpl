@@ -20,12 +20,17 @@
 	{assign var="form_layout" value="form-horizontal"}
 {/if}
 
+{assign field_keys $form->get_field_keys()}
+{if $enabled_fields_only}
+	{assign field_keys $form->get_enabled_field_keys()}
+{/if}
+
 {capture assign=class}{trim}{$form_class} {$form_layout}{/trim}{/capture}
 
 {form _novalidate="novalidate" _class=$class _role="form"}
 	{render partial="shared/form_error"}
 	<fieldset>
-		{render partial="shared/form_field" fields=$form->get_field_keys()}
+		{render partial="shared/form_field" fields=$field_keys}
 		{render partial="shared/form_button" class=$button_class}
 	</fieldset>
 {/form}

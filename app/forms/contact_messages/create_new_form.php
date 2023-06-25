@@ -14,11 +14,7 @@ class CreateNewForm extends ApplicationForm{
 			"max_length" => 200,
 		)));
 
-		$this->add_field("sign_up_for_newsletter",new BooleanField(array(
-			"label" => _("Sign up for newsletter"),
-			"required" => false,
-			"initial" => false,
-		)));
+		$this->add_sign_up_for_newsletter_field();
 
 		$this->add_field("body",new TextField(array(
 			"label" => _("Text"),
