@@ -99,8 +99,12 @@ class ApplicationForm extends Atk14Form{
 			"label" => _("Sign up for newsletter"),
 			"required" => false,
 			"initial" => false,
-			"disabled" => defined("SIGN_UP_FOR_NEWSLETTER_ENABLED") && !constant("SIGN_UP_FOR_NEWSLETTER_ENABLED"),
+			"disabled" => false,
 		);
+		if(defined("SIGN_UP_FOR_NEWSLETTER_ENABLED") && !constant("SIGN_UP_FOR_NEWSLETTER_ENABLED")){
+			$options["initial"] = false;
+			$options["disabled"] = true;
+		}
 
 		$field = $this->add_field($name,new BooleanField($options));
 		return $field;
