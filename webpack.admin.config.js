@@ -120,6 +120,9 @@ var config = {
           "sass-loader",
         ],
       },
+    ],
+    noParse: [
+      /ace-builds.*/
     ] 
   },
   devtool: "source-map",

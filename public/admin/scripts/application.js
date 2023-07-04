@@ -9,7 +9,8 @@ import "blueimp-file-upload/js/vendor/jquery.ui.widget.js";
 import "blueimp-file-upload/js/jquery.iframe-transport.js";
 import "blueimp-file-upload/js/jquery.fileupload.js";
 import "blueimp-file-upload/js/jquery.fileupload-image.js";
-const ace = require('ace-builds');
+import ace from 'ace-builds';
+const mde = require ( "bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js" );
 
 /* global window */
 ( function( window, $, undefined ) {
@@ -56,7 +57,7 @@ const ace = require('ace-builds');
 					}
 				} );
 
-				UTILS.leaving_unsaved_page_checker.init();
+				///UTILS.leaving_unsaved_page_checker.init(); // TODO zprovoznit
 
 				// Back to top button display and handling
 				$( window ).on( "scroll", function(){
@@ -74,7 +75,7 @@ const ace = require('ace-builds');
 					$( "html, body" ).animate( { scrollTop: 0 }, "fast" );
 				} );
 
-				UTILS.async_file_upload.init();
+				///UTILS.async_file_upload.init(); // TODO zprovoznit
 
 				// Admin menu toggle on small devices
 				$( ".nav-section__toggle" ).on( "click", function( e ) {
