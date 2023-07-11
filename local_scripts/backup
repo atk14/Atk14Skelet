@@ -12,24 +12,55 @@ $appname = preg_replace('/.localhost$/','',$appname);
 $appname = preg_replace('/[^a-z0-9]/i','_',$appname);
 
 $HOME = $_SERVER["HOME"];
-$BACKUP_DIR = "$HOME/backup/$appname/".date("Y-m-d_H_i").".".uniqid();
+$BACKUP_ROOT = "$HOME/backup/$appname";
+$BACKUP_DIR = "$BACKUP_ROOT/".date("Y-m-d_H_i").".".uniqid();
 
-echo "about to backup to $BACKUP_DIR\n";
-sleep(2);
+myAssert(preg_match('/^[a-zA-Z0-9_.\/-]+$/',$BACKUP_DIR),"insecure BACKUP_DIR: $BACKUP_DIR");
 
-$first_conf = null;
+//echo "about to backup to $BACKUP_DIR\n";
+//sleep(2);
+
 foreach(Atk14DeploymentStage::GetStages() as $stage_name => $stage){
 	$b_dir = "$BACKUP_DIR/$stage_name";
-	Files::Mkdir($b_dir,$err);
+	Files::Mkdir($b_dir,$err,$err_str);
 	if($err){
-		echo "can't create directory $b_dir\n";
+		echo "can't create directory $b_dir ($err_str)\n";
 		exit(1);
 	}
-	$command = "./scripts/shell $stage_name  ATK14_ENV=production ./scripts/dump_db | gzip - > $b_dir/dump.sql.gz";
-	`$command`;
 
+	// Storing the current installed revision
+	$command = "./scripts/shell $stage_name ATK14_ENV=production git rev-parse HEAD > $b_dir/revision.txt";
+	_exec($command);
+
+	// Database dump
+	$command = "./scripts/shell $stage_name  ATK14_ENV=production ./scripts/dump_db | gzip - > $b_dir/dump.sql.gz";
+	_exec($command);
+
+	// Crontab
 	$command = "./scripts/shell $stage_name crontab -l > $b_dir/crontab";
-	`$command`;
+	_exec($command);
+
+	// Backing up configuration folders
+	foreach(["local_config","config"] as $folder){
+		Files::Mkdir("$b_dir/$folder",$err,$err_str);
+		if($err){
+			echo "can't create directory $b_dir/$folder ($err_str)\n";
+			exit(1);
+		}
+		$command = $stage->compileReverseRsyncCommand("$folder/","$b_dir/$folder/",["delete" => false]);
+		_exec($command);
+	}
 
 	echo "done in $b_dir\n";
+}
+
+function _exec($cmd){
+	exec("($cmd) 2>&1",$output,$err);
+	if($err){
+		echo join("\n",$output),"\n";
+		echo "# command execution failed ($err), exiting...\n";
+		exit(1);
+	}
+	$output && ($output[] = "");
+	return join("\n",$output);
 }
