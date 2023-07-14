@@ -7,7 +7,7 @@ class FulfillingPagesMigration extends ApplicationMigration{
 		$homepage = Page::CreateNewRecord(array(
 			"code" => "homepage",
 
-			"title_en" => "Welcome at ATK14 Skelet!",
+			"title_en" => "Welcome to ATK14 Skelet!",
 			"teaser_en" => "_ATK14 Skelet_ is a very basic application written on top of [the ATK14 Framework](https://www.atk14.net/). As the Skelet is simple and minimal it may be usefull for developers as a good start point for any other application.",
 			"body_en" => "",
 			"page_title_en" => "ATK14 Skelet",
