@@ -15,10 +15,11 @@ var application_scripts = [
 ];
 
 // Appllication styles incl. Bootstrap
-var application_styles = "./public/admin/styles/application.scss";
+var application_styles = ["./public/admin/styles/application.scss"];
 
 // Other vendor styles
 var vendorStyles = [
+  "./node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/all.css",
 ];
 
