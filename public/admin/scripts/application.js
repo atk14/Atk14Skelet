@@ -1,7 +1,6 @@
 /* Imports */
 const bootstrap = require ('bootstrap');
 window.$ = window.jQuery = require('jquery');
-//const jqueryUI = require ( "jquery-ui-bundle/jquery-ui.js" );
 const jqueryUI = require ( "jquery-ui-bundle" );
 //const blueimp = require ( "blueimp-file-upload/js/jquery.fileupload.js" );
 //const fileupload = require ( "blueimp-file-upload" );
@@ -9,7 +8,7 @@ import "blueimp-file-upload/js/vendor/jquery.ui.widget.js";
 import "blueimp-file-upload/js/jquery.iframe-transport.js";
 import "blueimp-file-upload/js/jquery.fileupload.js";
 import "blueimp-file-upload/js/jquery.fileupload-image.js";
-import ace from 'ace-builds';
+import ace, {Ace} from 'ace-builds';
 const mde = require ( "bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js" );
 
 /* global window */
@@ -57,7 +56,7 @@ const mde = require ( "bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-ed
 					}
 				} );
 
-				///UTILS.leaving_unsaved_page_checker.init(); // TODO zprovoznit
+				UTILS.leaving_unsaved_page_checker.init(); // TODO zprovoznit
 
 				// Back to top button display and handling
 				$( window ).on( "scroll", function(){
@@ -75,7 +74,7 @@ const mde = require ( "bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-ed
 					$( "html, body" ).animate( { scrollTop: 0 }, "fast" );
 				} );
 
-				///UTILS.async_file_upload.init(); // TODO zprovoznit
+				UTILS.async_file_upload.init(); // TODO zprovoznit
 
 				// Admin menu toggle on small devices
 				$( ".nav-section__toggle" ).on( "click", function( e ) {
