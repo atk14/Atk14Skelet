@@ -35,13 +35,12 @@ var ignoredFiles = [
 var config = {
   entry: {
     application: application_scripts,
-    //application_es6: "./public/scripts/modules/application_es6.js",
     application_styles: application_styles,
     vendor_styles: vendorStyles,
   },
   output: {
     //clean: true,
-    path: path.resolve( __dirname, "public", "dist2" ),
+    path: path.resolve( __dirname, "public", "admin", "dist" ),
     filename: "scripts/[name].min.js"
   },
   plugins: [
@@ -91,6 +90,12 @@ var config = {
         }},
         {from: "./node_modules/@fortawesome/fontawesome-free/webfonts/*", to({ context, absoluteFilename }) {
           return "webfonts/[name][ext]";
+        }},
+        //{from: "./node_modules/ace-builds/src-min/**/*", context: path.resolve(__dirname, "node_modules", "ace-builds"), to({ context, absoluteFilename }) {
+        //*  return "scripts/ace/";
+        //}},
+        {from: "**/*", context: path.resolve(__dirname, "node_modules", "ace-builds", "src-min"), to({ context, absoluteFilename }) {
+          return "scripts/ace/";
         }},
       ]
     }),
