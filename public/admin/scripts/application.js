@@ -10,6 +10,7 @@ import "blueimp-file-upload/js/jquery.fileupload.js";
 import "blueimp-file-upload/js/jquery.fileupload-image.js";
 const mde = require ( "bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js" );
 const ATK14 = require( "atk14js" );
+import "bootstrap4-notify";
 
 /* global window */
 ( function( window, $, undefined ) {
