@@ -1,9 +1,9 @@
 .drop-zone {
 	border: 2px dashed $gray-400;
-  border-radius: $grid-gutter-width/2;
+  border-radius: divide($grid-gutter-width, 2);
   padding: 20px;
 	.progress {
-		margin: $grid-gutter-width/2 0;
+		margin: divide($grid-gutter-width, 2) 0;
 	}
 	.list-group:empty {
 		display: none;
@@ -19,7 +19,7 @@
 		top: 0;
 		width: 100%;
 		height: 100%;
-  	border-radius: $grid-gutter-width/2;
+  	border-radius: divide($grid-gutter-width, 2);
 		border: 2px solid $primary;
 		display: flex;
 		justify-content: center;

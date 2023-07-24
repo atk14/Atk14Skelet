@@ -3,7 +3,7 @@
 
 .list-group {
 	border-bottom: $list-group-border-width solid $list-group-border-color;
-	margin-bottom: $grid-gutter-width/2;
+	margin-bottom: divide($grid-gutter-width, 2);
 	.list-group {
 		// Set margins to compensate unwanted padding
 		margin-bottom: 0 - $list-group-item-padding-y;
@@ -90,7 +90,7 @@
 		}
 	}
 	& + .progress {
-		margin-bottom: $grid-gutter-width/2;
+		margin-bottom: divide($grid-gutter-width, 2);
 	}
 }
 
