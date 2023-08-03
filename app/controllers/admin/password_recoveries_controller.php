@@ -13,7 +13,7 @@ class PasswordRecoveriesController extends AdminController{
 			}
 		}
 
-		$this->sorting->add("created_at",array("reverse" => true));
+		$this->_initialize_prepared_sorting("created_at");
 		$this->sorting->add("id");
 
 		$this->tpl_data["finder"] = PasswordRecovery::Finder(array(
