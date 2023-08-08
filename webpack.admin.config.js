@@ -51,7 +51,7 @@ var config = {
         host: 'localhost',
         port: 3000,
         proxy: 'http://localhost:8000/',
-        files: [ "app/**/*.tpl", "public/admin/images/**/*", "public/dist2/**/*" ],
+        files: [ "app/views/admin/**/*.tpl", "public/admin/images/**/*", "public/admin/dist/**/*" ],
         injectChanges: true,
         injectFileTypes: ["css"],
       },
