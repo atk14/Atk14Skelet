@@ -87,11 +87,13 @@ import "bootstrap4-notify";
 				$( "#js--darkmode-switch" ).on( "click", function(){
 					var mode;
 					if( $(this).prop( "checked" ) ) {
-						$( "body" ).addClass( "dark-mode" );
+						$( "body" ).addClass( "dark-mode" ); // BS4
+						$( "body" ).attr( "data-bs-theme", "dark" ); // BS5
 						mode = "dark";
 						document.cookie = "dark_mode=1;path=/";
 					} else {
-						$( "body" ).removeClass( "dark-mode" );
+						$( "body" ).removeClass( "dark-mode" ); // BS4
+						$( "body" ).attr( "data-bs-theme", "light" ); // BS5
 						mode = "light";
 						document.cookie = "dark_mode=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";
 					}
