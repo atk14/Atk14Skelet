@@ -80,6 +80,19 @@ class RemoteTestsController extends ApplicationController{
 		$this->_assert_true(is_null(User::Login("admin","admin")));
 	}
 
+	function disk_space(){
+		$kB = 1024;
+		$MB = $kB * $kB;
+		$GB = 1024 * $MB;
+
+		$disk_space_required = 1 * $GB;
+
+		$this->_assert_true($disk_space_required>0,'bad $disk_space_required');
+		$space = disk_free_space(ATK14_DOCUMENT_ROOT);
+		$this->_assert_true(is_numeric($space),'disk_free_space() returns no number');
+		$this->_assert_true($space > $disk_space_required);
+	}
+
 	function _before_filter(){
 		/*
 		// Here you can restrict access to the controller's actions for listed IP addresses
