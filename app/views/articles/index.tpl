@@ -7,6 +7,6 @@
 	<div class="card-deck card-deck--4">
 		{render partial=article_item from=$finder->getRecords() item=article}
 	</div>
-	{paginator}
+	{paginator items_total_label="{t}articles total{/t}"}
 
 {/if}
