@@ -8,14 +8,14 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2022-04-25 16:27+0200\n"
-"PO-Revision-Date: 2022-04-25 17:20+0200\n"
+"PO-Revision-Date: 2023-09-23 12:08+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.0.1\n"
 
 msgid "Nahoru"
 msgstr "Nahoru"
@@ -530,7 +530,7 @@ msgstr "Profil uživatele"
 #: ../app/controllers/application_rest_api.php:76
 #, php-format
 msgid "Commands in %s"
-msgstr "Přikazy v %s"
+msgstr "Příkazy v %s"
 
 #: ../app/controllers/application_rest_api.php:172
 #, php-format
@@ -1423,13 +1423,13 @@ msgstr "Zobrazit obrázek"
 
 #~ msgid "Ensure this image is at most %max% pixels wide (it is %width%)."
 #~ msgstr ""
-#~ "Ujistěte se, že šířka obrázku nepřekročí %max% bodů (teď je šíroký %width"
-#~ "%)."
+#~ "Ujistěte se, že šířka obrázku nepřekročí %max% bodů (teď je šíroký "
+#~ "%width%)."
 
 #~ msgid "Ensure this image is at most %max% pixels high (it is %height%)."
 #~ msgstr ""
-#~ "Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký %height"
-#~ "%)."
+#~ "Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký "
+#~ "%height%)."
 
 #~ msgid "Ensure this image is at least %min% pixels wide (it is %width%)."
 #~ msgstr "Obrázek musí mít alespoň %min% bodů na šířku (nyní má %width%). "
