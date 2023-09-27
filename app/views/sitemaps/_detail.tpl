@@ -26,6 +26,7 @@
 	<li>
 		<h4>{t}Recent articles{/t}</h4>
 		<ul class="list--tree">
+			<li>{a action="articles/index" _with_hostname=1}{t}Articles{/t}{/a}</li>
 		{foreach $articles as $article}
 			<li>{a action="articles/detail" id=$article _with_hostname=1}{$article->getTitle()}{/a}</li>
 		{/foreach}
