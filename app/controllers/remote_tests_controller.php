@@ -41,7 +41,7 @@ class RemoteTestsController extends ApplicationController{
 	 * Sample negative test
 	 */
 	function fail(){
-		$this->_fail();
+		$this->_fail("fail (note the HTTP 500 response status code)");
 		//$this->_assert_equals(123,456);
 		//$this->_assert_true(false);
 	}
