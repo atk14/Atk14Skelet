@@ -10,5 +10,6 @@
 		<li>{a action=$test _with_hostname=true}{$test}{/a}</li>
 		{/foreach}
 	</ul>
+	<p>The list of all tests in JSON format is at {link_to action="index" format="json" _with_hostname=1}
 	</body>
 </html>
