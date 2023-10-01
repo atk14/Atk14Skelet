@@ -12,7 +12,20 @@ class RemoteTestsController extends ApplicationController{
 	function index(){
 		$source = Files::GetFileContent(__FILE__);
 		preg_match_all('/function\s+([a-z][a-z0-9_]*)\s*\(/',$source,$matches);
-		$this->tpl_data["tests"] = array_diff($matches[1],array("index","fail")); // we don't want to actions "index" and "fail" to be listed
+		$tests = array_diff($matches[1],array("index")); // we don't want to action "index" to be listed
+		if($this->params->defined("format")){
+			$this->render_template = false;
+			switch($this->params->getString("format")){
+				case "json":
+					$this->response->setContentType("application/json");
+					$this->response->write(json_encode($tests));
+					return;
+				default:
+					$this->response->notFound();
+					return;
+			}
+		}
+		$this->tpl_data["tests"] = $tests;
 		$this->render_layout = false;
 	}
 	
@@ -28,9 +41,9 @@ class RemoteTestsController extends ApplicationController{
 	 * Sample negative test
 	 */
 	function fail(){
-		$this->_fail();
-		$this->_assert_equals(123,456);
-		$this->_assert_true(false);
+		$this->_fail("fail (note the HTTP 500 response status code)");
+		//$this->_assert_equals(123,456);
+		//$this->_assert_true(false);
 	}
 
 	/**
