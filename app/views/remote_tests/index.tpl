@@ -7,7 +7,7 @@
 	<p>The list is rendered for automatization. You can remove index action in {$controller} controller to prevent displaying this page.</p>
 	<ul>
 		{foreach from=$tests item=test}
-		<li>{a action=$test _with_hostname=true}{$test}{/a}</li>
+		<li><a href="{$test.url}">{$test.name}</a></li>
 		{/foreach}
 	</ul>
 	<p>The list of all tests in JSON format is at {link_to action="index" format="json" _with_hostname=1}

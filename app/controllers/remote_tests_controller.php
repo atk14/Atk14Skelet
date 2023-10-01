@@ -13,6 +13,16 @@ class RemoteTestsController extends ApplicationController{
 		$source = Files::GetFileContent(__FILE__);
 		preg_match_all('/function\s+([a-z][a-z0-9_]*)\s*\(/',$source,$matches);
 		$tests = array_diff($matches[1],array("index")); // we don't want to action "index" to be listed
+
+		$_tests = [];
+		foreach($tests as $test){
+			$_tests[] = [
+				"name" => $test,
+				"url" => $this->_link_to(["action" => $test],["with_hostname" => true]),
+			];
+		}
+		$tests = $_tests;
+
 		if($this->params->defined("format")){
 			$this->render_template = false;
 			switch($this->params->getString("format")){
