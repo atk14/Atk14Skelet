@@ -33,8 +33,9 @@ class RemoteTestsController extends ApplicationController{
 	 * Sample positive test
 	 */
 	function success(){
-		$this->_assert_true(true);
-		$this->_assert_equals(123,123);
+		$this->_assert_true(true,"","ok (note the HTTP 200 response status code)");
+		//$this->_assert_true(true);
+		//$this->_assert_equals(123,123);
 	}
 
 	/**
@@ -117,15 +118,17 @@ class RemoteTestsController extends ApplicationController{
 		$this->test_messages = array();
 	}
 
-	function _assert_equals($expected,$value,$message = ""){
+	function _assert_equals($expected,$value,$fail_message = "",$success_message = ""){
 		if($expected!==$value){
 			$this->test_ok = false;
-			$this->test_messages[] = $message ? $message : "fail";
+			$this->test_messages[] = $fail_message ? $fail_message : "fail";
+		}elseif($success_message){
+			$this->test_messages[] = $success_message;
 		}
 	}
 
-	function _assert_true($expression,$message = ""){
-		return $this->_assert_equals(true,$expression,$message);
+	function _assert_true($expression,$fail_message = "",$success_message = ""){
+		return $this->_assert_equals(true,$expression,$fail_message,$success_message);
 	}
 
 	function _fail($messages = ""){
