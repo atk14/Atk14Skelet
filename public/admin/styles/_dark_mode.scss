@@ -1,5 +1,5 @@
 @media screen {
-  body.dark-mode {
+  body.xxxdark-mode, body[data-bs-theme="dark"] {
 
     $dark-border-color: $gray-600;
     $dark-body-bg: $gray-900;
@@ -11,15 +11,15 @@
     $table-dark-border-color: $dark-border-color;
 
 
-    background-color: $dark-body-bg;
-    color: white;
+    /*background-color: $dark-body-bg;
+    color: white;*/
 
-    a {
+    /*a {
       color: $dark-primary-color
-    }
+    }*/
 
     // tables
-    .table {
+    /*.table {
       color: $table-dark-color;
       background-color: $table-dark-bg;
       border-color: $table-dark-border-color;
@@ -48,7 +48,7 @@
           }
         }
       }
-    }
+    }*/
 
     // nav left
     .has-nav-section{
@@ -73,26 +73,18 @@
       }
     }
 
-    // breadcrumb
-    ol.breadcrumb {
-      background-color: #121212;
-      border-color: $dark-border-color;
-    }
-
     // list groups
     .list-group {
-      background-color: $table-dark-bg;
-      .list-group-item {
-        background-color: $table-dark-bg;
-        border-color: $dark-border-color;
-        .list-thumbnail {
-          border-color: $dark-border-color;
+      &-item {
+        background-color: $dark;
+        &:hover {
+          //background-color: black;
         }
       }
     }
 
     // forms 
-    form {
+    /*form {
       .form-group {
         border-color: $dark-border-color;
         & > .help-block {
@@ -104,18 +96,23 @@
           color: $dark-text-muted !important;
         }
       }
-    }
+    }*/
 
-    .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .drop-zone {
+    /*.form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .drop-zone {
       background-color: $dark-input-bg;
       border-color: $dark-border-color;
       color: white;
+    }*/
+    .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .drop-zone {
+      background-color: var(--bs-body-bg);
+      border-color: var(--bs-border-color);
+      color: var(--bs-body-color);
     }
 
-    .pickr .pcr-button {
+    /*.pickr .pcr-button {
       border-color: $dark-border-color;
       background-color: rgba(white,0.4);
-    }
+    }*/
 
     .md-toolbar {
       background-color: $dark-medium-bg;
@@ -127,18 +124,18 @@
       }
     }
 
-    .img-thumbnail {
+    /*.img-thumbnail {
       background-color: $dark-input-bg;
       border-color: $dark-border-color;
-    }
+    }*/
 
     // progress
-    .progress {
+    /*.progress {
       background-color: $dark-input-bg;
-    }
+    }*/
 
     // pagination 
-    .pagination {
+    /*.pagination {
       .page-item:not(.active){
         .page-link {
           background-color: $dark-input-bg;
@@ -146,23 +143,23 @@
           color: white;
         }
       }
-    }
+    }*/
 
     // dashboard
-    .dashboard-indiators {
+    /*.dashboard-indiators {
       .dashboard-number-indicator{
         border-color: $dark-border-color;
       }
-    }
+    }*/
 
     // list tree
-    ul.list--tree {
+    /*ul.list--tree {
       li {
         &:after, &:before {
           border-color: $dark-border-color;
         }
       }
-    }
+    }*/
 
   }
 }
