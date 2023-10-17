@@ -32,4 +32,18 @@ class TcLinkList extends TcBase {
 		$this->assertEquals(true,$test_list->isEmpty(true));
 		$this->assertEquals(false,$test_list->isEmpty(false));
 	}
+
+	function test_asSubmenu(){
+		$list = $this->link_lists["test_list"];
+		$submenu = $list->asSubmenu();
+		$this->assertEquals(3,sizeof($submenu->getItems()));
+
+		$list = $this->link_lists["empty_list"];
+		$submenu = $list->asSubmenu();
+		$this->assertEquals(null,$submenu);
+
+		$list = $this->link_lists["list_with_invisible_items"];
+		$submenu = $list->asSubmenu();
+		$this->assertEquals(null,$submenu);
+	}
 }
