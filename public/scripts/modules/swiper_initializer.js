@@ -1,5 +1,5 @@
-import Swiper, { Autoplay, EffectFade, FreeMode, Navigation, Pagination, Thumbs } from 'swiper';
-Swiper.use([Navigation, Pagination, Autoplay, FreeMode, EffectFade, Thumbs]);
+import Swiper from 'swiper';
+import { Navigation, Pagination, Autoplay, Thumbs } from 'swiper/modules';
 
 let SwiperInitializer = function() {
   var swipers = document.querySelectorAll( ".swiper" );
@@ -23,6 +23,7 @@ let SwiperInitializer = function() {
 
     // Swiper init parameters
     var initObject = {
+      modules: [ Navigation, Pagination, Autoplay, Thumbs ],
       slidesPerView: slidesPerView,
       navigation: {
         nextEl: "#swiper_button_next_" + sliderId,
@@ -39,6 +40,7 @@ let SwiperInitializer = function() {
       watchOverflow: true,
       spaceBetween: spaceBetween,
     };
+    //console.log(initObject);
 
     // More Swiper init params for some specific layouts
     if( !spaceBetween ) {
