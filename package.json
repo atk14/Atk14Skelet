@@ -46,7 +46,7 @@
     "autoprefixer": "^10.4.14",
     "babel-loader": "^9.1.2",
     "blueimp-file-upload": "^9.34.0",
-    "bootstrap": "^5.3.0",
+    "bootstrap": "5.3.2",
     "bootstrap-markdown-editor-4": "https://github.com/yarri/bootstrap-markdown-editor.git#1566a6b",
     "bootstrap4-notify": "4.0.3",
     "browser-sync": "^2.27.9",
