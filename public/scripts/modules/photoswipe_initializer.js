@@ -1,5 +1,7 @@
 import PhotoSwipeLightbox from "photoswipe/lightbox";
 
+// Warning: this file is excluded from ESlint due to syntax error caused by line pswpModule: () => import("photoswipe")
+
 let PhotoSwipeInitializer = function() {
   // Initialize PhotoSwipe
   const lightbox = new PhotoSwipeLightbox({

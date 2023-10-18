@@ -8,6 +8,7 @@ const CssMinimizerPlugin = require("css-minimizer-webpack-plugin"); // css minim
 const CopyWebpackPlugin = require('copy-webpack-plugin'); // copy files
 const TerserPlugin = require("terser-webpack-plugin"); // js minimizer
 const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin'); // do not output some unnecessary files
+const ESLintPlugin = require('eslint-webpack-plugin'); // linter
 
 // Aplication JS scripts. Vendor scripts referenced inside app JS files.
 var application_scripts = [
@@ -111,6 +112,7 @@ var config = {
         }},
       ]
     }),
+    new ESLintPlugin(),
   ],
   module: { 
     "rules": [ 

@@ -1,9 +1,0 @@
-{
-  "extends": "../../../.eslintrc",
-  "parser": "babel-eslint",
-  "env": {
-  },
-  "parserOptions": {
-      "sourceType": "module"
-  }
-}

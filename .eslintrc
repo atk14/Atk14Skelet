@@ -26,5 +26,9 @@
     ],
     "no-undef": 2,
     "no-unused-vars": 2
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 6
   }
 }

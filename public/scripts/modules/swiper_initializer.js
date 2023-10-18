@@ -1,5 +1,5 @@
-import Swiper from 'swiper';
-import { Navigation, Pagination, Autoplay, Thumbs } from 'swiper/modules';
+import Swiper from "swiper";
+import { Navigation, Pagination, Autoplay, Thumbs } from "swiper/modules";
 
 let SwiperInitializer = function() {
   var swipers = document.querySelectorAll( ".swiper" );

@@ -1,15 +1,16 @@
 /* Imports */
-const bootstrap = require ('bootstrap');
-window.$ = window.jQuery = require('jquery');
-const unobfuscate = require('unobfuscatejs');
-const ATK14 = require('atk14js');
+const bootstrap = require ( "bootstrap" );
+window.$ = window.jQuery = require("jquery");
+//const unobfuscate = require( "unobfuscatejs" );
+require( "unobfuscatejs" );
+require( "atk14js" );
 
 
 /* global window */
 ( function( window, $, undefined ) {
 	"use strict";
 	var document = window.document,
-	UTILS = window.UTILS, // Uncomment this if you need something from UTILS
+	// UTILS = window.UTILS, // Uncomment this if you need something from UTILS
 
 	APPLICATION = {
 		common: {			
