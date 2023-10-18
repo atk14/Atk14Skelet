@@ -112,7 +112,6 @@ var config = {
         }},
       ]
     }),
-    new ESLintPlugin(),
   ],
   module: { 
     "rules": [ 
@@ -171,10 +170,16 @@ module.exports = (env, args) => {
     console.log( "dist directory will be cleaned" );
     config.output.clean = true;
   }
-  console.log("mode----", args.mode);
+  console.log("mode:", args.mode);
   if( args.mode !== "production" ) {
     // minimize outputs only in production mode
     config.optimization.minimize = false;
+  }
+  if( !args.watch ){
+    console.log( "JS will be linted" );
+    config.plugins.push( new ESLintPlugin() );
+  }else{
+    console.log( "JS will not be linted" );
   }
   return config;
 }
