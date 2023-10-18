@@ -75,19 +75,23 @@ This will install all the tools and dependencies you will need to serve and buil
 Run initial development Webpack build process for presentation and admininstration.
 ```bash
 $ npm run build
+$ npm run build-admin
 ```
 
 ### Run production mode build
 Run production Webpack build process for presentation and admininstration.
 ```bash
 $ npm run dist
+$ npm run dist-admin
 ```
 
 ### Serve / watch
 ```bash
 $ npm run serve
+$ npm run serve-admin
 ```
-### Faster serve / watch processes only CSS files. Run npm run build beforehand.
+### Faster serve / watch processes only CSS files. 
+Run npm run build beforehand. Try if normal npm run serve seems to be too slow.
 ```bash
 $ npm run servenojs
 ```

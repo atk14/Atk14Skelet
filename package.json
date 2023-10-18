@@ -39,7 +39,7 @@
   "devDependencies": {
     "@babel/core": "^7.22.1",
     "@babel/preset-env": "^7.22.4",
-    "@fortawesome/fontawesome-free": "^6.1.1",
+    "@fortawesome/fontawesome-free": "^6.4.2",
     "ace-builds": "^1.23.4",
     "animate.css": "^3.7.2",
     "atk14js": "^1.2.1",
