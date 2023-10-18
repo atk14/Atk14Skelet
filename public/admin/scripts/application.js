@@ -98,6 +98,9 @@ import "bootstrap4-notify";
 						document.cookie = "dark_mode=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";
 					}
 
+					$( "body" ).addClass( "dark-mode-transition" );
+					setTimeout( function(){ $( "body" ).removeClass( "dark-mode-transition" ); }, 1000 );
+
 					// darkModeChange event is triggered on dark mode de/activation
 					var evt = new CustomEvent( "darkModeChange", { detail: mode } );
 					document.dispatchEvent(evt);
