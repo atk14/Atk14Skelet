@@ -61,7 +61,7 @@
 
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 
-		<meta name="robots" content="noindex">
+		<meta name="robots" content="noindex,noarchive">
 	</head>
 
 	<body class="body_{$controller}_{$action}{if $request->getCookieVar("dark_mode")} dark-mode{/if}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}">
