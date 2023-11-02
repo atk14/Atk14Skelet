@@ -23,7 +23,7 @@ class TagsController extends AdminController{
 			$bind_ar[":search"] = Translate::Lower($d["search"]);
 		}
 
-		$this->sorting->add("created_at",array("reverse" => true));
+		$this->_initialize_prepared_sorting("created_at");
 		$this->sorting->add("tag","LOWER(tag)");
 		$this->sorting->add("code","code IS NULL, code, LOWER(tag)","code IS NULL, code DESC, LOWER(tag)");
 		$this->sorting->add("id");

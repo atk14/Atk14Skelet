@@ -2,8 +2,12 @@
 class BooleanWithSelectField extends ChoiceField {
 
 	function __construct($options = []){
+		$options += [
+			"empty_choice_text" => "",
+		];
+
 		$options["choices"] = [
-			"" => "",
+			"" => $options["empty_choice_text"],
 			"on" => _("Ano"),
 			"off" => _("Ne"),
 		];

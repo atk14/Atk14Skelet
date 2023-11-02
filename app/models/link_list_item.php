@@ -64,16 +64,7 @@ class LinkListItem extends ApplicationModel implements Rankable, Translatable {
 		$menu = new Menu14();
 
 		if(strlen($code = (string)$this->getCode()) && ($list = LinkList::GetInstanceByCode($code))){
-			foreach($list->getVisibleItems() as $l_item){
-				$item = $menu->addItem($l_item->getTitle(),$l_item->getUrl());
-				$item->setMeta("image_url",$l_item->getImageUrl());
-				$item->setMeta("css_class",$l_item->getCssClass());
-				$item->setMeta("code",$l_item->getCode());
-			}
-			if($menu->isEmpty()){
-				return null;
-			}
-			return $menu;
+			return $list->asSubmenu();
 			// Note that in this case the "reasonable_max_items_count" option has no effect on the items count.
 		}
 

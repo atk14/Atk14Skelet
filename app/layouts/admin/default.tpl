@@ -58,7 +58,10 @@
 		<![endif]-->
 		
 		{render partial="shared/layout/favicons"}
-		
+
+		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
+
+		<meta name="robots" content="noindex,noarchive">
 	</head>
 
 	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-bs-theme="{if $request->getCookieVar("dark_mode")}dark{else}light{/if}">

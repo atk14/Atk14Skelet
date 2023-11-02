@@ -114,6 +114,37 @@ require( "atk14js" );
 
 		// In this json, the actions for namespace "api" can be defined
 		api: {
+			common: {
+
+				// Application-wide code.
+				init: function() {
+
+					// Restores email addresses misted by the no_spam helper
+					$( ".atk14_no_spam" ).unobfuscate( {
+						atstring: "[at-sign]",
+						dotstring: "[dot-sign]"
+					} );
+
+					// Links with the "blank" class are pointing to new window
+					$( "a.blank" ).attr( "target", "_blank" );
+
+					// Form hints.
+					$( ".help-hint" ).each( function() {
+						var $this = $( this ),
+							$field = $this.closest( ".form-group" ).find( ".form-control" ),
+							title = $this.data( "title" ) || "",
+							content = $this.html(),
+							popoverOptions = {
+								html: true,
+								trigger: "focus",
+								title: title,
+								content: content
+							};
+
+						$field.popover( popoverOptions );
+					} );
+				}
+			}
 
 		}
 

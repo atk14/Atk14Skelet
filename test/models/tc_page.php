@@ -9,7 +9,7 @@ class TcPage extends TcBase {
 		$page = $this->pages["testing_page"];
 
 		$this->assertEquals("Testing Page",$page->getTitle());
-		$this->assertEquals("Welcome at <em>Testing Page</em>",$page->getTeaser());
+		$this->assertEquals("Welcome to <em>Testing Page</em>",$page->getTeaser());
 		$this->assertEquals("Just Testing Page",$page->getPageTitle());
 		$this->assertEquals("This is a testing page",$page->getPageDescription());
 
@@ -19,7 +19,7 @@ class TcPage extends TcBase {
 		]);
 
 		$this->assertEquals("Testing Page",$page->getPageTitle());
-		$this->assertEquals("Welcome at Testing Page",$page->getPageDescription());
+		$this->assertEquals("Welcome to Testing Page",$page->getPageDescription());
 	}
 
 	function test_isIndexable(){

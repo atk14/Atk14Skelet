@@ -4,3 +4,9 @@ test_list:
 main_menu:
   code: "main_menu_code"
   system_name: "Main menu"
+
+empty_list:
+  system_name: "Empty list"
+
+list_with_invisible_items:
+  system_name: "List with invisible items"

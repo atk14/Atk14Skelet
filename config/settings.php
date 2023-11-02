@@ -47,6 +47,8 @@ definedef("WEBP_FORMAT_SUPPORTED",true);
 
 definedef("ARTICLE_BODY_MAX_WIDTH",825);
 
+definedef("SIGN_UP_FOR_NEWSLETTER_ENABLED",true);
+
 // == hCaptcha ==
 // If these two constant are properly defined (see https://github.com/atk14/HcaptchaField#installation),
 // the hcaptcha field is being automatically added into the contact form...

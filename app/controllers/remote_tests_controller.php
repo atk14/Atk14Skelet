@@ -12,7 +12,30 @@ class RemoteTestsController extends ApplicationController{
 	function index(){
 		$source = Files::GetFileContent(__FILE__);
 		preg_match_all('/function\s+([a-z][a-z0-9_]*)\s*\(/',$source,$matches);
-		$this->tpl_data["tests"] = array_diff($matches[1],array("index","fail")); // we don't want to actions "index" and "fail" to be listed
+		$tests = array_diff($matches[1],array("index")); // we don't want to action "index" to be listed
+
+		$_tests = [];
+		foreach($tests as $test){
+			$_tests[] = [
+				"name" => $test,
+				"url" => $this->_link_to(["action" => $test],["with_hostname" => true]),
+			];
+		}
+		$tests = $_tests;
+
+		if($this->params->defined("format")){
+			$this->render_template = false;
+			switch($this->params->getString("format")){
+				case "json":
+					$this->response->setContentType("application/json");
+					$this->response->write(json_encode($tests));
+					return;
+				default:
+					$this->response->notFound();
+					return;
+			}
+		}
+		$this->tpl_data["tests"] = $tests;
 		$this->render_layout = false;
 	}
 	
@@ -20,17 +43,18 @@ class RemoteTestsController extends ApplicationController{
 	 * Sample positive test
 	 */
 	function success(){
-		$this->_assert_true(true);
-		$this->_assert_equals(123,123);
+		$this->_assert_true(true,"","ok (note the HTTP 200 response status code)");
+		//$this->_assert_true(true);
+		//$this->_assert_equals(123,123);
 	}
 
 	/**
 	 * Sample negative test
 	 */
 	function fail(){
-		$this->_fail();
-		$this->_assert_equals(123,456);
-		$this->_assert_true(false);
+		$this->_fail("fail (note the HTTP 500 response status code)");
+		//$this->_assert_equals(123,456);
+		//$this->_assert_true(false);
 	}
 
 	/**
@@ -80,6 +104,19 @@ class RemoteTestsController extends ApplicationController{
 		$this->_assert_true(is_null(User::Login("admin","admin")));
 	}
 
+	function disk_space(){
+		$kB = 1024;
+		$MB = $kB * $kB;
+		$GB = 1024 * $MB;
+
+		$disk_space_required = 1 * $GB;
+
+		$this->_assert_true($disk_space_required>0,'bad $disk_space_required');
+		$space = disk_free_space(ATK14_DOCUMENT_ROOT);
+		$this->_assert_true(is_numeric($space),'disk_free_space() returns no number');
+		$this->_assert_true($space > $disk_space_required);
+	}
+
 	function _before_filter(){
 		/*
 		// Here you can restrict access to the controller's actions for listed IP addresses
@@ -91,15 +128,17 @@ class RemoteTestsController extends ApplicationController{
 		$this->test_messages = array();
 	}
 
-	function _assert_equals($expected,$value,$message = ""){
+	function _assert_equals($expected,$value,$fail_message = "",$success_message = ""){
 		if($expected!==$value){
 			$this->test_ok = false;
-			$this->test_messages[] = $message ? $message : "fail";
+			$this->test_messages[] = $fail_message ? $fail_message : "fail";
+		}elseif($success_message){
+			$this->test_messages[] = $success_message;
 		}
 	}
 
-	function _assert_true($expression,$message = ""){
-		return $this->_assert_equals(true,$expression,$message);
+	function _assert_true($expression,$fail_message = "",$success_message = ""){
+		return $this->_assert_equals(true,$expression,$fail_message,$success_message);
 	}
 
 	function _fail($messages = ""){

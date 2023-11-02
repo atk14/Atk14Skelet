@@ -2,5 +2,5 @@
 <section>
 	{render partial="shared/form"}
 
-	<p>{a action="password_recoveries/create_new"}{t}Have you forgotten password?{/t}{/a}</p>
+	<p>{a action="password_recoveries/create_new" _rel="nofollow"}{t}Have you forgotten password?{/t}{/a}</p>
 </section>

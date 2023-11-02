@@ -59,7 +59,7 @@ class Article extends ApplicationModel implements Translatable, iSlug {
 		return Article::FindFirst(array(
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
-			"order_by" => $newer ? "published_at" : "published_at DESC",
+			"order_by" => $newer ? "published_at" : "published_at DESC, id DESC",
 		));
 	}
 }

@@ -3,7 +3,7 @@
         "atk14/dbmole-panel": "^1.0",
         "atk14/mail-panel": "^1.0",
         "atk14/templates-panel": "^1.0",
-        "atk14/pupiq-client": "^1.14.5",
+        "atk14/pupiq-client": "^1.14 >=1.14.8",
         "atk14/url-field": "^1.0",
         "atk14/phone-field": "^1.1",
         "atk14/drink-markdown": "^0.8",
