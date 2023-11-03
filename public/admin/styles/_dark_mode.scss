@@ -58,6 +58,13 @@
         border-color: $dark-medium-bg;
       }
     }
+
+    // Better visibility for btn-outline-primary buttons on dark bg
+    .btn-outline-primary:not(:hover) {
+      $darkModeOUtlineBtn: lighten($primary, 15%);
+      color: $darkModeOUtlineBtn;
+      border-color: $darkModeOUtlineBtn;
+    }
   }
 }
 
