@@ -9,7 +9,7 @@
 					<span class="caret"></span>
 					<span class="sr-only">{t}Show menu{/t}</span>
 				</button>
-				<div class="dropdown-menu dropdown-menu-right">
+				<div class="dropdown-menu dropdown-menu-right dropdown-menu-end">
 					{foreach $lines as $line}
 						{!$line}
 					{/foreach}

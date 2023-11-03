@@ -84,7 +84,7 @@
 			</div>
 		</div>
 		{render partial="shared/layout/footer"}
-		<div class="alert alert-info">USING_BOOTSTRAP4: {USING_BOOTSTRAP4}, USING_BOOTSTRAP5 {USING_BOOTSTRAP5}</div>
+		{if $DEVELOPMENT}<!-- USING_BOOTSTRAP4: {USING_BOOTSTRAP4}, USING_BOOTSTRAP5 {USING_BOOTSTRAP5}/-->{/if}
 		{render partial="shared/layout/devcssinfo"}
 
 		{*javascript_script_tag file="$public/dist/scripts/vendor.min.js"}
