@@ -25,6 +25,7 @@ var application_styles = ["./public/admin/styles/application.scss"];
 var vendorStyles = [
   "./node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/all.css",
+  "./node_modules/jquery-ui-bundle/jquery-ui.css",
 ];
 
 // Files to be ignored
@@ -51,7 +52,7 @@ var config = {
       {
         host: 'localhost',
         port: 3000,
-        proxy: 'http://localhost:8000/',
+        proxy: 'http://localhost:8000/admin/',
         files: [ "app/views/admin/**/*.tpl", "public/admin/images/**/*", "public/admin/dist/**/*" ],
         injectChanges: true,
         injectFileTypes: ["css"],
