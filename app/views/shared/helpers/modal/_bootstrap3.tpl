@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal{if $animation} fade{/if}" id="{$id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
+<div class="modal{if $animation} fade{/if}{if $class} {$class}{/if}" id="{$id}" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-dialog{if $vertically_centered} modal-dialog-centered{/if}">
 		<div class="modal-content">
 			{if $title|strlen || $close_button}
