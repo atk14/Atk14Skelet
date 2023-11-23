@@ -1,5 +1,5 @@
 <!-- Modal -->
-<div class="modal{if $animation} fade{/if}" id="{$id}" tabindex="-1" role="dialog" aria-labelledby="{$id}Label" aria-hidden="true"{if !$closable_by_keyboard} data-keyboard="false"{/if}{if !$closable_by_clicking_on_backdrop} data-backdrop="static"{/if}>
+<div class="modal{if $animation} fade{/if}{if $class} {$class}{/if}" id="{$id}" tabindex="-1" role="dialog" aria-labelledby="{$id}Label" aria-hidden="true"{if !$closable_by_keyboard} data-keyboard="false"{/if}{if !$closable_by_clicking_on_backdrop} data-backdrop="static"{/if}>
   <div class="modal-dialog{if $vertically_centered} modal-dialog-centered{/if}" role="document">
     <div class="modal-content">
 			{if $title|strlen || $close_button}
