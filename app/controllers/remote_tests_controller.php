@@ -6,6 +6,10 @@
  */
 class RemoteTestsController extends ApplicationController{
 
+	protected $test_ok;
+
+	protected $test_messages;
+
 	/**
 	 * Displays list of all tests
 	 */
