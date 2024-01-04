@@ -278,12 +278,19 @@ class HeadTags {
 }
 
 class Element14 {
+
+	protected $data;
+
 	function getData() {
 		return $this->data;
 	}
 }
 
 class MetaTag14 extends Element14 {
+
+	protected $meta_type;
+	protected $key;
+
 	function __construct($meta_type, $key, $data) {
 		$this->meta_type = $meta_type;
 		$this->key = $key;
@@ -301,6 +308,9 @@ class MetaTag14 extends Element14 {
 }
 
 class LinkTag14 extends Element14 {
+
+	protected $rel_type;
+
 	function __construct($rel_type,$attributes) {
 		$this->rel_type = $rel_type;
 		$this->data = $attributes;
