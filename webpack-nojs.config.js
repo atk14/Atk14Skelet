@@ -17,7 +17,7 @@ var application_styles = "./public/styles/application.scss";
 const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin'); // do not output some unnecessary files
 
 
-// Appllication styles incl. Bootstrap
+// Application styles incl. Bootstrap
 var application_styles = "./public/styles/application.scss";
 
 

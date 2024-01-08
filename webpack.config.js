@@ -16,7 +16,7 @@ var application_scripts = [
 	"./public/scripts/application.js",
 ];
 
-// Appllication styles incl. Bootstrap
+// Application styles incl. Bootstrap
 var application_styles = "./public/styles/application.scss";
 
 // Other vendor styles
