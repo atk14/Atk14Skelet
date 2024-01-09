@@ -200,6 +200,20 @@
 			// ADMIN.utils.handleFormErrors( $element.find( "ul" ) );
 			handleSortables: function( sortable ) {
 
+				var $sortable = $( ".list-sortable" ),
+					glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
+						" title='sorting'></span>";
+					
+				if ( $sortable.length ) {
+					$sortable.find( ".list-group-item" ).prepend( glyph );
+
+					$sortable.each( function( i, el ){
+						$(el).css("border", "1mm solid red");
+						console.log(el);
+						new Sortable( el );
+					} );
+				}
+				/*
 				// Sortable lists.
 				if ( sortable === undefined ) {
 					$sortable = $( ".list-sortable" );
@@ -207,12 +221,14 @@
 					$sortable = $( sortable );
 				}
 
+				//console.log(new Sortable());
+
 				var $sortable = $( ".list-sortable" ),
 					glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
 						" title='sorting'></span>",
 					url, $item, data, $list, id;
-
-				if ( $sortable.length ) {
+				*/
+				/*if ( $sortable.length ) {
 					$sortable.find( ".list-group-item" ).prepend( glyph );
 
 					$sortable.sortable( {
@@ -240,7 +256,7 @@
 							} );
 						}
 					} );
-				}
+				}*/
 			},
 
 			// Suggests anything according by an url
