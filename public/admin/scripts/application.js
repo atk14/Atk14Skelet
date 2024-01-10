@@ -198,7 +198,9 @@
 			// ADMIN.utils.handleFormErrors();
 			// ADMIN.utils.handleFormErrors( ".list-sortable" );
 			// ADMIN.utils.handleFormErrors( $element.find( "ul" ) );
-			handleSortables: function( sortable ) {
+
+			handleSortables: function() {
+				// Sortable lists.
 
 				var $sortable = $( ".list-sortable" ),
 					glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
@@ -207,58 +209,33 @@
 				if ( $sortable.length ) {
 					$sortable.find( ".list-group-item" ).prepend( glyph );
 
-					$sortable.each( function( i, el ){
-						$(el).css("border", "1mm solid red");
-						console.log(el);
+					$sortable.each( function( i, el ) {
+						// eslint-disable-next-line no-undef
 						new Sortable( el, {
-							handle: ".handle"
+							handle: ".handle",
+							onUpdate: function( e ) {
+								var $list = $( e.target );
+								var $item = $( e.item );
+								var url = $list.data( "sortable-url" );
+								var id = $list.data( "sortable-param" ) || "id";
+								var data = {
+									rank: $item.index()
+								};
+								data[ id ] = $item.data( "id" );
+								
+								$.ajax( {
+									type: "POST",
+									url: url,
+									data: data,
+									success: function() {
+									},
+									error: function() {
+									}
+								} );
+							}
 						} );
 					} );
 				}
-				/*
-				// Sortable lists.
-				if ( sortable === undefined ) {
-					$sortable = $( ".list-sortable" );
-				} else {
-					$sortable = $( sortable );
-				}
-
-				//console.log(new Sortable());
-
-				var $sortable = $( ".list-sortable" ),
-					glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
-						" title='sorting'></span>",
-					url, $item, data, $list, id;
-				*/
-				/*if ( $sortable.length ) {
-					$sortable.find( ".list-group-item" ).prepend( glyph );
-
-					$sortable.sortable( {
-						cancel: "strong",
-						handle: ".handle",
-						opacity: 0.9,
-						update: function( jqEv, ui ) {
-							$item = $( ui.item );
-							$list = $item.closest( ".list-sortable" );
-							url = $list.data( "sortable-url" );
-							id = $list.data( "sortable-param" ) || "id";
-							data = {
-								rank: $item.index()
-							};
-							data[ id ] = $item.data( "id" );
-
-							$.ajax( {
-								type: "POST",
-								url: url,
-								data: data,
-								success: function() {
-								},
-								error: function() {
-								}
-							} );
-						}
-					} );
-				}*/
 			},
 
 			// Suggests anything according by an url

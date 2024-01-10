@@ -12,7 +12,7 @@ var vendorStyles = [
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
-	//"node_modules/jquery-ui-bundle/jquery-ui.js",
+	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/sortablejs/Sortable.js",
 	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
 	"node_modules/ace-builds/src/ace.js",
