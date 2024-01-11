@@ -115,8 +115,12 @@
 	// drag and drop cursor
 	.handle {
 		position: absolute;
+		display: flex;
+		align-items: center;
 		left: 1 * $spacer;
-		top: 1.25 * $spacer;
+		//top: 1.25 * $spacer;
+		top: 0.25 * $spacer;
+		height: 3 * $spacer;
 
 		&:hover {
 			cursor: grab;
@@ -126,4 +130,15 @@
 	.ui-sortable-helper .handle {
 		cursor: grabbing;
 	}
+}
+
+
+// Styles for sortable list groups using Sortable.js
+.sortable-ghost {
+	opacity: 0.4;
+	background-color: rgba( $primary, 0.25 ) !important;
+}
+.sortable-chosen {
+}
+.sortable-drag {
 }
