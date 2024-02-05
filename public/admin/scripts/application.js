@@ -36,7 +36,7 @@ import autocomplete from "autocompleter";
 				ADMIN.utils.handleSuggestions();
 				ADMIN.utils.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
-				ADMIN.utils.handleXhrImageUpload();
+				window.UTILS.AsyncImageUploader.init()
 				ADMIN.utils.handleCopyIobjectCode();
 
 				// Form hints.

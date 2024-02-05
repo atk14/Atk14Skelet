@@ -1,7 +1,11 @@
 {
+  "parser": "@babel/eslint-parser",
   "env": {
 		"browser": true,
-    "node": true
+    "node": true,
+    "commonjs": true,
+		"jquery": true,
+    "es6": true
   },
   "globals": {
     "bootstrap": true
@@ -29,6 +33,8 @@
   },
   "parserOptions": {
     "sourceType": "module",
-    "ecmaVersion": 6
+    "ecmaVersion": 8,
+    "requireConfigFile": false
+
   }
 }
