@@ -242,75 +242,91 @@
 
 			// Suggests anything according by an url
 			handleSuggestions: function() {
-				$( document ).on( "keyup.autocomplete", "[data-suggesting='yes']", function(){
-					$( this ).autocomplete( {
-						source: function( request, response ) {
-							var $el = this.element,
-								url = $el.data( "suggesting_url" ),
-								term;
-							term = request.term;
-
-							$.getJSON( url, { q: term }, function( data ) {
-								response( data );
-							} );
-						}
-					} );
-				} );
+				var inputs = $( "[data-suggesting='yes']" );
+				inputs.each( function( i, el ){
+					var $input = $( el ),
+							url = $input.data( "suggesting_url" );
+										
+					// eslint-disable-next-line no-undef
+					autocomplete({
+						// see https://github.com/kraaden/autocomplete
+						input: el,
+						fetch: function( text, update ) {
+								text = text.toLowerCase();								
+								$.getJSON( url, { q: text }, function( data ) {
+									update( data );
+								} );
+						},
+						render: function( item ) {
+							var div = document.createElement( "div" );
+							div.textContent = item;
+							return div;
+						},
+						onSelect: function( item, input ) {
+								input.value = item;
+						},
+						preventSubmit: 2,
+						disableAutoSelect: true,
+						debounceWaitMs: 100,
+					});
+				});
 			},
+
 
 			// Suggests tags
 			handleTagsSuggestions: function() {
-				$( document ).on( "keyup.autocomplete", "[data-tags_suggesting='yes']", function() {
-					var $input = $( this ),
+				function split( val ) {
+					return val.split( /,\s*/ );
+				}
+				function extractLast( t ) {
+					return split( t ).pop();
+				}
+				$( "[data-tags_suggesting='yes']" ).each( function( i, el ){
+					var $input = $( el ),
 						lang = $( "html" ).attr( "lang" ),
 						url = "/api/" + lang + "/tags_suggestions/?format=json&q=",
 						cache = {},
 						term, terms;
 
-					function split( val ) {
-						return val.split( /,\s*/ );
-					}
-					function extractLast( t ) {
-						return split( t ).pop();
-					}
+						$input.attr( "autocomplete", "off" );
+						
+						// eslint-disable-next-line no-undef
+						autocomplete({
+						input: el,
+						fetch: function( text, update ) {
+							term = extractLast( text.toLowerCase() );
 
-					if ( !$input.length ) {
-						return;
-					}
+							if ( term.length > 0 ) {
+								
 
-					$input.autocomplete( {
+								if ( term in cache ) {
+									update( cache[ term ] );
+								} else {
+									$.getJSON( url, { q: term }, function( data ) {
+										cache[ term ] = data;
+										update( data );
+									} );
+								}
+
+							}
+						},
+						render: function( item ) {
+							var div = document.createElement( "div" );
+							div.textContent = item;
+							return div;
+						},
+						onSelect: function( item, input ) {
+								terms = split( input.value );
+								terms.pop(); 
+								terms.push( item );
+								terms.push( "" );
+								input.value = terms.join( ", " );
+						},
+						preventSubmit: 2,
+						disableAutoSelect: true,
+						debounceWaitMs: 100,
 						minLength: 1,
-						source: function( request, response ) {
-							term = extractLast( request.term );
-
-							if ( term in cache ) {
-								response( cache[ term ] );
-							} else {
-								$.getJSON( url + term, function( data ) {
-									cache[ term ] = data;
-									response( data );
-								} );
-							}
-						},
-						search: function() {
-							term = extractLast( this.value );
-
-							if ( term.length < 1 ) {
-								return false;
-							}
-						},
-						focus: function() {
-							return false;
-						},
-						select: function( event, ui ) {
-							terms = split( this.value );
-							terms.pop();
-							terms.push( ui.item.value );
-							terms.push( "" );
-							this.value = terms.join( " , " );
-							return false;
-						}
-					} );
+					});
 				} );
 			},
 

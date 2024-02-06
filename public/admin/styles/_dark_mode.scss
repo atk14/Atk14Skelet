@@ -164,6 +164,21 @@
       }
     }
 
+    // autocompleter
+    .autocomplete {
+      background-color: $dark-input-bg;
+      color: white;
+      border-color: $dark-border-color;
+      > div {
+        &.selected, &:hover:not(.group) {
+          background-color: $dark-medium-bg;
+          color: white;
+        }
+      }
+      .group {
+        background-color: $gray-900;
+      }
+    }
   }
 }
 
