@@ -8,7 +8,7 @@ var vendorStyles = [
 	"node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
 	"node_modules/jquery-ui-bundle/jquery-ui.css",
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
-	"node_modules/animate.css/animate.css"
+	"node_modules/animate.css/animate.css",
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
@@ -21,7 +21,8 @@ var vendorScripts = [
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/popper.js/dist/umd/popper.js",
-	"node_modules/bootstrap4-notify/bootstrap-notify.js"
+	"node_modules/bootstrap4-notify/bootstrap-notify.js",
+	"node_modules/autocompleter/autocomplete.js",
 ];
 
 var applicationScripts = [
