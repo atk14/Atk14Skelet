@@ -2,6 +2,8 @@
 // Traita pro Image a Picture
 trait TraitPupiqImage {
 
+	protected $_pupiq;
+
 	function toString(){ return (string)$this->getUrl(); }
 
 	/**
