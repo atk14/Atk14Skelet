@@ -1,7 +1,11 @@
 {
+  "parser": "babel-eslint",
   "env": {
-		"browser": true,
-    "node": true
+    "browser": true,
+    "node": true,
+		"commonjs": true,
+		"jquery": true,
+		"es6": true
   },
   "globals": {},
   "rules": {
@@ -22,7 +26,10 @@
       2,
       "double"
     ],
-    "no-undef": 2,
-    "no-unused-vars": 2
+    "no-undef": 1,
+    "no-unused-vars": 1
+  },
+  "parserOptions": {
+    "ecmaVersion": 8
   }
 }
