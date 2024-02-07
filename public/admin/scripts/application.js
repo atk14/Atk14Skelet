@@ -11,8 +11,8 @@
 			// Application-wide code.
 			init: function() {
 				ADMIN.utils.handleSortables();
-				ADMIN.utils.handleSuggestions();
-				ADMIN.utils.handleTagsSuggestions();
+				window.UTILS.Suggestions.handleSuggestions();
+				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
@@ -236,96 +236,6 @@
 						} );
 					} );
 				}
-			},
-
-			// Suggests anything according by an url
-			handleSuggestions: function() {
-				var inputs = $( "[data-suggesting='yes']" );
-				inputs.each( function( i, el ){
-					var $input = $( el ),
-							url = $input.data( "suggesting_url" );
-										
-					// eslint-disable-next-line no-undef
-					autocomplete({
-						// see https://github.com/kraaden/autocomplete
-						input: el,
-						fetch: function( text, update ) {
-								text = text.toLowerCase();								
-								$.getJSON( url, { q: text }, function( data ) {
-									update( data );
-								} );
-						},
-						render: function( item ) {
-							var div = document.createElement( "div" );
-							div.textContent = item;
-							return div;
-						},
-						onSelect: function( item, input ) {
-								input.value = item;
-						},
-						preventSubmit: 2,
-						disableAutoSelect: true,
-						debounceWaitMs: 100,
-					});
-				});
-			},
-
-
-			// Suggests tags
-			handleTagsSuggestions: function() {
-				function split( val ) {
-					return val.split( /,\s*/ );
-				}
-				function extractLast( t ) {
-					return split( t ).pop();
-				}
-				$( "[data-tags_suggesting='yes']" ).each( function( i, el ){
-					var $input = $( el ),
-						lang = $( "html" ).attr( "lang" ),
-						url = "/api/" + lang + "/tags_suggestions/?format=json&q=",
-						cache = {},
-						term, terms;
-
-						$input.attr( "autocomplete", "off" );
-						
-						// eslint-disable-next-line no-undef
-						autocomplete({
-						input: el,
-						fetch: function( text, update ) {
-							term = extractLast( text.toLowerCase() );
-
-							if ( term.length > 0 ) {
-								
-
-								if ( term in cache ) {
-									update( cache[ term ] );
-								} else {
-									$.getJSON( url, { q: term }, function( data ) {
-										cache[ term ] = data;
-										update( data );
-									} );
-								}
-
-							}
-						},
-						render: function( item ) {
-							var div = document.createElement( "div" );
-							div.textContent = item;
-							return div;
-						},
-						onSelect: function( item, input ) {
-								terms = split( input.value );
-								terms.pop(); 
-								terms.push( item );
-								terms.push( "" );
-								input.value = terms.join( ", " );
-						},
-						preventSubmit: 2,
-						disableAutoSelect: true,
-						debounceWaitMs: 100,
-						minLength: 1,
-					});
-				} );
 			},
 
 			// Copy iobject to clipboard
