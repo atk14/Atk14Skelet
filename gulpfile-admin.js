@@ -16,6 +16,8 @@ var vendorScripts = [
 	"node_modules/sortablejs/Sortable.js",
 	"node_modules/blueimp-file-upload/js/jquery.fileupload.js",
 	"node_modules/ace-builds/src/ace.js",
+	"node_modules/ace-builds/src/mode-markdown.js",
+	"node_modules/ace-builds/src/theme-tomorrow.js",
 	"node_modules/bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
