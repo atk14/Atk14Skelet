@@ -1,22 +1,22 @@
-/* AdminSuggestions class
+/* Suggestions class
  * handles admin autocomplete for tags, categories and general inputs
  * Usage:
  * 
  * General suggestions:
- * window.UTILS.AdminSuggestions.handleSuggestions();
+ * window.UTILS.Suggestions.handleSuggestions();
  * 
  * Tag suggestions:
- * window.UTILS.AdminSuggestions.handleTagsSuggestions();
+ * window.UTILS.Suggestions.handleTagsSuggestions();
  * 
  * Category suggestions:
- * window.UTILS.AdminSuggestions.handleCategoriesSuggestions();
+ * window.UTILS.Suggestions.handleCategoriesSuggestions();
  * 
  * Dependencies: autocompleter https://github.com/kraaden/autocomplete
  */
 
 window.UTILS = window.UTILS || { };
 
-window.UTILS.AdminSuggestions = class {
+window.UTILS.Suggestions = class {
 
   // Suggests anything according by an url
   static handleSuggestions() {
