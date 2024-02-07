@@ -11,8 +11,8 @@
 			// Application-wide code.
 			init: function() {
 				ADMIN.utils.handleSortables();
-				window.UTILS.AdminSuggestions.handleSuggestions();
-				window.UTILS.AdminSuggestions.handleTagsSuggestions();
+				window.UTILS.Suggestions.handleSuggestions();
+				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
