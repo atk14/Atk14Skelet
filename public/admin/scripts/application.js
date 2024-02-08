@@ -12,10 +12,11 @@
 			init: function() {
 				ADMIN.utils.handleSortables();
 				window.UTILS.Suggestions.handleSuggestions();
-				window.UTILS.Suggestions.handleTagsSuggestions();
+				//window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				ADMIN.utils.handleXhrImageUpload();
 				ADMIN.utils.handleCopyIobjectCode();
+				window.UTILS.TagChooser.init();
 
 				// Form hints.
 				$( ".help-hint" ).each( function() {
