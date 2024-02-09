@@ -8,6 +8,9 @@
  * Tag suggestions:
  * window.UTILS.Suggestions.handleTagsSuggestions();
  * 
+ * Tag suggestions for specific input:
+ * window.UTILS.Suggestions.tagSuggestions( input:HTMLElement );
+ * 
  * Category suggestions:
  * window.UTILS.Suggestions.handleCategoriesSuggestions();
  * 
@@ -57,51 +60,57 @@ window.UTILS.Suggestions = class {
   // Suggests tags
   static handleTagsSuggestions() {
     let inputs = document.querySelectorAll( "[data-tags_suggesting='yes']" );
+    [...inputs].forEach( ( input )=>{
+      this.tagSuggestions( input );
+    } );    
+  }
+
+  // Suggests tags for specific input
+  static tagSuggestions( input ) {
     let lang = document.querySelector( "html" ).getAttribute( "lang" );
     let url = "/api/" + lang + "/tags_suggestions/?format=json&q=";
     let cache = {};
     let term;
     let terms;
-    [...inputs].forEach( ( input )=>{
-      input.setAttribute( "autocomplete", "off" );
 
-      // eslint-disable-next-line no-undef
-      autocomplete( {
-        input: input,
-        fetch: async function( text, update ) {
-          term = this.extractLast( text.toLowerCase() );
-          if ( term.length > 0 ) {
-            if ( term in cache ) {
-              update( cache[ term ] );
-            } else {
-              try {
-                let response = await fetch( url + "&q=" + term );
-                let result = await response.json();
-                cache[ term ] = result;
-                update( result );
-              } catch ( error ) {
-                console.error( "Error fetching suggestions:", error );
-              };
-            }
+    input.setAttribute( "autocomplete", "off" );
+
+    // eslint-disable-next-line no-undef
+    autocomplete( {
+      input: input,
+      fetch: async function( text, update ) {
+        term = this.extractLast( text.toLowerCase() );
+        if ( term.length > 0 ) {
+          if ( term in cache ) {
+            update( cache[ term ] );
+          } else {
+            try {
+              let response = await fetch( url + "&q=" + term );
+              let result = await response.json();
+              cache[ term ] = result;
+              update( result );
+            } catch ( error ) {
+              console.error( "Error fetching suggestions:", error );
+            };
           }
-        }.bind( this ),
-        render: function( item ) {
-          var div = document.createElement( "div" );
-          div.textContent = item;
-          return div;
-        },
-        onSelect: function( item, input ) {
-          terms = this.split( input.value );
-          terms.pop(); 
-          terms.push( item );
-          terms.push( "" );
-          input.value = terms.join( ", " );
+        }
       }.bind( this ),
-      preventSubmit: 2,
-      disableAutoSelect: true,
-      debounceWaitMs: 100,
-      minLength: 1,
-      } );
+      render: function( item ) {
+        var div = document.createElement( "div" );
+        div.textContent = item;
+        return div;
+      },
+      onSelect: function( item, input ) {
+        terms = this.split( input.value );
+        terms.pop(); 
+        terms.push( item );
+        terms.push( "" );
+        input.value = terms.join( ", " );
+    }.bind( this ),
+    preventSubmit: 2,
+    disableAutoSelect: true,
+    debounceWaitMs: 100,
+    minLength: 1,
     } );
   }
 
