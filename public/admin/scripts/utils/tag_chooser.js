@@ -2,8 +2,8 @@
  * Nice graphical UI for tag selection input
  * appends itself to #id_tag input
  * 
- * TODO: optional autocomplete integration via window.UTILS.Suggestions
- *       optional Drag + Drop rearrange
+ * Uses Sortablejs to handle drag and drop tag ordering
+ * Autocomplete suggestions integration via window.UTILS.Suggestions
  * 
  * Usage: window.UTILS.TagChooser.init();
  * 
@@ -19,6 +19,7 @@ window.UTILS.TagChooser = class {
   singleTagInput;
   addTagBtn;
   tagContainer;
+  sortableInstance = null;
   template = `
   <div class="tag_chooser js--tag_chooser">
     <div class="input-group">
@@ -48,9 +49,10 @@ window.UTILS.TagChooser = class {
     this.input = input;
     console.log( "createTagChooser", input );
     this.parent = this.input.parentElement;
-    this.parent.style.outline = "1px dashed red";
-    this.input.style.opacity = 0.5;
+    // Hide default input
+    this.input.type = "hidden";
     
+    // Insert TagChooser HTML markup
     this.parent.insertAdjacentHTML( "beforeend", this.template );
 
     this.wrapper = this.parent.querySelector( ".js--tag_chooser" ); console.log( "test", this.wrapper );
@@ -58,11 +60,24 @@ window.UTILS.TagChooser = class {
     this.addTagBtn = this.parent.querySelector( ".js--single_tag_btn" );
     this.tagContainer = this.parent.querySelector( ".js--tag_container" );
 
+    // Initial tags render
     let tags = this.split( this.input.value );
     tags.forEach( this.renderTag.bind( this ) );
 
+    // Set handlers to single tag input and its button
     this.singleTagInput.addEventListener( "keydown", this.onInputEnter.bind( this ) );
     this.addTagBtn.addEventListener( "click", this.onBtnClick.bind( this ) );
+
+    // Init suggestions handled by window.UTILS.Suggestions
+    if( window.UTILS.Suggestions ) {
+      console.log ("autocompleter init", window.UTILS.Suggestions.tagSuggestions );
+      window.UTILS.Suggestions.tagSuggestions( this.singleTagInput );
+    }
+
+    // Disable default Bootstrap popover
+    if( window.jQuery ){
+      window.jQuery( this.singleTagInput ).popover( "disable" );
+    }
 
     // if Sortable library exists use it to make tags sortable by drag+drop
     // https://github.com/SortableJS/Sortable
@@ -90,6 +105,7 @@ window.UTILS.TagChooser = class {
     e.preventDefault();
     if( this.singleTagInput.value.length > 0 ) {
       this.renderTag( this.singleTagInput.value );
+      this.singleTagInput.value = "";
     }
   }
 
@@ -115,7 +131,7 @@ window.UTILS.TagChooser = class {
       }
 
       // check to prevent duplicate tags
-      if ( this.wrapper.querySelector( ".tag-item[data-tag_name='" + tagName + "']") ) {
+      if ( this.tagContainer.querySelector( ".tag_item[data-tag_name='" + tagName + "']") ) {
         return
       };
 
@@ -126,7 +142,10 @@ window.UTILS.TagChooser = class {
       </div>
     `;
       
+      // Insert tag badge
       this.tagContainer.insertAdjacentHTML( "beforeend", tagItemTemplate );
+
+      // Handler for tag delete button
       this.tagContainer.querySelector( ".tag_item[data-tag_name='" + tagName+ "'] .js--remove_btn" ).addEventListener( "click", this.removeTag.bind( this ) );
     })
     this.onChange();

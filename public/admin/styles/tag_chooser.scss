@@ -1,6 +1,12 @@
 .tag_chooser {
-  //display: flex;
-  outline: 1px dotted purple;
+  display: flex;
+  flex-wrap: wrap;
+  grid-area: control;
+  .input-group {
+    display: inline-flex;
+    width: auto;
+    margin-right: 2ch;
+  }
   .js--single_tag_input {
     max-width: 15ch;
   }
