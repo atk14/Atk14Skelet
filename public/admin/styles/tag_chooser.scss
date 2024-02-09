@@ -1,6 +1,9 @@
 .tag_chooser {
   //display: flex;
   outline: 1px dotted purple;
+  .js--single_tag_input {
+    max-width: 15ch;
+  }
   .tag_container {
     font-size: 1.25rem;
     .tag_item {

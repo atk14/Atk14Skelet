@@ -22,9 +22,9 @@ window.UTILS.TagChooser = class {
   template = `
   <div class="tag_chooser js--tag_chooser">
     <div class="input-group">
-      <input type="text" class="form-control js--single_tag_input" placeholder="Recipient's username" aria-label="Recipient's username" aria-describedby="button-addon2">
+      <input type="text" class="form-control js--single_tag_input" placeholder="Tag" aria-label="Tag">
       <div class="input-group-append">
-        <button class="btn btn-outline-secondary js--single_tag_btn" type="button" id="button-addon2"><i class=\"fa-solid fa-circle-plus\"></i></button>
+        <button class="btn btn-outline-secondary js--single_tag_btn" type="button"><i class=\"fa-solid fa-circle-plus\"></i></button>
       </div>
     </div>
     <div class="tag_container js--tag_container"></div>
@@ -48,8 +48,8 @@ window.UTILS.TagChooser = class {
     this.input = input;
     console.log( "createTagChooser", input );
     this.parent = this.input.parentElement;
-    this.parent.style.outline = "1px solid red";
-    this.input.style.opacity = 0.7;
+    this.parent.style.outline = "1px dashed red";
+    this.input.style.opacity = 0.5;
     
     this.parent.insertAdjacentHTML( "beforeend", this.template );
 
@@ -63,6 +63,14 @@ window.UTILS.TagChooser = class {
 
     this.singleTagInput.addEventListener( "keydown", this.onInputEnter.bind( this ) );
     this.addTagBtn.addEventListener( "click", this.onBtnClick.bind( this ) );
+
+    // if Sortable library exists use it to make tags sortable by drag+drop
+    // https://github.com/SortableJS/Sortable
+    if( window.Sortable ) {
+      new window.Sortable( this.tagContainer, {
+        onUpdate: this.onChange.bind( this )
+      } );
+    }
   }
 
   // create new tag item from single tag input value on Enter
@@ -77,6 +85,7 @@ window.UTILS.TagChooser = class {
     }
   }
 
+  // create new tag item from single tag input value on btn click
   onBtnClick( e ) {
     e.preventDefault();
     if( this.singleTagInput.value.length > 0 ) {
@@ -91,6 +100,7 @@ window.UTILS.TagChooser = class {
     this.onChange();
   }
 
+  // render tag badges
   renderTag( input ) {
     // split input by commas in case there are more than one tag entered at once
     let tagNames = this.split( input );
@@ -137,7 +147,5 @@ window.UTILS.TagChooser = class {
     return val.split( /,\s*/ );
   }
 
-  /*extractLast( t ) {
-    return this.split( t ).pop();
-  }*/
+
 };
