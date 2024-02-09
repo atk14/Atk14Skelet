@@ -11,6 +11,9 @@
       display: inline-flex;
       align-items: center;
       line-height: 1;
+      &:hover {
+        cursor: grab;
+      }
       .remove_btn {
         padding: 0.125em;
         padding-right: 0.5em;
