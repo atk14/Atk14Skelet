@@ -107,7 +107,7 @@ window.UTILS.Suggestions = class {
         terms.push( "" );
         input.value = terms.join( ", " );
     }.bind( this ),
-    preventSubmit: 2,
+    preventSubmit: 1,
     disableAutoSelect: true,
     debounceWaitMs: 100,
     minLength: 1,
