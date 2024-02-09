@@ -31,6 +31,7 @@ var applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
 	"public/scripts/utils/suggestions.js",
+	"public/admin/scripts/utils/async_image_upload.js",
 	"public/admin/scripts/application.js",
 ];
 

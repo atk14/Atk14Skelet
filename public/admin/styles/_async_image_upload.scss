@@ -8,6 +8,10 @@
 	.list-group:empty {
 		display: none;
 	}
+	.progress-bar--noanim {
+		transition: none !important;
+		outline: 1mm solid violet;
+	}
 }
 
 .drop-zone-highlight {

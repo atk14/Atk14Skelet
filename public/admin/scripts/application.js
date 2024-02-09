@@ -14,7 +14,7 @@
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
-				ADMIN.utils.handleXhrImageUpload();
+				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
 
 				// Form hints.
@@ -102,70 +102,6 @@
 							} );
 						}
 					} );
-				} );
-			},
-
-			handleXhrImageUpload: function() {
-				
-				$( ".js--xhr_upload_image_form" ).each( function() {
-
-					var $form = $( this );
-					var $wrap = $form.closest(".js--image_gallery_wrap");
-					var $dropZone = $form.closest(".drop-zone");
-					var highglightDropZone = function() { $dropZone.addClass("drop-zone-highlight"); };
-					var unhighglightDropZone = function() { $dropZone.removeClass("drop-zone-highlight"); };
-
-					$dropZone.on( "dragenter",  highglightDropZone );
-					$dropZone.on( "dragover",  highglightDropZone );
-					$dropZone.on( "dragleave",  unhighglightDropZone );
-					$dropZone.on( "drop",  unhighglightDropZone );
-
-					var url = $form.attr( "action" ),
-						$progress = $wrap.find( ".progress-bar" ),
-						$list = $wrap.find( ".list-group-images" ),
-						$input = $form.find("input");
-						$input.data("url",url);
-
-					$input.fileupload( {
-						dropZone: $dropZone,
-						dataType: "json",
-						multipart: false,
-						start: function() {
-							$progress.show();
-						},
-						progressall: function( e, data ) {
-							var progress = parseInt( data.loaded / data.total * 100, 10 );
-
-							$progress.css(
-								"width",
-								progress + "%"
-							);
-						},
-						done: function( e, data ) {
-
-							// This is the same grip like in handleSortables
-							var glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
-								" title='sorting'></span>";
-
-							$( data.result.image_gallery_item )
-								.addClass( "not-processed" )
-								.prepend( glyph )
-								.appendTo( $list );
-
-							$list.sortable( "refresh" );
-						},
-						stop: function() {
-							$list.find( ".not-processed" )
-								.prepend( "<span class='glyphicon glyphicon-align-justify'></span>" )
-								.removeClass( "not-processed" );
-
-							$progress.hide().css(
-								"width",
-								"0"
-							);
-						}
-					} );
-
 				} );
 			},
 
