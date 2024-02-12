@@ -3,9 +3,15 @@
  * appends itself to #id_tag input
  * 
  * Uses Sortablejs to handle drag and drop tag ordering
+ * 
  * Autocomplete suggestions integration via window.UTILS.Suggestions
  * 
  * Usage: window.UTILS.TagChooser.init();
+ * 
+ * Dependencies
+ * sortablejs - https://github.com/SortableJS/Sortable (optional)
+ * window.UTILS.Suggestions - from ATK14SKelet (optional)
+ * public/admin/styles/tag_chooser.scss - styles
  * 
 */
 window.UTILS = window.UTILS || { };
@@ -19,7 +25,6 @@ window.UTILS.TagChooser = class {
   singleTagInput;
   addTagBtn;
   tagContainer;
-  sortableInstance = null;
   template = `
   <div class="tag_chooser js--tag_chooser">
     <div class="input-group">
@@ -31,15 +36,11 @@ window.UTILS.TagChooser = class {
     <div class="tag_container js--tag_container"></div>
   </div>
   `;
-  
-
 
   static init() {
-    console.log( "Hi, I am your brand new TagChooser!" );
     let inputs = document.querySelectorAll( "#id_tags" );
     let lang = document.querySelector( "html" ).getAttribute( "lang" );
     this.url = "/api/" + lang + "/tags_suggestions/?format=json&q=";
-    //[...inputs].forEach( this.createTagChooser.bind( this ) );
     [...inputs].forEach( function( input ) {
       new window.UTILS.TagChooser( input );
     } );
@@ -47,7 +48,6 @@ window.UTILS.TagChooser = class {
 
   constructor( input ) {
     this.input = input;
-    console.log( "createTagChooser", input );
     this.parent = this.input.parentElement;
     // Hide default input
     this.input.type = "hidden";
@@ -55,7 +55,7 @@ window.UTILS.TagChooser = class {
     // Insert TagChooser HTML markup
     this.parent.insertAdjacentHTML( "beforeend", this.template );
 
-    this.wrapper = this.parent.querySelector( ".js--tag_chooser" ); console.log( "test", this.wrapper );
+    this.wrapper = this.parent.querySelector( ".js--tag_chooser" );
     this.singleTagInput = this.parent.querySelector( ".js--single_tag_input" );
     this.addTagBtn = this.parent.querySelector( ".js--single_tag_btn" );
     this.tagContainer = this.parent.querySelector( ".js--tag_container" );
@@ -70,7 +70,6 @@ window.UTILS.TagChooser = class {
 
     // Init suggestions handled by window.UTILS.Suggestions
     if( window.UTILS.Suggestions ) {
-      console.log ("autocompleter init", window.UTILS.Suggestions.tagSuggestions );
       window.UTILS.Suggestions.tagSuggestions( this.singleTagInput );
     }
 
@@ -92,11 +91,13 @@ window.UTILS.TagChooser = class {
   onInputEnter( e ) {
     if ( e.key === "Enter" || e.keyCode === 13 ) {
       e.preventDefault();
-      console.log( e.target.value );
-      if( e.target.value.length > 0 ){
-        this.renderTag( e.target.value );
-        e.target.value = "";
-      }
+      // delay processing so tag is added AFTER autocomplete fills input with selected value
+      setTimeout( ()=> {
+        if( this.singleTagInput.value.length > 0 ){
+          this.renderTag( this.singleTagInput.value );
+          this.singleTagInput.value = "";
+        }
+      }, 20 );
     }
   }
 
@@ -111,7 +112,6 @@ window.UTILS.TagChooser = class {
 
   // remove tag item
   removeTag( e ) {
-    console.log( "removeTag", e.target.closest( ".badge" ) );
     e.target.closest( ".badge" ).remove();
     this.onChange();
   }
@@ -123,9 +123,11 @@ window.UTILS.TagChooser = class {
 
     // render tag items
     tagNames.forEach( ( tagName )=>{
+
+      // trim whitespace
       tagName = tagName.trim();
 
-      // check to prevent whitespace only 
+      // check to prevent whitespace only tag name
       if( tagName.length < 1 ) {
         return;
       }
@@ -135,15 +137,16 @@ window.UTILS.TagChooser = class {
         return
       };
 
+      // template for tag, tagName interpolated automatically
       let tagItemTemplate = `
-      <div class="badge badge-pill badge-info tag_item js--tag_item" data-tag_name="${tagName}">
+      <div class="badge badge-pill badge-secondary tag_item js--tag_item" data-tag_name="${tagName}">
         <div class="remove_btn js--remove_btn"><i class="fa-solid fa-circle-xmark"></i></div>
         ${tagName}
       </div>
     `;
       
       // Insert tag badge
-      this.tagContainer.insertAdjacentHTML( "beforeend", tagItemTemplate );
+      this.tagContainer.insertAdjacentHTML( "beforeend", tagItemTemplate.trim() );
 
       // Handler for tag delete button
       this.tagContainer.querySelector( ".tag_item[data-tag_name='" + tagName+ "'] .js--remove_btn" ).addEventListener( "click", this.removeTag.bind( this ) );
@@ -151,7 +154,9 @@ window.UTILS.TagChooser = class {
     this.onChange();
   }
 
-  // When tags change write their comma separated list to original input
+  // When tag badges change write their comma separated list to original input
+  // to keep visual tags and hidden inputs in sync
+  //called on every tag removal/addition
   onChange(){
     let tagItems = this.tagContainer.querySelectorAll( ".tag_item[data-tag_name]" );
     let tagList = "";
@@ -165,6 +170,5 @@ window.UTILS.TagChooser = class {
   split( val ) {
     return val.split( /,\s*/ );
   }
-
 
 };
