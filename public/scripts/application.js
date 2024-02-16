@@ -26,7 +26,7 @@
 
 		logins: {
 			create_new: function() {
-				$( "#id_login" ).focus();
+				document.getElementById( "id_login" ).focus();
 			}
 		},
 
