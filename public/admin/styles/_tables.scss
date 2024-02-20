@@ -24,7 +24,7 @@ table.table {
 
 // Responsive tables - display all as blocks
 
-@include media-breakpoint-down(xs){
+@include media-breakpoint-down(sm){
 	table.table {
 		display: block;
 		thead, tbody {

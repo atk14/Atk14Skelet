@@ -9,7 +9,7 @@
 }
 .has-nav-section {
 	.nav-section, .content-main {
-		padding-top: $grid-gutter-width/2;
+		padding-top: divide($grid-gutter-width, 2);
 	}
 	.nav-section {
 		background-color: $gray-200;
@@ -31,8 +31,8 @@
 		}
 	}
 	.content-main {
-		padding-left: $grid-gutter-width/2;
-		padding-right: $grid-gutter-width/2;
+		padding-left: divide($grid-gutter-width, 2);
+		padding-right: divide($grid-gutter-width, 2);
 		padding-bottom: $grid-gutter-width;
 	}
 	@include media-breakpoint-up(lg){
@@ -67,11 +67,16 @@
 			grid-area: mainbody;
 		}
 	}
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){
 		.nav-section {
 			border-bottom: 1px solid $gray-300;
-			padding-bottom: $grid-gutter-width/2;
-			margin-bottom: $grid-gutter-width/2;
+			padding-bottom: divide($grid-gutter-width, 2);
+			margin-bottom: divide($grid-gutter-width, 2);
 		}
 	}
+}
+
+.float-right {
+	// TODO: do something better
+	float: right;
 }

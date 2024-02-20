@@ -1,15 +1,15 @@
-{if $USING_BOOTSTRAP4}
+{if $USING_BOOTSTRAP4 || $USING_BOOTSTRAP5}
 
 	{if $link_on_first_line}
 
 		<div class="btn-group btn-group-sm{if $pull=="right"} float-right{/if}{if $pull=="left"} float-left{/if}{if $class} {$class}{/if}">
 			{!$first_line}
 			{if $lines}
-				<button class="btn btn-outline-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+				<button class="btn btn-outline-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 					<span class="caret"></span>
 					<span class="sr-only">{t}Show menu{/t}</span>
 				</button>
-				<div class="dropdown-menu dropdown-menu-right">
+				<div class="dropdown-menu dropdown-menu-right dropdown-menu-end">
 					{foreach $lines as $line}
 						{!$line}
 					{/foreach}
@@ -20,7 +20,7 @@
 	{else}
 
 		<div class="btn-group btn-group-sm{if $pull=="right"} float-right{/if}{if $pull=="left"} float-left{/if}{if $class} {$class}{/if}">
-			<button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+			<button type="button" class="btn btn-outline-primary dropdown-toggle" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
 				{!$first_line}
 			</button>
 			{if $lines}

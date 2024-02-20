@@ -48,8 +48,8 @@
 			document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/, "js" );
 		{/javascript_tag}
 
-		{stylesheet_link_tag file="$public/admin/dist/styles/vendor.min.css"}
-		{stylesheet_link_tag file="$public/admin/dist/styles/application.min.css"}
+		{stylesheet_link_tag file="$public/admin/dist/styles/vendor.css"}
+		{stylesheet_link_tag file="$public/admin/dist/styles/application_styles.css"}
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
@@ -64,7 +64,7 @@
 		<meta name="robots" content="noindex,noarchive">
 	</head>
 
-	<body class="body_{$controller}_{$action}{if $request->getCookieVar("dark_mode")} dark-mode{/if}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}">
+	<body class="body_{$controller}_{$action}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}" data-bs-theme="{if $request->getCookieVar("dark_mode")}dark{else}light{/if}">
 		<div class="body-wrap">
 			{render partial="shared/layout/header"}
 		
@@ -85,6 +85,7 @@
 
 			</div>
 		</div>
+		{if $DEVELOPMENT}<!-- USING_BOOTSTRAP4: {USING_BOOTSTRAP4}, USING_BOOTSTRAP5 {USING_BOOTSTRAP5}/-->{/if}
 		<a href="#" id="js-scroll-to-top" title="{t}Nahoru{/t}">{!"arrow-up"|icon}</a>
 		{javascript_script_tag file="$public/admin/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/admin/dist/scripts/application.min.js"}

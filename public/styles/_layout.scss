@@ -11,21 +11,21 @@
 			display: grid;
 			grid-template-columns: 230px 1fr;
 			grid-template-areas: 'sidebar mainbody';
-			grid-gap: $grid-gutter-width/2;
+			grid-gap: divide($grid-gutter-width, 2);
 			.nav-section {
 				grid-area: sidebar;
 				border-right: 1px solid $gray-300;
-				padding-right: $grid-gutter-width/2;
+				padding-right: divide($grid-gutter-width, 2);
 			}
 			.content-main {
 				grid-area: mainbody;
 			}
 		}
-		@include media-breakpoint-down(sm){
+		@include media-breakpoint-down(md){
 			.nav-section {
 				border-bottom: 1px solid $gray-300;
-				padding-bottom: $grid-gutter-width/2;
-				margin-bottom: $grid-gutter-width/2;
+				padding-bottom: divide($grid-gutter-width, 2);
+				margin-bottom: divide($grid-gutter-width, 2);
 			}
 		}
 	}

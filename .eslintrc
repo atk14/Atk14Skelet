@@ -1,4 +1,5 @@
 {
+<<<<<<< HEAD
   "parser": "babel-eslint",
   "env": {
     "browser": true,
@@ -6,8 +7,19 @@
 		"commonjs": true,
 		"jquery": true,
 		"es6": true
+=======
+  "parser": "@babel/eslint-parser",
+  "env": {
+		"browser": true,
+    "node": true,
+    "commonjs": true,
+		"jquery": true,
+    "es6": true
   },
-  "globals": {},
+  "globals": {
+    "bootstrap": true
+>>>>>>> feature/webpack
+  },
   "rules": {
     "no-cond-assign": [
       2,
@@ -26,10 +38,21 @@
       2,
       "double"
     ],
+<<<<<<< HEAD
     "no-undef": 1,
     "no-unused-vars": 1
   },
   "parserOptions": {
     "ecmaVersion": 8
+=======
+    "no-undef": 2,
+    "no-unused-vars": 2
+  },
+  "parserOptions": {
+    "sourceType": "module",
+    "ecmaVersion": 8,
+    "requireConfigFile": false
+
+>>>>>>> feature/webpack
   }
 }

@@ -22,7 +22,9 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 		"clearfix" => null, // null, true, false
 		"class" => "",
 
-		"USING_BOOTSTRAP4" => defined("USING_BOOTSTRAP4") && USING_BOOTSTRAP4,
+		"USING_BOOTSTRAP3" => defined("USING_BOOTSTRAP3") && constant("USING_BOOTSTRAP3"),
+		"USING_BOOTSTRAP4" => defined("USING_BOOTSTRAP4") && constant("USING_BOOTSTRAP4"),
+		"USING_BOOTSTRAP5" => defined("USING_BOOTSTRAP5") && constant("USING_BOOTSTRAP5"),
 	);
 
 	if(!isset($params["clearfix"])){
@@ -30,7 +32,9 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	}
 
 	$smarty = atk14_get_smarty_from_template($template);
+	$USING_BOOTSTRAP3 = $params["USING_BOOTSTRAP3"];
 	$USING_BOOTSTRAP4 = $params["USING_BOOTSTRAP4"];
+	$USING_BOOTSTRAP5 = $params["USING_BOOTSTRAP5"];
 
 	// splitting up content according links
 	$content = preg_replace('/(<\/a>)\s*(<a)/s','%a_end%%SEPARATOR%%a_begin%',$content);
@@ -46,7 +50,7 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 		if(!strlen($line)){ continue; }
 
 		if(!$first_line){
-			if($USING_BOOTSTRAP4){
+			if($USING_BOOTSTRAP4 || $USING_BOOTSTRAP5){
 				$line = _smarty_block_dropdown_menu_add_class_to_line($line,"btn btn-outline-primary btn-sm");
 			}else{
 				$line = _smarty_block_dropdown_menu_add_class_to_line($line,"btn btn-default");
@@ -55,7 +59,7 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 			continue;
 		}
 
-		if($USING_BOOTSTRAP4){
+		if($USING_BOOTSTRAP4 || $USING_BOOTSTRAP5){
 			$line = _smarty_block_dropdown_menu_add_class_to_line($line,"dropdown-item");
 		}
 		$lines[] = $line;
@@ -72,7 +76,9 @@ function smarty_block_dropdown_menu($params,$content,$template,&$repeat){
 	$smarty->assign("pull",$params["pull"]);
 	$smarty->assign("clearfix",$params["clearfix"]);
 	$smarty->assign("class",$params["class"]);
+	$smarty->assign("USING_BOOTSTRAP3",$USING_BOOTSTRAP3);
 	$smarty->assign("USING_BOOTSTRAP4",$USING_BOOTSTRAP4);
+	$smarty->assign("USING_BOOTSTRAP5",$USING_BOOTSTRAP5);
 	$template_name = "shared/helpers/_dropdown_menu.tpl";
 	$out = $smarty->fetch($template_name);
 	$smarty->clearAllAssign();

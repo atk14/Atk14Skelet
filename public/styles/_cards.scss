@@ -1,4 +1,4 @@
-$card-deck-margin: $grid-gutter-width/4;
+$card-deck-margin: divide($grid-gutter-width, 4);
 
 .card {
 	background-size: cover;
@@ -80,6 +80,26 @@ $card-deck-margin: $grid-gutter-width/4;
 
 
 .card-deck {
+	// brought from Bootstrap 4
+	.card {
+		margin-bottom: $card-deck-margin;
+	}
+	// brought from Bootstrap 4
+	@include media-breakpoint-up(sm) {
+		display: flex;
+		flex-flow: row wrap;
+		margin-right: -$card-deck-margin;
+		margin-left: -$card-deck-margin;
+
+		.card {
+			// Flexbugs #4: https://github.com/philipwalton/flexbugs#flexbug-4
+			flex: 1 0 0%;
+			margin-right: $card-deck-margin;
+			margin-bottom: 0; // Override the default
+			margin-left: $card-deck-margin;
+		}
+	}
+
 	margin-left: 0 - $card-deck-margin;
 	margin-right: 0 - $card-deck-margin;
 	margin-bottom: $grid-gutter-width - ($card-deck-margin * 2);
@@ -91,20 +111,20 @@ $card-deck-margin: $grid-gutter-width/4;
 			margin-left: $card-deck-margin;
 			margin-right: $card-deck-margin;
 			margin-bottom: $card-deck-margin*2;
-			@include media-breakpoint-down(md){
+			@include media-breakpoint-down(lg){
 				flex-basis: calc(33.33% - #{$card-deck-margin*2});
 				max-width: calc(33.33% - #{$card-deck-margin*2});
 			}
-			@include media-breakpoint-down(sm){
+			@include media-breakpoint-down(md){
 				flex-basis: calc(50% - #{$card-deck-margin*2});
 				max-width: calc(50% - #{$card-deck-margin*2});
 			}
-			@include media-breakpoint-down(xs){
+			@include media-breakpoint-down(sm){
 				flex-basis: 100%;
 				max-width: 100%;
 				min-height: 50vw;
 			}
-			@include media-breakpoint-up(lg){
+			@include media-breakpoint-up(xl){
 				// if there are only 3 or 6 articles, place only 3 per line...
 				&:nth-child(1):nth-last-child(6), &:nth-child(2):nth-last-child(5), &:nth-child(3):nth-last-child(4), &:nth-child(4):nth-last-child(3), &:nth-child(5):nth-last-child(2), &:nth-child(6):nth-last-child(1), &:nth-child(1):nth-last-child(3), &:nth-child(2):nth-last-child(2), &:nth-child(3):nth-last-child(1) {
 					flex-basis: calc(33.33% - #{$card-deck-margin*2});

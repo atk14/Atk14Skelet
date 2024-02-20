@@ -8,6 +8,7 @@ node_modules
 config/.secret_token.txt
 config/secret_token.txt
 public/dist
+public/dist2
 public/admin/dist
 vendor/*
 composer.lock

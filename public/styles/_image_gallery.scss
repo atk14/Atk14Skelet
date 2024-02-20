@@ -110,7 +110,7 @@ section.photo-gallery {
 			font-style: italic;
 		}
 	}
-	@include media-breakpoint-down(md){
+	@include media-breakpoint-down(lg){
 		.gallery__images {
 			.gallery__item {
 				// Little crop for extreme panoramatic images
@@ -122,7 +122,7 @@ section.photo-gallery {
 			}
 		}
 	}
-	@include media-breakpoint-down(sm){
+	@include media-breakpoint-down(md){
 		.gallery__images {
 			.gallery__item {
 				img {
@@ -131,7 +131,7 @@ section.photo-gallery {
 			}
 		}
 	}
-	@include media-breakpoint-down(xs){
+	@include media-breakpoint-down(sm){
 		.gallery__images {
 			.gallery__item {
 				img {

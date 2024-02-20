@@ -12,7 +12,14 @@
 		{render partial="shared/layout/content_header" title=$page_title}
 
 	{/if}
-
+	<div class="text-center text-strong bg-dark text-light mb-4" style="padding: 100px 1vw; font-size: min(240px, 17vw); letter-spacing: -0.07em; line-height: 1;">{ATK14_APPLICATION_NAME}</div>
+	<div class="container-fluid">
+		<div class="row text-center mb-5">
+			<div class="col-12 col-md-5 p-4 bg-warning h2 text-light rounded-4">Bootstrap 5</div>
+			<div class="col-12 col-md-2 p-4 h2 text-info rounded-4"><i class="fa-solid fa-circle-plus"></i></div>
+			<div class="col-12 col-md-5 p-4 bg-success h2 text-light rounded-4">Webpack</div>
+		</div>
+	</div>
 	<section class="border-top-0">
 		<h3>{t}The Skelet contains mainly{/t}</h3>
 		<ul>
