@@ -14,6 +14,7 @@
  * Dependencies: autocompleter https://github.com/kraaden/autocomplete
  */
 
+import autocomplete from 'autocompleter';
 window.UTILS = window.UTILS || { };
 
 window.UTILS.Suggestions = class {
