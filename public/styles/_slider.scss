@@ -223,6 +223,12 @@
 					}
 				}
 			}
+			// In case there is only single image in slider, do not show figcaption
+			&:first-child:last-child {
+				figcaption {
+					display: none;	
+				}
+			}
 		}
 		
 		
