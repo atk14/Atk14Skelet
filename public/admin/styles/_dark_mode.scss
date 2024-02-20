@@ -65,6 +65,22 @@
       color: $darkModeOUtlineBtn;
       border-color: $darkModeOUtlineBtn;
     }
+
+    // autocompleter
+    .autocomplete {
+      background-color: var(--bs-body-bg);
+      color: var(--bs-body-color);
+      border-color: var(--bs-border-color);
+      > div {
+        &.selected, &:hover:not(.group) {
+          background-color: $gray-800;
+          color: var(--bs-body-color);
+        }
+      }
+      .group {
+        background-color: $gray-900;
+      }
+    }
   }
 }
 
