@@ -1,0 +1,27 @@
+.notifications_container {
+  position: fixed;
+  bottom: 20px;
+  right: 60px;
+  z-index: $zindex-tooltip;
+  &:empty {
+    display: none;
+  }
+
+  .toast {
+    &-header {
+      justify-content: flex-end;
+      background-color: rgba( white, 0.25 );
+      color: inherit;
+      .close {
+        color: inherit;
+      }
+    }
+  }
+
+  @each $key, $val in $theme-colors {
+    .toast--#{$key} {
+      background-color: #{$val} !important;
+      color: color-yiq($val);
+    }
+  }
+}

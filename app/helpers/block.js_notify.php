@@ -42,5 +42,6 @@ function smarty_block_js_notify($params,$content,$template,&$repeat){
 		)
 	);
 
-	return sprintf('$.notify(%s,%s);',json_encode($options),json_encode($settings));
+	//return sprintf('$.notify(%s,%s);',json_encode($options),json_encode($settings));
+	return sprintf('window.UTILS.Notifications.show(%s,%s);',json_encode($options),json_encode($settings));
 }
