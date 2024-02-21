@@ -1,7 +1,6 @@
 /* Imports */
 const bootstrap = require ( "bootstrap" );
 window.$ = window.jQuery = require("jquery");
-//const unobfuscate = require( "unobfuscatejs" );
 require( "unobfuscatejs" );
 require( "atk14js" );
 

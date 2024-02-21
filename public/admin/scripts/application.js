@@ -58,7 +58,7 @@ import Sortable from "sortablejs";
 					}
 				} );
 
-				UTILS.leaving_unsaved_page_checker.init(); // TODO zprovoznit
+				UTILS.leaving_unsaved_page_checker.init();
 
 				// Back to top button display and handling
 				$( window ).on( "scroll", function(){
@@ -76,7 +76,7 @@ import Sortable from "sortablejs";
 					$( "html, body" ).animate( { scrollTop: 0 }, "fast" );
 				} );
 
-				UTILS.async_file_upload.init(); // TODO zprovoznit
+				UTILS.async_file_upload.init();
 
 				// Admin menu toggle on small devices
 				$( ".nav-section__toggle" ).on( "click", function( e ) {

@@ -9,7 +9,7 @@ const TerserPlugin = require("terser-webpack-plugin"); // js minimizer
 const IgnoreEmitPlugin = require('ignore-emit-webpack-plugin'); // do not output some unnecessary files
 const ESLintPlugin = require('eslint-webpack-plugin'); // linter
 
-// Aplication JS scripts. Vendor scripts referenced inside app JS files.
+// Aplication JS scripts. Most vendor scripts referenced inside app JS files.
 var application_scripts = [
   "./node_modules/ace-builds/src/ace.js",
   "./node_modules/ace-builds/src/mode-markdown.js",

@@ -136,6 +136,9 @@ window.UTILS.AsyncImageUploader = class {
     errorAlert.classList.add( "fade" );
     errorAlert.classList.add( "show" );
     let closeBtn = "<button type=\"button\" class=\"close\" data-dismiss=\"alert\" aria-label=\"Close\"><span aria-hidden=\"true\">&times;</span></button>";
+    if( window.bootstrapVersion === 5 ) {
+      closeBtn = "<button type=\"button\" class=\"btn-close\" data-bs-dismiss=\"alert\" aria-label=\"Close\"></button>";
+    }
     errorAlert.insertAdjacentHTML( "afterbegin", errorMessage + closeBtn );
     this.form.appendChild( errorAlert );
   }
