@@ -43,7 +43,7 @@ window.UTILS.Notifications = class {
 
     // Create toast HTML
     let toastTemplate = `
-    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast toast--${options.type}" data-autohide="${autohide}" data-delay="${delay}" id="${toastID}">
+    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast toast--notitle toast--${options.type}" data-autohide="${autohide}" data-delay="${delay}" id="${toastID}">
       <div class="toast-header">
         <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
           <span aria-hidden="true">&times;</span>
@@ -56,10 +56,17 @@ window.UTILS.Notifications = class {
     `;
 
     // Append toast to container
-    container.insertAdjacentHTML( "beforeend", toastTemplate );
+    container.insertAdjacentHTML( "beforeend", toastTemplate.trim() );
 
     // Connect to Bootstrap 4 javascript toast handlers
-    window.jQuery( "#" + toastID ).toast( "show" );
+    let $ = window.jQuery;
+    let $ts = $( "#" + toastID )
+    $ts.toast( "show" );
+    $ts.on( "hidden.bs.toast", function(){
+      console.log( "hidden", this );
+      $( this ).toast( "dispose" );
+      $( this ).remove();
+    } )
 
     this.toastCounter++;
   }
