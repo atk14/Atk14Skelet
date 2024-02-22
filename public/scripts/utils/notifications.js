@@ -63,7 +63,6 @@ window.UTILS.Notifications = class {
     let $ts = $( "#" + toastID )
     $ts.toast( "show" );
     $ts.on( "hidden.bs.toast", function(){
-      console.log( "hidden", this );
       $( this ).toast( "dispose" );
       $( this ).remove();
     } )
