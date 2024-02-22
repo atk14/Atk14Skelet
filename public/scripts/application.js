@@ -9,7 +9,7 @@ require( "atk14js" );
 ( function( window, $, undefined ) {
 	"use strict";
 	var document = window.document,
-	// UTILS = window.UTILS, // Uncomment this if you need something from UTILS
+	UTILS = window.UTILS, // Uncomment this if you need something from UTILS
 
 	APPLICATION = {
 		common: {			
@@ -31,9 +31,6 @@ require( "atk14js" );
 
 				// Form hints.
 				UTILS.formHints();
-
-				// Init Swiper
-				UTILS.initSwiper();
 			}
 		},
 

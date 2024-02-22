@@ -1,4 +1,6 @@
 // This is a place for some tools required in the application
+import { Popover } from "bootstrap"
+
 
 window.UTILS = window.UTILS || { };
 
@@ -20,7 +22,8 @@ window.UTILS.formHints = function() {
 				content: content
 			};
 
-		$field.popover( popoverOptions );
+		//$field.popover( popoverOptions );
+		new Popover( $field.get(0), popoverOptions );
 	} );
 }
 
