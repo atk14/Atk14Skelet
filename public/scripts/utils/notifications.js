@@ -5,7 +5,8 @@
  * Usage: 
  * window.UTILS.Notifications.show( {message: "message text"}, { delay: 2000, type:"success" } )
  * 
- * TODO: Bootstrap 5 compatibility 
+ * Bootstrap 5 version
+ *  
  */
 
 import { Toast } from "bootstrap";
