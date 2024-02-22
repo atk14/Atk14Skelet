@@ -1,0 +1,52 @@
+// Styling for toast Bootstrap component
+// Used in window.UTILS.Notifications
+
+// container for toasts in bottom right viewport corner
+.notifications_container {
+  position: fixed;
+  bottom: 16px;
+  right: 60px;
+  z-index: $zindex-tooltip;
+  &:empty {
+    display: none;
+  }
+}
+
+.toast {
+  min-width: 200px;
+  &-header {
+    justify-content: flex-end;
+    background-color: rgba( white, 0.25 );
+    color: inherit;
+    .close {
+      color: inherit;
+    }
+  }
+  // header without text may be more compact
+  &--notitle {
+    .toast-header {
+      padding-bottom: 0;
+      line-height: 1;
+      background-color: transparent;
+      border-bottom: none;
+    }
+    .toast-body  {
+      padding-top: 0;
+      margin-top: -2px;
+    }
+  }
+}
+
+// color variations (success, info etc.)
+@each $key, $val in $theme-colors {
+  .toast--#{$key} {
+    //$c: #{$val};
+    background-color: rgba( $val, 0.9);
+    color: color-yiq($val);
+  }
+}
+
+// error variation would be the same as danger variation
+.toast--error {
+  @extend .toast--danger;
+}
