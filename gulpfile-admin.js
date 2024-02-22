@@ -23,7 +23,6 @@ var vendorScripts = [
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/popper.js/dist/umd/popper.js",
-	"node_modules/bootstrap4-notify/bootstrap-notify.js",
 	"node_modules/autocompleter/autocomplete.js",
 ];
 
@@ -33,6 +32,7 @@ var applicationScripts = [
 	"public/scripts/utils/suggestions.js",
 	"public/admin/scripts/utils/async_image_upload.js",
 	"public/scripts/utils/async_file_upload.js",
+	"public/scripts/utils/notifications.js",
 	"public/admin/scripts/application.js",
 ];
 
