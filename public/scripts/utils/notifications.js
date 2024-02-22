@@ -7,6 +7,9 @@
  * 
  * TODO: Bootstrap 5 compatibility 
  */
+
+import { Toast } from "bootstrap";
+
 window.UTILS = window.UTILS || { };
 
 window.UTILS.Notifications = class {
@@ -41,16 +44,15 @@ window.UTILS.Notifications = class {
       delay = options.delay;
     }
 
+    // Bootstrap 5
     // Create toast HTML
     let toastTemplate = `
-    <div role="alert" aria-live="assertive" aria-atomic="true" class="toast toast--notitle toast--${options.type}" data-autohide="${autohide}" data-delay="${delay}" id="${toastID}">
-      <div class="toast-header">
-        <button type="button" class="ml-2 mb-1 close" data-dismiss="toast" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-      </div>
-      <div class="toast-body">
+    <div class="toast align-items-center toast--${options.type}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="${autohide}" data-bs-delay="${delay}" id="${toastID}">
+      <div class="d-flex">
+        <div class="toast-body">
         ${message.message}
+        </div>
+        <button type="button" class="btn-close me-2 m-auto" data-bs-dismiss="toast" aria-label="Close"></button>
       </div>
     </div>
     `;
@@ -58,14 +60,15 @@ window.UTILS.Notifications = class {
     // Append toast to container
     container.insertAdjacentHTML( "beforeend", toastTemplate.trim() );
 
-    // Connect to Bootstrap 4 javascript toast handlers
-    let $ = window.jQuery;
-    let $ts = $( "#" + toastID )
-    $ts.toast( "show" );
-    $ts.on( "hidden.bs.toast", function(){
-      $( this ).toast( "dispose" );
-      $( this ).remove();
-    } )
+    let tsel = document.getElementById( toastID )
+    let ts = new Toast( tsel );
+    ts.show();
+
+    tsel.addEventListener( "hidden.bs.toast", function ( e ) {
+      //e.target.dispose();
+      Toast.getInstance( e.target ).dispose();
+      e.target.remove();
+    } );
 
     this.toastCounter++;
   }
