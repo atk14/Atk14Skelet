@@ -211,9 +211,12 @@ import Sortable from "sortablejs";
 					var body = document.querySelector( "body" );
 					if( this.checked ){
 						body.classList.add( "dark-mode" );
+						//$( "body" ).attr( "data-bs-theme", "dark" );
+						body.setAttribute( "data-bs-theme", "dark" );						
 						document.cookie = "dark_mode=1;path=/";
 					} else {
 						body.classList.remove( "dark-mode" );
+						body.setAttribute( "data-bs-theme", "light" );
 						document.cookie = "dark_mode=;path=/";
 					}
 

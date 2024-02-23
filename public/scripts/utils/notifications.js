@@ -61,12 +61,12 @@ window.UTILS.Notifications = class {
     // Append toast to container
     container.insertAdjacentHTML( "beforeend", toastTemplate.trim() );
 
+    // Coonnect to Bootstrap javascript
     let tsel = document.getElementById( toastID )
     let ts = new Toast( tsel );
     ts.show();
 
     tsel.addEventListener( "hidden.bs.toast", function ( e ) {
-      //e.target.dispose();
       Toast.getInstance( e.target ).dispose();
       e.target.remove();
     } );

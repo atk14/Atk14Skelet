@@ -91,3 +91,5 @@
 		{javascript_script_tag file="$public/admin/dist/scripts/application.min.js"}
 	</body>
 </html>
+{if $request->getCookieVar("dark_mode")}DARK{else}LIGHT{/if}
+**{$request->getCookieVar("dark_mode")}**
