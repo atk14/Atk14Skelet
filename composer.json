@@ -18,7 +18,7 @@
         "atk14/hcaptcha-field": "^0.1.0",
         "atk14/recaptcha-field": "^0.1.2",
         "yarri/markdown-manual.mdbook": "^0.3",
-        "atk14/async-file-field": "^1.0",
+        "atk14/async-file-field": "^1.0 >=1.0.4",
         "yarri/keywords-highlighter": "^0.1.2"
     }
 }
