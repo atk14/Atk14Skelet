@@ -161,7 +161,11 @@ var config = {
     ],
     minimize: true
   },
-  cache: true
+  cache: true,
+  stats: {
+    // SASS compiler enable to show @debug
+    loggingDebug: ['sass-loader'],
+  },
 };
 
 module.exports = (env, args) => {

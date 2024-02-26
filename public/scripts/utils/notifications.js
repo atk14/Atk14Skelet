@@ -48,7 +48,7 @@ window.UTILS.Notifications = class {
     // Bootstrap 5
     // Create toast HTML
     let toastTemplate = `
-    <div class="toast align-items-center toast--${options.type}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="${autohide}" data-bs-delay="${delay}" id="${toastID}">
+    <div class="toast align-items-center text-bg-${options.type}" role="alert" aria-live="assertive" aria-atomic="true" data-bs-autohide="${autohide}" data-bs-delay="${delay}" id="${toastID}">
       <div class="d-flex">
         <div class="toast-body">
         ${message.message}

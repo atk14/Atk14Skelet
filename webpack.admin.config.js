@@ -173,6 +173,10 @@ var config = {
       'load-image-orientation': 'blueimp-load-image/js/load-image-orientation.js',
    },
   },
+  stats: {
+    // SASS compiler enable to show @debug
+    loggingDebug: ['sass-loader'],
+  },
 };
 
 module.exports = (env, args) => {
