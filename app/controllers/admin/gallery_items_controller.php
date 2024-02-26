@@ -8,18 +8,28 @@ class GalleryItemsController extends AdminController{
 		$this->_save_return_uri();
 		$return_uri = $this->_get_return_uri();
 
-		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			$d["gallery_id"] = $gallery;
-			$item = GalleryItem::CreateNewRecord($d);
+		if($this->request->post()){
+			if($d = $this->form->validate($this->params)){
+				$d["gallery_id"] = $gallery;
+				$item = GalleryItem::CreateNewRecord($d);
 
-			if($this->request->xhr()){
-				$this->render_template = false;
-				$this->response->write(json_encode($this->_dump_image($item)));
-				$this->response->setContentType("text/plain");
-				return;
+				if($this->request->xhr()){
+					$this->render_template = false;
+					$this->response->write(json_encode($this->_dump_image($item)));
+					$this->response->setContentType("text/plain");
+					return;
+				}
+
+				$this->_redirect_to($this->_link_to(array("action" => "galleries/detail", "id" => $gallery, "return_uri" => $return_uri)));
+			}else{
+				if($this->request->xhr()){
+					$this->response->setStatusCode(400); // "Bad Request"
+					$this->render_template = false;
+					$this->response->write(json_encode($this->_dump_form_error_message($this->form)));
+					$this->response->setContentType("text/plain");
+					return;
+				}
 			}
-
-			$this->_redirect_to($this->_link_to(array("action" => "galleries/detail", "id" => $gallery, "return_uri" => $return_uri)));
 		}
 
 		/*
@@ -91,6 +101,21 @@ class GalleryItemsController extends AdminController{
 				"height" => $pupiq->getOriginalHeight(), 
 			),
 			"image_gallery_item" => $this->_render("galleries/gallery_item_item",array("gallery_item" => $item)),
+		);
+	}
+
+	function _dump_form_error_message($form){
+		$ar = $form->get_errors();
+
+		$out = array();
+		foreach($ar as $k => $_ar){
+			foreach($_ar as $err){
+				$out[] = $err;
+			}
+		}
+
+		return array(
+			"error_message" => join("; ",$out),
 		);
 	}
 }

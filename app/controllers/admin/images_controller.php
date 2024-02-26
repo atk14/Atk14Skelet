@@ -19,27 +19,36 @@ class ImagesController extends AdminController {
 		}
 
 		$this->_save_return_uri();
-		if($this->request->post() && ($d = $this->form->validate($this->params))){
+		if($this->request->post()){
+			if($d = $this->form->validate($this->params)){
+				$pupiq = $d["url"];
 
-			$pupiq = $d["url"];
+				$d["table_name"] = $this->table_name;
+				$d["record_id"] = $this->record_id;
+				$d["url"] = $pupiq->getUrl();
+				$d["section"] = $this->section;
 
-			$d["table_name"] = $this->table_name;
-			$d["record_id"] = $this->record_id;
-			$d["url"] = $pupiq->getUrl();
-			$d["section"] = $this->section;
+				$class_name = $this->_get_class_name();
+				$image = $class_name::CreateNewRecord($d);
 
-			$class_name = $this->_get_class_name();
-			$image = $class_name::CreateNewRecord($d);
+				if($this->request->xhr()){
+					$this->render_template = false;
+					$this->response->write(json_encode($this->_dump_image($image)));
+					$this->response->setContentType("text/plain");
+					return;
+				}
 
-			if($this->request->xhr()){
-				$this->render_template = false;
-				$this->response->write(json_encode($this->_dump_image($image)));
-				$this->response->setContentType("text/plain");
-				return;
+				$this->flash->success(_("Image has been created"));
+				$this->_redirect_back();
+			}else{
+				if($this->request->xhr()){
+					$this->response->setStatusCode(400); // "Bad Request"
+					$this->render_template = false;
+					$this->response->write(json_encode($this->_dump_form_error_message($this->form)));
+					$this->response->setContentType("text/plain");
+					return;
+				}
 			}
-
-			$this->flash->success(_("Image has been created"));
-			$this->_redirect_back();
 		}
 	}
 
@@ -136,6 +145,21 @@ class ImagesController extends AdminController {
 				"height" => $pupiq->getOriginalHeight(), 
 			),
 			"image_gallery_item" => $this->_render("shared/image_gallery_item",array("image" => $image)),
+		);
+	}
+
+	function _dump_form_error_message($form){
+		$ar = $form->get_errors();
+
+		$out = array();
+		foreach($ar as $k => $_ar){
+			foreach($_ar as $err){
+				$out[] = $err;
+			}
+		}
+
+		return array(
+			"error_message" => join("; ",$out),
 		);
 	}
 }

@@ -14,69 +14,25 @@
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
-				ADMIN.utils.handleXhrImageUpload();
+				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
 				window.UTILS.TagChooser.init();
 
 				// Form hints.
-				$( ".help-hint" ).each( function() {
-					var $this = $( this ),
-						$field = $this.closest( ".form-group" ).find( ".form-control" ),
-						title = $this.data( "title" ) || "",
-						content = $this.html(),
-						popoverOptions = {
-							html: true,
-							trigger: "focus",
-							title: title,
-							content: content
-						};
-
-					$field.popover( popoverOptions );
-				} );
+				UTILS.formHints();
 
 				UTILS.leaving_unsaved_page_checker.init();
 
 				// Back to top button display and handling
-				$( window ).on( "scroll", function(){
-					var backToTopBtn = $ ( "#js-scroll-to-top" );
-					if( $( window ).scrollTop() > 100 ) {
-						backToTopBtn.addClass( "active" );
-					} else {
-						backToTopBtn.removeClass( "active" );
-					}
-				} );
-				$( window ).trigger( "scroll" );
-
-				$ ( "#js-scroll-to-top" ).on( "click", function( e ){
-					e.preventDefault();
-					$( "html, body" ).animate( { scrollTop: 0 }, "fast" );
-				} );
+				ADMIN.utils.backToTopBtn();
 
 				UTILS.async_file_upload.init();
 
 				// Admin menu toggle on small devices
-				$( ".nav-section__toggle" ).on( "click", function( e ) {
-					e.preventDefault();
-					$( this ).closest( ".nav-section" ).toggleClass( "expanded" );
-				} );
+				ADMIN.utils.adminMenuToggler();
 
 				// Dark mode toggle 
-				$( "#js--darkmode-switch" ).on( "click", function(){
-					var mode;
-					if( $(this).prop( "checked" ) ) {
-						$( "body" ).addClass( "dark-mode" );
-						mode = "dark";
-						document.cookie = "dark_mode=1;path=/";
-					} else {
-						$( "body" ).removeClass( "dark-mode" );
-						mode = "light";
-						document.cookie = "dark_mode=;path=/;expires=Thu, 01 Jan 1970 00:00:01 GMT";
-					}
-
-					// darkModeChange event is triggered on dark mode de/activation
-					var evt = new CustomEvent( "darkModeChange", { detail: mode } );
-					document.dispatchEvent(evt);
-				} );
+				ADMIN.utils.darkModeToggler();
 			}
 
 		},
@@ -105,70 +61,6 @@
 							} );
 						}
 					} );
-				} );
-			},
-
-			handleXhrImageUpload: function() {
-				
-				$( ".js--xhr_upload_image_form" ).each( function() {
-
-					var $form = $( this );
-					var $wrap = $form.closest(".js--image_gallery_wrap");
-					var $dropZone = $form.closest(".drop-zone");
-					var highglightDropZone = function() { $dropZone.addClass("drop-zone-highlight"); };
-					var unhighglightDropZone = function() { $dropZone.removeClass("drop-zone-highlight"); };
-
-					$dropZone.on( "dragenter",  highglightDropZone );
-					$dropZone.on( "dragover",  highglightDropZone );
-					$dropZone.on( "dragleave",  unhighglightDropZone );
-					$dropZone.on( "drop",  unhighglightDropZone );
-
-					var url = $form.attr( "action" ),
-						$progress = $wrap.find( ".progress-bar" ),
-						$list = $wrap.find( ".list-group-images" ),
-						$input = $form.find("input");
-						$input.data("url",url);
-
-					$input.fileupload( {
-						dropZone: $dropZone,
-						dataType: "json",
-						multipart: false,
-						start: function() {
-							$progress.show();
-						},
-						progressall: function( e, data ) {
-							var progress = parseInt( data.loaded / data.total * 100, 10 );
-
-							$progress.css(
-								"width",
-								progress + "%"
-							);
-						},
-						done: function( e, data ) {
-
-							// This is the same grip like in handleSortables
-							var glyph = "<span class='fas fa-grip-vertical text-secondary handle pr-3' " +
-								" title='sorting'></span>";
-
-							$( data.result.image_gallery_item )
-								.addClass( "not-processed" )
-								.prepend( glyph )
-								.appendTo( $list );
-
-							$list.sortable( "refresh" );
-						},
-						stop: function() {
-							$list.find( ".not-processed" )
-								.prepend( "<span class='glyphicon glyphicon-align-justify'></span>" )
-								.removeClass( "not-processed" );
-
-							$progress.hide().css(
-								"width",
-								"0"
-							);
-						}
-					} );
-
 				} );
 			},
 
@@ -255,7 +147,53 @@
 					document.body.removeChild( el );
 					$( this ).trigger( "focus" );
 				} );
+			},
+
+			// Back to top button display and handling
+			backToTopBtn: function() {
+				window.addEventListener( "scroll", function() {
+					let backToTopBtn = this.document.querySelector( "#js-scroll-to-top" );
+					if( window.scrollY  > 100 ) {
+						backToTopBtn.classList.add( "active" );
+					} else {
+						backToTopBtn.classList.remove( "active" );
+					}
+				} );
+
+				window.dispatchEvent( new Event( "scroll" ) );
+
+				document.querySelector( "#js-scroll-to-top" ).addEventListener( "click", function( e ) {
+					e.preventDefault();
+					let els = document.querySelectorAll( "html,body" );
+					console.log( "els", els );
+					window.scroll( { top: 0, left: 0, behavior: "smooth" } );
+				} );
+				
+			},
+
+			// Admin menu toggle on small devices
+			adminMenuToggler: function() {
+				document.querySelector( ".nav-section__toggle" ).addEventListener( "click", function( e ) {
+					e.preventDefault();
+					this.closest( ".nav-section" ).classList.toggle( "expanded" );
+				} );
+			},
+
+			// Dark mode toggle 
+			darkModeToggler: function() {
+				document.getElementById( "js--darkmode-switch" ).addEventListener( "click", function() {
+					var body = document.querySelector( "body" );
+					if( this.checked ){
+						body.classList.add( "dark-mode" );
+						document.cookie = "dark_mode=1;path=/";
+					} else {
+						body.classList.remove( "dark-mode" );
+						document.cookie = "dark_mode=;path=/";
+					}
+
+				} );
 			}
+
 		}
 	};
 
