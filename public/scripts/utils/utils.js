@@ -81,5 +81,7 @@ window.UTILS.unobfuscateEmails = function() {
 
 // Links with the "blank" class are pointing to new window
 window.UTILS.linksTargetBlank = function() {
-	$( "a.blank" ).attr( "target", "_blank" );
+	[ ...document.querySelectorAll( "a.blank" ) ].forEach( (elem) => {
+		elem.setAttribute( "target", "_blank" )
+	} );
 }

@@ -12,6 +12,7 @@ const ESLintPlugin = require('eslint-webpack-plugin'); // linter
 
 // Aplication JS scripts. Vendor scripts referenced inside app JS files.
 var application_scripts = [
+	"./public/scripts/utils/display_utils.js",
 	"./public/scripts/utils/utils.js",
 	"./public/scripts/application.js",
 ];
