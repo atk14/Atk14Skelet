@@ -31,7 +31,7 @@ function smarty_block_js_notify($params,$content,$template,&$repeat){
 
 	$settings = array(
 		"type" => $type,
-		"delay" => 400000,
+		"delay" => 4000,
 	);
 
 	return sprintf('window.UTILS.Notifications.show(%s,%s);',json_encode($options),json_encode($settings));
