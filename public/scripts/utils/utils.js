@@ -33,42 +33,49 @@ window.UTILS.loginAvaliabilityChecker = function() {
 	 * Check whether login is available.
 	 * Simple demo of working with an API.
 	 */
-	var $login = $( "#id_login" ),
+	
+	let login = document.querySelector( "#id_login" ),
 	m = "Username is already taken.",
-	h = "<p class='alert alert-danger'>" + m + "</p>",
-	$status = $( h ).hide().appendTo( $login.closest( ".form-group" ) );
+	h = "<p class=\"alert alert-danger\" style=\"display: none\" id=\"login_availability_status\">" + m + "</p>";
+	login.closest( ".form-group" ).insertAdjacentHTML( "beforeend", h );
+	let status = document.querySelector( "#login_availability_status" );
 
-	$login.on( "change", function() {
+	login.addEventListener( "change", async () => {
 
 		// Login input value to check.
-		var value = $login.val(),
-			lang = $( "html" ).attr( "lang" ),
-
+		let value = login.value,
+		lang = document.querySelector( "html").getAttribute( "lang" ),
 		// API URL.
-			url = "/api/" + lang + "/login_availabilities/detail/",
-
+		url = new URL( "/api/" + lang + "/login_availabilities/detail/", window.location.origin ),
 		// GET values for API. Available formats: xml, json, yaml, jsonp.
-			data = {
-				login: value,
-				format: "json"
-			};
+		data = {
+			login: value,
+			format: "json"
+		};
 
-		// AJAX request to the API.
+		url.search = new URLSearchParams( data ).toString();
+
+
 		if ( value !== "" ) {
-			$.ajax( {
-				dataType: "json",
-				url: url,
-				data: data,
-				success: function( json ) {
-					if ( json.status !== "available" ) {
-						$status.fadeIn();
-					} else {
-						$status.fadeOut();
-					}
+			try {
+				const response = await fetch( url );
+				const responseData = await response.json();
+				if( responseData.status !== "available" ) {
+					window.UTILS.show( status );
+				} else {
+					window.UTILS.hide( status );
 				}
-			} );
+			} catch ( error ){
+        console.log( "Error Fetching data ",error);
+    	}
+		} else {
+			window.UTILS.hide( status );
 		}
-	} ).change();
+
+	} );
+
+	login.dispatchEvent(new Event( "change" ));
+
 }
 
 // Restores email addresses misted by the no_spam helper
