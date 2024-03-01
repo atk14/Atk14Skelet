@@ -31,8 +31,6 @@ window.UTILS.animationTiming = function ( t ) {
 // Fade out - replacement to jQuery.fadeOut();
 
 window.UTILS.fadeOut = function( el, t ) {
-	console.log( "fadeOut" );
-	console.trace();
 
 	t = window.UTILS.animationTiming( t );
 
@@ -63,7 +61,7 @@ window.UTILS.fadeIn = function( el, t ) {
 	// set appropriate display property
 	if( currentStyle.display === "none" ) {
 		// if element remembers it display property it had before element.fadeOut(), restore it, otherwise set it to "block"
-		if( el.dataset.display_before_fade !== "none" ){
+		if( el.dataset.display_before_fade && el.dataset.display_before_fade !== "none" ){
 			el.style.display = el.dataset.display_before_fade;
 		} else {
 			el.style.display = "block";
@@ -120,7 +118,7 @@ window.UTILS.show = function( el, t ) {
 	// set appropriate display property
 	if( currentStyle.display === "none" ) {
 		// if element remembers it display property it had before element.fadeOut(), restore it, otherwise set it to "block"
-		if( el.dataset.display_before_fade !== "none" ){
+		if( el.dataset.display_before_fade && el.dataset.display_before_fade !== "none" ){
 			el.style.display = el.dataset.display_before_fade;
 		} else {
 			el.style.display = "block";
