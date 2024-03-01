@@ -14,13 +14,9 @@
 
 window.UTILS = window.UTILS || { };
 
+// Utility for animation timing - similar to jQuery timing values
 
-// Fade out - replacement to jQuery.fadeOut();
-
-window.UTILS.fadeOut = function( el, t ) {
-	console.log( "fadeOut" );
-	console.trace();
-	// timing
+window.UTILS.animationTiming = function ( t ) {
 	if ( t === "slow" ) {
 		t = 600;
 	} else if ( t === "fast" ) {
@@ -28,6 +24,17 @@ window.UTILS.fadeOut = function( el, t ) {
 	} else if ( typeof( t ) !== "number" ) {
 		t = 400;
 	}
+	return t;
+}
+
+
+// Fade out - replacement to jQuery.fadeOut();
+
+window.UTILS.fadeOut = function( el, t ) {
+	console.log( "fadeOut" );
+	console.trace();
+
+	t = window.UTILS.animationTiming( t );
 
 	// remember element`s display property - to be restored by elemet.fadeIn()
 	if( window.getComputedStyle( el ).display !== "none" ) {
@@ -51,14 +58,7 @@ window.UTILS.fadeIn = function( el, t ) {
 	// get current style
 	let currentStyle = window.getComputedStyle( el );
 	
-	// timing 
-	if ( t === "slow" ) {
-		t = 600;
-	} else if ( t === "fast" ) {
-		t = 200;
-	} else if ( typeof( t ) !== "number" ) {
-		t = 400;
-	}
+	t = window.UTILS.animationTiming( t );
 
 	// set appropriate display property
 	if( currentStyle.display === "none" ) {
@@ -88,16 +88,8 @@ window.UTILS.fadeIn = function( el, t ) {
 // Hide - replacement to jQuery.fadeOut();
 
 window.UTILS.hide = function( el, t ) {
-	console.log( "hide" );
-	console.trace();
-	// timing
-	if ( t === "slow" ) {
-		t = 600;
-	} else if ( t === "fast" ) {
-		t = 200;
-	} else if ( typeof( t ) !== "number" ) {
-		t = 400;
-	}
+	
+	t = window.UTILS.animationTiming( t );
 
 	// remember element`s display property - to be restored by elemet.fadeIn()
 	if( window.getComputedStyle( el ).display !== "none" ) {
@@ -123,14 +115,7 @@ window.UTILS.show = function( el, t ) {
 	// get current style
 	let currentStyle = window.getComputedStyle( el );
 	
-	// timing 
-	if ( t === "slow" ) {
-		t = 600;
-	} else if ( t === "fast" ) {
-		t = 200;
-	} else if ( typeof( t ) !== "number" ) {
-		t = 400;
-	}
+	t = window.UTILS.animationTiming( t );
 
 	// set appropriate display property
 	if( currentStyle.display === "none" ) {
