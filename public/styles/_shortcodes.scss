@@ -15,3 +15,17 @@
 		}
 	}
 }
+
+// Collapse shortcode
+.collapse--shortcode {
+	margin-bottom: $grid-gutter-width;
+	.collapse_title--shortcode {
+		margin-bottom: $grid-gutter-width;
+		p:last-child {
+			margin-bottom: 0;
+		}
+	}
+	.collapse_content--shortcode {
+		
+	}
+}
