@@ -1,0 +1,57 @@
+// Additional styling for PhotoSwipe 5+
+.pswp {
+  $captionHorizontalPadding: 12px;
+  $captionVerticalPadding: 6px;
+  .pswp__custom-caption {
+    background: rgba(black, 0.5);
+    font-size: 16px;
+    color: #fff;
+    width: 100%;
+    padding: 0 $captionHorizontalPadding;
+    position: absolute;
+    left: 0;
+    bottom: 0;
+    font-size: $font-size-sm;
+    line-height: 1.2;
+    &:empty {
+      display: none;
+    }
+    .iobject--picture__link, .iobject__title__separator {
+      display: none !important;
+    }
+    .iobject__title, .gallery-item__title {
+      font-weight: bold;
+      margin: 0;
+      margin-top: $captionVerticalPadding;
+      margin-bottom: $captionVerticalPadding;
+      &:last-child {
+        margin-bottom: $captionVerticalPadding;
+      }
+      &:empty {
+        display: none;
+      }
+    }
+    .iobject__description, .gallery-item__description {
+      &:empty {
+        display: none;
+      }
+      &:last-child {
+        margin-top: -1 * $captionVerticalPadding;
+        margin-bottom: $captionVerticalPadding;
+      }
+    }
+    a {
+      color: #fff;
+      text-decoration: underline;
+    }
+  }
+
+  /*.pswp__bg {
+    backdrop-filter: blur(6px);
+  }*/
+
+  // Temporary dirty fix for preloader 
+  .pswp__preloader {
+    display: none !important;
+  }
+}
