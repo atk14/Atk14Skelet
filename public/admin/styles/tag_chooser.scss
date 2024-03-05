@@ -1,0 +1,35 @@
+.tag_chooser {
+  display: flex;
+  flex-wrap: wrap;
+  grid-area: control;
+  .input-group {
+    display: inline-flex;
+    width: auto;
+    margin-right: 2ch;
+  }
+  .js--single_tag_input {
+    max-width: 15ch;
+  }
+  .tag_container {
+    font-size: 1.25rem;
+    padding-top: 0.125em;
+    .tag_item {
+      margin: 0.125em 0.125em;
+      display: inline-flex;
+      align-items: center;
+      line-height: 1;
+      &:hover {
+        cursor: grab;
+      }
+      .remove_btn {
+        padding: 0.125em;
+        padding-right: 0.5em;
+        margin-left: -0.135em;
+        cursor: pointer;
+        &:hover {
+          color: $danger;
+        }
+      }
+    }
+  }
+}

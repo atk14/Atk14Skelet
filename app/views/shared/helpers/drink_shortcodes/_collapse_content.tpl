@@ -1,0 +1,1 @@
+<div class="collapse collapse_content--shortcode" id="{$collapseID}">{!$content}</div>

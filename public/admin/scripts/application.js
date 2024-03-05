@@ -37,6 +37,7 @@ import Sortable from "sortablejs";
 				ADMIN.utils.initializeMarkdonEditors();
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
+				window.UTILS.TagChooser.init();
 
 				// Form hints.
 				UTILS.formHints();
