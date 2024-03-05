@@ -29,9 +29,7 @@ window.UTILS.TagChooser = class {
   <div class="tag_chooser js--tag_chooser">
     <div class="input-group">
       <input type="text" class="form-control js--single_tag_input" placeholder="Tag" aria-label="Tag">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary js--single_tag_btn" type="button"><i class=\"fa-solid fa-circle-plus\"></i></button>
-      </div>
+      <button class="btn btn-outline-secondary js--single_tag_btn" type="button"><i class=\"fa-solid fa-circle-plus\"></i></button>
     </div>
     <div class="tag_container js--tag_container"></div>
   </div>
@@ -74,7 +72,7 @@ window.UTILS.TagChooser = class {
     }
 
     // Disable default Bootstrap popover
-    if( window.jQuery ){
+    if( window.jQuery && bootstrapVersion < 5 ){
       window.jQuery( this.singleTagInput ).popover( "disable" );
     }
 
@@ -139,7 +137,7 @@ window.UTILS.TagChooser = class {
 
       // template for tag, tagName interpolated automatically
       let tagItemTemplate = `
-      <div class="badge badge-pill badge-secondary tag_item js--tag_item" data-tag_name="${tagName}">
+      <div class="badge badge rounded-pill text-bg-secondary tag_item js--tag_item" data-tag_name="${tagName}">
         <div class="remove_btn js--remove_btn"><i class="fa-solid fa-circle-xmark"></i></div>
         ${tagName}
       </div>
