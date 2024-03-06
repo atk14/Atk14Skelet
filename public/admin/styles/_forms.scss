@@ -114,7 +114,35 @@ form {
 				@extend .text-muted;
 			}
 		}
+		// file input with thumbnail
+		.form-control-wrap:has( .form-control-file ) {
+			@include media-breakpoint-up(sm) {
+				display: flex;
+				align-items: center;
+				.img-thumbnail {
+					flex-basis: 100px;
+					flex-shrink: 0;
+					max-width: 100px;
+				}
+				input[type="checkbox"] {
+					margin-right: 1ch;
+				}
+				input[type="file"] {
+					margin-left: 2ch;
+				}
+			}
+			@include media-breakpoint-down(sm) {
+				input[type="file"] {
+					margin-top: 0.5em;
+				}
+			}
+		}
 	}
+}
+
+// Fix file control styling with Bootstrap 5 .form-control[type="file"] styling
+.form-control-file {
+	@extend .form-control;
 }
 
 // Applies CSS grid to .form-group to create horizontal form.
