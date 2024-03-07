@@ -72,6 +72,7 @@ window.UTILS.TagChooser = class {
     }
 
     // Disable default Bootstrap popover
+    // eslint-disable-next-line no-undef
     if( window.jQuery && bootstrapVersion < 5 ){
       window.jQuery( this.singleTagInput ).popover( "disable" );
     }
