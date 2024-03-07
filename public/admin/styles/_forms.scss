@@ -138,6 +138,66 @@ form {
 			}
 		}
 	}
+
+	// File input with thumbnail and removal link
+	.form-control-wrap:has( input[type="file"]  ) {
+		display: grid;
+		grid-template-columns: 112px 1fr;
+		grid-template-rows: 1fr 1fr;
+
+		* {
+			grid-column:  2 / 3;
+		}
+
+		.img-thumbnail, a:has( .img-thumbnail ) {
+			grid-column: 1 / 2;
+			grid-row: 1 / -1;
+		}
+
+		input.form-control-file, input[type="file"] {
+			align-self: start;
+			grid-row: 1/2;
+		}
+
+		@include media-breakpoint-down(xs) {
+			grid-template-columns: 90px 1fr;
+			.img-thumbnail {
+				max-width: 80px;
+			}
+		}
+	}
+}
+
+// File form control styling (loosely adapted from Bootstrap 5)
+.form-control-file {
+	@extend .form-control;
+	&::file-selector-button {
+		padding: $input-padding-y $input-padding-x;
+		padding: calc(#{$input-padding-y} + #{$input-border-width}) $input-padding-x;
+		margin: (-$input-padding-y) (-$input-padding-x);
+		margin-inline-end: $input-padding-x;
+		color: $input-color;
+		border-color: inherit;
+		border-style: solid;
+		border-width: 0;
+		border-inline-end-width: $input-border-width;
+		transition: color .15s ease-in-out,background-color .15s ease-in-out,border-color .15s ease-in-out,box-shadow .15s ease-in-out;
+		&:hover:not(:disabled):not([readonly])::file-selector-button {
+			background-color: $gray-200;//$form-file-button-hover-bg;
+		}
+		font-size: inherit;
+		line-height: inherit;
+		
+	}
+	body.dark-mode & {
+		&::file-selector-button {
+			background-color: $gray-700;
+			color: white;
+			&:hover {
+				background-color: $gray-600;
+			}
+		}
+	}
 }
 
 // Fix file control styling with Bootstrap 5 .form-control[type="file"] styling
