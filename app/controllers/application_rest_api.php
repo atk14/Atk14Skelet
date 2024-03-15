@@ -74,6 +74,20 @@ class ApplicationRestApiController extends ApplicationBaseController{
 		$this->template_name = "shared/rest_api/command_list";
 
 		$this->page_title = sprintf(_("Commands in %s"),$this->namespace);
+
+		$readme = "";
+		if(file_exists(ATK14_DOCUMENT_ROOT."/app/controllers/$this->namespace/README.md")){
+			$readme = Files::GetFileContent(ATK14_DOCUMENT_ROOT."/app/controllers/$this->namespace/README.md");
+			Atk14Require::Helper("modifier.markdown");
+			$readme = smarty_modifier_markdown($readme);
+			
+			$_patern = '/<h1\b[^>]*>(.*?)<\/h1>/';
+			if(preg_match($_patern,$readme,$matches)){
+				$this->page_title = $matches[1];
+				$readme = preg_replace($_patern,'',$readme);
+			}
+		}
+		$this->tpl_data["readme"] = $readme;
 	}
 
 	/**

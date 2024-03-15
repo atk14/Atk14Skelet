@@ -3,7 +3,11 @@
 </header>
 
 <section>
-	<p>{t api=$namespace escape=no}Here you can find the list of all commands in <em>%1</em>.{/t}</p>
+	{if $readme}
+		{!$readme}
+	{else}
+		<p>{t api=$namespace escape=no}Here you can find the list of all commands in <em>%1</em>.{/t}</p>
+	{/if}
 
 	<ul>
 	{foreach from=$controllers key=ctrl item=item}
