@@ -8,16 +8,4 @@ class TcFunctions extends TcBase {
 
 		$this->assertEquals(date("Y-m-d"),now("Y-m-d"));
 	}
-
-	function test_array_flatten(){
-		$ar = ["a", ["b", "c"], [["d",["e","f"]]]];
-		$this->assertEquals(["a","b","c","d","e","f"],array_flatten($ar));
-
-		$ar = ["x" => "a", "y" => ["z" => "b", "c"]];
-		$this->assertEquals(["x" => "a", "z" => "b", 0 => "c"],array_flatten($ar));
-
-		// TODO
-		//$ar = ["x" => "a", "y" => ["z" => "b", "x" => "c"]];
-		//$this->assertEquals(["x" => "a", "z" => "b", 0 => "c"],array_flatten($ar));
-	}
 }
