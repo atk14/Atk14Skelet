@@ -28,7 +28,7 @@ class ArticlesController extends ApplicationController{
 		$this->tpl_data["finder"] = Article::Finder(array(
 			"conditions" => $conditions,
 			"bind_ar" => $bind_ar,
-			"order_by" => "published_at DESC",
+			"order_by" => "published_at DESC, id DESC",
 			"offset" => $this->params->getInt("offset")
 		));
 		$this->head_tags->setCanonical($this->_build_canonical_url("articles/index"));
