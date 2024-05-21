@@ -21,15 +21,7 @@ class CreateNewForm extends ApplicationForm{
 			"max_length" => 2000,
 		)));
 
-		if(defined("HCAPTCHA_SITE_KEY") && strlen(constant("HCAPTCHA_SITE_KEY"))>0 && defined("HCAPTCHA_SECRET_KEY") && strlen(constant("HCAPTCHA_SECRET_KEY"))>0){
-			$this->add_field("captcha",new HcaptchaField(array(
-				"label" => _("Spam protection"),
-			)));
-		}elseif(defined("RECAPTCHA_SITE_KEY") && strlen(constant("RECAPTCHA_SITE_KEY"))>0 && defined("RECAPTCHA_SECRET_KEY") && strlen(constant("RECAPTCHA_SECRET_KEY"))>0){
-			$this->add_field("captcha",new RecaptchaField(array(
-				"label" => _("Spam protection"),
-			)));
-		}
+		$this->_add_captcha_field();
 
 		$this->set_action($HTTP_REQUEST->getRequestUri()."#form_contact_messages_create_new");
 		$this->enable_csrf_protection();
