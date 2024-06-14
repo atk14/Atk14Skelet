@@ -177,9 +177,9 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->session->changeSecretToken(); // prevent from session fixation
 
 		if($options["fake_login"]){
-			$this->logger->info(sprintf("User#%s (%s) just logged in administratively as User#%s (%s) from %s",$this->logged_user->getId(),"$this->logged_user",$user->getId(),"$user",$this->request->getRemoteAddr()));
+			$this->logger->info(sprintf("User#%s (%s, %s) just logged in administratively as User#%s (%s, %s) from %s",$this->logged_user->getId(),$this->logged_user->getLogin(),"$this->logged_user",$user->getId(),$user->getLogin(),"$user",$this->request->getRemoteAddr()));
 		}else{
-			$this->logger->info(sprintf("User#%s (%s) just logged in from %s",$user->getId(),"$user",$this->request->getRemoteAddr()));
+			$this->logger->info(sprintf("User#%s (%s, %s) just logged in from %s",$user->getId(),$user->getLogin(),"$user",$this->request->getRemoteAddr()));
 			$user->s(array(
 				"last_signed_in_at" => now(),
 				"last_signed_in_from_addr" => $this->request->getRemoteAddr(),
@@ -202,11 +202,11 @@ class ApplicationBaseController extends Atk14Controller{
 		}elseif($logged_user->getId()!=$really_logged_user->getId()){
 			$stayed_logged_as_user = $really_logged_user;
 			$this->session->clear("fake_logged_user_id");
-			$this->logger->info(sprintf("User#%s (%s) logged out administratively as User#%s (%s) from %s",$really_logged_user->getId(),"$really_logged_user",$logged_user->getId(),"$logged_user",$this->request->getRemoteAddr()));
+			$this->logger->info(sprintf("User#%s (%s, %s) logged out administratively as User#%s (%s, %s) from %s",$really_logged_user->getId(),$really_logged_user->getLogin(),"$really_logged_user",$logged_user->getId(),$logged_user->getLogin(),"$logged_user",$this->request->getRemoteAddr()));
 		}else{
 			$this->session->clear("logged_user_id");
 			$this->session->clear("fake_logged_user_id"); // just for sure
-			$this->logger->info(sprintf("User#%s (%s) logged out from %s",$logged_user->getId(),"$logged_user",$this->request->getRemoteAddr()));
+			$this->logger->info(sprintf("User#%s (%s, %s) logged out from %s",$logged_user->getId(),$logged_user->getLogin(),"$logged_user",$this->request->getRemoteAddr()));
 		}
 	}
 
