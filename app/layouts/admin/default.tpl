@@ -65,6 +65,7 @@
 	</head>
 
 	<body class="body_{$controller}_{$action}{if $request->getCookieVar("dark_mode")} dark-mode{/if}" data-namespace="{$namespace}" data-controller="{$controller}" data-action="{$action}">
+		{render partial="shared/layout/flash_message"}
 		<div class="body-wrap">
 			{render partial="shared/layout/header"}
 		
@@ -79,7 +80,6 @@
 					{/if}
 
 					<div class="content-main">
-						{render partial="shared/layout/flash_message"}
 						{placeholder}
 					</div>
 
