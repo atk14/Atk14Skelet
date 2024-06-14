@@ -167,6 +167,10 @@ var config = {
     // SASS compiler enable to show @debug
     loggingDebug: ['sass-loader'],
   },
+  watchOptions: {
+    aggregateTimeout: 100,
+    poll: 350, // Check for changes every n ms
+  },
 };
 
 module.exports = (env, args) => {
