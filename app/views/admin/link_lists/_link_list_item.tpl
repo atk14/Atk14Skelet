@@ -1,8 +1,11 @@
 <li class="list-group-item" data-id="{$link_list->getId()}">
 	<div class="item__properties">
 		<div class="item__title">
-			{$link_list->getSystemName()}<br>
-			{$link_list->getTitle()}
+			{$link_list->getSystemName()}
+			{if $link_list->getTitle() && $link_list->getTitle()!=$link_list->getSystemName()}
+				<br>
+				{$link_list->getTitle()}
+			{/if}
 		</div>
 		<span class="item__code">
 			{if $link_list->getCode()|strlen}{$link_list->getCode()}{/if}

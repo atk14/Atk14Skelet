@@ -189,21 +189,27 @@ import Sortable from "sortablejs";
 
 				window.dispatchEvent( new Event( "scroll" ) );
 
-				document.querySelector( "#js-scroll-to-top" ).addEventListener( "click", function( e ) {
-					e.preventDefault();
-					let els = document.querySelectorAll( "html,body" );
-					console.log( "els", els );
-					window.scroll( { top: 0, left: 0, behavior: "smooth" } );
-				} );
+				let scrollTopBtn = document.querySelector( "#js-scroll-to-top" );
+				if( scrollTopBtn ){
+					scrollTopBtn.addEventListener( "click", function( e ) {
+						e.preventDefault();
+						let els = document.querySelectorAll( "html,body" );
+						console.log( "els", els );
+						window.scroll( { top: 0, left: 0, behavior: "smooth" } );
+					} );
+				}
 				
 			},
 
 			// Admin menu toggle on small devices
 			adminMenuToggler: function() {
-				document.querySelector( ".nav-section__toggle" ).addEventListener( "click", function( e ) {
-					e.preventDefault();
-					this.closest( ".nav-section" ).classList.toggle( "expanded" );
-				} );
+				let toggler = document.querySelector( ".nav-section__toggle" );
+				if( toggler ) {
+					toggler.addEventListener( "click", function( e ) {
+						e.preventDefault();
+						this.closest( ".nav-section" ).classList.toggle( "expanded" );
+					} );
+				};
 			},
 
 			// Dark mode toggle 

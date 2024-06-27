@@ -76,7 +76,7 @@ class RemoteTestsController extends ApplicationController{
 	 */
 	function php_errors(){
 		$this->_check_for_files(LOG_DIR,array(
-			"pattern" => '/(php_error\.log|exception\.log|error\.log)$/',
+			"pattern" => '/^(php_error\.log|error\.log)$/',
 			"min_mtime" => time() - 30 * 60, // not older than 30 minutes
 		));
 	}
@@ -86,7 +86,7 @@ class RemoteTestsController extends ApplicationController{
 	 */
 	function php_exceptions(){
 		$this->_check_for_files(LOG_DIR,array(
-			"pattern" => '/exception\.log$/',
+			"pattern" => '/^exception\.log$/',
 			"min_mtime" => time() - 30 * 60, // not older than 30 minutes
 		));
 	}
@@ -96,7 +96,7 @@ class RemoteTestsController extends ApplicationController{
 	 */
 	function robot_errors(){
 		$this->_check_for_files(LOG_DIR,array(
-			"pattern" => '/(robots_error\.log)$/',
+			"pattern" => '/^(robots_error\.log)$/',
 			"min_mtime" => time() - 30 * 60, // not older than 30 minutes
 		));
 	}
