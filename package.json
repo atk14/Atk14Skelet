@@ -28,7 +28,7 @@
     "url": "https://github.com/atk14/Atk14Skelet/issues"
   },
   "devDependencies": {
-    "@fortawesome/fontawesome-free": "^6.4.2",
+    "@fortawesome/fontawesome-free": "^6.5.2",
     "ace-builds": "^1.4.6",
     "atk14js": "^1.2.1",
     "autocompleter": "^9.1.2",
@@ -53,20 +53,20 @@
     "gulp-sourcemaps": "^2.4.0",
     "gulp-uglify": "^3.0.2",
     "html5shiv": "^3.7.0",
-    "jquery": "~3.6.1",
+    "jquery": "~3.7.1",
     "jquery-ui-bundle": "^1.11.2",
     "jshint-stylish": "^2.0.1",
     "node-sass": "^7.0.0",
     "respond.js": "^1.4.2",
     "unobfuscatejs": "^1.0.2",
-    "svg-country-flags": "^1.2.6",
+    "svg-country-flags": "^1.2.10",
     "popper.js": "^1.15.0",
     "animate.css": "^3.7.2",
     "favicons": "^6.0.0",
-    "swiper": "^10.3.1",
+    "swiper": "^11.1.4",
     "@babel/core": "^7.17.12",
-    "photoswipe": "^5.4.2",
-    "sortablejs": "^1.15.1"
+    "photoswipe": "^5.4.4",
+    "sortablejs": "^1.15.2"
   },
   "dependencies": {}
 }
