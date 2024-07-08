@@ -255,4 +255,32 @@ class TcSlug extends TcBase {
 		$article = Article::GetInstanceBySlug("testing-article-with-testing-segment",$lang,array("consider_segment" => false));
 		$this->assertEquals($testing_article_with_testing_segment->getId(),$article->getId());
 	}
+
+	function test_generic_slugs(){
+		$article = $this->articles["testing_article"];
+		$id = $article->getId();
+		$article->s("slug_cs",null);
+
+		$this->assertEquals("testing-article",$article->getSlug());
+		$this->assertEquals("articles-cs-$id",$article->getSlug("cs"));
+
+		$lang = null;
+		$a = Article::GetInstanceBySlug("testing-article",$lang);
+		$this->assertEquals($article->getId(),$a->getId());
+		$this->assertEquals("en",$lang);
+
+		$lang = null;
+		$a = Article::GetInstanceBySlug("articles-cs-$id",$lang);
+		$this->assertEquals($article->getId(),$a->getId());
+		$this->assertEquals("cs",$lang);
+
+		$lang = "en";
+		$a = Article::GetInstanceBySlug("articles-cs-$id",$lang);
+		$this->assertEquals(null,$a);
+
+		$lang = null;
+		$a = Article::GetInstanceBySlug("articles-en-$id",$lang);
+		$this->assertEquals($article->getId(),$a->getId());
+		$this->assertEquals("en",$lang);
+	}
 }
