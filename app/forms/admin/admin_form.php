@@ -79,6 +79,7 @@ class AdminForm extends ApplicationForm{
 				"initial" => $field->initial,
 				"help_text" => $field->help_text,
 				"hint" => $field->hint,
+				"hints" => $field->hints,
 				"disabled" => $field->disabled,
 				"widget" => $w,
 				"null_empty_output" => isset($field->null_empty_output)?$field->null_empty_output:false,
