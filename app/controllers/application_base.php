@@ -1,4 +1,5 @@
 <?php
+#[\AllowDynamicProperties]
 class ApplicationBaseController extends Atk14Controller{
 
 	/**

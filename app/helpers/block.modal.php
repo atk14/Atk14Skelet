@@ -57,7 +57,14 @@ function smarty_block_modal($params,$content,$template,&$repeat){
 	$smarty->assign("closable_by_clicking_on_backdrop",$params["closable_by_clicking_on_backdrop"]);
 	$smarty->assign("class",$params["class"]);
 
-	$out = $smarty->fetch("shared/helpers/modal/".(USING_BOOTSTRAP4 || USING_BOOTSTRAP5 ? "_bootstrap4.tpl" : "_bootstrap3.tpl"));
+	if(USING_BOOTSTRAP3){
+		$template = "_bootstrap3.tpl";
+	}elseif(USING_BOOTSTRAP5){
+		$template = "_bootstrap5.tpl";
+	}else{
+		$template = "_bootstrap4.tpl";
+	}
+	$out = $smarty->fetch("shared/helpers/modal/$template");
 
 	$smarty->clearAllAssign();
 	$smarty->assign($original_smarty_vars);

@@ -92,7 +92,7 @@
 		{!$field->as_widget()}
 	{elseif $is_checkbox}
 		<div class="{$form_group_class}">
-			<div class="form-check custom-control custom-checkbox">
+			<div class="{if USING_BOOTSTRAP5}form-check form-switch{else}form-check custom-control custom-checkbox{/if}">
 				{!$field->as_widget($widget_options)|customize_checkbox} {* helper customize_checkbox prida do checkboxu css tridu custom-control-input *}
 				<label class="{if USING_BOOTSTRAP5}form-label{else}form-check-label custom-control-label{/if}" for="{$field->id_for_label()}">
 					{$field->label}

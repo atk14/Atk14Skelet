@@ -89,5 +89,9 @@
 		<a href="#" id="js-scroll-to-top" title="{t}Nahoru{/t}">{!"arrow-up"|icon}</a>
 		{javascript_script_tag file="$public/admin/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/admin/dist/scripts/application.min.js"}
+
+		{javascript_tag}
+			{placeholder for="js"}
+		{/javascript_tag}
 	</body>
 </html>
