@@ -64,6 +64,7 @@ definedef("SIGN_UP_FOR_NEWSLETTER_ENABLED",true);
 // Google Analytics tracking code,
 // see app/views/shared/trackers/google/_analytics.tpl and app/layouts/default.tpl.
 // definedef("GOOGLE_ANALYTICS_TRACKING_ID","UA-123456789-1");
+// definedef("GOOGLE_TAG_MANAGER_CONTAINER_ID","GTM-ZY123X5");
 
 // Temporary files uploads (these settings effects use of AsyncFileField)
 // definedef("TEMPORARY_FILE_UPLOADS_ENABLED",true);
