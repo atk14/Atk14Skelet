@@ -15,7 +15,7 @@ if(
 	class_exists("Tracy\Debugger") &&
 	php_sapi_name()!="cli" // we do not want Tracy in cli
 ){
-	Tracy\Debugger::enable(PRODUCTION, __DIR__ . '/../log/',ATK14_ADMIN_EMAIL);
+	Tracy\Debugger::enable(PRODUCTION, __DIR__ . '/../log/',PRODUCTION ? ATK14_ADMIN_EMAIL : null);
 }
 
 require_once(__DIR__ . "/functions.php");
