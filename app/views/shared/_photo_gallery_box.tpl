@@ -85,6 +85,7 @@
 				<figure class="gallery__item{if $i > $max_num_show} d-none{/if}" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
 					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" itemprop="contentUrl" data-minithumb="{$image|img_url:$geometry_thumb_transition}" data-pswp-width="{$image|img_width:$geometry_detail}" data-pswp-height="{$image|img_height:$geometry_detail}" itemprop="contentUrl" data-minithumb="{$image|img_url:$geometry_thumb_transition}">
 						<picture>
+							<source srcset="{!$image|img_url:($thumb_geometry|cat:",format=webp")}" type="image/webp">
 							<source srcset="{!$image|img_url:$thumb_geometry}">
 							<img {!$image|img_attrs:$thumb_geometry} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
 						</picture>
