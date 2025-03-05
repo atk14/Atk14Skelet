@@ -174,7 +174,7 @@ var config = {
       new TerserPlugin(),
       new CssMinimizerPlugin(),
     ],
-    minimize: tru
+    minimize: true
   },
   cache: true,
   stats: {
