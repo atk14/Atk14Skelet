@@ -40,7 +40,11 @@ class ApplicationModel extends TableRecord{
 		}
 
 		if($obj->hasKey("created_from_user_agent") && !in_array("created_from_user_agent",$v_keys)){
-			$values["created_from_user_agent"] = String4::ToObject($HTTP_REQUEST->getUserAgent())->truncate(1000)->toString();
+			$values["created_from_user_agent"] = $HTTP_REQUEST->getUserAgent() ? String4::ToObject($HTTP_REQUEST->getUserAgent())->truncate(1000)->toString() : null;
+		}
+
+		if($obj->hasKey("created_at_url") && !in_array("created_at_url",$v_keys)){
+			$values["created_at_url"] = $HTTP_REQUEST->getUrl() ? String4::ToObject($HTTP_REQUEST->getUrl())->truncate(1000)->toString() : null;
 		}
 
 		$tr_strings = array();
@@ -184,7 +188,7 @@ class ApplicationModel extends TableRecord{
 		}
 
 		if($this->hasKey("updated_from_user_agent") && !in_array("updated_from_user_agent",$v_keys)){
-			$values["updated_from_user_agent"] = String4::ToObject($HTTP_REQUEST->getUserAgent())->truncate(1000)->toString();
+			$values["updated_from_user_agent"] = $HTTP_REQUEST->getUserAgent() ? String4::ToObject($HTTP_REQUEST->getUserAgent())->truncate(1000)->toString() : null;
 		}
 
 		$class_name = get_class($this);

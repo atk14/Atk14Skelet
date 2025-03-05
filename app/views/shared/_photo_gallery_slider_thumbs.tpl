@@ -42,6 +42,7 @@
 					{foreach $images as $image}
 						<div class="swiper-slide slider-item-{$image@iteration-1}" style="width: auto">
 							<picture>
+								<source srcset="{!$image|img_url:($geometry_thumbnail|cat:",format=webp")}" type="image/webp">
 								<source srcset="{!$image|img_url:$geometry_thumbnail}">
 								<img {!$image|img_attrs:$geometry_thumbnail} alt="{$image->getName()}" class="img-fluid">
 							</picture>

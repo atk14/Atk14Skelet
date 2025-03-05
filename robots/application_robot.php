@@ -19,6 +19,6 @@ class ApplicationRobot extends Atk14Robot{
 	function _commit(){
 		if(TEST){ return; }
 		$this->dbmole->commit();
-		$this->dbmole->rollback();
+		$this->dbmole->begin();
 	}
 }

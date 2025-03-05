@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-25 16:27+0200\n"
-"PO-Revision-Date: 2022-04-25 17:21+0200\n"
+"POT-Creation-Date: 2025-01-28 12:19+0100\n"
+"PO-Revision-Date: 2025-01-28 12:45+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 msgid ""
 "Are you sure to delete article item\n"
@@ -131,6 +131,9 @@ msgstr "Přidat fotografii"
 msgid "Upravit obrázky fotogalerie"
 msgstr "Upravit obrázky fotogalerie"
 
+msgid "Download original image"
+msgstr "Stáhnout originální obrázek"
+
 msgid "bez titulku nebo popisu"
 msgstr "bez titulku nebo popisu"
 
@@ -158,11 +161,17 @@ msgstr "V seznamu není žádný odkaz."
 msgid "invisible"
 msgstr "neviditelné"
 
+msgid "This item has an administrable submenu:"
+msgstr "Tato položka má administrovatelné podmenu:"
+
 msgid "Edit links"
 msgstr "Editovat odkazy"
 
 msgid "Create new link list"
 msgstr "Vytvořit nový odkaz"
+
+msgid "This is a submenu for:"
+msgstr "Toto je podmenu pro:"
 
 msgid "Link list"
 msgstr "Seznam odkazů"
@@ -185,6 +194,10 @@ msgstr "E-mail"
 
 msgid "Name"
 msgstr "Jméno"
+
+#: ../app/forms/admin/newsletter_subscribers/index_form.php:14
+msgid "Language"
+msgstr "Jazyk"
 
 msgid "Subscribed since"
 msgstr "Přihlášen od"
@@ -367,7 +380,7 @@ msgstr "Nebyl nalezen žádný štítek."
 msgid "Tag"
 msgstr "Štítek"
 
-#: ../app/forms/admin/admin_form.php:125
+#: ../app/forms/admin/admin_form.php:126
 msgid "Code"
 msgstr "Kód"
 
@@ -395,7 +408,7 @@ msgstr ""
 "V současné době nikdo nezná skutečné heslo uživatele, protože hesla nejsou "
 "uložena v textové podobě."
 
-#: ../app/controllers/admin/users_controller.php:54
+#: ../app/controllers/admin/users_controller.php:55
 msgid "Create a new user"
 msgstr "Vytvořit nového uživatele"
 
@@ -410,6 +423,9 @@ msgstr "E-mailová adresa"
 msgid "Is admin?"
 msgstr "Je administrátor?"
 
+msgid "deleted user"
+msgstr "smazaný uživatel"
+
 msgid "inactive user"
 msgstr "neaktivní uživatel"
 
@@ -421,6 +437,9 @@ msgstr "administrátor"
 
 msgid "regular user"
 msgstr "běžný uživatel"
+
+msgid "deleted"
+msgstr "smazáno"
 
 msgid "not active"
 msgstr "neaktivní"
@@ -519,11 +538,11 @@ msgstr "Editace objektu typu %s"
 msgid "Ve formuláři nebylo nic změněno"
 msgstr "Nothing has been changed in the form"
 
-#: ../app/controllers/admin/admin.php:391
+#: ../app/controllers/admin/admin.php:392
 msgid "The entry has been deleted"
 msgstr "Záznam byl smazán"
 
-#: ../app/controllers/admin/admin.php:410
+#: ../app/controllers/admin/admin.php:411
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Fotogalerie"
@@ -573,7 +592,7 @@ msgid "Editing attachment #%s"
 msgstr "Úprava přílohy #%s"
 
 #: ../app/controllers/admin/attachments_controller.php:38
-#: ../app/controllers/admin/images_controller.php:59
+#: ../app/controllers/admin/images_controller.php:68
 msgid "Changes have been saved"
 msgstr "Změny byly uloženy"
 
@@ -624,12 +643,12 @@ msgstr "Přidání obrázku do fotogalerie"
 msgid "Image has been created"
 msgstr "Obrázek byl vytvořen"
 
-#: ../app/controllers/admin/images_controller.php:47
+#: ../app/controllers/admin/images_controller.php:56
 #, php-format
 msgid "Editing of the Image #%s"
 msgstr "Editace obrázku #%s"
 
-#: ../app/controllers/admin/images_controller.php:72
+#: ../app/controllers/admin/images_controller.php:81
 msgid "The image has been deleted"
 msgstr "Obrázek byl smazán"
 
@@ -648,7 +667,7 @@ msgstr "Přidání odkazu do seznamu '%s'"
 msgid "Editing link '%s'"
 msgstr "Editace odkazu '%s'"
 
-#: ../app/controllers/admin/link_list_items_controller.php:48
+#: ../app/controllers/admin/link_list_items_controller.php:52
 msgid "Links"
 msgstr "Odkazy"
 
@@ -708,7 +727,7 @@ msgid "The same tag already exists"
 msgstr "Stejný štítek již existuje"
 
 #: ../app/controllers/admin/tags_controller.php:67
-#: ../app/controllers/admin/users_controller.php:73
+#: ../app/controllers/admin/users_controller.php:74
 msgid "Nothing has been changed"
 msgstr "Nic nebylo změněno"
 
@@ -720,29 +739,29 @@ msgstr "Štítek byl aktualizován"
 msgid "Users list"
 msgstr "Seznam uživatelů"
 
-#: ../app/controllers/admin/users_controller.php:60
+#: ../app/controllers/admin/users_controller.php:61
 msgid "The user has been created successfully"
 msgstr "Uživatel byl úspěšně vytvořen"
 
-#: ../app/controllers/admin/users_controller.php:66
+#: ../app/controllers/admin/users_controller.php:67
 #, php-format
 msgid "Editing user %s"
 msgstr "Editace uživatele %s"
 
-#: ../app/controllers/admin/users_controller.php:79
+#: ../app/controllers/admin/users_controller.php:80
 msgid "The user entry has been updated"
 msgstr "Záznam o uživateli byl aktualizován"
 
-#: ../app/controllers/admin/users_controller.php:87
+#: ../app/controllers/admin/users_controller.php:88
 #, php-format
 msgid "Setting a new password to the user %s"
 msgstr "Nastavit nové heslo uživateli %s"
 
-#: ../app/controllers/admin/users_controller.php:95
+#: ../app/controllers/admin/users_controller.php:96
 msgid "Nothing needs to be updated"
 msgstr "Není třeba nic aktualizovat"
 
-#: ../app/controllers/admin/users_controller.php:106
+#: ../app/controllers/admin/users_controller.php:107
 msgid ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
@@ -750,15 +769,15 @@ msgstr ""
 "Nové heslo bylo nastaveno uživateli <em>%user%</em>.<br>Bude hezké, když mu "
 "o tom napíšete na e-mail <a href=\"mailto:%email%\">%email%</a>."
 
-#: ../app/controllers/admin/users_controller.php:112
+#: ../app/controllers/admin/users_controller.php:113
 msgid "The password for the user <em>%user%</em> has been deleted."
 msgstr "Heslo pro uživatele <em>%user%</em> bylo odstraněno."
 
-#: ../app/controllers/admin/users_controller.php:129
+#: ../app/controllers/admin/users_controller.php:130
 msgid "The user entry has been deleted"
 msgstr "Uživatel byl smazán"
 
-#: ../app/controllers/admin/users_controller.php:140
+#: ../app/controllers/admin/users_controller.php:141
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
 msgstr "Nyní jste přihlášen jako <em>%s</em>"
@@ -771,36 +790,36 @@ msgstr "Nové video"
 msgid "Vložili jste úspěšně video"
 msgstr "Vložili jste úspěšně video"
 
-#: ../app/forms/admin/admin_form.php:108
+#: ../app/forms/admin/admin_form.php:109
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
 msgid "Titulek"
 msgstr "Titulek"
 
-#: ../app/forms/admin/admin_form.php:117
+#: ../app/forms/admin/admin_form.php:118
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:16
 msgid "Popis"
 msgstr "Popis"
 
-#: ../app/forms/admin/admin_form.php:130
+#: ../app/forms/admin/admin_form.php:131
 msgid "An alternative key for system usage."
 msgstr "Alternativní klíč pro systémové potřeby."
 
-#: ../app/forms/admin/admin_form.php:130
+#: ../app/forms/admin/admin_form.php:131
 msgid ""
 "An alternative key for system usage. Leave it unchanged if you are not sure."
 msgstr ""
 "Alternativní klíč pro systémové použití. Pokud si nejste jisti, ponechte "
 "beze změny."
 
-#: ../app/forms/admin/admin_form.php:138
+#: ../app/forms/admin/admin_form.php:139
 msgid "Is visible?"
 msgstr "Je viditelné?"
 
-#: ../app/forms/admin/admin_form.php:169 ../app/forms/admin/admin_form.php:176
+#: ../app/forms/admin/admin_form.php:170 ../app/forms/admin/admin_form.php:177
 msgid "Stejný kód je již použit pro jiný záznam"
 msgstr "Stejný kód je již použit pro jiný záznam"
 
-#: ../app/forms/admin/admin_form.php:244
+#: ../app/forms/admin/admin_form.php:245
 msgid "The same slug is used in a different object"
 msgstr "Stejný slug je použit u jiného objektu"
 
@@ -911,6 +930,10 @@ msgstr "Posuvník tmavší a větší"
 msgid "Slider with thumbnails"
 msgstr "Posuvník s náhledy"
 
+#: ../app/forms/admin/galleries/galleries_form.php:13
+msgid "Logo slider"
+msgstr "Posuvník pro loga"
+
 #: ../app/forms/admin/gallery_items/create_new_form.php:7
 msgid "Nahrát fotografii"
 msgstr "Nahrát fotografii"
@@ -979,6 +1002,10 @@ msgstr "Zobrazovaný název"
 msgid "About us"
 msgstr "O nás"
 
+#: ../app/forms/admin/newsletter_subscribers/index_form.php:9
+msgid "language"
+msgstr "jazyk"
+
 #: ../app/forms/admin/pages/create_new_form.php:8
 #: ../app/forms/admin/pages/edit_form.php:21
 msgid "The same code is used on a different page"
@@ -1023,6 +1050,14 @@ msgstr "Alternativní vzhled"
 #: ../app/forms/admin/pictures/pictures_form.php:13
 msgid "Card"
 msgstr "Karta"
+
+#: ../app/forms/admin/pictures/pictures_form.php:17
+msgid "Alt"
+msgstr "Alt"
+
+#: ../app/forms/admin/pictures/pictures_form.php:18
+msgid "Alternate text for the image, if the image cannot be displayed."
+msgstr "Alternativní text pro obrázek, pokud obrázek nelze zobrazit."
 
 #: ../app/forms/admin/tags/tags_form.php:12
 msgid "Tag lokalized"
@@ -1578,7 +1613,7 @@ msgstr "Po ukončení přehrát znovu"
 #~ msgstr "Zpráva zaslaná z kontaktní stránky"
 
 #~ msgid "Commands in %s"
-#~ msgstr "Příkazy v %s"
+#~ msgstr "Přikazy v %s"
 
 #~ msgid "submit using method %s"
 #~ msgstr "Odeslat metodou %s"
@@ -1640,8 +1675,8 @@ msgstr "Po ukončení přehrát znovu"
 #~ msgstr "Abyste se mohl zaregistrovat, napřed se odhlaste"
 
 #~ msgid ""
-#~ "You have been successfully registered and now you are logged in as <em>"
-#~ "%s</em>"
+#~ "You have been successfully registered and now you are logged in as "
+#~ "<em>%s</em>"
 #~ msgstr ""
 #~ "Byl jste úspěšně zaregistrován a teď jste přihlášen jako <em>%s</em>"
 
@@ -1871,13 +1906,13 @@ msgstr "Po ukončení přehrát znovu"
 
 #~ msgid "Ensure this image is at most %max% pixels wide (it is %width%)."
 #~ msgstr ""
-#~ "Ujistěte se, že šířka obrázku nepřekročí %max% bodů (teď je šíroký %width"
-#~ "%)."
+#~ "Ujistěte se, že šířka obrázku nepřekročí %max% bodů (teď je šíroký "
+#~ "%width%)."
 
 #~ msgid "Ensure this image is at most %max% pixels high (it is %height%)."
 #~ msgstr ""
-#~ "Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký %height"
-#~ "%)."
+#~ "Ujistěte se, že výška obrázku nepřekročí %max% bodů (teď je vysoký "
+#~ "%height%)."
 
 #~ msgid "Ensure this image is at least %min% pixels wide (it is %width%)."
 #~ msgstr "Obrázek musí mít alespoň %min% bodů na šířku (nyní má %width%). "

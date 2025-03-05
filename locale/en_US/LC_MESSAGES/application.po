@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-25 16:27+0200\n"
-"PO-Revision-Date: 2022-04-25 16:28+0200\n"
+"POT-Creation-Date: 2025-01-28 12:19+0100\n"
+"PO-Revision-Date: 2025-01-28 12:22+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 msgid "Nahoru"
 msgstr "Top"
@@ -64,7 +64,7 @@ msgid "Sign in as an admin user"
 msgstr "Sign in as an admin user"
 
 #: ../app/controllers/logins_controller.php:7
-#: ../app/controllers/password_recoveries_controller.php:81
+#: ../app/controllers/password_recoveries_controller.php:84
 #: ../app/forms/logins/create_new_form.php:16
 msgid "Sign in"
 msgstr "Sign in"
@@ -91,6 +91,9 @@ msgstr "older article"
 
 msgid "At the moment there are no news."
 msgstr "At the moment there are no news."
+
+msgid "articles total"
+msgstr "articles total"
 
 msgid ""
 "If you have any question, contact us through the following form. We will "
@@ -247,9 +250,6 @@ msgstr "ATK14 Skelet on GitHub"
 msgid "Table of contents"
 msgstr "Table of contents"
 
-msgid "This is not a visible page! It's not available to the public audience."
-msgstr "This is not a visible page! It's not available to the public audience."
-
 msgid "Subpages"
 msgstr "Subpages"
 
@@ -349,16 +349,16 @@ msgstr ""
 "This site runs on <a href=\"http://www.atk14.net/\">ATK14 Framework</a>, for "
 "now and ever after"
 
+msgid "Administration"
+msgstr "Administration"
+
 msgid "Profile"
 msgstr "Profile"
 
-#: ../app/controllers/logins_controller.php:33
+#: ../app/controllers/logins_controller.php:43
 #: ../app/forms/logins/destroy_form.php:4
 msgid "Sign out"
 msgstr "Sign out"
-
-msgid "Administration"
-msgstr "Administration"
 
 #: ../app/forms/users/create_new_form.php:22
 msgid "Register"
@@ -367,29 +367,14 @@ msgstr "Register"
 msgid "Menu"
 msgstr "Menu"
 
-msgid "Photo gallery"
-msgstr "Photo gallery"
-
 msgid "Previous"
 msgstr "Previous"
 
 msgid "Next"
 msgstr "Next"
 
-msgid "Zavřít"
-msgstr "Close"
-
-msgid "Zobrazování přes celou obrazovka"
-msgstr "Full screen display"
-
-msgid "Přiblížení"
-msgstr "Zoom in"
-
-msgid "Předchozí (šipka doleva)"
-msgstr "Previous (left arrow)"
-
-msgid "Další (šipka doprava)"
-msgstr "Next (right arrow)"
+msgid "Photo gallery"
+msgstr "Photo gallery"
 
 msgid "Here you can find the list of all commands in <em>%1</em>."
 msgstr "Here you can find the list of all commands in <em>%1</em>."
@@ -419,6 +404,11 @@ msgstr "We offer an awesome restful API"
 
 msgid "Recent articles"
 msgstr "Recent articles"
+
+#: ../app/controllers/articles_controller.php:11
+#: ../app/controllers/articles_controller.php:60
+msgid "Articles"
+msgstr "Articles"
 
 msgid ""
 "You have been successfully registered and now you are logged in as <em>%1</"
@@ -456,11 +446,11 @@ msgstr "Are you admin?"
 msgid "Yes, you are"
 msgstr "Yes, you are"
 
-#: ../app/controllers/users_controller.php:48
+#: ../app/controllers/users_controller.php:52
 msgid "Change your account data"
 msgstr "Change your account data"
 
-#: ../app/controllers/users_controller.php:76
+#: ../app/controllers/users_controller.php:80
 msgid "Change your password"
 msgstr "Change your password"
 
@@ -470,11 +460,15 @@ msgstr "Current password"
 msgid "New password"
 msgstr "New password"
 
-#: ../app/controllers/api/logins_controller.php:33
+#: ../app/controllers/api/logins_controller.php:35
+msgid "For security reasons, this function is disabled"
+msgstr "For security reasons, this function is disabled"
+
+#: ../app/controllers/api/logins_controller.php:53
 msgid "Bad password"
 msgstr "Bad password"
 
-#: ../app/controllers/api/logins_controller.php:36
+#: ../app/controllers/api/logins_controller.php:56
 msgid "There is no such user"
 msgstr "There is no such user"
 
@@ -495,31 +489,31 @@ msgstr "Error 1"
 msgid "Error 2"
 msgstr "Error 2"
 
-#: ../app/controllers/application_base.php:28
+#: ../app/controllers/application_base.php:36
 msgid "Page not found"
 msgstr "Page not found"
 
-#: ../app/controllers/application_base.php:42
+#: ../app/controllers/application_base.php:50
 msgid "Forbidden"
 msgstr "Forbidden"
 
-#: ../app/controllers/application_base.php:138
+#: ../app/controllers/application_base.php:150
 msgid "Home"
 msgstr "Home"
 
-#: ../app/controllers/application_mailer.php:42
+#: ../app/controllers/application_mailer.php:43
 msgid "New registration"
 msgstr "New registration"
 
-#: ../app/controllers/application_mailer.php:51
+#: ../app/controllers/application_mailer.php:53
 msgid "Reset Your Password"
 msgstr "Reset Your Password"
 
-#: ../app/controllers/application_mailer.php:60
+#: ../app/controllers/application_mailer.php:63
 msgid "Your password was updated"
 msgstr "Your password was updated"
 
-#: ../app/controllers/application_mailer.php:72
+#: ../app/controllers/application_mailer.php:75
 msgid "Message sent from contact page"
 msgstr "Message sent from contact page"
 
@@ -533,27 +527,22 @@ msgstr "User profile"
 msgid "Commands in %s"
 msgstr "Commands in %s"
 
-#: ../app/controllers/application_rest_api.php:172
+#: ../app/controllers/application_rest_api.php:186
 #, php-format
 msgid "submit using method %s"
 msgstr "submit using method %s"
 
-#: ../app/controllers/application_rest_api.php:219
+#: ../app/controllers/application_rest_api.php:233
 msgid "Nothing has been found on this address"
 msgstr "Nothing has been found on this address"
 
-#: ../app/controllers/application_rest_api.php:225
+#: ../app/controllers/application_rest_api.php:239
 msgid "You don't have access to the requested resource"
 msgstr "You don't have access to the requested resource"
 
-#: ../app/controllers/application_rest_api.php:231
+#: ../app/controllers/application_rest_api.php:245
 msgid "Sorry, An internal error happened"
 msgstr "Sorry, An internal error happened"
-
-#: ../app/controllers/articles_controller.php:11
-#: ../app/controllers/articles_controller.php:58
-msgid "Articles"
-msgstr "Articles"
 
 #: ../app/controllers/articles_controller.php:15
 #, php-format
@@ -569,7 +558,7 @@ msgstr "Contact message"
 msgid "Contact message sent"
 msgstr "Contact message sent"
 
-#: ../app/controllers/logins_controller.php:16
+#: ../app/controllers/logins_controller.php:26
 #, php-format
 msgid ""
 "Wrong login and password combination. <a href=\"%s\">Have you forgotten your "
@@ -578,20 +567,20 @@ msgstr ""
 "Wrong login and password combination. <a href=\"%s\">Have you forgotten your "
 "password?</a>"
 
-#: ../app/controllers/logins_controller.php:18
+#: ../app/controllers/logins_controller.php:28
 msgid "Wrong login and password combination"
 msgstr "Wrong login and password combination"
 
-#: ../app/controllers/logins_controller.php:25
+#: ../app/controllers/logins_controller.php:35
 #, php-format
 msgid "You have been successfully logged in as <em>%s</em>"
 msgstr "You have been successfully logged in as <em>%s</em>"
 
-#: ../app/controllers/logins_controller.php:37
+#: ../app/controllers/logins_controller.php:47
 msgid "You have been successfully logged out"
 msgstr "You have been successfully logged out"
 
-#: ../app/controllers/logins_controller.php:37
+#: ../app/controllers/logins_controller.php:47
 #, php-format
 msgid "You've stayed logged in as <em>%s</em>"
 msgstr "You've stayed logged in as <em>%s</em>"
@@ -600,11 +589,11 @@ msgstr "You've stayed logged in as <em>%s</em>"
 msgid "Welcome!"
 msgstr "Welcome!"
 
-#: ../app/controllers/password_recoveries_controller.php:10
+#: ../app/controllers/password_recoveries_controller.php:13
 msgid "There is no such user with the given login or email"
 msgstr "There is no such user with the given login or email"
 
-#: ../app/controllers/password_recoveries_controller.php:14
+#: ../app/controllers/password_recoveries_controller.php:17
 msgid ""
 "This user account has been deactivated. Password recovery process can not be "
 "started."
@@ -612,7 +601,7 @@ msgstr ""
 "This user account has been deactivated. Password recovery process can not be "
 "started."
 
-#: ../app/controllers/password_recoveries_controller.php:18
+#: ../app/controllers/password_recoveries_controller.php:21
 msgid ""
 "Password recovery can not be initiated for this user. Email address is not "
 "set."
@@ -620,12 +609,12 @@ msgstr ""
 "Password recovery can not be initiated for this user. Email address is not "
 "set."
 
-#: ../app/controllers/password_recoveries_controller.php:65
-#: ../app/controllers/users_controller.php:90
+#: ../app/controllers/password_recoveries_controller.php:68
+#: ../app/controllers/users_controller.php:94
 msgid "Your password has been updated successfully"
 msgstr "Your password has been updated successfully"
 
-#: ../app/controllers/password_recoveries_controller.php:82
+#: ../app/controllers/password_recoveries_controller.php:85
 msgid "Password recovery"
 msgstr "Password recovery"
 
@@ -633,7 +622,7 @@ msgstr "Password recovery"
 msgid "To register as a new user, sign out first"
 msgstr "To register as a new user, sign out first"
 
-#: ../app/controllers/users_controller.php:35
+#: ../app/controllers/users_controller.php:37
 #, php-format
 msgid ""
 "You have been successfully registered and now you are logged in as <em>%s</"
@@ -642,19 +631,19 @@ msgstr ""
 "You have been successfully registered and now you are logged in as <em>%s</"
 "em>"
 
-#: ../app/controllers/users_controller.php:44
+#: ../app/controllers/users_controller.php:46
 msgid "Thank you for your registration!"
 msgstr "Thank you for your registration!"
 
-#: ../app/controllers/users_controller.php:54
+#: ../app/controllers/users_controller.php:58
 msgid "Nothing has been changed"
 msgstr "Nothing has been changed"
 
-#: ../app/controllers/users_controller.php:61
+#: ../app/controllers/users_controller.php:65
 msgid "This email address is used by another user."
 msgstr "This email address is used by another user."
 
-#: ../app/controllers/users_controller.php:70
+#: ../app/controllers/users_controller.php:74
 #, php-format
 msgid ""
 "Your account data has been updated. Next time you should sign-in with login "
@@ -663,11 +652,11 @@ msgstr ""
 "Your account data has been updated. Next time you should sign-in with login "
 "name <em>%s</em>."
 
-#: ../app/controllers/users_controller.php:70
+#: ../app/controllers/users_controller.php:74
 msgid "Your account data has been updated"
 msgstr "Your account data has been updated"
 
-#: ../app/controllers/users_controller.php:80
+#: ../app/controllers/users_controller.php:84
 msgid "This is not your current password"
 msgstr "This is not your current password"
 
@@ -680,30 +669,30 @@ msgstr ""
 msgid "The file was not fully uploaded, please upload it again"
 msgstr "The file was not fully uploaded, please upload it again"
 
-#: ../app/fields/boolean_with_select_field.php:7
+#: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
 msgstr "Yes"
 
-#: ../app/fields/boolean_with_select_field.php:8
+#: ../app/fields/boolean_with_select_field.php:12
 msgid "Ne"
 msgstr "No"
 
-#: ../app/fields/login_field.php:9
+#: ../app/fields/login_field.php:11
 #, php-format
 msgid ""
 "Only letters, numbers, dots and dashes are allowed. Up to %s characters."
 msgstr ""
 "Only letters, numbers, dots and dashes are allowed. Up to %s characters."
 
-#: ../app/fields/login_field.php:21
+#: ../app/fields/login_field.php:23
 msgid "This username has been already taken"
 msgstr "This username has been already taken"
 
-#: ../app/fields/login_field.php:22
+#: ../app/fields/login_field.php:24
 msgid "Only letters, numbers, dots and dashes are allowed"
 msgstr "Only letters, numbers, dots and dashes are allowed"
 
-#: ../app/fields/object_field.php:33
+#: ../app/fields/object_field.php:37
 msgid "There is no such record"
 msgstr "There is no such record"
 
@@ -735,28 +724,28 @@ msgstr "page"
 msgid "There is no such page"
 msgstr "There is no such page"
 
-#: ../app/fields/slug_field.php:6
+#: ../app/fields/slug_field.php:8
 msgid "Slug"
 msgstr "Slug"
 
-#: ../app/fields/slug_field.php:8
+#: ../app/fields/slug_field.php:10
 msgid "funny-green-mug"
 msgstr "funny-green-mug"
 
-#: ../app/fields/slug_field.php:12
+#: ../app/fields/slug_field.php:14
 msgid "Write something like black-cat-white-cat"
 msgstr "Write something like black-cat-white-cat"
 
-#: ../app/fields/tags_field.php:21
+#: ../app/fields/tags_field.php:26
 msgid "Ensure that there are max %max% tags (now there are %count%)"
 msgstr "Ensure that there are max %max% tags (now there are %count%)"
 
-#: ../app/fields/tags_field.php:22
+#: ../app/fields/tags_field.php:27
 #, php-format
 msgid "There is no tag <em>%s</em>"
 msgstr "There is no tag <em>%s</em>"
 
-#: ../app/fields/tags_field.php:23
+#: ../app/fields/tags_field.php:28
 #, php-format
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Tag <em>%s</em> is there more than once"
@@ -794,20 +783,19 @@ msgstr "Save"
 msgid "Search query"
 msgstr "Search query"
 
-#: ../app/forms/contact_messages/create_new_form.php:18
+#: ../app/forms/application_form.php:99
 msgid "Sign up for newsletter"
 msgstr "Sign up for newsletter"
 
-#: ../app/forms/contact_messages/create_new_form.php:24
-msgid "Text"
-msgstr "Text"
-
-#: ../app/forms/contact_messages/create_new_form.php:30
-#: ../app/forms/contact_messages/create_new_form.php:34
+#: ../app/forms/application_form.php:116 ../app/forms/application_form.php:120
 msgid "Spam protection"
 msgstr "Spam protection"
 
-#: ../app/forms/contact_messages/create_new_form.php:40
+#: ../app/forms/contact_messages/create_new_form.php:20
+msgid "Text"
+msgstr "Text"
+
+#: ../app/forms/contact_messages/create_new_form.php:28
 msgid "Send message"
 msgstr "Send message"
 
@@ -870,6 +858,10 @@ msgstr "Password (repeat)"
 msgid "Password doesn't match"
 msgstr "Password doesn't match"
 
+#: ../app/helpers/block.drink_shortcode__person.php:17
+msgid "More"
+msgstr "More"
+
 #: ../app/helpers/modifier.display_bool.php:13
 msgid "Yes"
 msgstr "Yes"
@@ -890,17 +882,54 @@ msgstr "Gallery"
 msgid "Obrázek"
 msgstr "Picture"
 
-#: ../app/models/user.php:82
+#: ../app/models/invalid_login_attempt.php:46
+msgid "Delay the next sign-in attempt for a second"
+msgstr "Delay the next sign-in attempt for a second"
+
+#: ../app/models/invalid_login_attempt.php:53
+#: ../app/models/invalid_login_attempt.php:70
+#, php-format
+msgid "Delay the next sign-in attempt for %s minutes"
+msgstr "Delay the next sign-in attempt for %s minutes"
+
+#: ../app/models/invalid_login_attempt.php:58
+#, php-format
+msgid "Delay the next sign-in attempt for one minute and %s seconds"
+msgstr "Delay the next sign-in attempt for one minute and %s seconds"
+
+#: ../app/models/invalid_login_attempt.php:60
+msgid "Delay the next sign-in attempt for one minute"
+msgstr "Delay the next sign-in attempt for one minute"
+
+#: ../app/models/invalid_login_attempt.php:64
+#, php-format
+msgid "Delay the next sign-in attempt for %s seconds"
+msgstr "Delay the next sign-in attempt for %s seconds"
+
+#: ../app/models/invalid_login_attempt.php:68
+#, php-format
+msgid "Delay the next sign-in attempt for %s minutes and %s seconds"
+msgstr "Delay the next sign-in attempt for %s minutes and %s seconds"
+
+#: ../app/models/user.php:113
+msgid "deleted user"
+msgstr "deleted user"
+
+#: ../app/models/user.php:115
 msgid "inactive user"
 msgstr "inactive user"
 
-#: ../app/models/user.php:85
+#: ../app/models/user.php:118
 msgid "administrator"
 msgstr "administrator"
 
+#: ../app/widgets/async_file_input.php:20
+msgid "Remove file"
+msgstr "Remove file"
+
 #: ../app/widgets/async_pupiq_attachment_input.php:41
 #: ../app/widgets/pupiq_attachment_input.php:41
-#: ../app/widgets/pupiq_image_input.php:45
+#: ../app/widgets/pupiq_image_input.php:64
 msgid "remove"
 msgstr "remove"
 
@@ -909,9 +938,79 @@ msgstr "remove"
 msgid "Download attachment"
 msgstr "Download attachment"
 
-#: ../app/widgets/pupiq_image_input.php:46
+#: ../app/widgets/pupiq_image_input.php:45
+msgid "no image"
+msgstr "no image"
+
+#: ../app/widgets/pupiq_image_input.php:65
 msgid "Display image"
 msgstr "Display image"
+
+#~ msgid ""
+#~ "<em>ATK14 Mini Skelet</em> is the <a href=\"https://skelet.atk14.net/"
+#~ "\">ATK14 Skelet</a> on a heavy diet. All the unnecessary meat has been "
+#~ "cut away and what's left would like to be the very basis of your web "
+#~ "application."
+#~ msgstr ""
+#~ "<em>ATK14 Mini Skelet</em> is the <a href=\"https://skelet.atk14.net/"
+#~ "\">ATK14 Skelet</a> on a heavy diet. All the unnecessary meat has been "
+#~ "cut away and what's left would like to be the very basis of your web "
+#~ "application."
+
+#~ msgid "The Mini Skelet contains mainly"
+#~ msgstr "The Mini Skelet contains mainly"
+
+#~ msgid ""
+#~ "Are you planning to kick up a new project from the Atk14MiniSkelet? "
+#~ "Great! Just run the following commands."
+#~ msgstr ""
+#~ "Are you planning to kick up a new project from the Atk14MiniSkelet? "
+#~ "Great! Just run the following commands."
+
+#~ msgid ""
+#~ "You can find more information in <a href=\"https://github.com/atk14/"
+#~ "Atk14MiniSkelet/blob/master/README.md#installation\">the installation "
+#~ "instructions.</a>"
+#~ msgstr ""
+#~ "You can find more information in <a href=\"https://github.com/atk14/"
+#~ "Atk14MiniSkelet/blob/master/README.md#installation\">the installation "
+#~ "instructions.</a>"
+
+#~ msgid ""
+#~ "If you want to help us to improve the Atk14MiniSkelet, <a href=\"https://"
+#~ "github.com/atk14/Atk14MiniSkelet\">fork it on GitHub.</a>"
+#~ msgstr ""
+#~ "If you want to help us to improve the Atk14MiniSkelet, <a href=\"https://"
+#~ "github.com/atk14/Atk14MiniSkelet\">fork it on GitHub.</a>"
+
+#~ msgid "ATK14 Mini Skelet on GitHub"
+#~ msgstr "ATK14 Mini Skelet on GitHub"
+
+#~ msgid "Homepage"
+#~ msgstr "Homepage"
+
+#~ msgid "Welcome at ATK14 Mini Skelet!"
+#~ msgstr "Welcome at ATK14 Mini Skelet!"
+
+#~ msgid ""
+#~ "This is not a visible page! It's not available to the public audience."
+#~ msgstr ""
+#~ "This is not a visible page! It's not available to the public audience."
+
+#~ msgid "Zavřít"
+#~ msgstr "Close"
+
+#~ msgid "Zobrazování přes celou obrazovka"
+#~ msgstr "Full screen display"
+
+#~ msgid "Přiblížení"
+#~ msgstr "Zoom in"
+
+#~ msgid "Předchozí (šipka doleva)"
+#~ msgstr "Previous (left arrow)"
+
+#~ msgid "Další (šipka doprava)"
+#~ msgstr "Next (right arrow)"
 
 #~ msgid ""
 #~ "Only letters, numbers, dots and dashes are allowed. Up to 50 characters."

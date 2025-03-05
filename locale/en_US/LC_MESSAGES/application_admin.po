@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-25 16:27+0200\n"
-"PO-Revision-Date: 2022-04-25 16:29+0200\n"
+"POT-Creation-Date: 2025-01-28 12:19+0100\n"
+"PO-Revision-Date: 2025-01-28 12:22+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 msgid ""
 "Are you sure to delete article item\n"
@@ -131,6 +131,9 @@ msgstr "Add a photo"
 msgid "Upravit obrázky fotogalerie"
 msgstr "Edit photo gallery images"
 
+msgid "Download original image"
+msgstr "Download original image"
+
 msgid "bez titulku nebo popisu"
 msgstr "without title or description"
 
@@ -158,11 +161,17 @@ msgstr "There is no link in the list."
 msgid "invisible"
 msgstr "invisible"
 
+msgid "This item has an administrable submenu:"
+msgstr "This item has an administrable submenu:"
+
 msgid "Edit links"
 msgstr "Edit links"
 
 msgid "Create new link list"
 msgstr "Create new link list"
+
+msgid "This is a submenu for:"
+msgstr "This is a submenu for:"
 
 msgid "Link list"
 msgstr "Link list"
@@ -185,6 +194,10 @@ msgstr "Email"
 
 msgid "Name"
 msgstr "Name"
+
+#: ../app/forms/admin/newsletter_subscribers/index_form.php:14
+msgid "Language"
+msgstr "Language"
 
 msgid "Subscribed since"
 msgstr "Subscribed since"
@@ -367,7 +380,7 @@ msgstr "No tag has been found."
 msgid "Tag"
 msgstr "Tag"
 
-#: ../app/forms/admin/admin_form.php:125
+#: ../app/forms/admin/admin_form.php:126
 msgid "Code"
 msgstr "Code"
 
@@ -394,7 +407,7 @@ msgstr ""
 "At the moment no one knows the actual user's password because passwords are "
 "not stored in plain text form."
 
-#: ../app/controllers/admin/users_controller.php:54
+#: ../app/controllers/admin/users_controller.php:55
 msgid "Create a new user"
 msgstr "Create a new user"
 
@@ -409,6 +422,9 @@ msgstr "Email address"
 msgid "Is admin?"
 msgstr "Is admin?"
 
+msgid "deleted user"
+msgstr "deleted user"
+
 msgid "inactive user"
 msgstr "inactive user"
 
@@ -420,6 +436,9 @@ msgstr "administrator"
 
 msgid "regular user"
 msgstr "regular user"
+
+msgid "deleted"
+msgstr "deleted"
 
 msgid "not active"
 msgstr "not active"
@@ -518,11 +537,11 @@ msgstr "Editing object of type %s"
 msgid "Ve formuláři nebylo nic změněno"
 msgstr "Nothing has been changed in the form"
 
-#: ../app/controllers/admin/admin.php:391
+#: ../app/controllers/admin/admin.php:392
 msgid "The entry has been deleted"
 msgstr "The entry has been deleted"
 
-#: ../app/controllers/admin/admin.php:410
+#: ../app/controllers/admin/admin.php:411
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Photogallery"
@@ -572,7 +591,7 @@ msgid "Editing attachment #%s"
 msgstr "Editing attachment #%s"
 
 #: ../app/controllers/admin/attachments_controller.php:38
-#: ../app/controllers/admin/images_controller.php:59
+#: ../app/controllers/admin/images_controller.php:68
 msgid "Changes have been saved"
 msgstr "Changes have been saved"
 
@@ -623,12 +642,12 @@ msgstr "Adding an image into the photo gallery"
 msgid "Image has been created"
 msgstr "Image has been created"
 
-#: ../app/controllers/admin/images_controller.php:47
+#: ../app/controllers/admin/images_controller.php:56
 #, php-format
 msgid "Editing of the Image #%s"
 msgstr "Editing of the Image #%s"
 
-#: ../app/controllers/admin/images_controller.php:72
+#: ../app/controllers/admin/images_controller.php:81
 msgid "The image has been deleted"
 msgstr "The image has been deleted"
 
@@ -647,7 +666,7 @@ msgstr "Adding link to the list '%s'"
 msgid "Editing link '%s'"
 msgstr "Editing link '%s'"
 
-#: ../app/controllers/admin/link_list_items_controller.php:48
+#: ../app/controllers/admin/link_list_items_controller.php:52
 msgid "Links"
 msgstr "Links"
 
@@ -707,7 +726,7 @@ msgid "The same tag already exists"
 msgstr "The same tag already exists"
 
 #: ../app/controllers/admin/tags_controller.php:67
-#: ../app/controllers/admin/users_controller.php:73
+#: ../app/controllers/admin/users_controller.php:74
 msgid "Nothing has been changed"
 msgstr "Nothing has been changed"
 
@@ -719,29 +738,29 @@ msgstr "The tag has been updated"
 msgid "Users list"
 msgstr "Users list"
 
-#: ../app/controllers/admin/users_controller.php:60
+#: ../app/controllers/admin/users_controller.php:61
 msgid "The user has been created successfully"
 msgstr "The user has been created successfully"
 
-#: ../app/controllers/admin/users_controller.php:66
+#: ../app/controllers/admin/users_controller.php:67
 #, php-format
 msgid "Editing user %s"
 msgstr "Editing user %s"
 
-#: ../app/controllers/admin/users_controller.php:79
+#: ../app/controllers/admin/users_controller.php:80
 msgid "The user entry has been updated"
 msgstr "The user entry has been updated"
 
-#: ../app/controllers/admin/users_controller.php:87
+#: ../app/controllers/admin/users_controller.php:88
 #, php-format
 msgid "Setting a new password to the user %s"
 msgstr "Setting a new password to the user %s"
 
-#: ../app/controllers/admin/users_controller.php:95
+#: ../app/controllers/admin/users_controller.php:96
 msgid "Nothing needs to be updated"
 msgstr "Nothing needs to be updated"
 
-#: ../app/controllers/admin/users_controller.php:106
+#: ../app/controllers/admin/users_controller.php:107
 msgid ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
@@ -749,15 +768,15 @@ msgstr ""
 "The new password has been set to the user <em>%user%</em>.<br>Would be nice "
 "to let him know at email address <a href=\"mailto:%email%\">%email%</a>."
 
-#: ../app/controllers/admin/users_controller.php:112
+#: ../app/controllers/admin/users_controller.php:113
 msgid "The password for the user <em>%user%</em> has been deleted."
 msgstr "The password for the user <em>%user%</em> has been deleted."
 
-#: ../app/controllers/admin/users_controller.php:129
+#: ../app/controllers/admin/users_controller.php:130
 msgid "The user entry has been deleted"
 msgstr "The user entry has been deleted"
 
-#: ../app/controllers/admin/users_controller.php:140
+#: ../app/controllers/admin/users_controller.php:141
 #, php-format
 msgid "Now you are logged as <em>%s</em>"
 msgstr "Now you are logged as <em>%s</em>"
@@ -770,35 +789,35 @@ msgstr "New video"
 msgid "Vložili jste úspěšně video"
 msgstr "You have successfully inserted a video"
 
-#: ../app/forms/admin/admin_form.php:108
+#: ../app/forms/admin/admin_form.php:109
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:10
 msgid "Titulek"
 msgstr "Title"
 
-#: ../app/forms/admin/admin_form.php:117
+#: ../app/forms/admin/admin_form.php:118
 #: ../app/forms/admin/gallery_items/gallery_items_form.php:16
 msgid "Popis"
 msgstr "Description"
 
-#: ../app/forms/admin/admin_form.php:130
+#: ../app/forms/admin/admin_form.php:131
 msgid "An alternative key for system usage."
 msgstr "An alternative key for system usage."
 
-#: ../app/forms/admin/admin_form.php:130
+#: ../app/forms/admin/admin_form.php:131
 msgid ""
 "An alternative key for system usage. Leave it unchanged if you are not sure."
 msgstr ""
 "An alternative key for system usage. Leave it unchanged if you are not sure."
 
-#: ../app/forms/admin/admin_form.php:138
+#: ../app/forms/admin/admin_form.php:139
 msgid "Is visible?"
 msgstr "Is visible?"
 
-#: ../app/forms/admin/admin_form.php:169 ../app/forms/admin/admin_form.php:176
+#: ../app/forms/admin/admin_form.php:170 ../app/forms/admin/admin_form.php:177
 msgid "Stejný kód je již použit pro jiný záznam"
 msgstr "The same code is already used for another record"
 
-#: ../app/forms/admin/admin_form.php:244
+#: ../app/forms/admin/admin_form.php:245
 msgid "The same slug is used in a different object"
 msgstr "The same slug is used in a different object"
 
@@ -906,6 +925,10 @@ msgstr "Slider darker & bigger"
 msgid "Slider with thumbnails"
 msgstr "Slider with thumbnails"
 
+#: ../app/forms/admin/galleries/galleries_form.php:13
+msgid "Logo slider"
+msgstr "Logo slider"
+
 #: ../app/forms/admin/gallery_items/create_new_form.php:7
 msgid "Nahrát fotografii"
 msgstr "Upload photo"
@@ -974,6 +997,10 @@ msgstr "Displayed title"
 msgid "About us"
 msgstr "About us"
 
+#: ../app/forms/admin/newsletter_subscribers/index_form.php:9
+msgid "language"
+msgstr "language"
+
 #: ../app/forms/admin/pages/create_new_form.php:8
 #: ../app/forms/admin/pages/edit_form.php:21
 msgid "The same code is used on a different page"
@@ -1018,6 +1045,14 @@ msgstr "Alternative look"
 #: ../app/forms/admin/pictures/pictures_form.php:13
 msgid "Card"
 msgstr "Card"
+
+#: ../app/forms/admin/pictures/pictures_form.php:17
+msgid "Alt"
+msgstr "Alt"
+
+#: ../app/forms/admin/pictures/pictures_form.php:18
+msgid "Alternate text for the image, if the image cannot be displayed."
+msgstr "Alternate text for the image, if the image cannot be displayed."
 
 #: ../app/forms/admin/tags/tags_form.php:12
 msgid "Tag lokalized"

@@ -11,10 +11,18 @@ class LoginsController extends ApplicationController{
 		$this->head_tags->setCanonical($this->_build_canonical_url());
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if(!$user = User::Login($d["login"],$d["password"])){
-				$this->logger->warn("bad login attempt on $d[login] from ".$this->request->getRemoteAddr());
+			if(InvalidLoginAttempt::IsRemoteAddressBlocked($this->request->getRemoteAddr(),$realease_time)){
+				$this->form->set_error(InvalidLoginAttempt::BuildLoginAttemptDelayMessage($realease_time));
+				return;
+			}
 
-				if(User::FindByLogin($d["login"])){
+			if(!$user = User::Login($d["login"],$d["password"],$bad_password)){
+				InvalidLoginAttempt::CreateNewRecord([
+					"login" => $d["login"],
+				]);
+				$this->logger->warn("invalid login attempt on $d[login] from ".$this->request->getRemoteAddr());
+
+				if($bad_password){
 					$this->form->set_error(sprintf(_('Wrong login and password combination. <a href="%s">Have you forgotten your password?</a>'),$this->_link_to(array("action" => "password_recoveries/create_new", "login" => $d["login"]))));
 				}else{
 					$this->form->set_error(_('Wrong login and password combination'));

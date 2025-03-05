@@ -39,6 +39,7 @@ class ApplicationMailer extends Atk14Mailer {
 	function notify_user_registration($user){
 		$this->tpl_data["user"] = $user;
 		$this->to = $user->getEmail();
+		$this->to_name = $user->getName();
 		$this->subject = _("New registration");
 		// body is rendered from app/views/mailer/notify_user_registration.tpl
 	}
@@ -48,6 +49,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["password_recovery"] = $password_recovery;
 
 		$this->to = $user->getEmail();
+		$this->to_name = $user->getName();
 		$this->subject = _("Reset Your Password");
 		// body is rendered from app/views/mailer/notify_password_recovery.tpl
 	}
@@ -57,6 +59,7 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->tpl_data["password_recovery"] = $password_recovery;
 
 		$this->to = $user->getEmail();
+		$this->to_name = $user->getName();
 		$this->subject = _("Your password was updated");
 	}
 

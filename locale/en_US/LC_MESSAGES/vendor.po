@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2022-04-25 16:27+0200\n"
-"PO-Revision-Date: 2022-04-25 16:30+0200\n"
+"POT-Creation-Date: 2025-01-28 12:19+0100\n"
+"PO-Revision-Date: 2025-01-28 12:23+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: en_US\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 2.4.2\n"
+"X-Generator: Poedit 3.4.2\n"
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
 msgid "Temporary file uploading is not enabled"
@@ -42,6 +42,10 @@ msgstr ""
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
 msgid "The file was not fully uploaded, please upload it again"
 msgstr "The file was not fully uploaded, please upload it again"
+
+#: ../vendor/atk14/async-file-field/src/app/widgets/async_file_input.php:20
+msgid "Remove file"
+msgstr "Remove file"
 
 #: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_dispatcher.php:73
 msgid "Service Unavailable"
@@ -93,7 +97,7 @@ msgstr ""
 
 #: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/atk14_sorting.php:162
 msgid "Sort table by this column"
-msgstr ""
+msgstr "Sort table by this column"
 
 #: ../vendor/atk14/drink-markdown/vendor/atk14/core/src/helpers/block.a_destroy.php:42
 msgid "Are you sure?"
@@ -138,37 +142,37 @@ msgstr ""
 "We are experiencing some technical issue during the communication with an "
 "captcha API. Please try it later."
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:44
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:47
 msgid "Headers"
 msgstr "Headers"
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:55
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:58
 msgid "HTML body"
 msgstr "HTML body"
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:61
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:64
 msgid "Plain text body"
 msgstr "Plain text body"
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:71
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:74
 msgid "No mail has been sent"
 msgstr "No mail has been sent"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:7
+#: ../vendor/atk14/phone-field/src/phone_field.php:58
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Enter phone number in format %sample_phone_number%"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:18
+#: ../vendor/atk14/phone-field/src/phone_field.php:82
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Enter valid phone number (%sample_phone_number%)"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:19
+#: ../vendor/atk14/phone-field/src/phone_field.php:83
 msgid "Enter phone number"
 msgstr "Enter phone number"
 
 #: ../vendor/atk14/pupiq-client/src/app/widgets/async_pupiq_attachment_input.php:41
 #: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_attachment_input.php:41
-#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:64
 msgid "remove"
 msgstr "remove"
 
@@ -177,11 +181,15 @@ msgstr "remove"
 msgid "Download attachment"
 msgstr "Download attachment"
 
-#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:46
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:45
+msgid "no image"
+msgstr "no image"
+
+#: ../vendor/atk14/pupiq-client/src/app/widgets/pupiq_image_input.php:65
 msgid "Display image"
 msgstr "Display image"
 
-#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:113
+#: ../vendor/atk14/pupiq-client/src/lib/pupiq.php:114
 msgid "Unknown error"
 msgstr "Unknown error"
 
@@ -193,15 +201,15 @@ msgstr ""
 "We are experiencing some technical issue during the communication with "
 "Google. Please try it later."
 
-#: ../vendor/atk14/slug-field/src/slug_field.php:6
+#: ../vendor/atk14/slug-field/src/slug_field.php:8
 msgid "Slug"
 msgstr "Slug"
 
-#: ../vendor/atk14/slug-field/src/slug_field.php:8
+#: ../vendor/atk14/slug-field/src/slug_field.php:10
 msgid "funny-green-mug"
 msgstr "funny-green-mug"
 
-#: ../vendor/atk14/slug-field/src/slug_field.php:12
+#: ../vendor/atk14/slug-field/src/slug_field.php:14
 msgid "Write something like black-cat-white-cat"
 msgstr "Write something like black-cat-white-cat"
 

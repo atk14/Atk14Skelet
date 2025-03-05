@@ -8,9 +8,8 @@
 	<figure class="">
 		{if $render_link}<a class="iobject--picture__link image-wrap" href="{!$picture|img_url:$geometry_detail}" title="{$picture->getTitle()}" data-pswp-width="{$picture|img_width:$geometry_detail}" data-pswp-height="{$picture|img_height:$geometry_detail}">{else}<div class="image-wrap">{/if}
 			<picture>
-				<source  
-	srcset="{!$picture|img_url:600} 600w, {!$picture|img_url:800} 800w, {!$picture|img_url:1500} 1500w" 
-	sizes="(max-width:1400px) 100vw, 1400px">
+				<source srcset="{!$picture|img_url:"600,format=webp"} 600w, {!$picture|img_url:"800,format=webp"} 800w, {!$picture|img_url:"1500,format=webp"} 1500w" sizes="(max-width:1400px) 100vw, 1400px" type="image/webp">
+				<source srcset="{!$picture|img_url:600} 600w, {!$picture|img_url:800} 800w, {!$picture|img_url:1500} 1500w" sizes="(max-width:1400px) 100vw, 1400px">
 				<img class="iobject--picture__img img-fluid card-img-top" {!$picture->getUrl()|img_attrs:1500} alt="{$picture->getAlt()}" 
 	srcset="{!$picture|img_url:600} 600w, {!$picture|img_url:800} 800w, {!$picture|img_url:1500} 1500w" 
 	sizes="(max-width:1400px) 100vw, 1400px">

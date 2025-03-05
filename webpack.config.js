@@ -146,7 +146,7 @@ var config = {
   },
   devtool: "source-map",
   optimization: {
-    splitChunks: {
+    /*splitChunks: {
       chunks: 'all',
       cacheGroups: {
         vendor: {
@@ -155,12 +155,130 @@ var config = {
           chunks: 'all',
         }
       },
+    },*/
+    /*splitChunks: {
+      chunks: 'async', // povolí dynamické importy jako samostatné chunky
+      cacheGroups: {
+        photoswipe: {
+          test: /photoswipe/,
+          name: 'photoswipe',
+          chunks: 'async',
+          enforce: true
+        },
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+        }
+      }
+    },*/
+    /*splitChunks: {
+      chunks: 'all', // důležité pro rozdělení všech chunks
+      cacheGroups: {
+        vendors: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+          enforce: true, // vynucení separace
+          priority: -10
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    },*/
+    /*splitChunks: {
+      chunks: 'async', // důležité - povoluje samostatné chunky jen pro asynchronní importy
+      minSize: 20000, // minimální velikost pro vytvoření samostatného souboru
+      maxSize: 0,
+      minChunks: 1,
+      maxAsyncRequests: 30,
+      maxInitialRequests: 30,
+      automaticNameDelimiter: '~',
+      enforceSizeThreshold: 50000,
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          reuseExistingChunk: true
+        },
+        default: {
+          minChunks: 2,
+          priority: -20,
+          reuseExistingChunk: true
+        }
+      }
+    },*/
+    /*splitChunks: {
+      //chunks: 'all', // zpracuje všechny importy
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all', // všechny node_modules do vendors.js
+          enforce: true
+        },
+        asyncModules: {
+          test: /[\\/]node_modules[\\/]/,
+          name: '[name]', // dynamické moduly do samostatných souborů
+          chunks: 'async', // jen pro asynchronní importy
+          enforce: true
+        }
+      }
+    },*/
+    /*splitChunks: {
+      chunks: 'async', // důležité - povoluje samostatné chunky pro async importy
+      minSize: 20000, // minimální velikost modulu pro oddělení
+      cacheGroups: {
+        defaultVendors: {
+          test: /[\\/]node_modules[\\/]/,
+          priority: -10,
+          name: 'vendor',
+          reuseExistingChunk: true
+        },
+        asyncModules: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'async',
+          name(module) {
+            // Extrahuje název modulu pro pojmenování chunku
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `async.${packageName.replace('@', '')}`;
+          },
+          enforce: true
+        }
+      }
+    },*/
+    splitChunks: {
+      chunks: 'all', // zpracuje všechny importy
+      maxInitialRequests: Infinity,
+      minSize: 0,
+      cacheGroups: {
+        vendor: {
+          test: /[\\/]node_modules[\\/]/,
+          name: 'vendor',
+          chunks: 'all',
+          priority: 10,
+          enforce: true
+        },
+        asyncModules: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'async',
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `async.${packageName.replace('@', '')}`;
+          },
+          priority: 20,
+          enforce: true
+        }
+      }
     },
     minimizer: [
       new TerserPlugin(),
       new CssMinimizerPlugin(),
     ],
-    minimize: true
+    minimize: false
   },
   cache: true,
   stats: {
