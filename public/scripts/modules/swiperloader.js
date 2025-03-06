@@ -151,7 +151,6 @@ export default class SwiperLoader {
       if ( thumbs ) {
         initObject.thumbs = { swiper: document.querySelector( thumbs ).swiper };
       }
-      console.log( "swiper 2", this.Swiper );
       new this.Swiper( container, initObject );
 
     }.bind( this ) );

@@ -13,8 +13,6 @@ if( document.querySelector( ".gallery__images, .iobject--picture" ||  document.q
 } else {
   // console.info( "No Photoswipe needed on this page" );
 }
-// Uncomment next line if you want to expose Photoswipe outside of this module, i.e. if you need to load it manualy
-// Object.assign( globalThis, { PhotoswipeLoader } );
 
 // Swiper
 
@@ -22,7 +20,5 @@ if( document.querySelector( ".gallery__images, .iobject--picture" ||  document.q
 if( document.querySelector( ".swiper" ) ) {
   SwiperLoader.load();
 }else {
-  console.info( "No Swiper needed on this page" );
+  // console.info( "No Swiper needed on this page" );
 }
-// Uncomment next line if you want to expose Swiper outside of this module, i.e. if you need to load it manualy
-//Object.assign( globalThis, { SwiperLoader } );
