@@ -1,3 +1,9 @@
+/**
+ * Class for loading Swiper library and setting up sliders
+ * All methods are static
+ * Usage: 
+ * SwiperLoader.load();
+ */
 export default class SwiperLoader {
   static isLoaded = false;
   static Swiper = null;
@@ -24,9 +30,6 @@ export default class SwiperLoader {
       this.isLoaded = true;
 
       this.initSwiper();
-      //const sw = new this.Swiper( ".swiper" );
-      //console.log( "new swiper", sw );
-
       
     } catch (error) {
       console.error( "Error loading Swiper", error);
@@ -153,9 +156,4 @@ export default class SwiperLoader {
 
     }.bind( this ) );
   }
-
-
-
-
-
 }

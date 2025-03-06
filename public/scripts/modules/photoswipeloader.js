@@ -3,12 +3,10 @@
  * All methods are static
  * Usage: 
  * PhotoswipeLoader.load();
- * This is usually run automatically when Photoswipe is needed on the page - see code below class definition
  */
 export default class PhotoswipeLoader {
   static isLoaded = false;
   constructor() {
-
   }
 
   /**
