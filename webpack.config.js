@@ -44,6 +44,7 @@ var config = {
   output: {
     //clean: true,
     path: path.resolve( __dirname, "public", "dist" ),
+    publicPath: "/public/dist/",
     filename: "scripts/[name].min.js"
   },
   plugins: [
