@@ -39,7 +39,7 @@ class NewsletterSubscriber extends ApplicationModel{
 		
 		$values += [
 			"language" => $ATK14_GLOBAL->getLang(),
-			"subscribed_on_url" => $HTTP_REQUEST->getUrl(),
+			"subscribed_at_url" => $HTTP_REQUEST->getUrl(),
 		];
 
 		return parent::CreateNewRecord($values,$options);
@@ -66,7 +66,6 @@ class NewsletterSubscriber extends ApplicationModel{
 		$options += array(
 			"request" => $HTTP_REQUEST
 		);
-
 
 		$request = $options["request"];
 

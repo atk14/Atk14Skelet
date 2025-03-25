@@ -533,7 +533,7 @@ class ApplicationBaseController extends Atk14Controller{
 	function _sign_up_for_newsletter($user_or_email,$values = [],$options = []){
 		$values += [
 			// "language" => $this->lang,
-			// "subscribed_on_url" => $this->request->getUrl(),
+			// "subscribed_at_url" => $this->request->getUrl(),
 		];
 
 		$options += [
@@ -541,7 +541,7 @@ class ApplicationBaseController extends Atk14Controller{
 		];
 
 		$subscription_just_created = false;
-		$ns = NewsletterSubscriber::SignUp($user_or_email,$values,[],$subscription_just_created);
+		$ns = NewsletterSubscriber::SignUp($user_or_email,$values,$subscription_just_created);
 		if($options["send_notification"] && $subscription_just_created){
 			$this->mailer->notify_newsletter_subscription($ns);
 		}
