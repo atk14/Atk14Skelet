@@ -63,6 +63,39 @@ class ApplicationMailer extends Atk14Mailer {
 		$this->subject = _("Your password was updated");
 	}
 
+	function notify_newsletter_subscription($newsletter_subscriber){
+		$this->to = $newsletter_subscriber->getEmail();
+		$this->to_name = $newsletter_subscriber->getName();
+		$this->subject = _("Přihlášení k odběru novinek");
+
+		$this->tpl_data["newsletter_subscriber"] = $newsletter_subscriber;
+		$this->tpl_data["unsubscribe_url"] = $this->_link_to([
+			"namespace" => "",
+			"action" => "newsletter_subscribe_deletion_requests/create_new",
+		],["with_hostname" => true]);
+	}
+
+	function newsletter_unsubsubscribe_confirmation($newsletter_subscriber){
+		$this->to = $newsletter_subscriber->getEmail();
+		$this->to_name = $newsletter_subscriber->getName();
+		$this->subject = _("Potvrzení odhlášení od newsletteru");
+
+		$this->tpl_data["newsletter_subscriber"] = $newsletter_subscriber;
+		$this->tpl_data["unsubscribe_url"] = $this->_link_to([
+			"namespace" => "",
+			"action" => "newsletter_subscribers/destroy",
+			"token" => $newsletter_subscriber->getToken(),
+		],["with_hostname" => true]);
+	}
+
+	function notify_newsletter_subscription_request_creation($newsletter_subscription_request){
+		$this->to = $newsletter_subscription_request->getEmail();
+		$this->to_name = $newsletter_subscription_request->getName();
+		$this->subject = _("Potvrzení odběru novinek");
+
+		$this->tpl_data["newsletter_subscription_request"] = $newsletter_subscription_request;
+	}
+
 	/**
 	 *	$mailer->contact_message(array(
 	 *		"name" => "John Doe",

@@ -35,10 +35,11 @@ class NewsletterSubscriber extends ApplicationModel{
 	}
 
 	static function CreateNewRecord($values,$options = []){
-		global $ATK14_GLOBAL;
+		global $ATK14_GLOBAL, $HTTP_REQUEST;
 		
 		$values += [
 			"language" => $ATK14_GLOBAL->getLang(),
+			"subscribed_on_url" => $HTTP_REQUEST->getUrl(),
 		];
 
 		return parent::CreateNewRecord($values,$options);
@@ -100,5 +101,23 @@ class NewsletterSubscriber extends ApplicationModel{
 		}
 
 		return $ns;
+	}
+
+	/**
+	 * Signing out from a newsletter subscription
+	 */
+	static function SignOut($user_or_email){
+		$values_create = array();
+		if(is_a($user_or_email,"User")){
+			$ns = NewsletterSubscriber::FindFirstByUserId($user_or_email);
+			$values_create["user_id"] = $user_or_email;
+		}else{
+			$ns = NewsletterSubscriber::FindFirst("LOWER(email)=LOWER(:email)",array(":email" => "$user_or_email"));
+			$values_create["email"] = $user_or_email;
+		}
+
+		if($ns){
+			$ns->destroy();
+		}
 	}
 }
