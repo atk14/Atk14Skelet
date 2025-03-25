@@ -505,6 +505,51 @@ class ApplicationBaseController extends Atk14Controller{
 
 	/**
 	 *
+	 *	$this->_create_newsletter_subscription_request("john.doe@example.com");
+	 *	$this->_create_newsletter_subscription_request(["email" => "john.doe@example.com"]);
+	 */
+	function _create_newsletter_subscription_request($email_or_values,$options = []){
+		if(!is_array($email_or_values)){
+			$values = [
+				"email" => $email_or_values,
+			];
+		}else{
+			$values = $email_or_values;
+		}
+
+		$options += [
+			"send_notification" => true,
+		];
+
+		$nsr = NewsletterSubscriptionRequest::CreateNewRecord($values);
+
+		if($options["send_notification"]){
+			$this->mailer->notify_newsletter_subscription_request_creation($nsr);
+		}
+
+		return $nsr;
+	}
+
+	function _sign_up_for_newsletter($user_or_email,$values = [],$options = []){
+		$values += [
+			// "language" => $this->lang,
+			// "subscribed_at_url" => $this->request->getUrl(),
+		];
+
+		$options += [
+			"send_notification" => true,
+		];
+
+		$subscription_just_created = false;
+		$ns = NewsletterSubscriber::SignUp($user_or_email,$values,$subscription_just_created);
+		if($options["send_notification"] && $subscription_just_created){
+			$this->mailer->notify_newsletter_subscription($ns);
+		}
+		return $ns;
+	}
+
+	/**
+	 *
 	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url();
 	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url("index");
 	 *	$this->tpl_data["canonical_url"] = $this->_build_canonical_url(["action" => "pages/detail", "id" => $this->page]);
