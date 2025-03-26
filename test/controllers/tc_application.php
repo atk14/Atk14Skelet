@@ -66,10 +66,10 @@ class TcApplication extends TcBase{
 		$nsr2 = $ctrl->_create_newsletter_subscription_request("john.doe@example.com");
 		$this->assertTrue(is_object($nsr2));
 
-		$nsr3 = $ctrl->_create_newsletter_subscription_request("john.doe@example.com",["create_request_if_subscription_exists" => false]);
+		$nsr3 = $ctrl->_create_newsletter_subscription_request("john.doe@example.com",[],["create_request_if_subscription_exists" => false]);
 		$this->assertNull($nsr3);
 
-		$nsr4  = $ctrl->_create_newsletter_subscription_request("Samantha.doe@example.com",["create_request_if_subscription_exists" => false]);
+		$nsr4  = $ctrl->_create_newsletter_subscription_request("Samantha.doe@example.com",[],["create_request_if_subscription_exists" => false]);
 		$this->assertTrue(is_object($nsr4));
 	}
 

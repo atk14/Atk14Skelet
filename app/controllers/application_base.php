@@ -506,23 +506,17 @@ class ApplicationBaseController extends Atk14Controller{
 	/**
 	 *
 	 *	$this->_create_newsletter_subscription_request("john.doe@example.com");
-	 *	$this->_create_newsletter_subscription_request(["email" => "john.doe@example.com"]);
+	 *	$this->_create_newsletter_subscription_request("john.doe@example.com",["name" => "John Doe", "vocative" => "Dear John"]);
 	 */
-	function _create_newsletter_subscription_request($email_or_values,$options = []){
-		if(!is_array($email_or_values)){
-			$values = [
-				"email" => $email_or_values,
-			];
-		}else{
-			$values = $email_or_values;
-		}
+	function _create_newsletter_subscription_request($email,$values = [],$options = []){
+		$values["email"] = $email;
 
 		$options += [
 			"send_notification" => true,
 			"create_request_if_subscription_exists" => true,
 		];
 
-		if(!$options["create_request_if_subscription_exists"] && NewsletterSubscriber::GetInstancesByEmail($values["email"])){
+		if(!$options["create_request_if_subscription_exists"] && NewsletterSubscriber::GetInstancesByEmail($email)){
 			return null;
 		}
 
