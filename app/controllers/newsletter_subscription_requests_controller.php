@@ -39,7 +39,10 @@ class NewsletterSubscriptionRequestsController extends ApplicationController {
 				"confirmed_at" => now(),
 			]);
 
-			$this->_sign_up_for_newsletter($newsletter_subscription_request->getEmail());
+			$this->_sign_up_for_newsletter($newsletter_subscription_request->getEmail(),[
+				"vocative" => $newsletter_subscription_request->getVocative(),
+				"name" => $newsletter_subscription_request->getName(),
+			]);
 
 			$this->flash->success(_("Přihlášení k odběru novinek bylo úspěšně potvrzeno."));
 

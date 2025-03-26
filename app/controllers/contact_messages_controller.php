@@ -17,7 +17,10 @@ class ContactMessagesController extends ApplicationController {
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 			if(isset($d["sign_up_for_newsletter"]) && $d["sign_up_for_newsletter"] && $d["email"]){
-				$this->_create_newsletter_subscription_request($d["email"],["create_request_if_subscription_exists" => false]);
+				$this->_create_newsletter_subscription_request([
+					"email" => $d["email"],
+					"name" => $d["name"],
+				],["create_request_if_subscription_exists" => false]);
 			}
 
 			$this->mailer->contact_message($d,$this->request,$this->logged_user);
