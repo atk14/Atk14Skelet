@@ -513,7 +513,7 @@ class ApplicationBaseController extends Atk14Controller{
 
 		$options += [
 			"send_notification" => true,
-			"create_request_if_subscription_exists" => true,
+			"create_request_if_subscription_exists" => false,
 		];
 
 		if(!$options["create_request_if_subscription_exists"] && NewsletterSubscriber::GetInstancesByEmail($email)){

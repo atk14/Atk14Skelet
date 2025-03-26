@@ -6,7 +6,9 @@ class NewsletterSubscriptionRequestsController extends ApplicationController {
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
 
-			$this->_create_newsletter_subscription_request($d["email"]);
+			$this->_create_newsletter_subscription_request($d["email"],[],[
+				"create_request_if_subscription_exists" => true,
+			]);
 
 			$this->_redirect_to("created");
 		}
