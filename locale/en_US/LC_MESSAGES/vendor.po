@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 12:19+0100\n"
+"POT-Creation-Date: 2025-03-27 17:22+0100\n"
 "PO-Revision-Date: 2025-01-28 12:23+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -147,26 +147,26 @@ msgid "Headers"
 msgstr "Headers"
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:58
-msgid "HTML body"
-msgstr "HTML body"
-
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:64
 msgid "Plain text body"
 msgstr "Plain text body"
+
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:66
+msgid "HTML body"
+msgstr "HTML body"
 
 #: ../vendor/atk14/mail-panel/src/MailPanel.php:74
 msgid "No mail has been sent"
 msgstr "No mail has been sent"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:58
+#: ../vendor/atk14/phone-field/src/phone_field.php:62
 msgid "Enter phone number in format %sample_phone_number%"
 msgstr "Enter phone number in format %sample_phone_number%"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:82
+#: ../vendor/atk14/phone-field/src/phone_field.php:86
 msgid "Enter valid phone number (%sample_phone_number%)"
 msgstr "Enter valid phone number (%sample_phone_number%)"
 
-#: ../vendor/atk14/phone-field/src/phone_field.php:83
+#: ../vendor/atk14/phone-field/src/phone_field.php:87
 msgid "Enter phone number"
 msgstr "Enter phone number"
 
