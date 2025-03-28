@@ -8,7 +8,7 @@ msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
 "POT-Creation-Date: 2025-03-27 17:22+0100\n"
-"PO-Revision-Date: 2025-03-28 11:01+0100\n"
+"PO-Revision-Date: 2025-03-28 11:13+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -688,7 +688,7 @@ msgstr "Welcome!"
 
 #: ../app/controllers/newsletter_subscribe_deletion_requests_controller.php:8
 msgid "Na takovou adresu newsletter nezasíláme"
-msgstr "We do not send the newsletter to such an address"
+msgstr "We do not send the newsletter to this email address"
 
 #: ../app/controllers/newsletter_subscribe_deletion_requests_controller.php:21
 #: ../app/controllers/newsletter_subscribers_controller.php:26
