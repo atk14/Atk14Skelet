@@ -1,4 +1,4 @@
-<h1 class="h3">{$page_title}</h1>
+<h1>{$page_title}</h1>
 
 <p>{t}Toto potvrzení bylo zrušeno.{/t}</p>
 
