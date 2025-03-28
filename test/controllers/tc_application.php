@@ -64,13 +64,16 @@ class TcApplication extends TcBase{
 		NewsletterSubscriber::SignUp("John.Doe@EXAMPLE.COM");
 
 		$nsr2 = $ctrl->_create_newsletter_subscription_request("john.doe@example.com");
-		$this->assertTrue(is_object($nsr2));
+		$this->assertNull($nsr2);
 
-		$nsr3 = $ctrl->_create_newsletter_subscription_request("john.doe@example.com",[],["create_request_if_subscription_exists" => false]);
-		$this->assertNull($nsr3);
+		$nsr3 = $ctrl->_create_newsletter_subscription_request("john.doe@example.com",[],["create_request_if_subscription_exists" => true]);
+		$this->assertTrue(is_object($nsr3));
 
-		$nsr4  = $ctrl->_create_newsletter_subscription_request("Samantha.doe@example.com",[],["create_request_if_subscription_exists" => false]);
-		$this->assertTrue(is_object($nsr4));
+		$nsr4 = $ctrl->_create_newsletter_subscription_request("john.doe@example.com",[],["create_request_if_subscription_exists" => false]);
+		$this->assertNull($nsr4);
+
+		$nsr5  = $ctrl->_create_newsletter_subscription_request("Samantha.doe@example.com",[],["create_request_if_subscription_exists" => false]);
+		$this->assertTrue(is_object($nsr5));
 	}
 
 	function test__sign_up_for_newsletter(){
