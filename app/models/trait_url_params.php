@@ -34,10 +34,15 @@ trait TraitUrlParams {
 			];
 		}
 
-		$url = $this->g("url");
+		$url = (string)$this->g("url");
+
+		$with_hostname = false;
+		if(preg_match('/^https?:\/\/([^\/]+)(:\d+|)(\/.*|\?.*|)$/',$url,$matches)){
+			$with_hostname = $matches[1];
+		}
 
 		$options += [
-			"with_hostname" => (bool)preg_match('/^https?:\/\//',(string)$url),
+			"with_hostname" => $with_hostname,
 			"lang" => null,
 			"ssl" => preg_match('/^https:\/\//',(string)$url) ? true : null,
 		];
