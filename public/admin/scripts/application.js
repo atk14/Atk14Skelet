@@ -1,3 +1,17 @@
+/* Imports */
+const bootstrap = require ( "bootstrap" );
+window.$ = window.jQuery = require( "jquery" );
+const jqueryUI = require ( "jquery-ui-bundle" ); // eslint-disable-line
+//const blueimp = require ( "blueimp-file-upload/js/jquery.fileupload.js" );
+//const fileupload = require ( "blueimp-file-upload" );
+import "blueimp-file-upload/js/vendor/jquery.ui.widget.js";
+import "blueimp-file-upload/js/jquery.iframe-transport.js";
+import "blueimp-file-upload/js/jquery.fileupload.js";
+import "blueimp-file-upload/js/jquery.fileupload-image.js";
+const mde = require ( "bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js" ); // eslint-disable-line
+const ATK14 = require( "atk14js" ); // eslint-disable-line
+import Sortable from "sortablejs";
+
 /* global window */
 ( function( window, $, undefined ) {
 	var document = window.document,
@@ -10,6 +24,13 @@
 
 			// Application-wide code.
 			init: function() {
+				// Detect Bootstrap version
+				if( typeof bootstrap.Tooltip.VERSION !== "undefined" ){
+					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );
+				} else {
+					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
+				}
+
 				ADMIN.utils.handleSortables();
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
@@ -135,7 +156,13 @@
 
 			// Copy iobject to clipboard
 			handleCopyIobjectCode: function() {
-				$( ".iobject-copy-code" ).popover();
+				if( window.bootstrapVersion === 5 ){
+					$( ".iobject-copy-code" ).each( function() {
+						new bootstrap.Popover( this );
+					} );
+				} else {
+					$( ".iobject-copy-code" ).popover();
+				}
 				$( ".iobject-copy-code" ).on( "click", function( e ) {
 					e.preventDefault();
 					var code = $( this ).closest( ".iobject-code-wrap" ).find( ".iobject-code" ).text();
@@ -191,9 +218,12 @@
 					var body = document.querySelector( "body" );
 					if( this.checked ){
 						body.classList.add( "dark-mode" );
+						//$( "body" ).attr( "data-bs-theme", "dark" );
+						body.setAttribute( "data-bs-theme", "dark" );						
 						document.cookie = "dark_mode=1;path=/";
 					} else {
 						body.classList.remove( "dark-mode" );
+						body.setAttribute( "data-bs-theme", "light" );
 						document.cookie = "dark_mode=;path=/";
 					}
 

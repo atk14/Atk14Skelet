@@ -1,3 +1,10 @@
+/* Imports */
+const bootstrap = require ( "bootstrap" );
+window.$ = window.jQuery = require("jquery");
+require( "unobfuscatejs" );
+require( "atk14js" );
+
+
 /* global window */
 ( function( window, $, undefined ) {
 	"use strict";
@@ -5,10 +12,16 @@
 	UTILS = window.UTILS, // Uncomment this if you need something from UTILS
 
 	APPLICATION = {
-		common: {
-
+		common: {			
 			// Application-wide code.
 			init: function() {
+				
+				// Detect Bootstrap version
+				if( typeof bootstrap.Tooltip.VERSION !== "undefined" ){
+					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );
+				} else {
+					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
+				}
 
 				// Restores email addresses misted by the no_spam helper
 				UTILS.unobfuscateEmails();
@@ -18,9 +31,6 @@
 
 				// Form hints.
 				UTILS.formHints();
-
-				// Init Swiper
-				UTILS.initSwiper();
 			}
 		},
 

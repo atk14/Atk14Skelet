@@ -1,13 +1,15 @@
 {
-  "parser": "babel-eslint",
+  "parser": "@babel/eslint-parser",
   "env": {
-    "browser": true,
+		"browser": true,
     "node": true,
-		"commonjs": true,
+    "commonjs": true,
 		"jquery": true,
-		"es6": true
+    "es6": true
   },
-  "globals": {},
+  "globals": {
+    "bootstrap": true
+  },
   "rules": {
     "no-cond-assign": [
       2,
@@ -26,10 +28,12 @@
       2,
       "double"
     ],
-    "no-undef": 1,
-    "no-unused-vars": 1
+    "no-undef": 2,
+    "no-unused-vars": 2
   },
   "parserOptions": {
-    "ecmaVersion": 8
+    "sourceType": "module",
+    "ecmaVersion": 8,
+    "requireConfigFile": false
   }
 }

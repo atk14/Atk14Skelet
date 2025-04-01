@@ -48,8 +48,8 @@
 			document.documentElement.className = document.documentElement.className.replace( /\bno-js\b/, "js" );
 		{/javascript_tag}
 
-		{stylesheet_link_tag file="$public/admin/dist/styles/vendor.min.css"}
-		{stylesheet_link_tag file="$public/admin/dist/styles/application.min.css"}
+		{stylesheet_link_tag file="$public/admin/dist/styles/vendor.css"}
+		{stylesheet_link_tag file="$public/admin/dist/styles/application_styles.css"}
 
 		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
 		<!--[if lt IE 9]>
