@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 12:19+0100\n"
-"PO-Revision-Date: 2025-01-28 12:43+0100\n"
+"POT-Creation-Date: 2025-03-27 17:22+0100\n"
+"PO-Revision-Date: 2025-03-27 17:23+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -133,6 +133,31 @@ msgstr "IP adresa"
 msgid "Logged user:"
 msgstr "Přihlášený uživatel:"
 
+msgid "Dobrý den,"
+msgstr "Dobrý den,"
+
+msgid "pro zrušení odběru newsletteru navštivte následující odkaz:"
+msgstr "pro zrušení odběru newsletteru navštivte následující odkaz:"
+
+msgid "Dobrý den %1,"
+msgstr "Dobrý den %1,"
+
+msgid "děkujeme Vám za registraci k odběru našeho newsletteru."
+msgstr "děkujeme Vám za registraci k odběru našeho newsletteru."
+
+msgid ""
+"Pokud nadále nechcete dostávat zprávy o našich novinkách, můžete se z odběru "
+"odhlásit na adrese:"
+msgstr ""
+"Pokud nadále nechcete dostávat zprávy o našich novinkách, můžete se z odběru "
+"odhlásit na adrese:"
+
+msgid "pro potvrzení odběru novinek klikněte na následující odkaz:"
+msgstr "pro potvrzení odběru novinek klikněte na následující odkaz:"
+
+msgid "Potvrdit odběr novinek"
+msgstr "Potvrdit odběr novinek"
+
 msgid "Hello %1!"
 msgstr "Dobrý den %1!"
 
@@ -246,8 +271,59 @@ msgstr "ATK14 na GitHubu"
 msgid "ATK14 Skelet on GitHub"
 msgstr "ATK14 Skelet na GitHubu"
 
-msgid "Table of contents"
-msgstr "Obsah"
+msgid ""
+"Na zadanou e-mailovou adresu byl odeslán odkaz pro odhlášení z odběru "
+"newsletteru. Navštivte prosím tento odkaz."
+msgstr ""
+"Na zadanou e-mailovou adresu byl odeslán odkaz pro odhlášení z odběru "
+"newsletteru. Navštivte prosím tento odkaz."
+
+msgid "Pro odhlášení od zasílání newsletteru zadejte Vaši e-mailovou adresu."
+msgstr "Pro odhlášení od zasílání newsletteru zadejte Vaši e-mailovou adresu."
+
+msgid "Odhlášení od zasílání newsletteru bylo úspěšně provedeno."
+msgstr "Odhlášení od zasílání newsletteru bylo úspěšně provedeno."
+
+msgid ""
+"Na této stránce můžete odhlásit zasílání našeho newsletteru na e-mailovou "
+"adresu <em>%1</em>."
+msgstr ""
+"Na této stránce můžete odhlásit zasílání našeho newsletteru na e-mailovou "
+"adresu <em>%1</em>."
+
+msgid "Toto potvrzení bylo zrušeno."
+msgstr "Toto potvrzení bylo zrušeno."
+
+msgid "Toto přihlášení k odběru novinek již bylo potvrzeno."
+msgstr "Toto přihlášení k odběru novinek již bylo potvrzeno."
+
+msgid "Pro přihlášení se k odběru novinek klikněte na tlačítko."
+msgstr "Pro přihlášení se k odběru novinek klikněte na tlačítko."
+
+msgid "Potvrdit přihlášení"
+msgstr "Potvrdit přihlášení"
+
+msgid "Zrušit toto potvrzení"
+msgstr "Zrušit toto potvrzení"
+
+msgid "Zkontrolujte si prosím svou e-mailovou schránku."
+msgstr "Zkontrolujte si prosím svou e-mailovou schránku."
+
+msgid ""
+"Právě jsem Vám poslali e-mail, ve kterém je odkaz pro potvrzení odběru "
+"novinek."
+msgstr ""
+"Právě jsem Vám poslali e-mail, ve kterém je odkaz pro potvrzení odběru "
+"novinek."
+
+msgid "Zadejte svůj e-mail a my Vám pošleme odkaz pro potvrzení."
+msgstr "Zadejte svůj e-mail a my Vám pošleme odkaz pro potvrzení."
+
+msgid "přihlásit k odběru novinek jiný e-mail"
+msgstr "přihlásit k odběru novinek jiný e-mail"
+
+msgid "přejděte na úvodní stránku"
+msgstr "přejděte na úvodní stránku"
 
 msgid "Subpages"
 msgstr "Podstránky"
@@ -371,6 +447,12 @@ msgstr "Předchozí"
 
 msgid "Next"
 msgstr "Následující"
+
+msgid "Table of contents"
+msgstr "Obsah"
+
+msgid "Subchapters"
+msgstr "Podkapitoly"
 
 msgid "Photo gallery"
 msgstr "Fotogalerie"
@@ -512,7 +594,23 @@ msgstr "Obnova vašeho hesla"
 msgid "Your password was updated"
 msgstr "Vaše heslo bylo změněno"
 
-#: ../app/controllers/application_mailer.php:75
+#: ../app/controllers/application_mailer.php:69
+#: ../app/controllers/newsletter_subscription_requests_controller.php:5
+#: ../app/controllers/newsletter_subscription_requests_controller.php:18
+#: ../app/controllers/newsletter_subscription_requests_controller.php:25
+#: ../app/controllers/newsletter_subscription_requests_controller.php:82
+msgid "Přihlášení k odběru novinek"
+msgstr "Přihlášení k odběru novinek"
+
+#: ../app/controllers/application_mailer.php:81
+msgid "Potvrzení odhlášení od newsletteru"
+msgstr "Potvrzení odhlášení od newsletteru"
+
+#: ../app/controllers/application_mailer.php:94
+msgid "Potvrzení odběru novinek"
+msgstr "Potvrzení odběru novinek"
+
+#: ../app/controllers/application_mailer.php:108
 msgid "Message sent from contact page"
 msgstr "Zpráva zaslaná z kontaktní stránky"
 
@@ -587,6 +685,32 @@ msgstr "Zůstal jste přihlášen jako <em>%s</em>"
 #: ../app/controllers/main_controller.php:11
 msgid "Welcome!"
 msgstr "Vítejte!"
+
+#: ../app/controllers/newsletter_subscribe_deletion_requests_controller.php:8
+msgid "Na takovou adresu newsletter nezasíláme"
+msgstr "Na takovou adresu newsletter nezasíláme"
+
+#: ../app/controllers/newsletter_subscribe_deletion_requests_controller.php:21
+#: ../app/controllers/newsletter_subscribers_controller.php:26
+#: ../app/controllers/newsletter_subscribers_controller.php:27
+msgid "Odhlášení od newsletteru"
+msgstr "Odhlášení od newsletteru"
+
+#: ../app/controllers/newsletter_subscribers_controller.php:22
+msgid "Odhlášeno"
+msgstr "Odhlášeno"
+
+#: ../app/controllers/newsletter_subscription_requests_controller.php:19
+msgid "Potvrzení odesláno"
+msgstr "Potvrzení odesláno"
+
+#: ../app/controllers/newsletter_subscription_requests_controller.php:49
+msgid "Přihlášení k odběru novinek bylo úspěšně potvrzeno."
+msgstr "Přihlášení k odběru novinek bylo úspěšně potvrzeno."
+
+#: ../app/controllers/newsletter_subscription_requests_controller.php:65
+msgid "Přihlášení k odběru novinek bylo zrušeno."
+msgstr "Přihlášení k odběru novinek bylo zrušeno."
 
 #: ../app/controllers/password_recoveries_controller.php:13
 msgid "There is no such user with the given login or email"
@@ -788,11 +912,11 @@ msgstr "Přihlásit se k odběru newsletteru"
 msgid "Spam protection"
 msgstr "Ochrana proti spamu"
 
-#: ../app/forms/contact_messages/create_new_form.php:20
+#: ../app/forms/contact_messages/create_new_form.php:22
 msgid "Text"
 msgstr "Text"
 
-#: ../app/forms/contact_messages/create_new_form.php:28
+#: ../app/forms/contact_messages/create_new_form.php:30
 msgid "Send message"
 msgstr "Poslat zprávu"
 
@@ -805,6 +929,29 @@ msgstr "Přihlašovací jméno"
 #: ../app/forms/users/users_form.php:25
 msgid "Password"
 msgstr "Heslo"
+
+#: ../app/forms/newsletter_subscribe_deletion_requests/create_new_form.php:6
+#: ../app/forms/newsletter_subscription_requests/create_new_form.php:6
+msgid "E-mailová adresa"
+msgstr "E-mailová adresa"
+
+#: ../app/forms/newsletter_subscribe_deletion_requests/create_new_form.php:11
+#: ../app/forms/newsletter_subscribers/destroy_form.php:12
+msgid "Odhlásit se"
+msgstr "Odhlásit se"
+
+#: ../app/forms/newsletter_subscribers/destroy_form.php:6
+msgid "Odhlásit se z odběru newsletteru"
+msgstr "Odhlásit se z odběru newsletteru"
+
+#: ../app/forms/newsletter_subscribers/destroy_form.php:9
+msgid "Potvrďte svůj záměr odhlásit se z odběru newsletteru zatrhnutím políčka"
+msgstr ""
+"Potvrďte svůj záměr odhlásit se z odběru newsletteru zatrhnutím políčka"
+
+#: ../app/forms/newsletter_subscription_requests/create_new_form.php:12
+msgid "Ověřit e-mailovou adresu"
+msgstr "Ověřit e-mailovou adresu"
 
 #: ../app/forms/password_recoveries/create_new_form.php:5
 msgid "Login or email address"
