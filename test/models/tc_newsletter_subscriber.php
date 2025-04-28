@@ -10,17 +10,22 @@ class TcNewsletterSubscriber extends TcBase{
 		Atk14Locale::Initialize($lang);
 
 		$HTTP_REQUEST->setRemoteAddr("1.2.3.4");
+		$HTTP_REQUEST->setRequestAddress("https://example.com/newsletter/");
 
-		$ns = NewsletterSubscriber::SignUp("john@doe.com");
-		$ns2 = NewsletterSubscriber::SignUp("john@doe.com");
+		$ns = NewsletterSubscriber::SignUp("john@doe.com",array(),$subscription_just_created);
+		$ns2 = NewsletterSubscriber::SignUp("john@doe.com",array(),$subscription_just_created2);
 
 		$this->assertEquals($ns->getId(),$ns2->getId());
 		$this->assertEquals("en",$ns->getLanguage());
 		$this->assertEquals("1.2.3.4",$ns->getCreatedFromAddr());
+		$this->assertEquals("https://example.com/newsletter/",$ns->getSubscribedAtUrl());
 		$this->assertEquals(null,$ns->getUpdatedAt());
 		$this->assertEquals(null,$ns->getUpdatedFromAddr());
 		$this->assertEquals(null,$ns->getVocative());
 		$this->assertEquals(null,$ns->getName());
+
+		$this->assertEquals(true,$subscription_just_created);
+		$this->assertEquals(false,$subscription_just_created2);
 
 		$HTTP_REQUEST->setRemoteAddr("5.5.5.5");
 
@@ -30,7 +35,7 @@ class TcNewsletterSubscriber extends TcBase{
 		$ns3 = NewsletterSubscriber::SignUp("john@doe.com",array(
 			"vocative" => "mr",
 			"name" => "John Doe",
-		));
+		),$subscription_just_created3);
 
 		$this->assertEquals($ns->getId(),$ns3->getId());
 		$this->assertEquals("cs",$ns3->getLanguage());
@@ -38,6 +43,8 @@ class TcNewsletterSubscriber extends TcBase{
 		$this->assertEquals("5.5.5.5",$ns3->getUpdatedFromAddr());
 		$this->assertEquals("mr",$ns3->getVocative());
 		$this->assertEquals("John Doe",$ns3->getName());
+		
+		$this->assertEquals(false,$subscription_just_created3);
 
 		$HTTP_REQUEST->setRemoteAddr("8.8.8.8");
 
