@@ -7,6 +7,11 @@
  * window.UTILS.fadeOut( document.querySelector( "p.test" ), "slow" );
  * window.UTILS.fadeOut( document.querySelector( "p.test" ), "fast" );
  * window.UTILS.fadeOut( document.querySelector( "p.test" ), 1500 );
+ * window.UTILS.fadeOut( document.querySelector( "p.test" ), 1500, function(){ console.log( "destroyed") } );
+ * window.UTILS.fadeOutRemove( document.querySelector( "p.test" ), 1500 );
+ * 
+ * Callback option currently works only for fadeOut() method.
+ * Unlike jQuery these functions return undefined. They also manipulate only one element - not collection.
  * 
  * fadeOut, fadeIn timing (same as in jQuery): <milliseconds>|"slow"|"fast"; default: 400ms, slow: 600ms, fast: 200ms (same as in jQuery) 
  * 
