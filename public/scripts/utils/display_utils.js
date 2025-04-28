@@ -30,7 +30,9 @@ window.UTILS.animationTiming = function ( t ) {
 
 // Fade out - replacement to jQuery.fadeOut();
 
-window.UTILS.fadeOut = function( el, t ) {
+window.UTILS.fadeOut = function( el, t, callback ) {
+
+	if( !el ) { return; }
 
 	t = window.UTILS.animationTiming( t );
 
@@ -46,12 +48,34 @@ window.UTILS.fadeOut = function( el, t ) {
 	fadeOutAnimation.addEventListener( "finish", () => {
 		el.style.display = "none";
 		el.style.opacity = 0;
+		if( callback ) {
+			callback();
+		}
+	} );
+};
+
+// Fade out - replacement to jQuery.fadeOut().remove();
+
+window.UTILS.fadeOutRemove = function( el, t ) {
+
+	if( !el ) { return; }
+
+	t = window.UTILS.animationTiming( t );
+
+	// fade out
+	let fadeOutAnimation = el.animate( { opacity: 0}, { duration: t } );
+
+	// remove element after fade complete
+	fadeOutAnimation.addEventListener( "finish", () => {
+		el.remove();
 	} );
 };
 
 // Fade in - replacement to jQuery.fadeIn(); if element was hidden by element.fadeOut(), its original display mode will be restored, otherwise its display property will be set to "block".
 
 window.UTILS.fadeIn = function( el, t ) {
+
+	if( !el ) { return; }
 
 	// get current style
 	let currentStyle = window.getComputedStyle( el );
@@ -86,7 +110,9 @@ window.UTILS.fadeIn = function( el, t ) {
 // Hide - replacement to jQuery.fadeOut();
 
 window.UTILS.hide = function( el, t ) {
-	
+
+	if( !el ) { return; }
+
 	t = window.UTILS.animationTiming( t );
 
 	// remember element`s display property - to be restored by elemet.fadeIn()
