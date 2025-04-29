@@ -10,9 +10,21 @@ let bootstrap = { Alert, Button, Carousel, Collapse, Dropdown, Modal, Offcanvas,
 //console.log( "bootstrap", bootstrap );
 //console.log( "Alert", Alert );
 window.$ = window.jQuery = require("jquery");
-require( "unobfuscatejs" );
 require( "atk14js" );
 
+// Store the original jQuery function
+var originalJQuery = window.$;
+
+// Replace jQuery with a proxy function
+//window.$ = window.jQuery = function() {
+window.$ = function() {
+  // Log to console
+  console.log("jQuery called with arguments:", arguments);
+  
+  // Call the original jQuery function with the same context and arguments
+  //return originalJQuery.apply(this, arguments);
+  return window.jQuery.apply(this, arguments);
+};
 
 /* global window */
 ( function( window, $, undefined ) {
