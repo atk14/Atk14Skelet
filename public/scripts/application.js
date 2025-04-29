@@ -27,7 +27,7 @@ window.$ = function() {
 };
 
 /* global window */
-( function( window, $, undefined ) {
+( function( window, undefined ) {
 	"use strict";
 	var document = window.document,
 	UTILS = window.UTILS, // Uncomment this if you need something from UTILS
@@ -138,4 +138,4 @@ window.$ = function() {
 
 	// Initialize application.
 	APPLICATION.INITIALIZER.init();
-} )( window, window.jQuery );
+} )( window );
