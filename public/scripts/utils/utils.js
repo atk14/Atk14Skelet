@@ -1,5 +1,6 @@
 // This is a place for some tools required in the application
 import { Popover } from "bootstrap"
+import UnobfuscateEmails from "../nojquery/unobfuscate_v2.js";
 
 
 window.UTILS = window.UTILS || { };
@@ -80,9 +81,10 @@ window.UTILS.loginAvaliabilityChecker = function() {
 
 // Restores email addresses misted by the no_spam helper
 window.UTILS.unobfuscateEmails = function() {
-	$( ".atk14_no_spam" ).unobfuscate( {
+	UnobfuscateEmails.unobfuscate( {
 		atstring: "[at-sign]",
-		dotstring: "[dot-sign]"
+		dotstring: "[dot-sign]",
+		selector: ".atk14_no_spam"
 	} );
 }
 
