@@ -13,13 +13,13 @@ window.$ = window.jQuery = require("jquery");
 require( "atk14js" );
 
 // Store the original jQuery function
-var originalJQuery = window.$;
+//var originalJQuery = window.$;
 
 // Replace jQuery with a proxy function
 //window.$ = window.jQuery = function() {
 window.$ = function() {
   // Log to console
-  console.log("jQuery called with arguments:", arguments);
+  console.log( "jQuery called with arguments:", arguments );
   
   // Call the original jQuery function with the same context and arguments
   //return originalJQuery.apply(this, arguments);

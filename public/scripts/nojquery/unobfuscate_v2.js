@@ -33,9 +33,9 @@ export default class UnobfuscateEmails {
     selector: ".atk14_no_spam"
   }
 
-  static #gimmeMail(str, at, dot) {
+  static #gimmeMail( str, at, dot ) {
     // simply return defuscated address, k thx bai
-    return str.replace(at, '@', 'g').replace(dot, '.', 'g');
+    return str.replace( at, "@", "g" ).replace(dot, ".", "g");
   }
 
 
