@@ -11,20 +11,18 @@ window.UTILS.helloWorld = function() {
 
 // Form hints.
 window.UTILS.formHints = function() {
-	$( ".help-hint" ).each( function() {
-		var $this = $( this ),
-			$field = $this.closest( ".form-group" ).find( ".form-control" ),
-			title = $this.data( "title" ) || "",
-			content = $this.html(),
-			popoverOptions = {
-				html: true,
-				trigger: "focus",
-				title: title,
-				content: content
-			};
-
-		//$field.popover( popoverOptions );
-		new Popover( $field.get(0), popoverOptions );
+	[ ...document.querySelectorAll( ".help-hint" ) ].forEach( (elem) => {
+		let field = elem.closest( ".form-group" ).querySelector( ".form-control" );
+		let title = elem.dataset.title || "";
+		let content = elem.innerHTML;
+		let popoverOptions = {
+			html: true,
+			trigger: "focus",
+			title: title,
+			content: content
+		};
+		// Popover
+		new Popover( field, popoverOptions );
 	} );
 }
 
