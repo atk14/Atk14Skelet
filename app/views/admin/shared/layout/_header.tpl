@@ -8,7 +8,7 @@
 				<span class="h1">{$appname}</span>
 			{/if}
 		{/a}		
-		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
+		<button class="navbar-toggler" type="button" {if USING_BOOTSTRAP5}data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"{else}data-toggle="collapse" data-target="#navbarNavDropdown"{/if} aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			{!"bars"|icon}
 		</button>
 		<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
@@ -17,23 +17,21 @@
 				<li class="nav-item">
 					<span class="env-status">
 						{if strstr($request->getHttpHost(),"localhost")}
-							<span class="badge badge-pill badge-info" title="{t}Localhost{/t}">LHOST</span>
+							<span class="badge rounded-pill bg-info" title="{t}Localhost{/t}">LHOST</span>
 						{/if}
 						{if DEVELOPMENT}
-							<span class="badge badge-pill badge-warning" title="{t}Development server{/t}">DEV</span>
+							<span class="badge rounded-pill bg-warning" title="{t}Development server{/t}">DEV</span>
 						{/if}
 						{if PRODUCTION}
-							<span class="badge badge-pill badge-success" title="{t}Production server{/t}">PROD</span>
+							<span class="badge rounded-pill bg-success" title="{t}Production server{/t}">PROD</span>
 						{/if}
 					</span>
 				</li>
 				</li>
 				<li class="nav-item">
-					<div class="dark-mode-switch">
-						<div class="custom-control custom-switch">
-							<input type="checkbox" class="custom-control-input" id="js--darkmode-switch"{if $request->getCookieVar("dark_mode")} checked{/if}>
-							<label class="custom-control-label" for="js--darkmode-switch">{!"moon"|icon}</label>
-						</div>
+					<div class="dark-mode-switch form-check form-switch">
+						<input class="form-check-input" type="checkbox" role="switch" id="js--darkmode-switch"{if $request->getCookieVar("dark_mode")} checked{/if}>
+  					<label class="form-check-label" for="js--darkmode-switch">{!"moon"|icon}</label>
 					</div>
 				</li>
 			</ul>
@@ -42,7 +40,7 @@
 					{* user is logged in *}
 					{capture assign=user_profile_url}{link_to namespace="" controller=users action="detail"}{/capture}
 					<li class="nav-item dropdown">
-						<a class="nav-link dropdown-toggle" data-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
+						<a class="nav-link dropdown-toggle" data-toggle="dropdown"  data-bs-toggle="dropdown" href="#" role="button" aria-haspopup="true" aria-expanded="false">
 							{!"user"|icon} {$logged_user->getLogin()}
 						</a>
 						<div class="dropdown-menu">

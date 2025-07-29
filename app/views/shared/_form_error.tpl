@@ -15,15 +15,21 @@
 	{assign var=small_form value=$form->is_small()}
 {/if}
 
+{if USING_BOOTSTRAP5}
+	{capture assign="close_button"}<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="{t}Close{/t}"></button>{/capture}
+{else}
+	{capture assign="close_button"}<button type="button" class="close" data-dismiss="alert" aria-label="{t}Close{/t}">&times;</button>{/capture}
+{/if}
+
 {if $form->has_errors()}
 		{if $form->non_field_errors()}
 			{if sizeof($form->non_field_errors())>1}
 				{* if there are more erorrs *}
-				<div class="alert alert-danger">
+				<div class="alert alert-danger alert-dismissible">
 					<p>
 						<em>{t}The following difficulties have occurred during the form processing:{/t}</em>
 					</p>
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					{!$close_button}
 					<ul>
 						{render partial="shared/form_error_item" from=$form->non_field_errors() item=error}
 					</ul>
@@ -31,15 +37,15 @@
 			{else}
 				{* if there is only one error *}
 				{assign var=errors value=$form->non_field_errors()}
-				<p class="alert alert-danger">
+				<p class="alert alert-danger alert-dismissible">
 					<em>{!$errors.0}</em>
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
+					{!$close_button}
 				</p>
 			{/if}
 		{elseif !$small_form}
-			<p class="alert alert-danger">
+			<p class="alert alert-danger alert-dismissible">
 				<em>{t}Some of the items were filled incorrectly. Please, check the form and correct the errors.{/t}</em>
-					<button type="button" class="close" data-dismiss="alert">&times;</button>
+				{!$close_button}
 			</p>
 		{/if}
 {/if}

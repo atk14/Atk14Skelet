@@ -2,7 +2,7 @@
 <link rel="icon" type="image/png" sizes="16x16" href="{$public}dist/favicons/favicon-16x16.png">
 <link rel="icon" type="image/png" sizes="32x32" href="{$public}dist/favicons/favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="48x48" href="{$public}dist/favicons/favicon-48x48.png">
-<link rel="manifest" href="{$public}dist/favicons/manifest.json">
+<link rel="manifest" href="{$public}dist/favicons/manifest.webmanifest">
 <meta name="mobile-web-app-capable" content="yes">
 <meta name="theme-color" content="#fff">
 <meta name="application-name" content="{"ATK14_APPLICATION_NAME"|dump_constant}">
