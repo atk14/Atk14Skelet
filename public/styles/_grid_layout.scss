@@ -1,0 +1,40 @@
+// Mixin for grid layout
+// Must be enabled in _application_variables.scss
+
+@mixin grid_layout() {
+  .grid-outer-fullwidth {
+    width: 100%;
+    max-width: unset;
+    grid-column: 1 / -1 !important;
+    margin-left: 0;
+    margin-right: 0;
+  }
+  .grid-layout {
+    display: grid;
+    grid-template-columns: 1fr minmax(0, $container-max-width) 1fr;
+    column-gap: $grid-gutter-width;
+    > * {
+      grid-column: 2 / -2;
+    }
+    > .fullwidth {
+      grid-column: 1 / -1;
+    }
+    @include media-breakpoint-down(md) {
+      column-gap: $grid-gutter-width * 0.5;
+    }
+  }
+
+  .article-body, .page-body, article {
+    @extend .grid-layout;
+  }
+
+  .container--main {
+    padding-left: 0;
+    padding-right: 0;
+  }
+  .container--main, div.body, div.content-main, article, .article-body, .page-body, .content-main, footer > .container-fluid {
+    @extend .grid-layout;
+    @extend .grid-outer-fullwidth;
+  }
+}
+

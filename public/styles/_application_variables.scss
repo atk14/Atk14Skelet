@@ -17,3 +17,6 @@ $breadcrumb-padding-x:		 0;
 // And replace "Font Awesome 5 Brands" with $fa-brands-font-family
 $fa-font-family: "Font Awesome 6 Free";
 $fa-brands-font-family: "Font Awesome 6 Brands";
+
+// Enable grid layout - for legacy projects it may be better to turn it off.
+$enable_grid_layout: false;

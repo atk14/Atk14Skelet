@@ -1,3 +1,19 @@
+/* Imports */
+import * as bootstrap from "bootstrap";
+
+// Alternatively you can import only the BS components you need. Seems to have no effect on the bundle size.
+/*
+import { Alert, Button, Carousel, Collapse, Dropdown, Modal, Offcanvas, Popover, ScrollSpy, Tab, Toast, Tooltip } from "bootstrap";
+let bootstrap = { Alert, Button, Carousel, Collapse, Dropdown, Modal, Offcanvas, Popover, ScrollSpy, Tab, Toast, Tooltip }
+*/
+
+//console.log( "bootstrap", bootstrap );
+//console.log( "Alert", Alert );
+window.$ = window.jQuery = require("jquery");
+require( "unobfuscatejs" );
+require( "atk14js" );
+
+
 /* global window */
 ( function( window, $, undefined ) {
 	"use strict";
@@ -5,45 +21,31 @@
 	UTILS = window.UTILS, // Uncomment this if you need something from UTILS
 
 	APPLICATION = {
-		common: {
-
+		common: {			
 			// Application-wide code.
 			init: function() {
+				
+				// Detect Bootstrap version
+				if( typeof bootstrap.Tooltip.VERSION !== "undefined" ){
+					window.bootstrapVersion = parseInt( Array.from( bootstrap.Tooltip.VERSION )[0] );
+				} else {
+					window.bootstrapVersion = parseInt( Array.from( $.fn.tooltip.Constructor.VERSION )[0] );
+				}
 
 				// Restores email addresses misted by the no_spam helper
-				$( ".atk14_no_spam" ).unobfuscate( {
-					atstring: "[at-sign]",
-					dotstring: "[dot-sign]"
-				} );
+				UTILS.unobfuscateEmails();
 
 				// Links with the "blank" class are pointing to new window
-				$( "a.blank" ).attr( "target", "_blank" );
+				UTILS.linksTargetBlank();
 
 				// Form hints.
-				$( ".help-hint" ).each( function() {
-					var $this = $( this ),
-						$field = $this.closest( ".form-group" ).find( ".form-control" ),
-						title = $this.data( "title" ) || "",
-						content = $this.html(),
-						popoverOptions = {
-							html: true,
-							trigger: "focus",
-							title: title,
-							content: content
-						};
-
-					$field.popover( popoverOptions );
-				} );
-
-				// Init Swiper
-				UTILS.initSwiper();
-
+				UTILS.formHints();
 			}
 		},
 
 		logins: {
 			create_new: function() {
-				$( "#id_login" ).focus();
+				document.getElementById( "id_login" ).focus();
 			}
 		},
 
@@ -55,46 +57,10 @@
 
 			// Action-specific code
 			create_new: function() {
-				/*
-				 * Check whether login is available.
-				 * Simple demo of working with an API.
-				 */
-				var $login = $( "#id_login" ),
-					m = "Username is already taken.",
-					h = "<p class='alert alert-danger'>" + m + "</p>",
-					$status = $( h ).hide().appendTo( $login.closest( ".form-group" ) );
 
-				$login.on( "change", function() {
-
-					// Login input value to check.
-					var value = $login.val(),
-						lang = $( "html" ).attr( "lang" ),
-
-					// API URL.
-						url = "/api/" + lang + "/login_availabilities/detail/",
-
-					// GET values for API. Available formats: xml, json, yaml, jsonp.
-						data = {
-							login: value,
-							format: "json"
-						};
-
-					// AJAX request to the API.
-					if ( value !== "" ) {
-						$.ajax( {
-							dataType: "json",
-							url: url,
-							data: data,
-							success: function( json ) {
-								if ( json.status !== "available" ) {
-									$status.fadeIn();
-								} else {
-									$status.fadeOut();
-								}
-							}
-						} );
-					}
-				} ).change();
+				// Check whether login is available.
+				UTILS.loginAvaliabilityChecker();
+				
 			}
 		},
 
@@ -106,29 +72,13 @@
 				init: function() {
 
 					// Restores email addresses misted by the no_spam helper
-					$( ".atk14_no_spam" ).unobfuscate( {
-						atstring: "[at-sign]",
-						dotstring: "[dot-sign]"
-					} );
+					UTILS.unobfuscateEmails();
 
 					// Links with the "blank" class are pointing to new window
-					$( "a.blank" ).attr( "target", "_blank" );
+					UTILS.linksTargetBlank();
 
 					// Form hints.
-					$( ".help-hint" ).each( function() {
-						var $this = $( this ),
-							$field = $this.closest( ".form-group" ).find( ".form-control" ),
-							title = $this.data( "title" ) || "",
-							content = $this.html(),
-							popoverOptions = {
-								html: true,
-								trigger: "focus",
-								title: title,
-								content: content
-							};
-
-						$field.popover( popoverOptions );
-					} );
+					UTILS.formHints();
 				}
 			}
 

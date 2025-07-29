@@ -18,9 +18,11 @@
 @import "bootstrap";
 
 // Other SCSS
+@import "grid_layout";
+
 @import "layout";
 
-@import "alerts";
+@import "shared/flash_messages";
 
 @import "admin-object-menu";
 
@@ -34,7 +36,7 @@
 
 @import "header";
 
-@import "forms";
+@import "forms";  //bs5 incompatible
 
 @import "tables";
 
@@ -47,6 +49,8 @@
 @import "image_gallery";
 
 @import "content_tabs";
+
+@import "photoswipe";
 
 @import "shared/clearfix";
 @import "shared/loading";

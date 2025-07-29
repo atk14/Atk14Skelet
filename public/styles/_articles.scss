@@ -17,7 +17,7 @@ h1 {
 	@include media-breakpoint-up(md){
 		display: flex;
 		flex-wrap: wrap;
-		margin: 0 0-$grid-gutter-width/2 $grid-gutter-width 0-$grid-gutter-width/2;
+		margin: 0 divide(0-$grid-gutter-width, 2) $grid-gutter-width divide(0-$grid-gutter-width, 2);
 	}
 	article {
 		margin-bottom: $grid-gutter-width;
@@ -27,7 +27,7 @@ h1 {
 		
 		@include media-breakpoint-up(md){
 			flex-basis: calc(50% - #{$grid-gutter-width});
-			margin: 0 $grid-gutter-width/2 $grid-gutter-width/2 $grid-gutter-width/2;
+			margin: 0 divide($grid-gutter-width, 2) divide($grid-gutter-width, 2) divide($grid-gutter-width, 2);
 		}
 		
 		h2 {
