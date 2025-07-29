@@ -1,0 +1,25 @@
+// Admin autocomplete
+// Completely replaces styles from node_modules/autocompleter/autocomplete.css
+// for dark mode colors see _dark_mode.scss 
+
+.autocomplete {
+  background-color: $body-bg;
+  color: $dropdown-link-color;
+  z-index: $zindex-dropdown;
+  overflow: auto;
+  box-sizing: border-box;
+  border: $dropdown-border-width solid $dropdown-border-color;
+  border-radius: $dropdown-border-radius;
+  box-shadow: $dropdown-box-shadow;
+  > div {
+    padding: divide( $dropdown-padding-y, 4 ) $input-padding-x;
+    &.selected, &:hover:not(.group) {
+      background-color: $gray-200;
+      color: $dropdown-link-hover-color;
+      cursor: pointer;
+    }
+  }
+  .group {
+    background-color: $gray-100;
+  }
+}

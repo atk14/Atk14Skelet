@@ -1,5 +1,5 @@
 h1 {
-	margin-bottom: $grid-gutter-width/2;
+	margin-bottom: divide($grid-gutter-width, 2);
 	@include media-breakpoint-up(lg){
 		margin-bottom: $grid-gutter-width;
 	}

@@ -9,9 +9,9 @@
 	line-height: 1;
 	width: $btnSize;
 	height: $btnSize;
-	border-radius: $btnSize/2;
+	border-radius: divide($btnSize, 2);
 	bottom: 0 - $btnSize;
-	right: $grid-gutter-width/4;
+	right: divide($grid-gutter-width, 4);
 	opacity: 0;
 	background-color: $primary;
 	color: white;
@@ -22,8 +22,8 @@
 		text-decoration: none;
 	}
 	&.active {
-		right: $grid-gutter-width/4;
-		bottom: $grid-gutter-width/2;
+		right: divide($grid-gutter-width, 4);
+		bottom: divide($grid-gutter-width, 2);
 		opacity: 1;
 	}
 }

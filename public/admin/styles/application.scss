@@ -42,11 +42,18 @@
 
 @import "dark_mode";
 
+@import "autocomplete";
+
+@import "tag_chooser";
+@import "notifications";
+
 @import "shared/clearfix";
 @import "shared/loading";
 @import "shared/buttons";
 @import "shared/js_utils";
 @import "shared/fileicons";
 @import "shared/dl_horizontal";
+//@import "shared/async_file_input";
 @import "shared/mark";
 @import "shared/suggestions";
+@import "shared/flash_messages";
