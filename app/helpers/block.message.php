@@ -25,7 +25,14 @@ function smarty_block_message($params,$content,$template,&$repeat){
 		$classes[] = $params["extra_class"];
 	}
 
-	$params["close_button"] && ( $content = '<button type="button" class="close" data-dismiss="alert">&times;</button>' . $content );
+	if(USING_BOOTSTRAP5){
+		$close_btn = '<button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>';
+		$params["close_button"] && ( $classes[] = "alert-dismissible" );
+	} else {
+		$close_btn = '<button type="button" class="close" data-dismiss="alert">&times;</button>';
+	}
+
+	$params["close_button"] && ( $content = $close_btn . $content );
 
 	return '<div class="'.join(" ",$classes).'">'.$content.'</div>';
 }

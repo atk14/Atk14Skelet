@@ -27,7 +27,7 @@ function smarty_function_admin_menu($params,$template){
 		"pull_down" => 0, // 1,2,3...
 	);
 
-	$float = USING_BOOTSTRAP4 ? "float" : "pull"; // float-right, pull-right
+	$float = USING_BOOTSTRAP3 ? "pull" : "float"; // pull-right, float-right,
 
 	$params += array(
 		"class" => $params["align"]=="left" ? "$float-left" : "$float-right", //
