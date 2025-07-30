@@ -7,7 +7,7 @@
 
 <div class="iobject iobject--picture">
 	<figure>
-		{if $render_link}<a class="iobject--picture__link" href="{!$picture|img_url:$geometry_detail}" title="{$picture->getTitle()}" data-pswp-width="{$picture|img_width:$geometry_detail}" data-pswp-height="{$picture|img_height:$geometry_detail}">{/if}
+		{if $render_link}<a class="iobject--picture__link" href="{!$picture|img_url:$geometry_detail}" title="{$picture->getTitle()} - {t}Enlarge image{/t}" data-pswp-width="{$picture|img_width:$geometry_detail}" data-pswp-height="{$picture|img_height:$geometry_detail}">{/if}
 		{render partial="shared/helpers/iobjects/picture/picture_tag"}
 		{if $render_link}</a>{/if}
 		{if ($picture->getTitle() && $picture->isTitleVisible()) || $picture->getDescription()}

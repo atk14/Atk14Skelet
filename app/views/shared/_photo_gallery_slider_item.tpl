@@ -1,6 +1,6 @@
 <div class="swiper-slide slider-item-{$image@iteration-1}" style="width: auto">
 	<figure class="gallery__item js_gallery_trigger" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-		<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" itemprop="contentUrl" data-preview_for="{$image->getId()}">
+		<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()} - {t}Enlarge image{/t}" itemprop="contentUrl" data-preview_for="{$image->getId()}">
 			<picture>
 				<source srcset="{!$image|img_url:($geometry_image|cat:",format=webp")}" type="image/webp">
 				<source srcset="{!$image|img_url:$geometry_image}">

@@ -64,5 +64,5 @@ function smarty_modifier_icon($glyph,$style = ""){
 	}
 
 	$s = $style[0]; // "style" -> "s"
-	return sprintf('<span class="fa%s fa-%s"></span>',$s,$glyph);
+	return sprintf('<span class="fa%s fa-%s" aria-hidden="true"></span>',$s,$glyph);
 }

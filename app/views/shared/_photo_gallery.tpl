@@ -21,7 +21,7 @@
 		<div class="gallery__images" itemscope itemtype="http://schema.org/ImageGallery">
 			{foreach $images as $image}
 				<figure class="gallery__item" itemprop="associatedMedia" itemscope itemtype="http://schema.org/ImageObject">
-					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()}" data-pswp-width="{$image|img_width:$geometry_detail}" data-pswp-height="{$image|img_height:$geometry_detail}" itemprop="contentUrl">
+					<a href="{$image|img_url:$geometry_detail}" title="{$image->getName()} - {t}Enlarge image{/t}" data-pswp-width="{$image|img_width:$geometry_detail}" data-pswp-height="{$image|img_height:$geometry_detail}" itemprop="contentUrl">
 						<picture>
 							<source srcset="{!$image|img_url:("x200"|cat:",format=webp")}" type="image/webp">
 							<source srcset="{!$image|img_url:"x200"}">
