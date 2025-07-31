@@ -229,6 +229,7 @@ import Sortable from "sortablejs";
 
 				} );
 			}
+
 		}
 	};
 
