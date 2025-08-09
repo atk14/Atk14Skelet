@@ -11,6 +11,10 @@
  *	{!"envelope"|icon:"light"}
  */
 function smarty_modifier_icon($glyph,$style = ""){
+	if(!USING_FONTAWESOME && USING_BOOTSTRAP3){
+		return sprintf('<span class="glyphicon glyphicon-%s"></span>',$glyph);
+	}
+
 	$tr_table = array(
 		"remove" => "times",
 		"eye-open" => "eye",
