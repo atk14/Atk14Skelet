@@ -25,7 +25,7 @@ function smarty_block_button_create_new($params,$content,$template,&$repeat){
 	$params += array(
 		"action" => "create_new",
 		"return_to_anchor" => "",
-		"icon" => "plus-circle",
+		"icon" => USING_FONTAWESOME ? "plus-circle" : "plus", 
 	);
 
 	$return_to_anchor = $params["return_to_anchor"];
@@ -56,7 +56,7 @@ function smarty_block_button_create_new($params,$content,$template,&$repeat){
 	}
 
 	$attrs += array(
-		"class" => "btn btn-outline-primary",
+		"class" => USING_BOOTSTRAP3 ? "btn btn-default" : "btn btn-outline-primary",
 	);
 
 	$original_smarty_vars = $smarty->getTemplateVars();
