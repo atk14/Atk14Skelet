@@ -18,6 +18,7 @@ function smarty_modifier_icon($glyph,$style = ""){
 	$tr_table = array(
 		"remove" => "times",
 		"eye-open" => "eye",
+		"ok" => "check",
 	);
 	$glyph = isset($tr_table[$glyph]) ? $tr_table[$glyph] : $glyph;
 
