@@ -35,7 +35,7 @@
 					{/if}
 				{/a}
 				<div class="iobject-code-wrap">
-					<span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span> <a href="#" class="iobject-copy-code btn btn-sm btn-outline-default" role="button" data-toggle="popover" data-trigger="focus" data-content="{t}Copied!{/t}" data-placement="top" tabindex="0"><span title="{t}Copy the line{/t}">{!"copy"|icon:"regular"}</span></a>
+					<span class="iobject-code" title="{t}copy this line to the text{/t}">{$iobject->getInsertMark()}</span> <a href="#" class="iobject-copy-code btn {if USING_BOOTSTRAP3}btn-xs btn-default{else}btn-sm btn-outline-default{/if}" role="button" {if USING_BOOTSTRAP5}data-bs-toggle="popover" data-bs-trigger="focus" data-bs-content="{t}Copied!{/t}" data-placement="top"{else}data-toggle="popover" data-trigger="focus" data-content="{t}Copied!{/t}" data-placement="top"{/if} tabindex="0"><span title="{t}Copy the line{/t}">{!"copy"|icon:"regular"}</span></a>
 				</div>
 			</li>
 
@@ -50,9 +50,13 @@
 {/if}
 
 <p>
-	{a action="pictures/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-outline-primary"}{!"camera"|icon} {t}Add image{/t}{/a}
-	{a action="galleries/create_new" table_name=$object->getTableName() record_id=$object return_uri=$request->getUri() _class="btn btn-outline-primary"}{!"images"|icon} {t}Add photogallery{/t}{/a}
-	{a action="files/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-outline-primary"}{!"file"|icon} {t}Add attachment{/t}{/a}
-	{a action="videos/create_new" table_name=$object->getTableName() record_id=$object _class="btn btn-outline-primary"}{!"video"|icon} {t}Add video{/t}{/a}
+	{assign class "btn btn-outline-primary"}
+	{if USING_BOOTSTRAP3}
+		{assign class "btn btn-default"}
+	{/if}
+	{a action="pictures/create_new" table_name=$object->getTableName() record_id=$object _class=$class}{!"camera"|icon} {t}Add image{/t}{/a}
+	{a action="galleries/create_new" table_name=$object->getTableName() record_id=$object return_uri=$request->getUri() _class=$class}{!"images"|icon} {t}Add photogallery{/t}{/a}
+	{a action="files/create_new" table_name=$object->getTableName() record_id=$object _class=$class}{!"file"|icon} {t}Add attachment{/t}{/a}
+	{a action="videos/create_new" table_name=$object->getTableName() record_id=$object _class=$class}{!"video"|icon} {t}Add video{/t}{/a}
 </p>
 
