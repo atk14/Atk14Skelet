@@ -52,7 +52,8 @@
 
     // nav left
     .has-nav-section{
-      .nav-section {
+      .nav-section, .sidebar__toggle {
+        border-color: $dark-border-color;
         background-color: #121212; //black;
         #nav-filter {
           border-color: $dark-border-color;

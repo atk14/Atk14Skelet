@@ -1,3 +1,7 @@
+$sidebarBackground: $gray-100;
+$sidebarBorder: 1px solid $border-color;
+
+
 // Applies CSS Grid for layout w/sidebar
 .body-wrap {
 	display: flex;
@@ -12,7 +16,8 @@
 		padding-top: $grid-gutter-width/2;
 	}
 	.nav-section {
-		background-color: $gray-200;
+		background-color: $sidebarBackground;
+		border-right: $sidebarBorder;
 		transition: opacity 1000ms;
 		ul.nav {
 			li.nav-item {
@@ -96,6 +101,8 @@
 		}
 		.sidebar__toggle {
 			display: flex !important;
+			background-color: $sidebarBackground;
+			border-right: $sidebarBorder;
 			grid-area: sidebar;
 			cursor: pointer;
 			width: 100%;//$collapsedWidth;
