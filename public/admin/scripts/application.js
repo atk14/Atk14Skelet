@@ -31,6 +31,9 @@
 				// Admin menu toggle on small devices
 				ADMIN.utils.adminMenuToggler();
 
+				// Admin menu toggle on large devices
+				ADMIN.utils.sidebarToggle();
+
 				// Dark mode toggle 
 				ADMIN.utils.darkModeToggler();
 			}
@@ -183,6 +186,17 @@
 						this.closest( ".nav-section" ).classList.toggle( "expanded" );
 					} );
 				};
+			},
+
+			// Admin menu toggle on large devices
+			sidebarToggle: function() {
+				let togglers = document.querySelectorAll( ".js--sidebar-toggle" );
+				[...togglers].forEach( ( toggler ) => {
+					toggler.addEventListener( "click", function( e ) {
+						e.preventDefault();
+						document.body.classList.toggle( "sidebar-collapsed" );
+					} );
+				} );
 			},
 
 			// Dark mode toggle 

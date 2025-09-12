@@ -1,5 +1,6 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-sm nav-login">
 	<div class="container-fluid">
+		
 		{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
 		{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}
 			{if $controller=="main" && $action=="index" && $namespace==""}
@@ -7,7 +8,12 @@
 			{else}
 				<span class="h1">{$appname}</span>
 			{/if}
-		{/a}		
+		{/a}
+		<div class="sidebar-toggle">
+			<button class="btn btn-link py-0 text-light js--sidebar-toggle" title="{t}Toggle sidebar{/t}" aria-label="{t}Toggle sidebar{/t}">
+				<img src="/public/admin/dist/images/window-sidebar--inverse.svg" alt="">
+			</button>
+		</div>		
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			{!"bars"|icon}
 		</button>

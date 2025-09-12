@@ -77,6 +77,10 @@
 						<nav class="nav-section">
 							{render partial="shared/layout/section_navigation"}
 						</nav>
+						<div class="sidebar__toggle d-none js--sidebar-toggle">
+							{!"chevron-right"|icon}
+
+						</div>
 					{/if}
 
 					<div class="content-main">
