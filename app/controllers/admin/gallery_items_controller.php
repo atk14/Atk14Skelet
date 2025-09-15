@@ -5,6 +5,8 @@ class GalleryItemsController extends AdminController{
 		$gallery = $this->gallery;
 		$this->_prepare_breadcrumbs($gallery);
 
+		$this->page_title = sprintf(_("Nový obrázek do fotogalerie %s"),h($gallery->getTitle()));
+
 		$this->_save_return_uri();
 		$return_uri = $this->_get_return_uri();
 
