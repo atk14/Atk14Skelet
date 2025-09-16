@@ -1,5 +1,5 @@
 <article>
-	{capture assign="article_meta"}{t author=$article->getAuthor()|user_name|h date=$article->getPublishedAt() date_human=$article->getPublishedAt()|format_date escape=no}Posted by <em>%1</em> on <time datetime="%2">%3</time>{/t}{/capture}
+	{capture assign=article_meta}{render partial="author_and_date"}{/capture}
 	{render partial="shared/layout/content_header" title=$article->getTitle() teaser=$article->getTeaser()|markdown tags=$tags meta=$article_meta}
 
 	{admin_menu for=$article}
