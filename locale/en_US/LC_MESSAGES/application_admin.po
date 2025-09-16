@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 12:19+0100\n"
-"PO-Revision-Date: 2025-01-28 12:22+0100\n"
+"POT-Creation-Date: 2025-09-16 13:31+0200\n"
+"PO-Revision-Date: 2025-09-16 13:41+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -623,6 +623,11 @@ msgstr "The redirection has been updated successfully"
 #: ../app/controllers/admin/galleries_controller.php:11
 msgid "Nová fotogalerie"
 msgstr "New photogallery"
+
+#: ../app/controllers/admin/gallery_items_controller.php:8
+#, php-format
+msgid "Nový obrázek do fotogalerie %s"
+msgstr "New image to the photo gallery %s"
 
 #: ../app/controllers/admin/images_controller.php:5
 #, php-format

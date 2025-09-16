@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 17:22+0100\n"
-"PO-Revision-Date: 2025-01-28 13:01+0100\n"
+"POT-Creation-Date: 2025-09-16 13:31+0200\n"
+"PO-Revision-Date: 2025-09-16 13:40+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
@@ -35,14 +35,15 @@ msgid "Error 2"
 msgstr "Chyba 2"
 
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:12
-msgid "The file has been already deleted on the server, please upload it again"
-msgstr "Soubor byl na serveru již smazán, nahrajte jej prosím znovu."
+msgid ""
+"The file has been already deleted on the server, please upload it again!"
+msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu!"
 
 #: ../vendor/atk14/async-file-field/src/app/fields/async_file_field.php:13
-msgid "The file was not fully uploaded, please upload it again"
-msgstr "Soubor nebyl zcela nahrán, nahrajte jej prosím znovu."
+msgid "The file was not fully uploaded, please upload it again!"
+msgstr "Soubor nebyl nahrán úplně, nahrajte jej prosím znovu!"
 
-#: ../vendor/atk14/async-file-field/src/app/widgets/async_file_input.php:20
+#: ../vendor/atk14/async-file-field/src/app/widgets/async_file_input.php:22
 msgid "Remove file"
 msgstr "Odstranit soubor"
 
@@ -215,6 +216,13 @@ msgstr "Napište něco jako cerna-kocka-bily-kocour"
 #: ../vendor/atk14/url-field/src/url_field.php:13
 msgid "This doesn't look like an URL"
 msgstr "Toto nevypadá jako URL"
+
+#~ msgid ""
+#~ "The file has been already deleted on the server, please upload it again"
+#~ msgstr "Soubor byl na serveru již smazán, nahrajte jej prosím znovu."
+
+#~ msgid "The file was not fully uploaded, please upload it again"
+#~ msgstr "Soubor nebyl zcela nahrán, nahrajte jej prosím znovu."
 
 #~ msgid "Hello World!"
 #~ msgstr "Ahoj světe!"

@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 17:22+0100\n"
-"PO-Revision-Date: 2025-03-28 11:13+0100\n"
+"POT-Creation-Date: 2025-09-16 13:31+0200\n"
+"PO-Revision-Date: 2025-09-16 13:35+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -77,6 +77,9 @@ msgstr "We are deeply sorry, but the page on the URI <em>%1</em> wasn't found."
 
 msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
+
+msgid "Posted on <time datetime=\"%1\">%2</time>"
+msgstr "Posted on <time datetime=\"%1\">%2</time>"
 
 msgid ""
 "This is not a published article! It's not available to the public audience."
@@ -151,9 +154,6 @@ msgstr "If you no longer wish to receive our news, you can unsubscribe at:"
 
 msgid "pro potvrzení odběru novinek klikněte na následující odkaz:"
 msgstr "click on the following link to confirm your subscription:"
-
-msgid "Potvrdit odběr novinek"
-msgstr "Confirm newsletter subscription"
 
 msgid "Hello %1!"
 msgstr "Hello %1!"
@@ -410,6 +410,9 @@ msgstr "Create a new record"
 
 msgid "Show menu"
 msgstr "Show menu"
+
+msgid "Enlarge image"
+msgstr "Enlarge image"
 
 msgid "zavřít"
 msgstr "close"
@@ -784,13 +787,14 @@ msgid "This is not your current password"
 msgstr "This is not your current password"
 
 #: ../app/fields/async_file_field.php:12
-msgid "The file has been already deleted on the server, please upload it again"
+msgid ""
+"The file has been already deleted on the server, please upload it again!"
 msgstr ""
-"The file has been already deleted on the server, please upload it again"
+"The file has been already deleted on the server, please upload it again!"
 
 #: ../app/fields/async_file_field.php:13
-msgid "The file was not fully uploaded, please upload it again"
-msgstr "The file was not fully uploaded, please upload it again"
+msgid "The file was not fully uploaded, please upload it again!"
+msgstr "The file was not fully uploaded, please upload it again!"
 
 #: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
@@ -872,6 +876,10 @@ msgstr "There is no tag <em>%s</em>"
 #, php-format
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Tag <em>%s</em> is there more than once"
+
+#: ../app/fields/user_field.php:7
+msgid "Takový uživatel neexistuje"
+msgstr "No such user exists"
 
 #: ../app/forms/api/suggestions/index_form.php:5
 #: ../app/forms/api/tags_suggestions/index_form.php:5
@@ -1069,7 +1077,7 @@ msgstr "inactive user"
 msgid "administrator"
 msgstr "administrator"
 
-#: ../app/widgets/async_file_input.php:20
+#: ../app/widgets/async_file_input.php:22
 msgid "Remove file"
 msgstr "Remove file"
 
@@ -1091,6 +1099,17 @@ msgstr "no image"
 #: ../app/widgets/pupiq_image_input.php:65
 msgid "Display image"
 msgstr "Display image"
+
+#~ msgid "Potvrdit odběr novinek"
+#~ msgstr "Confirm newsletter subscription"
+
+#~ msgid ""
+#~ "The file has been already deleted on the server, please upload it again"
+#~ msgstr ""
+#~ "The file has been already deleted on the server, please upload it again"
+
+#~ msgid "The file was not fully uploaded, please upload it again"
+#~ msgstr "The file was not fully uploaded, please upload it again"
 
 #~ msgid ""
 #~ "<em>ATK14 Mini Skelet</em> is the <a href=\"https://skelet.atk14.net/"
