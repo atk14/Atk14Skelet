@@ -39,9 +39,9 @@
 		<div class="lead">
 			{!$teaser}
 		</div>
+		{/if}
 		{if $meta|trim}
 			<p class="text-muted">{!$meta}</p>
-		{/if}
 		{/if}
 	</div>
 </header>
