@@ -8,16 +8,11 @@
 			{else}
 				<span class="h1">{$appname}</span>
 			{/if}
-		{/a}
-		<div class="sidebar-toggle">
-			<button class="btn btn-link py-0 text-light js--sidebar-toggle" title="{t}Toggle sidebar{/t}" aria-label="{t}Toggle sidebar{/t}">
-				<img src="/public/admin/dist/images/window-sidebar--inverse.svg" alt="">
-			</button>
-		</div>		
+		{/a}		
 		<button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavDropdown" aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			{!"bars"|icon}
 		</button>
-		<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+		<div class="collapse navbar-collapse justify-content-end align-items-stretch" id="navbarNavDropdown">
 			
 			<ul class="navbar-nav">
 				<li class="nav-item">
@@ -33,6 +28,14 @@
 						{/if}
 					</span>
 				</li>
+			</ul>
+			<ul class="navbar-nav">
+				<li class="nav-item d-none d-md-flex">
+					<div class="sidebar-toggle">
+						<button class="btn btn-link py-0 text-light js--sidebar-toggle" title="{t}Toggle sidebar{/t}" aria-label="{t}Toggle sidebar{/t}">
+							<img src="/public/admin/dist/images/window-sidebar--inverse.svg" alt="">
+						</button>
+					</div>
 				</li>
 				<li class="nav-item">
 					<div class="dark-mode-switch">
