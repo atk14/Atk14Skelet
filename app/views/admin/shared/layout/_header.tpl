@@ -33,7 +33,7 @@
 				<li class="nav-item d-none d-md-flex">
 					<div class="sidebar-toggle">
 						<button class="btn btn-link py-0 text-light js--sidebar-toggle" title="{t}Toggle sidebar{/t}" aria-label="{t}Toggle sidebar{/t}">
-							<img src="/public/admin/dist/images/window-sidebar--inverse.svg" alt="">
+							<span class="atk_icon atk_icon--sidebar"></span>
 						</button>
 					</div>
 				</li>

@@ -78,8 +78,7 @@
 							{render partial="shared/layout/section_navigation"}
 						</nav>
 						<div class="sidebar__toggle d-none js--sidebar-toggle">
-							{!"chevron-right"|icon}
-
+							<button class="btn btn-link"><span class="atk_icon atk_icon--sidebar"></span></button>
 						</div>
 					{/if}
 

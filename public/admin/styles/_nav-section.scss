@@ -73,16 +73,17 @@ nav.nav-section {
 
 	// nav collapse/expand toggler for big screens
 	.sidebar-toggle {
-		display: none;
+		display: flex;
 		justify-content: end;
-		@include media-breakpoint-up($nav-collapse-breakpoint) {
-			display: flex;
+		//@include media-breakpoint-up($nav-collapse-breakpoint) {
+		@include media-breakpoint-down($nav-collapse-breakpoint) {
+			display: none;
 		}
 		button {
-			border: none;
+			/*border: none;
 			background: none;
 			padding: 0.25rem 0.5rem;
-			color: $link-color;
+			color: $link-color;*/
 			&:hover {
 				text-decoration: none;
 				background-color: rgba($dark,0.05);
@@ -92,17 +93,12 @@ nav.nav-section {
 				background-color: $light;
 				border-width: $btn-border-width;
 			}
-			.collapse-icon {
-				&::before {
-					content: "";
-					display: inline-block;
-					width: 2px;
-					height: 0.75em;
-					//background-color: currentColor;
-					border-left: 2px dotted currentColor;
-					margin-right: 0.1em;
-					line-height: 1;
-				}
+		}
+	}
+	@include media-breakpoint-up($nav-collapse-breakpoint) {
+		.sidebar-toggle ~ .nav-section__collapsible {
+			ul.nav {
+				border-top: 1px solid $border-color;
 			}
 		}
 	}

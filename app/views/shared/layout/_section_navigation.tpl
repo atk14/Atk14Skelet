@@ -1,7 +1,7 @@
 {* Sidebar vertical nav menu used in admin *}
 	<button class="btn btn-light nav-section__toggle">{t}Menu{/t} {!"angle-down"|icon}</button>
 	<div class="sidebar-toggle">
-		<button class="js--sidebar-toggle"><span class="collapse-icon">{!"angle-left"|icon}</span></button>
+		<button class="btn btn-link js--sidebar-toggle"><span class="atk_icon atk_icon--sidebar"></span></button>
 	</div>
 	
 	<div class="nav-section__collapsible">{* all things collapsible in mobile view go here *}

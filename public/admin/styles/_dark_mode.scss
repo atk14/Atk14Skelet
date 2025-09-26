@@ -62,6 +62,7 @@
           }
         }
         ul.nav {
+          border-color: $dark-border-color;
           li.nav-item {
             a.nav-link:not(.active) {
               color: $gray-300;
@@ -185,7 +186,7 @@
 
 // few small animations for smoother change 
 body {
-  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item, .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .progress, .drop-zone {
+  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item, .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .progress, .drop-zone, .sidebar__toggle {
     transition: background-color 0.75s, border-color 0.75s;
   }
 }
