@@ -217,3 +217,8 @@ form {
 		border: 1px solid $input-border-color;
 	}
 }
+
+// md editors are resizable vertically only
+.md-editor {
+	resize: vertical !important;
+};
