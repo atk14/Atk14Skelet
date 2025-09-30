@@ -14,6 +14,7 @@
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
+				new UTILS.MDEditorResizer();
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
 				window.UTILS.TagChooser.init();
