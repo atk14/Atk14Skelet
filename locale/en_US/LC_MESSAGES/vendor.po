@@ -7,7 +7,7 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-01-28 12:00+0100\n"
+"POT-Creation-Date: 2025-10-01 12:58+0200\n"
 "PO-Revision-Date: 2022-04-25 16:30+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
@@ -17,21 +17,21 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "X-Generator: Poedit 2.4.2\n"
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:47
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:68
+msgid "No mail has been sent"
+msgstr "No mail has been sent"
+
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:79
 msgid "Headers"
 msgstr "Headers"
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:58
-msgid "HTML body"
-msgstr "HTML body"
-
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:64
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:90
 msgid "Plain text body"
 msgstr "Plain text body"
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:74
-msgid "No mail has been sent"
-msgstr "No mail has been sent"
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:98
+msgid "HTML body"
+msgstr "HTML body"
 
 #: ../vendor/atk14/slug-field/src/slug_field.php:8
 msgid "Slug"
