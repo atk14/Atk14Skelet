@@ -17,8 +17,11 @@ form {
 				display: flex;
 				flex-direction: column;
 				align-items: stretch;
+				.md-preview {
+					color: $body-color;
+				}
 			}
-			.md-editor {
+			.md-editor, .md-preview {
 				flex-grow: 1000;
 				height: auto !important;
 			}
