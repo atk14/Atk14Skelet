@@ -86,8 +86,11 @@ class ReindexDatabaseRobot extends ApplicationRobot {
 				if(!$exception_thrown){
 					$this->logger->info("table $table reindexed");
 					$this->logger->flush();
+					$this->_commit();
 					break;
 				}
+
+				$this->_rollback();
 
 				if($retries<=0){
 					$this->logger->info("table $table was NOT reindexed, exiting...");

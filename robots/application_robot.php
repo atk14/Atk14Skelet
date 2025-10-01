@@ -21,4 +21,9 @@ class ApplicationRobot extends Atk14Robot{
 		$this->dbmole->commit();
 		$this->dbmole->begin();
 	}
+
+	function _rollback(){
+		$this->dbmole->rollback();
+		$this->dbmole->begin();
+	}
 }
