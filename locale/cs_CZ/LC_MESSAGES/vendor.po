@@ -7,15 +7,15 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-16 13:31+0200\n"
-"PO-Revision-Date: 2025-09-16 13:40+0200\n"
+"POT-Creation-Date: 2025-10-01 13:11+0200\n"
+"PO-Revision-Date: 2022-04-25 17:22+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: \n"
 "Language: cs_CZ\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
-"X-Generator: Poedit 3.4.2\n"
+"X-Generator: Poedit 2.4.2\n"
 
 #: ../vendor/atk14/async-file-field/src/app/controllers/api/temporary_file_uploads_controller.php:36
 msgid "Temporary file uploading is not enabled"
@@ -142,21 +142,21 @@ msgstr ""
 "Při komunikaci s rozhraním captcha API se vyskytl technický problém. Zkuste "
 "to prosím později."
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:47
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:68
+msgid "No mail has been sent"
+msgstr "Žádný e-mail nebyl odeslán"
+
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:79
 msgid "Headers"
 msgstr "Hlavičky"
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:58
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:90
 msgid "Plain text body"
 msgstr "Prostý text"
 
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:66
+#: ../vendor/atk14/mail-panel/src/MailPanel.php:98
 msgid "HTML body"
 msgstr "HTML text"
-
-#: ../vendor/atk14/mail-panel/src/MailPanel.php:74
-msgid "No mail has been sent"
-msgstr "Žádný e-mail nebyl odeslán"
 
 #: ../vendor/atk14/phone-field/src/phone_field.php:62
 msgid "Enter phone number in format %sample_phone_number%"
