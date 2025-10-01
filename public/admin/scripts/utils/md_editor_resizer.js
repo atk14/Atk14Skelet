@@ -12,7 +12,7 @@ window.UTILS.MDEditorResizer = class {
     
     // Set storage record key based on controller and record ID
     const params = new URLSearchParams(window.location.search);
-    this.recordId = params.get('id');
+    this.recordId = params.get( "id" );
     this.controller = document.body.dataset.controller;
     this.storageName = "md_editors_" + this.controller + "_" + this.recordId
 
@@ -44,8 +44,8 @@ window.UTILS.MDEditorResizer = class {
     // Mark editor as having assigned resize handler
     editor.dataset.height_handler = true;
     // Assign event handler
-    editor.addEventListener( "mouseup", ( e ) => {
-      this.onEditorResize( e.currentTarget );
+    editor.addEventListener( "mouseup", () => {
+      this.onEditorResize();
     } );
   }
 
@@ -53,7 +53,7 @@ window.UTILS.MDEditorResizer = class {
    * Handler for editor resize event
    * @param {*} editor 
    */
-  onEditorResize( editor ) {
+  onEditorResize() {
     this.storeHeights();
   }
 
