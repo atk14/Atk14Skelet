@@ -1,3 +1,15 @@
+/**
+ * MD Editor Resizer
+ * Object for handling resizing of markdown editors.
+ * It remembers the heights of editors in sessionStorage
+ * and restores them when the form is reloaded.
+ * If user resizes an MD editor, its height is restored after reload.
+ * TODO: It should also restore height after MD editor goes fullscreen and back.
+ * 
+ * Usage:
+ *   new UTILS.MDEditorResizer();
+ */
+
 window.UTILS = window.UTILS || { };
 
 window.UTILS.MDEditorResizer = class {
@@ -51,7 +63,6 @@ window.UTILS.MDEditorResizer = class {
 
   /**
    * Handler for editor resize event
-   * @param {*} editor 
    */
   onEditorResize() {
     this.storeHeights();

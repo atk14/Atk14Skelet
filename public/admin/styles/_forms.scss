@@ -250,6 +250,7 @@ form {
 // md editors are resizable vertically only
 .md-editor {
 	resize: vertical !important;
+	min-height: 80px;
 };
 
 // Sticky Save Buttons container in forms
