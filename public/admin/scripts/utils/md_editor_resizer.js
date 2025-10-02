@@ -14,8 +14,9 @@ window.UTILS = window.UTILS || { };
 
 window.UTILS.MDEditorResizer = class {
   recordId = null;
-  controller = ""
-  storageName = ""
+  controller = "";
+  storageName = "";
+  observer = null;
 
 
   constructor() {
@@ -34,6 +35,8 @@ window.UTILS.MDEditorResizer = class {
     this.assignResizeHandlers();
     // Start MutationObserver to detect when form is loaded via AJAX
     this.startMutationObserver();
+
+    this.observeFullscreenChanges();
 
   }
 
@@ -76,18 +79,56 @@ window.UTILS.MDEditorResizer = class {
    */
   startMutationObserver() {
     // MutationObserver for detecting changes in DOM - namely when form was loaded via AJAX
-    const observer = new MutationObserver( ( mutations ) => {    
+    this.observer = new MutationObserver( ( mutations ) => {    
       mutations.forEach( ( mutation ) => {
-        if ( mutation.addedNodes.length > 0 ) {
-          this.onDOMMutation();
+        console.log( "mutation", mutation.type);
+        if (mutation.type === "childList") {
+          if ( mutation.addedNodes.length > 0 ) {
+            this.onDOMMutation();
+          }
+        } else if ( mutation.type === "attributes" ) {
+          console.log( "Attributes changed", mutation.target, mutation.attributeName, mutation.oldValue );
+          if ( mutation.target.classList.contains( "md-fullscreen" ) ) {
+            // An MD editor had its attributes changed - possibly it went fullscreen or exited fullscreen
+            //this.onDOMMutation();
+            const oldClasses = mutation.oldValue ? mutation.oldValue.split(' ') : [];
+            const newClasses = mutation.target.className.split(' ');
+
+            // Find added classes
+            const added = newClasses.filter(cls => !oldClasses.includes(cls));
+      
+            // Find removed classes
+            const removed = oldClasses.filter(cls => !newClasses.includes(cls));
+
+            if ( added.includes( "md-fullscreen" ) ) {
+              console.log( "An MD editor went fullscreen" );
+              //this.onEditorFullscreen();
+            }
+            if ( removed.includes( "md-fullscreen" ) ) {
+              console.log( "An MD editor exited fullscreen" );
+              //this.onDOMMutation();
+            }
+          }
         }
       });
     });
 
     // Start observing .content-main for childList changes
-    observer.observe( document.querySelector( ".content-main" ), {
+    this.observer.observe( document.querySelector( ".content-main" ), {
       childList: true,
       subtree: false
+    } );
+  }
+
+  observeFullscreenChanges(){
+    let editors = document.querySelectorAll( ".md-container" );
+    [...editors].forEach( ( editor ) => {
+      this.observer.observe( editor, {
+        attributes: true,
+        attributeFilter: ["class"],
+        subtree: false,
+        childList: false,
+      } );
     } );
   }
 
