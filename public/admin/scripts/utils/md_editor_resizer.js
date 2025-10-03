@@ -20,9 +20,7 @@ window.UTILS.MDEditorResizer = class {
 
 
   constructor() {
-    
-    console.log( "MDEditorResizer initialized" );
-    
+        
     // Set storage record key based on controller and record ID
     const params = new URLSearchParams(window.location.search);
     this.recordId = params.get( "id" );
@@ -86,38 +84,21 @@ window.UTILS.MDEditorResizer = class {
     // MutationObserver for detecting changes in DOM - namely when form was loaded via AJAX
     this.observer = new MutationObserver( ( mutations ) => {    
       mutations.forEach( ( mutation ) => {
-        console.log( "mutation", mutation.type);
+        //console.log( "mutation", mutation.type);
         if (mutation.type === "childList") {
           if ( mutation.addedNodes.length > 0 ) {
             this.onDOMMutation();
           }
         } else if ( mutation.type === "attributes" ) {
-          console.log( "Attributes changed", mutation.target, mutation.attributeName, mutation.oldValue );
+          //console.log( "Attributes changed", mutation.target, mutation.attributeName, mutation.oldValue );
           if ( mutation.target.classList.contains( "md-container" ) ) {
             // An MD editor had its attributes changed - possibly it went fullscreen or exited fullscreen
             //this.onDOMMutation();
-            const oldClasses = mutation.oldValue ? mutation.oldValue.split(' ') : [];
-            const newClasses = [...mutation.target.classList];//.split(' ');
-            console.log( "Old classes:", oldClasses, typeof(oldClasses) );
-            console.log( "New classes:", newClasses, typeof(newClasses) );
-            console.log( "mutation.target.classList", mutation.target.classList, typeof(mutation.target.classList) );
+            const oldClasses = mutation.oldValue ? mutation.oldValue.split( " " ) : [];
+            const newClasses = [...mutation.target.classList];
 
-            // Find added classes
-            const added = newClasses.filter(cls => !oldClasses.includes(cls));
-      
-            // Find removed classes
-            const removed = oldClasses.filter(cls => !newClasses.includes(cls));
-
-            console.log( "Added classes:", added );
-            console.log( "Removed classes:", removed );
-
-            if ( added.includes( "md-fullscreen" ) ) {
-              console.log( "An MD editor went fullscreen" );
-              //this.onEditorFullscreen();
-            }
-            //if ( removed.includes( "md-fullscreen" ) ) {
             if ( !mutation.target.classList.contains( "md-fullscreen" ) ) {
-              console.log( "An MD editor exited fullscreen" );
+              //console.log( "An MD editor exited fullscreen" );
               this.restoreHeights();
             }
           }
@@ -189,7 +170,7 @@ window.UTILS.MDEditorResizer = class {
       let storageObject = JSON.parse( sessionStorage.getItem( this.storageName ) );
       if ( storageObject && storageObject.editors ) {
         storageObject.editors.forEach( ( item ) => {
-          console.log( "Restoring height", item.id, item.height );
+          //console.log( "Restoring height", item.id, item.height );
           //let textarea = document.getElementById( item.id );
           let formgrup = document.getElementById( item.id )?.closest( ".form-group" );
           let editor = formgrup?.querySelector( ".md-editor" );

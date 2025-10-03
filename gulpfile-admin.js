@@ -35,6 +35,7 @@ var applicationScripts = [
 	"public/admin/scripts/utils/tag_chooser.js",
 	"public/scripts/utils/notifications.js",
 	"public/admin/scripts/utils/md_editor_resizer.js",
+	"public/admin/scripts/utils/collapsible_sidebar.js",
 	"public/admin/scripts/application.js",
 ];
 
