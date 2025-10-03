@@ -94,8 +94,8 @@ window.UTILS.MDEditorResizer = class {
           if ( mutation.target.classList.contains( "md-container" ) ) {
             // An MD editor had its attributes changed - possibly it went fullscreen or exited fullscreen
             //this.onDOMMutation();
-            const oldClasses = mutation.oldValue ? mutation.oldValue.split( " " ) : [];
-            const newClasses = [...mutation.target.classList];
+            //const oldClasses = mutation.oldValue ? mutation.oldValue.split( " " ) : [];
+            //const newClasses = [...mutation.target.classList];
 
             if ( !mutation.target.classList.contains( "md-fullscreen" ) ) {
               //console.log( "An MD editor exited fullscreen" );
