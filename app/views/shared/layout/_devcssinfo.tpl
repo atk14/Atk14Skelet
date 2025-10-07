@@ -9,13 +9,13 @@
 	<span class="badge badge-info d-none d-lg-block d-xl-none">LG</span>
 	<span class="badge badge-secondary d-none d-xl-block">XL</span>
 	<div class="text-center" style="font-size: 12px; font-weight: bold;" id="js-devcssinfo_text">&hellip;</div>
-	<script>
+	{javascript_tag}
 		window.onresize = devinfocss_update;
 		function devinfocss_update( event ){
 			document.getElementById( 'js-devcssinfo_text' ).innerHTML = ( window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth ) + ' px';
 		}
-		devinfocss_update( null );		
-	</script>
+		devinfocss_update( null );
+	{/javascript_tag}
 	<style scoped="true">
 		#js-devcssinfo {
 			position: fixed;

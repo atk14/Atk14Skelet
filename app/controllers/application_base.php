@@ -125,7 +125,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->response->setHeader("X-XSS-Protection","1; mode=block");
 		$this->response->setHeader("Referrer-Policy","same-origin"); // "same-origin", "strict-origin", "strict-origin-when-cross-origin"...
 		$this->response->setHeader("X-Content-Type-Options","nosniff");
-		//$this->response->setHeader("Content-Security-Policy","default-src 'self' data: 'unsafe-inline' 'unsafe-eval'");
+		//$this->response->setHeader("Content-Security-Policy","default-src 'self'; data 'unsafe-inline' 'unsafe-eval';");
 
 		$this->response->setHeader("X-Powered-By","ATK14 Framework");
 
