@@ -48,8 +48,6 @@ gulp.task( "styles", function() {
 			]
 		} ) )
 		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
-		/*.pipe( $.autoprefixer( { grid: true } ) )
-		.pipe( $.cssnano() )*/
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
@@ -61,8 +59,6 @@ gulp.task( "styles-vendor", function() {
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css" ) )
 		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
-		/*.pipe( $.autoprefixer() )
-		.pipe( $.cssnano( { svgo: false } ) )*/
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )

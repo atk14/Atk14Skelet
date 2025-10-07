@@ -50,8 +50,6 @@ gulp.task( "styles-admin", function() {
 			]
 		} ) )
 		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
-		/*.pipe( $.autoprefixer( { grid: true } ) )
-		.pipe( $.cssnano() )*/
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
@@ -63,8 +61,6 @@ gulp.task( "styles-vendor-admin", function() {
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concatCss( "vendor.css", { rebaseUrls: false } ) )
 		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
-		/*.pipe( $.autoprefixer() )
-		.pipe( $.cssnano() )*/
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
