@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-03-27 17:22+0100\n"
-"PO-Revision-Date: 2025-03-27 17:23+0100\n"
+"POT-Creation-Date: 2025-09-16 13:31+0200\n"
+"PO-Revision-Date: 2025-10-01 13:10+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -79,6 +79,9 @@ msgstr ""
 
 msgid "Posted by <em>%1</em> on <time datetime=\"%2\">%3</time>"
 msgstr "Zaslal <em>%1</em> dne <time datetime=\"%2\">%3</time>"
+
+msgid "Posted on <time datetime=\"%1\">%2</time>"
+msgstr "Publikováno dne <time datetime=\"%1\">%2</time>"
 
 msgid ""
 "This is not a published article! It's not available to the public audience."
@@ -154,9 +157,6 @@ msgstr ""
 
 msgid "pro potvrzení odběru novinek klikněte na následující odkaz:"
 msgstr "pro potvrzení odběru novinek klikněte na následující odkaz:"
-
-msgid "Potvrdit odběr novinek"
-msgstr "Potvrdit odběr novinek"
 
 msgid "Hello %1!"
 msgstr "Dobrý den %1!"
@@ -410,6 +410,9 @@ msgstr "Vytvořit nový záznam"
 
 msgid "Show menu"
 msgstr "Ukázat nabídku"
+
+msgid "Enlarge image"
+msgstr "Zvětšit obrázek"
 
 msgid "zavřít"
 msgstr "zavřít"
@@ -782,12 +785,13 @@ msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
 #: ../app/fields/async_file_field.php:12
-msgid "The file has been already deleted on the server, please upload it again"
-msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
+msgid ""
+"The file has been already deleted on the server, please upload it again!"
+msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu!"
 
 #: ../app/fields/async_file_field.php:13
-msgid "The file was not fully uploaded, please upload it again"
-msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
+msgid "The file was not fully uploaded, please upload it again!"
+msgstr "Soubor nebyl nahrán úplně, nahrajte jej prosím znovu!"
 
 #: ../app/fields/boolean_with_select_field.php:11
 msgid "Ano"
@@ -870,6 +874,10 @@ msgstr "Štítek <em>%s</em> neexistuje"
 #, php-format
 msgid "Tag <em>%s</em> is there more than once"
 msgstr "Štítek <em>%s</em> je uveden vícekrát"
+
+#: ../app/fields/user_field.php:7
+msgid "Takový uživatel neexistuje"
+msgstr "Takový uživatel neexistuje"
 
 #: ../app/forms/api/suggestions/index_form.php:5
 #: ../app/forms/api/tags_suggestions/index_form.php:5
@@ -1067,7 +1075,7 @@ msgstr "neaktivní uživatel"
 msgid "administrator"
 msgstr "administrátor"
 
-#: ../app/widgets/async_file_input.php:20
+#: ../app/widgets/async_file_input.php:22
 msgid "Remove file"
 msgstr "Odstranit soubor"
 
@@ -1089,6 +1097,16 @@ msgstr "bez obrázku"
 #: ../app/widgets/pupiq_image_input.php:65
 msgid "Display image"
 msgstr "Zobrazit obrázek"
+
+msgid "Potvrdit odběr novinek"
+msgstr "Potvrdit odběr novinek"
+
+#~ msgid ""
+#~ "The file has been already deleted on the server, please upload it again"
+#~ msgstr "Soubor již byl na serveru smazán, nahrajte jej prosím znovu"
+
+#~ msgid "The file was not fully uploaded, please upload it again"
+#~ msgstr "Soubor nebyl plně nahrán, nahrajte jej prosím znovu"
 
 #~ msgid ""
 #~ "This is not a visible page! It's not available to the public audience."
@@ -2079,3 +2097,13 @@ msgstr "Zobrazit obrázek"
 
 #~ msgid "Welcome at ATK14 Mini Skelet!"
 #~ msgstr "Vítejte na ATK14 Mini Skelet!"
+
+#~ msgid ""
+#~ "<em>ATK14 Mini Skelet</em> is the <a href=\"https://skelet.atk14.net/"
+#~ "\">ATK14 Skelet</a> on a heavy diet. All the unnecessary meat has been "
+#~ "cut away and what's left would like to be the very basis of your web "
+#~ "application."
+#~ msgstr ""
+#~ "<em>ATK14 Mini Skelet</em> je <a href=\"https://skelet.atk14.net/\">ATK14 "
+#~ "Skelet</a> na přísné dietě. Veškeré zbytečné maso bylo odstraněno a to, "
+#~ "co zbylo, by mohlo být skutečným základem vaší webové aplikace."

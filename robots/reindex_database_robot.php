@@ -43,6 +43,13 @@ class ReindexDatabaseRobot extends ApplicationRobot {
 			$bind_ar[":start_with_table"] = "$schema.$start_with_table";
 		}
 
+		$concurrently_reindexing = $this->dbmole->getDatabaseType()==="postgresql" && $this->dbmole->getDatabaseServerVersion("as_float")>12.0 && $this->dbmole->getDatabaseClientVersion("as_float")>12.0;
+
+		if($concurrently_reindexing){
+			// REINDEX CONCURRENTLY cannot run inside a transaction block
+			$this->dbmole->rollback();
+		}
+
 		$tables = $this->dbmole->selectIntoArray("
 			SELECT tablename FROM (
 				SELECT
@@ -69,7 +76,7 @@ class ReindexDatabaseRobot extends ApplicationRobot {
 			while(1){
 				$exception_thrown = false;
 				try {
-					$this->dbmole->doQuery("REINDEX TABLE $table");
+					$this->dbmole->doQuery($concurrently_reindexing ? "REINDEX TABLE CONCURRENTLY $table" : "REINDEX TABLE $table");
 				}catch(Exception $e){
 					$exception_thrown = true;
 					$message = $e->getMessage();
@@ -84,10 +91,13 @@ class ReindexDatabaseRobot extends ApplicationRobot {
 				}
 
 				if(!$exception_thrown){
-					$this->logger->info("table $table reindexed");
+					$this->logger->info("table $table reindexed".($concurrently_reindexing ? " concurrently" : ""));
 					$this->logger->flush();
+					!$concurrently_reindexing && $this->_commit();
 					break;
 				}
+
+				!$concurrently_reindexing && $this->_rollback();
 
 				if($retries<=0){
 					$this->logger->info("table $table was NOT reindexed, exiting...");
