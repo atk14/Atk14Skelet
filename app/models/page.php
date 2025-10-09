@@ -106,8 +106,14 @@ class Page extends ApplicationModel implements Translatable, Rankable, iSlug {
 		return !$this->hasSubpages();
 	}
 
-	function isVisible(){
-		return $this->getVisible();
+	function isVisible($check_parent_visibility = true){
+		$visible = $this->g("visible");
+		if(!$visible){ return false; }
+		if($check_parent_visibility){
+			$parent = $this->getParentPage();
+			if($parent){ return $parent->isVisible(); }
+		}
+		return true;
 	}
 
 	function isIndexable($check_parents = true){
