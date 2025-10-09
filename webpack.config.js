@@ -80,7 +80,8 @@ var config = {
           yandex: false
         }
       }
-    } ),
+    },
+  ),
     new IgnoreEmitPlugin( ignoredFiles ),
     require ('autoprefixer'),
     new MiniCssExtractPlugin( {
@@ -128,7 +129,16 @@ var config = {
         } 
       },
       {
-        test: /\.(sa|sc|c)ss$/,
+        test: /\.css$/,
+        use: [
+          MiniCssExtractPlugin.loader,
+          'css-loader',
+          'postcss-loader'  // ← přidej toto
+        ]
+      },
+      {
+        test: /\.(sa|sc)ss$/,
+        //test: /\.(sa|sc|c)ss$/,
         use: [
           MiniCssExtractPlugin.loader,
           {
