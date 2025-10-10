@@ -1,0 +1,10 @@
+/*
+Styles for screen readers were renamed in Bootstrap v5
+Here are Bootstrap 4 class names for compoatibility
+*/
+.sr-only { 
+  @extend .visually-hidden;
+}
+.sr-only-focusable { 
+  @extend .visually-hidden-focusable;
+}
