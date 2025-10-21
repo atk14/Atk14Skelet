@@ -77,6 +77,9 @@ window.UTILS.CollapsibleSidebar = class {
   restoreSidebarState() {
     if( sessionStorage.getItem( this.storageName ) !== null ) {
       this.sidebarOpen = sessionStorage.getItem( this.storageName ) === "true";
+      setTimeout( () => {
+        document.querySelector( ".has-nav-section" ).classList.add( "with-animation" );
+      }, 100 );
     }
   }
 };

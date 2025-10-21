@@ -63,7 +63,9 @@ $sidebarBorder: 1px solid $border-color;
 		display: grid;
 		grid-template-columns: 200px 1fr;
 		grid-template-areas: 'sidebar mainbody';
-		transition: grid-template-columns 100ms;
+		&.with-animation {
+			transition: grid-template-columns 100ms;
+		}
 		.nav-section {
 			grid-area: sidebar;
 			ul.nav {

@@ -184,6 +184,9 @@
         background-color: $gray-900;
       }
     }
+    hr, .admin-block-text dl > hr {
+      border-color: $dark-border-color;
+    }
   }
 }
 

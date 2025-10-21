@@ -35,6 +35,7 @@ Use <div class="admin-block-text">...</div> to wrap such text blocks.
       border-top: 1px solid $border-color;
       margin: 0 0;
       grid-column: 1 / -1;
+      opacity: 1;
     }
 
     @include media-breakpoint-down(sm) {
