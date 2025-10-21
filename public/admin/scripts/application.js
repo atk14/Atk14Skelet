@@ -37,6 +37,8 @@
 
 				// Dark mode toggle 
 				ADMIN.utils.darkModeToggler();
+
+				UTILS.EnhancedFileField.init();
 			}
 
 		},
