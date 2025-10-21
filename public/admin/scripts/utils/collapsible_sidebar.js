@@ -30,15 +30,15 @@ window.UTILS.CollapsibleSidebar = class {
 
   /**
    * Getters and setters for sidebarOpen property
-   *  Setting sidebarOpen to true opens the sidebar (removes "sidebar-collapsed" class from body)
+   *  Setting sidebarOpen to true opens the sidebar (removes "sidebar-collapsed" class from root html element (=documentElement))
    *  @param {boolean} state
    */
   set sidebarOpen( state ) {
     this.#sidebarOpen = state;
-    if ( state && document.body.classList.contains( "sidebar-collapsed" ) ) {
-      document.body.classList.remove( "sidebar-collapsed" );
+    if ( state && document.documentElement.classList.contains( "sidebar-collapsed" ) ) {
+      document.documentElement.classList.remove( "sidebar-collapsed" );
     } else if ( !state ){
-      document.body.classList.add( "sidebar-collapsed" );
+      document.documentElement.classList.add( "sidebar-collapsed" );
     }
     this.saveSidebarState();
   }

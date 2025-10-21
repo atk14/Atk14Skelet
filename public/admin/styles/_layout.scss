@@ -61,14 +61,16 @@ $sidebarBorder: 1px solid $border-color;
 	
 	@include media-breakpoint-up(md){
 		display: grid;
-		grid-template-columns: 200px 1fr;
+		grid-template-columns: $nav-section-width 1fr;
 		grid-template-areas: 'sidebar mainbody';
 		&.with-animation {
-			transition: grid-template-columns 100ms;
+			transition: grid-template-columns 200ms;
 		}
 		.nav-section {
+			overflow-x: hidden;
 			grid-area: sidebar;
 			ul.nav {
+				width: $nav-section-width;
 				&--sticky {
 					position: sticky;
 					top: 0;
@@ -96,11 +98,12 @@ $sidebarBorder: 1px solid $border-color;
 			outline: none;
 		}
 	}
-	body.sidebar-collapsed {
+	html.sidebar-collapsed {
 		.has-nav-section {
 			grid-template-columns: $collapsedWidth 1fr;
 			.nav-section {
-				display: none;
+				overflow-x: hidden;
+				//display: none;
 				opacity: 0;
 			}
 		}

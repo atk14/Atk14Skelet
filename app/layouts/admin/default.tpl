@@ -59,6 +59,15 @@
 		
 		{render partial="shared/layout/favicons"}
 
+		{javascript_tag}
+			window.name = window.name || "name_" + Math.round(  Math.random() * 1000000 );
+    	let storageName = "admin_sidebarOpen_" + window.name;
+			let savedSidebarStatus = window.sessionStorage.getItem( storageName ) || "";
+			if( savedSidebarStatus !== true && savedSidebarStatus !== "true" ) {
+				document.documentElement.classList.add( "sidebar-collapsed" );
+			}
+		{/javascript_tag}
+
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 
 		<meta name="robots" content="noindex,noarchive">
