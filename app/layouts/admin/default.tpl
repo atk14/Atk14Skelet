@@ -64,7 +64,6 @@
     	let storageName = "admin_sidebarOpen_" + window.name;
 			
 			let savedSidebarStatus = window.sessionStorage.getItem( storageName ) || null;
-			console.log( "Saved sidebar status:", savedSidebarStatus );
 			if( savedSidebarStatus !== true && savedSidebarStatus !== "true" && savedSidebarStatus !== null ) {
 				document.documentElement.classList.add( "sidebar-collapsed" );
 			}
