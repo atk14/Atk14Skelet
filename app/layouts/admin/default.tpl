@@ -62,8 +62,10 @@
 		{javascript_tag}
 			window.name = window.name || "name_" + Math.round(  Math.random() * 1000000 );
     	let storageName = "admin_sidebarOpen_" + window.name;
-			let savedSidebarStatus = window.sessionStorage.getItem( storageName ) || "";
-			if( savedSidebarStatus !== true && savedSidebarStatus !== "true" ) {
+			
+			let savedSidebarStatus = window.sessionStorage.getItem( storageName ) || null;
+			console.log( "Saved sidebar status:", savedSidebarStatus );
+			if( savedSidebarStatus !== true && savedSidebarStatus !== "true" && savedSidebarStatus !== null ) {
 				document.documentElement.classList.add( "sidebar-collapsed" );
 			}
 		{/javascript_tag}
