@@ -9,3 +9,4 @@
 <hr>
 
 {render partial="shared/iobjects" object=$article}
+{render partial="admin/shared/layout_designer"}

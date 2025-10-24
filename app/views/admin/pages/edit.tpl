@@ -28,3 +28,4 @@
 {else}
 	<p>{t}This page has no subpages{/t}</p>	
 {/if}
+{render partial="admin/shared/layout_designer"}

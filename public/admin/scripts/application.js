@@ -61,6 +61,7 @@
 							} );
 						}
 					} );
+					new UTILS.LayoutDesigner( el.closest( ".form-group" ).querySelector( ".md-container" ) );
 				} );
 			},
 

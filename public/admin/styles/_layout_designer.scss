@@ -1,0 +1,27 @@
+.layout-designer {
+  &__columns {
+    display: block;
+    margin-bottom: 10px;
+    
+    outline: 1px dashed currentColor;
+    background-color: rgba($gray-500, 0.3);
+    padding: 2px;
+    .row {
+      margin: 0;align-items: stretch;
+      min-height: 40px;
+      
+      > * {
+        border: 1px solid red;
+        background-color: white;
+      }
+    }
+  }
+}
+
+#layout_designer_modal {
+  .modal-dialog {
+     width: 100%;
+    max-width: 800px;
+  }
+}
+ 

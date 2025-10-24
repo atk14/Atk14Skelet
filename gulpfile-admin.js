@@ -37,6 +37,7 @@ var applicationScripts = [
 	"public/scripts/utils/async_file_upload.js",
 	"public/admin/scripts/utils/tag_chooser.js",
 	"public/scripts/utils/notifications.js",
+	"public/admin/scripts/utils/layout_designer.js",
 	"public/admin/scripts/application.js",
 ];
 
