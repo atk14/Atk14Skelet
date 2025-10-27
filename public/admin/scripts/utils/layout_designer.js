@@ -2,33 +2,40 @@ window.UTILS = window.UTILS || { };
 
 window.UTILS.LayoutDesigner = class {
 
-  parentEditor;
-  toolbar;
-  toolbarButton;
+  //toolbar;
+  //toolbarButton;
   designer;
   countSelector;
   rowXL;
   designerModal;
+  columnCount = 0;
 
-  constructor( parentEditor ) {
-    this.parentEditor = parentEditor;
-    this.toolbar = parentEditor.querySelector( ".md-toolbar .btn-toolbar" );
+  constructor() {
+    //this.toolbar = parentEditor.querySelector( ".md-toolbar .btn-toolbar" );
 
     this.designer = document.getElementById( "layout-designer" );
     this.designerModal = document.getElementById( "layout_designer_modal" );
     this.countSelector = this.designer.querySelector( "#layout_designer_column_count" );
     this.rowXL = this.designer.querySelector( "#row_xl" );
 
-    this.createToolbarButton();
+    document.querySelectorAll( ".md-container" ).forEach( el => {
+      this.createToolbarButton( el );
+    } );
+    
+
+    this.rowXL = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xl" ) );
+
+    this.countSelector.addEventListener( "change", this.changeColumnCount.bind( this ) );
 
     this.designerModal.addEventListener( "show.bs.modal", () => {
       this.initModal();
     } );
   }
 
-  createToolbarButton() {
+  createToolbarButton( el ) {
     // Initialization code for LayoutDesigner
-    console.log( "LayoutDesigner initialized with parent editor:", this.parentEditor );
+    let toolbar = el.querySelector( ".md-toolbar .btn-toolbar" );
+    console.log( "LayoutDesigner initialized with parent editor:" );
     let btn = document.createElement( "button" );
     btn.type = "button";
     btn.className = "md-btn btn btn-default md-btn--icon";
@@ -41,26 +48,120 @@ window.UTILS.LayoutDesigner = class {
     let div = document.createElement( "div" );
     div.className = "button-group";
     div.appendChild( btn );
-    this.toolbar.appendChild( div );
-    this.toolbarButton = btn;
-    this.toolbarButton.addEventListener( "click", this.initModal.bind( this ) );
+    toolbar.appendChild( div );
+    btn.addEventListener( "click", this.initModal.bind( this ) );
+  }
+
+  changeColumnCount() {
+    let newCount = parseInt( this.countSelector.value, 10 );
+    let span =  Math.floor( 12 / newCount );
+    let colsToAdd = newCount - this.columnCount;
+    console.log( "Changing column count to:", newCount, "span", span, "colsToAdd", colsToAdd );
+    if ( colsToAdd > 0) {
+      for ( let i = 1; i <= colsToAdd; i++ ) {
+        this.rowXL.addCell( span );
+        console.log( "Added column", i );
+      }
+    } else if ( colsToAdd < 0 ) {
+      for ( let i = 1; i <= -colsToAdd; i++ ) {
+        //let lastCell = this.rowXL.cells[ this.rowXL.cells.length - 1 ];
+        //this.rowXL.remove( lastCell.element );
+        this.rowXL.removeLastCell();
+        console.log( "Remove column", i );
+      }
+    }
+    this.rowXL.evenWidths();
+    this.columnCount = newCount;
   }
 
   initModal() {
-    // Code to show modal dialog for layout selection
-    this.rowXL.innerHTML = "";
+    // Code on show modal dialog for layout selection
+    this.countSelector.selectedIndex = 1; // Default to 2 columns
+    this.rowXL.clear();
+    this.columnCount = 0;
     console.log( "Showing layout selection modal." );
-    let count = parseInt( this.countSelector.value, 10 );
-    let xlClass = "col-xl-" + Math.floor( 12 / count );
-    console.log( "Selected column count:", count );
+    /*let count = parseInt( this.countSelector.value, 10 );
+    let span =  Math.floor( 12 / count );
+    console.log( "Selected column count:", count, "span", span );
     for ( let i = 1; i <= count; i++ ) {
-      this.rowXL.appendChild( this.createColumn( xlClass ) );
-    }
+      this.rowXL.addCell( span );
+    }*/
+   this.changeColumnCount();
   }
 
-  createColumn( xlClass) {
-    let col = document.createElement( "div" );
-    col.className = "col " + xlClass;
-    return col;
+  
+};
+
+
+window.UTILS.LayoutDesignerRow = class {
+  element;
+  cells;
+  constructor( element ) {
+    this.element = element;
+    this.cells = [];
+  }
+  addCell( colspan ) {
+    let cell = new window.UTILS.LayoutDesignerCell( this, colspan );
+    this.cells.push( cell );
+    this.element.appendChild( cell.element );
+    return cell;
+  }
+  remove( cellElement ) {
+    this.element.removeChild( cellElement );
+    this.cells = this.cells.filter( c => c.element !== cellElement );
+  }
+  removeLastCell() {
+    let lastCell = this.cells.pop();
+    if ( lastCell ) {
+      this.element.removeChild( lastCell.element );
+    }
+  }
+  clear() {
+    this.cells.forEach( cell => cell.destroy() );
+    this.cells = [];
+    this.element.innerHTML = "";
+  }
+  evenWidths() {
+    let evenspan = Math.floor( 12 / this.cells.length );
+    this.cells.forEach( cell => {
+      cell.span = evenspan;
+    } );
+  }
+};
+
+
+window.UTILS.LayoutDesignerCell = class {
+  element;
+  #span;
+  constructor( parent, colspan ) {
+    this.parent = parent;
+    this.element = document.createElement( "div" );
+    let controls = document.querySelector("#layout_designer_cell_controls").content.cloneNode( true );
+    this.element.appendChild( controls );
+
+    this.element.querySelector( ".js-span-plus" ).addEventListener( "click", () => {
+      if ( this.#span < 12 ) {
+        this.span += 1;
+      }
+    } );
+    this.element.querySelector( ".js-span-minus" ).addEventListener( "click", () => {
+      if ( this.#span > 1 ) {
+        this.span -= 1;
+      }
+    } );
+    this.span = colspan;
+  }
+  set span ( n ) {
+    this.#span = n;
+    this.element.setAttribute( "data-span", this.#span );
+    this.element.className = "col-" + this.#span + "  col-xs-" + this.#span;
+    this.element.querySelector( ".js-span-display" ).innerHTML = this.#span;
+  }
+
+  get span() {
+    return this.#span;
+  }
+  destroy() {
+    this.parent.remove( this.element );
   }
 };

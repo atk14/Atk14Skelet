@@ -1,4 +1,9 @@
 <!-- Modal -->
+ <template id="layout_designer_cell_controls">
+  <div class="js-span-minus">-</div>
+  <div class="js-span-display">0</div>
+  <div class="js-span-plus">+</div>
+ </template>
 <div class="modal fade" id="layout_designer_modal" tabindex="-1" aria-labelledby="layout_modal_label" aria-hidden="true">
   <div class="modal-dialog">
     <div class="modal-content">

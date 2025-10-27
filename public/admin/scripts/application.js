@@ -14,6 +14,7 @@
 				window.UTILS.Suggestions.handleSuggestions();
 				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
+				new UTILS.LayoutDesigner();
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
 				window.UTILS.TagChooser.init();
@@ -61,7 +62,6 @@
 							} );
 						}
 					} );
-					new UTILS.LayoutDesigner( el.closest( ".form-group" ).querySelector( ".md-container" ) );
 				} );
 			},
 
