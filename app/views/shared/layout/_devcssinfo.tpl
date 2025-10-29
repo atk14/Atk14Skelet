@@ -9,14 +9,14 @@
 	<span class="badge bg-info d-none d-lg-block d-xl-none">LG</span>
 	<span class="badge bg-secondary d-none d-xl-block">XL</span>
 	<div class="text-center" style="font-size: 12px; font-weight: bold;" id="js-devcssinfo_text">&hellip;</div>
-	<script>
+	{javascript_tag}
 		window.onresize = devinfocss_update;
 		function devinfocss_update( event ){
 			document.getElementById( 'js-devcssinfo_text' ).innerHTML = ( window.innerWidth || document.documentElement.clientWidth || document.body.clientWidth ) + ' px';
 		}
-		devinfocss_update( null );		
-	</script>
-	<style scoped="true">
+		devinfocss_update( null );
+	{/javascript_tag}
+	{style_tag scoped="true"}
 		#js-devcssinfo {
 			position: fixed;
 			bottom: 10px;
@@ -33,6 +33,6 @@
 			transform: scale(2);
 			transition: transform 0.05s;
 		}
-	</style>
+	{/style_tag}
 </div>
 {/if}
