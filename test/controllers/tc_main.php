@@ -1,5 +1,6 @@
 <?php
 class TcMain extends TcBase{
+
 	function test_index(){
 		$this->client->get("main/index");
 		$this->assertEquals(200,$this->client->getStatusCode());
