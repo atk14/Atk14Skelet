@@ -1,8 +1,8 @@
 <!-- Modal -->
  <template id="layout_designer_cell_controls">
-  <div class="js-span-minus">-</div>
+  <div class="js-span-minus cellbtn">{!"square-minus"|icon}</div>
   <div class="js-span-display">0</div>
-  <div class="js-span-plus">+</div>
+  <div class="js-span-plus cellbtn">{!"square-plus"|icon}</div>
  </template>
 <div class="modal fade" id="layout_designer_modal" tabindex="-1" aria-labelledby="layout_modal_label" aria-hidden="true">
   <div class="modal-dialog">
@@ -28,9 +28,26 @@
           </select>
         </div>
 
-        <div class="layout-designer__columns" id="xxxxxx">
+        <div class="layout-designer__columns">
           <div class="row" id="row_xl">
-
+          </div>
+        </div>
+        <div class="layout-designer__columns">
+          <button class="btn btn-outline-primary" id="lg_btn-copy-up">copy up</button>
+          <button class="btn btn-outline-primary" id="lg_btn-copy-down">copy down</button>
+          <div class="row" id="row_lg">
+          </div>
+        </div>
+        <div class="layout-designer__columns">
+          <div class="row" id="row_md">
+          </div>
+        </div>
+        <div class="layout-designer__columns">
+          <div class="row" id="row_sm">
+          </div>
+        </div>
+        <div class="layout-designer__columns">
+          <div class="row" id="row_xs">
           </div>
         </div>
 

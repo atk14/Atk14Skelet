@@ -3,20 +3,34 @@
     display: block;
     margin-bottom: 10px;
     
-    outline: 1px dashed currentColor;
-    background-color: rgba($gray-500, 0.3);
-    padding: 2px;
+    
+    
     .row {
       margin: 0;align-items: stretch;
       min-height: 40px;
+      background-color: rgba($gray-500, 0.3);
+      padding: 2px;
+      outline: 1px solid #666;
       
       > * {
-        border: 1px solid red;
+        border: 1px solid $primary;
         background-color: white;
         min-height: 40px;
         display: flex;
+        gap:  0.125em;
         align-items: center;
+        padding: 0;
         justify-content: center;
+        flex-wrap: wrap;
+        .cellbtn {
+          color: $primary;
+          display: flex;
+          padding: 0.2em 0.1em;
+          align-items: center;
+          justify-content: center;
+          line-height: 1;
+          cursor: pointer;
+        }
       }
     }
   }
@@ -25,7 +39,7 @@
 #layout_designer_modal {
   .modal-dialog {
      width: 100%;
-    max-width: 800px;
+    max-width: 1000px;
   }
 }
  

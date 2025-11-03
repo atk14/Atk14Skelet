@@ -1,3 +1,5 @@
+const size = require("gulp-size");
+
 window.UTILS = window.UTILS || { };
 
 window.UTILS.LayoutDesigner = class {
@@ -7,8 +9,13 @@ window.UTILS.LayoutDesigner = class {
   designer;
   countSelector;
   rowXL;
+  rowLG;
+  rowMD;
+  rowSM;
+  rowXS;
   designerModal;
   columnCount = 0;
+  rows = [];
 
   constructor() {
     //this.toolbar = parentEditor.querySelector( ".md-toolbar .btn-toolbar" );
@@ -16,14 +23,21 @@ window.UTILS.LayoutDesigner = class {
     this.designer = document.getElementById( "layout-designer" );
     this.designerModal = document.getElementById( "layout_designer_modal" );
     this.countSelector = this.designer.querySelector( "#layout_designer_column_count" );
-    this.rowXL = this.designer.querySelector( "#row_xl" );
+
+    /*this.rowXL = this.designer.querySelector( "#row_xl" );
+    this.rowXS = this.designer.querySelector( "#row_xs" );*/
 
     document.querySelectorAll( ".md-container" ).forEach( el => {
       this.createToolbarButton( el );
     } );
     
+    this.rowXL = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xl" ), false );
+    this.rowLG = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_lg" ), false );
+    this.rowMD = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_md" ), false );
+    this.rowSM = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_sm" ), false );
+    this.rowXS = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xs" ), true );
 
-    this.rowXL = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xl" ) );
+    this.rows = [ this.rowXL, this.rowLG, this.rowMD, this.rowSM, this.rowXS ];
 
     this.countSelector.addEventListener( "change", this.changeColumnCount.bind( this ) );
 
@@ -59,25 +73,23 @@ window.UTILS.LayoutDesigner = class {
     console.log( "Changing column count to:", newCount, "span", span, "colsToAdd", colsToAdd );
     if ( colsToAdd > 0) {
       for ( let i = 1; i <= colsToAdd; i++ ) {
-        this.rowXL.addCell( span );
+        this.rows.forEach( (row)=> { row.addCell(span); } );
         console.log( "Added column", i );
       }
     } else if ( colsToAdd < 0 ) {
       for ( let i = 1; i <= -colsToAdd; i++ ) {
-        //let lastCell = this.rowXL.cells[ this.rowXL.cells.length - 1 ];
-        //this.rowXL.remove( lastCell.element );
-        this.rowXL.removeLastCell();
+        this.rows.forEach( (row)=> { row.removeLastCell(); } );
         console.log( "Remove column", i );
       }
     }
-    this.rowXL.evenWidths();
+    this.rows.forEach( (row)=> { row.evenWidths(); } );
     this.columnCount = newCount;
   }
 
   initModal() {
     // Code on show modal dialog for layout selection
     this.countSelector.selectedIndex = 1; // Default to 2 columns
-    this.rowXL.clear();
+    this.rows.forEach( (row)=> { row.clear(); } );
     this.columnCount = 0;
     console.log( "Showing layout selection modal." );
     /*let count = parseInt( this.countSelector.value, 10 );
@@ -96,37 +108,69 @@ window.UTILS.LayoutDesigner = class {
 window.UTILS.LayoutDesignerRow = class {
   element;
   cells;
-  constructor( element ) {
+  stacked;
+  
+  constructor( element, stacked ) {
     this.element = element;
     this.cells = [];
+    this.stacked = stacked;
   }
+
   addCell( colspan ) {
+    if( this.stacked ) {
+      colspan = 12;
+    }
     let cell = new window.UTILS.LayoutDesignerCell( this, colspan );
     this.cells.push( cell );
     this.element.appendChild( cell.element );
     return cell;
   }
+
   remove( cellElement ) {
     this.element.removeChild( cellElement );
     this.cells = this.cells.filter( c => c.element !== cellElement );
   }
+
   removeLastCell() {
     let lastCell = this.cells.pop();
     if ( lastCell ) {
       this.element.removeChild( lastCell.element );
     }
   }
+
   clear() {
     this.cells.forEach( cell => cell.destroy() );
     this.cells = [];
     this.element.innerHTML = "";
   }
+
   evenWidths() {
     let evenspan = Math.floor( 12 / this.cells.length );
+    if( this.stacked ) {
+      evenspan = 12;
+    }
     this.cells.forEach( cell => {
       cell.span = evenspan;
     } );
   }
+
+  get sizes(){
+    let widths = []
+    this.cells.forEach(
+      ( cell ) => {
+        widths.push( cell.span );
+      }
+    )
+    console.log( "sizes: ", sizes );
+    return sizes;
+  }
+
+  set sizes ( sizes ) {
+    for( let i=0; i < sizes.length; i++ ) {
+      this.cells[ i ].span = sizes[ i ];
+    }
+  }
+
 };
 
 
