@@ -18,24 +18,21 @@ window.UTILS.LayoutDesigner = class {
   rows = [];
 
   constructor() {
-    //this.toolbar = parentEditor.querySelector( ".md-toolbar .btn-toolbar" );
-
     this.designer = document.getElementById( "layout-designer" );
     this.designerModal = document.getElementById( "layout_designer_modal" );
     this.countSelector = this.designer.querySelector( "#layout_designer_column_count" );
 
-    /*this.rowXL = this.designer.querySelector( "#row_xl" );
-    this.rowXS = this.designer.querySelector( "#row_xs" );*/
-
+    
     document.querySelectorAll( ".md-container" ).forEach( el => {
       this.createToolbarButton( el );
     } );
     
-    this.rowXL = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xl" ), false );
-    this.rowLG = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_lg" ), false );
-    this.rowMD = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_md" ), false );
-    this.rowSM = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_sm" ), false );
-    this.rowXS = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xs" ), true );
+    //this.rowXL = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xl" ), false );
+    this.rowXL = new window.UTILS.LayoutDesignerRow( "rowXL", false );
+    this.rowLG = new window.UTILS.LayoutDesignerRow( "rowLG", false );
+    this.rowMD = new window.UTILS.LayoutDesignerRow( "rowMD", false );
+    this.rowSM = new window.UTILS.LayoutDesignerRow( "rowSM", false );
+    this.rowXS = new window.UTILS.LayoutDesignerRow( "rowXS", true );
 
     this.rows = [ this.rowXL, this.rowLG, this.rowMD, this.rowSM, this.rowXS ];
 
@@ -106,14 +103,26 @@ window.UTILS.LayoutDesigner = class {
 
 
 window.UTILS.LayoutDesignerRow = class {
-  element;
+  rowEditor;
+  cellsContainer;
   cells;
   stacked;
+  btnCopyUp;
+  btnCopyDown;
   
-  constructor( element, stacked ) {
-    this.element = element;
+  constructor( id, stacked ) {
+    this.rowEditor = document.createElement( "div" );
+    document.querySelector( "#layout_designer_modal .editor-container").appendChild( this.rowEditor );
+    let editorFragment = document.querySelector( "#layout_designer_row" ).content.cloneNode( true );
+    this.rowEditor.appendChild( editorFragment );
+    this.rowEditor.setAttribute( "id", id );
+    this.cellsContainer = this.rowEditor.querySelector( ".row-edit-area" );
+    this.btnCopy = this.rowEditor.querySelector( ".js--btn-copy" );
+    this.btnPaste = this.rowEditor.querySelector( ".js--btn-paste" );
+   
     this.cells = [];
     this.stacked = stacked;
+    this.copyPasteHandlers();
   }
 
   addCell( colspan ) {
@@ -122,26 +131,26 @@ window.UTILS.LayoutDesignerRow = class {
     }
     let cell = new window.UTILS.LayoutDesignerCell( this, colspan );
     this.cells.push( cell );
-    this.element.appendChild( cell.element );
+    this.cellsContainer.appendChild( cell.element );
     return cell;
   }
 
   remove( cellElement ) {
-    this.element.removeChild( cellElement );
+    this.cellsContainer.removeChild( cellElement );
     this.cells = this.cells.filter( c => c.element !== cellElement );
   }
 
   removeLastCell() {
     let lastCell = this.cells.pop();
     if ( lastCell ) {
-      this.element.removeChild( lastCell.element );
+      this.cellsContainer.removeChild( lastCell.element );
     }
   }
 
   clear() {
     this.cells.forEach( cell => cell.destroy() );
     this.cells = [];
-    this.element.innerHTML = "";
+    this.cellsContainer.innerHTML = "";
   }
 
   evenWidths() {
@@ -161,14 +170,28 @@ window.UTILS.LayoutDesignerRow = class {
         widths.push( cell.span );
       }
     )
-    console.log( "sizes: ", sizes );
-    return sizes;
+    console.log( "sizes: ", widths );
+    return widths;
   }
 
-  set sizes ( sizes ) {
-    for( let i=0; i < sizes.length; i++ ) {
-      this.cells[ i ].span = sizes[ i ];
+  set sizes ( newsizes ) {
+    if( newsizes.length !== this.cells.length ) {
+      alert( "Cannot paste columns: Number of pasted columns do not match number of current columns." );
+      return;
     }
+    for( let i=0; i < newsizes.length; i++ ) {
+      this.cells[ i ].span = newsizes[ i ];
+    }
+  }
+
+  copyPasteHandlers() {
+    console.log(this.sizes)
+    this.btnCopy.addEventListener( "click", ()=>{
+      window.copiedRow = this.sizes;
+    } );
+    this.btnPaste.addEventListener( "click", ()=>{
+      this.sizes = window.copiedRow;
+    } );
   }
 
 };
@@ -180,7 +203,7 @@ window.UTILS.LayoutDesignerCell = class {
   constructor( parent, colspan ) {
     this.parent = parent;
     this.element = document.createElement( "div" );
-    let controls = document.querySelector("#layout_designer_cell_controls").content.cloneNode( true );
+    let controls = document.querySelector( "#layout_designer_cell_controls" ).content.cloneNode( true );
     this.element.appendChild( controls );
 
     this.element.querySelector( ".js-span-plus" ).addEventListener( "click", () => {
@@ -198,7 +221,8 @@ window.UTILS.LayoutDesignerCell = class {
   set span ( n ) {
     this.#span = n;
     this.element.setAttribute( "data-span", this.#span );
-    this.element.className = "col-" + this.#span + "  col-xs-" + this.#span;
+    //this.element.className = "col-" + this.#span + "  col-xs-" + this.#span;
+    this.element.className = "cellspan-" + this.#span;
     this.element.querySelector( ".js-span-display" ).innerHTML = this.#span;
   }
 
