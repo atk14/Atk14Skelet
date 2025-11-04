@@ -1,8 +1,11 @@
 <!-- Modal -->
  <template id="layout_designer_cell_controls">
-  <div class="js-span-minus cellbtn">{!"square-minus"|icon}</div>
-  <div class="js-span-display">0</div>
-  <div class="js-span-plus cellbtn">{!"square-plus"|icon}</div>
+  <div class="cellnumber"></div>
+  <div class="cell-controls">
+    <div class="js-span-minus cellbtn">{!"square-minus"|icon}</div>
+    <div class="js-span-display">0</div>
+    <div class="js-span-plus cellbtn">{!"square-plus"|icon}</div>
+  </div>
  </template>
 
  <template id="layout_designer_row">

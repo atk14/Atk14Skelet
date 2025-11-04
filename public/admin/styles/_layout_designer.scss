@@ -25,22 +25,38 @@
         
         > * {
           border: 1px solid $primary;
+          padding: 0;
           background-color: white;
           min-height: 40px;
-          display: flex;
-          gap:  0.125em;
-          align-items: center;
-          padding: 0;
-          justify-content: start;
-          flex-wrap: wrap;
-          .cellbtn {
-            color: $primary;
-            display: flex;
-            padding: 0.2em 0.1em;
-            align-items: center;
+          .cellnumber {
+            display: inline-flex;
             justify-content: center;
+            align-items: center;
             line-height: 1;
-            cursor: pointer;
+            background-color: #999;
+            color: white;
+            padding: 0.1em 0.3em;
+            border-radius: 7.5px;
+            min-width: 15px;
+            font-size: 12px;
+            font-weight: 900;
+            margin-left: 0.3rem;
+          }
+          .cell-controls {
+            display: flex;
+            gap:  0.125em;
+            align-items: center;
+            justify-content: start;
+            flex-wrap: wrap;
+            .cellbtn {
+              color: $primary;
+              display: flex;
+              padding: 0.2em 0.1em;
+              align-items: center;
+              justify-content: center;
+              line-height: 1;
+              cursor: pointer;
+            }
           }
         }
         .cellspan-0 {

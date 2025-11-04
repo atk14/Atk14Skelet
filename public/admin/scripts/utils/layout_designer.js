@@ -129,7 +129,7 @@ window.UTILS.LayoutDesignerRow = class {
     if( this.stacked ) {
       colspan = 12;
     }
-    let cell = new window.UTILS.LayoutDesignerCell( this, colspan );
+    let cell = new window.UTILS.LayoutDesignerCell( this, colspan, this.cells.length + 1 );
     this.cells.push( cell );
     this.cellsContainer.appendChild( cell.element );
     return cell;
@@ -200,11 +200,13 @@ window.UTILS.LayoutDesignerRow = class {
 window.UTILS.LayoutDesignerCell = class {
   element;
   #span;
-  constructor( parent, colspan ) {
+  constructor( parent, colspan, cellNumber ) {
     this.parent = parent;
     this.element = document.createElement( "div" );
     let controls = document.querySelector( "#layout_designer_cell_controls" ).content.cloneNode( true );
     this.element.appendChild( controls );
+
+    this.element.querySelector( ".cellnumber" ).innerHTML = cellNumber;
 
     this.element.querySelector( ".js-span-plus" ).addEventListener( "click", () => {
       if ( this.#span < 12 ) {
