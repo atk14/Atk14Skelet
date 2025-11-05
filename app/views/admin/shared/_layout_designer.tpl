@@ -70,7 +70,7 @@
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary">{t}Copy code to clipboard{/t}</button>
+        <button type="button" class="btn btn-primary" id="copy_md_btn">{t}Copy code to clipboard{/t}</button>
       </div>
     </div>
   </div>

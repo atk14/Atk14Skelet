@@ -16,11 +16,13 @@ window.UTILS.LayoutDesigner = class {
   designerModal;
   columnCount = 0;
   rows = [];
+  copyMDButton;
 
   constructor() {
     this.designer = document.getElementById( "layout-designer" );
     this.designerModal = document.getElementById( "layout_designer_modal" );
     this.countSelector = this.designer.querySelector( "#layout_designer_column_count" );
+    this.copyMDButton = this.designerModal.querySelector( "#copy_md_btn" );
 
     
     document.querySelectorAll( ".md-container" ).forEach( el => {
@@ -40,6 +42,12 @@ window.UTILS.LayoutDesigner = class {
 
     this.designerModal.addEventListener( "show.bs.modal", () => {
       this.initModal();
+    } );
+
+    this.copyMDButton.addEventListener( "click", () => {
+      let exportedData = this.exportSizes();
+      console.log( JSON.stringify( exportedData, null, 2 ) );
+      sessionStorage.setItem( "layout_designer_layout", JSON.stringify( exportedData ) );
     } );
   }
 
@@ -89,13 +97,21 @@ window.UTILS.LayoutDesigner = class {
     this.rows.forEach( (row)=> { row.clear(); } );
     this.columnCount = 0;
     console.log( "Showing layout selection modal." );
-    /*let count = parseInt( this.countSelector.value, 10 );
-    let span =  Math.floor( 12 / count );
-    console.log( "Selected column count:", count, "span", span );
-    for ( let i = 1; i <= count; i++ ) {
-      this.rowXL.addCell( span );
-    }*/
-   this.changeColumnCount();
+    this.changeColumnCount();
+  }
+
+  exportSizes() {
+    let exportObject = {};
+    exportObject.xl = this.rowXL.sizes;
+    exportObject.lg = this.rowLG.sizes;
+    exportObject.md = this.rowMD.sizes;
+    exportObject.sm = this.rowSM.sizes;
+    exportObject.xs = this.rowXS.sizes;
+    return exportObject;
+  }
+
+  importSizes( data ) {
+
   }
 
   
