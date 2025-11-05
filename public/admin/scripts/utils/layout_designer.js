@@ -191,7 +191,7 @@ window.UTILS.LayoutDesignerRow = class {
     } );
   }
 
-  onCellHide( cell ){
+  /*createHiddenCellAvatar( cell ){
     console.log( "cell hidden, No. ", cell.cellNumber );
     let hiddenCellAvatar = document.createElement( "div" );
     let content = document.querySelector( "#hidden_cell_avatar" ).content.cloneNode( true );
@@ -199,19 +199,26 @@ window.UTILS.LayoutDesignerRow = class {
     hiddenCellAvatar.appendChild( content );
     hiddenCellAvatar.querySelector( ".cellnumber" ).innerHTML = cell.cellNumber;
     hiddenCellAvatar.cellOrigin = cell;
+    cell.hiddenCellAvatar = hiddenCellAvatar;
+    
+    this.hiddenCellsContainer.appendChild( hiddenCellAvatar );
+
     hiddenCellAvatar.querySelector( ".js-show-cell" ).addEventListener( "click", ( e ) => {
       let avatar = e.target.closest( ".hidden_cell_avatar" );
       let cellOrigin = avatar.cellOrigin;
       console.log( "show", cellOrigin );
       cellOrigin.span = 1;
+      this.destroyHiddenCellAvatar( avatar );
+    } );
+    
+  }*/
+
+  /*destroyHiddenCellAvatar( avatar ) {
+    if( this.hiddenCellsContainer.contains( avatar ) ) {
       this.hiddenCellsContainer.removeChild( avatar );
       avatar = null;
-    } );
-
-    this.hiddenCellsContainer.appendChild( hiddenCellAvatar );
-    
-
-  }
+    }
+  }*/
 
 };
 
@@ -252,15 +259,51 @@ window.UTILS.LayoutDesignerCell = class {
     this.element.className = "cellspan-" + this.#span;
     this.element.querySelector( ".js-span-display" ).innerHTML = this.#span;
     if( n === 0 ) {
-      //this.dispatchEvent( new Event( "cell_hidden" ) );
-      this.parent.onCellHide( this );
+      if( !this.hiddenCellAvatar ){
+        this.createHiddenCellAvatar();
+      }
+    } else {
+      if( this.hiddenCellAvatar ){
+        this.destroyHiddenCellAvatar();
+        this.hiddenCellAvatar = null;
+      }
     }
   }
 
   get span() {
     return this.#span;
   }
+
+  createHiddenCellAvatar() {
+    console.log( "cell hidden, No. ", this.cellNumber );
+    let hiddenCellAvatar = document.createElement( "div" );
+    let content = document.querySelector( "#hidden_cell_avatar" ).content.cloneNode( true );
+    hiddenCellAvatar.className = "hidden_cell_avatar";
+    hiddenCellAvatar.appendChild( content );
+    hiddenCellAvatar.querySelector( ".cellnumber" ).innerHTML = this.cellNumber;
+    this.hiddenCellAvatar = hiddenCellAvatar;
+    
+    this.parent.hiddenCellsContainer.appendChild( hiddenCellAvatar );
+
+    hiddenCellAvatar.querySelector( ".js-show-cell" ).addEventListener( "click", ( e ) => {
+      this.span = 1;
+      this.destroyHiddenCellAvatar();
+    } );
+    
+  }
+
+  destroyHiddenCellAvatar() {
+    if( this.hiddenCellAvatar && this.parent.hiddenCellsContainer.contains( this.hiddenCellAvatar ) ) {
+      this.parent.hiddenCellsContainer.removeChild( this.hiddenCellAvatar );
+    }
+    this.hiddenCellAvatar = null;
+  }
+
+
   destroy() {
+    if( this.hiddenCellAvatar ){
+      this.parent.destroyHiddenCellAvatar( this.hiddenCellAvatar );
+    }
     this.parent.cellsContainer.removeChild( this.element );
   }
 };
