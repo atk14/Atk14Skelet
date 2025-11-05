@@ -11,16 +11,18 @@
 
  <template id="layout_designer_row">
     <div class="layout-designer__row-editor">
-      <div class="mb-2 mt-4">
-        <button class="btn btn-sm btn-outline-primary js--btn-copy">Copy row</button>
-        <button class="btn btn-sm btn-outline-primary js--btn-paste">Paste row</button>
+      <div class="layout-designer__row-header mb-3">
+        <div class="js--row-title">title</div>
+        <div>
+          <button class="btn btn-sm btn-outline-primary js--btn-copy">Copy row</button>
+          <button class="btn btn-sm btn-outline-primary js--btn-paste">Paste row</button>
+        </div>
       </div>
 
       <div class="row row-edit-area">  
       </div>
 
-      <div class="hidden-cells-container">
-      </div>
+      <div class="hidden-cells-container"><span class="js-hidden_cells_title">{t}Hidden cells: {/t}</span></div>
 
     </div> 
  </template>
@@ -48,13 +50,15 @@
       </div>
       <div class="modal-body layout-designer" id="layout-designer">
 
-        <div class="form-group">
-          <label for="layout_designer_column_count" class="">{t}Number of columns{/t}</label>
+        <div class="form-group row">
+          <label for="layout_designer_column_count" class="form-label col-4">{t}Number of columns{/t}</label>
+          <div class="col-8">
           <select name="" id="layout_designer_column_count" class="form-control">
             {for $i=1 to 12}
               <option value="{$i}"{if $i==2} selected{/if}>{$i}</option>
             {/for}
           </select>
+        </div>
         </div>
 
         <div class="editor-container">

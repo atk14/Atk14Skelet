@@ -28,11 +28,11 @@ window.UTILS.LayoutDesigner = class {
     } );
     
     //this.rowXL = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xl" ), false );
-    this.rowXL = new window.UTILS.LayoutDesignerRow( "rowXL", false );
-    this.rowLG = new window.UTILS.LayoutDesignerRow( "rowLG", false );
-    this.rowMD = new window.UTILS.LayoutDesignerRow( "rowMD", false );
-    this.rowSM = new window.UTILS.LayoutDesignerRow( "rowSM", false );
-    this.rowXS = new window.UTILS.LayoutDesignerRow( "rowXS", true );
+    this.rowXL = new window.UTILS.LayoutDesignerRow( "rowXL", "XL", false );
+    this.rowLG = new window.UTILS.LayoutDesignerRow( "rowLG", "LG", false );
+    this.rowMD = new window.UTILS.LayoutDesignerRow( "rowMD", "MD", false );
+    this.rowSM = new window.UTILS.LayoutDesignerRow( "rowSM", "SM", false );
+    this.rowXS = new window.UTILS.LayoutDesignerRow( "rowXS", "XS", true );
 
     this.rows = [ this.rowXL, this.rowLG, this.rowMD, this.rowSM, this.rowXS ];
 
@@ -111,7 +111,7 @@ window.UTILS.LayoutDesignerRow = class {
   btnCopyUp;
   btnCopyDown;
   
-  constructor( id, stacked ) {
+  constructor( id, title, stacked ) {
     this.rowEditor = document.createElement( "div" );
     document.querySelector( "#layout_designer_modal .editor-container").appendChild( this.rowEditor );
     let editorFragment = document.querySelector( "#layout_designer_row" ).content.cloneNode( true );
@@ -121,6 +121,8 @@ window.UTILS.LayoutDesignerRow = class {
     this.hiddenCellsContainer = this.rowEditor.querySelector( ".hidden-cells-container" );
     this.btnCopy = this.rowEditor.querySelector( ".js--btn-copy" );
     this.btnPaste = this.rowEditor.querySelector( ".js--btn-paste" );
+
+    this.rowEditor.querySelector( ".js--row-title" ).innerHTML = title;
    
     this.cells = [];
     this.stacked = stacked;
@@ -190,36 +192,6 @@ window.UTILS.LayoutDesignerRow = class {
       this.sizes = window.copiedRow;
     } );
   }
-
-  /*createHiddenCellAvatar( cell ){
-    console.log( "cell hidden, No. ", cell.cellNumber );
-    let hiddenCellAvatar = document.createElement( "div" );
-    let content = document.querySelector( "#hidden_cell_avatar" ).content.cloneNode( true );
-    hiddenCellAvatar.className = "hidden_cell_avatar";
-    hiddenCellAvatar.appendChild( content );
-    hiddenCellAvatar.querySelector( ".cellnumber" ).innerHTML = cell.cellNumber;
-    hiddenCellAvatar.cellOrigin = cell;
-    cell.hiddenCellAvatar = hiddenCellAvatar;
-    
-    this.hiddenCellsContainer.appendChild( hiddenCellAvatar );
-
-    hiddenCellAvatar.querySelector( ".js-show-cell" ).addEventListener( "click", ( e ) => {
-      let avatar = e.target.closest( ".hidden_cell_avatar" );
-      let cellOrigin = avatar.cellOrigin;
-      console.log( "show", cellOrigin );
-      cellOrigin.span = 1;
-      this.destroyHiddenCellAvatar( avatar );
-    } );
-    
-  }*/
-
-  /*destroyHiddenCellAvatar( avatar ) {
-    if( this.hiddenCellsContainer.contains( avatar ) ) {
-      this.hiddenCellsContainer.removeChild( avatar );
-      avatar = null;
-    }
-  }*/
-
 };
 
 
@@ -227,6 +199,9 @@ window.UTILS.LayoutDesignerCell = class {
   element;
   #span;
   cellNumber;
+  hiddenCellAvatar = null;
+  previousSpan;
+
   constructor( parent, colspan, cellNumber ) {
     this.parent = parent;
     this.cellNumber = cellNumber;
@@ -253,6 +228,7 @@ window.UTILS.LayoutDesignerCell = class {
   }
 
   set span ( n ) {
+    this.previousSpan = this.#span;
     this.#span = n;
     this.element.setAttribute( "data-span", this.#span );
     //this.element.className = "col-" + this.#span + "  col-xs-" + this.#span;
@@ -286,10 +262,10 @@ window.UTILS.LayoutDesignerCell = class {
     this.parent.hiddenCellsContainer.appendChild( hiddenCellAvatar );
 
     hiddenCellAvatar.querySelector( ".js-show-cell" ).addEventListener( "click", ( e ) => {
-      this.span = 1;
+      this.span = this.previousSpan;
       this.destroyHiddenCellAvatar();
     } );
-    
+
   }
 
   destroyHiddenCellAvatar() {
