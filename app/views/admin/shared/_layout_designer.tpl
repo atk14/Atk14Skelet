@@ -5,6 +5,7 @@
     <div class="js-span-minus cellbtn">{!"square-minus"|icon}</div>
     <div class="js-span-display">0</div>
     <div class="js-span-plus cellbtn">{!"square-plus"|icon}</div>
+    <div class="js-hide-cell cellbtn ml-1">{!"eye"|icon:regular}</div>
   </div>
  </template>
 
@@ -14,10 +15,21 @@
         <button class="btn btn-sm btn-outline-primary js--btn-copy">Copy row</button>
         <button class="btn btn-sm btn-outline-primary js--btn-paste">Paste row</button>
       </div>
-      <div class="row row-edit-area">
+
+      <div class="row row-edit-area">  
       </div>
-    </div>
-  
+
+      <div class="hidden-cells-container">
+      </div>
+
+    </div> 
+ </template>
+
+ <template id="hidden_cell_avatar">
+  <div>
+    <div class="cellnumber"></div>
+    <div class="js-show-cell cellbtn ml-1">{!"eye-slash"|icon:regular}</div>
+  </div>
  </template>
 
 

@@ -106,6 +106,7 @@ window.UTILS.LayoutDesignerRow = class {
   rowEditor;
   cellsContainer;
   cells;
+  hiddenCellsContainer;
   stacked;
   btnCopyUp;
   btnCopyDown;
@@ -117,6 +118,7 @@ window.UTILS.LayoutDesignerRow = class {
     this.rowEditor.appendChild( editorFragment );
     this.rowEditor.setAttribute( "id", id );
     this.cellsContainer = this.rowEditor.querySelector( ".row-edit-area" );
+    this.hiddenCellsContainer = this.rowEditor.querySelector( ".hidden-cells-container" );
     this.btnCopy = this.rowEditor.querySelector( ".js--btn-copy" );
     this.btnPaste = this.rowEditor.querySelector( ".js--btn-paste" );
    
@@ -135,15 +137,10 @@ window.UTILS.LayoutDesignerRow = class {
     return cell;
   }
 
-  remove( cellElement ) {
-    this.cellsContainer.removeChild( cellElement );
-    this.cells = this.cells.filter( c => c.element !== cellElement );
-  }
-
   removeLastCell() {
     let lastCell = this.cells.pop();
     if ( lastCell ) {
-      this.cellsContainer.removeChild( lastCell.element );
+      lastCell.destroy();
     }
   }
 
@@ -194,14 +191,38 @@ window.UTILS.LayoutDesignerRow = class {
     } );
   }
 
+  onCellHide( cell ){
+    console.log( "cell hidden, No. ", cell.cellNumber );
+    let hiddenCellAvatar = document.createElement( "div" );
+    let content = document.querySelector( "#hidden_cell_avatar" ).content.cloneNode( true );
+    hiddenCellAvatar.className = "hidden_cell_avatar";
+    hiddenCellAvatar.appendChild( content );
+    hiddenCellAvatar.querySelector( ".cellnumber" ).innerHTML = cell.cellNumber;
+    hiddenCellAvatar.cellOrigin = cell;
+    hiddenCellAvatar.querySelector( ".js-show-cell" ).addEventListener( "click", ( e ) => {
+      let avatar = e.target.closest( ".hidden_cell_avatar" );
+      let cellOrigin = avatar.cellOrigin;
+      console.log( "show", cellOrigin );
+      cellOrigin.span = 1;
+      this.hiddenCellsContainer.removeChild( avatar );
+      avatar = null;
+    } );
+
+    this.hiddenCellsContainer.appendChild( hiddenCellAvatar );
+    
+
+  }
+
 };
 
 
 window.UTILS.LayoutDesignerCell = class {
   element;
   #span;
+  cellNumber;
   constructor( parent, colspan, cellNumber ) {
     this.parent = parent;
+    this.cellNumber = cellNumber;
     this.element = document.createElement( "div" );
     let controls = document.querySelector( "#layout_designer_cell_controls" ).content.cloneNode( true );
     this.element.appendChild( controls );
@@ -218,20 +239,28 @@ window.UTILS.LayoutDesignerCell = class {
         this.span -= 1;
       }
     } );
+    this.element.querySelector( ".js-hide-cell" ).addEventListener( "click", () => {
+        this.span =0;
+    } );
     this.span = colspan;
   }
+
   set span ( n ) {
     this.#span = n;
     this.element.setAttribute( "data-span", this.#span );
     //this.element.className = "col-" + this.#span + "  col-xs-" + this.#span;
     this.element.className = "cellspan-" + this.#span;
     this.element.querySelector( ".js-span-display" ).innerHTML = this.#span;
+    if( n === 0 ) {
+      //this.dispatchEvent( new Event( "cell_hidden" ) );
+      this.parent.onCellHide( this );
+    }
   }
 
   get span() {
     return this.#span;
   }
   destroy() {
-    this.parent.remove( this.element );
+    this.parent.cellsContainer.removeChild( this.element );
   }
 };
