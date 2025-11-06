@@ -47,6 +47,7 @@ window.UTILS.LayoutDesigner = class {
     this.copyMDButton.addEventListener( "click", () => {
       let exportedData = this.exportSizes();
       console.log( JSON.stringify( exportedData, null, 2 ) );
+      this.setClipboard( this.generateCode( "html" ) );
       sessionStorage.setItem( "layout_designer_layout", JSON.stringify( exportedData ) );
     } );
   }
@@ -102,16 +103,76 @@ window.UTILS.LayoutDesigner = class {
 
   exportSizes() {
     let exportObject = {};
-    exportObject.xl = this.rowXL.sizes;
-    exportObject.lg = this.rowLG.sizes;
-    exportObject.md = this.rowMD.sizes;
-    exportObject.sm = this.rowSM.sizes;
-    exportObject.xs = this.rowXS.sizes;
+    exportObject.xl = { cells: this.rowXL.sizes, key: "xl" };
+    exportObject.lg = { cells: this.rowLG.sizes, key: "lg" };
+    exportObject.md = { cells: this.rowMD.sizes, key: "md" };
+    exportObject.sm = { cells: this.rowSM.sizes, key: "sm" };
+    exportObject.xs = { cells: this.rowXS.sizes, key: "xs" };
+    exportObject.cellsNumber = this.columnCount;
     return exportObject;
+  }
+
+  generateCode( style ) {
+    style = style || "markdown";
+    let data = this.exportSizes();
+    let cellCode = "";
+    let prefix = "  ";
+    let suffix = "\n";
+    let output;
+    let hidden = false;
+    // make sure order is correct
+    let breakpoints = [ data.xs, data.sm, data.md, data.lg, data.xl ];
+    for( let i = 0; i < this.columnCount; i++ ) {
+      let cellClass = "";
+      breakpoints.forEach( breakpoint => {
+        let span = breakpoint.cells[ i ];
+        if( span === 0 ) {
+          hidden = true;
+          if( breakpoint.key === "xs" ) {
+            cellClass += "d-none ";
+          }
+          cellClass += `d-${breakpoint.key}-none `;
+        } else {
+          if( breakpoint.key === "xs" ) {
+            cellClass += `col-${span} `;
+          }
+          cellClass += `col-${breakpoint.key}-${span} `;
+          if( hidden ) {
+            cellClass += `d-${breakpoint.key}-block `;
+            hidden = false;
+          }
+        }
+      } );
+      //console.log( "class", cellClass );
+      cellCode += prefix;
+      if( style === "markdown" ) {
+        cellCode += `[col class="${cellClass}"]${i+1}[/col]`;
+      } else if ( style === "html" ) {
+        cellCode += `<div class="${cellClass}">${i+1}</div>`;
+      }
+      cellCode += suffix;
+    }
+    
+    if( style === "markdown" ) {
+      output = `[row]${suffix}${cellCode}[/row]`;
+    } else if ( style === "html" ) {
+      output = `<div class="row">${suffix}${cellCode}</row>`;
+    }
+    console.log(output);
+    return output;
   }
 
   importSizes( data ) {
 
+  }
+
+  async setClipboard( text ) {
+    const type = "text/plain";
+    const clipboardItemData = {
+      [ type ]: text,
+    };
+    const clipboardItem = new ClipboardItem( clipboardItemData );
+    await navigator.clipboard.write( [ clipboardItem ] );
   }
 
   
