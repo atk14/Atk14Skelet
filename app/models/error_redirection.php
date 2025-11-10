@@ -10,11 +10,20 @@ class ErrorRedirection extends ApplicationModel {
 			"strict_match" => false,
 		];
 
-		$url = $request->getUrl(); // "http://example.com/documents/manual.pdf"
-		$url = self::_NormalizeUrl($url);
-		$url_without_proto = preg_replace('/^https?:/','',$url); // "//example.com/documents/manual.pdf"
-		$uri = $request->getUri(); // "/documents/manual.pdf";
+		$source_urls = self::_GetPossibleSourceUrls($request->getUrl(),$options);
 
+		return ErrorRedirection::FindFirst([
+			"conditions" => [
+				"source_url IN :source_urls",
+				"regex=FALSE",
+			],
+			"bind_ar" => [
+				":source_urls" => $source_urls,
+			],
+			"order_by" =>  "LENGTH(source_url) DESC",
+		]);
+
+		// stary zpusob je hodne pomaly
 		list($rows,$regex_rows) = static::_ReadRows();
 
 		$id = null;
@@ -30,6 +39,7 @@ class ErrorRedirection extends ApplicationModel {
 
 		$strict_match = $options["strict_match"];
 		$match = function($url,$source_url) use($strict_match){
+			if(strlen($source_url)>strlen($url)){ return false; }
 			if($strict_match){
 				return $url === $source_url;
 			}
@@ -43,8 +53,9 @@ class ErrorRedirection extends ApplicationModel {
 					$id = $row["id"];
 					break 2;
 				}
+				if(!strpos($source_url,"?")){ continue; }
 				$u_without_params = preg_replace('/\?.*$/','',$u);
-				if($u!==$u_without_params && $match($u_without_params,$source_url)){
+				if($match($u_without_params,$source_url)){
 					$id = $row["id"];
 					break 2;
 				}
@@ -94,16 +105,25 @@ class ErrorRedirection extends ApplicationModel {
 		return false;
 	}
 
+	static protected $_Rows = null;
+	static protected $_RegexRows = null;
 	static function _ReadRows($recache = false){
-		$dbmole = static::GetDbmole();
-		$rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE NOT regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
-		$regex_rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
+		if($recache){
+			self::$_Rows = null;
+			self::$_RegexRows = null;
+		}
+		if(is_null(self::$_Rows)){
+			$dbmole = static::GetDbmole();
+			self::$_Rows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE NOT regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
+			self::$_RegexRows = $dbmole->selectIntoAssociativeArray("SELECT source_url AS key, id, source_url, target_url FROM error_redirections WHERE regex ORDER BY LENGTH(source_url) DESC",array(),array("cache" => true, "recache" => $recache));
+		}
 
-		return array($rows,$regex_rows);
+		return array(self::$_Rows,self::$_RegexRows);
 	}
 
 	static function _NormalizeUrl($url){
-		if(!preg_match('/(^.*)\?([^?]+)$/',$url,$matches)){ return $url; }
+		if(!strpos($url,"?")){ return $url; }
+		if(!preg_match('/^(.*?)\?(.+)$/',$url,$matches)){ return $url; }
 
 		$url_without_params = $matches[1];
 		$params = $matches[2];
@@ -129,5 +149,34 @@ class ErrorRedirection extends ApplicationModel {
 		$params = join("&",$params_ar);
 
 		return "$url_without_params?$params";
+	}
+
+	static function _GetPossibleSourceUrls($url,$options = []){
+		$options += [
+			"strict_match" => false,
+		];
+
+		$url_without_proto = preg_replace('/^https?:/','',$url); // "//example.com/documents/manual.pdf"
+		$uri = preg_replace('/^\/\/[^\/]+/','',$url_without_proto);
+		$out[] = $url;
+		$out[] = $url_without_proto;
+		$out[] = $uri;
+
+		if($options["strict_match"]){ return $out; }
+
+		$last_parameter_pattern = '/[&?][^&?]*$/';
+		while(1){
+			$_url = preg_replace($last_parameter_pattern,'',$url);
+			if($_url===$url){
+				break;
+			}
+			$url = $_url;
+			$url_without_proto = preg_replace($last_parameter_pattern,'',$url_without_proto);
+			$uri = preg_replace($last_parameter_pattern,'',$uri);
+			$out[] = $url;
+			$out[] = $url_without_proto;
+			$out[] = $uri;
+		}
+		return $out;
 	}
 }

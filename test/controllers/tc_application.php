@@ -48,11 +48,16 @@ class TcApplication extends TcBase{
 		));
 		ErrorRedirection::RefreshCache();
 
-		$ctrl = $this->client->get("/docroot/about_us.html?page=2");
+		$ctrl = $this->client->get("https://www.example.com/docroot/about_us.html?page=2");
 		$this->assertEquals(301,$this->client->getStatusCode()); // Moved Permanently
 		$this->assertEquals("application",$ctrl->controller);
 		$this->assertEquals("error404",$ctrl->action);
 		$this->assertEquals("/about-us/",$this->client->getLocation());
+
+		$ctrl = $this->client->get("https://www.example.com/docroot/about_them.html");
+		$this->assertEquals(404,$this->client->getStatusCode()); // Moved Permanently
+		$this->assertEquals("application",$ctrl->controller);
+		$this->assertEquals("error404",$ctrl->action);
 	}
 
 	function test__create_newsletter_subscription_request(){
