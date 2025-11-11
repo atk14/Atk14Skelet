@@ -17,12 +17,14 @@ window.UTILS.LayoutDesigner = class {
   columnCount = 0;
   rows = [];
   copyMDButton;
+  copyHTMLButton;
 
   constructor() {
     this.designer = document.getElementById( "layout-designer" );
     this.designerModal = document.getElementById( "layout_designer_modal" );
     this.countSelector = this.designer.querySelector( "#layout_designer_column_count" );
     this.copyMDButton = this.designerModal.querySelector( "#copy_md_btn" );
+    this.copyHTMLButton = this.designerModal.querySelector( "#copy_html_btn" );
 
     
     document.querySelectorAll( ".md-container" ).forEach( el => {
@@ -45,6 +47,12 @@ window.UTILS.LayoutDesigner = class {
     } );
 
     this.copyMDButton.addEventListener( "click", () => {
+      let exportedData = this.exportSizes();
+      console.log( JSON.stringify( exportedData, null, 2 ) );
+      this.setClipboard( this.generateCode( "markdown" ) );
+      sessionStorage.setItem( "layout_designer_layout", JSON.stringify( exportedData ) );
+    } );
+    this.copyHTMLButton.addEventListener( "click", () => {
       let exportedData = this.exportSizes();
       console.log( JSON.stringify( exportedData, null, 2 ) );
       this.setClipboard( this.generateCode( "html" ) );
@@ -156,7 +164,7 @@ window.UTILS.LayoutDesigner = class {
     if( style === "markdown" ) {
       output = `[row]${suffix}${cellCode}[/row]`;
     } else if ( style === "html" ) {
-      output = `<div class="row">${suffix}${cellCode}</row>`;
+      output = `<div class="row">${suffix}${cellCode}</div>`;
     }
     console.log(output);
     return output;
