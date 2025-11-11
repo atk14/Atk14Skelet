@@ -42,8 +42,9 @@ window.UTILS.LayoutDesigner = class {
 
     this.countSelector.addEventListener( "change", this.changeColumnCount.bind( this ) );
 
-    this.designerModal.addEventListener( "show.bs.modal", () => {
-      this.initModal();
+    this.designerModal.querySelector( "[data-bs-dismiss='modal']" ).addEventListener( "click", () => {
+      sessionStorage.setItem( "layout_designer_layout", JSON.stringify( this.exportSizes() ) );
+      console.log( "hej", sessionStorage.getItem( "layout_designer_layout" ) )
     } );
 
     this.copyMDButton.addEventListener( "click", () => {
@@ -102,20 +103,26 @@ window.UTILS.LayoutDesigner = class {
 
   initModal() {
     // Code on show modal dialog for layout selection
-    this.countSelector.selectedIndex = 1; // Default to 2 columns
-    this.rows.forEach( (row)=> { row.clear(); } );
-    this.columnCount = 0;
+    
+
+    if( sessionStorage.getItem( "layout_designer_layout" ) ) {
+      this.importSizes( JSON.parse( sessionStorage.getItem( "layout_designer_layout" ) ) );
+    } else {
+      this.reset();
+    }
+
+
     console.log( "Showing layout selection modal." );
-    this.changeColumnCount();
+    
   }
 
   exportSizes() {
     let exportObject = {};
-    exportObject.xl = { cells: this.rowXL.sizes, key: "xl" };
-    exportObject.lg = { cells: this.rowLG.sizes, key: "lg" };
-    exportObject.md = { cells: this.rowMD.sizes, key: "md" };
-    exportObject.sm = { cells: this.rowSM.sizes, key: "sm" };
-    exportObject.xs = { cells: this.rowXS.sizes, key: "xs" };
+    exportObject.xl = { sizes: this.rowXL.sizes, key: "xl" };
+    exportObject.lg = { sizes: this.rowLG.sizes, key: "lg" };
+    exportObject.md = { sizes: this.rowMD.sizes, key: "md" };
+    exportObject.sm = { sizes: this.rowSM.sizes, key: "sm" };
+    exportObject.xs = { sizes: this.rowXS.sizes, key: "xs" };
     exportObject.cellsNumber = this.columnCount;
     return exportObject;
   }
@@ -171,7 +178,23 @@ window.UTILS.LayoutDesigner = class {
   }
 
   importSizes( data ) {
+    //console.log( "Importing data for", data.cellsNumber, "cols" );
+    //console.log( data );
+    this.columnCount = 0;//data.cellsNumber;
+    this.countSelector.selectedIndex = data.cellsNumber - 1;
+    this.changeColumnCount();
+    this.rowXL.sizes = data.xl.sizes;
+    this.rowLG.sizes = data.lg.sizes;
+    this.rowMD.sizes = data.md.sizes;
+    this.rowSM.sizes = data.sm.sizes;
+    this.rowXS.sizes = data.xs.sizes;
+  }
 
+  reset(){
+    this.countSelector.selectedIndex = 1; // Default to 2 columns
+    this.rows.forEach( (row)=> { row.clear(); } );
+    this.columnCount = 0;
+    this.changeColumnCount();
   }
 
   async setClipboard( text ) {
@@ -190,7 +213,7 @@ window.UTILS.LayoutDesigner = class {
 window.UTILS.LayoutDesignerRow = class {
   rowEditor;
   cellsContainer;
-  cells;
+  cells = [];
   hiddenCellsContainer;
   stacked;
   btnCopyUp;
@@ -209,7 +232,7 @@ window.UTILS.LayoutDesignerRow = class {
 
     this.rowEditor.querySelector( ".js--row-title" ).innerHTML = title;
    
-    this.cells = [];
+    this.cells = []; console.log("cl", this.cells.length);
     this.stacked = stacked;
     this.copyPasteHandlers();
   }
