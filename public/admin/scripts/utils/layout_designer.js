@@ -25,6 +25,7 @@ window.UTILS.LayoutDesigner = class {
     this.countSelector = this.designer.querySelector( "#layout_designer_column_count" );
     this.copyMDButton = this.designerModal.querySelector( "#copy_md_btn" );
     this.copyHTMLButton = this.designerModal.querySelector( "#copy_html_btn" );
+    this.resetBtn = this.designerModal.querySelector( "#reset_btn" );
 
     
     document.querySelectorAll( ".md-container" ).forEach( el => {
@@ -43,7 +44,7 @@ window.UTILS.LayoutDesigner = class {
     this.countSelector.addEventListener( "change", this.changeColumnCount.bind( this ) );
 
     this.designerModal.querySelector( "[data-bs-dismiss='modal']" ).addEventListener( "click", () => {
-      sessionStorage.setItem( "layout_designer_layout", JSON.stringify( this.exportSizes() ) );
+      //sessionStorage.setItem( "layout_designer_layout", JSON.stringify( this.exportSizes() ) );
       console.log( "hej", sessionStorage.getItem( "layout_designer_layout" ) )
     } );
 
@@ -51,14 +52,18 @@ window.UTILS.LayoutDesigner = class {
       let exportedData = this.exportSizes();
       console.log( JSON.stringify( exportedData, null, 2 ) );
       this.setClipboard( this.generateCode( "markdown" ) );
-      sessionStorage.setItem( "layout_designer_layout", JSON.stringify( exportedData ) );
+      //sessionStorage.setItem( "layout_designer_layout", JSON.stringify( exportedData ) );
     } );
     this.copyHTMLButton.addEventListener( "click", () => {
       let exportedData = this.exportSizes();
       console.log( JSON.stringify( exportedData, null, 2 ) );
       this.setClipboard( this.generateCode( "html" ) );
-      sessionStorage.setItem( "layout_designer_layout", JSON.stringify( exportedData ) );
+      //sessionStorage.setItem( "layout_designer_layout", JSON.stringify( exportedData ) );
     } );
+    this.resetBtn.addEventListener( "click", () => {
+      console.log( "click on reset" );
+      this.reset();
+    } )
   }
 
   createToolbarButton( el ) {
@@ -140,7 +145,7 @@ window.UTILS.LayoutDesigner = class {
     for( let i = 0; i < this.columnCount; i++ ) {
       let cellClass = "";
       breakpoints.forEach( breakpoint => {
-        let span = breakpoint.cells[ i ];
+        let span = breakpoint.sizes[ i ];
         if( span === 0 ) {
           hidden = true;
           if( breakpoint.key === "xs" ) {
@@ -180,7 +185,7 @@ window.UTILS.LayoutDesigner = class {
   importSizes( data ) {
     //console.log( "Importing data for", data.cellsNumber, "cols" );
     //console.log( data );
-    this.columnCount = 0;//data.cellsNumber;
+    this.reset();
     this.countSelector.selectedIndex = data.cellsNumber - 1;
     this.changeColumnCount();
     this.rowXL.sizes = data.xl.sizes;
@@ -191,9 +196,9 @@ window.UTILS.LayoutDesigner = class {
   }
 
   reset(){
-    this.countSelector.selectedIndex = 1; // Default to 2 columns
     this.rows.forEach( (row)=> { row.clear(); } );
     this.columnCount = 0;
+    this.countSelector.selectedIndex = 1; // Default to 2 columns
     this.changeColumnCount();
   }
 
@@ -386,7 +391,7 @@ window.UTILS.LayoutDesignerCell = class {
 
   destroy() {
     if( this.hiddenCellAvatar ){
-      this.parent.destroyHiddenCellAvatar( this.hiddenCellAvatar );
+      this.destroyHiddenCellAvatar( this.hiddenCellAvatar );
     }
     this.parent.cellsContainer.removeChild( this.element );
   }
