@@ -1,27 +1,46 @@
-const size = require("gulp-size");
-
+/**
+ * Layout designer
+ * Editor for creating Boostrap 4+ responsive layout columns structures
+ * Outputs DrInk shortcodes for Markdown or pure HTML code
+ * Adds button to MD editor
+ * 
+ * Usage:
+ * 
+ * if( document.getElementById( "layout-designer" ) ) {
+ *  new UTILS.LayoutDesigner();
+ * }
+ * 
+ * Dependencies:
+ * 
+ * _layout_designer.scss
+ * _layout_designer.tpl
+ * Bootstrap 4+
+ * 
+ */
 window.UTILS = window.UTILS || { };
 
 window.UTILS.LayoutDesigner = class {
-
-  //toolbar;
-  //toolbarButton;
-  designer;
-  countSelector;
+  designer; // container
+  countSelector; // HTML select element for number of columns
+  // editors for all breakpoints
   rowXL;
   rowLG;
   rowMD;
   rowSM;
   rowXS;
-  designerModal;
-  columnCount = 0;
-  rows = [];
-  copyMDButton;
-  copyHTMLButton;
-  storage = sessionStorage;
-  texts = window.layoutDesignerTexts;
+  designerModal; // modal selector
+  columnCount = 0; // current number of columns
+  rows = []; // array for editors
+  copyMDButton; // button to copy Markdown code
+  copyHTMLButton; //  button to copy HTML code
+  storage = sessionStorage; // storage to use - sessionStorage or LocalStorage
+  texts = window.layoutDesignerTexts; // UI strings (rendered in template)
 
+  /**
+   * Constructor
+   */
   constructor() {
+    // assign UI controls
     this.designer = document.getElementById( "layout-designer" );
     this.designerModal = document.getElementById( "layout_designer_modal" );
     this.countSelector = this.designer.querySelector( "#layout_designer_column_count" );
@@ -29,48 +48,59 @@ window.UTILS.LayoutDesigner = class {
     this.copyHTMLButton = this.designerModal.querySelector( "#copy_html_btn" );
     this.resetBtn = this.designerModal.querySelector( "#reset_btn" );
 
-    
+    // create Layout button in toolbars of all MD editors
     document.querySelectorAll( ".md-container" ).forEach( el => {
       this.createToolbarButton( el );
     } );
     
-    //this.rowXL = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xl" ), false );
+    // Create editors for each breakpoint
     this.rowXL = new window.UTILS.LayoutDesignerRow( "rowXL", this.texts.titleXL, false );
     this.rowLG = new window.UTILS.LayoutDesignerRow( "rowLG", this.texts.titleLG, false );
     this.rowMD = new window.UTILS.LayoutDesignerRow( "rowMD", this.texts.titleMD, false );
     this.rowSM = new window.UTILS.LayoutDesignerRow( "rowSM", this.texts.titleSM, false );
     this.rowXS = new window.UTILS.LayoutDesignerRow( "rowXS", this.texts.titleXS, true );
 
+    // Put them to array for easy access
     this.rows = [ this.rowXL, this.rowLG, this.rowMD, this.rowSM, this.rowXS ];
 
+    // Handler for colummn count select
     this.countSelector.addEventListener( "change", this.changeColumnCount.bind( this ) );
 
+    // Handler for close btn
+    // TODO: better would be to have handler on modal close
     this.designerModal.querySelector( "[data-bs-dismiss='modal']" ).addEventListener( "click", () => {
       this.save();
     } );
 
+    // Handler for copy Markdown button
     this.copyMDButton.addEventListener( "click", () => {
       let exportedData = this.exportSizes();
       console.log( JSON.stringify( exportedData, null, 2 ) );
       this.setClipboard( this.generateCode( "markdown" ) );
       this.save();
     } );
+
+    // Handler for copy HTML button
     this.copyHTMLButton.addEventListener( "click", () => {
       let exportedData = this.exportSizes();
       console.log( JSON.stringify( exportedData, null, 2 ) );
       this.setClipboard( this.generateCode( "html" ) );
       this.save();
     } );
+
+    // Handler for copy reset button
     this.resetBtn.addEventListener( "click", () => {
-      console.log( "click on reset" );
       this.reset();
     } )
   }
 
+  // 
+  /**
+   * Create Layout button in MD editor toolbar, set click handler
+   * @param {*} el - MD editor container (typically ".md-container")
+   */
   createToolbarButton( el ) {
-    // Initialization code for LayoutDesigner
     let toolbar = el.querySelector( ".md-toolbar .btn-toolbar" );
-    console.log( "LayoutDesigner initialized with parent editor:" );
     let btn = document.createElement( "button" );
     btn.type = "button";
     btn.className = "md-btn btn btn-default md-btn--icon";
@@ -87,11 +117,13 @@ window.UTILS.LayoutDesigner = class {
     btn.addEventListener( "click", this.initModal.bind( this ) );
   }
 
+  /**
+   * Sets column count for editors
+   */
   changeColumnCount() {
     let newCount = parseInt( this.countSelector.value, 10 );
     let span =  Math.floor( 12 / newCount );
     let colsToAdd = newCount - this.columnCount;
-    console.log( "Changing column count to:", newCount, "span", span, "colsToAdd", colsToAdd );
     if ( colsToAdd > 0) {
       for ( let i = 1; i <= colsToAdd; i++ ) {
         this.rows.forEach( (row)=> { row.addCell(span); } );
@@ -107,21 +139,22 @@ window.UTILS.LayoutDesigner = class {
     this.columnCount = newCount;
   }
 
+  /**
+   * Initializer
+   */
   initModal() {
-    // Code on show modal dialog for layout selection
-    
-
+    // If there is saved layout import it otherwise just reset
     if( this.storage.getItem( "layout_designer_layout" ) ) {
       this.importSizes( JSON.parse( this.storage.getItem( "layout_designer_layout" ) ) );
     } else {
       this.reset();
     }
-
-
-    console.log( "Showing layout selection modal." );
-    
   }
 
+  /**
+   * Creates object with layout description
+   * @returns {Object} 
+   */
   exportSizes() {
     let exportObject = {};
     exportObject.xl = { sizes: this.rowXL.sizes, key: "xl" };
@@ -133,6 +166,11 @@ window.UTILS.LayoutDesigner = class {
     return exportObject;
   }
 
+  /**
+   * Generates HTML or Markdown code
+   * @param {*} style - "html"|"markdown"
+   * @returns {String} - generated code
+   */
   generateCode( style ) {
     style = style || "markdown";
     let data = this.exportSizes();
@@ -164,7 +202,6 @@ window.UTILS.LayoutDesigner = class {
           }
         }
       } );
-      //console.log( "class", cellClass );
       cellCode += prefix;
       if( style === "markdown" ) {
         cellCode += `[col class="${cellClass}" defaultclasses=0]${i+1}[/col]`;
@@ -183,6 +220,11 @@ window.UTILS.LayoutDesigner = class {
     return output;
   }
 
+  /**
+   * Imports and displays data generated by exportSizes
+   * Used when loading saved data from storage
+   * @param {Object} 
+   */
   importSizes( data ) {
     this.reset();
     this.countSelector.selectedIndex = data.cellsNumber - 1;
@@ -194,6 +236,9 @@ window.UTILS.LayoutDesigner = class {
     this.rowXS.sizes = data.xs.sizes;
   }
 
+  /**
+   * Resets editor to default state
+   */
   reset(){
     this.rows.forEach( (row)=> { row.clear(); } );
     this.columnCount = 0;
@@ -201,6 +246,10 @@ window.UTILS.LayoutDesigner = class {
     this.changeColumnCount();
   }
 
+  /**
+   * Puts given text to clipboard
+   * @param {String} text 
+   */
   async setClipboard( text ) {
     const type = "text/plain";
     const clipboardItemData = {
@@ -209,12 +258,14 @@ window.UTILS.LayoutDesigner = class {
     const clipboardItem = new ClipboardItem( clipboardItemData );
     await navigator.clipboard.write( [ clipboardItem ] );
   }
-
+  
+  /**
+   * Save current layout to storage
+   */
   save(){
     this.storage.setItem( "layout_designer_layout", JSON.stringify( this.exportSizes() ) );
   }
 
-  
 };
 
 
