@@ -241,7 +241,6 @@ window.UTILS.LayoutDesigner = class {
    * @param {String} style - "html"|"markdown"
    */
   codeToClipboard( style ) {
-    let exportedData = this.exportSizes();
     this.setClipboard( this.generateCode( style ) );
     this.save();
   }
@@ -255,6 +254,7 @@ window.UTILS.LayoutDesigner = class {
     const clipboardItemData = {
       [ type ]: text,
     };
+    // eslint-disable-next-line no-undef
     const clipboardItem = new ClipboardItem( clipboardItemData );
     await navigator.clipboard.write( [ clipboardItem ] );
   }
@@ -496,7 +496,7 @@ window.UTILS.LayoutDesignerCell = class {
     
     this.parent.hiddenCellsContainer.appendChild( hiddenCellAvatar );
 
-    hiddenCellAvatar.querySelector( ".js-show-cell" ).addEventListener( "click", ( e ) => {
+    hiddenCellAvatar.querySelector( ".js-show-cell" ).addEventListener( "click", () => {
       this.span = this.previousSpan;
       this.destroyHiddenCellAvatar();
     } );
