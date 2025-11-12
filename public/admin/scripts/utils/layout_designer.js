@@ -120,12 +120,10 @@ window.UTILS.LayoutDesigner = class {
     if ( colsToAdd > 0) {
       for ( let i = 1; i <= colsToAdd; i++ ) {
         this.rows.forEach( (row)=> { row.addCell(span); } );
-        console.log( "Added column", i );
       }
     } else if ( colsToAdd < 0 ) {
       for ( let i = 1; i <= -colsToAdd; i++ ) {
         this.rows.forEach( (row)=> { row.removeLastCell(); } );
-        console.log( "Remove column", i );
       }
     }
     this.rows.forEach( (row)=> { row.evenWidths(); } );
@@ -209,7 +207,6 @@ window.UTILS.LayoutDesigner = class {
     } else if ( style === "html" ) {
       output = `<div class="row">${suffix}${cellCode}</div>`;
     }
-    console.log(output);
     return output;
   }
 
@@ -376,7 +373,6 @@ window.UTILS.LayoutDesignerRow = class {
         widths.push( cell.span );
       }
     )
-    console.log( "sizes: ", widths );
     return widths;
   }
 
@@ -398,7 +394,6 @@ window.UTILS.LayoutDesignerRow = class {
    * Handlers for copy/paste breakpoint layout
    */
   copyPasteHandlers() {
-    console.log(this.sizes)
     this.btnCopy.addEventListener( "click", ()=>{
       window.copiedRow = this.sizes;
     } );
@@ -411,7 +406,7 @@ window.UTILS.LayoutDesignerRow = class {
 
 
 /**
- * Helper class for single cell (column)
+ * Helper class representing single cell (column)
  */
 window.UTILS.LayoutDesignerCell = class {
   element;                    // this html 
@@ -491,7 +486,6 @@ window.UTILS.LayoutDesignerCell = class {
    * Create hidden cell graphics representation
    */
   createHiddenCellAvatar() {
-    console.log( "cell hidden, No. ", this.cellNumber );
     let hiddenCellAvatar = document.createElement( "div" );
     // get markup from html template
     let content = document.querySelector( "#hidden_cell_avatar" ).content.cloneNode( true );
