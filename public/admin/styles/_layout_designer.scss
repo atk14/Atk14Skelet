@@ -17,6 +17,10 @@
         .js--row-title {
           font-weight: bold;
           font-size: 1.125rem;
+          .fa, .fas, .far {
+            color: $secondary;
+            margin-inline-end: 0.6ch;
+          }
         }
       }
       

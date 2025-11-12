@@ -9,13 +9,24 @@
   </div>
  </template>
 
+ <script>
+  window.layoutDesignerTexts = {
+    titleXL: '{!"display"|icon} {t}XL - Large desktop{/t}',
+    titleLG: '{!"laptop"|icon} {t}LG - Laptop{/t}',
+    titleMD: '{!"tablet-screen-button"|icon} {t}MD - Tablet{/t}',
+    titleSM: '{!"tablet-screen-button"|icon} {t}SM - Small tablet{/t}',
+    titleXS: '{!"mobile-screen-button"|icon} {t}XS - Phone{/t}',
+    wrongPaste: "{t}Cannot paste columns: Number of pasted columns do not match number of current columns.{/t}",
+  }
+ </script>
+
  <template id="layout_designer_row">
     <div class="layout-designer__row-editor">
       <div class="layout-designer__row-header mb-3">
-        <div class="js--row-title">title</div>
+        <div class="js--row-title"></div>
         <div>
-          <button class="btn btn-sm btn-outline-primary js--btn-copy">Copy row</button>
-          <button class="btn btn-sm btn-outline-primary js--btn-paste">Paste row</button>
+          <button class="btn btn-sm btn-outline-primary js--btn-copy">{t}Copy cells{/t}</button>
+          <button class="btn btn-sm btn-outline-primary js--btn-paste">{t}Paste cells{/t}</button>
         </div>
       </div>
 
@@ -68,11 +79,15 @@
 
 
       </div>
-      <div class="modal-footer">
-        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-secondary" id="reset_btn">Reset</button>
-        <button type="button" class="btn btn-primary" id="copy_md_btn">{t}Copy Markdown code to clipboard{/t}</button>
-        <button type="button" class="btn btn-link" id="copy_html_btn">{t}Copy HTML code to clipboard{/t}</button>
+      <div class="modal-footer d-flex justify-content-between">
+        <div>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Close{/t}</button>
+          <button type="button" class="btn btn-secondary" id="reset_btn">{t}Reset{/t}</button>
+        </div>
+        <div>
+          <button type="button" class="btn btn-link" id="copy_html_btn">{t}Copy HTML code to clipboard{/t}</button>
+          <button type="button" class="btn btn-primary" id="copy_md_btn">{t}Copy Markdown code to clipboard{/t}</button>
+        </div>
       </div>
     </div>
   </div>

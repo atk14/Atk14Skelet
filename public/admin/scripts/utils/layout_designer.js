@@ -18,6 +18,8 @@ window.UTILS.LayoutDesigner = class {
   rows = [];
   copyMDButton;
   copyHTMLButton;
+  storage = sessionStorage;
+  texts = window.layoutDesignerTexts;
 
   constructor() {
     this.designer = document.getElementById( "layout-designer" );
@@ -33,32 +35,31 @@ window.UTILS.LayoutDesigner = class {
     } );
     
     //this.rowXL = new window.UTILS.LayoutDesignerRow( this.designer.querySelector( "#row_xl" ), false );
-    this.rowXL = new window.UTILS.LayoutDesignerRow( "rowXL", "XL", false );
-    this.rowLG = new window.UTILS.LayoutDesignerRow( "rowLG", "LG", false );
-    this.rowMD = new window.UTILS.LayoutDesignerRow( "rowMD", "MD", false );
-    this.rowSM = new window.UTILS.LayoutDesignerRow( "rowSM", "SM", false );
-    this.rowXS = new window.UTILS.LayoutDesignerRow( "rowXS", "XS", true );
+    this.rowXL = new window.UTILS.LayoutDesignerRow( "rowXL", this.texts.titleXL, false );
+    this.rowLG = new window.UTILS.LayoutDesignerRow( "rowLG", this.texts.titleLG, false );
+    this.rowMD = new window.UTILS.LayoutDesignerRow( "rowMD", this.texts.titleMD, false );
+    this.rowSM = new window.UTILS.LayoutDesignerRow( "rowSM", this.texts.titleSM, false );
+    this.rowXS = new window.UTILS.LayoutDesignerRow( "rowXS", this.texts.titleXS, true );
 
     this.rows = [ this.rowXL, this.rowLG, this.rowMD, this.rowSM, this.rowXS ];
 
     this.countSelector.addEventListener( "change", this.changeColumnCount.bind( this ) );
 
     this.designerModal.querySelector( "[data-bs-dismiss='modal']" ).addEventListener( "click", () => {
-      //sessionStorage.setItem( "layout_designer_layout", JSON.stringify( this.exportSizes() ) );
-      console.log( "hej", sessionStorage.getItem( "layout_designer_layout" ) )
+      this.save();
     } );
 
     this.copyMDButton.addEventListener( "click", () => {
       let exportedData = this.exportSizes();
       console.log( JSON.stringify( exportedData, null, 2 ) );
       this.setClipboard( this.generateCode( "markdown" ) );
-      //sessionStorage.setItem( "layout_designer_layout", JSON.stringify( exportedData ) );
+      this.save();
     } );
     this.copyHTMLButton.addEventListener( "click", () => {
       let exportedData = this.exportSizes();
       console.log( JSON.stringify( exportedData, null, 2 ) );
       this.setClipboard( this.generateCode( "html" ) );
-      //sessionStorage.setItem( "layout_designer_layout", JSON.stringify( exportedData ) );
+      this.save();
     } );
     this.resetBtn.addEventListener( "click", () => {
       console.log( "click on reset" );
@@ -110,8 +111,8 @@ window.UTILS.LayoutDesigner = class {
     // Code on show modal dialog for layout selection
     
 
-    if( sessionStorage.getItem( "layout_designer_layout" ) ) {
-      this.importSizes( JSON.parse( sessionStorage.getItem( "layout_designer_layout" ) ) );
+    if( this.storage.getItem( "layout_designer_layout" ) ) {
+      this.importSizes( JSON.parse( this.storage.getItem( "layout_designer_layout" ) ) );
     } else {
       this.reset();
     }
@@ -166,7 +167,7 @@ window.UTILS.LayoutDesigner = class {
       //console.log( "class", cellClass );
       cellCode += prefix;
       if( style === "markdown" ) {
-        cellCode += `[col class="${cellClass}"]${i+1}[/col]`;
+        cellCode += `[col class="${cellClass}" defaultclasses=0]${i+1}[/col]`;
       } else if ( style === "html" ) {
         cellCode += `<div class="${cellClass}">${i+1}</div>`;
       }
@@ -183,8 +184,6 @@ window.UTILS.LayoutDesigner = class {
   }
 
   importSizes( data ) {
-    //console.log( "Importing data for", data.cellsNumber, "cols" );
-    //console.log( data );
     this.reset();
     this.countSelector.selectedIndex = data.cellsNumber - 1;
     this.changeColumnCount();
@@ -209,6 +208,10 @@ window.UTILS.LayoutDesigner = class {
     };
     const clipboardItem = new ClipboardItem( clipboardItemData );
     await navigator.clipboard.write( [ clipboardItem ] );
+  }
+
+  save(){
+    this.storage.setItem( "layout_designer_layout", JSON.stringify( this.exportSizes() ) );
   }
 
   
@@ -370,6 +373,7 @@ window.UTILS.LayoutDesignerCell = class {
     hiddenCellAvatar.className = "hidden_cell_avatar";
     hiddenCellAvatar.appendChild( content );
     hiddenCellAvatar.querySelector( ".cellnumber" ).innerHTML = this.cellNumber;
+    hiddenCellAvatar.style.order = this.cellNumber;
     this.hiddenCellAvatar = hiddenCellAvatar;
     
     this.parent.hiddenCellsContainer.appendChild( hiddenCellAvatar );
