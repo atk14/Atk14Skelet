@@ -459,7 +459,6 @@ window.UTILS.LayoutDesignerCell = class {
     this.previousSpan = this.#span;
     this.#span = n;
     this.element.setAttribute( "data-span", this.#span );
-    //this.element.className = "col-" + this.#span + "  col-xs-" + this.#span;
     this.element.className = "cellspan-" + this.#span;
     this.element.querySelector( ".js-span-display" ).innerHTML = this.#span;
     if( n === 0 ) {
