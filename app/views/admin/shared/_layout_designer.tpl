@@ -25,8 +25,8 @@
       <div class="layout-designer__row-header mb-3">
         <div class="js--row-title"></div>
         <div>
-          <button class="btn btn-sm btn-outline-primary js--btn-copy">{t}Copy cells{/t}</button>
-          <button class="btn btn-sm btn-outline-primary js--btn-paste">{t}Paste cells{/t}</button>
+          <button class="btn btn-sm btn-outline-primary js--btn-copy">{t}Copy widths{/t}</button>
+          <button class="btn btn-sm btn-outline-primary js--btn-paste">{t}Paste widths{/t}</button>
         </div>
       </div>
 
@@ -81,7 +81,7 @@
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <div>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Close{/t}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Cancel{/t}</button>
           <button type="button" class="btn btn-secondary" id="reset_btn">{t}Reset{/t}</button>
         </div>
         <div>
