@@ -180,6 +180,9 @@
       }
     }
     .modal {
+      button.close {
+        color: currentColor;
+      }
       &-content {
         background-color: $dark-body-bg;
         .layout-designer__row-editor {
