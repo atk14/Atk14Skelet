@@ -1,0 +1,56 @@
+/*
+Typography styles for longer text blocks in admin area (most default styles are designed for use in forms).
+Use <div class="admin-block-text">...</div> to wrap such text blocks.
+*/
+.admin-block-text {
+
+  h2, .h2 {
+    font-size: 2rem;
+    margin: 1em 0;
+  }
+  h3, .h3 {
+    font-size: 1.5rem;
+    margin: 2em 0 0.5em 0;
+  }
+
+  dl  {
+    margin: 3em 0;
+    display: grid;
+    grid-template-columns: 300px 1fr;
+    gap: 1.5rem;
+    align-items: stretch;
+    dt {
+      font-weight: bold;
+      font-weight: bold;
+      grid-column: 1 / 2;
+    }
+    dd {
+      margin-left: 0;
+      margin-bottom: 0;
+      grid-column: -2 / -1;
+    }
+
+    > hr {
+      border: 0;
+      border-top: 1px solid $border-color;
+      margin: 0 0;
+      grid-column: 1 / -1;
+      opacity: 1;
+    }
+
+    @include media-breakpoint-down(sm) {
+      display: block;
+      margin: 2em 0;
+      dt {
+        margin-bottom: 1em;
+        margin-top: 1em;
+      }
+      dd {
+        margin-bottom: 2em;
+      }
+    }
+    
+  }
+
+
+}

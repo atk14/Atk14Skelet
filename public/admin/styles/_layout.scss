@@ -1,3 +1,7 @@
+$sidebarBackground: $gray-100;
+$sidebarBorder: 1px solid $border-color;
+
+
 // Applies CSS Grid for layout w/sidebar
 .body-wrap {
 	display: flex;
@@ -12,7 +16,9 @@
 		padding-top: $grid-gutter-width/2;
 	}
 	.nav-section {
-		background-color: $gray-200;
+		background-color: $sidebarBackground;
+		border-right: $sidebarBorder;
+		transition: opacity 1000ms;
 		ul.nav {
 			li.nav-item {
 				a.nav-link {
@@ -28,6 +34,9 @@
 					}
 				}
 			}
+		}
+		&:has(.sidebar-toggle) {
+			padding-top: 0;
 		}
 	}
 	.content-main {
@@ -52,11 +61,16 @@
 	
 	@include media-breakpoint-up(md){
 		display: grid;
-		grid-template-columns: 200px 1fr;
+		grid-template-columns: $nav-section-width 1fr;
 		grid-template-areas: 'sidebar mainbody';
+		&.with-animation {
+			transition: grid-template-columns 200ms;
+		}
 		.nav-section {
+			overflow-x: hidden;
 			grid-area: sidebar;
 			ul.nav {
+				width: $nav-section-width;
 				&--sticky {
 					position: sticky;
 					top: 0;
@@ -72,6 +86,42 @@
 			border-bottom: 1px solid $gray-300;
 			padding-bottom: $grid-gutter-width/2;
 			margin-bottom: $grid-gutter-width/2;
+		}
+	}
+}
+
+@include media-breakpoint-up(md){
+	$collapsedWidth: 35px;
+	js--sidebar-toggle {
+		&:active, &:focus:not(:focus-visible) {
+			box-shadow: none !important;
+			outline: none;
+		}
+	}
+	html.sidebar-collapsed {
+		.has-nav-section {
+			grid-template-columns: $collapsedWidth 1fr;
+			.nav-section {
+				overflow-x: hidden;
+				//display: none;
+				opacity: 0;
+			}
+		}
+		.sidebar__toggle {
+			display: flex !important;
+			background-color: $sidebarBackground;
+			border-right: $sidebarBorder;
+			grid-area: sidebar;
+			cursor: pointer;
+			width: 100%;//$collapsedWidth;
+			height: 100%;
+			justify-content: center;
+			align-items: start;
+			background-color: $gray-200;
+			color: $primary;
+			/*@include media-breakpoint-down(md) {
+				display: none !important;
+			}*/
 		}
 	}
 }

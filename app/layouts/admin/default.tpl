@@ -59,6 +59,16 @@
 		
 		{render partial="shared/layout/favicons"}
 
+		{javascript_tag}
+			window.name = window.name || "name_" + Math.round(  Math.random() * 1000000 );
+    	let storageName = "admin_sidebarOpen_" + window.name;
+			
+			let savedSidebarStatus = window.sessionStorage.getItem( storageName ) || null;
+			if( savedSidebarStatus !== true && savedSidebarStatus !== "true" && savedSidebarStatus !== null ) {
+				document.documentElement.classList.add( "sidebar-collapsed" );
+			}
+		{/javascript_tag}
+
 		{placeholder for=head} {* a place for <link rel="canonical" ...>, etc. *}
 
 		<meta name="robots" content="noindex,noarchive">
@@ -77,6 +87,9 @@
 						<nav class="nav-section">
 							{render partial="shared/layout/section_navigation"}
 						</nav>
+						<div class="sidebar__toggle d-none js--sidebar-toggle">
+							<button class="btn btn-link"><span class="atk_icon atk_icon--sidebar"></span></button>
+						</div>
 					{/if}
 
 					<div class="content-main">

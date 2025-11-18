@@ -2,6 +2,31 @@
 
 form {
 	.form-group {
+		// z-index for better sticky/absolute/fixed elements layering above form
+		position: relative;
+		z-index: 1;
+
+		&:has(.md-fullscreen) {
+			position: static;
+			* {
+				//opacity: 0.75;
+			}
+			.md-fullscreen {
+				position: fixed;
+				height: 100% !important;
+				display: flex;
+				flex-direction: column;
+				align-items: stretch;
+				.md-preview {
+					color: $body-color;
+				}
+			}
+			.md-editor, .md-preview {
+				flex-grow: 1000;
+				height: auto !important;
+			}
+		}
+
 		> ul.list--radios, > ul.list--checkboxes {
 			@extend .list-unstyled;
 			margin-bottom: 0;
@@ -166,7 +191,11 @@ form {
 			grid-area: middleleft;
 		}
 		.button-container {
-			display: inline-block;
+			//display: inline-block;
+			display: flex;
+			flex-wrap: wrap;
+			padding-right: 60px;
+			gap: 0.5rem;
 		}
 	}
 }
@@ -215,5 +244,25 @@ form {
 .pickr {
 	.pcr-button {
 		border: 1px solid $input-border-color;
+	}
+}
+
+// md editors are resizable vertically only
+.md-editor {
+	resize: vertical !important;
+	min-height: 80px;
+};
+
+// Sticky Save Buttons container in forms
+fieldset {
+	.form-group:has(.button-container) {
+		background-color: rgba(white,.5);
+		position: sticky;
+		bottom: 0;
+		z-index: zindex-sticky;
+		backdrop-filter: blur(5px);
+		.button-container {
+			grid-column-end: -1;
+		}
 	}
 }
