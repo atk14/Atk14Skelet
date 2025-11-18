@@ -15,6 +15,9 @@
 				window.UTILS.Suggestions.handleTagsSuggestions();
 				ADMIN.utils.initializeMarkdonEditors();
 				new UTILS.MDEditorResizer();
+				if( document.getElementById( "layout-designer" ) ) {
+					new UTILS.LayoutDesigner();
+				}
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
 				window.UTILS.TagChooser.init();

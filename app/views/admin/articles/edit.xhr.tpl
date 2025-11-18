@@ -6,6 +6,9 @@ window.UTILS.Suggestions.handleTagsSuggestions();
 window.UTILS.TagChooser.init();
 window.UTILS.EnhancedFileField.init();
 
+if( document.getElementById( "layout-designer" ) ) {
+	new UTILS.LayoutDesigner();
+};
 {if $form->has_errors()}
 	{js_notify type="error"}{t}Saving failed.{/t}{/js_notify}
 {/if}

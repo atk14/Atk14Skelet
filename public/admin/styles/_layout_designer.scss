@@ -1,0 +1,139 @@
+.layout-designer {
+
+  .editor-container {
+    .layout-designer__row-editor {
+      display: block;
+      padding: 0.75rem;
+      border-radius: $border-radius-lg;
+      background-color: $gray-200;
+      margin-bottom: 20px;
+      
+      .layout-designer__row-header {
+        margin-bottom: 0.5rem;
+        display: flex;
+        justify-content: space-between;
+        align-items: center;
+        gap: 0.5rem;
+        .js--row-title {
+          font-weight: bold;
+          font-size: 1.125rem;
+          .fa, .fas, .far {
+            color: $secondary;
+            margin-inline-end: 0.6ch;
+          }
+        }
+      }
+      
+      .row {
+        margin: 0;align-items: stretch;
+        min-height: 40px;
+        background-color: rgba($gray-500, 0.75);
+        padding: 6px;
+        border-radius: 3px;
+        //outline: 1px solid #666;
+        display: grid;
+        grid-template-columns: repeat( 12, 1fr );
+        position: relative;
+
+        @for $i from 1 through 12 {
+          .cellspan-#{$i} {
+            grid-column: span $i;
+          }
+        }
+        
+        > * {
+          border: 1px solid $primary;
+          padding: 0;
+          background-color: white;
+          min-height: 40px;
+          .cellnumber {
+            display: inline-flex;
+            justify-content: center;
+            align-items: center;
+            line-height: 1;
+            background-color: #999;
+            color: white;
+            padding: 0.1em 0.3em;
+            border-radius: 7.5px;
+            min-width: 15px;
+            font-size: 12px;
+            font-weight: 900;
+            margin-left: 0.3rem;
+          }
+          .cell-controls {
+            display: flex;
+            gap:  0.125em;
+            align-items: center;
+            justify-content: start;
+            flex-wrap: wrap;
+            color: $body-color;
+            .cellbtn {
+              color: $primary;
+              display: flex;
+              padding: 0.2em 0.1em;
+              align-items: center;
+              justify-content: center;
+              line-height: 1;
+              cursor: pointer;
+            }
+          }
+        }
+        .cellspan-0 {
+          display: none; 
+        }
+      }
+      .hidden-cells-container {
+        display: flex;
+        flex-wrap: wrap;
+        align-items: center;
+        gap: 3px;
+        margin: 0.5rem 0 0 0;
+        font-size: $font-size-sm;
+        &:not(:has(div)) {
+          display: none;
+        }
+        .hidden_cell_avatar {
+          div {
+            background-color: $gray-400;
+            padding: 0.25em 0.5em;
+            border-radius: 3px;
+            display: flex;
+            align-items: center;
+            gap: 0.25em;
+            flex-basis: auto;
+            .cellnumber {
+              display: inline-flex;
+              justify-content: center;
+              align-items: center;
+              line-height: 1;
+              background-color: #333;
+              color: white;
+              padding: 0.1em 0.3em;
+              border-radius: 7.5px;
+              min-width: 15px;
+              font-size: 12px;
+              font-weight: 900;
+            }
+            .cellbtn {
+              color: $primary;
+              display: flex;
+              padding: 0.2em 0.1em;
+              align-items: center;
+              justify-content: center;
+              line-height: 1;
+              cursor: pointer;
+            }
+          }
+        }
+      }
+    }
+  }
+}
+
+#layout_designer_modal {
+  .modal-dialog {
+     width: 100%;
+    max-width: 1200px;
+  }
+}
+ 
