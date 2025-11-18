@@ -4,7 +4,9 @@ UTILS.leaving_unsaved_page_checker.init();
 window.UTILS.Suggestions.handleSuggestions();
 window.UTILS.Suggestions.handleTagsSuggestions();
 window.UTILS.TagChooser.init();
-if( document.getElementById("layout-designer")){new UTILS.LayoutDesigner();};
+if( document.getElementById( "layout-designer" ) ) {
+	new UTILS.LayoutDesigner();
+};
 {if $form->has_errors()}
 	{js_notify type="error"}{t}Saving failed.{/t}{/js_notify}
 {/if}
