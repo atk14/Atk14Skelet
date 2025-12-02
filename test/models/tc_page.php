@@ -49,4 +49,21 @@ class TcPage extends TcBase {
 		$this->assertTrue($page->isIndexable(false));
 		$this->assertFalse($subpage->isIndexable(false));
 	}
+
+	function test_isVisible(){
+		$page = $this->pages["testing_page"];
+		$subpage = $this->pages["testing_subpage"];
+
+		$this->assertTrue($page->isVisible());
+		$this->assertTrue($subpage->isVisible());
+
+		$page->s("visible",false);
+		Cache::Clear();
+		
+		$this->assertFalse($page->isVisible());
+		$this->assertFalse($subpage->isVisible());
+
+		$this->assertFalse($page->isVisible(false));
+		$this->assertTrue($subpage->isVisible(false));
+	}
 }

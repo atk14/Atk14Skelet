@@ -1,6 +1,10 @@
 $form.replaceWith({jstring}{render partial="edit_form"}{/jstring});
 ADMIN.utils.initializeMarkdonEditors();
 UTILS.leaving_unsaved_page_checker.init();
+window.UTILS.EnhancedFileField.init();
+if( document.getElementById( "layout-designer" ) ) {
+	new UTILS.LayoutDesigner();
+};
 
 {if $form->has_errors()}
 	{js_notify type="error"}{t}Saving failed.{/t}{/js_notify}

@@ -1,5 +1,6 @@
 <nav class="navbar navbar-dark bg-dark navbar-expand-sm nav-login">
 	<div class="container-fluid">
+		
 		{assign var=appname value="ATK14_APPLICATION_NAME"|dump_constant}
 		{a action="main/index" namespace="" _title=$link_title _class="navbar-brand"}
 			{if $controller=="main" && $action=="index" && $namespace==""}
@@ -11,7 +12,7 @@
 		<button class="navbar-toggler" type="button" {if USING_BOOTSTRAP5}data-bs-toggle="collapse" data-bs-target="#navbarNavDropdown"{else}data-toggle="collapse" data-target="#navbarNavDropdown"{/if} aria-controls="navbarNavDropdown" aria-expanded="false" aria-label="Toggle navigation">
 			{!"bars"|icon}
 		</button>
-		<div class="collapse navbar-collapse justify-content-end" id="navbarNavDropdown">
+		<div class="collapse navbar-collapse justify-content-end align-items-stretch" id="navbarNavDropdown">
 			
 			<ul class="navbar-nav">
 				<li class="nav-item">
@@ -27,6 +28,14 @@
 						{/if}
 					</span>
 				</li>
+			</ul>
+			<ul class="navbar-nav">
+				<li class="nav-item d-none d-md-flex">
+					<div class="sidebar-toggle">
+						<button class="btn btn-link py-0 text-light js--sidebar-toggle" title="{t}Toggle sidebar{/t}" aria-label="{t}Toggle sidebar{/t}">
+							<span class="atk_icon atk_icon--sidebar"></span>
+						</button>
+					</div>
 				</li>
 				<li class="nav-item">
 					<div class="dark-mode-switch form-check form-switch">

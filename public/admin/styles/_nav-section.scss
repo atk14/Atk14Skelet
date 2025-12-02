@@ -22,7 +22,7 @@ nav.nav-section {
 		}
 	}
 
-	// nav collapse/expand toggler
+	// nav collapse/expand toggler for small screens
 	.nav-section__toggle {
 		display: none !important;
 		justify-content: space-between;
@@ -68,6 +68,38 @@ nav.nav-section {
 				}
 			}
 
+		}
+	}
+
+	// nav collapse/expand toggler for big screens
+	.sidebar-toggle {
+		display: flex;
+		justify-content: end;
+		//@include media-breakpoint-up($nav-collapse-breakpoint) {
+		@include media-breakpoint-down($nav-collapse-breakpoint) {
+			display: none;
+		}
+		button {
+			/*border: none;
+			background: none;
+			padding: 0.25rem 0.5rem;
+			color: $link-color;*/
+			&:hover {
+				text-decoration: none;
+				background-color: rgba($dark,0.05);
+			}
+			&:focus {
+				box-shadow: none;
+				background-color: $light;
+				border-width: $btn-border-width;
+			}
+		}
+	}
+	@include media-breakpoint-up($nav-collapse-breakpoint) {
+		.sidebar-toggle ~ .nav-section__collapsible {
+			ul.nav {
+				border-top: 1px solid $border-color;
+			}
 		}
 	}
 

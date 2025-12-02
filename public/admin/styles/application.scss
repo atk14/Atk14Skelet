@@ -45,7 +45,12 @@
 @import "autocomplete";
 
 @import "tag_chooser";
+
 @import "notifications";
+
+@import "admin_block_text";
+
+@import "layout_designer";
 
 @import "shared/clearfix";
 @import "shared/loading";
@@ -58,3 +63,4 @@
 @import "shared/suggestions";
 @import "shared/flash_messages";
 @import "shared/screenreaders";
+@import "shared/atk_icons";

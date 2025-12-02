@@ -16,3 +16,4 @@
 	<hr>
 	{render partial="shared/attachments" object=$object}
 {/if}
+{render partial="admin/shared/layout_designer"}

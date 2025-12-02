@@ -133,6 +133,10 @@
 	.swiper-navigation-icon {
 		display: none;
 	}
+	// Hide default arrows from swpiper 12+
+	.swiper-navigation-icon {
+		display: none;
+	}
 }
 
 .swiper-button-next {

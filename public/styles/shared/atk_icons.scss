@@ -1,0 +1,30 @@
+/* Custom icons using inline SVGs as CSS masks */
+
+// Mask images (SVGs with transparent backgrounds data URIs)
+$sidebarIcon: url("data:image/svg+xml,<svg width='16' height='16' fill='currentColor' class='bi bi-window-sidebar' viewBox='0 0 16 16' xmlns='http://www.w3.org/2000/svg'><path d='M2 1a2 2 0 0 0-2 2v10c0 1.1.9 2 2 2h12a2 2 0 0 0 2-2V3a2 2 0 0 0-2-2Zm-.5 11.5v-9c0-.6.4-1 1-1H6v11H2.5a1 1 0 0 1-1-1m12-10c.6 0 1 .4 1 1v9c0 .6-.4 1-1 1h-6v-11z'/><rect width='1.3' height='3' x='-5.3' y='2.3' transform='rotate(-90)' fill='#000'/><rect width='1.3' height='3' x='-7.3' y='2.3' transform='rotate(-90)' fill='#000'/><rect width='1.3' height='3' x='-9.3' y='2.3' transform='rotate(-90)' fill='#000'/></svg>");
+
+.atk_icon {
+  // General styles for custom icons
+  line-height: 1;
+  display: inline-block;
+  &::after {
+    display: inline-block;
+    width: 1em;
+    height: 1em;
+    position: relative;
+    top: 0.125em;
+    content: "";
+    background-color: currentColor;
+    mask-size: contain;
+    mask-repeat: no-repeat;
+    mask-position: center center;
+    mask-type: alpha;
+    line-height: 1;
+    outline: 1px solid  black;
+  }
+
+  // Specific icons
+  &--sidebar::after {
+    mask-image: $sidebarIcon;
+  }
+}

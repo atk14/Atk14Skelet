@@ -3,14 +3,20 @@
 
     $dark-medium-bg: $gray-700;
 
+    // temp
+    $dark-body-bg: var(--bs-body-bg);// #121212;
+    $dark-border-color: var(--bs-border-color);//#333333;
+
     // nav left
     .has-nav-section{
-      .nav-section {
+      .nav-section, .sidebar__toggle {
+        border-color: $dark-border-color;
         background-color: #121212; //black;
         #nav-filter {
           border-color: var(--bs-border-color);
         }
         ul.nav {
+          border-color: $dark-border-color;
           li.nav-item {
             a.nav-link:not(.active) {
               color: $gray-300;
@@ -42,6 +48,24 @@
       background-color: var(--bs-body-bg);
       border-color: var(--bs-border-color);
       color: var(--bs-body-color);
+///=======
+    // forms 
+    /*form {
+      .form-group {
+        border-color: $dark-border-color;
+        & > .help-block {
+          color: $dark-text-muted !important;
+        }
+      }
+      label {
+        .tip {
+          color: $dark-text-muted !important;
+        }
+      }
+      .form-group:has(.button-container) {
+        background-color: rgba($dark-body-bg, .5);
+      }*/
+///>>>>>>> develop
     }
 
     /*.pickr .pcr-button {
@@ -81,12 +105,33 @@
         background-color: $gray-900;
       }
     }
+    .modal {
+      button.close {
+        color: currentColor;
+      }
+      &-content {
+        background-color: $dark-body-bg;
+        .layout-designer__row-editor {
+          background-color: $gray-700;
+          .btn-outline-primary {
+            border-color: lighten( $primary, 30% );
+            color: lighten( $primary, 30% );
+            &:hover, &:active, &:focus {
+              color: white;
+            }
+          }
+        }
+      }
+    }
+    hr, .admin-block-text dl > hr {
+      border-color: $dark-border-color;
+    }
   }
 }
 
 // few small animations for smoother change. Class is added by JS temporarily for 1s after theme toggle
 body.dark-mode-transition {
-  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item, .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .progress, .drop-zone {
+  &, .table, .table *, .nav-section, ol.breadcrumb, .list-group, .list-group-item, .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .progress, .drop-zone, .sidebar__toggle {
     transition: background-color 0.75s, border-color 0.75s;
   }
 }
