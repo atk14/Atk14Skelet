@@ -3,20 +3,16 @@
 
     $dark-medium-bg: $gray-700;
 
-    // temp
-    $dark-body-bg: var(--bs-body-bg);// #121212;
-    $dark-border-color: var(--bs-border-color);//#333333;
-
     // nav left
     .has-nav-section{
       .nav-section, .sidebar__toggle {
-        border-color: $dark-border-color;
+        border-color: var(--bs-border-color);
         background-color: #121212; //black;
         #nav-filter {
           border-color: var(--bs-border-color);
         }
         ul.nav {
-          border-color: $dark-border-color;
+          border-color: var(--bs-border-color);
           li.nav-item {
             a.nav-link:not(.active) {
               color: $gray-300;
@@ -48,24 +44,12 @@
       background-color: var(--bs-body-bg);
       border-color: var(--bs-border-color);
       color: var(--bs-body-color);
-///=======
+    }
     // forms 
-    /*form {
-      .form-group {
-        border-color: $dark-border-color;
-        & > .help-block {
-          color: $dark-text-muted !important;
-        }
-      }
-      label {
-        .tip {
-          color: $dark-text-muted !important;
-        }
-      }
+    form {
       .form-group:has(.button-container) {
-        background-color: rgba($dark-body-bg, .5);
-      }*/
-///>>>>>>> develop
+        background-color: rgba(var(--bs-body-bg-rgb), .5);
+      }
     }
 
     /*.pickr .pcr-button {
@@ -110,7 +94,7 @@
         color: currentColor;
       }
       &-content {
-        background-color: $dark-body-bg;
+        background-color: var(--bs-body-bg);
         .layout-designer__row-editor {
           background-color: $gray-700;
           .btn-outline-primary {
@@ -124,7 +108,7 @@
       }
     }
     hr, .admin-block-text dl > hr {
-      border-color: $dark-border-color;
+      border-color: var(--bs-border-color);
     }
   }
 }
