@@ -36,7 +36,6 @@ nav.nav-section {
 		}
 		&:focus {
 			box-shadow: none;
-			background-color: $light;
 			border-width: $btn-border-width;
 		}
 	}
@@ -90,7 +89,7 @@ nav.nav-section {
 			}
 			&:focus {
 				box-shadow: none;
-				background-color: $light;
+				background-color: transparent;
 				border-width: $btn-border-width;
 			}
 		}
