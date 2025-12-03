@@ -100,7 +100,7 @@ $sidebarBorder: 1px solid $border-color;
 	}
 	html.sidebar-collapsed {
 		.has-nav-section {
-			grid-template-columns: $collapsedWidth 1fr;
+			grid-template-columns: $collapsedWidth minmax(0,1fr);
 			.nav-section {
 				overflow-x: hidden;
 				//display: none;

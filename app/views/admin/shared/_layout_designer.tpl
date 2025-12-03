@@ -61,10 +61,10 @@
       </div>
       <div class="modal-body layout-designer" id="layout-designer">
 
-        <div class="form-group row">
+        <div class="form-group row mb-3">
           <label for="layout_designer_column_count" class="form-label col-4">{t}Number of columns{/t}</label>
           <div class="col-8">
-          <select name="" id="layout_designer_column_count" class="form-control">
+          <select name="" id="layout_designer_column_count" class="{if USING_BOOTSTRAP5}form-select{else}form-control{/if}">
             {for $i=1 to 12}
               <option value="{$i}"{if $i==2} selected{/if}>{$i}</option>
             {/for}
