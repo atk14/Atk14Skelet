@@ -142,9 +142,6 @@ var config = {
             loader: "css-loader",
             options: {
               url: false,
-              /*url: {
-                filter: (url) => !(url.startsWith("data:image/svg+xml"))
-              }*/
             }
           },
           {
