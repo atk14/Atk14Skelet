@@ -253,6 +253,11 @@ form {
 	min-height: 80px;
 };
 
+// on fullscreen editor should be z-indexed under modal elements
+.md-fullscreen {
+	z-index: $zindex-fixed;
+}
+
 // Sticky Save Buttons container in forms
 fieldset {
 	.form-group:has(.button-container) {
