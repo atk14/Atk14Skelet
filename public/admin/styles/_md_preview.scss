@@ -1,120 +1,125 @@
-.iobject {
-  border: 1px solid $gray-500;
-  background-color: $gray-300;
-  color: black;
-  font-size: $font-size-sm;
-  padding: 5px 10px;
-  border-radius: $border-radius-lg;
-  margin-bottom: 1rem;
-  margin-top: 1rem;
-  max-width: 200px;
-  pointer-events: none;
+/***
+ * Styles for markdown preview of iobjects and drink-shortcodes in admin interface
+ */
+.md-preview {
+  .iobject {
+    border: 1px solid $gray-500;
+    background-color: $gray-300;
+    color: #666;
+    font-size: $font-size-sm;
+    padding: 5px 7px;
+    border-radius: $border-radius-lg;
+    margin-bottom: 1rem;
+    margin-top: 1rem;
+    max-width: 200px;
+    pointer-events: none;
 
-  .admin-object-menu {
-    display: none;
-  }
-
-  img {
-    @extend .img-fluid;
-  }
-
-  &:before {
-    content: "IOBJECT PREVIEW";
-    display: block;
-    padding-bottom: 5px;
-    font-weight: bold;
-  }
-
-  &--picture {
-    &:before {
-      content: "IObject Picture";
-    }
-  }
-
-  &--gallery {
-    max-width: 600px;
-    &:before {
-      content: "IObject Gallery";
-    }
-
-    figcaption {
+    .admin-object-menu {
       display: none;
     }
 
-    figure{
-      height: 40px;
-      width: auto;
-      padding: 1px;
-      margin: 0;
-      img {
-        max-height: 100%;
-        height: 100%;
-        width: auto;
+    img {
+      @extend .img-fluid;
+    }
+
+    &:before {
+      content: "IOBJECT PREVIEW";
+      display: block;
+      padding-bottom: 5px;
+      font-weight: bold;
+    }
+
+    &--picture {
+      &:before {
+        content: "IObject Picture";
       }
     }
 
-    .photo-gallery {
-      margin: 0;
-      .gallery__images {
+    &--gallery {
+      max-width: 600px;
+      &:before {
+        content: "IObject Gallery";
+      }
+
+      figcaption {
+        display: none;
+      }
+
+      figure{
+        height: 40px;
+        width: auto;
+        padding: 1px;
+        margin: 0;
+        img {
+          max-height: 100%;
+          height: 100%;
+          width: auto;
+        }
+      }
+
+      .photo-gallery {
+        margin: 0;
+        .gallery__images {
+          display: flex;
+          flex-wrap: wrap;
+        }
+      }
+
+      .swiper-wrapper {
         display: flex;
         flex-wrap: wrap;
       }
     }
 
-    .swiper-wrapper {
-      display: flex;
-      flex-wrap: wrap;
+    &--file {
+      &:before {
+        content: "IObject Attachment";
+      }
+    }
+
+    &--video {
+      &:before {
+        content: "IObject Video";
+      }
+    }
+
+    .swiper--thumbnails {
+      display: none;
+    }
+
+  }
+
+  .drink-shortcode {
+
+    .admin-object-menu {
+      display: none;
+    }
+
+    &.linklist--shortcode {
+      pointer-events: all;
+      margin-top: 0;
+      @extend .iobject;
+      &:before {
+        content: "Link List";
+      }
+      .linklist__links {
+        padding-left: 1.25ch;
+        li {
+        }
+      }
     }
   }
+    
 
-  &--file {
-    &:before {
-      content: "IObject Attachment";
+  .row--shortcode {
+    pointer-events: all;
+    outline: 1px dashed $gray-600;
+    > * {
+      outline: 1px dashed $gray-400;
     }
   }
-
-  &--video {
-    &:before {
-      content: "IObject Video";
-    }
-  }
-
-  .swiper--thumbnails {
-    display: none;
-  }
-
-}
-
-.drink-shortcode {
 
   .admin-object-menu {
     display: none;
   }
-
-  &.linklist--shortcode {
-    pointer-events: all;
-    margin-top: 0;
-    @extend .iobject;
-    &:before {
-      content: "Link List";
-    }
-    .linklist__links {
-      padding-left: 1.25ch;
-      li {
-      }
-    }
-  }
-}
-  
-
-.row--shortcode {
-  pointer-events: all;
-  outline: 1px dashed $gray-600;
-  > * {
-    outline: 1px dashed $gray-400;
-  }
-}
-
-.admin-object-menu {
-  display: none;
 }
