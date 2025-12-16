@@ -12,7 +12,7 @@
     margin-bottom: 1rem;
     margin-top: 1rem;
     max-width: 200px;
-    pointer-events: none;
+    //pointer-events: none;
 
     .admin-object-menu {
       display: none;
@@ -117,6 +117,36 @@
 
     .swiper--thumbnails {
       display: none;
+    }
+
+    &--card_promotion {
+      max-width: 600px;
+      &:before {
+        content: "IObject Card Promotion";
+      }
+      .iobject__content {
+        display: flex;
+        gap: 10px;
+        color: inherit;
+        text-decoration: none;
+        .iobject__image {
+          flex-basis: 100px;
+          max-width: 100px;
+          flex-grow: 0;
+          flex-shrink: 0;
+        }
+        .iobject__flags {
+          display: none;
+        }
+        .iobject__body {
+          .iobject__title {
+            font-size: inherit;
+          }
+          .price--before-discount, .card-footer-icon {
+            display: none;
+          }
+        }
+      }
     }
 
   }
