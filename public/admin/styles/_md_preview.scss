@@ -159,15 +159,29 @@
 
     &.linklist--shortcode {
       pointer-events: all;
+      max-width: 600px;
       margin-top: 0;
       @extend .iobject;
       &:before {
         content: "Link List";
       }
       .linklist__links {
-        padding-left: 1.25ch;
+        //padding-left: 1.25ch;
+        @extend .list-unstyled;
+        display: flex;
+        flex-wrap: wrap;
+        margin-bottom: 0;
+        gap: 0.5rem 0;
         li {
+          padding: 0.25rem 0.5rem;
+          border-right: 1px solid $gray-500;
+          &:last-child {
+            border-right: none;
+          }
         }
+      }
+      .h5 {
+        font-size: inherit;
       }
     }
   }
@@ -183,5 +197,14 @@
 
   .admin-object-menu {
     display: none;
+  }
+
+  .content-tabs {
+    margin: 2rem 0;
+    border: 1px dashed $primary;
+    > .nav.nav-pills {
+      border-bottom: 1px dashed $primary;
+      margin-bottom: 1rem;
+    }
   }
 }
