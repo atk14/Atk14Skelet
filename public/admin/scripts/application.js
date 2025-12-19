@@ -72,7 +72,9 @@
 									base_href: $( el ).data( "base_href" )
 								},
 								success: function( output ) {
+									output = "<div class=\"md-preview__viewport preview--desktop\"> " + output + " </div>";
 									callback( output );
+									window.UTILS.initSwiper();
 								}
 							} );
 						}
