@@ -56,6 +56,13 @@
 					$( el ).markdownEditor( {
 						preview: true,
 						onPreview: function( content, callback ) {
+							
+							// match md-editor and md-preview heights
+							var editorHeight = $( el ).parent().find( ".md-editor" ).height();
+							if( editorHeight ) {
+								$(el).parent().find( ".md-preview").height( editorHeight );
+							}
+
 							var lang = $( "html" ).attr( "lang" );
 							$.ajax( {
 								type: "POST",
