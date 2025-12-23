@@ -75,6 +75,7 @@
 									output = "<div class=\"md-preview__viewport preview--desktop\"> " + output + " </div>";
 									callback( output );
 									window.UTILS.initSwiper();
+									window.UTILS.PreviewModeToggle.init( el );
 								}
 							} );
 						}

@@ -46,7 +46,7 @@ var applicationScripts = [
 	"public/admin/scripts/utils/enhanced_file_field.js",
 	"public/admin/scripts/utils/layout_designer.js",
 	"public/scripts/utils/swiper.js",
-	"public/scripts/utils/preview_mode_toggle.js",
+	"public/admin/scripts/utils/preview_mode_toggle.js",
 	"public/admin/scripts/application.js",
 ];
 
