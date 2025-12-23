@@ -1,0 +1,121 @@
+// Setup container queries for .md-preview__viewport
+.md-preview__viewport {
+  container-type: inline-size;
+  container-name: md-preview__viewport;
+}
+
+// Bootstrap breakpoints
+$grid-breakpoints: (
+  xs: 0,
+  sm: 576px,
+  md: 768px-30px,
+  lg: 992px,
+  xl: 1200px
+);
+
+// Number of columns
+$grid-columns: 12;
+
+// Helper function for generating col classes
+@mixin make-col($size, $columns: $grid-columns) {
+  flex: 0 0 auto;
+  flex-basis: percentage(divide($size, $columns));
+  width: percentage(divide($size, $columns));
+  max-width: percentage(divide($size, $columns));
+}
+
+// Generating container query variants for grid classes
+.md-preview__viewport {
+  
+  // XS - always applies (without container query)
+  @for $i from 1 through $grid-columns {
+    .col-#{$i},
+    .col-xs-#{$i} {
+      @include make-col($i);
+    }
+  }
+  
+  .col,
+  .col-xs {
+    flex: 1 0 0%;
+    max-width: 100%;
+  }
+  
+  // SM breakpoint - 576px
+  @container md-preview__viewport (min-width: #{map-get($grid-breakpoints, sm)}) {
+    @for $i from 1 through $grid-columns {
+      .col-sm-#{$i} {
+        @include make-col($i);
+      }
+    }
+    
+    .col-sm {
+      flex: 1 0 0%;
+      max-width: 100%;
+    }
+    
+    .col-sm-auto {
+      flex: 0 0 auto;
+      width: auto;
+    }
+  }
+  
+  // MD breakpoint - 768px
+  @container md-preview__viewport (min-width: #{map-get($grid-breakpoints, md)}) {
+    @for $i from 1 through $grid-columns {
+      .col-md-#{$i} {
+        @include make-col($i);
+      }
+    }
+    
+    .col-md {
+      flex: 1 0 0%;
+      max-width: 100%;
+    }
+    
+    .col-md-auto {
+      flex: 0 0 auto;
+      width: auto;
+    }
+  }
+  
+  // LG breakpoint - 992px
+  @container md-preview__viewport (min-width: #{map-get($grid-breakpoints, lg)}) {
+    @for $i from 1 through $grid-columns {
+      .col-lg-#{$i} {
+        @include make-col($i);
+      }
+    }
+    
+    .col-lg {
+      flex: 1 0 0%;
+      max-width: 100%;
+    }
+    
+    .col-lg-auto {
+      flex: 0 0 auto;
+      width: auto;
+    }
+  }
+  
+  // XL breakpoint - 1200px
+  @container md-preview__viewport (min-width: #{map-get($grid-breakpoints, xl)}) {
+    @for $i from 1 through $grid-columns {
+      .col-xl-#{$i} {
+        @include make-col($i);
+      }
+    }
+    
+    .col-xl {
+      flex: 1 0 0%;
+      max-width: 100%;
+    }
+    
+    .col-xl-auto {
+      flex: 0 0 auto;
+      width: auto;
+    }
+  }
+
+  
+}
