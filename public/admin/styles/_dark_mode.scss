@@ -205,6 +205,16 @@
     hr, .admin-block-text dl > hr {
       border-color: $dark-border-color;
     }
+
+    .nav.nav-pills {
+      button.nav-link:not(.active) {
+        
+        color: white;
+        &:hover {
+          //background-color: $dark-medium-bg;
+        }
+      }
+    }
   }
 }
 

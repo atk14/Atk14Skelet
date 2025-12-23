@@ -3,6 +3,8 @@ var del = require( "del" );
 var $ = require( "gulp-load-plugins" )();
 var postcss = require( "gulp-postcss" );
 var cssnano = require( "cssnano" );
+var nesting = require( "postcss-nesting" );
+var concat = require( "gulp-concat" );
 var autoprefixer = require( "autoprefixer" );
 var browserSync = require( "browser-sync" ).create();
 
@@ -12,6 +14,7 @@ var vendorStyles = [
 	"node_modules/jquery-ui-bundle/jquery-ui.css",
 	"node_modules/@fortawesome/fontawesome-free/css/all.css",
 	"node_modules/animate.css/animate.css",
+	"node_modules/swiper/swiper-bundle.min.css"
 ];
 var vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
@@ -27,6 +30,7 @@ var vendorScripts = [
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/popper.js/dist/umd/popper.js",
 	"node_modules/autocompleter/autocomplete.js",
+	"node_modules/swiper/swiper-bundle.js", // needed for md preview
 ];
 
 var applicationScripts = [
@@ -41,6 +45,8 @@ var applicationScripts = [
 	"public/admin/scripts/utils/collapsible_sidebar.js",
 	"public/admin/scripts/utils/enhanced_file_field.js",
 	"public/admin/scripts/utils/layout_designer.js",
+	"public/scripts/utils/swiper.js",
+	"public/admin/scripts/utils/preview_mode_toggle.js",
 	"public/admin/scripts/application.js",
 ];
 
@@ -63,7 +69,8 @@ gulp.task( "styles-admin", function() {
 gulp.task( "styles-vendor-admin", function() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
-		.pipe( $.concatCss( "vendor.css", { rebaseUrls: false } ) )
+		.pipe( concat( "vendor.css" ) )
+		//.pipe( postcss( [ nesting(), autoprefixer(), cssnano() ] ) )
 		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
