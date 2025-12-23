@@ -33,8 +33,7 @@ window.UTILS.PreviewModeToggle = class {
   }
 
   // Initialize the preview mode toggle for a given element
-  static init( el ) {
-    let previewContainer = el.parentElement.querySelector( ".md-preview" );
+  static init( previewContainer ) {
     previewContainer.insertAdjacentHTML( "afterbegin", this.toolbarMarkup );
     [...previewContainer.querySelectorAll( ".preview-mode-toggler .btn" )].forEach( button => {
       button.addEventListener( "click",  e => {
