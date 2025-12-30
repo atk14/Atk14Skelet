@@ -36,12 +36,15 @@ export default class SwiperLoader {
     }
   }
 
-  static initSwiper() {
+  static initSwiper( selector ) {
     if( !this.isLoaded ) {
       console.error( "Swiper not loaded, run SwiperLoader.load() first" );
       return;
     }
-    var swipers = document.querySelectorAll( ".swiper" );
+    if( !selector ) {
+      selector = ".swiper";
+    }
+    var swipers = document.querySelectorAll( selector );
     swipers.forEach( function( container ) {
       // Acquire some parameters from HTML data attributes.
       var slidesPerView = container.dataset.slides_per_view;

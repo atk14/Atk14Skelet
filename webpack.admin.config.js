@@ -36,6 +36,7 @@ var application_styles = ["./public/admin/styles/application.scss"];
 var vendorStyles = [
   "./node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/all.css",
+  "./node_modules/swiper/swiper-bundle.css",
   "./node_modules/jquery-ui-bundle/jquery-ui.css",
 ];
 
@@ -49,6 +50,7 @@ var ignoredFiles = [
 var config = {
   entry: {
     application: application_scripts,
+    application_es6: "./public/scripts/modules/application_es6.js",
     application_styles: application_styles,
     vendor_styles: vendorStyles,
   },
@@ -160,11 +162,25 @@ var config = {
   optimization: {
     splitChunks: {
       chunks: 'all',
+      maxInitialRequests: Infinity,
+      minSize: 0,
       cacheGroups: {
         vendor: {
           test: /[\\/]node_modules[\\/]/,
           name: 'vendor',
           chunks: 'all',
+          priority: 10,
+          enforce: true
+        },
+        asyncModules: {
+          test: /[\\/]node_modules[\\/]/,
+          chunks: 'async',
+          name(module) {
+            const packageName = module.context.match(/[\\/]node_modules[\\/](.*?)([\\/]|$)/)[1];
+            return `async.${packageName.replace('@', '')}`;
+          },
+          priority: 20,
+          enforce: true
         }
       },
     },
