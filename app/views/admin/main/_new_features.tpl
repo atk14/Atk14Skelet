@@ -3,6 +3,10 @@
 
 <dl>
   <hr>
+  <dt>High fidelity Markdown Editor preview</dt>
+  <dd>Markdown editor is now much more useful and accurate.</dd>
+  <hr>
+  <hr>
   <dt>Resizable Markdown editors</dt>
   <dd>Markdown editors in the admin interface are now resizable. You can drag the bottom-right corner to make them larger.</dd>
   <hr>
