@@ -95,7 +95,11 @@ import Sortable from "sortablejs";
 								success: function( output ) {
 									output = "<div class=\"md-preview__viewport preview--desktop\"> " + output + " </div>";
 									callback( output );
-									//window.UTILS.initSwiper();
+									// Dispatch event for other modules to initialize stuff in the preview area
+									let parent = el.closest( ".form-group" ).getAttribute( "class" );
+									let eventDetail = { element: el.parentElement.querySelector( ".md-preview" ), parent: parent };
+									window.dispatchEvent( new CustomEvent( "markdownPreviewUpdated", { detail: eventDetail } ) );
+									// Initialize preview mode toggle
 									window.UTILS.PreviewModeToggle.init( el.parentElement.querySelector( ".md-preview" ) );
 								}
 							} );

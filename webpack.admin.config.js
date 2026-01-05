@@ -50,7 +50,7 @@ var ignoredFiles = [
 var config = {
   entry: {
     application: application_scripts,
-    application_es6: "./public/scripts/modules/application_es6.js",
+    application_es6: "./public/admin/scripts/modules/application_es6.js",
     application_styles: application_styles,
     vendor_styles: vendorStyles,
   },
