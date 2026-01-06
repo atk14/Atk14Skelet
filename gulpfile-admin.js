@@ -8,6 +8,17 @@ var concat = require( "gulp-concat" );
 var autoprefixer = require( "autoprefixer" );
 var browserSync = require( "browser-sync" ).create();
 
+// workaround for older Node.js versions that do not support Object.fromEntries natively
+if (!Object.fromEntries) {
+  Object.fromEntries = function(entries) {
+    return [...entries].reduce((obj, [key, val]) => {
+      obj[key] = val;
+      return obj;
+    }, {});
+  };
+}
+
+
 var vendorStyles = [
 	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
 	"node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
