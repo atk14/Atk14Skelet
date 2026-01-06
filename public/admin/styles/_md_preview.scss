@@ -1,0 +1,73 @@
+/***
+ * Styles for markdown preview of iobjects and drink-shortcodes in admin interface
+ */
+
+.md-preview {
+  $max-page-width: 1400px;
+  //@import "../../../node_modules/swiper/swiper-bundle.min.css";
+  @import "../../styles/iobjects";
+  @import "../../styles/image_gallery";
+  @import "../../styles/articles";
+  @import "../../styles/slider";
+  @import "../../styles/shortcodes";
+  @import "md_preview_grid";
+
+  position: relative;
+
+  .admin-object-menu {
+    display: none;
+  }
+  .row--shortcode {
+    pointer-events: all;
+    outline: 1px dashed $gray-600;
+    > * {
+      outline: 1px dashed $gray-400;
+    }
+  }
+  &:has(.md-preview__viewport) {
+    background-color: $gray-800;
+    padding: 0;
+  }
+  .md-preview__viewport {
+    margin: 0 auto;
+    //margin-top: 60px;
+    background-color: white;
+    padding: 0.75rem;
+    min-height: 100%;
+    overflow-x: hidden;
+    &.preview--phone {
+      max-width: 375px;
+    }
+    &.preview--tablet {
+      max-width: 768px;
+    }
+    &.preview--desktop {
+      max-width: $max-page-width;
+    }
+  }
+
+  .preview-mode-toggler {
+    position: sticky;
+    z-index: 999;
+    top: 0;
+    right: 0;
+    left: 0;
+    background-color: rgba( $gray-800, 0.8 );
+    backdrop-filter: blur(15px);
+    padding: 0.5rem 1rem;
+    display: flex;
+    gap: 1rem;
+    justify-content: center;
+    align-items: center;
+    .btn {
+      &:focus, &:active {
+        outline: none !important;
+        box-shadow: none !important;
+      }
+    }
+    &:active {
+      @extend .btn-light;
+    }
+  }
+
+}
