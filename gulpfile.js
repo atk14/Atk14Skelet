@@ -1,57 +1,44 @@
-var gulp = require( "gulp" );
-var del = require( "del" );
-var rename = require( "gulp-rename" );
-var babel = require( "gulp-babel");
-var $ = require( "gulp-load-plugins" )();
-var browserSync = require( "browser-sync" ).create();
-var favicons = require("favicons").stream;
 
-var postcss = require( "gulp-postcss" );
-var cssnano = require( "cssnano" );
-var nesting = require( "postcss-nesting" );
-var concat = require( "gulp-concat" );
-var autoprefixer = require( "autoprefixer" );
+const gulp = require("gulp");
+const del = require("del");
+const rename = require("gulp-rename");
+const babel = require("gulp-babel");
+const $ = require("gulp-load-plugins")();
+const browserSync = require("browser-sync").create();
+const favicons = require("favicons").stream;
 
-// workaround for older Node.js versions that do not support Object.fromEntries natively
-if (!Object.fromEntries) {
-  Object.fromEntries = function(entries) {
-    return [...entries].reduce((obj, [key, val]) => {
-      obj[key] = val;
-      return obj;
-    }, {});
-  };
-}
+const postcss = require("gulp-postcss");
+const cssnano = require("cssnano");
+const nesting = require("postcss-nesting");
+const concat = require("gulp-concat");
+const autoprefixer = require("autoprefixer");
 
-require( "./gulpfile-admin" );
-
-var vendorStyles = [
+const vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
 	"node_modules/swiper/swiper-bundle.min.css",
 	"node_modules/photoswipe/dist/photoswipe.css"
 ];
 
-var vendorScripts = [
+const vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
 	"node_modules/bootstrap/dist/js/bootstrap.bundle.js", // Bootstrap + Popper
 	"node_modules/atk14js/src/atk14.js",
 	"node_modules/unobfuscatejs/src/jquery.unobfuscate.js",
 	"node_modules/swiper/swiper-bundle.js",
-	"node_modules/photoswipe/dist/photoswipe.js",
-	"node_modules/photoswipe/dist/photoswipe-ui-default.js"
 ];
 
-var applicationScripts = [
+const applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/swiper.js",
 	"public/scripts/application.js"
 ];
 
-var applicationESModules = [
+const applicationESModules = [
 	"public/scripts/modules/application_es6.js"
 ]
 
 // CSS
-gulp.task( "styles", function() {
+function styles() {
 	return gulp.src( "public/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.sass( {
@@ -64,9 +51,9 @@ gulp.task( "styles", function() {
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-} );
+}
 
-gulp.task( "styles-vendor", function() {
+function stylesVendor() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
 		.pipe( concat( "vendor.css" ) )
@@ -76,10 +63,45 @@ gulp.task( "styles-vendor", function() {
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-} );
+}
 
 // JS
-gulp.task( "scripts", function() {
+function scriptsVendor() {
+  return gulp.src( vendorScripts )
+		.pipe( $.sourcemaps.init() )
+		.pipe( $.concat( "vendor.js" ) )
+		.pipe( $.uglify() )
+		.pipe( $.rename( { suffix: ".min" } ) )
+		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( gulp.dest( "public/dist/scripts" ) );
+}
+
+function scriptsApplication() {
+  return gulp.src( applicationScripts )
+		.pipe( $.sourcemaps.init() )
+		.pipe( $.concat( "application.js" ) )
+		.pipe( $.uglify() )
+		.pipe( $.rename( { suffix: ".min" } ) )
+		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( gulp.dest( "public/dist/scripts" ) )
+		.pipe( browserSync.stream() );
+}
+
+function scriptsES6() {
+  return gulp.src( applicationESModules )
+		.pipe( $.sourcemaps.init() )
+		.pipe( babel() )
+		.pipe( $.uglify() )
+		.pipe( $.sourcemaps.write( "." ) )
+		.pipe( $.rename( { suffix: ".min" } ) )
+		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
+		.pipe( browserSync.stream() );
+}
+
+// Combine all scripts tasks
+const scripts = gulp.parallel( scriptsVendor, scriptsApplication, scriptsES6 );
+
+/*gulp.task( "scripts", function() {
 	gulp.src( vendorScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "vendor.js" ) )
@@ -106,17 +128,17 @@ gulp.task( "scripts", function() {
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
 		.pipe( browserSync.stream() );
-} );
+} );*/
 
 // Favicons
-gulp.task( "favicons", function() {
-	var execSync = require( "child_process" ).execSync;
-	var appName = execSync( "./scripts/dump_settings ATK14_APPLICATION_NAME" ).toString().trim();
-	var appDescription = execSync( "./scripts/dump_settings ATK14_APPLICATION_DESCRIPTION" ).toString().trim();
-	var appUrl = execSync( "./scripts/dump_settings ATK14_APPLICATION_URL" ).toString().trim();
-	var baseHref = execSync( "./scripts/dump_settings ATK14_BASE_HREF" ).toString().trim(); // e.g. "/"
+function faviconTask() {
+  const execSync = require( "child_process" ).execSync;
+	const appName = execSync( "./scripts/dump_settings ATK14_APPLICATION_NAME" ).toString().trim();
+	const appDescription = execSync( "./scripts/dump_settings ATK14_APPLICATION_DESCRIPTION" ).toString().trim();
+	const appUrl = execSync( "./scripts/dump_settings ATK14_APPLICATION_URL" ).toString().trim();
+	const baseHref = execSync( "./scripts/dump_settings ATK14_BASE_HREF" ).toString().trim(); // e.g. "/"
 
-	gulp.src( [ "public/favicons/favicon.png" ] )
+  return gulp.src( [ "public/favicons/favicon.png" ] )
 	.pipe(
 		favicons( {
 			appName: appName,
@@ -147,18 +169,18 @@ gulp.task( "favicons", function() {
 		} )
 	)
 	.pipe( gulp.dest( "public/dist/favicons" ) );
-} );
+}
 
 // Lint & Code style
-gulp.task( "lint", function() {
-	return gulp.src( [ "public/scripts/**/*.js", "gulpfile.js" ] )
+function lint() {
+  return gulp.src( [ "public/scripts/**/*.js", "gulpfile.js" ] )
 		.pipe( $.eslint() )
 		.pipe( $.eslint.format() )
 		.pipe( $.eslint.failAfterError() );
-} );
+}
 
 // Copy
-gulp.task( "copy", function() {
+function copyFiles( done ) {
 	gulp.src( "node_modules/html5shiv/dist/html5shiv.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
@@ -193,34 +215,54 @@ gulp.task( "copy", function() {
 					.pipe( rename( renameTr[ key ] + ".svg" ) )
 					.pipe( gulp.dest( "public/dist/images/languages" ) );
 			} );
+			done();
 		} );
-} );
+}
 
 // Clean
-gulp.task( "clean", function() {
-	del.sync( "public/dist" );
-} );
+function clean() {
+	return del( "public/dist" );
+}
+
+// Watch function
+function watchFiles() {
+  // If these files change = reload browser
+  gulp.watch( [
+    "app/**/*.tpl",
+    "public/images/**/*"
+  ] ).on( "change", browserSync.reload );
+
+  // If javascript files change = run 'scripts' task, then reload browser
+  gulp.watch( "public/scripts/**/*.js", gulp.series( scripts ) ).on( "change", browserSync.reload );
+
+  // If styles files change = run 'styles' task with style injection
+  gulp.watch( "public/styles/**/*.scss", styles );
+}
 
 // Server
-gulp.task( "serve", [ "styles" ], function() {
-	browserSync.init( {
-		proxy: "localhost:8000"
-	} );
+function serve( done ) {
+  browserSync.init( {
+    proxy: "localhost:8000"
+  } );
+  done();
+}
 
-	// If these files change = reload browser
-	gulp.watch( [
-		"app/**/*.tpl",
-		"public/images/**/*"
-	] ).on( "change", browserSync.reload );
+// Build size reporting
+function buildSize() {
+  return gulp.src( "public/dist/**/*" )
+    .pipe( $.size( { title: "build", gzip: true } ) );
+}
 
-	// If javascript files change = run 'scripts' task, then reload browser
-	gulp.watch( "public/scripts/**/*.js", [ "scripts" ] ).on( "change", browserSync.reload );
+// Build task
+const build = gulp.series(
+  //lint,
+  gulp.parallel( styles, stylesVendor, scripts ),
+  faviconTask,
+  copyFiles,
+  buildSize
+);
 
-	// If styles files change = run 'styles' task with style injection
-	gulp.watch( "public/styles/**/*.scss", [ "styles" ] );
-} );
-
-// Build
+/*// Build
 var buildTasks = [
 	"lint",
 	"styles",
@@ -228,14 +270,34 @@ var buildTasks = [
 	"scripts",
 	"favicons",
 	"copy"
-];
+];*/
 
-gulp.task( "build", buildTasks, function() {
-	return gulp.src( "public/dist/**/*" )
-		.pipe( $.size( { title: "build", gzip: true } ) );
-} );
+// Serve task (with initial styles build)
+const serveDev = gulp.series( styles, serve, watchFiles );
 
-// Default
-gulp.task( "default", [ "clean" ], function() {
-	gulp.start( "build" );
-} );
+// Default task
+const defaultTask = gulp.series( clean, build );
+
+// Export tasks
+exports.styles = styles;
+exports.stylesVendor = stylesVendor;
+exports.scripts = scripts;
+exports.favicons = faviconTask;
+exports.lint = lint;
+exports.copy = copyFiles;
+exports.clean = clean;
+exports.build = build;
+exports.serve = serveDev;
+exports.default = defaultTask;
+
+// Legacy task names for backward compatibility (optional)
+gulp.task("styles", styles);
+gulp.task("styles-vendor", stylesVendor);
+gulp.task("scripts", scripts);
+gulp.task("favicons", faviconTask);
+gulp.task("lint", lint);
+gulp.task("copy", copyFiles);
+gulp.task("clean", clean);
+gulp.task("build", build);
+gulp.task("serve", serveDev);
+gulp.task("default", defaultTask);
