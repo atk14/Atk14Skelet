@@ -1,25 +1,16 @@
-var gulp = require( "gulp" );
-var del = require( "del" );
-var $ = require( "gulp-load-plugins" )();
-var postcss = require( "gulp-postcss" );
-var cssnano = require( "cssnano" );
-var nesting = require( "postcss-nesting" );
-var concat = require( "gulp-concat" );
-var autoprefixer = require( "autoprefixer" );
-var browserSync = require( "browser-sync" ).create();
 
-// workaround for older Node.js versions that do not support Object.fromEntries natively
-if (!Object.fromEntries) {
-  Object.fromEntries = function(entries) {
-    return [...entries].reduce((obj, [key, val]) => {
-      obj[key] = val;
-      return obj;
-    }, {});
-  };
-}
+const gulp = require("gulp");
+const del = require("del");
+const $ = require("gulp-load-plugins")();
+const postcss = require("gulp-postcss");
+const cssnano = require("cssnano");
+const concat = require("gulp-concat");
+const autoprefixer = require("autoprefixer");
+const eslint = require("gulp-eslint-new");
+const browserSync = require("browser-sync").create();
 
 
-var vendorStyles = [
+const vendorStyles = [
 	"node_modules/blueimp-file-upload/css/jquery.fileupload.css",
 	"node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
 	"node_modules/jquery-ui-bundle/jquery-ui.css",
@@ -27,7 +18,8 @@ var vendorStyles = [
 	"node_modules/animate.css/animate.css",
 	"node_modules/swiper/swiper-bundle.min.css"
 ];
-var vendorScripts = [
+
+const vendorScripts = [
 	"node_modules/jquery/dist/jquery.js",
 	"node_modules/jquery-ui-bundle/jquery-ui.js",
 	"node_modules/sortablejs/Sortable.js",
@@ -44,7 +36,7 @@ var vendorScripts = [
 	"node_modules/swiper/swiper-bundle.js", // needed for md preview
 ];
 
-var applicationScripts = [
+const applicationScripts = [
 	"public/scripts/utils/utils.js",
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
 	"public/scripts/utils/suggestions.js",
@@ -62,7 +54,7 @@ var applicationScripts = [
 ];
 
 // CSS
-gulp.task( "styles-admin", function() {
+function stylesAdmin() {
 	return gulp.src( "public/admin/styles/application.scss" )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.sass( {
@@ -75,49 +67,54 @@ gulp.task( "styles-admin", function() {
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-} );
+}
 
-gulp.task( "styles-vendor-admin", function() {
+function stylesVendorAdmin() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
 		.pipe( concat( "vendor.css" ) )
-		//.pipe( postcss( [ nesting(), autoprefixer(), cssnano() ] ) )
 		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
 		.pipe( gulp.dest( "public/admin/dist/styles" ) )
 		.pipe( browserSync.stream( { match: "**/*.css" } ) );
-} );
+}
 
 // JS
-gulp.task( "scripts-admin", function() {
-	gulp.src( vendorScripts )
+function scriptsVendorAdmin() {
+  return gulp.src( vendorScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "vendor.js" ) )
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
+}
 
-	gulp.src( applicationScripts )
+function scriptsApplicationAdmin() {
+  return gulp.src( applicationScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "application.js" ) )
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
-		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
-} );
+		.pipe( gulp.dest( "public/admin/dist/scripts" ) )
+		.pipe( browserSync.stream() );
+}
+
+// Combine all scripts tasks
+const scriptsAdmin = gulp.parallel( scriptsVendorAdmin, scriptsApplicationAdmin );
 
 // Lint
-gulp.task( "lint-admin", function() {
+function lintAdmin() {
 	return gulp.src( [ "public/admin/scripts/**/*.js", "gulpfile-admin.js" ] )
-		.pipe( $.eslint() )
-		.pipe( $.eslint.format() )
-		.pipe( $.eslint.failAfterError() );
-} );
+		.pipe( eslint() )
+		.pipe( eslint.format() )
+		.pipe( eslint.failAfterError() );
+}
 
 // Copy
-gulp.task( "copy-admin", function() {
+function copyFilesAdmin( done ) {
 	gulp.src( "node_modules/html5shiv/dist/html5shiv.min.js" )
 		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
 	gulp.src( "node_modules/respond.js/dest/respond.min.js" )
@@ -132,48 +129,64 @@ gulp.task( "copy-admin", function() {
 		.pipe( gulp.dest( "public/admin/dist/images" ) );
 	gulp.src( "node_modules/ace-builds/src-min/**" )
 		.pipe( gulp.dest( "public/admin/dist/scripts/ace" ) );
-} );
+	done();
+}
 
 // Clean
-gulp.task( "clean-admin", function() {
-	del.sync( "public/admin/dist" );
-} );
+function cleanAdmin() {
+	return del.sync( "public/admin/dist" );
+}
+
+// Watch function
+function watchFilesAdmin() {
+  // If these files change = reload browser
+  gulp.watch( [
+    "app/**/*.tpl",
+    "public/admin/images/**/*"
+  ] ).on( "change", browserSync.reload );
+
+  // If javascript files change = run 'scripts' task, then reload browser
+  gulp.watch( "public/admin/scripts/**/*.js", gulp.series( scriptsAdmin ) ).on( "change", browserSync.reload );
+
+  // If styles files change = run 'styles' task with style injection
+  gulp.watch( "public/admin/styles/**/*.scss", stylesAdmin );
+}
 
 // Server
-gulp.task( "serve-admin", [ "styles-admin", "styles-vendor-admin" ], function() {
-	browserSync.init( {
-		proxy: "localhost:8000/admin/"
-	} );
+function serveAdmin( done ) {
+  browserSync.init( {
+    proxy: "localhost:8000/admin/"
+  } );
+  done();
+}
 
-	// If these files change = reload browser
-	gulp.watch( [
-		"app/**/*.tpl",
-		"public/admin/images/**/*"
-	] ).on( "change", browserSync.reload );
+// Build size reporting
+function buildSizeAdmin() {
+  return gulp.src( "public/admin/dist/**/*" )
+    .pipe( $.size( { title: "build", gzip: true } ) );
+}
 
-	// If javascript files change = run 'scripts' task, then reload browser
-	gulp.watch( "public/admin/scripts/**/*.js", [ "scripts-admin" ] )
-		.on( "change", browserSync.reload );
+// Build task
+const buildAdmin = gulp.series(
+  lintAdmin,
+  gulp.parallel( stylesAdmin, stylesVendorAdmin, scriptsAdmin ),
+  copyFilesAdmin,
+  buildSizeAdmin
+);
 
-	// If styles files change = run 'styles' task with style injection
-	gulp.watch( "public/admin/styles/**/*.scss", [ "styles-admin" ] );
-} );
+// Serve task (with initial styles build)
+const serveDevAdmin = gulp.series( stylesAdmin, serveAdmin, watchFilesAdmin );
 
-// Build
-var buildTasks = [
-	"lint-admin",
-	"styles-admin",
-	"styles-vendor-admin",
-	"scripts-admin",
-	"copy-admin"
-];
+// Default task
+const defaultTaskAdmin = gulp.series( cleanAdmin, buildAdmin );
 
-gulp.task( "build-admin", buildTasks,  function() {
-	return gulp.src( "public/admin/dist/**/*" )
-		.pipe( $.size( { title: "build", gzip: true } ) );
-} );
-
-// Default (Admin)
-gulp.task( "admin", [ "clean-admin" ], function() {
-	gulp.start( "build-admin" );
-} );
+// Export tasks
+exports.stylesAdmin = stylesAdmin;
+exports.stylesVendorAdmin = stylesVendorAdmin;
+exports.scriptsAdmin = scriptsAdmin;
+exports.lintAdmin = lintAdmin;
+exports.copyAdmin = copyFilesAdmin;
+exports.cleanAdmin = cleanAdmin;
+exports.buildAdmin = buildAdmin;
+exports.serveAdmin = serveDevAdmin;
+exports.defaultAdmin = defaultTaskAdmin;

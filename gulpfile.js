@@ -11,6 +11,9 @@ const cssnano = require("cssnano");
 const concat = require("gulp-concat");
 const autoprefixer = require("autoprefixer");
 const eslint = require("gulp-eslint-new");
+const { buildAdmin } = require("./gulpfile-admin");
+
+require( "./gulpfile-admin" );
 
 const vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
@@ -98,35 +101,6 @@ function scriptsES6() {
 
 // Combine all scripts tasks
 const scripts = gulp.parallel( scriptsVendor, scriptsApplication, scriptsES6 );
-
-/*gulp.task( "scripts", function() {
-	gulp.src( vendorScripts )
-		.pipe( $.sourcemaps.init() )
-		.pipe( $.concat( "vendor.js" ) )
-		.pipe( $.uglify() )
-		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( $.sourcemaps.write( "." ) )
-		.pipe( gulp.dest( "public/dist/scripts" ) );
-
-	gulp.src( applicationScripts )
-		.pipe( $.sourcemaps.init() )
-		.pipe( $.concat( "application.js" ) )
-		.pipe( $.uglify() )
-		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( $.sourcemaps.write( "." ) )
-		.pipe( gulp.dest( "public/dist/scripts" ) )
-		.pipe( browserSync.stream() );
-
-	// ES6 modules need different processing
-	gulp.src( applicationESModules )
-		.pipe( $.sourcemaps.init() )
-		.pipe( babel() )
-		.pipe( $.uglify() )
-		.pipe( $.sourcemaps.write( "." ) )
-		.pipe( $.rename( { suffix: ".min" } ) )
-		.pipe( gulp.dest( "public/dist/scripts/modules" ) )
-		.pipe( browserSync.stream() );
-} );*/
 
 // Favicons
 function faviconTask() {
@@ -260,16 +234,6 @@ const build = gulp.series(
   buildSize
 );
 
-/*// Build
-var buildTasks = [
-	"lint",
-	"styles",
-	"styles-vendor",
-	"scripts",
-	"favicons",
-	"copy"
-];*/
-
 // Serve task (with initial styles build)
 const serveDev = gulp.series( styles, serve, watchFiles );
 
@@ -289,13 +253,23 @@ exports.serve = serveDev;
 exports.default = defaultTask;
 
 // Legacy task names for backward compatibility (optional)
-gulp.task("styles", styles);
-gulp.task("styles-vendor", stylesVendor);
-gulp.task("scripts", scripts);
-gulp.task("favicons", faviconTask);
-gulp.task("lint", lint);
-gulp.task("copy", copyFiles);
-gulp.task("clean", clean);
-gulp.task("build", build);
-gulp.task("serve", serveDev);
-gulp.task("default", defaultTask);
+gulp.task( "styles", styles );
+gulp.task( "styles-vendor", stylesVendor );
+gulp.task( "scripts", scripts );
+gulp.task( "favicons", faviconTask );
+gulp.task( "lint", lint );
+gulp.task( "copy", copyFiles );
+gulp.task( "clean", clean );
+gulp.task( "admin", buildAdmin );
+gulp.task( "serve", serveDev );
+gulp.task( "default", defaultTask );
+
+// Admin tasks (defined in gulpfile-admin.js)
+gulp.task( "styles-admin", stylesAdmin );
+gulp.task( "scripts-admin", scriptsAdmin );
+gulp.task( "lint-admin", lintAdmin );
+gulp.task( "copy-admin", copyFilesAdmin );
+gulp.task( "clean-admin", cleanAdmin );
+gulp.task( "serve-admin", serveDevAdmin );
+gulp.task( "admin", defaultTaskAdmin );
+
