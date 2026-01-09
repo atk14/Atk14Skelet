@@ -6,12 +6,12 @@ const babel = require("gulp-babel");
 const $ = require("gulp-load-plugins")();
 const browserSync = require("browser-sync").create();
 const favicons = require("favicons").stream;
-
 const postcss = require("gulp-postcss");
 const cssnano = require("cssnano");
 const nesting = require("postcss-nesting");
 const concat = require("gulp-concat");
 const autoprefixer = require("autoprefixer");
+const eslint = require("gulp-eslint-new");
 
 const vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
@@ -174,9 +174,9 @@ function faviconTask() {
 // Lint & Code style
 function lint() {
   return gulp.src( [ "public/scripts/**/*.js", "gulpfile.js" ] )
-		.pipe( $.eslint() )
-		.pipe( $.eslint.format() )
-		.pipe( $.eslint.failAfterError() );
+		.pipe( eslint() )
+		.pipe( eslint.format() )
+		.pipe( eslint.failAfterError() );
 }
 
 // Copy
