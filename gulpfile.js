@@ -8,7 +8,6 @@ const browserSync = require("browser-sync").create();
 const favicons = require("favicons").stream;
 const postcss = require("gulp-postcss");
 const cssnano = require("cssnano");
-const nesting = require("postcss-nesting");
 const concat = require("gulp-concat");
 const autoprefixer = require("autoprefixer");
 const eslint = require("gulp-eslint-new");
@@ -57,7 +56,6 @@ function stylesVendor() {
 	return gulp.src( vendorStyles )
 		.pipe( $.sourcemaps.init() )
 		.pipe( concat( "vendor.css" ) )
-		//.pipe( postcss( [ nesting(), autoprefixer(), cssnano() ] ) )
 		.pipe( postcss( [ autoprefixer(), cssnano() ] ) )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( ".", { sourceRoot: null } ) )
