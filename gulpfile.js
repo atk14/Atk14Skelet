@@ -265,11 +265,11 @@ gulp.task( "serve", serveDev );
 gulp.task( "default", defaultTask );
 
 // Admin tasks (defined in gulpfile-admin.js)
-gulp.task( "styles-admin", stylesAdmin );
+/*gulp.task( "styles-admin", stylesAdmin );
 gulp.task( "scripts-admin", scriptsAdmin );
 gulp.task( "lint-admin", lintAdmin );
 gulp.task( "copy-admin", copyFilesAdmin );
 gulp.task( "clean-admin", cleanAdmin );
 gulp.task( "serve-admin", serveDevAdmin );
-gulp.task( "admin", defaultTaskAdmin );
+gulp.task( "admin", defaultTaskAdmin );*/
 
