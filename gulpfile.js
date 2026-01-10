@@ -12,6 +12,16 @@ var nesting = require( "postcss-nesting" );
 var concat = require( "gulp-concat" );
 var autoprefixer = require( "autoprefixer" );
 
+// workaround for older Node.js versions that do not support Object.fromEntries natively
+if (!Object.fromEntries) {
+  Object.fromEntries = function(entries) {
+    return [...entries].reduce((obj, [key, val]) => {
+      obj[key] = val;
+      return obj;
+    }, {});
+  };
+}
+
 require( "./gulpfile-admin" );
 
 var vendorStyles = [
