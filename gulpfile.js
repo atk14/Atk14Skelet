@@ -13,7 +13,7 @@ const autoprefixer = require("autoprefixer");
 const eslint = require("gulp-eslint-new");
 const { buildAdmin } = require("./gulpfile-admin");
 
-require( "./gulpfile-admin" );
+const adminTasks = require( "./gulpfile-admin" );
 
 const vendorStyles = [
 	"node_modules/@fortawesome/fontawesome-free/css/all.min.css",
@@ -252,7 +252,10 @@ exports.build = build;
 exports.serve = serveDev;
 exports.default = defaultTask;
 
-// Legacy task names for backward compatibility (optional)
+// Export Admin tasks (defined in gulpfile-admin.js)
+Object.assign(exports, adminTasks);
+
+// Legacy task names for backward compatibility
 gulp.task( "styles", styles );
 gulp.task( "styles-vendor", stylesVendor );
 gulp.task( "scripts", scripts );
@@ -263,13 +266,11 @@ gulp.task( "clean", clean );
 gulp.task( "admin", buildAdmin );
 gulp.task( "serve", serveDev );
 gulp.task( "default", defaultTask );
-
-// Admin tasks (defined in gulpfile-admin.js)
-/*gulp.task( "styles-admin", stylesAdmin );
-gulp.task( "scripts-admin", scriptsAdmin );
-gulp.task( "lint-admin", lintAdmin );
-gulp.task( "copy-admin", copyFilesAdmin );
-gulp.task( "clean-admin", cleanAdmin );
-gulp.task( "serve-admin", serveDevAdmin );
-gulp.task( "admin", defaultTaskAdmin );*/
-
+// Legacy admin task names for backward compatibility
+gulp.task( "styles-admin", adminTasks.stylesAdmin );
+gulp.task( "scripts-admin", adminTasks.scriptsAdmin );
+gulp.task( "lint-admin", adminTasks.lintAdmin );
+gulp.task( "copy-admin", adminTasks.copyFilesAdmin );
+gulp.task( "clean-admin", adminTasks.cleanAdmin );
+gulp.task( "serve-admin", adminTasks.serveDevAdmin );
+gulp.task( "admin", adminTasks.defaultTaskAdmin );
