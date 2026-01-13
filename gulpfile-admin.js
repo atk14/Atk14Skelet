@@ -134,7 +134,7 @@ function copyFilesAdmin( done ) {
 
 // Clean
 function cleanAdmin() {
-	return del.sync( "public/admin/dist" );
+	return del( "public/admin/dist" );
 }
 
 // Watch function
