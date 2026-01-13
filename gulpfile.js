@@ -272,5 +272,5 @@ gulp.task( "scripts-admin", adminTasks.scriptsAdmin );
 gulp.task( "lint-admin", adminTasks.lintAdmin );
 gulp.task( "copy-admin", adminTasks.copyFilesAdmin );
 gulp.task( "clean-admin", adminTasks.cleanAdmin );
-gulp.task( "serve-admin", adminTasks.serveDevAdmin );
+gulp.task( "serve-admin", adminTasks.serveAdmin );
 gulp.task( "admin", adminTasks.defaultTaskAdmin );
