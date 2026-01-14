@@ -255,20 +255,21 @@ exports.default = defaultTask;
 Object.assign(exports, adminTasks);
 
 // Legacy task names for backward compatibility
-gulp.task( "styles", 					styles );
-gulp.task( "styles-vendor", 	stylesVendor );
-gulp.task( "scripts", 				scripts );
-gulp.task( "favicons", 				faviconTask );
-gulp.task( "lint", 						lint );
-gulp.task( "copy", 						copyFiles );
-gulp.task( "clean", 					clean );
-gulp.task( "serve", 					serveDev );
-gulp.task( "default", 				defaultTask );
+gulp.task( "styles", 							styles );
+gulp.task( "styles-vendor", 			stylesVendor );
+gulp.task( "scripts", 						scripts );
+gulp.task( "favicons", 						faviconTask );
+gulp.task( "lint", 								lint );
+gulp.task( "copy", 								copyFiles );
+gulp.task( "clean", 							clean );
+gulp.task( "serve", 							serveDev );
+gulp.task( "default", 						defaultTask );
 // Legacy admin task names for backward compatibility
-gulp.task( "styles-admin", 		adminTasks.stylesAdmin );
-gulp.task( "scripts-admin", 	adminTasks.scriptsAdmin );
-gulp.task( "lint-admin", 			adminTasks.lintAdmin );
-gulp.task( "copy-admin", 			adminTasks.copyFilesAdmin );
-gulp.task( "clean-admin", 		adminTasks.cleanAdmin );
-gulp.task( "serve-admin", 		adminTasks.serveAdmin );
-gulp.task( "admin", 					adminTasks.defaultAdmin );
+gulp.task( "styles-admin", 				adminTasks.stylesAdmin );
+gulp.task( "styles-vendor-admin",	adminTasks.stylesVendorAdmin );
+gulp.task( "scripts-admin", 			adminTasks.scriptsAdmin );
+gulp.task( "lint-admin", 					adminTasks.lintAdmin );
+gulp.task( "copy-admin", 					adminTasks.copyAdmin );
+gulp.task( "clean-admin", 				adminTasks.cleanAdmin );
+gulp.task( "serve-admin", 				adminTasks.serveAdmin );
+gulp.task( "admin", 							adminTasks.defaultAdmin );
