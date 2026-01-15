@@ -28,7 +28,7 @@ class TcApplication extends TcBase{
 
 		$ctrl = $this->client->get("main/index");
 
-		$articles_uri = Atk14Url::BuildLink("articles/index");
+		$articles_uri = Atk14Url::BuildLink("articles/index"); // e.g. "/en/erticles/", "/articles/", "/events/"...
 
 		$this->assertEquals("/",$ctrl->_get_return_uri());
 		$this->assertEquals("$articles_uri",$ctrl->_get_return_uri("articles/index"));
