@@ -28,9 +28,11 @@ class TcApplication extends TcBase{
 
 		$ctrl = $this->client->get("main/index");
 
+		$articles_uri = Atk14Url::BuildLink("articles/index");
+
 		$this->assertEquals("/",$ctrl->_get_return_uri());
-		$this->assertEquals("/articles/",$ctrl->_get_return_uri("articles/index"));
-		$this->assertEquals("/articles/?offset=20",$ctrl->_get_return_uri(["action" => "articles/index", "offset" => 20]));
+		$this->assertEquals("$articles_uri",$ctrl->_get_return_uri("articles/index"));
+		$this->assertEquals("$articles_uri?offset=20",$ctrl->_get_return_uri(["action" => "articles/index", "offset" => 20]));
 		$this->assertEquals(null,$ctrl->_get_return_uri(null));
 
 		// HTTP referer is set
