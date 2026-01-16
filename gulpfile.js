@@ -197,11 +197,18 @@ function clean() {
 
 // Watch function
 function watchFiles() {
-  // If these files change = reload browser
+  // If template files change = reload browser
   gulp.watch( [
-    "app/**/*.tpl",
-    "public/images/**/*"
+    "app/**/*.tpl"
   ] ).on( "change", browserSync.reload );
+
+	// If images change = run copy task, then reload
+  gulp.watch("public/images/**/*", {
+    events: 'all'
+  }, gulp.series( copyFiles, function( done ) {
+    browserSync.reload();
+    done();
+  }));
 
   // If javascript files change = run 'scripts' task, then reload browser
   gulp.watch( "public/scripts/**/*.js", gulp.series( scripts ) ).on( "change", browserSync.reload );

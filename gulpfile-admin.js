@@ -139,11 +139,18 @@ function cleanAdmin() {
 
 // Watch function
 function watchFilesAdmin() {
-  // If these files change = reload browser
+	// If template files change = reload browser
   gulp.watch( [
-    "app/**/*.tpl",
-    "public/admin/images/**/*"
+    "app/**/*.tpl"
   ] ).on( "change", browserSync.reload );
+
+	// If admin images change = run copy task, then reload
+  gulp.watch("public/admin/images/**/*", {
+    events: 'all'
+  }, gulp.series( copyFilesAdmin, function( done ) {
+    browserSync.reload();
+    done();
+  }));
 
   // If javascript files change = run 'scripts' task, then reload browser
   gulp.watch( "public/admin/scripts/**/*.js", gulp.series( scriptsAdmin ) ).on( "change", browserSync.reload );
