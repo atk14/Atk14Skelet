@@ -1,0 +1,13 @@
+/**
+ * Badges styles compatible with Bootstrap 4 for legacy BS4 badges markup
+ */
+.badge {
+  @each $key, $val in $theme-colors {
+    &-#{$key} {
+      @extend .text-bg-#{$key};
+    }
+  }
+  &-pill {
+    @extend .rounded-pill;
+  }
+}
