@@ -1,8 +1,15 @@
 {if $USING_BOOTSTRAP4 || $USING_BOOTSTRAP5}
 
+	{assign pull_left "float-left"}
+	{assign pull_right "float-right"}
+	{if $USING_BOOTSTRAP5}
+		{assign pull_left "float-start"}
+		{assign pull_right "float-end"}
+	{/if}
+
 	{if $link_on_first_line}
 
-		<div class="btn-group btn-group-sm{if $pull=="right"} float-right{/if}{if $pull=="left"} float-left{/if}{if $class} {$class}{/if}">
+		<div class="btn-group btn-group-sm{if $pull=="right"} {$pull_right}{/if}{if $pull=="left"} {$pull_left}{/if}{if $class} {$class}{/if}">
 			{!$first_line}
 			{if $lines}
 				<button class="btn btn-outline-primary btn-sm dropdown-toggle dropdown-toggle-split" data-toggle="dropdown" data-bs-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
