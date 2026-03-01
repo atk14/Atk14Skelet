@@ -3,7 +3,10 @@ class PagesController extends AdminController {
 
 	function index() {
 		$this->page_title = _("Pages");
-		$this->tpl_data["root_pages"] = Page::FindAll("parent_page_id",null);
+		$pages = Page::FindAll(["use_cache" => true]);
+		$root_pages = array_filter($pages,function($page){ return is_null($page->getParentPageId()); });
+		$root_pages = array_values($root_pages);
+		$this->tpl_data["root_pages"] = $root_pages;
 	}
 
 	function create_new() {
