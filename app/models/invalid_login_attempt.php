@@ -1,4 +1,5 @@
 <?php
+definedef("MAX_INVALID_LOGIN_ATTEMPTS",5);
 class InvalidLoginAttempt extends ApplicationModel {
 
 	static function IsRemoteAddressBlocked($remote_addr,&$realease_time = null,$options = []){
@@ -8,7 +9,7 @@ class InvalidLoginAttempt extends ApplicationModel {
 		];
 
 		$threshold = 5 * 60; // 5 minutes
-		$max_attempts = 5;
+		$max_attempts = MAX_INVALID_LOGIN_ATTEMPTS;
 		$current_time = $options["current_time"];
 
 		$last_attempt = InvalidLoginAttempt::FindFirst("created_from_addr",$remote_addr,["order_by" => "created_at DESC"]);
