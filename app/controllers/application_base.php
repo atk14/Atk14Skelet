@@ -448,6 +448,9 @@ class ApplicationBaseController extends Atk14Controller{
 			if (defined("GOOGLE_TAG_MANAGER_CONTAINER_ID")) {
 				$gtm_container_id = GOOGLE_TAG_MANAGER_CONTAINER_ID;
 			}
+			if (defined("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT")) {
+				$this->head_tags->addMetaTag("google-site-verification", GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT);
+			}
 		}
 		if (isset($analytics_tracking_id)) {
 			$this->head_tags->addPreconnect("https://www.google-analytics.com");
