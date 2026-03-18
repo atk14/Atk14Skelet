@@ -40,6 +40,13 @@ definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
 // Or if you don't want to let users to register at all, set USER_REGISTRATION_ENABLED to false.
 definedef("USER_REGISTRATION_ENABLED",true);
 
+// Google Analytics tracking code,
+// see app/views/shared/trackers/google/_analytics.tpl and app/layouts/default.tpl.
+// definedef("GOOGLE_ANALYTICS_TRACKING_ID","UA-123456789-1");
+// definedef("GOOGLE_TAG_MANAGER_CONTAINER_ID","GTM-ZY123X5");
+//definedef("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT","54adbd14ea7dbfb62bf160daa26df126");
+
+
 if(DEVELOPMENT || TEST){
 	// a place for development and testing environment settings
 
