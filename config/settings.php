@@ -65,7 +65,8 @@ definedef("SIGN_UP_FOR_NEWSLETTER_ENABLED",true);
 // see app/views/shared/trackers/google/_analytics.tpl and app/layouts/default.tpl.
 // definedef("GOOGLE_ANALYTICS_TRACKING_ID","UA-123456789-1");
 // definedef("GOOGLE_TAG_MANAGER_CONTAINER_ID","GTM-ZY123X5");
-//definedef("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT","54adbd14ea7dbfb62bf160daa26df126");
+// verification code for Search Console. Can contain single vewrification code or list of comma separated codes.
+// definedef("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT","54adbd14ea7dbfb62bf160daa26df126,d41d8cd98f00b204e9800998ecf8427e,...");
 
 // Temporary files uploads (these settings effects use of AsyncFileField)
 // definedef("TEMPORARY_FILE_UPLOADS_ENABLED",true);
