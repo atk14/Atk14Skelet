@@ -29,11 +29,19 @@ class Translation extends ApplicationModel{
 
 			$dbmole = Translation::GetDbmole();
 
-			foreach($dbmole->selectRows("SELECT record_id,key,lang,body FROM translations WHERE table_name=:table_name AND record_id IN :ids",array(":table_name" => $table_name, ":ids" => $ids)) as $row){
-				$_c_key = "$table_name,$row[record_id]";
-				$key = $row["key"];
-				$lang = $row["lang"];
-				Translation::$CACHE[$_c_key]["{$key}_$lang"] = $row["body"];
+			// The $ids array needs to be split into smaller parts.
+			// With a very large array, the following error occurred:
+			// failed to execute prepared SQL query pg_last_error: number of parameters must be between 0 and 65535
+			$limit = 60000;
+			$offset = 0;
+			while($_ids = array_slice($ids,$offset,$limit)){
+				foreach($dbmole->selectRows("SELECT record_id,key,lang,body FROM translations WHERE table_name=:table_name AND record_id IN :ids ORDER BY id",array(":table_name" => $table_name, ":ids" => $_ids)) as $row){
+					$_c_key = "$table_name,$row[record_id]";
+					$key = $row["key"];
+					$lang = $row["lang"];
+					Translation::$CACHE[$_c_key]["{$key}_$lang"] = $row["body"];
+				}
+				$offset += $limit;
 			}
 		}
 
