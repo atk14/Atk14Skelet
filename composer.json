@@ -15,6 +15,6 @@
         "michelf/php-markdown": "1.7.*|1.8.*|1.9.*"
     },
     "require-dev": {
-        "atk14/tester": "^0.5"
+        "atk14/tester": "^0.6"
     }
 }
