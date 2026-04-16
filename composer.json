@@ -22,6 +22,6 @@
         "yarri/keywords-highlighter": "^0.1.2"
     },
     "require-dev": {
-        "atk14/tester": "^0.5"
+        "atk14/tester": "^0.6"
     }
 }
