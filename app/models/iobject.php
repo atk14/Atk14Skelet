@@ -60,11 +60,11 @@ class Iobject extends ApplicationModel implements Translatable {
 
 		if($class_name!="Iobject"){
 			$options["conditions"][] = "referred_table=:referred_table";
+			$options["bind_ar"][":referred_table"] = $_o->getTableName(); // e.g. "galleries"
 		}
 
 		$options["bind_ar"][":linked_table"] = $obj->getTableName();
 		$options["bind_ar"][":linked_record_id"] = $obj->getId();
-		$options["bind_ar"][":referred_table"] = $_o->getTableName(); // e.g. "galleries"
 
 		return static::FindAll($options);
 	}

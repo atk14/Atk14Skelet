@@ -449,7 +449,12 @@ class ApplicationBaseController extends Atk14Controller{
 				$gtm_container_id = GOOGLE_TAG_MANAGER_CONTAINER_ID;
 			}
 			if (defined("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT")) {
-				$this->head_tags->addMetaTag("google-site-verification", GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT);
+				$_contents = preg_split("/,/", constant("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT"));
+				$_contents = array_filter($_contents);
+				$_contents = array_unique($_contents);
+				foreach($_contents as $_c) {
+					$this->head_tags->addMetaTag("google-site-verification", $_c);
+				}
 			}
 		}
 		if (isset($analytics_tracking_id)) {
