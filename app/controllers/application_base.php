@@ -127,7 +127,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->response->setHeader("X-Content-Type-Options","nosniff");
 		//$this->response->setHeader("Content-Security-Policy","default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval';");
 
-		$this->response->setHeader("X-Powered-By","ATK14 Framework");
+		//$this->response->setHeader("X-Powered-By","ATK14 Framework");
 
 		if(
 			(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)) ||
