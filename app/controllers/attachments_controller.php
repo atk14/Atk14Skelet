@@ -21,7 +21,7 @@ class AttachmentsController extends ApplicationController{
 		$cached_body_filename = $cache_dir.md5($pupiq_url)."_body";
 		$cached_headers_filename = $cache_dir.md5($pupiq_url)."_headers";
 
-		if(!file_exists($cached_body_filename) || !file_exists($cached_headers_filename)){
+		if(!file_exists($cached_body_filename) || !file_exists($cached_headers_filename) || !($headers = json_decode(Files::GetFileContent($cached_headers_filename),true))){
 			$uf = new UrlFetcher($pupiq_url);
 			if(!$uf->found()){
 				//return $this->_execute_action("error500");
@@ -33,7 +33,7 @@ class AttachmentsController extends ApplicationController{
 			$tmp_body = Files::GetTempFilename();
 			$content = $uf->getContent();
 			$content->writeToFile($tmp_body);
-			$tmp_headers = Files::WriteToTemp(serialize($headers),$error,$error_str);
+			$tmp_headers = Files::WriteToTemp(json_encode($headers),$error,$error_str);
 
 			if(!$tmp_body || !$tmp_headers){
 				//return $this->_execute_action("error500");
@@ -47,8 +47,6 @@ class AttachmentsController extends ApplicationController{
 		}
 
 		$this->render_template = false;
-
-		$headers = unserialize(Files::GetFileContent($cached_headers_filename));
 
 		foreach($headers as $header => $value){
 			if(in_array(strtolower($header),array(
