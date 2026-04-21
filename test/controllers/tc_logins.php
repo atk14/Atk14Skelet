@@ -67,9 +67,47 @@ class TcLogins extends TcBase{
 		$this->assertTrue(!!$rocky);
 
 		// deactivated user must not stay logged in
-		$this->users["rocky"]->s("active",false);
+		$this->users["rocky"]->s([
+			"active" => false,
+			"updated_by_user_id" => null,
+		]);
 		$ctrl = $client->get("main/index");
 		$rocky = $ctrl->_get_logged_user();
 		$this->assertNull($rocky);
+	}
+
+	function test_open_redirect_prevention(){
+		$client = $this->client;
+
+		// absolute external URL in return_uri must not redirect off-site
+		$client->post("logins/create_new",array(
+			"login" => "rambo.tester",
+			"password" => "Secret123",
+			"return_uri" => "https://evil.com/steal-credentials",
+		));
+		$this->assertEquals(303,$client->getStatusCode());
+		$this->assertStringNotContains("evil.com",$client->getLocation());
+
+		$client->post("logins/destroy");
+
+		// protocol-relative URL must also be blocked
+		$client->post("logins/create_new",array(
+			"login" => "rambo.tester",
+			"password" => "Secret123",
+			"return_uri" => "//evil.com",
+		));
+		$this->assertEquals(303,$client->getStatusCode());
+		$this->assertStringNotContains("evil.com",$client->getLocation());
+
+		$client->post("logins/destroy");
+
+		// valid relative URI must still work
+		$client->post("logins/create_new",array(
+			"login" => "rambo.tester",
+			"password" => "Secret123",
+			"return_uri" => "/en/articles/",
+		));
+		$this->assertEquals(303,$client->getStatusCode());
+		$this->assertStringContains("/en/articles/",$client->getLocation());
 	}
 }
