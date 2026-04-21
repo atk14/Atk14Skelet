@@ -53,7 +53,7 @@ class LoginsController extends ApplicationController{
 	}
 
 	function _redirect_after_login_or_logout(){
-		$uri = $this->_get_return_uri("main/index");
+		$uri = $this->_get_return_uri("main/index",["consider_referer" => false]);
 		$this->_redirect_to($uri);
 	}
 }

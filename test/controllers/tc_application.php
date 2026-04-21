@@ -42,6 +42,8 @@ class TcApplication extends TcBase{
 		$ctrl = $this->client->get("main/index");
 
 		$this->assertEquals("/admin/en/articles/",$ctrl->_get_return_uri());
+		$this->assertEquals("/admin/en/articles/",$ctrl->_get_return_uri("main/index"));
+		$this->assertEquals("/",$ctrl->_get_return_uri("main/index",["consider_referer" => false]));
 
 		// With the parameter return_uri
 
