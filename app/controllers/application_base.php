@@ -361,20 +361,50 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	/**
+	 * Returns true when the given URI is safe to redirect to.
+	 * Accepts only relative paths (starting with /) to prevent open redirect attacks.
+	 * Rejects absolute URLs (http://...) and protocol-relative URLs (//...).
+	 *
+	 *	$this->_is_safe_return_uri("/"); // true
+	 *	$this->_is_safe_return_uri("/admin/"); // true
+	 *	$this->_is_safe_return_uri("//evil.com"); // false
+	 */
+	function _is_safe_return_uri($uri){
+		$uri = (string)$uri;
+		if(!strlen($uri)){ return false; }
+		return $uri[0] === '/' && (strlen($uri) === 1 || $uri[1] !== '/');
+	}
+
+	/**
 	 * Returns current return uri
 	 *
 	 * In fact this returns a previously saved uri (by calling $this->_save_return_uri()), value of parameter _return_uri_ (eventually return_uri) or the http referer
 	 */
-	function _get_return_uri($default = "index"){
+	function _get_return_uri($default = "index",$options = []){
+		$options += [
+			"consider_referer" => true,
+		];
+
 		$key = md5($this->request->getRequestUri());
 		($return_uris = $this->session->g("return_uris")) || ($return_uris = array());
 
-		($return_uri = $this->params->getString("_return_uri_")) ||
-		($return_uri = isset($return_uris[$key]) ? $return_uris[$key] : null) ||
-		($return_uri = $this->params->getString("return_uri")) ||
-		($return_uri = $this->request->getHttpReferer()) ||
-		($return_uri = $default ? $this->_link_to($default) : null);
-		return $return_uri;
+		foreach(array(
+			$this->params->getString("_return_uri_"),
+			$this->params->getString("return_uri"),
+			isset($return_uris[$key]) ? $return_uris[$key] : null,
+		) as $candidate){
+			if($this->_is_safe_return_uri($candidate)){ return $candidate; }
+		}
+
+		if($options["consider_referer"] && ($referer = $this->request->getHttpReferer())){
+			$server_url = $this->request->getServerUrl();
+			if($server_url && strpos($referer,$server_url)===0){
+				$referer = substr($referer,strlen($server_url));
+			}
+			if($this->_is_safe_return_uri($referer)){ return $referer; }
+		}
+
+		return $default ? $this->_link_to($default) : null;
 	}
 
 	/**
