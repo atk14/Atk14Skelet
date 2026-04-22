@@ -21,7 +21,7 @@
 					{if $child_page->getImageUrl()}
 						<img {!$child_page->getImageUrl()|img_attrs:"80x80"} alt="" class="img-thumbnail">
 					{/if}
-					{$child_page->getTitle()}
+					{$child_page->getTitle()|strip_html}
 				{/a}
 			</li>
 		{/foreach}
