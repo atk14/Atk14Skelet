@@ -33,7 +33,7 @@ class UsersController extends ApplicationController{
 
 			$this->_login_user($user);
 
-			if($uri = $this->params->getString("return_uri")){
+			if($uri = $this->_get_return_uri(null,["consider_referer" => false])){
 				$this->flash->success(sprintf(_("You have been successfully registered and now you are logged in as <em>%s</em>"),h("$user")));
 				return $this->_redirect_to($uri);
 			}
@@ -44,6 +44,7 @@ class UsersController extends ApplicationController{
 
 	function created(){
 		$this->page_title = _("Thank you for your registration!");
+		$this->breadcrumbs[] = _("New user registration");
 		$this->head_tags->setMetaTag("robots", "noindex,noarchive");
 		$this->head_tags->setMetaTag("googlebot", "noindex");
 	}

@@ -18,9 +18,9 @@ RewriteRule ^(public\/.+)\.v[0-9a-f]{1,64}(\.[a-zA-Z0-9]{1,10})$ $1$2 [L]
 RewriteCond %{REQUEST_URI} ^\/crossdomain.xml(|\?.*)$
 RewriteRule (.*) /public/crossdomain.xml [L]
 
-# silent redirecting /favicon.ico -> /public/favicon.ico
+# silent redirecting /favicon.ico -> /public/dist/favicons/favicon.ico
 RewriteCond %{REQUEST_URI} ^\/favicon.ico(|\?.*)$
-RewriteRule (.*) /public/favicon.ico [L]
+RewriteRule (.*) /public/dist/favicons/favicon.ico [L]
 
 RewriteCond %{REQUEST_URI} ^\/
 RewriteCond %{REQUEST_URI} !^\/public\/

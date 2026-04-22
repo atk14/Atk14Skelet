@@ -113,7 +113,7 @@ class ApplicationBaseController extends Atk14Controller{
 		$this->response->setHeader("X-Content-Type-Options","nosniff");
 		//$this->response->setHeader("Content-Security-Policy","default-src 'self'; script-src 'unsafe-inline' 'unsafe-eval';");
 
-		$this->response->setHeader("X-Powered-By","ATK14 Framework");
+		//$this->response->setHeader("X-Powered-By","ATK14 Framework");
 
 		if(
 			(PRODUCTION && $this->request->get() && !$this->request->xhr() && ("www.".$this->request->getHttpHost()==ATK14_HTTP_HOST || $this->request->getHttpHost()=="www.".ATK14_HTTP_HOST)) ||
@@ -347,20 +347,50 @@ class ApplicationBaseController extends Atk14Controller{
 	}
 
 	/**
+	 * Returns true when the given URI is safe to redirect to.
+	 * Accepts only relative paths (starting with /) to prevent open redirect attacks.
+	 * Rejects absolute URLs (http://...) and protocol-relative URLs (//...).
+	 *
+	 *	$this->_is_safe_return_uri("/"); // true
+	 *	$this->_is_safe_return_uri("/admin/"); // true
+	 *	$this->_is_safe_return_uri("//evil.com"); // false
+	 */
+	function _is_safe_return_uri($uri){
+		$uri = (string)$uri;
+		if(!strlen($uri)){ return false; }
+		return $uri[0] === '/' && (strlen($uri) === 1 || $uri[1] !== '/');
+	}
+
+	/**
 	 * Returns current return uri
 	 *
 	 * In fact this returns a previously saved uri (by calling $this->_save_return_uri()), value of parameter _return_uri_ (eventually return_uri) or the http referer
 	 */
-	function _get_return_uri($default = "index"){
+	function _get_return_uri($default = "index",$options = []){
+		$options += [
+			"consider_referer" => true,
+		];
+
 		$key = md5($this->request->getRequestUri());
 		($return_uris = $this->session->g("return_uris")) || ($return_uris = array());
 
-		($return_uri = $this->params->getString("_return_uri_")) ||
-		($return_uri = isset($return_uris[$key]) ? $return_uris[$key] : null) ||
-		($return_uri = $this->params->getString("return_uri")) ||
-		($return_uri = $this->request->getHttpReferer()) ||
-		($return_uri = $default ? $this->_link_to($default) : null);
-		return $return_uri;
+		foreach(array(
+			$this->params->getString("_return_uri_"),
+			$this->params->getString("return_uri"),
+			isset($return_uris[$key]) ? $return_uris[$key] : null,
+		) as $candidate){
+			if($this->_is_safe_return_uri($candidate)){ return $candidate; }
+		}
+
+		if($options["consider_referer"] && ($referer = $this->request->getHttpReferer())){
+			$server_url = $this->request->getServerUrl();
+			if($server_url && strpos($referer,$server_url)===0){
+				$referer = substr($referer,strlen($server_url));
+			}
+			if($this->_is_safe_return_uri($referer)){ return $referer; }
+		}
+
+		return $default ? $this->_link_to($default) : null;
 	}
 
 	/**
@@ -433,6 +463,14 @@ class ApplicationBaseController extends Atk14Controller{
 			}
 			if (defined("GOOGLE_TAG_MANAGER_CONTAINER_ID")) {
 				$gtm_container_id = GOOGLE_TAG_MANAGER_CONTAINER_ID;
+			}
+			if (defined("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT")) {
+				$_contents = preg_split("/,/", constant("GOOGLE_SITE_VERIFICATION_META_TAG_CONTENT"));
+				$_contents = array_filter($_contents);
+				$_contents = array_unique($_contents);
+				foreach($_contents as $_c) {
+					$this->head_tags->addMetaTag("google-site-verification", $_c);
+				}
 			}
 		}
 		if (isset($analytics_tracking_id)) {

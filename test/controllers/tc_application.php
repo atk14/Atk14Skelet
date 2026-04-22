@@ -42,6 +42,8 @@ class TcApplication extends TcBase{
 		$ctrl = $this->client->get("main/index");
 
 		$this->assertEquals("/admin/en/articles/",$ctrl->_get_return_uri());
+		$this->assertEquals("/admin/en/articles/",$ctrl->_get_return_uri("main/index"));
+		$this->assertEquals("/",$ctrl->_get_return_uri("main/index",["consider_referer" => false]));
 
 		// With the parameter return_uri
 
@@ -54,6 +56,24 @@ class TcApplication extends TcBase{
 		$ctrl = $this->client->get("main/index",["_return_uri_" => "/en/articles/?offset=300"]);
 
 		$this->assertEquals("/en/articles/?offset=300",$ctrl->_get_return_uri());
+
+		// Open redirect prevention: external and protocol-relative URLs must be rejected
+
+		$HTTP_REQUEST->setHttpReferer(null);
+
+		$ctrl = $this->client->get("main/index",["return_uri" => "https://evil.com"]);
+		$this->assertEquals("/",$ctrl->_get_return_uri());
+
+		$ctrl = $this->client->get("main/index",["return_uri" => "//evil.com/steal"]);
+		$this->assertEquals("/",$ctrl->_get_return_uri());
+
+		$ctrl = $this->client->get("main/index",["return_uri" => "javascript:alert(1)"]);
+		$this->assertEquals("/",$ctrl->_get_return_uri());
+
+		$HTTP_REQUEST->setHttpReferer("https://evil.com");
+		$ctrl = $this->client->get("main/index");
+		$this->assertEquals("/",$ctrl->_get_return_uri());
+		$HTTP_REQUEST->setHttpReferer(null);
 	}
 
 	function test__save_return_uri(){

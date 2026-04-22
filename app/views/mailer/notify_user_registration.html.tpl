@@ -1,8 +1,6 @@
-<h2>{t appname="ATK14_APPLICATION_NAME"|dump_constant}Thanks for signing up for %1!{/t}</h2>
+{t appname="ATK14_APPLICATION_NAME"|dump_constant}Thanks for signing up for %1!{/t}<br /><br />
 
-<p>
-	{t}Here is your data summary{/t}
-</p>
+{t}Here is your data summary{/t}
 
 <ul>
 	<li>{t}login{/t}: {$user->getLogin()}</li>

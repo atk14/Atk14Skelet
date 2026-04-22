@@ -13,27 +13,32 @@ class Translation extends ApplicationModel{
 		$cache_key = "$table_name,$record_id";
 
 		if(!isset(Translation::$CACHE[$cache_key])){
-			// nacteme najednou translations stringy pro vsechny pomoci Cache nacachovane objekty
+			// Pre-reading translation data for up to $limit records
+			$limit = 10000;
+
 			$class_name = get_class($obj);
 			$ids = Cache::CachedIds($class_name);
-			$ids[] = $record_id;
+			array_unshift($ids,$obj->getId());
 
 			$_ids = array();
+			$counter = 0;
 			foreach($ids as $id){
-				$_c_key = "$table_name,$id";
-				if(isset(Translation::$CACHE[$_c_key])){ continue; }
-				Translation::$CACHE[$_c_key] = array();
+				$c_key = "$table_name,$id";
+				if(isset(self::$CACHE[$c_key])){ continue; }
+				self::$CACHE[$c_key] = array();
 				$_ids[] = $id;
+
+				$counter++;
+				if($counter>=$limit){ break; }
 			}
 			$ids = $_ids;
 
 			$dbmole = Translation::GetDbmole();
-
 			foreach($dbmole->selectRows("SELECT record_id,key,lang,body FROM translations WHERE table_name=:table_name AND record_id IN :ids",array(":table_name" => $table_name, ":ids" => $ids)) as $row){
-				$_c_key = "$table_name,$row[record_id]";
+				$c_key = "$table_name,$row[record_id]";
 				$key = $row["key"];
 				$lang = $row["lang"];
-				Translation::$CACHE[$_c_key]["{$key}_$lang"] = $row["body"];
+				Translation::$CACHE[$c_key]["{$key}_$lang"] = $row["body"];
 			}
 		}
 
