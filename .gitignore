@@ -1,3 +1,4 @@
+local_config/*
 !tmp/README.md
 tmp/*
 !log/README.md

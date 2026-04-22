@@ -5,7 +5,7 @@ class TransformForm extends ApiForm{
 
 	function set_up(){
 		$this->add_field("source", new TextField(array(
-			"max_length" => 399999,
+			"max_length" => 50000,
 			"required" => false,
 		)));
 
