@@ -98,4 +98,8 @@ class SuggestionsController extends ApiController{
 		// vsechny akce maji stejny formular
 		$this->form = $this->_get_form("index");
 	}
+
+	function _logged_admin_required(){
+		return true;
+	}
 }
