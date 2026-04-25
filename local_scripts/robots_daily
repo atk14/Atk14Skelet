@@ -7,4 +7,6 @@
 cd $(dirname $0)
 cd ..
 
+./scripts/robot_runner sessions_cleanup
+./scripts/robot_runner invalid_login_attempts_cleanup
 ./scripts/robot_runner vacuum_analyze

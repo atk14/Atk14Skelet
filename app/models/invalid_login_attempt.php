@@ -2,8 +2,8 @@
 definedef("MAX_INVALID_LOGIN_ATTEMPTS",5);
 class InvalidLoginAttempt extends ApplicationModel {
 
-	static function IsRemoteAddressBlocked($remote_addr,&$realease_time = null,$options = []){
-		$realease_time = null;
+	static function IsRemoteAddressBlocked($remote_addr,&$release_time = null,$options = []){
+		$release_time = null;
 		$options += [
 			"current_time" => time()
 		];
@@ -59,19 +59,19 @@ class InvalidLoginAttempt extends ApplicationModel {
 			return false;
 		}
 
-		$realease_time = ($last_attempt_time + $threshold) - $current_time;
+		$release_time = ($last_attempt_time + $threshold) - $current_time;
 		return true;
 	}
 
-	static function BuildLoginAttemptDelayMessage($realease_time){
-		$realease_time = (int)$realease_time;
+	static function BuildLoginAttemptDelayMessage($release_time){
+		$release_time = (int)$release_time;
 
-		if($realease_time<2){
+		if($release_time<2){
 			return _("Delay the next sign-in attempt for a second");
 		}
 
-		$minutes = floor($realease_time / 60);
-		$seconds = $realease_time % 60;
+		$minutes = floor($release_time / 60);
+		$seconds = $release_time % 60;
 
 		if($minutes>=3){
 			$minutes = $seconds>=30 ? $minutes+1 : $minutes;
@@ -93,5 +93,21 @@ class InvalidLoginAttempt extends ApplicationModel {
 			return sprintf(_("Delay the next sign-in attempt for %s minutes and %s seconds"),$minutes,$seconds);
 		}
 		return sprintf(_("Delay the next sign-in attempt for %s minutes"),$minutes);
+	}
+
+	/**
+	 * Deletes old (useless) records
+	 *
+	 * Returns the count of deleted records
+	 *
+	 * @return int
+	 */
+	static function DeleteOldRecords(){
+		$threshold_date = date("Y-m-d H:i:s",time() - 60 * 60 * 24 * 7); // 7 days
+		$dbmole = self::GetDbmole();
+		$dbmole->doQuery("DELETE FROM invalid_login_attempts WHERE created_at<=:threshold_date",[
+			":threshold_date" => $threshold_date,
+		]);
+		return $dbmole->getAffectedRows();
 	}
 }
