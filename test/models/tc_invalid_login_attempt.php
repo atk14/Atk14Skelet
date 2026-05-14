@@ -139,4 +139,25 @@ class TcInvalidLoginAttempt extends TcBase {
 		$this->assertEquals("Delay the next sign-in attempt for one minute",InvalidLoginAttempt::BuildLoginAttemptDelayMessage(62));
 		$this->assertEquals("Delay the next sign-in attempt for one minute and 10 seconds",InvalidLoginAttempt::BuildLoginAttemptDelayMessage(70));
 	}
+
+	function test_DeleteOldRecords(){
+		$this->assertEquals(0,InvalidLoginAttempt::DeleteOldRecords());
+
+		$ila1 = InvalidLoginAttempt::CreateNewRecord([
+			"login" => "badass",
+			"created_from_addr" => "1.1.1.1",
+			"created_at" => date("Y-m-d H:i:s"), // now
+		]);
+		$this->assertEquals(0,InvalidLoginAttempt::DeleteOldRecords());
+
+		$ila2 = InvalidLoginAttempt::CreateNewRecord([
+			"login" => "badass",
+			"created_from_addr" => "1.1.1.1",
+			"created_at" => date("Y-m-d H:i:s",time() - 60 * 60 * 24 * 10), // 10 days ago
+		]);
+		$this->assertEquals(1,InvalidLoginAttempt::DeleteOldRecords());
+
+		$this->assertNotNull(InvalidLoginAttempt::GetInstanceById($ila1->getId()));
+		$this->assertNull(InvalidLoginAttempt::GetInstanceById($ila2->getId()));
+	}
 }

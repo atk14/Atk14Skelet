@@ -12,6 +12,7 @@ class TcPages extends TcBase {
 		$this->assertEquals("200",$this->client->getStatusCode());
 
 		$page->s("visible",false);
+		Cache::Clear();
 
 		$this->client->get("pages/detail", array("id" => $page));
 		$this->assertEquals("404",$this->client->getStatusCode());
@@ -25,6 +26,7 @@ class TcPages extends TcBase {
 		$this->assertStringNotContains('<meta name="robots" content="noindex,nofollow,noarchive">',$this->client->getContent());
 
 		$page->s("indexable",false);
+		Cache::Clear();
 
 		$this->client->get("pages/detail", array("id" => $page));
 		$this->assertEquals("200",$this->client->getStatusCode());

@@ -22,11 +22,11 @@ class TcApplication extends TcBase{
 	}
 
 	function test__get_return_uri(){
-		global $HTTP_REQUEST;
-
 		// HTTP referer is not set
 
 		$ctrl = $this->client->get("main/index");
+
+		$server_url = $ctrl->request->getServerUrl(); // e.g. "http://atk14skelet.localhost"
 
 		$articles_uri = Atk14Url::BuildLink("articles/index"); // e.g. "/en/erticles/", "/articles/", "/events/"...
 
@@ -37,7 +37,7 @@ class TcApplication extends TcBase{
 
 		// HTTP referer is set
 
-		$HTTP_REQUEST->setHttpReferer("/admin/en/articles/");
+		$this->client->setHttpReferer("$server_url/admin/en/articles/");
 
 		$ctrl = $this->client->get("main/index");
 
@@ -59,7 +59,7 @@ class TcApplication extends TcBase{
 
 		// Open redirect prevention: external and protocol-relative URLs must be rejected
 
-		$HTTP_REQUEST->setHttpReferer(null);
+		$this->client->setHttpReferer(null);
 
 		$ctrl = $this->client->get("main/index",["return_uri" => "https://evil.com"]);
 		$this->assertEquals("/",$ctrl->_get_return_uri());
@@ -70,21 +70,20 @@ class TcApplication extends TcBase{
 		$ctrl = $this->client->get("main/index",["return_uri" => "javascript:alert(1)"]);
 		$this->assertEquals("/",$ctrl->_get_return_uri());
 
-		$HTTP_REQUEST->setHttpReferer("https://evil.com");
+		$this->client->setHttpReferer("https://evil.com");
 		$ctrl = $this->client->get("main/index");
 		$this->assertEquals("/",$ctrl->_get_return_uri());
-		$HTTP_REQUEST->setHttpReferer(null);
+		$this->client->setHttpReferer(null);
 	}
 
 	function test__save_return_uri(){
-		global $HTTP_REQUEST;
-
-
 		// HTTP referer is not set
 
-		$HTTP_REQUEST->setHttpReferer(null);
+		$this->client->setHttpReferer(null);
 
 		$ctrl = $this->client->get("users/detail");
+
+		$server_url = $ctrl->request->getServerUrl(); // e.g. "http://atk14skelet.localhost"
 
 		$this->assertEquals(null,$ctrl->session->g("return_uris"));
 
@@ -98,7 +97,7 @@ class TcApplication extends TcBase{
 			"_return_uri_" => null,
 		],$ctrl->form->atk14_hidden_fields);
 
-		$HTTP_REQUEST->setHttpReferer(null);
+		$this->client->setHttpReferer(null);
 
 		$ctrl = $this->client->post("users/detail",["_return_uri_" => ""]);
 
@@ -106,7 +105,7 @@ class TcApplication extends TcBase{
 
 		// HTTP referer is set
 
-		$HTTP_REQUEST->setHttpReferer("/admin/en/");
+		$this->client->setHttpReferer("$server_url/admin/en/");
 
 		$ctrl = $this->client->get(Atk14Url::BuildLink(["namespace" => "admin", "action" => "articles/edit", "id" => 1]));
 
@@ -126,7 +125,7 @@ class TcApplication extends TcBase{
 			"_return_uri_" => "/admin/en/",
 		],$ctrl->form->atk14_hidden_fields);
 
-		$HTTP_REQUEST->setHttpReferer(null);
+		$this->client->setHttpReferer(null);
 
 		$ctrl = $this->client->post(Atk14Url::BuildLink(["namespace" => "admin", "action" => "articles/edit", "id" => 1]),["_return_uri_" => ""]);
 
