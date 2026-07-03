@@ -37,7 +37,7 @@ var vendorStyles = [
   "./node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/all.css",
   "./node_modules/swiper/swiper-bundle.css",
-  "./node_modules/jquery-ui-bundle/jquery-ui.css",
+  //"./node_modules/jquery-ui-bundle/jquery-ui.css",
 ];
 
 // Files to be ignored
@@ -191,7 +191,7 @@ var config = {
     minimize: true
   },
   cache: true,
-  resolve: {
+  /*resolve: {
     // this is needed for jQuery UI and Blueimp File Uploader
     extensions: ['', '.js'],
     alias: {
@@ -203,7 +203,7 @@ var config = {
       'load-image-scale': 'blueimp-load-image/js/load-image-scale.js',
       'load-image-orientation': 'blueimp-load-image/js/load-image-orientation.js',
    },
-  },
+  },*/
   stats: {
     // SASS compiler enable to show @debug
     loggingDebug: ['sass-loader'],
