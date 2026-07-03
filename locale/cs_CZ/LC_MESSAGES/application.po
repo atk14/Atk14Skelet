@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-16 13:31+0200\n"
-"PO-Revision-Date: 2025-10-01 13:10+0200\n"
+"POT-Creation-Date: 2026-06-03 14:02+0200\n"
+"PO-Revision-Date: 2026-06-03 13:55+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -158,8 +158,8 @@ msgstr ""
 msgid "pro potvrzení odběru novinek klikněte na následující odkaz:"
 msgstr "pro potvrzení odběru novinek klikněte na následující odkaz:"
 
-msgid "Hello %1!"
-msgstr "Dobrý den %1!"
+msgid "Hello,"
+msgstr "Dobrý den,"
 
 msgid ""
 "Have you forgotten your password? To reset your password, click on the "
@@ -467,6 +467,7 @@ msgid "Pages"
 msgstr "Stránky"
 
 #: ../app/controllers/users_controller.php:22
+#: ../app/controllers/users_controller.php:47
 msgid "New user registration"
 msgstr "Registrace nového uživatele"
 
@@ -530,11 +531,11 @@ msgstr "Jste administrátor?"
 msgid "Yes, you are"
 msgstr "Ano, jste"
 
-#: ../app/controllers/users_controller.php:52
+#: ../app/controllers/users_controller.php:53
 msgid "Change your account data"
 msgstr "Změnit vaše údaje"
 
-#: ../app/controllers/users_controller.php:80
+#: ../app/controllers/users_controller.php:81
 msgid "Change your password"
 msgstr "Změna vašeho hesla"
 
@@ -543,6 +544,10 @@ msgstr "Aktuální heslo"
 
 msgid "New password"
 msgstr "Nové heslo"
+
+#: ../app/controllers/api/api.php:33
+msgid "This service is intended for administrators only"
+msgstr "Tato služba je určena výhradně pro administrátory"
 
 #: ../app/controllers/api/logins_controller.php:35
 msgid "For security reasons, this function is disabled"
@@ -573,15 +578,15 @@ msgstr "Chyba 1"
 msgid "Error 2"
 msgstr "Chyba 2"
 
-#: ../app/controllers/application_base.php:36
+#: ../app/controllers/application_base.php:35
 msgid "Page not found"
 msgstr "Stránka nebyla nalezena"
 
-#: ../app/controllers/application_base.php:50
+#: ../app/controllers/application_base.php:49
 msgid "Forbidden"
 msgstr "Zakázáno"
 
-#: ../app/controllers/application_base.php:150
+#: ../app/controllers/application_base.php:149
 msgid "Home"
 msgstr "Domů"
 
@@ -735,7 +740,7 @@ msgstr ""
 "nastavena."
 
 #: ../app/controllers/password_recoveries_controller.php:68
-#: ../app/controllers/users_controller.php:94
+#: ../app/controllers/users_controller.php:95
 msgid "Your password has been updated successfully"
 msgstr "Vaše heslo bylo úspěšně změněno"
 
@@ -759,15 +764,15 @@ msgstr ""
 msgid "Thank you for your registration!"
 msgstr "Děkujeme za vaši registraci!"
 
-#: ../app/controllers/users_controller.php:58
+#: ../app/controllers/users_controller.php:59
 msgid "Nothing has been changed"
 msgstr "Nic nebylo změněno"
 
-#: ../app/controllers/users_controller.php:65
+#: ../app/controllers/users_controller.php:66
 msgid "This email address is used by another user."
 msgstr "Stejná e-mailová adresa je již použita pro jiného uživatele."
 
-#: ../app/controllers/users_controller.php:74
+#: ../app/controllers/users_controller.php:75
 #, php-format
 msgid ""
 "Your account data has been updated. Next time you should sign-in with login "
@@ -776,11 +781,11 @@ msgstr ""
 "Údaje vašeho účtu byly aktualizovány. Příště byste se měl/a přihlásit pomocí "
 "přihlašovacího jména <em>%s</em>."
 
-#: ../app/controllers/users_controller.php:74
+#: ../app/controllers/users_controller.php:75
 msgid "Your account data has been updated"
 msgstr "Údaje vašeho účtu byly změněny"
 
-#: ../app/controllers/users_controller.php:84
+#: ../app/controllers/users_controller.php:85
 msgid "This is not your current password"
 msgstr "Toto neni vaše aktuální heslo"
 
@@ -1034,44 +1039,44 @@ msgstr "Galerie"
 msgid "Obrázek"
 msgstr "Obrázek"
 
-#: ../app/models/invalid_login_attempt.php:46
+#: ../app/models/invalid_login_attempt.php:70
 msgid "Delay the next sign-in attempt for a second"
 msgstr "Odložte další pokus o přihlášení o vteřinku"
 
-#: ../app/models/invalid_login_attempt.php:53
-#: ../app/models/invalid_login_attempt.php:70
+#: ../app/models/invalid_login_attempt.php:78
+#: ../app/models/invalid_login_attempt.php:95
 #, php-format
 msgid "Delay the next sign-in attempt for %s minutes"
 msgstr "Odložte další pokus o přihlášení o %s minut"
 
-#: ../app/models/invalid_login_attempt.php:58
+#: ../app/models/invalid_login_attempt.php:83
 #, php-format
 msgid "Delay the next sign-in attempt for one minute and %s seconds"
 msgstr "Odložte další pokus o přihlášení o jednu minutu a %s vteřin"
 
-#: ../app/models/invalid_login_attempt.php:60
+#: ../app/models/invalid_login_attempt.php:85
 msgid "Delay the next sign-in attempt for one minute"
 msgstr "Odložte další pokus o přihlášení o jednu minutu"
 
-#: ../app/models/invalid_login_attempt.php:64
+#: ../app/models/invalid_login_attempt.php:89
 #, php-format
 msgid "Delay the next sign-in attempt for %s seconds"
 msgstr "Odložte další pokus o přihlášení o %s vteřin"
 
-#: ../app/models/invalid_login_attempt.php:68
+#: ../app/models/invalid_login_attempt.php:93
 #, php-format
 msgid "Delay the next sign-in attempt for %s minutes and %s seconds"
 msgstr "Odložte další pokus o přihlášení o %s minuty a %s vteřin"
 
-#: ../app/models/user.php:113
+#: ../app/models/user.php:114
 msgid "deleted user"
 msgstr "smazaný uživatel"
 
-#: ../app/models/user.php:115
+#: ../app/models/user.php:116
 msgid "inactive user"
 msgstr "neaktivní uživatel"
 
-#: ../app/models/user.php:118
+#: ../app/models/user.php:119
 msgid "administrator"
 msgstr "administrátor"
 
@@ -1100,6 +1105,9 @@ msgstr "Zobrazit obrázek"
 
 msgid "Potvrdit odběr novinek"
 msgstr "Potvrdit odběr novinek"
+
+#~ msgid "Hello %1!"
+#~ msgstr "Dobrý den %1!"
 
 #~ msgid ""
 #~ "The file has been already deleted on the server, please upload it again"

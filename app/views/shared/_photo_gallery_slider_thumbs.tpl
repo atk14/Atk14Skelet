@@ -44,7 +44,7 @@
 							<picture>
 								<source srcset="{!$image|img_url:($geometry_thumbnail|cat:",format=webp")}" type="image/webp">
 								<source srcset="{!$image|img_url:$geometry_thumbnail}">
-								<img {!$image|img_attrs:$geometry_thumbnail} alt="{$image->getName()}" class="img-fluid">
+								<img {!$image|img_attrs:$geometry_thumbnail} alt="{$image->getName()}" class="img-fluid" loading="lazy">
 							</picture>
 						</div>
 					{/foreach}

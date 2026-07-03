@@ -10,8 +10,8 @@
 			<picture>
 				<source srcset="{!$picture|img_url:"600,format=webp"} 600w, {!$picture|img_url:"800,format=webp"} 800w, {!$picture|img_url:"1500,format=webp"} 1500w" sizes="(max-width:1400px) 100vw, 1400px" type="image/webp">
 				<source srcset="{!$picture|img_url:600} 600w, {!$picture|img_url:800} 800w, {!$picture|img_url:1500} 1500w" sizes="(max-width:1400px) 100vw, 1400px">
-				<img class="iobject--picture__img img-fluid card-img-top" {!$picture->getUrl()|img_attrs:1500} alt="{$picture->getAlt()}" 
-	srcset="{!$picture|img_url:600} 600w, {!$picture|img_url:800} 800w, {!$picture|img_url:1500} 1500w" 
+				<img class="iobject--picture__img img-fluid card-img-top" {!$picture->getUrl()|img_attrs:1500} alt="{$picture->getAlt()}" loading="lazy"
+	srcset="{!$picture|img_url:600} 600w, {!$picture|img_url:800} 800w, {!$picture|img_url:1500} 1500w"
 	sizes="(max-width:1400px) 100vw, 1400px">
 			</picture>
 		{if $render_link}</a>{else}</div>{/if}

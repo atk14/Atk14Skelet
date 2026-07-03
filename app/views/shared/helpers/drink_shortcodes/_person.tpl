@@ -1,7 +1,7 @@
 <div class="iobject--contact contact--shortcode{if $class} {$class}{/if}">
   {if $image}
   <div class="iobject__image">
-    <img src="{$image}" alt="{$name}">
+    <img src="{$image}" alt="{$name}" loading="lazy">
   </div>
   {/if}
   <div class="iobject__body">

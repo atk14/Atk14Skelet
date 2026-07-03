@@ -26,5 +26,9 @@ class MainController extends ApplicationController{
 	function robots_txt(){
 		$this->render_layout = false;
 		$this->response->setContentType("text/plain");
+
+		$this->response->clearHeader("Pragma");
+		$this->response->setHeader("Cache-Control","public, max-age=86400");
+		$this->response->setHeader("Last-Modified",gmdate("D, d M Y H:i:s", filemtime(ATK14_DOCUMENT_ROOT."/app/views/main/robots_txt.tpl"))." GMT");
 	}
 }

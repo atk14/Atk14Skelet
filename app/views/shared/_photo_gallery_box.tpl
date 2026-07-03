@@ -87,7 +87,7 @@
 						<picture>
 							<source srcset="{!$image|img_url:($thumb_geometry|cat:",format=webp")}" type="image/webp">
 							<source srcset="{!$image|img_url:$thumb_geometry}">
-							<img {!$image|img_attrs:$thumb_geometry} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
+							<img {!$image|img_attrs:$thumb_geometry} alt="{$image->getName()}" class="img-fluid" loading="lazy" itemprop="thumbnail">
 						</picture>
 					</a>
 					<figcaption>

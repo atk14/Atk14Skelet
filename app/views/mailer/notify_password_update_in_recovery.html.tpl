@@ -1,4 +1,4 @@
-{t user_name=$user->getName()}Hello %1!{/t}<br /><br />
+{t}Hello,{/t}<br /><br />
 
 {t}Your password was just updated in recovery mode.{/t}<br /><br />
 
