@@ -295,8 +295,11 @@ form {
 .form-search {
 	@extend .form-inline;
 	margin-bottom: 1rem;
-	input {
+	input, select, select.form-select {
 		margin-right: 0.5em;
+		@include media-breakpoint-up(sm) {
+			width: auto;
+		}
 		@include media-breakpoint-down(sm){
 			margin-bottom: 0.5rem;
 		}
