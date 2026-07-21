@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-16 13:31+0200\n"
-"PO-Revision-Date: 2025-01-28 12:09+0100\n"
+"POT-Creation-Date: 2026-06-03 14:02+0200\n"
+"PO-Revision-Date: 2026-06-03 14:10+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -328,6 +328,52 @@ msgstr "Add photogallery"
 msgid "Add video"
 msgstr "Add video"
 
+msgid "XL - Large desktop"
+msgstr "XL - Large desktop"
+
+msgid "LG - Laptop"
+msgstr "LG - Laptop"
+
+msgid "MD - Tablet"
+msgstr "MD - Tablet"
+
+msgid "SM - Small tablet"
+msgstr "SM - Small tablet"
+
+msgid "XS - Phone"
+msgstr "XS - Phone"
+
+msgid ""
+"Cannot paste columns: Number of pasted columns do not match number of "
+"current columns."
+msgstr ""
+"Cannot paste columns: Number of pasted columns do not match number of "
+"current columns."
+
+msgid "Copy widths"
+msgstr "Copy widths"
+
+msgid "Paste widths"
+msgstr "Paste widths"
+
+msgid "Hidden cells: "
+msgstr "Hidden cells: "
+
+msgid "Number of columns"
+msgstr "Number of columns"
+
+msgid "Cancel"
+msgstr "Cancel"
+
+msgid "Reset"
+msgstr "Reset"
+
+msgid "Copy HTML code to clipboard"
+msgstr "Copy HTML code to clipboard"
+
+msgid "Copy Markdown code to clipboard"
+msgstr "Copy Markdown code to clipboard"
+
 msgid "Localhost"
 msgstr "Localhost"
 
@@ -336,6 +382,9 @@ msgstr "Development server"
 
 msgid "Production server"
 msgstr "Production server"
+
+msgid "Toggle sidebar"
+msgstr "Toggle sidebar"
 
 msgid "Profile"
 msgstr "Profile"
@@ -691,20 +740,20 @@ msgstr "Editing link list"
 msgid "Newsletter Subscribers"
 msgstr "Newsletter Subscribers"
 
-#: ../app/controllers/admin/pages_controller.php:11
+#: ../app/controllers/admin/pages_controller.php:14
 msgid "Create page"
 msgstr "Create page"
 
-#: ../app/controllers/admin/pages_controller.php:12
+#: ../app/controllers/admin/pages_controller.php:15
 msgid "The page has been created successfully"
 msgstr "The page has been created successfully"
 
-#: ../app/controllers/admin/pages_controller.php:17
+#: ../app/controllers/admin/pages_controller.php:20
 #, php-format
 msgid "Editing page %s"
 msgstr "Editing page %s"
 
-#: ../app/controllers/admin/pages_controller.php:28
+#: ../app/controllers/admin/pages_controller.php:31
 msgid "The page has been updated successfully"
 msgstr "The page has been updated successfully"
 

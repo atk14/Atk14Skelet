@@ -4,7 +4,7 @@
  *	{$bytes|format_bytes} --> 1,2 KB
  */
 function smarty_modifier_format_bytes($bytes){
-	if(!strlen($bytes)){ return ""; }
+	if(!strlen((string)$bytes)){ return ""; }
 	if($bytes>=(1000*1024*1024*1024)){ return _format_bytes(($bytes/(1024 * 1024 * 1024 * 1024)),"TB"); }
 	if($bytes>=(1000*1024*1024)){ return _format_bytes(($bytes/(1024 * 1024 * 1024)),"GB"); }
 	if($bytes>=(1000*1024)){ return _format_bytes(($bytes/(1024 * 1024)),"MB"); }

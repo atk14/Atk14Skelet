@@ -11,14 +11,15 @@ class LoginsController extends ApplicationController{
 		$this->head_tags->setCanonical($this->_build_canonical_url());
 
 		if($this->request->post() && ($d = $this->form->validate($this->params))){
-			if(InvalidLoginAttempt::IsRemoteAddressBlocked($this->request->getRemoteAddr(),$realease_time)){
-				$this->form->set_error(InvalidLoginAttempt::BuildLoginAttemptDelayMessage($realease_time));
+			if(InvalidPasswordAttempt::IsRemoteAddressBlocked($this->request->getRemoteAddr(),$realease_time,["purpose" => "login"])){
+				$this->form->set_error(InvalidPasswordAttempt::BuildNextAttemptDelayMessage($realease_time,"login"));
 				return;
 			}
 
 			if(!$user = User::Login($d["login"],$d["password"],$bad_password)){
-				InvalidLoginAttempt::CreateNewRecord([
-					"login" => $d["login"],
+				InvalidPasswordAttempt::CreateNewRecord([
+					"purpose" => "login",
+					"object_key" => $d["login"],
 				]);
 				$this->logger->warn("invalid login attempt on $d[login] from ".$this->request->getRemoteAddr());
 

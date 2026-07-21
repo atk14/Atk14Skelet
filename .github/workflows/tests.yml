@@ -1,0 +1,61 @@
+name: Tests
+
+on:
+  - push
+  - pull_request
+
+jobs:
+  test:
+    runs-on: ubuntu-latest
+
+    strategy:
+      fail-fast: false
+      matrix:
+        php:
+          - "7.1"
+          - "7.2"
+          - "7.3"
+          - "7.4"
+          - "8.0"
+          - "8.1"
+          - "8.2"
+          - "8.3"
+          - "8.4"
+          - "8.5"
+
+    name: "PHP ${{ matrix.php }}"
+
+    steps:
+      - uses: actions/checkout@v5
+
+      - name: Setup PHP
+        uses: shivammathur/setup-php@v2
+        with:
+          php-version: ${{ matrix.php }}
+          tools: composer
+
+      - name: Setup Locales
+        run: |
+          sudo locale-gen en_US.UTF-8
+          sudo locale-gen cs_CZ.UTF-8
+          sudo update-locale
+
+      - name: Install PostgreSQL
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y postgresql
+          sudo systemctl start postgresql
+          sudo -u postgres psql -c "CREATE USER test WITH PASSWORD 'test';"
+          sudo -u postgres psql -c "CREATE DATABASE test OWNER test;"
+
+      - name: Install ATK14 Application
+        run: |
+          git submodule init && git submodule update
+          composer update
+          echo "y" | ATK14_ENV=test ./scripts/create_database 2>&1
+          ATK14_ENV=test ./scripts/migrate
+
+      - name: Run tests
+        run: ./scripts/run_all_tests
+
+# vim:ts=2:sw=2:et

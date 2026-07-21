@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2025-09-16 13:31+0200\n"
-"PO-Revision-Date: 2025-01-28 12:10+0100\n"
+"POT-Creation-Date: 2026-06-03 14:02+0200\n"
+"PO-Revision-Date: 2026-06-03 14:09+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: cs_CZ\n"
@@ -328,6 +328,52 @@ msgstr "Přidat fotogalerii"
 msgid "Add video"
 msgstr "Přidat video"
 
+msgid "XL - Large desktop"
+msgstr "XL - Stolní počítač"
+
+msgid "LG - Laptop"
+msgstr "LG - Laptop"
+
+msgid "MD - Tablet"
+msgstr "MD - Tablet"
+
+msgid "SM - Small tablet"
+msgstr "SM - Malý tablet"
+
+msgid "XS - Phone"
+msgstr "XS - Telefon"
+
+msgid ""
+"Cannot paste columns: Number of pasted columns do not match number of "
+"current columns."
+msgstr ""
+"Nelze vložit sloupce: Počet vložených sloupců neodpovídá počtu aktuálních "
+"sloupců."
+
+msgid "Copy widths"
+msgstr "Kopírovat šířky"
+
+msgid "Paste widths"
+msgstr "Vložit šířky"
+
+msgid "Hidden cells: "
+msgstr "Skryté buňky: "
+
+msgid "Number of columns"
+msgstr "Počet sloupců"
+
+msgid "Cancel"
+msgstr "Zrušit"
+
+msgid "Reset"
+msgstr "Resetovat"
+
+msgid "Copy HTML code to clipboard"
+msgstr "Zkopírovat HTML kód do schránky"
+
+msgid "Copy Markdown code to clipboard"
+msgstr "Zkopírovat Markdown kód do schránky"
+
 msgid "Localhost"
 msgstr "Localhost"
 
@@ -336,6 +382,9 @@ msgstr "Vývojový server"
 
 msgid "Production server"
 msgstr "Produkční server"
+
+msgid "Toggle sidebar"
+msgstr "Přepnout postranní panel"
 
 msgid "Profile"
 msgstr "Profil"
@@ -692,20 +741,20 @@ msgstr "Editace seznamu odkazů"
 msgid "Newsletter Subscribers"
 msgstr "Odběratelé newsletteru"
 
-#: ../app/controllers/admin/pages_controller.php:11
+#: ../app/controllers/admin/pages_controller.php:14
 msgid "Create page"
 msgstr "Vytvořit stránku"
 
-#: ../app/controllers/admin/pages_controller.php:12
+#: ../app/controllers/admin/pages_controller.php:15
 msgid "The page has been created successfully"
 msgstr "Stránka byla úspěšně vytvořena"
 
-#: ../app/controllers/admin/pages_controller.php:17
+#: ../app/controllers/admin/pages_controller.php:20
 #, php-format
 msgid "Editing page %s"
 msgstr "Editace stránky %s"
 
-#: ../app/controllers/admin/pages_controller.php:28
+#: ../app/controllers/admin/pages_controller.php:31
 msgid "The page has been updated successfully"
 msgstr "Stránka byla úspěšně aktualizována"
 

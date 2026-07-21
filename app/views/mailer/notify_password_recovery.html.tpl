@@ -1,4 +1,4 @@
-{t user_name=$user->getName()}Hello %1!{/t}<br /><br />
+{t}Hello,{/t}<br /><br />
 
 {t}Have you forgotten your password? To reset your password, click on the following link{/t}<br /><br />
 

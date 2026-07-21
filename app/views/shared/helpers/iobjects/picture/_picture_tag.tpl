@@ -8,7 +8,7 @@
 {if $format=="svg"}
 
 	<picture>
-		<img class="iobject--picture__img img-fluid" alt="{$picture->getAlt()}" {!$picture->getUrl()|img_attrs:"1500"}>
+		<img class="iobject--picture__img img-fluid" alt="{$picture->getAlt()}" loading="lazy" {!$picture->getUrl()|img_attrs:"1500"}>
 	</picture>
 
 {else}
@@ -18,7 +18,7 @@
 		<source srcset="{!$picture|img_url:"600,format=webp"} 600w, {!$picture|img_url:"800,format=webp"} 800w, {!$picture|img_url:"1500,format=webp"} 1500w" sizes="(max-width:1400px) 100vw, 1400px" type="image/webp">
 		{/if}
 		<source srcset="{!$picture|img_url:600} 600w, {!$picture|img_url:800} 800w, {!$picture|img_url:1500} 1500w" sizes="(max-width:1400px) 100vw, 1400px">
-		<img class="iobject--picture__img img-fluid" alt="{$picture->getAlt()}" 
+		<img class="iobject--picture__img img-fluid" alt="{$picture->getAlt()}" loading="lazy"
 			{!$picture->getUrl()|img_attrs:"1500,format=$fallback_format"}
 			srcset="{!$picture|img_url:"600,format=$fallback_format"} 600w, {!$picture|img_url:"800,format=$fallback_format"} 800w, {!$picture|img_url:"1500,format=$fallback_format"} 1500w" 
 			sizes="(max-width:1400px) 100vw, 1400px"

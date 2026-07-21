@@ -37,15 +37,16 @@ class LoginsController extends ApiController{
 			}
 			//*
 
-			if(InvalidLoginAttempt::IsRemoteAddressBlocked($this->request->getRemoteAddr(),$realease_time)){
-				$this->_report_fail(InvalidLoginAttempt::BuildLoginAttemptDelayMessage($realease_time),425);
+			if(InvalidPasswordAttempt::IsRemoteAddressBlocked($this->request->getRemoteAddr(),$realease_time,["purpose" => "login"])){
+				$this->_report_fail(InvalidPasswordAttempt::BuildNextAttemptDelayMessage($realease_time),425);
 				return;
 			}
 
 			$user = User::Login($d["login"],$d["password"],$bad_password);
 			if(!$user){
-				InvalidLoginAttempt::CreateNewRecord([
-					"login" => $d["login"],
+				InvalidPasswordAttempt::CreateNewRecord([
+					"purpose" => "login",
+					"object_key" => $d["login"],
 				]);
 				$this->logger->warn("invalid login attempt on $d[login] from ".$this->request->getRemoteAddr());
 

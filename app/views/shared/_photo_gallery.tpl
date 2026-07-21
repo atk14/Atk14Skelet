@@ -25,7 +25,7 @@
 						<picture>
 							<source srcset="{!$image|img_url:("x200"|cat:",format=webp")}" type="image/webp">
 							<source srcset="{!$image|img_url:"x200"}">
-							<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" itemprop="thumbnail">
+							<img {!$image|img_attrs:"x200"} alt="{$image->getName()}" class="" loading="lazy" itemprop="thumbnail">
 						</picture>
 					</a>
 					<figcaption>

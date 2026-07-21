@@ -5,6 +5,7 @@ class TcFormatBytes extends TcBase {
 		Atk14Require::Helper("modifier.format_bytes");
 
 		$this->assertEquals("",smarty_modifier_format_bytes(""));
+		$this->assertEquals("",smarty_modifier_format_bytes(null));
 
 		// Bytes
 		$this->assertEquals("100 Bytes",smarty_modifier_format_bytes("100"));

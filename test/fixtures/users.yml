@@ -39,3 +39,15 @@ inactive_user:
   lastname: "Inactivator"
   email: "ivor@inactivator.com"
   active: false
+
+deleted_user:
+  login: "deleted.user~deleted-123"
+  firstname: "Deli"
+  lastname: "Deletor"
+  email: "deli@deletor.com"
+  deleted: true
+  deleted_at: "2026-05-18 11:30:00"
+
+user_with_no_name:
+  login: "no.name"
+  email: "no.name@nowhere.com"

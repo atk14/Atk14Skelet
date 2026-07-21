@@ -4,7 +4,7 @@
 			<picture>
 				<source srcset="{!$image|img_url:($geometry_image|cat:",format=webp")}" type="image/webp">
 				<source srcset="{!$image|img_url:$geometry_image}">
-				<img {!$image|img_attrs:$geometry_image} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
+				<img {!$image|img_attrs:$geometry_image} alt="{$image->getName()}" class="img-fluid" loading="lazy" itemprop="thumbnail">
 			</picture>
 		</a>
 		<figcaption{if $image->getName()=="" && $image->getDescription()==""} class="d-none"{/if}>

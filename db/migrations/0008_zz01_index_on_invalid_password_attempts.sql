@@ -1,0 +1,1 @@
+CREATE INDEX in_invalidpasswordattempts_createdfromaddrcreatedat ON invalid_password_attempts (created_from_addr,created_at);

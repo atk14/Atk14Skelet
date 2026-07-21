@@ -109,7 +109,7 @@ class User extends ApplicationModel{
 
 	function toHumanReadableString(){
 		$out = [];
-		$out[] = trim($this->getFirstname()." ".$this->getLastname());
+		$out[] = $this->getName();
 		if($this->isDeleted()){
 			$out[] = _("deleted user");
 		}elseif(!$this->isActive()){

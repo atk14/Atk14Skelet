@@ -42,7 +42,7 @@
           <figure class="gallery__item">
               <picture>
                 <source srcset="{!$image|img_url:$geometry_image}">
-                <img {!$image|img_attrs:$geometry_image} alt="{$image->getName()}" class="img-fluid" itemprop="thumbnail">
+                <img {!$image|img_attrs:$geometry_image} alt="{$image->getName()}" class="img-fluid" loading="lazy" itemprop="thumbnail">
               </picture>
               <figcaption{if $image->getName()=="" && $image->getDescription()==""} class="d-none"{/if}>
                 <div class="gallery-item__title">{$image->getName()}</div>
