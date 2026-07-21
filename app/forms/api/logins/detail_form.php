@@ -1,3 +1,3 @@
 <?php
-class DetailForm extends ApiForm{
+class DetailForm extends LoginsForm{
 }

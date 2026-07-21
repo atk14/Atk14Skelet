@@ -1,5 +1,5 @@
 <?php
-class CreateNewForm extends ApiForm{
+class CreateNewForm extends LoginsForm{
 	function set_up(){
 		$this->add_field("login", new CharField(array(	
 			"max_length" => 255,

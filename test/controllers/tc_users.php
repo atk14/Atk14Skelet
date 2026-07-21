@@ -223,7 +223,7 @@ class TcUsers extends TcBase{
 			"login" => $login,
 			"password" => $password,
 		));
-		$this->assertEquals(false,$controller->form->has_errors());
+		$this->assertEquals(false,$controller->form->has_errors(),var_export($controller->form->get_errors(),true));
 		$this->assertEquals(303,$this->client->getStatusCode()); // redirecting...
 	}
 

@@ -1,3 +1,3 @@
 <?php
-class DestroyForm extends ApiForm{
+class DestroyForm extends LoginsForm{
 }
