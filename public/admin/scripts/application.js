@@ -1,13 +1,6 @@
 /* Imports */
 const bootstrap = require ( "bootstrap" );
 window.$ = window.jQuery = require( "jquery" );
-const jqueryUI = require ( "jquery-ui-bundle" ); // eslint-disable-line
-//const blueimp = require ( "blueimp-file-upload/js/jquery.fileupload.js" );
-//const fileupload = require ( "blueimp-file-upload" );
-import "blueimp-file-upload/js/vendor/jquery.ui.widget.js";
-import "blueimp-file-upload/js/jquery.iframe-transport.js";
-import "blueimp-file-upload/js/jquery.fileupload.js";
-import "blueimp-file-upload/js/jquery.fileupload-image.js";
 const mde = require ( "bootstrap-markdown-editor-4/dist/js/bootstrap-markdown-editor.min.js" ); // eslint-disable-line
 const ATK14 = require( "atk14js" ); // eslint-disable-line
 import Sortable from "sortablejs";

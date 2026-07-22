@@ -191,19 +191,6 @@ var config = {
     minimize: true
   },
   cache: true,
-  resolve: {
-    // this is needed for jQuery UI and Blueimp File Uploader
-    extensions: ['', '.js'],
-    alias: {
-      'load-image': 'blueimp-load-image/js/load-image.js',
-      'load-image-meta': 'blueimp-load-image/js/load-image-meta.js',
-      'load-image-exif': 'blueimp-load-image/js/load-image-exif.js',
-      'canvas-to-blob': 'blueimp-canvas-to-blob/js/canvas-to-blob.js',
-      'jquery-ui/ui/widget': 'blueimp-file-upload/js/vendor/jquery.ui.widget.js',
-      'load-image-scale': 'blueimp-load-image/js/load-image-scale.js',
-      'load-image-orientation': 'blueimp-load-image/js/load-image-orientation.js',
-   },
-  },
   stats: {
     // SASS compiler enable to show @debug
     loggingDebug: ['sass-loader'],
