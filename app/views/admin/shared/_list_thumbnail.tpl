@@ -10,7 +10,7 @@
 {if !$thumbnail_size}{assign thumbnail_size "80"}{/if}
 {capture assign=geometry_thumbnail}{$thumbnail_size}x{$thumbnail_size}x#ffffff{/capture} {* 80x80x#ffffff *}
 {if $image}
-	<span class="list-thumbnail"><img {!$image|img_attrs:$geometry_thumbnail}{if $align} align="{$align}"{/if}></span>
+	<span class="list-thumbnail"><img {!$image|img_attrs:$geometry_thumbnail}{if $align} align="{$align}"{/if}{if $image_class} class="{$image_class}"{/if}></span>
 {else}
-	<span class="list-thumbnail"><img src="{$public}images/camera.svg" width="{$thumbnail_size}" height="{$thumbnail_size}" title="{t}no image{/t}"{if $align} align="{$align}"{/if}></span>
+	<span class="list-thumbnail"><img src="{$public}images/camera.svg" width="{$thumbnail_size}" height="{$thumbnail_size}" title="{t}no image{/t}"{if $align} align="{$align}"{/if}{if $image_class} class="{$image_class}"{/if}></span>
 {/if}

@@ -299,9 +299,9 @@ class MetaTag14 extends Element14 {
 
 	function __toString() {
 		$_attrs = [];
-		$_attrs[] = sprintf('%s="%s"', $this->meta_type, $this->key);
+		$_attrs[] = sprintf('%s="%s"', $this->meta_type, htmlspecialchars($this->key, ENT_QUOTES, "UTF-8"));
 		if (!is_null($_data = $this->getData())) {
-			$_attrs[] = sprintf('content="%s"', $_data);
+			$_attrs[] = sprintf('content="%s"', htmlspecialchars($_data, ENT_QUOTES, "UTF-8"));
 		}
 		return sprintf('<meta %s>', join(" ", $_attrs));
 	}
@@ -318,14 +318,14 @@ class LinkTag14 extends Element14 {
 
 	function __toString() {
 		$_attrs = [];
-		$_attrs[] = sprintf('rel="%s"', $this->rel_type);
+		$_attrs[] = sprintf('rel="%s"', htmlspecialchars($this->rel_type, ENT_QUOTES, "UTF-8"));
 		foreach($this->getData() as $key => $value) {
 			# attribute without value
 			if (is_numeric($key)) {
-				$_attrs[] = $value;
+				$_attrs[] = htmlspecialchars($value, ENT_QUOTES, "UTF-8");
 				continue;
 			}
-			$_attrs[] = sprintf('%s="%s"', $key, $value);
+			$_attrs[] = sprintf('%s="%s"', htmlspecialchars($key, ENT_QUOTES, "UTF-8"), htmlspecialchars($value, ENT_QUOTES, "UTF-8"));
 		}
 		return sprintf('<link %s>', join(" ", $_attrs));
 	}
