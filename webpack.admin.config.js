@@ -37,7 +37,6 @@ var vendorStyles = [
   "./node_modules/bootstrap-markdown-editor-4/dist/css/bootstrap-markdown-editor.min.css",
   "./node_modules/@fortawesome/fontawesome-free/css/all.css",
   "./node_modules/swiper/swiper-bundle.css",
-  "./node_modules/jquery-ui-bundle/jquery-ui.css",
 ];
 
 // Files to be ignored
