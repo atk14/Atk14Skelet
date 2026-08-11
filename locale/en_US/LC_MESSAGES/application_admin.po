@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-03 14:02+0200\n"
-"PO-Revision-Date: 2026-06-03 14:10+0200\n"
+"POT-Creation-Date: 2026-08-04 23:14+0200\n"
+"PO-Revision-Date: 2025-01-28 12:09+0100\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -64,7 +64,7 @@ msgstr "Author"
 msgid "Date"
 msgstr "Date"
 
-#: ../app/controllers/admin/admin.php:32
+#: ../app/controllers/admin/admin.php:35
 #: ../app/forms/admin/articles/articles_form.php:54
 msgid "Tags"
 msgstr "Tags"
@@ -392,7 +392,7 @@ msgstr "Profile"
 msgid "Sign out"
 msgstr "Sign out"
 
-#: ../app/controllers/admin/admin.php:9
+#: ../app/controllers/admin/admin.php:12
 #: ../app/controllers/admin/main_controller.php:4
 msgid "Administration"
 msgstr "Administration"
@@ -522,75 +522,44 @@ msgstr "Preview image"
 msgid "Není nastaven"
 msgstr "Not set"
 
-#: ../app/controllers/admin/admin.php:28
+#: ../app/controllers/admin/admin.php:31
 msgid "Welcome screen"
 msgstr "Welcome screen"
 
-#: ../app/controllers/admin/admin.php:29
+#: ../app/controllers/admin/admin.php:32
 #: ../app/controllers/admin/iobjects_base.php:106
 msgid "Articles"
 msgstr "Articles"
 
-#: ../app/controllers/admin/admin.php:30
+#: ../app/controllers/admin/admin.php:33
 #: ../app/controllers/admin/iobjects_base.php:111
 #: ../app/controllers/admin/pages_controller.php:5
 msgid "Pages"
 msgstr "Pages"
 
-#: ../app/controllers/admin/admin.php:31
+#: ../app/controllers/admin/admin.php:34
 msgid "Link Lists"
 msgstr "Link Lists"
 
-#: ../app/controllers/admin/admin.php:33
+#: ../app/controllers/admin/admin.php:36
 msgid "Users"
 msgstr "Users"
 
-#: ../app/controllers/admin/admin.php:34
+#: ../app/controllers/admin/admin.php:37
 #: ../app/controllers/admin/password_recoveries_controller.php:5
 msgid "Password recoveries"
 msgstr "Password recoveries"
 
-#: ../app/controllers/admin/admin.php:35
+#: ../app/controllers/admin/admin.php:38
 msgid "Newsletter subscribers"
 msgstr "Newsletter subscribers"
 
-#: ../app/controllers/admin/admin.php:36
+#: ../app/controllers/admin/admin.php:39
 #: ../app/controllers/admin/error_redirections_controller.php:5
 msgid "404 Redirections"
 msgstr "404 Redirections"
 
-#: ../app/controllers/admin/admin.php:100
-#, php-format
-msgid "Seznam objektů typu %s"
-msgstr "List of objects of type %s"
-
-#: ../app/controllers/admin/admin.php:135
-msgid "The record has been created"
-msgstr "The record has been created"
-
-#: ../app/controllers/admin/admin.php:149
-#, php-format
-msgid "Vytvořit objekt typu %s"
-msgstr "Create an object of type %s"
-
-#: ../app/controllers/admin/admin.php:201
-msgid "Změny byly uloženy"
-msgstr "The changes have been saved"
-
-#: ../app/controllers/admin/admin.php:236
-#, php-format
-msgid "Editace objektu typu %s"
-msgstr "Editing object of type %s"
-
-#: ../app/controllers/admin/admin.php:270
-msgid "Ve formuláři nebylo nic změněno"
-msgstr "Nothing has been changed in the form"
-
-#: ../app/controllers/admin/admin.php:392
-msgid "The entry has been deleted"
-msgstr "The entry has been deleted"
-
-#: ../app/controllers/admin/admin.php:411
+#: ../app/controllers/admin/admin.php:76
 #: ../app/controllers/admin/galleries_controller.php:34
 msgid "Fotogalerie"
 msgstr "Photogallery"
@@ -1157,6 +1126,30 @@ msgstr "Auto-start video"
 #: ../app/forms/admin/videos/videos_form.php:13
 msgid "Po ukončení přehrát znovu"
 msgstr "Play again when finished"
+
+#, php-format
+#~ msgid "Seznam objektů typu %s"
+#~ msgstr "List of objects of type %s"
+
+#~ msgid "The record has been created"
+#~ msgstr "The record has been created"
+
+#, php-format
+#~ msgid "Vytvořit objekt typu %s"
+#~ msgstr "Create an object of type %s"
+
+#~ msgid "Změny byly uloženy"
+#~ msgstr "The changes have been saved"
+
+#, php-format
+#~ msgid "Editace objektu typu %s"
+#~ msgstr "Editing object of type %s"
+
+#~ msgid "Ve formuláři nebylo nic změněno"
+#~ msgstr "Nothing has been changed in the form"
+
+#~ msgid "The entry has been deleted"
+#~ msgstr "The entry has been deleted"
 
 #~ msgid "System name"
 #~ msgstr "System name"

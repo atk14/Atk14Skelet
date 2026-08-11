@@ -82,7 +82,7 @@ trait TraitCrudActions {
 		}
 
 		$object_name = String4::ToObject(get_class($this))->gsub('/Controller$/','')->singularize()->underscore()->toString(); // "PeopleController" -> "person"
-		$this->tpl_name[$object_name] = $object;
+		$this->tpl_data[$object_name] = $object;
 
 		if(is_callable($options["page_title"])){
 			$fn = $options["page_title"];

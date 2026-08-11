@@ -7,8 +7,8 @@ msgid ""
 msgstr ""
 "Project-Id-Version: \n"
 "Report-Msgid-Bugs-To: \n"
-"POT-Creation-Date: 2026-06-03 14:02+0200\n"
-"PO-Revision-Date: 2026-06-03 13:55+0200\n"
+"POT-Creation-Date: 2026-08-04 23:14+0200\n"
+"PO-Revision-Date: 2026-08-04 23:12+0200\n"
 "Last-Translator: Jaromir Tomek <jaromir.tomek@gmail.com>\n"
 "Language-Team: Team <team@email.com>\n"
 "Language: en_US\n"
@@ -213,7 +213,7 @@ msgstr "Basic administration"
 msgid "RESTful API"
 msgstr "RESTful API"
 
-#: ../app/controllers/sitemaps_controller.php:11
+#: ../app/controllers/sitemaps_controller.php:13
 msgid "Sitemap"
 msgstr "Sitemap"
 
@@ -433,7 +433,7 @@ msgstr "Administration"
 msgid "Profile"
 msgstr "Profile"
 
-#: ../app/controllers/logins_controller.php:43
+#: ../app/controllers/logins_controller.php:44
 #: ../app/forms/logins/destroy_form.php:4
 msgid "Sign out"
 msgstr "Sign out"
@@ -553,11 +553,11 @@ msgstr "This service is intended for administrators only"
 msgid "For security reasons, this function is disabled"
 msgstr "For security reasons, this function is disabled"
 
-#: ../app/controllers/api/logins_controller.php:53
+#: ../app/controllers/api/logins_controller.php:54
 msgid "Bad password"
 msgstr "Bad password"
 
-#: ../app/controllers/api/logins_controller.php:56
+#: ../app/controllers/api/logins_controller.php:57
 msgid "There is no such user"
 msgstr "There is no such user"
 
@@ -663,7 +663,7 @@ msgstr "Contact message"
 msgid "Contact message sent"
 msgstr "Contact message sent"
 
-#: ../app/controllers/logins_controller.php:26
+#: ../app/controllers/logins_controller.php:27
 #, php-format
 msgid ""
 "Wrong login and password combination. <a href=\"%s\">Have you forgotten your "
@@ -672,20 +672,20 @@ msgstr ""
 "Wrong login and password combination. <a href=\"%s\">Have you forgotten your "
 "password?</a>"
 
-#: ../app/controllers/logins_controller.php:28
+#: ../app/controllers/logins_controller.php:29
 msgid "Wrong login and password combination"
 msgstr "Wrong login and password combination"
 
-#: ../app/controllers/logins_controller.php:35
+#: ../app/controllers/logins_controller.php:36
 #, php-format
 msgid "You have been successfully logged in as <em>%s</em>"
 msgstr "You have been successfully logged in as <em>%s</em>"
 
-#: ../app/controllers/logins_controller.php:47
+#: ../app/controllers/logins_controller.php:48
 msgid "You have been successfully logged out"
 msgstr "You have been successfully logged out"
 
-#: ../app/controllers/logins_controller.php:47
+#: ../app/controllers/logins_controller.php:48
 #, php-format
 msgid "You've stayed logged in as <em>%s</em>"
 msgstr "You've stayed logged in as <em>%s</em>"
@@ -748,6 +748,42 @@ msgstr "Your password has been updated successfully"
 #: ../app/controllers/password_recoveries_controller.php:85
 msgid "Password recovery"
 msgstr "Password recovery"
+
+#: ../app/controllers/trait_crud_actions.php:45
+#, php-format
+msgid "Seznam objektů typu %s"
+msgstr "List of %s-type objects"
+
+#: ../app/controllers/trait_crud_actions.php:93
+#, php-format
+msgid "Detail objektu typu %s"
+msgstr "Details of a %s-type object"
+
+#: ../app/controllers/trait_crud_actions.php:106
+msgid "The record has been created"
+msgstr "The record has been created"
+
+#: ../app/controllers/trait_crud_actions.php:120
+#, php-format
+msgid "Vytvořit objekt typu %s"
+msgstr "Create an object of type %s"
+
+#: ../app/controllers/trait_crud_actions.php:172
+msgid "Změny byly uloženy"
+msgstr "The changes have been saved"
+
+#: ../app/controllers/trait_crud_actions.php:207
+#, php-format
+msgid "Editace objektu typu %s"
+msgstr "Editing an object of type %s"
+
+#: ../app/controllers/trait_crud_actions.php:241
+msgid "Ve formuláři nebylo nic změněno"
+msgstr "Nothing was changed in the form"
+
+#: ../app/controllers/trait_crud_actions.php:363
+msgid "The entry has been deleted"
+msgstr "The entry has been deleted"
 
 #: ../app/controllers/users_controller.php:14
 msgid "To register as a new user, sign out first"
@@ -1041,31 +1077,58 @@ msgstr "Gallery"
 msgid "Obrázek"
 msgstr "Picture"
 
-#: ../app/models/invalid_login_attempt.php:70
+#: ../app/models/invalid_password_attempt.php:84
+msgid "Delay the form submission for a second"
+msgstr "Delay the form submission for a second"
+
+#: ../app/models/invalid_password_attempt.php:85
+#, php-format
+msgid "Delay the form submission for %s minutes"
+msgstr "Delay the form submission for %s minutes"
+
+#: ../app/models/invalid_password_attempt.php:86
+#, php-format
+msgid "Delay the form submission for one minute and %s seconds"
+msgstr "Delay the form submission for one minute and %s seconds"
+
+#: ../app/models/invalid_password_attempt.php:87
+msgid "Delay the form submission for one minute"
+msgstr "Delay the form submission for one minute"
+
+#: ../app/models/invalid_password_attempt.php:88
+#, php-format
+msgid "Delay the form submission for %s seconds"
+msgstr "Delay the form submission for %s seconds"
+
+#: ../app/models/invalid_password_attempt.php:89
+#, php-format
+msgid "Delay the form submission for %s minutes and %s seconds"
+msgstr "Delay the form submission for %s minutes and %s seconds"
+
+#: ../app/models/invalid_password_attempt.php:92
 msgid "Delay the next sign-in attempt for a second"
 msgstr "Delay the next sign-in attempt for a second"
 
-#: ../app/models/invalid_login_attempt.php:78
-#: ../app/models/invalid_login_attempt.php:95
+#: ../app/models/invalid_password_attempt.php:93
 #, php-format
 msgid "Delay the next sign-in attempt for %s minutes"
 msgstr "Delay the next sign-in attempt for %s minutes"
 
-#: ../app/models/invalid_login_attempt.php:83
+#: ../app/models/invalid_password_attempt.php:94
 #, php-format
 msgid "Delay the next sign-in attempt for one minute and %s seconds"
 msgstr "Delay the next sign-in attempt for one minute and %s seconds"
 
-#: ../app/models/invalid_login_attempt.php:85
+#: ../app/models/invalid_password_attempt.php:95
 msgid "Delay the next sign-in attempt for one minute"
 msgstr "Delay the next sign-in attempt for one minute"
 
-#: ../app/models/invalid_login_attempt.php:89
+#: ../app/models/invalid_password_attempt.php:96
 #, php-format
 msgid "Delay the next sign-in attempt for %s seconds"
 msgstr "Delay the next sign-in attempt for %s seconds"
 
-#: ../app/models/invalid_login_attempt.php:93
+#: ../app/models/invalid_password_attempt.php:97
 #, php-format
 msgid "Delay the next sign-in attempt for %s minutes and %s seconds"
 msgstr "Delay the next sign-in attempt for %s minutes and %s seconds"
