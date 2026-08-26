@@ -62,7 +62,7 @@
     "favicons-webpack-plugin": "6.0.1",
     "html5shiv": "^3.7.0",
     "ignore-emit-webpack-plugin": "^2.0.6",
-    "jquery": "~3.7.1",
+    "jquery": "~4.0.0",
     "jshint-stylish": "^2.0.1",
     "mini-css-extract-plugin": "^2.7.6",
     "photoswipe": "^5.4.4",
