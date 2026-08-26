@@ -1,5 +1,5 @@
 $form.replaceWith({jstring}{render partial="edit_form"}{/jstring});
-ADMIN.utils.initializeMarkdonEditors();
+window.UTILS.initializeMarkdonEditors();
 UTILS.leaving_unsaved_page_checker.init();
 window.UTILS.Suggestions.handleSuggestions();
 window.UTILS.Suggestions.handleTagsSuggestions();
