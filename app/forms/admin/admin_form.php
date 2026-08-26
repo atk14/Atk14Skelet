@@ -22,12 +22,18 @@ class AdminForm extends ApplicationForm{
 	function add_translatable_field($field_name, $field, $options = array()) {
 		global $ATK14_GLOBAL;
 
+		$locales = $ATK14_GLOBAL->getConfig("locale");
+
 		$options += array(
 			"required_langs" => $ATK14_GLOBAL->getDefaultLang(), // "_all_", "cs", "cs,en" nebo array("cs","en")
 			"additional_langs" => array(), // dalsi jazyky, ktere aplikace jinak nema aktivovane
 			"enable_live_translations" => "auto", // true, false, "auto"
 			"return" => "fields", // "fields" or "names"
 		);
+
+		if(sizeof($locales) === 1){
+			$options["enable_live_translations"] = false;
+		}
 
 		if($options["enable_live_translations"]==="auto"){
 			$options["enable_live_translations"] = is_a($field,"CharField");
@@ -43,7 +49,6 @@ class AdminForm extends ApplicationForm{
 			}
 		}
 
-		$locales = $ATK14_GLOBAL->getConfig("locale");
 		$langs = array_keys($locales);
 		foreach($options["additional_langs"] as $al){
 			if(!in_array($al,$langs)){ $langs[] = $al; }

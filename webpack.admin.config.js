@@ -26,6 +26,7 @@ var application_scripts = [
 	"./public/admin/scripts/utils/enhanced_file_field.js",
 	"./public/admin/scripts/utils/layout_designer.js",
 	"./public/admin/scripts/utils/preview_mode_toggle.js",
+	"./public/scripts/utils/initialize_markdon_editors.js",
 	"./public/admin/scripts/application.js",
 ];
 

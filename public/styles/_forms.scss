@@ -196,3 +196,38 @@ form {
 		}
 	}
 }
+
+
+// search form
+.form-search {
+	@extend .form-inline;
+	margin-bottom: 1rem;
+	input {
+		margin-right: 0.5em;
+		@include media-breakpoint-down(xs){
+			margin-bottom: 0.5rem;
+		}
+	}
+}
+
+ul.list--checkboxes {
+	list-style: none;
+	padding-left: 0;
+	li.list__item {
+	}
+	&--horizontal {
+		columns: 5;
+		@include media-breakpoint-down(lg){
+			columns: 4;
+		}
+		@include media-breakpoint-down(md){
+			columns: 3;
+		}
+		@include media-breakpoint-down(sm){
+			columns: 2;
+		}
+		@include media-breakpoint-down(xs){
+			columns: 1;
+		}
+	}
+}
