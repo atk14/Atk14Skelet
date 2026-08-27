@@ -173,6 +173,8 @@ gulp.task( "copy", function() {
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
 	gulp.src( "node_modules/photoswipe/dist/photoswipe-lightbox.esm.min.js" )
 		.pipe( gulp.dest( "public/dist/scripts/modules" ) );
+	gulp.src( "node_modules/ace-builds/src-min/**" )
+			.pipe( gulp.dest( "public/dist/scripts/ace" ) );
 
 	// Flags for languages
 	gulp.src( "node_modules/svg-country-flags/svg/*" )

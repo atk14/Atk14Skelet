@@ -126,7 +126,7 @@ gulp.task( "copy-admin", function() {
 	gulp.src( "public/admin/images/*" )
 		.pipe( gulp.dest( "public/admin/dist/images" ) );
 	gulp.src( "node_modules/ace-builds/src-min/**" )
-		.pipe( gulp.dest( "public/admin/dist/scripts/ace" ) );
+		.pipe( gulp.dest( "public/dist/scripts/ace" ) );
 } );
 
 // Clean

@@ -1,7 +1,6 @@
 /* global window */
 ( function( window, $, undefined ) {
 	var document = window.document,
-		ace = window.ace,
 		UTILS = window.UTILS,
 
 	ADMIN = {
@@ -11,21 +10,14 @@
 			// Application-wide code.
 			init: function() {
 				ADMIN.utils.handleSortables();
-				window.UTILS.Suggestions.handleSuggestions();
-				window.UTILS.Suggestions.handleTagsSuggestions();
-				window.UTILS.initializeMarkdonEditors();
-				new UTILS.MDEditorResizer();
-				if( document.getElementById( "layout-designer" ) ) {
-					new UTILS.LayoutDesigner();
-				}
 				UTILS.AsyncImageUploader.init();
 				ADMIN.utils.handleCopyIobjectCode();
-				window.UTILS.TagChooser.init();
 
-				// Form hints.
-				UTILS.formHints();
-
-				UTILS.leaving_unsaved_page_checker.init();
+				// Initialize editor forms on page load and after form replacement.
+				ADMIN.utils.initializeEditors();
+				window.addEventListener( "edit_form_replaced", function() {
+					ADMIN.utils.initializeEditors();
+				} );
 
 				// Back to top button display and handling
 				ADMIN.utils.backToTopBtn();
@@ -40,8 +32,6 @@
 
 				// Dark mode toggle 
 				ADMIN.utils.darkModeToggler();
-
-				UTILS.EnhancedFileField.init();
 			}
 
 		},
@@ -182,6 +172,21 @@
 					}
 
 				} );
+			},
+
+			// Initialize editor forms
+			initializeEditors: function() {
+				UTILS.initializeMarkdonEditors();
+				new UTILS.MDEditorResizer();
+				UTILS.leaving_unsaved_page_checker.init();
+				UTILS.Suggestions.handleSuggestions();
+				UTILS.Suggestions.handleTagsSuggestions();
+				UTILS.TagChooser.init();
+				UTILS.EnhancedFileField.init();
+				UTILS.formHints();
+				if( document.getElementById( "layout-designer" ) ) {
+					new UTILS.LayoutDesigner();
+				};
 			}
 
 		}
