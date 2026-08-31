@@ -37,8 +37,18 @@ window.UTILS.LayoutDesigner = class {
 
   /**
    * Constructor
+   * The "#layout-designer" modal lives once in the admin layout and is not re-rendered
+   * when a form is replaced (see "edit_form_replaced" in application.js), so this class
+   * is a singleton: re-instantiating only (re-)attaches the toolbar button to any new
+   * MD editors and reuses the already built row editors instead of duplicating them.
    */
   constructor() {
+    if ( window.UTILS.LayoutDesigner.instance ) {
+      window.UTILS.LayoutDesigner.instance.attachToolbarButtons();
+      return window.UTILS.LayoutDesigner.instance;
+    }
+    window.UTILS.LayoutDesigner.instance = this;
+
     // assign UI controls
     this.designer = document.getElementById( "layout-designer" );
     this.designerModal = document.getElementById( "layout_designer_modal" );
@@ -48,10 +58,8 @@ window.UTILS.LayoutDesigner = class {
     this.resetBtn = this.designerModal.querySelector( "#reset_btn" );
 
     // create Layout button in toolbars of all MD editors
-    document.querySelectorAll( ".md-container" ).forEach( el => {
-      this.createToolbarButton( el );
-    } );
-    
+    this.attachToolbarButtons();
+
     // Create editors for each breakpoint
     this.rowXL = new window.UTILS.LayoutDesignerRow( "rowXL", this.texts.titleXL, false );
     this.rowLG = new window.UTILS.LayoutDesignerRow( "rowLG", this.texts.titleLG, false );
@@ -87,7 +95,21 @@ window.UTILS.LayoutDesigner = class {
     } )
   }
 
-  // 
+  /**
+   * Create Layout button in toolbars of all MD editors currently in the page
+   * Skips editors that already have the button (avoids duplicates when called again
+   * after a form replacement)
+   */
+  attachToolbarButtons() {
+    document.querySelectorAll( ".md-container" ).forEach( el => {
+      if ( el.dataset.layoutDesignerButtonAttached ) {
+        return;
+      }
+      this.createToolbarButton( el );
+      el.dataset.layoutDesignerButtonAttached = "1";
+    } );
+  }
+
   /**
    * Create Layout button in MD editor toolbar, set click handler
    * @param {*} el - MD editor container (typically ".md-container")

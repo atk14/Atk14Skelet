@@ -111,7 +111,8 @@ var config = {
         //*  return "scripts/ace/";
         //}},
         {from: "**/*", context: path.resolve(__dirname, "node_modules", "ace-builds", "src-min"), to({ context, absoluteFilename }) {
-          return "scripts/ace/";
+          // copy to public/dist (frontend), not public/admin/dist (this config's output)
+          return path.resolve(__dirname, "public", "dist", "scripts", "ace") + path.sep;
         }},
       ]
     }),

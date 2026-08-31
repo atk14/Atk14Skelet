@@ -113,6 +113,9 @@ var config = {
         {from: "./node_modules/@fortawesome/fontawesome-free/webfonts/*", to({ context, absoluteFilename }) {
           return "webfonts/[name][ext]";
         }},
+        {from: "**/*", context: path.resolve(__dirname, "node_modules", "ace-builds", "src-min"), to({ context, absoluteFilename }) {
+          return "scripts/ace/";
+        }},
       ]
     }),
   ],
