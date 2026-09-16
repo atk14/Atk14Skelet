@@ -35,13 +35,17 @@ window.UTILS.FAIconpicker = class {
     this.searchInput.addEventListener( "input", this.filterThumbnails.bind( this ) );
     this.thumbnailsContainer.addEventListener( "click", this.onThumbnailsClick.bind( this ) );
 
-    // Bootstrap 4's modal events are jQuery-only (not native DOM events), so they must
-    // be bound via jQuery to be caught; this also keeps working once the app moves to Bootstrap 5
-    let $ = window.jQuery;
-    $( this.modal ).on( "show.bs.modal", () => {
+    // Bootstrap 4's modal events are jQuery-only (not native DOM events), while
+    // Bootstrap 5 dispatches them as native DOM events
+    let resetSearch = () => {
       this.searchInput.value = "";
       this.filterThumbnails();
-    } );
+    };
+    if ( window.bootstrapVersion === 5 ) {
+      this.modal.addEventListener( "show.bs.modal", resetSearch );
+    } else {
+      window.jQuery( this.modal ).on( "show.bs.modal", resetSearch );
+    }
 
     this.loadIconsList().then( ( icons ) => {
       this.renderThumbnails( icons );
