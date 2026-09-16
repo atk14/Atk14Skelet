@@ -1,5 +1,6 @@
 var gulp = require( "gulp" );
 var del = require( "del" );
+var fs = require( "fs" );
 var $ = require( "gulp-load-plugins" )();
 var postcss = require( "gulp-postcss" );
 var cssnano = require( "cssnano" );
@@ -55,6 +56,7 @@ var applicationScripts = [
 	"public/admin/scripts/utils/layout_designer.js",
 	"public/scripts/utils/swiper.js",
 	"public/admin/scripts/utils/preview_mode_toggle.js",
+	"public/admin/scripts/utils/fa_iconpicker.js",
 	"public/admin/scripts/application.js",
 ];
 
@@ -113,6 +115,34 @@ gulp.task( "lint-admin", function() {
 		.pipe( $.eslint.failAfterError() );
 } );
 
+// Data
+// Generates a JSON list of Font Awesome Free icons (from the installed package's metadata)
+// consumed by public/admin/scripts/utils/fa_iconpicker.js
+gulp.task( "generate-fa-icons-admin", function( done ) {
+	var iconFamilies = require( "@fortawesome/fontawesome-free/metadata/icon-families.json" );
+	var icons = Object.keys( iconFamilies ).map( function( glyph ) {
+		var icon = iconFamilies[ glyph ];
+		var freeStyles = ( icon.familyStylesByLicense.free || [] )
+			.filter( function( familyStyle ) { return familyStyle.family === "classic"; } )
+			.map( function( familyStyle ) { return familyStyle.style; } );
+		if ( !freeStyles.length ) {
+			return null;
+		}
+		return {
+			glyph: glyph,
+			label: icon.label,
+			styles: freeStyles,
+			terms: ( ( icon.search || {} ).terms || [] ).join( " " )
+		};
+	} ).filter( function( icon ) { return icon; } );
+
+	icons.sort( function( a, b ) { return a.glyph.localeCompare( b.glyph ); } );
+
+	fs.mkdirSync( "public/admin/dist/data", { recursive: true } );
+	fs.writeFileSync( "public/admin/dist/data/fa_icons.json", JSON.stringify( icons ) );
+	done();
+} );
+
 // Copy
 gulp.task( "copy-admin", function() {
 	gulp.src( "node_modules/html5shiv/dist/html5shiv.min.js" )
@@ -160,7 +190,8 @@ var buildTasks = [
 	"styles-admin",
 	"styles-vendor-admin",
 	"scripts-admin",
-	"copy-admin"
+	"copy-admin",
+	"generate-fa-icons-admin"
 ];
 
 gulp.task( "build-admin", buildTasks,  function() {

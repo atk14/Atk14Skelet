@@ -187,6 +187,9 @@
 				if( document.getElementById( "layout-designer" ) ) {
 					new UTILS.LayoutDesigner();
 				};
+				if( document.getElementById( "fa_iconpicker_modal" ) ) {
+					new UTILS.FAIconpicker();
+				};
 			}
 
 		}
