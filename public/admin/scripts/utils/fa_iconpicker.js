@@ -58,13 +58,21 @@ window.UTILS.FAIconpicker = class {
    * after a form replacement)
    */
   attachToolbarButtons() {
-    document.querySelectorAll( ".md-container" ).forEach( el => {
+    window.UTILS.MDEditorToolbarHelper.addToolbarButton( {
+      name: "fa_iconpicker",
+      text: "<i class=\"fa-solid fa-icons\"></i> Icons",
+      title: "Icons",
+      className: "",
+      hasModal: true,
+      modalId: "#fa_iconpicker_modal",
+    } );
+    /*document.querySelectorAll( ".md-container" ).forEach( el => {
       if ( el.dataset.faiconpickerbtn ) {
         return;
       }
       this.createToolbarButton( el );
       el.dataset.faiconpickerbtn = "1";
-    } );
+    } );*/
   }
 
   /**
