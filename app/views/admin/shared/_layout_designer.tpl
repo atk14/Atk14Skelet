@@ -81,7 +81,7 @@
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <div>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Cancel{/t}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Close{/t}</button>
           <button type="button" class="btn btn-secondary" id="reset_btn">{t}Reset{/t}</button>
         </div>
         <div>

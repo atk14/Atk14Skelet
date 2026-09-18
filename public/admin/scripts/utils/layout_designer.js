@@ -96,41 +96,19 @@ window.UTILS.LayoutDesigner = class {
   }
 
   /**
-   * Create Layout button in toolbars of all MD editors currently in the page
-   * Skips editors that already have the button (avoids duplicates when called again
-   * after a form replacement)
+   * Create Icons button in toolbars of all MD editors currently in the page
    */
   attachToolbarButtons() {
-    document.querySelectorAll( ".md-container" ).forEach( el => {
-      if ( el.dataset.layoutDesignerButtonAttached ) {
-        return;
-      }
-      this.createToolbarButton( el );
-      el.dataset.layoutDesignerButtonAttached = "1";
+    window.UTILS.MDEditorToolbarHelper.addToolbarButton( {
+      name: "layout_designer",
+      text: "<i class=\"fa-solid fa-table-columns\"></i> Layout",
+      title: "Layout",
+      className: "",
+      hasModal: true,
+      modalId: "#layout_designer_modal",
     } );
   }
 
-  /**
-   * Create Layout button in MD editor toolbar, set click handler
-   * @param {*} el - MD editor container (typically ".md-container")
-   */
-  createToolbarButton( el ) {
-    let toolbar = el.querySelector( ".md-toolbar .btn-toolbar" );
-    let btn = document.createElement( "button" );
-    btn.type = "button";
-    btn.className = "md-btn btn btn-default md-btn--icon";
-    btn.title = "Insert Layout";
-    btn.innerHTML = "<i class=\"fa-solid fa-table-columns\"></i> Layout";
-    btn.setAttribute ("data-bs-toggle", "modal");
-    btn.setAttribute ("data-toggle", "modal");
-    btn.setAttribute ("data-bs-target", "#layout_designer_modal");
-    btn.setAttribute ("data-target", "#layout_designer_modal");
-    let div = document.createElement( "div" );
-    div.className = "button-group";
-    div.appendChild( btn );
-    toolbar.appendChild( div );
-    btn.addEventListener( "click", this.initModal.bind( this ) );
-  }
 
   /**
    * Sets column count for editors

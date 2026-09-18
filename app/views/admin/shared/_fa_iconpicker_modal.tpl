@@ -22,6 +22,7 @@
 <script>
   window.faIconpickerTexts = {
     copied: "{t}Copied!{/t}",
+    icons: "{t}Icons{/t}",
   }
 </script>
 
@@ -53,7 +54,7 @@
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <div>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Cancel{/t}</button>
+          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Close{/t}</button>
         </div>
       </div>
     </div>

@@ -54,45 +54,16 @@ window.UTILS.FAIconpicker = class {
 
   /**
    * Create Icons button in toolbars of all MD editors currently in the page
-   * Skips editors that already have the button (avoids duplicates when called again
-   * after a form replacement)
    */
   attachToolbarButtons() {
     window.UTILS.MDEditorToolbarHelper.addToolbarButton( {
       name: "fa_iconpicker",
-      text: "<i class=\"fa-solid fa-icons\"></i> Icons",
+      text: "<i class=\"fa-solid fa-icons\"></i> " + faIconpickerTexts.icons,
       title: "Icons",
       className: "",
       hasModal: true,
       modalId: "#fa_iconpicker_modal",
     } );
-    /*document.querySelectorAll( ".md-container" ).forEach( el => {
-      if ( el.dataset.faiconpickerbtn ) {
-        return;
-      }
-      this.createToolbarButton( el );
-      el.dataset.faiconpickerbtn = "1";
-    } );*/
-  }
-
-  /**
-   * Creates the "Icons" toolbar button for a given markdown editor
-   */
-  createToolbarButton( el ) {
-    let toolbar = el.querySelector( ".md-toolbar .btn-toolbar" );
-    let btn = document.createElement( "button" );
-    btn.type = "button";
-    btn.className = "md-btn btn btn-default md-btn--icon";
-    btn.title = "Icons";
-    btn.innerHTML = "<i class=\"fa-solid fa-icons\"></i> Icons";
-    btn.setAttribute ("data-bs-toggle", "modal");
-    btn.setAttribute ("data-toggle", "modal");
-    btn.setAttribute ("data-bs-target", "#fa_iconpicker_modal");
-    btn.setAttribute ("data-target", "#fa_iconpicker_modal");
-    let div = document.createElement( "div" );
-    div.className = "button-group";
-    div.appendChild( btn );
-    toolbar.appendChild( div );
   }
 
   /**
