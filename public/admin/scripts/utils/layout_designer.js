@@ -99,7 +99,15 @@ window.UTILS.LayoutDesigner = class {
    * Create Icons button in toolbars of all MD editors currently in the page
    */
   attachToolbarButtons() {
-    window.UTILS.MDEditorToolbarHelper.addToolbarButton( {
+    /*window.UTILS.MDEditorToolbarHelper.addToolbarButton( {
+      name: "layout_designer",
+      text: "<i class=\"fa-solid fa-table-columns\"></i> Layout",
+      title: "Layout",
+      className: "",
+      hasModal: true,
+      modalId: "#layout_designer_modal",
+    } );*/
+    window.UTILS.MDEditorToolbarHelper.addToolbarDropdownItem( "insert_dropdown", {
       name: "layout_designer",
       text: "<i class=\"fa-solid fa-table-columns\"></i> Layout",
       title: "Layout",

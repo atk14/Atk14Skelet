@@ -56,7 +56,15 @@ window.UTILS.FAIconpicker = class {
    * Create Icons button in toolbars of all MD editors currently in the page
    */
   attachToolbarButtons() {
-    window.UTILS.MDEditorToolbarHelper.addToolbarButton( {
+    /*window.UTILS.MDEditorToolbarHelper.addToolbarButton( {
+      name: "fa_iconpicker",
+      text: "<i class=\"fa-solid fa-icons\"></i> " + faIconpickerTexts.icons,
+      title: "Icons",
+      className: "",
+      hasModal: true,
+      modalId: "#fa_iconpicker_modal",
+    } );*/
+    window.UTILS.MDEditorToolbarHelper.addToolbarDropdownItem( "insert_dropdown", {
       name: "fa_iconpicker",
       text: "<i class=\"fa-solid fa-icons\"></i> " + faIconpickerTexts.icons,
       title: "Icons",

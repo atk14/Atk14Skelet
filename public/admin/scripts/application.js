@@ -184,6 +184,9 @@
 				UTILS.TagChooser.init();
 				UTILS.EnhancedFileField.init();
 				UTILS.formHints();
+				UTILS.MDEditorToolbarHelper.addToolbarDropdownMenu( {
+  name: "insert_dropdown", text: "Insert", title: "Insert object", className: "",
+} );
 				if( document.getElementById( "layout-designer" ) ) {
 					new UTILS.LayoutDesigner();
 				};
