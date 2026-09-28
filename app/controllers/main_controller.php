@@ -8,7 +8,7 @@ class MainController extends ApplicationController{
 	 * See default layout: app/layouts/default.tpl
 	 */
 	function index(){
-		$this->page_title = _("Welcome!");
+		$this->page_title = ATK14_APPLICATION_NAME;
 
 		$page = $this->tpl_data["page"] = Page::GetInstanceByCode("homepage");
 		if($page){
