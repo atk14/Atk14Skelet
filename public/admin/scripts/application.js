@@ -193,6 +193,9 @@
 				if( document.getElementById( "fa_iconpicker_modal" ) ) {
 					new UTILS.FAIconpicker();
 				};
+				if( document.getElementById( "tabdesigner_modal" ) ) {
+					new UTILS.TabDesigner();
+				};
 			}
 
 		}

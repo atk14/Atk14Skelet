@@ -30,3 +30,4 @@
 {/if}
 {render partial="admin/shared/layout_designer"}
 {render partial="admin/shared/fa_iconpicker_modal"}
+{render partial="admin/shared/tabdesigner_modal"}

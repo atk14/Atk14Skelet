@@ -58,6 +58,7 @@ var applicationScripts = [
 	"public/scripts/utils/swiper.js",
 	"public/admin/scripts/utils/preview_mode_toggle.js",
 	"public/admin/scripts/utils/fa_iconpicker.js",
+	"public/admin/scripts/utils/tab_designer.js",
 	"public/admin/scripts/application.js",
 ];
 
@@ -90,14 +91,24 @@ gulp.task( "styles-vendor-admin", function() {
 } );
 
 // JS
-gulp.task( "scripts-admin", function() {
+gulp.task( "scripts-admin", function( done ) {
+	// Both bundles are built in parallel; the task is finished when both streams end
+	var pending = 2;
+	function finish() {
+		if ( --pending === 0 ) {
+			done();
+		}
+	}
+
 	gulp.src( vendorScripts )
 		.pipe( $.sourcemaps.init() )
 		.pipe( $.concat( "vendor.js" ) )
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
-		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
+		.pipe( gulp.dest( "public/admin/dist/scripts" ) )
+		.on( "end", finish )
+		.on( "error", done );
 
 	gulp.src( applicationScripts )
 		.pipe( $.sourcemaps.init() )
@@ -105,7 +116,9 @@ gulp.task( "scripts-admin", function() {
 		.pipe( $.uglify() )
 		.pipe( $.rename( { suffix: ".min" } ) )
 		.pipe( $.sourcemaps.write( "." ) )
-		.pipe( gulp.dest( "public/admin/dist/scripts" ) );
+		.pipe( gulp.dest( "public/admin/dist/scripts" ) )
+		.on( "end", finish )
+		.on( "error", done );
 } );
 
 // Lint
