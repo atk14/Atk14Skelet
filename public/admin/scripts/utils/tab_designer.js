@@ -56,7 +56,7 @@ window.UTILS.TabDesigner = class {
   attachToolbarButtons() {
     window.UTILS.MDEditorToolbarHelper.addToolbarDropdownItem( "insert_dropdown", {
       name: "tabdesigner",
-      text: "<img src=\"/public/admin/dist/images/icon-tabs.svg\" width=\"15\" height=\"15\" alt=\"\" class=\"dropdown_item_icon\"> Tabs",
+      text: "<img src=\"/public/admin/dist/images/icon-tabs.svg\" width=\"15\" height=\"15\" alt=\"\" class=\"dropdown-item__icon\"> Tabs",
       title: "Tabs",
       className: "",
       hasModal: true,
