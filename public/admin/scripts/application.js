@@ -196,6 +196,9 @@
 				if( document.getElementById( "tabdesigner_modal" ) ) {
 					new UTILS.TabDesigner();
 				};
+				if( document.getElementById( "linklistinserter_modal" ) ) {
+					new UTILS.LinkListInserter();
+				};
 			}
 
 		}

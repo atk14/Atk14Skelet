@@ -6,7 +6,6 @@ function smarty_block_drink_shortcode__linklist($params,$content,$template,&$rep
 		"code" => 0,
 		"class" => ""
 	];
-
 	foreach($params as $k => $v){
 		$template->assign($k,$v);
 	}
