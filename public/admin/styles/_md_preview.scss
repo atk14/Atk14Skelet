@@ -70,5 +70,15 @@
       @extend .btn-light;
     }
   }
-
+  // Fixes for cases when dark mode collides with preview styles
+  body.dark-mode & {
+    .content-tabs {
+      .nav {
+        .nav-link:not(.active) {
+          color: $body-color !important;
+        }
+      }
+    }
+  }
 }
+
