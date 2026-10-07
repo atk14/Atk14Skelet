@@ -9,5 +9,7 @@
 
 Atk14Url::AddRouter("AdminRouter");
 
-// Keep the DefaultRouter at the end of the list
-Atk14Url::AddRouter("DefaultRouter");
+Atk14Url::AddRouter("ApplicationRouter");
+
+// GenericRouter should be the last router here
+Atk14Url::AddRouter("GenericRouter");
