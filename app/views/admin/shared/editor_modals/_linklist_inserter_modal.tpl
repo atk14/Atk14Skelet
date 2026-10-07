@@ -30,11 +30,13 @@
           {/foreach}
         </select>
         <label for="linklistinserter_style" class="form-label">{t}Style{/t}</label>
-        <select class="form-control form-select" id="linklistinserter_style">
+        <select class="form-control form-select mb-2" id="linklistinserter_style">
           <option value="">Default</option>
-          <option value="">Link list with images</option>
-          <option value="">Cards</option>
+          <option value="with_images">Link list with images</option>
+          <option value="cards">Cards</option>
         </select>
+        <label for="linklistinserter_class" class="form-label">{t}CSS class{/t}</label>
+        <input type="text" class="form-control" id="linklistinserter_class">
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <div>

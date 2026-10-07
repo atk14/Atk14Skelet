@@ -13,6 +13,7 @@ window.UTILS.LinkListInserter = class {
     this.modal = document.getElementById( "linklistinserter_modal" );
     this.linklistSelect = this.modal.querySelector( "#linklistinserter_linklist" );
     this.styleSelect = this.modal.querySelector( "#linklistinserter_style" );
+    this.classInput = this.modal.querySelector( "#linklistinserter_class" );
     this.copyBtn = this.modal.querySelector( "#linklistinserter_copy_btn" );
 
     this.attachToolbarButtons();
@@ -47,7 +48,11 @@ window.UTILS.LinkListInserter = class {
 
   setHandlers() {
     this.copyBtn.addEventListener( "click", () => {
-      let code = this.createLinkListCode( this.linklistSelect.value, this.styleSelect.value );
+      let code = this.createLinkListCode(
+        this.linklistSelect.value,
+        this.styleSelect.value,
+        this.classInput.value.trim()
+      );
       if ( !code ) {
         return;
       }
@@ -81,12 +86,15 @@ window.UTILS.LinkListInserter = class {
     await navigator.clipboard.write( [ clipboardItem ] );
   }
 
-  createLinkListCode( linklistCode, style ) {
+  createLinkListCode( linklistCode, style, cssClass ) {
     let code = "";
     if ( linklistCode ) {
       code = `[linklist code="${linklistCode}"`;
       if ( style ) {
         code += ` style="${style}"`;
+      }
+      if ( cssClass ) {
+        code += ` class="${cssClass}"`;
       }
       code += "][/linklist]";
     }
@@ -96,5 +104,6 @@ window.UTILS.LinkListInserter = class {
   reset() {
     this.linklistSelect.value = "";
     this.styleSelect.value = "";
+    this.classInput.value = "";
   }
 };
