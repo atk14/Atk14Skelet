@@ -76,6 +76,33 @@ class TcLogins extends TcBase{
 		$this->assertNull($rocky);
 	}
 
+	function test_login_throttling_after_repeated_invalid_attempts(){
+		$client = $this->client;
+
+		$bad_credentials = array(
+			"login" => "rambo.tester",
+			"password" => "badTry",
+		);
+
+		// MAX_INVALID_LOGIN_ATTEMPTS (default 5) failed attempts are let through normally
+		for($i = 0; $i < 5; $i++){
+			$ctrl = $client->post("logins/create_new",$bad_credentials);
+			$this->assertEquals(200,$client->getStatusCode());
+			$this->assertTrue($ctrl->form->has_errors());
+			$this->assertStringContains('Wrong login and password combination',$client->getContent());
+		}
+
+		// the next attempt gets throttled, even with the correct password
+		$ctrl = $client->post("logins/create_new",array(
+			"login" => "rambo.tester",
+			"password" => "Secret123",
+		));
+		$this->assertEquals(200,$client->getStatusCode());
+		$this->assertTrue($ctrl->form->has_errors());
+		$this->assertStringContains('Delay the next sign-in attempt',$client->getContent());
+		$this->assertNull($ctrl->_get_logged_user());
+	}
+
 	function test_open_redirect_prevention(){
 		$client = $this->client;
 
