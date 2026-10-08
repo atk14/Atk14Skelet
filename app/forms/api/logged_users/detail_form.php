@@ -1,5 +1,5 @@
 <?php
-class DetailForm extends ApiForm{
+class DetailForm extends LoggedUsersForm{
 	function set_up(){
 	}
 }

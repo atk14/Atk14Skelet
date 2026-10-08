@@ -27,7 +27,7 @@ class AdminController extends ApplicationBaseController{
 
 		$navi = new Menu14();
 
-		foreach(array(
+		$items = array(
 			array(_("Welcome screen"),			"main"),
 			array(_("Articles"),						"articles"),
 			array(_("Pages"),								"pages"),
@@ -37,14 +37,18 @@ class AdminController extends ApplicationBaseController{
 			array(_("Password recoveries"),	"password_recoveries"),
 			array(_("Newsletter subscribers"), "newsletter_subscribers"),
 			array(_("404 Redirections"),				"error_redirections"),
-		) as $item){
+		);
+
+		foreach($items as $item){
 			$_label = $item[0];
-			$_controllers = explode(',',$item[1]); // "products,cards" => array("products","cards");
-			$_action = "$_controllers[0]/index"; // "products" -> "products/index"
-			$_url = $this->_link_to($_action);
-			$navi->add($_label,$_url,array("active" => in_array($this->controller,$_controllers)));
-			if(in_array($this->controller,$_controllers)){
-				$this->breadcrumbs[] = array($_label,$this->_link_to("$_controllers[0]/index"));
+			$_controllers = explode(',',$item[1]); // "products,cards" => ["products","cards"];
+			$_url = preg_match('/^\//',$_controllers[0]) ?
+				$_controllers[0] :
+				$this->_link_to(strpos($_controllers[0],"/") ? $_controllers[0] : "$_controllers[0]/index");
+			$_controllers_filtered = array_map(function($c){ return preg_replace('/\/.*$/','',$c); },$_controllers); // ["products","product_reports/list","/en/best_selling_products/"] -> ["products","product_reports",""]
+			$navi->add($_label,$_url,array("active" => in_array($this->controller,$_controllers_filtered)));
+			if(in_array($this->controller,$_controllers_filtered)){
+				$this->breadcrumbs[] = array($_label,$_url);
 			}
 		}
 
