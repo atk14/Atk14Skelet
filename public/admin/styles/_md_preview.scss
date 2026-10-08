@@ -1,8 +1,9 @@
 /***
  * Styles for markdown preview of iobjects and drink-shortcodes in admin interface
+ * (both in the editor's preview and in the block view, see _md_block_editor.scss)
  */
 
-.md-preview {
+.md-preview, .md-blocks {
   $max-page-width: 1400px;
   //@import "../../../node_modules/swiper/swiper-bundle.min.css";
   @import "../../styles/iobjects";

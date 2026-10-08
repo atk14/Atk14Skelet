@@ -187,6 +187,7 @@
 				UTILS.MDEditorToolbarHelper.addToolbarDropdownMenu( {
   name: "insert_dropdown", text: "Insert", title: "Insert object", className: "",
 } );
+				UTILS.MDBlockEditor.init();
 				if( document.getElementById( "layout-designer" ) ) {
 					new UTILS.LayoutDesigner();
 				};

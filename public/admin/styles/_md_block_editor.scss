@@ -1,0 +1,225 @@
+/***
+ * Block view of the markdown editor, see public/admin/scripts/utils/md_block_editor.js
+ * Rendered content is styled in _md_preview.scss
+ */
+
+.md-blocks {
+  overflow-y: auto;
+  resize: vertical;
+  min-height: 80px;
+
+  // "hidden" would make the viewport a scroll container and block toolbars would stick to it instead of .md-blocks
+  .md-preview__viewport {
+    overflow-x: hidden;
+    overflow-x: clip;
+  }
+
+  // embedded media (videos, maps) would swallow hovers and double-clicks of their blocks;
+  // they stay interactive in the preview
+  .md-block__content iframe {
+    pointer-events: none;
+  }
+
+  .md-blocks__message {
+    margin: 2rem 0;
+    text-align: center;
+    color: $gray-600;
+  }
+
+  .md-block {
+    position: relative;
+    outline: 1px dashed transparent;
+    outline-offset: 2px;
+    border-radius: 2px;
+    transition: outline-color 0.15s;
+
+    &:hover, &:focus-within {
+      outline-color: $gray-500;
+    }
+
+    // keep a little room between blocks for the outlines
+    & + .md-block {
+      margin-top: 4px;
+    }
+  }
+
+  // sticky under the preview mode toolbar, so it stays reachable on tall blocks scrolled partly out of view;
+  // the negative margin takes the toolbar out of the layout
+  .md-block__toolbar {
+    position: sticky;
+    z-index: 10;
+    top: 3.5rem;
+    display: none;
+    width: max-content;
+    height: 1.5rem;
+    margin-left: auto;
+    margin-bottom: -1.5rem;
+    align-items: center;
+    gap: 0.5rem;
+    padding: 0 0.375rem;
+    font-size: 0.75rem;
+    line-height: 1.5;
+    color: white;
+    background-color: rgba( $gray-800, 0.85 );
+    border-radius: 0 2px 0 2px;
+  }
+
+  .md-block:hover > .md-block__toolbar,
+  .md-block:focus-within > .md-block__toolbar {
+    display: flex;
+  }
+
+  .md-block__label {
+    font-family: $font-family-monospace;
+  }
+
+  .md-block__btn {
+    padding: 0 0.25rem;
+    font-size: inherit;
+    color: inherit;
+    background: none;
+    border: 1px solid rgba( white, 0.4 );
+    border-radius: 2px;
+    cursor: pointer;
+    &:hover {
+      background-color: rgba( white, 0.15 );
+    }
+  }
+
+  // blocks rendering nothing visible (link definitions, HTML comments...) show their source
+  .md-block--empty .md-block__content {
+    padding: 0.25rem 0.5rem;
+    background-color: $gray-100;
+    code {
+      color: $gray-600;
+      white-space: pre-wrap;
+    }
+  }
+
+  .md-block--unclosed {
+    outline-color: $danger;
+    .md-block__toolbar {
+      display: flex;
+      background-color: $danger;
+    }
+  }
+}
+
+// Editing
+
+.md-blocks {
+
+  .md-block:focus {
+    outline: 1px solid $primary;
+  }
+
+  .md-block--pending .md-block__content,
+  .md-block--error .md-block__content {
+    opacity: 0.6;
+  }
+
+  .md-block__source {
+    color: $gray-600;
+    white-space: pre-wrap;
+  }
+
+  // "+" on the bottom edge of a block adds a new block below
+  .md-block__add {
+    position: absolute;
+    z-index: 11;
+    left: 50%;
+    bottom: 0;
+    transform: translate(-50%, 50%);
+    display: none;
+    width: 1.5rem;
+    height: 1.5rem;
+    padding: 0;
+    font-size: 0.75rem;
+    line-height: 1;
+    color: white;
+    background-color: $gray-800;
+    border: 2px solid white;
+    border-radius: 50%;
+    cursor: pointer;
+    &:hover {
+      background-color: $primary;
+    }
+  }
+
+  .md-block:hover > .md-block__add,
+  .md-block:focus-within > .md-block__add {
+    display: block;
+  }
+
+  .md-block--editing {
+    outline: 1px solid $primary;
+    > .md-block__content,
+    > .md-block__toolbar,
+    > .md-block__add {
+      display: none !important;
+    }
+  }
+
+  .md-block__input {
+    min-height: 3rem;
+    font-family: $font-family-monospace;
+    font-size: 0.875rem;
+    resize: none;
+    overflow: hidden;
+  }
+
+  .md-block__hint {
+    margin-top: 0.125rem;
+    font-size: 0.75rem;
+    color: $gray-600;
+  }
+
+  .md-blocks__append {
+    display: block;
+    width: 100%;
+    margin-top: 1rem;
+    padding: 0.5rem;
+    color: $gray-600;
+    background: none;
+    border: 1px dashed $gray-400;
+    border-radius: 2px;
+    cursor: pointer;
+    &:hover {
+      color: $primary;
+      border-color: $primary;
+    }
+  }
+
+  .md-blocks__menu {
+    position: absolute;
+    z-index: 1000;
+    display: flex;
+    flex-direction: column;
+    min-width: 10rem;
+    padding: 0.25rem 0;
+    background-color: white;
+    border: 1px solid $gray-300;
+    border-radius: 4px;
+    box-shadow: 0 0.25rem 1rem rgba( black, 0.15 );
+  }
+
+  .md-blocks__menu-item {
+    padding: 0.25rem 1rem;
+    text-align: left;
+    color: $gray-900;
+    background: none;
+    border: none;
+    &:hover, &:focus {
+      background-color: $gray-200;
+      outline: none;
+    }
+  }
+
+  .md-blocks__history {
+    position: absolute;
+    left: 1rem;
+    .btn:disabled {
+      opacity: 0.35;
+    }
+  }
+}

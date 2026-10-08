@@ -1,0 +1,45 @@
+#!/usr/bin/env php
+<?php
+/**
+ * Exports Markdown sources stored in the database as JSON
+ *
+ * Together with the list of block shortcodes, so the output can be fed into
+ * test/js/check_tokenizer_roundtrip.js to check the Markdown block tokenizer on real content:
+ *
+ *	$ ./test/js/export_markdown_sources | node test/js/check_tokenizer_roundtrip.js
+ *	$ ATK14_ENV=production ./test/js/export_markdown_sources > sources.json
+ */
+
+require_once(__DIR__."/../../atk14/load.php");
+
+// Models and their fields containing Markdown
+$fields = [
+	"Page" => ["teaser", "body"],
+	"Article" => ["teaser", "body"],
+];
+
+$dm = new DrinkMarkdown();
+
+$out = [
+	"block_shortcodes" => $dm->getBlockShortcodes(),
+	"sources" => [],
+];
+
+foreach($fields as $class_name => $keys){
+	foreach($class_name::FindAll(["order_by" => "id"]) as $object){
+		foreach($keys as $key){
+			foreach($ATK14_GLOBAL->getSupportedLangs() as $lang){
+				$source = (string)$object->g("{$key}_{$lang}");
+				if(!strlen(trim($source))){ continue; }
+				$out["sources"][] = [
+					"class_name" => $class_name,
+					"id" => $object->getId(),
+					"field" => "{$key}_{$lang}",
+					"source" => $source,
+				];
+			}
+		}
+	}
+}
+
+echo json_encode($out,JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE | JSON_UNESCAPED_SLASHES),"\n";

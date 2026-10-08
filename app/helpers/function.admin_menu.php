@@ -11,6 +11,10 @@ function smarty_function_admin_menu($params,$template){
 	global $ATK14_GLOBAL;
 	$smarty = atk14_get_smarty_from_template($template);
 
+	if($ATK14_GLOBAL->getValue("admin_menu_disabled")){
+		return; // e.g. in previews rendered for the Markdown editor, see app/controllers/api/markdown_controller.php
+	}
+
 	($logged_user = $smarty->getTemplateVars("logged_user")) ||
 	($logged_user = $ATK14_GLOBAL->getValue("logged_user")); // in app/helpers/function.iobject_to_html.php, there is no info about the logged in user in $template
 	

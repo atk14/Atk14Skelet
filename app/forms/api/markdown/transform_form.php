@@ -13,5 +13,10 @@ class TransformForm extends ApiForm{
 			"max_length" => 255,
 			"required" => false,
 		]));
+
+		$this->add_field("editor_preview", new BooleanField([
+			"required" => false,
+			"help_text" => _("Render for a preview in an editor (without admin menus)"),
+		]));
 	}
 }

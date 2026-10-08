@@ -138,6 +138,37 @@ window.UTILS.MDEditorToolbarHelper = class {
   }
 
   /**
+   * Adds a view mode button next to the editor's own "Edit" and "Preview" buttons
+   * in every MD editor toolbar currently in the page.
+   * Skips a toolbar that already has a button with the same data-btnname
+   * or has no "Edit" button (editor initialized without preview).
+   * The button only gets the look of its neighbours; switching the view is up to onClick.
+   * @param {Object} configObject - { name, text, title, className, onClick }
+   */
+  static addViewModeButton( configObject ) {
+    let toolbars = window.UTILS.MDEditorToolbarHelper.findMDEditorToolbars();
+    toolbars.forEach( toolbar => {
+      let editButton = toolbar.querySelector( ".btn-edit" );
+      if ( !editButton || toolbar.querySelector( "[data-btnname='" + configObject.name + "']" ) ) {
+        return;
+      }
+      let btn = document.createElement( "button" );
+      btn.type = "button";
+      btn.className = "md-btn btn btn-default";
+      if ( configObject.className ) {
+        btn.className += " " + configObject.className;
+      }
+      btn.title = configObject.title;
+      btn.innerHTML = configObject.text;
+      btn.dataset.btnname = configObject.name;
+      if ( configObject.onClick ) {
+        btn.addEventListener( "click", configObject.onClick );
+      }
+      editButton.parentElement.appendChild( btn );
+    } );
+  }
+
+  /**
    * Builds a single toolbar button, wrapped in a ".button-group" div
    * (matching the markup of the editor's own built-in toolbar buttons).
    * @param {String} name - unique id, stored as data-btnname (used for lookup/removal)
@@ -267,4 +298,4 @@ window.UTILS.MDEditorToolbarHelper = class {
     dropdownMenu.querySelector( ".dropdown-menu" ).appendChild( li );
     return li;
   }
-}
+};

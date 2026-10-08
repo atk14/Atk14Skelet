@@ -99,6 +99,7 @@
 			</div>
 		</div>
 		<a href="#" id="js-scroll-to-top" title="{t}Nahoru{/t}">{!"arrow-up"|icon}</a>
+		{render partial="shared/layout/md_block_editor_texts"}
 		{javascript_script_tag file="$public/admin/dist/scripts/vendor.min.js"}
 		{javascript_script_tag file="$public/admin/dist/scripts/application.min.js"}
 
