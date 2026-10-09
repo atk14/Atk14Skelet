@@ -1,10 +1,13 @@
 /**
  * Tab designer
- * Builds a DrInk Markdown [tabs]/[tab] shortcode from a list of named tabs and their content
- * Adds "Tabs" item to the MD editor's "Insert" dropdown
+ * Builds a DrInk Markdown [tabs]/[tab] shortcode from a list of named tabs and their content,
+ * or edits an existing one (see parse()).
+ * Registered in UTILS.MDEditorInserts, so it's offered in the "Insert" dropdown of MD editors,
+ * in the "Add block" menu of the block view and as the editor of [tabs] blocks.
  *
  * Dependencies:
  *
+ * md_shortcodes.js, md_editor_inserts.js
  * _tabdesigner.scss
  * _tabdesigner_modal.tpl
  * Bootstrap 4+
@@ -26,6 +29,10 @@ window.UTILS.TabDesigner = class {
     this.tabsContainer = this.modal.querySelector( ".tabdesigner__tabs" );
     this.addTabBtn = this.modal.querySelector( ".js--add-tab" );
     this.copyBtn = this.modal.querySelector( "#tabdesigner_copy_btn" );
+    this.saveBtn = this.modal.querySelector( "#tabdesigner_save_btn" );
+    this.save = null; // callback given by open()
+    this.original = null; // { raw, code } of the edited shortcode
+    this.tabsAttrs = {}; // attributes of [tabs]
 
     this.attachToolbarButtons();
 
@@ -37,48 +44,106 @@ window.UTILS.TabDesigner = class {
       this.setClipboard( this.generateCode() );
       this.showCopiedFeedback();
     } );
-
-    // Bootstrap 4's modal events are jQuery-only (not native DOM events), while
-    // Bootstrap 5 dispatches them as native DOM events
-    let resetForm = () => {
-      this.reset();
-    };
-    if ( window.bootstrapVersion === 5 ) {
-      this.modal.addEventListener( "show.bs.modal", resetForm );
-    } else {
-      window.jQuery( this.modal ).on( "show.bs.modal", resetForm );
-    }
-  }
-
-  /**
-   * Adds "Tabs" item to the "Insert" dropdown of every MD editor toolbar
-   */
-  attachToolbarButtons() {
-    window.UTILS.MDEditorToolbarHelper.addToolbarDropdownItem( "insert_dropdown", {
-      name: "tabdesigner",
-      text: "<img src=\"/public/admin/dist/images/icon-tabs.svg\" width=\"15\" height=\"15\" alt=\"\" class=\"dropdown-item__icon\"> Tabs",
-      title: "Tabs",
-      className: "",
-      hasModal: true,
-      modalId: "#tabdesigner_modal",
+    this.saveBtn.addEventListener( "click", () => {
+      let code = this.generateCode();
+      if ( this.original && code === this.original.code ) {
+        code = this.original.raw; // nothing changed, the source is kept exactly as it was
+      }
+      if ( this.save ) {
+        this.save( code );
+      }
     } );
   }
 
   /**
-   * Resets the form back to two empty tabs
+   * Registers the designer in UTILS.MDEditorInserts (adds "Tabs" to the "Insert" dropdown of every MD editor toolbar)
    */
-  reset() {
-    this.tabsContainer.innerHTML = "";
-    this.addTab();
-    this.addTab();
+  attachToolbarButtons() {
+    window.UTILS.MDEditorInserts.register( {
+      name: "tabdesigner",
+      text: "<img src=\"/public/admin/dist/images/icon-tabs.svg\" width=\"15\" height=\"15\" alt=\"\" class=\"dropdown-item__icon\"> Tabs",
+      title: "Tabs",
+      modal: "#tabdesigner_modal",
+      inline: false,
+      shortcode: "tabs",
+      parse: raw => window.UTILS.TabDesigner.parse( raw ),
+      open: options => this.open( options ),
+    } );
   }
 
   /**
-   * Appends a new empty tab fields group
+   * Fills the modal with the given [tabs] shortcode, or with two empty tabs
+   * @param {Object} options - { raw, save }
    */
-  addTab() {
-    let tab = this.tabFieldsTemplate.content.firstElementChild.cloneNode( true );
-    this.tabsContainer.appendChild( tab );
+  open( options ) {
+    this.save = options.save;
+    this.tabsContainer.innerHTML = "";
+    let model = options.raw ? window.UTILS.TabDesigner.parse( options.raw ) : null;
+    if ( model ) {
+      this.tabsAttrs = model.attrs;
+      model.tabs.forEach( tab => this.addTab( tab ) );
+      this.original = { raw: options.raw, code: this.generateCode() };
+    } else {
+      this.tabsAttrs = {};
+      this.addTab();
+      this.addTab();
+      this.original = null;
+    }
+    this.saveBtn.textContent = model ? this.texts.save : this.texts.insert;
+  }
+
+  /**
+   * Parses a [tabs] shortcode; returns null when it contains anything the designer couldn't keep
+   * (text between tabs, other shortcodes directly in [tabs], unpaired tags...)
+   *   "[tabs]\n[tab name=\"A\"]\nText\n[/tab]\n[/tabs]" -> { attrs: {}, tabs: [ { attrs: { name: "A" }, content: "Text" } ] }
+   * @param {String} raw
+   * @returns {Object|null} { attrs, tabs: [ { attrs, content } ] }
+   */
+  static parse( raw ) {
+    let MDShortcodes = window.UTILS.MDShortcodes;
+    let source = raw.trim();
+    let tree = MDShortcodes.parseTree( source, [ "tabs", "tab" ] );
+    if ( tree.errors.length || tree.children.length !== 1 ) {
+      return null;
+    }
+    let tabsNode = tree.children[ 0 ];
+    if ( tabsNode.name !== "tabs" || tabsNode.start !== 0 || tabsNode.end !== source.length ) {
+      return null;
+    }
+    let tabs = [];
+    let pos = tabsNode.innerStart;
+    for ( let node of tabsNode.children ) {
+      if ( node.name !== "tab" || source.slice( pos, node.start ).trim() ) {
+        return null;
+      }
+      tabs.push( {
+        attrs: node.attrs,
+        content: window.UTILS.TabDesigner.cleanContent( source.slice( node.innerStart, node.innerEnd ) ),
+      } );
+      pos = node.end;
+    }
+    if ( source.slice( pos, tabsNode.innerEnd ).trim() ) {
+      return null;
+    }
+    return { attrs: tabsNode.attrs, tabs: tabs };
+  }
+
+  // Leading blank lines and trailing whitespace are not a part of the content (indentation of the first line is)
+  static cleanContent( content ) {
+    return content.replace( /^(?:[ \t]*\r?\n)+/, "" ).replace( /\s+$/, "" );
+  }
+
+  /**
+   * Appends a tab fields group
+   * @param {Object} tab - { attrs, content }, optional
+   */
+  addTab( tab ) {
+    tab = tab || { attrs: {}, content: "" };
+    let el = this.tabFieldsTemplate.content.firstElementChild.cloneNode( true );
+    el.tabAttrs = tab.attrs; // other attributes than the name are kept
+    el.querySelector( ".js--tab-name" ).value = tab.attrs.name || "";
+    el.querySelector( ".js--tab-content" ).value = tab.content;
+    this.tabsContainer.appendChild( el );
   }
 
   /**
@@ -101,14 +166,17 @@ window.UTILS.TabDesigner = class {
    * @returns {String}
    */
   generateCode() {
+    let MDShortcodes = window.UTILS.MDShortcodes;
     let tabsCode = [ ...this.tabsContainer.querySelectorAll( ".tabdesigner__tab" ) ]
       .map( ( tab, index ) => {
-        let name = tab.querySelector( ".js--tab-name" ).value.trim().replace( /"/g, "'" ) || `Tab ${ index + 1 }`;
-        let content = tab.querySelector( ".js--tab-content" ).value.trim();
-        return `[tab name="${ name }"]\n${ content }\n[/tab]`;
+        // DrInk Markdown doesn't allow "]" in shortcode params
+        let name = tab.querySelector( ".js--tab-name" ).value.trim().replace( /\]/g, ")" ) || `Tab ${ index + 1 }`;
+        let content = window.UTILS.TabDesigner.cleanContent( tab.querySelector( ".js--tab-content" ).value );
+        let attrs = Object.assign( {}, tab.tabAttrs || {}, { name: name } );
+        return `${ MDShortcodes.buildOpeningTag( "tab", attrs ) }\n${ content }\n[/tab]`;
       } )
       .join( "\n" );
-    return `[tabs]\n${ tabsCode }\n[/tabs]`;
+    return `${ MDShortcodes.buildOpeningTag( "tabs", this.tabsAttrs ) }\n${ tabsCode }\n[/tabs]`;
   }
 
   /**

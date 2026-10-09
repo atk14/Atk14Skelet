@@ -46,6 +46,7 @@ var applicationScripts = [
 	"public/scripts/utils/leaving_unsaved_page_checker.js",
 	"public/scripts/utils/suggestions.js",
 	"public/admin/scripts/utils/md_editor_toolbar_helper.js",
+	"public/admin/scripts/utils/md_editor_inserts.js",
 	"public/admin/scripts/utils/md_shortcodes.js",
 	"public/admin/scripts/utils/md_block_tokenizer.js",
 	"public/scripts/utils/initialize_markdon_editors.js",

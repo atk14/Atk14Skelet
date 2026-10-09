@@ -10,12 +10,10 @@
  * (and so into the textarea), then the source is tokenized and the blocks are rendered again.
  * Undo/redo uses Ace's undo manager, so the history is shared with the "Code" view.
  *
- * A shortcode block can be edited by a dedicated editor (e.g. a designer in a modal):
- *
- *   UTILS.MDBlockEditor.registerBlockEditor( "tabs", {
- *     canEdit: raw => true,                       // optional; false -> the source is edited inline
- *     edit: ( { raw, block, onSave, onCancel } ) => { ... onSave( newRaw ); },
- *   } );
+ * Things registered in UTILS.MDEditorInserts (designers in modals: tabs, link lists...) are offered
+ * in the "Add block" menu and in the "Insert" dropdown (inserted into the edited block, or as a new block);
+ * a shortcode block an inserter can parse is edited by it (e.g. [tabs] by the tab designer),
+ * other blocks are edited inline as source.
  *
  * Usage:
  *
@@ -37,9 +35,6 @@ window.UTILS.MDBlockEditor = class {
 
   // Max number of sources in one request (see TransformBatchForm::MAX_SOURCES)
   static batchSize = 500;
-
-  // Dedicated editors of shortcode blocks by shortcode name
-  static blockEditors = {};
 
   // Blocks offered by the "+" buttons; "|" marks the cursor position in the template
   // Formatting buttons of the editor's toolbar (data-btn) working on the edited block
@@ -86,14 +81,6 @@ window.UTILS.MDBlockEditor = class {
     } );
   }
 
-  /**
-   * Registers a dedicated editor for blocks of the given shortcode
-   * @param {String} name - shortcode name, e.g. "tabs"
-   * @param {Object} editor - { canEdit( raw ), edit( { raw, block, onSave, onCancel } ) }
-   */
-  static registerBlockEditor( name, editor ) {
-    window.UTILS.MDBlockEditor.blockEditors[ name ] = editor;
-  }
 
   /**
    * Returns the block editor of the given MD editor container, creates it when needed
@@ -231,10 +218,16 @@ window.UTILS.MDBlockEditor = class {
     // capturing listeners run before the editor's own handlers on the buttons
     let toolbar = container.querySelector( ".md-toolbar" );
     toolbar.addEventListener( "mousedown", e => {
-      if ( this.editing && this.formatButton( e.target ) ) {
+      if ( this.editing && ( this.formatButton( e.target ) || e.target.closest( "[data-btnname='insert_dropdown'], .dropdown-menu" ) ) ) {
         e.preventDefault(); // keeps the focus (and so the edit) in the textarea
       }
     }, true );
+    toolbar.addEventListener( "focusout", () => {
+      if ( this.editing ) {
+        let editing = this.editing;
+        window.setTimeout( () => this.commitEditOnFocusLoss( editing ), 0 );
+      }
+    } );
     toolbar.addEventListener( "click", e => {
       let btn = this.formatButton( e.target );
       if ( this.editing && btn ) {
@@ -243,6 +236,15 @@ window.UTILS.MDBlockEditor = class {
         this.applyFormat( btn.dataset.btn );
       }
     }, true );
+
+    // where the "Insert" dropdown puts a new block (the focus moves to the dropdown meanwhile)
+    this.lastFocusedIndex = null;
+    this.viewport.addEventListener( "focusin", e => {
+      let blockEl = e.target.closest( ".md-block[data-index]" );
+      if ( blockEl ) {
+        this.lastFocusedIndex = parseInt( blockEl.dataset.index, 10 );
+      }
+    } );
 
     this.viewport.addEventListener( "click", this.onClick.bind( this ) );
     this.viewport.addEventListener( "dblclick", this.onDblClick.bind( this ) );
@@ -319,7 +321,7 @@ window.UTILS.MDBlockEditor = class {
   setToolbarDisabled( disabled ) {
     let keep = [ "edit", "preview", "fullscreen" ];
     [ ...this.container.querySelectorAll( ".md-toolbar button, .md-toolbar .md-btn-file" ) ].forEach( el => {
-      if ( keep.indexOf( el.dataset.btn ) >= 0 || el === this.button || el.closest( ".dropdown-menu" ) ) {
+      if ( keep.indexOf( el.dataset.btn ) >= 0 || el === this.button || el.closest( ".dropdown-menu" ) || el.dataset.btnname === "insert_dropdown" ) {
         return;
       }
       el.classList.toggle( "disabled", disabled );
@@ -751,20 +753,24 @@ window.UTILS.MDBlockEditor = class {
     if ( !block ) {
       return;
     }
-    let blockEditor = block.type === "shortcode" && window.UTILS.MDBlockEditor.blockEditors[ block.name ];
-    if ( blockEditor && ( !blockEditor.canEdit || blockEditor.canEdit( block.raw ) ) ) {
+    let inserter = block.type === "shortcode" && window.UTILS.MDEditorInserts.editorFor( block.name, block.raw );
+    if ( inserter ) {
       let raw = block.raw;
-      blockEditor.edit( {
+      window.UTILS.MDEditorInserts.run( inserter, {
         raw: raw,
-        block: block,
         onSave: newRaw => {
           // the document may have been changed meanwhile, so the block is looked up again
           let i = this.doc.blocks.findIndex( b => b.raw === raw );
-          if ( i >= 0 ) {
+          newRaw = window.UTILS.MDBlockEditor.cleanRaw( newRaw );
+          if ( i >= 0 && newRaw !== raw ) {
             this.replaceBlock( i, newRaw );
+          } else {
+            this.focusBlock( i );
           }
         },
-        onCancel: () => {},
+        onCancel: () => {
+          this.focusBlock( index );
+        },
       } );
       return;
     }
@@ -837,11 +843,7 @@ window.UTILS.MDBlockEditor = class {
     } );
     input.addEventListener( "blur", () => {
       // a click on another block's button commits first; the timeout lets focus settle
-      window.setTimeout( () => {
-        if ( this.editing === editing && document.activeElement !== input ) {
-          this.commitEdit();
-        }
-      }, 0 );
+      window.setTimeout( () => this.commitEditOnFocusLoss( editing ), 0 );
     } );
     autosize();
     input.focus();
@@ -875,6 +877,22 @@ window.UTILS.MDBlockEditor = class {
     } else {
       this.replaceBlock( editing.index, raw );
     }
+  }
+
+  /**
+   * Commits the edit when the focus left the edited block, except for the editor's toolbar:
+   * the "Insert" dropdown takes the focus (Bootstrap focuses its toggle) and inserts into the edited block
+   * @param {Object} editing
+   */
+  commitEditOnFocusLoss( editing ) {
+    let active = document.activeElement;
+    if ( this.editing !== editing || editing.suspended || active === editing.input ) {
+      return;
+    }
+    if ( active && active.closest( ".md-toolbar" ) && this.container.contains( active ) ) {
+      return; // committed when the focus leaves the toolbar too (see the constructor)
+    }
+    this.commitEdit();
   }
 
   cancelEdit() {
@@ -1029,6 +1047,75 @@ window.UTILS.MDBlockEditor = class {
     }
   }
 
+  // ---------------------------------------------------------------- inserting registered things
+
+  /**
+   * Inserts a thing registered in UTILS.MDEditorInserts (called from the "Insert" dropdown):
+   * into the edited block at the cursor, or as a new block after the last focused one
+   * @param {Object} item
+   */
+  insertItem( item ) {
+    let editing = this.editing;
+    if ( !editing ) {
+      let index = this.lastFocusedIndex === null ? this.doc.blocks.length : Math.min( this.lastFocusedIndex + 1, this.doc.blocks.length );
+      this.insertItemAsBlock( item, index );
+      return;
+    }
+    // the modal takes the focus; the edit must not be committed by the textarea's blur meanwhile
+    let input = editing.input;
+    let start = input.selectionStart;
+    let end = input.selectionEnd;
+    editing.suspended = true;
+    let resume = () => {
+      editing.suspended = false;
+      if ( this.editing === editing ) {
+        input.focus();
+        input.setSelectionRange( start, end );
+      }
+    };
+    window.UTILS.MDEditorInserts.run( item, {
+      onSave: code => {
+        resume();
+        if ( this.editing !== editing ) {
+          return;
+        }
+        if ( !item.inline ) {
+          // a block needs a blank line before and after it (unless it's at the beginning or the end)
+          let before = input.value.slice( 0, start );
+          let after = input.value.slice( end );
+          let newlines = ( text, re ) => ( text.match( re ) || [ "" ] )[ 0 ].split( "\n" ).length - 1;
+          if ( before.trim() ) {
+            code = "\n".repeat( Math.max( 0, 2 - newlines( before, /(?:\n[ \t]*)*$/ ) ) ) + code;
+          }
+          if ( after.trim() ) {
+            code = code + "\n".repeat( Math.max( 0, 2 - newlines( after, /^(?:[ \t]*\n)*/ ) ) );
+          }
+        }
+        this.replaceInputRange( start, end, code, start + code.length, start + code.length );
+      },
+      onCancel: resume,
+    } );
+  }
+
+  /**
+   * Opens the registered thing and inserts the result as a new block at the given position
+   * @param {Object} item
+   * @param {Number} index
+   */
+  insertItemAsBlock( item, index ) {
+    window.UTILS.MDEditorInserts.run( item, {
+      onSave: code => {
+        code = window.UTILS.MDBlockEditor.cleanRaw( code );
+        if ( code ) {
+          this.insertBlock( Math.min( index, this.doc.blocks.length ), code );
+        }
+      },
+      onCancel: () => {
+        this.focusBlock( index - 1 );
+      },
+    } );
+  }
+
   // ---------------------------------------------------------------- the "add block" menu
 
   openMenu( button, index ) {
@@ -1043,6 +1130,24 @@ window.UTILS.MDBlockEditor = class {
       btn.addEventListener( "click", () => {
         this.closeMenu();
         this.addBlock( index, item.template );
+      } );
+      menu.appendChild( btn );
+    } );
+    let inserters = window.UTILS.MDEditorInserts.items().filter( item => !item.inline );
+    if ( inserters.length ) {
+      let divider = document.createElement( "div" );
+      divider.className = "md-blocks__menu-divider";
+      menu.appendChild( divider );
+    }
+    inserters.forEach( item => {
+      let btn = document.createElement( "button" );
+      btn.type = "button";
+      btn.className = "md-blocks__menu-item";
+      btn.innerHTML = item.text;
+      btn.title = item.title || "";
+      btn.addEventListener( "click", () => {
+        this.closeMenu();
+        this.insertItemAsBlock( item, index );
       } );
       menu.appendChild( btn );
     } );

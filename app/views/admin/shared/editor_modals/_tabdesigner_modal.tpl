@@ -11,7 +11,9 @@
 
 <script>
   window.tabdesignerTexts = {
-    copied: "{t}Copied!{/t}",
+    copied: "{t escape=javascript}Copied!{/t}",
+    insert: "{t escape=javascript}Insert{/t}",
+    save: "{t escape=javascript}Save{/t}",
   }
 </script>
 
@@ -42,7 +44,8 @@
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Close{/t}</button>
         </div>
         <div>
-          <button type="button" class="btn btn-primary" id="tabdesigner_copy_btn">{t}Copy to clipboard{/t}</button>
+          <button type="button" class="btn btn-outline-secondary" id="tabdesigner_copy_btn">{t}Copy to clipboard{/t}</button>
+          <button type="button" class="btn btn-primary" id="tabdesigner_save_btn">{t}Insert{/t}</button>
         </div>
       </div>
     </div>
