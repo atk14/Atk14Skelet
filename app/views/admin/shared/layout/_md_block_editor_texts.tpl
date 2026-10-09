@@ -3,8 +3,11 @@
 	window.mdBlockEditorTexts = {
 		btnBlocks: "{t escape=javascript}Blocks{/t}",
 		btnBlocksTitle: "{t escape=javascript}Block view{/t}",
+		btnCode: "{t escape=javascript}Code{/t}",
+		btnCodeTitle: "{t escape=javascript}Markdown source{/t}",
 		edit: "{t escape=javascript}Edit{/t}",
 		editTitle: "{t escape=javascript}Edit this block (or double-click it){/t}",
+		moveTitle: "{t escape=javascript}Drag to move the block (or Alt+Up / Alt+Down){/t}",
 		editHint: "{t escape=javascript}Ctrl+Enter or clicking outside saves, Esc cancels{/t}",
 		showSource: "{t escape=javascript}Source{/t}",
 		showSourceTitle: "{t escape=javascript}Show the source of this block in the editor{/t}",

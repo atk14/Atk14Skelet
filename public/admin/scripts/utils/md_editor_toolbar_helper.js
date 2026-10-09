@@ -143,7 +143,8 @@ window.UTILS.MDEditorToolbarHelper = class {
    * Skips a toolbar that already has a button with the same data-btnname
    * or has no "Edit" button (editor initialized without preview).
    * The button only gets the look of its neighbours; switching the view is up to onClick.
-   * @param {Object} configObject - { name, text, title, className, onClick }
+   * @param {Object} configObject - { name, text, title, className, onClick, prepend }
+   *   prepend: true places the button before "Edit" instead of after "Preview"
    */
   static addViewModeButton( configObject ) {
     let toolbars = window.UTILS.MDEditorToolbarHelper.findMDEditorToolbars();
@@ -164,7 +165,11 @@ window.UTILS.MDEditorToolbarHelper = class {
       if ( configObject.onClick ) {
         btn.addEventListener( "click", configObject.onClick );
       }
-      editButton.parentElement.appendChild( btn );
+      if ( configObject.prepend ) {
+        editButton.parentElement.insertBefore( btn, editButton.parentElement.firstChild );
+      } else {
+        editButton.parentElement.appendChild( btn );
+      }
     } );
   }
 

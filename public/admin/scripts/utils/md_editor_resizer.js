@@ -5,6 +5,10 @@
  * and restores them when the form is reloaded.
  * If user resizes an MD editor, its height is restored after reload.
  * TODO: It should also restore height after MD editor goes fullscreen and back.
+ *
+ * The block view of an editor (.md-blocks, see md_block_editor.js) shares the height of the editor:
+ * the height is kept on .md-editor and mirrored to .md-blocks, resizing either of them resizes both.
+ * Create the resizer after UTILS.MDBlockEditor.init(), so that the block views get the handlers too.
  * 
  * Usage:
  *   new UTILS.MDEditorResizer();
@@ -42,10 +46,10 @@ window.UTILS.MDEditorResizer = class {
   }
 
   /**
-   * Assign resize handlers to all editors on the page
+   * Assign resize handlers to all editors (and their block views) on the page
    */
   assignResizeHandlers() {
-    let editors = document.querySelectorAll( ".md-editor" );
+    let editors = document.querySelectorAll( ".md-editor, .md-blocks" );
     [...editors].forEach( ( editor ) => {
      this.makeResizable( editor );
     } );
@@ -63,15 +67,41 @@ window.UTILS.MDEditorResizer = class {
     editor.dataset.height_handler = true;
     // Assign event handler
     editor.addEventListener( "mouseup", () => {
-      this.onEditorResize();
+      this.onEditorResize( editor );
     } );
   }
 
   /**
    * Handler for editor resize event
+   * @param {Element} panel - .md-editor or .md-blocks
    */
-  onEditorResize() {
+  onEditorResize( panel ) {
+    if ( panel.classList.contains( "md-blocks" ) && panel.offsetHeight ) {
+      // the height of the block view is kept on the (hidden) editor
+      this.setHeight( panel.closest( ".md-container" ), panel.offsetHeight );
+    }
     this.storeHeights();
+  }
+
+  /**
+   * Sets the height of an editor and its block view
+   * @param {Element} container - .md-container
+   * @param {Number} height - px
+   */
+  setHeight( container, height ) {
+    [ ...container.querySelectorAll( ".md-editor, .md-blocks" ) ].forEach( ( panel ) => {
+      panel.style.height = height + "px";
+    } );
+  }
+
+  /**
+   * Height of an editor; a hidden editor (e.g. while the block view is shown) has no offsetHeight,
+   * its style height is used then
+   * @param {Element} editor - .md-editor
+   * @returns {Number} px, 0 if unknown
+   */
+  getHeight( editor ) {
+    return editor.offsetHeight || parseFloat( editor.style.height ) || 0;
   }
 
   /**
@@ -157,7 +187,11 @@ window.UTILS.MDEditorResizer = class {
     };
     [...editors].forEach( ( editor ) => {
       let editorId = editor.closest( ".form-group" ).querySelector( "textarea.form-control[id]" ).getAttribute( "id" );
-      storageObject.editors.push( { id: editorId, height: editor.offsetHeight } );
+      let height = this.getHeight( editor );
+      if ( !height ) {
+        return;
+      }
+      storageObject.editors.push( { id: editorId, height: height } );
     } );
     sessionStorage.setItem( this.storageName, JSON.stringify( storageObject ) );
   }
@@ -174,8 +208,8 @@ window.UTILS.MDEditorResizer = class {
           //let textarea = document.getElementById( item.id );
           let formgrup = document.getElementById( item.id )?.closest( ".form-group" );
           let editor = formgrup?.querySelector( ".md-editor" );
-          if ( editor ) {
-            editor.style.height = item.height + "px";
+          if ( editor && item.height ) {
+            this.setHeight( editor.closest( ".md-container" ), item.height );
           }
         } );
       }

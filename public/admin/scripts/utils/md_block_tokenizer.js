@@ -405,6 +405,29 @@
       return doc;
     },
 
+    /**
+     * Puts the blocks into a new order, e.g. after a block was dragged elsewhere.
+     * Separators are fixed (see normalize()) only between blocks that became neighbours,
+     * the rest of the document is left untouched.
+     * @param {Object} doc
+     * @param {Array} order - current indexes of the blocks in their new order, e.g. [ 0, 2, 1 ]
+     * @returns {Object} the same doc
+     */
+    reorder( doc, order ) {
+      if ( order.length !== doc.blocks.length || order.slice().sort( ( a, b ) => a - b ).some( ( index, i ) => index !== i ) ) {
+        throw new Error( "MDBlockTokenizer.reorder(): the order must contain every block index exactly once" );
+      }
+      let blocks = doc.blocks;
+      doc.blocks = order.map( index => blocks[ index ] );
+      let changed = [];
+      order.forEach( ( index, i ) => {
+        if ( i < order.length - 1 && order[ i + 1 ] !== index + 1 ) {
+          changed.push( i );
+        }
+      } );
+      return MDBlockTokenizer.normalize( doc, changed );
+    },
+
   };
 
   if ( typeof module !== "undefined" && module.exports ) {

@@ -34,7 +34,8 @@
     transition: outline-color 0.15s;
 
     &:hover, &:focus-within {
-      outline-color: $gray-500;
+      //outline-color: $gray-500;
+      outline: 3px dotted $info;
     }
 
     // keep a little room between blocks for the outlines
@@ -220,6 +221,49 @@
     left: 1rem;
     .btn:disabled {
       opacity: 0.35;
+    }
+  }
+}
+
+// Moving blocks (SortableJS)
+
+.md-blocks {
+
+  .md-block__handle {
+    padding: 0 0.125rem;
+    cursor: grab;
+    opacity: 0.75;
+    &:hover {
+      opacity: 1;
+    }
+  }
+
+  // the place where the dragged block will land
+  .md-block--ghost {
+    outline: 2px dashed $primary;
+    background-color: rgba( $primary, 0.06 );
+    > * {
+      opacity: 0.3;
+    }
+  }
+
+  // the clone following the mouse; tall blocks are cut so the drop place stays visible
+  .md-block--dragged {
+    max-height: 12rem;
+    overflow: hidden;
+    background-color: white;
+    outline: 1px solid $primary;
+    box-shadow: 0 0.5rem 1.5rem rgba( black, 0.2 );
+    opacity: 0.9 !important;
+    cursor: grabbing;
+    // SortableJS finds the drop place under the clone; content switching pointer events back on
+    // (e.g. .row--shortcode in _md_preview.scss) would hide it
+    &, * {
+      pointer-events: none !important;
+    }
+    > .md-block__toolbar,
+    > .md-block__add {
+      display: none !important;
     }
   }
 }

@@ -177,7 +177,6 @@
 			// Initialize editor forms
 			initializeEditors: function() {
 				UTILS.initializeMarkdonEditors();
-				new UTILS.MDEditorResizer();
 				UTILS.leaving_unsaved_page_checker.init();
 				UTILS.Suggestions.handleSuggestions();
 				UTILS.Suggestions.handleTagsSuggestions();
@@ -188,6 +187,7 @@
   name: "insert_dropdown", text: "Insert", title: "Insert object", className: "",
 } );
 				UTILS.MDBlockEditor.init();
+				new UTILS.MDEditorResizer(); // after the block views are created, it manages their heights too
 				if( document.getElementById( "layout-designer" ) ) {
 					new UTILS.LayoutDesigner();
 				};

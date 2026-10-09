@@ -205,6 +205,33 @@ module.exports = {
     assert.equal( MDBlockTokenizer.join( doc ), "# A\nText\n# B\n\nMore\n\n# C\nEnd" );
   },
 
+  test_reorder() {
+    // the heading is followed by its paragraph without a blank line, that is left untouched when not moved
+    var doc = tokenize( "# A\nText A\n\n\nB\n\nC\n" );
+    MDBlockTokenizer.reorder( doc, [ 0, 1, 3, 2 ] );
+    assert.equal( MDBlockTokenizer.join( doc ), "# A\nText A\n\n\nC\n\nB\n" );
+
+    // moving the paragraph away from its heading separates them by a blank line;
+    // the former last block gets a separator, the trailing whitespace of the document stays
+    doc = tokenize( "# A\nText A\n\nB\n\nC\n" );
+    MDBlockTokenizer.reorder( doc, [ 0, 2, 3, 1 ] );
+    assert.equal( MDBlockTokenizer.join( doc ), "# A\n\nB\n\nC\n\nText A\n" );
+
+    // moving the first block to the end
+    doc = tokenize( "\nFirst\n[row]\n[/row]\nLast" );
+    MDBlockTokenizer.reorder( doc, [ 1, 2, 0 ] );
+    assert.equal( MDBlockTokenizer.join( doc ), "\n[row]\n[/row]\nLast\n\nFirst" );
+
+    // nothing moved, nothing changed
+    var source = "# A\nText\n# B\nMore";
+    doc = tokenize( source );
+    MDBlockTokenizer.reorder( doc, [ 0, 1, 2, 3 ] );
+    assert.equal( MDBlockTokenizer.join( doc ), source );
+
+    assert.throws( function() { MDBlockTokenizer.reorder( tokenize( "A\n\nB" ), [ 0, 0 ] ); }, /every block index/ );
+    assert.throws( function() { MDBlockTokenizer.reorder( tokenize( "A\n\nB" ), [ 0 ] ); }, /every block index/ );
+  },
+
   test_join_new_blocks() {
     var doc = tokenize( "A\n\nB\n" );
     doc.blocks.splice( 1, 0, { type: "paragraph", raw: "New" } );

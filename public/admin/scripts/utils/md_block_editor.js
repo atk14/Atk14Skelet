@@ -1,13 +1,14 @@
 /**
  * Markdown block editor
- * Adds a "Blocks" view mode to every MD editor (next to "Edit" and "Preview").
+ * Adds a "Blocks" view mode to every MD editor, as the first and default one (the editor's "Edit" is renamed to "Code").
  * The Markdown source is split into blocks (see md_block_tokenizer.js) and every block
  * is rendered separately by the API (markdown/transform_batch), so it looks like on the web.
  *
- * Blocks can be edited (double-click, Enter or the pencil button), deleted and added (the "+" buttons).
+ * Blocks can be edited (double-click, Enter or the pencil button), deleted, added (the "+" buttons)
+ * and moved (dragging the handle by SortableJS, or Alt+Up / Alt+Down).
  * The source in the Ace editor stays the only source of truth: every change is written into it
  * (and so into the textarea), then the source is tokenized and the blocks are rendered again.
- * Undo/redo uses Ace's undo manager, so the history is shared with the "Edit" mode.
+ * Undo/redo uses Ace's undo manager, so the history is shared with the "Code" view.
  *
  * A shortcode block can be edited by a dedicated editor (e.g. a designer in a modal):
  *
@@ -22,7 +23,7 @@
  *
  * Dependencies:
  *
- * md_shortcodes.js, md_block_tokenizer.js, md_editor_toolbar_helper.js, preview_mode_toggle.js
+ * md_shortcodes.js, md_block_tokenizer.js, md_editor_toolbar_helper.js, preview_mode_toggle.js, SortableJS
  * _md_block_editor.scss, _md_preview.scss
  * app/views/admin/shared/layout/_md_block_editor_texts.tpl
  * Ace (via bootstrap-markdown-editor)
@@ -52,8 +53,9 @@ window.UTILS.MDBlockEditor = class {
   ];
 
   /**
-   * Adds "Blocks" button to every MD editor toolbar in the page.
-   * Safe to call again, e.g. after a form is replaced.
+   * Adds "Blocks" button as the first view mode of every MD editor in the page,
+   * renames the editor's "Edit" to "Code" and switches new editors to the block view.
+   * Safe to call again, e.g. after a form is replaced: editors already set up are left as they are.
    */
   static init() {
     let texts = window.UTILS.MDBlockEditor.texts();
@@ -62,9 +64,22 @@ window.UTILS.MDBlockEditor = class {
       text: "<span class=\"fa-solid fa-table-cells-large\"></span> " + texts.btnBlocks,
       title: texts.btnBlocksTitle,
       className: "btn-blocks",
+      prepend: true,
       onClick: e => {
         window.UTILS.MDBlockEditor.forContainer( e.currentTarget.closest( ".md-container" ) ).show();
       },
+    } );
+
+    [ ...document.querySelectorAll( ".md-container" ) ].forEach( container => {
+      if ( !container.querySelector( "[data-btnname='blocks']" ) || container.mdBlockEditor ) {
+        return;
+      }
+      let editButton = container.querySelector( ".md-toolbar .btn-edit" );
+      editButton.innerHTML = "<span class=\"fa-solid fa-code\"></span> ";
+      editButton.appendChild( document.createTextNode( texts.btnCode ) );
+      editButton.title = texts.btnCodeTitle;
+
+      window.UTILS.MDBlockEditor.forContainer( container ).show();
     } );
   }
 
@@ -94,8 +109,11 @@ window.UTILS.MDBlockEditor = class {
     let texts = Object.assign( {
       btnBlocks: "Blocks",
       btnBlocksTitle: "Block view",
+      btnCode: "Code",
+      btnCodeTitle: "Markdown source",
       edit: "Edit",
       editTitle: "Edit this block (or double-click it)",
+      moveTitle: "Drag to move the block (or Alt+Up / Alt+Down)",
       editHint: "Ctrl+Enter or clicking outside saves, Esc cancels",
       showSource: "Source",
       showSourceTitle: "Show the source of this block in the editor",
@@ -182,6 +200,30 @@ window.UTILS.MDBlockEditor = class {
       } );
     } );
 
+    // dragging blocks by their handle; the fallback mode keeps the dragged clone inside .md-blocks,
+    // so it is styled as the content (a native drag image of a big block is hardly visible)
+    this.sortable = window.Sortable.create( this.viewport, {
+      handle: ".md-block__handle",
+      draggable: ".md-block:not(.md-block--new)",
+      filter: ".md-block--editing",
+      preventOnFilter: false,
+      forceFallback: true,
+      fallbackOnBody: false,
+      animation: 150,
+      scrollSensitivity: 100, // the upper ~55px are covered by the sticky preview mode toolbar
+      ghostClass: "md-block--ghost",
+      chosenClass: "md-block--chosen",
+      fallbackClass: "md-block--dragged",
+      onChoose: () => {
+        // an edited block is saved before dragging; it only re-renders the edited block, the dragged one stays
+        this.commitEdit();
+        this.closeMenu();
+      },
+      onEnd: evt => {
+        this.onSortEnd( evt.item );
+      },
+    } );
+
     this.viewport.addEventListener( "click", this.onClick.bind( this ) );
     this.viewport.addEventListener( "dblclick", this.onDblClick.bind( this ) );
     this.element.addEventListener( "keydown", this.onKeyDown.bind( this ) );
@@ -220,11 +262,10 @@ window.UTILS.MDBlockEditor = class {
    */
   show() {
     if ( !this.visible ) {
-      // take over the height of the panel being replaced
-      let panel = this.mdEditor.offsetHeight ? this.mdEditor : this.mdPreview;
-      if ( panel.offsetHeight ) {
-        this.element.style.height = panel.offsetHeight + "px";
-      }
+      // the height is kept on the editor (see md_editor_resizer.js);
+      // a hidden editor has no offsetHeight, its style height is used then
+      let height = this.mdEditor.offsetHeight || parseFloat( this.mdEditor.style.height ) || 400;
+      this.element.style.height = height + "px";
       this.mdEditor.style.display = "none";
       this.mdPreview.style.display = "none";
       this.element.style.display = "";
@@ -394,6 +435,11 @@ window.UTILS.MDBlockEditor = class {
 
     let toolbar = document.createElement( "div" );
     toolbar.className = "md-block__toolbar";
+    let handle = document.createElement( "span" );
+    handle.className = "md-block__handle";
+    handle.title = this.texts.moveTitle;
+    handle.innerHTML = "<span class=\"fa-solid fa-grip-vertical\"></span>";
+    toolbar.appendChild( handle );
     let label = document.createElement( "span" );
     label.className = "md-block__label";
     label.textContent = this.blockLabel( block );
@@ -830,6 +876,42 @@ window.UTILS.MDBlockEditor = class {
     this.focusBlock( Math.min( index, this.doc.blocks.length - 1 ) );
   }
 
+  /**
+   * Writes the order of block elements left by dragging into the source
+   * @param {Element} moved - the dragged block
+   */
+  onSortEnd( moved ) {
+    let order = [ ...this.viewport.querySelectorAll( ":scope > .md-block:not(.md-block--new):not(.md-block--dragged)" ) ].map( el => parseInt( el.dataset.index, 10 ) );
+    if ( order.every( ( index, i ) => index === i ) ) {
+      return;
+    }
+    window.UTILS.MDBlockTokenizer.reorder( this.doc, order );
+    this.applyDoc();
+    moved.focus( { preventScroll: true } );
+  }
+
+  /**
+   * Moves the block one position up or down (Alt+Up / Alt+Down)
+   * @param {Number} index
+   * @param {Number} delta - -1 or 1
+   */
+  moveBlock( index, delta ) {
+    let target = index + delta;
+    if ( target < 0 || target >= this.doc.blocks.length ) {
+      return;
+    }
+    let order = this.doc.blocks.map( ( block, i ) => i );
+    order[ index ] = target;
+    order[ target ] = index;
+    window.UTILS.MDBlockTokenizer.reorder( this.doc, order );
+    this.applyDoc();
+    this.focusBlock( target );
+    let el = this.viewport.querySelector( ":scope > .md-block[data-index='" + target + "']" );
+    if ( el ) {
+      el.scrollIntoView( { block: "nearest" } );
+    }
+  }
+
   focusBlock( index ) {
     let el = this.viewport.querySelector( ":scope > .md-block[data-index='" + index + "']" );
     if ( el ) {
@@ -947,6 +1029,9 @@ window.UTILS.MDBlockEditor = class {
     } else if ( ctrl && key === "y" ) {
       e.preventDefault();
       this.redo();
+    } else if ( e.altKey && ( e.key === "ArrowUp" || e.key === "ArrowDown" ) && e.target.classList.contains( "md-block" ) ) {
+      e.preventDefault();
+      this.moveBlock( parseInt( e.target.dataset.index, 10 ), e.key === "ArrowUp" ? -1 : 1 );
     } else if ( e.key === "Enter" && e.target.classList.contains( "md-block" ) ) {
       e.preventDefault();
       this.editBlock( parseInt( e.target.dataset.index, 10 ) );
