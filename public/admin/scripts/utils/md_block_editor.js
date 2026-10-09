@@ -42,6 +42,9 @@ window.UTILS.MDBlockEditor = class {
   static blockEditors = {};
 
   // Blocks offered by the "+" buttons; "|" marks the cursor position in the template
+  // Formatting buttons of the editor's toolbar (data-btn) working on the edited block
+  static formatButtons = [ "h1", "h2", "h3", "bold", "italic", "ul", "ol", "link", "image" ];
+
   static newBlockTemplates = [
     { type: "paragraph", template: "|" },
     { type: "heading", template: "## |" },
@@ -224,6 +227,23 @@ window.UTILS.MDBlockEditor = class {
       },
     } );
 
+    // while a block is edited, the formatting buttons work on its textarea instead of the hidden Ace;
+    // capturing listeners run before the editor's own handlers on the buttons
+    let toolbar = container.querySelector( ".md-toolbar" );
+    toolbar.addEventListener( "mousedown", e => {
+      if ( this.editing && this.formatButton( e.target ) ) {
+        e.preventDefault(); // keeps the focus (and so the edit) in the textarea
+      }
+    }, true );
+    toolbar.addEventListener( "click", e => {
+      let btn = this.formatButton( e.target );
+      if ( this.editing && btn ) {
+        e.preventDefault();
+        e.stopPropagation();
+        this.applyFormat( btn.dataset.btn );
+      }
+    }, true );
+
     this.viewport.addEventListener( "click", this.onClick.bind( this ) );
     this.viewport.addEventListener( "dblclick", this.onDblClick.bind( this ) );
     this.element.addEventListener( "keydown", this.onKeyDown.bind( this ) );
@@ -293,7 +313,7 @@ window.UTILS.MDBlockEditor = class {
 
   /**
    * Toolbar buttons editing the source (formatting, Insert...) are disabled in the block view,
-   * only switching the view and fullscreen are left
+   * only switching the view and fullscreen are left; formatting buttons are enabled while a block is edited
    * @param {Boolean} disabled
    */
   setToolbarDisabled( disabled ) {
@@ -307,6 +327,24 @@ window.UTILS.MDBlockEditor = class {
         el.disabled = disabled;
       }
     } );
+  }
+
+  /**
+   * Enables the formatting buttons while a block is edited
+   * @param {Boolean} enabled
+   */
+  setFormattingEnabled( enabled ) {
+    [ ...this.container.querySelectorAll( ".md-toolbar .md-btn[data-btn]" ) ].forEach( el => {
+      if ( this.formatButton( el ) ) {
+        el.classList.toggle( "disabled", !enabled );
+        el.disabled = !enabled;
+      }
+    } );
+  }
+
+  formatButton( target ) {
+    let btn = target.closest( ".md-btn[data-btn]" );
+    return btn && window.UTILS.MDBlockEditor.formatButtons.indexOf( btn.dataset.btn ) >= 0 ? btn : null;
   }
 
   // ---------------------------------------------------------------- rendering
@@ -773,6 +811,7 @@ window.UTILS.MDBlockEditor = class {
     editing.input = input;
     editing.wrap = wrap;
     this.editing = editing;
+    this.setFormattingEnabled( true );
     if ( editing.isNew ) {
       this.refresh(); // places the new element
     }
@@ -790,6 +829,10 @@ window.UTILS.MDBlockEditor = class {
       } else if ( e.key === "Enter" && ( e.ctrlKey || e.metaKey ) ) {
         e.preventDefault();
         this.commitEdit();
+      } else if ( ( e.ctrlKey || e.metaKey ) && !e.shiftKey && !e.altKey && { b: 1, i: 1, k: 1 }[ e.key.toLowerCase() ] ) {
+        // the same shortcuts as in the "Code" view
+        e.preventDefault();
+        this.applyFormat( { b: "bold", i: "italic", k: "link" }[ e.key.toLowerCase() ] );
       }
     } );
     input.addEventListener( "blur", () => {
@@ -853,6 +896,73 @@ window.UTILS.MDBlockEditor = class {
   finishEditElement( editing ) {
     editing.wrap.remove();
     editing.element.classList.remove( "md-block--editing" );
+    this.setFormattingEnabled( false );
+  }
+
+  /**
+   * Applies a formatting button to the edited block, the same way as bootstrap-markdown-editor does in Ace:
+   * wraps the selection (or a placeholder, left selected) or prefixes the selected lines
+   * @param {String} name - data-btn of the button: "bold", "italic", "link", "image", "h1", "h2", "h3", "ul", "ol"
+   */
+  applyFormat( name ) {
+    let input = this.editing.input;
+    let start = input.selectionStart;
+    let end = input.selectionEnd;
+    let selected = input.value.slice( start, end );
+
+    let wrap = ( before, after, placeholder, cursorInAfter ) => {
+      let inner = selected || placeholder;
+      let text = before + inner + after;
+      if ( selected ) {
+        // the cursor goes after the whole text, or into its end part (e.g. the url of a link)
+        let cursor = start + before.length + inner.length + ( cursorInAfter === undefined ? after.length : cursorInAfter );
+        this.replaceInputRange( start, end, text, cursor, cursor );
+      } else {
+        this.replaceInputRange( start, end, text, start + before.length, start + before.length + inner.length );
+      }
+    };
+
+    let prefixLines = prefix => {
+      let lineStart = input.value.lastIndexOf( "\n", start - 1 ) + 1;
+      let lineEnd = input.value.indexOf( "\n", Math.max( end - ( end > start && input.value[ end - 1 ] === "\n" ? 1 : 0 ), start ) );
+      if ( lineEnd < 0 ) {
+        lineEnd = input.value.length;
+      }
+      let text = input.value.slice( lineStart, lineEnd ).split( "\n" ).map( line => prefix + " " + line ).join( "\n" );
+      this.replaceInputRange( lineStart, lineEnd, text, lineStart + text.length, lineStart + text.length );
+    };
+
+    switch ( name ) {
+      case "bold": wrap( "**", "**", "text" ); break;
+      case "italic": wrap( "*", "*", "text" ); break;
+      case "link": wrap( "[", "](http://)", "text", 9 ); break;
+      case "image": wrap( "![", "](http://)", "text", 9 ); break;
+      case "h1": prefixLines( "#" ); break;
+      case "h2": prefixLines( "##" ); break;
+      case "h3": prefixLines( "###" ); break;
+      case "ul": prefixLines( "*" ); break;
+      case "ol": prefixLines( "1." ); break;
+    }
+  }
+
+  /**
+   * Replaces a part of the edited block's text; done by "insertText" so that the browser's own undo (Ctrl+Z) works
+   */
+  replaceInputRange( start, end, text, selectionStart, selectionEnd ) {
+    let input = this.editing.input;
+    input.focus();
+    input.setSelectionRange( start, end );
+    let done = false;
+    try {
+      done = document.execCommand( "insertText", false, text );
+    } catch ( e ) {
+      done = false;
+    }
+    if ( !done ) {
+      input.setRangeText( text, start, end, "end" );
+      input.dispatchEvent( new Event( "input" ) );
+    }
+    input.setSelectionRange( selectionStart, selectionEnd );
   }
 
   insertBlock( index, raw ) {
