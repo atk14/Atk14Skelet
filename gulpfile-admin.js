@@ -49,6 +49,7 @@ var applicationScripts = [
 	"public/admin/scripts/utils/md_editor_inserts.js",
 	"public/admin/scripts/utils/md_shortcodes.js",
 	"public/admin/scripts/utils/md_block_tokenizer.js",
+	"public/admin/scripts/utils/md_row_layout.js",
 	"public/scripts/utils/initialize_markdon_editors.js",
 	"public/admin/scripts/utils/async_image_upload.js",
 	"public/scripts/utils/async_file_upload.js",

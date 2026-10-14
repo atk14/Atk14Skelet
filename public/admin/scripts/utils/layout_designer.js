@@ -2,7 +2,9 @@
  * Layout designer
  * Editor for creating Boostrap 4+ responsive layout columns structures
  * Outputs DrInk shortcodes for Markdown or pure HTML code
- * Adds button to MD editor
+ * Registered in UTILS.MDEditorInserts: offered in the "Insert" dropdown of MD editors, in the "Add block" menu
+ * of the block view and as the editor of [row] blocks. When an existing [row] is edited, only widths of its columns
+ * are changed (see md_row_layout.js): content of the columns and their other attributes are kept.
  * 
  * Usage:
  * 
@@ -12,6 +14,7 @@
  * 
  * Dependencies:
  * 
+ * md_row_layout.js, md_editor_inserts.js
  * _layout_designer.scss
  * _layout_designer.tpl
  * Bootstrap 4+
@@ -56,6 +59,10 @@ window.UTILS.LayoutDesigner = class {
     this.copyMDButton = this.designerModal.querySelector( "#copy_md_btn" );
     this.copyHTMLButton = this.designerModal.querySelector( "#copy_html_btn" );
     this.resetBtn = this.designerModal.querySelector( "#reset_btn" );
+    this.saveBtn = this.designerModal.querySelector( "#layout_designer_save_btn" );
+    this.note = this.designerModal.querySelector( ".js--layout-designer-note" );
+    this.saveCode = null; // callback given by open()
+    this.edited = null; // the edited [row] (UTILS.MDRowLayout.parse()), null when inserting a new one
 
     // create Layout button in toolbars of all MD editors
     this.attachToolbarButtons();
@@ -71,12 +78,31 @@ window.UTILS.LayoutDesigner = class {
     this.rows = [ this.rowXL, this.rowLG, this.rowMD, this.rowSM, this.rowXS ];
 
     // Handler for colummn count select
-    this.countSelector.addEventListener( "change", this.changeColumnCount.bind( this ) );
+    this.countSelector.addEventListener( "change", () => {
+      this.changeColumnCount();
+      this.updateNote();
+    } );
 
     // Handler for close btn
     // TODO: better would be to have handler on modal close
     this.designerModal.querySelector( "[data-bs-dismiss='modal']" ).addEventListener( "click", () => {
-      this.save();
+      if ( !this.edited ) {
+        this.save(); // a layout being edited is not remembered as the default one
+      }
+    } );
+
+    // Handler for insert/save button
+    this.saveBtn.addEventListener( "click", () => {
+      let code;
+      if ( this.edited ) {
+        code = window.UTILS.MDRowLayout.serialize( this.edited, this.cellSizes() );
+      } else {
+        code = this.generateCode( "markdown", { emptyColumns: true } );
+        this.save();
+      }
+      if ( this.saveCode ) {
+        this.saveCode( code );
+      }
     } );
 
     // Handler for copy Markdown button
@@ -96,25 +122,64 @@ window.UTILS.LayoutDesigner = class {
   }
 
   /**
-   * Create Icons button in toolbars of all MD editors currently in the page
+   * Registers the designer in UTILS.MDEditorInserts (adds "Layout" to the "Insert" dropdown of every MD editor toolbar)
    */
   attachToolbarButtons() {
-    /*window.UTILS.MDEditorToolbarHelper.addToolbarButton( {
+    window.UTILS.MDEditorInserts.register( {
       name: "layout_designer",
       text: "<i class=\"fa-solid fa-table-columns\"></i> Layout",
       title: "Layout",
-      className: "",
-      hasModal: true,
-      modalId: "#layout_designer_modal",
-    } );*/
-    window.UTILS.MDEditorToolbarHelper.addToolbarDropdownItem( "insert_dropdown", {
-      name: "layout_designer",
-      text: "<i class=\"fa-solid fa-table-columns\"></i> Layout",
-      title: "Layout",
-      className: "",
-      hasModal: true,
-      modalId: "#layout_designer_modal",
+      modal: "#layout_designer_modal",
+      inline: false,
+      shortcode: "row",
+      parse: raw => window.UTILS.MDRowLayout.parse( raw ),
+      open: options => this.open( options ),
     } );
+  }
+
+  /**
+   * Fills the designer with widths of columns of the given [row], or with the last used layout
+   * @param {Object} options - { raw, save }
+   */
+  open( options ) {
+    this.saveCode = options.save;
+    this.edited = options.raw ? window.UTILS.MDRowLayout.parse( options.raw ) : null;
+    if ( this.edited ) {
+      let data = { cellsNumber: this.edited.cells.length };
+      window.UTILS.MDRowLayout.breakpoints.forEach( bp => {
+        data[ bp ] = { sizes: this.edited.cells.map( cell => cell.sizes[ bp ] ), key: bp };
+      } );
+      this.importSizes( data );
+    } else {
+      this.initModal();
+    }
+    this.saveBtn.textContent = this.edited ? this.texts.save : this.texts.insert;
+    this.updateNote();
+  }
+
+  /**
+   * Widths of the columns per breakpoint
+   * @returns {Array} [ { xs, sm, md, lg, xl } ]
+   */
+  cellSizes() {
+    let data = this.exportSizes();
+    let cells = [];
+    for ( let i = 0; i < this.columnCount; i++ ) {
+      let sizes = {};
+      window.UTILS.MDRowLayout.breakpoints.forEach( bp => {
+        sizes[ bp ] = data[ bp ].sizes[ i ];
+      } );
+      cells.push( sizes );
+    }
+    return cells;
+  }
+
+  /**
+   * When columns of an edited [row] are removed, their content is moved to the last column; the user is told so
+   */
+  updateNote() {
+    let removed = this.edited ? this.edited.cells.slice( this.columnCount ) : [];
+    this.note.classList.toggle( "d-none", !removed.some( cell => cell.content.trim() ) );
   }
 
 
@@ -168,47 +233,27 @@ window.UTILS.LayoutDesigner = class {
   /**
    * Generates HTML or Markdown code
    * @param {*} style - "html"|"markdown"
+   * @param {Object} options - { emptyColumns: false } columns are numbered by default
    * @returns {String} - generated code
    */
-  generateCode( style ) {
+  generateCode( style, options ) {
     style = style || "markdown";
-    let data = this.exportSizes();
+    options = Object.assign( { emptyColumns: false }, options );
     let cellCode = "";
     let prefix = "  ";
     let suffix = "\n";
     let output;
-    let hidden = false;
-    // make sure order is correct
-    let breakpoints = [ data.xs, data.sm, data.md, data.lg, data.xl ];
-    for( let i = 0; i < this.columnCount; i++ ) {
-      let cellClass = "";
-      breakpoints.forEach( breakpoint => {
-        let span = breakpoint.sizes[ i ];
-        if( span === 0 ) {
-          hidden = true;
-          if( breakpoint.key === "xs" ) {
-            cellClass += "d-none ";
-          }
-          cellClass += `d-${breakpoint.key}-none `;
-        } else {
-          if( breakpoint.key === "xs" ) {
-            cellClass += `col-${span} `;
-          }
-          cellClass += `col-${breakpoint.key}-${span} `;
-          if( hidden ) {
-            cellClass += `d-${breakpoint.key}-block `;
-            hidden = false;
-          }
-        }
-      } );
+    this.cellSizes().forEach( ( sizes, i ) => {
+      let cellClass = window.UTILS.MDRowLayout.classesFromSizes( sizes );
+      let content = options.emptyColumns ? "" : i + 1;
       cellCode += prefix;
       if( style === "markdown" ) {
-        cellCode += `[col class="${cellClass}" defaultclasses=0]${i+1}[/col]`;
+        cellCode += `[col class="${cellClass}" defaultclasses=0]${content}[/col]`;
       } else if ( style === "html" ) {
-        cellCode += `<div class="${cellClass}">${i+1}</div>`;
+        cellCode += `<div class="${cellClass}">${content}</div>`;
       }
       cellCode += suffix;
-    }
+    } );
     
     if( style === "markdown" ) {
       output = `[row]${suffix}${cellCode}[/row]`;

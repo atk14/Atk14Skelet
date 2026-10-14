@@ -17,6 +17,8 @@
     titleSM: '{!"tablet-screen-button"|icon} {t}SM - Small tablet{/t}',
     titleXS: '{!"mobile-screen-button"|icon} {t}XS - Phone{/t}',
     wrongPaste: "{t}Cannot paste columns: Number of pasted columns do not match number of current columns.{/t}",
+    insert: "{t escape=javascript}Insert{/t}",
+    save: "{t escape=javascript}Save{/t}",
   }
  </script>
 
@@ -72,6 +74,10 @@
         </div>
         </div>
 
+        <div class="alert alert-info js--layout-designer-note d-none">
+          {t}Content of the removed columns will be moved to the last column.{/t}
+        </div>
+
         <div class="editor-container">
         </div>
         
@@ -86,7 +92,8 @@
         </div>
         <div>
           <button type="button" class="btn btn-link" id="copy_html_btn">{t}Copy HTML code to clipboard{/t}</button>
-          <button type="button" class="btn btn-primary" id="copy_md_btn">{t}Copy Markdown code to clipboard{/t}</button>
+          <button type="button" class="btn btn-outline-secondary" id="copy_md_btn">{t}Copy Markdown code to clipboard{/t}</button>
+          <button type="button" class="btn btn-primary" id="layout_designer_save_btn">{t}Insert{/t}</button>
         </div>
       </div>
     </div>
