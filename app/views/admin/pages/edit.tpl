@@ -28,4 +28,4 @@
 {else}
 	<p>{t}This page has no subpages{/t}</p>	
 {/if}
-{render partial="shared/editor_modals"}
+{render partial="shared/editor_modals" iobjects_for=$page}

@@ -16,4 +16,8 @@
 	<hr>
 	{render partial="shared/attachments" object=$object}
 {/if}
-{render partial="shared/editor_modals"}
+{if $has_iobjects}
+	{render partial="shared/editor_modals" iobjects_for=$object}
+{else}
+	{render partial="shared/editor_modals"}
+{/if}

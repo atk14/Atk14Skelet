@@ -200,6 +200,9 @@
 				if( document.getElementById( "linklistinserter_modal" ) ) {
 					new UTILS.LinkListInserter();
 				};
+				if( document.getElementById( "iobjectinserter_modal" ) ) {
+					new UTILS.IobjectInserter();
+				};
 			}
 
 		}

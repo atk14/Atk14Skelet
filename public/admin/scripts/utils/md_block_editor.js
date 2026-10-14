@@ -18,7 +18,7 @@
  *
  * Things registered in UTILS.MDEditorInserts (designers in modals: tabs, link lists...) are offered
  * in the "Add block" menu and in the "Insert" dropdown (inserted into the edited block, or as a new block);
- * a shortcode block an inserter can parse is edited by it (e.g. [tabs] by the tab designer),
+ * a block an inserter can parse is edited by it (e.g. [tabs] by the tab designer, an iobject by the iobject inserter),
  * other blocks are edited inline as source.
  *
  * Usage:
@@ -925,7 +925,7 @@ window.UTILS.MDBlockEditor = class {
       return;
     }
     let block = r.block;
-    let inserter = block.type === "shortcode" && window.UTILS.MDEditorInserts.editorFor( block.name, block.raw );
+    let inserter = window.UTILS.MDEditorInserts.editorFor( block );
     if ( inserter ) {
       let raw = block.raw;
       window.UTILS.MDEditorInserts.run( inserter, {

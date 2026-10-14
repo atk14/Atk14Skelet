@@ -9,4 +9,4 @@
 <hr>
 
 {render partial="shared/iobjects" object=$article}
-{render partial="shared/editor_modals"}
+{render partial="shared/editor_modals" iobjects_for=$article}

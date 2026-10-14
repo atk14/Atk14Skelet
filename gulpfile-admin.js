@@ -65,6 +65,7 @@ var applicationScripts = [
 	"public/admin/scripts/utils/fa_iconpicker.js",
 	"public/admin/scripts/utils/tab_designer.js",
 	"public/admin/scripts/utils/linklist_inserter.js",
+	"public/admin/scripts/utils/iobject_inserter.js",
 	"public/admin/scripts/application.js",
 ];
 

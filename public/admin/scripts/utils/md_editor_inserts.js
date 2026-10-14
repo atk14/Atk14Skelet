@@ -5,7 +5,7 @@
  * - the "Insert" dropdown of every MD editor toolbar: the code is inserted at the cursor
  *   ("Code" view), into the edited block or as a new block (block view, see md_block_editor.js),
  * - the "Add block" menu of the block view (items with inline: false),
- * - the block view's edit button of a shortcode block the item can edit (items with shortcode and parse).
+ * - the block view's edit button of a block the item can edit (items with parse and shortcode, or blockType).
  *
  * Usage:
  *
@@ -15,7 +15,7 @@
  *     title: "Tabs",
  *     modal: "#tabdesigner_modal",                  // shown by run(), closing it without saving cancels
  *     inline: false,                                // true: a piece of text (e.g. an icon), not a block
- *     shortcode: "tabs",                            // optional, blocks of this shortcode can be edited...
+ *     shortcode: "tabs",                            // optional, blocks of this shortcode can be edited (or blockType: "iobject")...
  *     parse: raw => model || null,                  // ...when parse() understands them
  *     open: ( { raw, save } ) => { ... save( code ); }, // fills the modal; raw is null when inserting
  *   } );
@@ -63,14 +63,15 @@ window.UTILS.MDEditorInserts = class {
   }
 
   /**
-   * An item able to edit the given shortcode block
-   * @param {String} shortcode - e.g. "tabs"
-   * @param {String} raw - source of the block
+   * An item able to edit the given block: a shortcode block by an item with the same shortcode,
+   * another block by an item with the same blockType (e.g. "iobject", see md_block_tokenizer.js)
+   * @param {Object} block - { type, name, raw }
    * @returns {Object|null}
    */
-  static editorFor( shortcode, raw ) {
+  static editorFor( block ) {
     return window.UTILS.MDEditorInserts.registeredItems.find( item => {
-      return item.shortcode === shortcode && item.parse && item.parse( raw );
+      let matches = item.shortcode ? block.type === "shortcode" && item.shortcode === block.name : !!item.blockType && item.blockType === block.type;
+      return matches && item.parse && item.parse( block.raw );
     } ) || null;
   }
 

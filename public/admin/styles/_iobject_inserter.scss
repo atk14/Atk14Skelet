@@ -1,0 +1,83 @@
+/***
+ * Modal for inserting objects into Markdown text, see public/admin/scripts/utils/iobject_inserter.js
+ */
+
+.iobjectinserter {
+
+  .iobjectinserter__list {
+    display: grid;
+    grid-template-columns: repeat( auto-fill, minmax( 9rem, 1fr ) );
+    gap: 0.75rem;
+    max-height: 55vh;
+    overflow-y: auto;
+    margin-bottom: 1rem;
+  }
+
+  .iobjectinserter__item {
+    display: flex;
+    flex-direction: column;
+    padding: 0.375rem;
+    text-align: left;
+    color: inherit;
+    background: none;
+    border: 2px solid $gray-300;
+    border-radius: 4px;
+    cursor: pointer;
+    &:hover {
+      border-color: $gray-500;
+    }
+    &.active {
+      border-color: $primary;
+      background-color: rgba( $primary, 0.08 );
+    }
+  }
+
+  .iobjectinserter__preview {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    aspect-ratio: 4 / 3;
+    margin-bottom: 0.375rem;
+    overflow: hidden;
+    font-size: 2rem;
+    color: $gray-500;
+    background-color: $gray-100;
+    border-radius: 2px;
+    img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+    }
+  }
+
+  .iobjectinserter__type {
+    font-size: 0.75rem;
+    color: $gray-600;
+  }
+
+  .iobjectinserter__title {
+    font-size: 0.875rem;
+    overflow-wrap: anywhere;
+  }
+
+  .iobjectinserter__title--untitled {
+    font-style: italic;
+    color: $gray-600;
+  }
+
+  .iobjectinserter__message {
+    color: $gray-600;
+  }
+
+  .iobjectinserter__add {
+    display: flex;
+    flex-wrap: wrap;
+    align-items: center;
+    gap: 0.5rem;
+    padding-top: 0.75rem;
+    border-top: 1px solid $gray-300;
+    .form-text {
+      flex-basis: 100%;
+    }
+  }
+}
