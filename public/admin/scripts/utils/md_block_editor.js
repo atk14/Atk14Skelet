@@ -10,6 +10,12 @@
  * (and so into the textarea), then the source is tokenized and the blocks are rendered again.
  * Undo/redo uses Ace's undo manager, so the history is shared with the "Code" view.
  *
+ * Container blocks ([row], [tabs]) show their children ([col], [tab]) as nested lists of blocks:
+ * the container itself is rendered with empty slots in place of the children's content
+ * (so it looks exactly as on the web) and the nested lists are put into the slots.
+ * Blocks are addressed by paths: "3" is the 4th top-level block, "3/1/0" the 1st block in the 2nd child of it;
+ * a list is addressed by the path of its container block and the child index ("3/1"), the top-level list by "".
+ *
  * Things registered in UTILS.MDEditorInserts (designers in modals: tabs, link lists...) are offered
  * in the "Add block" menu and in the "Insert" dropdown (inserted into the edited block, or as a new block);
  * a shortcode block an inserter can parse is edited by it (e.g. [tabs] by the tab designer),
@@ -21,7 +27,7 @@
  *
  * Dependencies:
  *
- * md_shortcodes.js, md_block_tokenizer.js, md_editor_toolbar_helper.js, preview_mode_toggle.js, SortableJS
+ * md_shortcodes.js, md_block_tokenizer.js, md_editor_toolbar_helper.js, md_editor_inserts.js, preview_mode_toggle.js, SortableJS
  * _md_block_editor.scss, _md_preview.scss
  * app/views/admin/shared/layout/_md_block_editor_texts.tpl
  * Ace (via bootstrap-markdown-editor)
@@ -36,10 +42,10 @@ window.UTILS.MDBlockEditor = class {
   // Max number of sources in one request (see TransformBatchForm::MAX_SOURCES)
   static batchSize = 500;
 
-  // Blocks offered by the "+" buttons; "|" marks the cursor position in the template
   // Formatting buttons of the editor's toolbar (data-btn) working on the edited block
   static formatButtons = [ "h1", "h2", "h3", "bold", "italic", "ul", "ol", "link", "image" ];
 
+  // Blocks offered by the "+" buttons; "|" marks the cursor position in the template
   static newBlockTemplates = [
     { type: "paragraph", template: "|" },
     { type: "heading", template: "## |" },
@@ -49,6 +55,9 @@ window.UTILS.MDBlockEditor = class {
     { type: "code", template: "```\n|\n```" },
     { type: "hr", template: "---" },
   ];
+
+  // Instance counter, Sortable groups are per editor (blocks can't be dragged into another editor)
+  static instances = 0;
 
   /**
    * Adds "Blocks" button as the first view mode of every MD editor in the page,
@@ -136,6 +145,17 @@ window.UTILS.MDBlockEditor = class {
     return texts;
   }
 
+  // Path of a block in the list ("" is the top-level list)
+  static pathOf( list, index ) {
+    return list === "" ? String( index ) : list + "/" + index;
+  }
+
+  // { list, index } of a block path
+  static splitPath( path ) {
+    let i = path.lastIndexOf( "/" );
+    return i < 0 ? { list: "", index: parseInt( path, 10 ) } : { list: path.slice( 0, i ), index: parseInt( path.slice( i + 1 ), 10 ) };
+  }
+
   /**
    * @param {Element} container - .md-container created by bootstrap-markdown-editor after the textarea
    */
@@ -147,9 +167,10 @@ window.UTILS.MDBlockEditor = class {
     this.mdPreview = container.querySelector( ".md-preview" );
     this.button = container.querySelector( "[data-btnname='blocks']" );
     this.doc = null;
-    this.editing = null; // { index, isNew, element, input, original }
+    this.editing = null; // { list, index, isNew, element, input, original }
     this.menu = null;
     this.refreshIobjectsOnFocus = false;
+    this.sortableGroup = "md-blocks-" + ( ++window.UTILS.MDBlockEditor.instances );
 
     let blockShortcodes = null;
     try {
@@ -163,7 +184,7 @@ window.UTILS.MDBlockEditor = class {
     this.element = document.createElement( "div" );
     this.element.className = "md-blocks";
     this.element.style.display = "none";
-    this.element.innerHTML = "<div class=\"md-preview__viewport preview--desktop\"></div>";
+    this.element.innerHTML = "<div class=\"md-preview__viewport preview--desktop md-blocks-list\" data-list=\"\"></div>";
     this.mdPreview.after( this.element );
     this.viewport = this.element.querySelector( ".md-preview__viewport" );
     window.UTILS.PreviewModeToggle.init( this.element );
@@ -175,6 +196,8 @@ window.UTILS.MDBlockEditor = class {
     this.appendButton.innerHTML = "<span class=\"fa-solid fa-plus\"></span> ";
     this.appendButton.appendChild( document.createTextNode( this.texts.add ) );
     this.viewport.appendChild( this.appendButton );
+    this.viewport.mdAppend = this.appendButton;
+    this.makeSortable( this.viewport );
 
     // leaving the block view by the editor's own buttons
     [ ...container.querySelectorAll( ".md-toolbar .btn-edit, .md-toolbar .btn-preview" ) ].forEach( btn => {
@@ -188,30 +211,6 @@ window.UTILS.MDBlockEditor = class {
           this.redrawAce();
         }
       } );
-    } );
-
-    // dragging blocks by their handle; the fallback mode keeps the dragged clone inside .md-blocks,
-    // so it is styled as the content (a native drag image of a big block is hardly visible)
-    this.sortable = window.Sortable.create( this.viewport, {
-      handle: ".md-block__handle",
-      draggable: ".md-block:not(.md-block--new)",
-      filter: ".md-block--editing",
-      preventOnFilter: false,
-      forceFallback: true,
-      fallbackOnBody: false,
-      animation: 150,
-      scrollSensitivity: 100, // the upper ~55px are covered by the sticky preview mode toolbar
-      ghostClass: "md-block--ghost",
-      chosenClass: "md-block--chosen",
-      fallbackClass: "md-block--dragged",
-      onChoose: () => {
-        // an edited block is saved before dragging; it only re-renders the edited block, the dragged one stays
-        this.commitEdit();
-        this.closeMenu();
-      },
-      onEnd: evt => {
-        this.onSortEnd( evt.item );
-      },
     } );
 
     // while a block is edited, the formatting buttons work on its textarea instead of the hidden Ace;
@@ -238,11 +237,11 @@ window.UTILS.MDBlockEditor = class {
     }, true );
 
     // where the "Insert" dropdown puts a new block (the focus moves to the dropdown meanwhile)
-    this.lastFocusedIndex = null;
+    this.lastFocusedPath = null;
     this.viewport.addEventListener( "focusin", e => {
-      let blockEl = e.target.closest( ".md-block[data-index]" );
+      let blockEl = e.target.closest( ".md-block[data-path]" );
       if ( blockEl ) {
-        this.lastFocusedIndex = parseInt( blockEl.dataset.index, 10 );
+        this.lastFocusedPath = blockEl.dataset.path;
       }
     } );
 
@@ -349,6 +348,54 @@ window.UTILS.MDBlockEditor = class {
     return btn && window.UTILS.MDBlockEditor.formatButtons.indexOf( btn.dataset.btn ) >= 0 ? btn : null;
   }
 
+  // ---------------------------------------------------------------- the document tree
+
+  /**
+   * Finds a block by its path
+   * @param {String} path - e.g. "3" or "3/1/0"
+   * @returns {Object|null} { doc, index, block, list }
+   */
+  resolve( path ) {
+    let { list, index } = window.UTILS.MDBlockEditor.splitPath( String( path ) );
+    let doc = this.resolveList( list );
+    if ( !doc || !doc.blocks[ index ] ) {
+      return null;
+    }
+    return { doc: doc, index: index, block: doc.blocks[ index ], list: list };
+  }
+
+  /**
+   * Finds the doc of a list by its path ("" for the top-level list, "3/1" for the 2nd child of the block "3")
+   * @param {String} list
+   * @returns {Object|null} doc
+   */
+  resolveList( list ) {
+    if ( list === "" ) {
+      return this.doc;
+    }
+    let i = list.lastIndexOf( "/" );
+    let parent = this.resolve( list.slice( 0, i ) );
+    let child = parent && parent.block.container && parent.block.container.children[ parseInt( list.slice( i + 1 ), 10 ) ];
+    return child ? child.doc : null;
+  }
+
+  // Calls the callback for every block in the tree: callback( block, path )
+  walkBlocks( callback, doc, list ) {
+    doc = doc || this.doc;
+    list = list || "";
+    doc.blocks.forEach( ( block, index ) => {
+      let path = window.UTILS.MDBlockEditor.pathOf( list, index );
+      callback( block, path );
+      if ( block.container ) {
+        block.container.children.forEach( ( child, i ) => this.walkBlocks( callback, child.doc, path + "/" + i ) );
+      }
+    } );
+  }
+
+  blockElement( path ) {
+    return this.viewport.querySelector( ".md-block[data-path='" + path + "']" );
+  }
+
   // ---------------------------------------------------------------- rendering
 
   /**
@@ -361,11 +408,10 @@ window.UTILS.MDBlockEditor = class {
     this.doc = window.UTILS.MDBlockTokenizer.tokenize( source, this.tokenizerOptions );
     this.updateHistoryButtons();
 
-    let cache = window.UTILS.MDBlockEditor.renderCache;
-    let elements = this.doc.blocks.map( ( block, index ) => this.elementFor( block, index ) );
-    this.placeElements( elements );
+    let pending = [];
+    this.renderList( this.viewport, this.doc, "", pending );
 
-    let message = this.viewport.querySelector( ".md-blocks__message" );
+    let message = this.viewport.querySelector( ":scope > .md-blocks__message" );
     if ( !this.doc.blocks.length && !this.editing ) {
       if ( !message ) {
         message = document.createElement( "p" );
@@ -377,10 +423,10 @@ window.UTILS.MDBlockEditor = class {
       message.remove();
     }
 
-    let pending = elements.filter( el => !cache.has( el.mdKey ) );
     if ( !pending.length ) {
       return;
     }
+    let cache = window.UTILS.MDBlockEditor.renderCache;
     this.fetchRendered( pending.map( el => el.mdSource ) ).then( () => {
       this.fillElements( pending );
     } ).catch( () => {
@@ -393,54 +439,79 @@ window.UTILS.MDBlockEditor = class {
   }
 
   /**
+   * Shows the blocks of the doc in the list element (and nested lists of container blocks)
+   * @param {Element} listEl
+   * @param {Object} doc
+   * @param {String} list - path of the list
+   * @param {Array} pending - elements waiting for rendering are added
+   */
+  renderList( listEl, doc, list, pending ) {
+    listEl.dataset.list = list;
+    let elements = doc.blocks.map( ( block, index ) => this.elementFor( listEl, block, window.UTILS.MDBlockEditor.pathOf( list, index ), pending ) );
+    this.placeElements( listEl, elements, list );
+  }
+
+  /**
    * Returns an element showing the block: an existing one when the block didn't change
    * (so the state of interactive components and loaded media is kept), or a new one
    */
-  elementFor( block, index ) {
+  elementFor( listEl, block, path, pending ) {
     let source = this.renderSource( block );
-    let key = this.cacheKey( source ) + ( block.unclosed ? "\n#unclosed" : "" );
-    let el = [ ...this.viewport.children ].find( child => child.mdKey === key && !child.mdUsed );
+    let key = this.cacheKey( source ) + ( block.unclosed ? "\n#unclosed" : "" ) + ( block.container ? "\n#container" : "" );
+    let el = [ ...listEl.children ].find( child => child.mdKey === key && !child.mdUsed );
     if ( !el ) {
-      el = this.blockElement( block );
+      el = this.createBlockElement( block );
       el.mdKey = key;
       el.mdSource = source;
+      if ( block.container ) {
+        el.mdLists = block.container.children.map( () => this.createListElement() );
+      }
       let html = window.UTILS.MDBlockEditor.renderCache.get( this.cacheKey( source ) );
       if ( html !== undefined ) {
         this.setElementContent( el, block, html );
       } else {
         this.setElementPending( el, block );
+        pending.push( el );
       }
     }
     el.mdUsed = true;
     el.mdBlock = block;
-    el.dataset.index = index;
+    el.dataset.path = path;
+    if ( block.container ) {
+      block.container.children.forEach( ( child, i ) => {
+        el.mdLists[ i ].dataset.container = block.name; // see onMove in makeSortable()
+        this.renderList( el.mdLists[ i ], child.doc, path + "/" + i, pending );
+      } );
+    }
     return el;
   }
 
   /**
-   * Puts the elements into the viewport in the given order, moving as few nodes as possible
+   * Puts the elements into the list element in the given order, moving as few nodes as possible
    * (moving a node reloads its iframes, e.g. embedded videos)
    */
-  placeElements( elements ) {
-    let editingNew = this.editing && this.editing.isNew ? this.editing.element : null;
+  placeElements( listEl, elements, list ) {
+    let editingNew = this.editing && this.editing.isNew && this.editing.list === list ? this.editing.element : null;
     let editingExisting = this.editing && !this.editing.isNew ? this.editing.element : null;
     let wanted = elements.slice();
     if ( editingNew ) {
       wanted.splice( this.editing.index, 0, editingNew );
     }
-    [ ...this.viewport.querySelectorAll( ":scope > .md-block" ) ].forEach( el => {
+    [ ...listEl.querySelectorAll( ":scope > .md-block" ) ].forEach( el => {
       if ( wanted.indexOf( el ) < 0 && el !== editingExisting ) {
         el.remove();
       }
     } );
-    let ref = this.viewport.querySelector( ":scope > .md-block" );
+    let ref = listEl.querySelector( ":scope > .md-block" );
     wanted.forEach( el => {
       if ( el === ref ) {
         ref = ref.nextElementSibling;
         return;
       }
-      this.viewport.insertBefore( el, ref && ref.classList.contains( "md-block" ) ? ref : this.appendButton );
+      listEl.insertBefore( el, ref && ref.classList.contains( "md-block" ) ? ref : listEl.mdAppend );
     } );
+    // the append button stays last (e.g. after a block was dropped behind it)
+    listEl.appendChild( listEl.mdAppend );
     elements.forEach( el => {
       el.mdUsed = false;
     } );
@@ -450,8 +521,8 @@ window.UTILS.MDBlockEditor = class {
     let cache = window.UTILS.MDBlockEditor.renderCache;
     let swiper = false;
     elements.forEach( el => {
-      if ( el.parentElement && cache.has( el.mdKey ) ) {
-        this.setElementContent( el, el.mdBlock, cache.get( el.mdKey ) );
+      if ( el.isConnected && cache.has( this.cacheKey( el.mdSource ) ) ) {
+        this.setElementContent( el, el.mdBlock, cache.get( this.cacheKey( el.mdSource ) ) );
         swiper = swiper || !!el.querySelector( ".swiper" );
       }
     } );
@@ -461,16 +532,79 @@ window.UTILS.MDBlockEditor = class {
   }
 
   /**
+   * A nested list of blocks (content of a container child, e.g. a column)
+   * @returns {Element}
+   */
+  createListElement() {
+    let listEl = document.createElement( "div" );
+    listEl.className = "md-blocks-list md-blocks-list--nested";
+    let append = document.createElement( "button" );
+    append.type = "button";
+    append.className = "md-blocks__append md-blocks__append--nested js--add-block";
+    append.title = this.texts.add;
+    append.innerHTML = "<span class=\"fa-solid fa-plus\"></span>";
+    listEl.appendChild( append );
+    listEl.mdAppend = append;
+    this.makeSortable( listEl );
+    return listEl;
+  }
+
+  /**
+   * Dragging blocks by their handle, between all lists of this editor; the fallback mode keeps the dragged clone
+   * inside .md-blocks, so it is styled as the content (a native drag image of a big block is hardly visible)
+   * @param {Element} listEl
+   */
+  makeSortable( listEl ) {
+    window.Sortable.create( listEl, {
+      group: this.sortableGroup,
+      handle: ".md-block__handle",
+      draggable: ".md-block:not(.md-block--new)",
+      filter: ".md-block--editing",
+      preventOnFilter: false,
+      forceFallback: true,
+      fallbackOnBody: false,
+      animation: 150,
+      swapThreshold: 0.65,
+      scrollSensitivity: 100, // the upper ~55px are covered by the sticky preview mode toolbar
+      ghostClass: "md-block--ghost",
+      chosenClass: "md-block--chosen",
+      fallbackClass: "md-block--dragged",
+      onChoose: () => {
+        // an edited block is saved before dragging; it only re-renders the edited block, the dragged one stays
+        this.commitEdit();
+        this.closeMenu();
+      },
+      onMove: evt => {
+        // a block can't get into itself; a container can't get into a child of its own kind (no [row] in a column, no [tabs] in a tab)
+        if ( evt.dragged.contains( evt.to ) ) {
+          return false;
+        }
+        let block = evt.dragged.mdBlock;
+        if ( block && block.container && evt.to.dataset.container === block.name ) {
+          return false;
+        }
+        return true;
+      },
+      onEnd: evt => {
+        this.onSortEnd( evt );
+      },
+    } );
+  }
+
+  /**
    * Builds the element of a block, without its rendered content
    * @param {Object} block
    * @returns {Element}
    */
-  blockElement( block ) {
+  createBlockElement( block ) {
     let el = document.createElement( "div" );
     el.className = "md-block md-block--" + block.type;
     el.tabIndex = 0;
     if ( block.unclosed ) {
       el.classList.add( "md-block--unclosed" );
+    }
+    if ( block.container ) {
+      el.classList.add( "md-block--container" );
     }
 
     let toolbar = document.createElement( "div" );
@@ -496,6 +630,10 @@ window.UTILS.MDBlockEditor = class {
       toolbar.appendChild( link );
     }
     toolbar.appendChild( this.toolbarButton( "js--show-source", "fa-code", this.texts.showSource, this.texts.showSourceTitle ) );
+    if ( block.container ) {
+      // its bottom "+" is hidden while blocks inside are hovered
+      toolbar.appendChild( this.toolbarButton( "js--add-block", "fa-plus", "", this.texts.addTitle ) );
+    }
     toolbar.appendChild( this.toolbarButton( "js--remove-block", "fa-trash-can", "", this.texts.removeTitle ) );
 
     let content = document.createElement( "div" );
@@ -528,9 +666,13 @@ window.UTILS.MDBlockEditor = class {
   }
 
   setElementContent( el, block, html ) {
-    let content = el.querySelector( ".md-block__content" );
+    let content = el.querySelector( ":scope > .md-block__content" );
     el.classList.remove( "md-block--pending", "md-block--error", "md-block--empty" );
     content.innerHTML = html || "";
+    if ( block.container ) {
+      this.mountLists( el, content );
+      return;
+    }
     if ( !content.textContent.trim() && !content.querySelector( "img, iframe, video, svg, hr, table" ) ) {
       // nothing visible, e.g. link reference definitions or an HTML comment
       el.classList.add( "md-block--empty" );
@@ -538,15 +680,37 @@ window.UTILS.MDBlockEditor = class {
     }
   }
 
+  /**
+   * Puts the nested lists of a container into the slots of its rendered HTML;
+   * without slots (not rendered yet, or a template not keeping them) the lists are shown side by side
+   */
+  mountLists( el, content ) {
+    let slots = [ ...content.querySelectorAll( ".md-slot" ) ];
+    if ( slots.length === el.mdLists.length ) {
+      slots.forEach( ( slot, i ) => slot.replaceWith( el.mdLists[ i ] ) );
+      return;
+    }
+    let columns = document.createElement( "div" );
+    columns.className = "md-block__columns";
+    el.mdLists.forEach( listEl => columns.appendChild( listEl ) );
+    content.innerHTML = "";
+    content.appendChild( columns );
+  }
+
   setElementPending( el, block ) {
     el.classList.add( "md-block--pending" );
-    this.setContentSource( el.querySelector( ".md-block__content" ), block );
+    let content = el.querySelector( ":scope > .md-block__content" );
+    if ( block.container ) {
+      this.mountLists( el, content );
+      return;
+    }
+    this.setContentSource( content, block );
   }
 
   setElementError( el ) {
     el.classList.remove( "md-block--pending" );
     el.classList.add( "md-block--error" );
-    let content = el.querySelector( ".md-block__content" );
+    let content = el.querySelector( ":scope > .md-block__content" );
     let p = document.createElement( "p" );
     p.className = "md-blocks__message";
     p.textContent = this.texts.error + " ";
@@ -555,7 +719,7 @@ window.UTILS.MDBlockEditor = class {
     retry.className = "btn btn-sm btn-outline-secondary js--retry";
     retry.textContent = this.texts.retry;
     p.appendChild( retry );
-    content.appendChild( p );
+    content.insertBefore( p, content.firstChild );
   }
 
   setContentSource( content, block ) {
@@ -589,11 +753,16 @@ window.UTILS.MDBlockEditor = class {
 
   /**
    * Source sent for rendering: a block lifted out of its document doesn't see
-   * link reference definitions placed elsewhere, so they are appended to it
+   * link reference definitions placed elsewhere, so they are appended to it;
+   * a container is rendered with empty slots in place of its children's content
    * @param {Object} block
    * @returns {String}
    */
   renderSource( block ) {
+    if ( block.container ) {
+      let c = block.container;
+      return c.head + c.children.map( ( child, i ) => child.open + "<div class=\"md-slot\" data-slot=\"" + i + "\"></div>" + child.close + child.after ).join( "" ) + c.tail;
+    }
     if ( block.type === "definitions" || !this.doc.definitions.length ) {
       return block.raw;
     }
@@ -604,13 +773,15 @@ window.UTILS.MDBlockEditor = class {
     return ( this.textarea.dataset.base_href || "" ) + "\n" + source;
   }
 
-  // Removes rendered HTML of the matching blocks from the cache
+  // Removes rendered HTML of the matching blocks (nested ones included) from the cache
   forgetRendered( filter ) {
     let cache = window.UTILS.MDBlockEditor.renderCache;
-    this.doc.blocks.filter( filter ).forEach( block => {
-      cache.delete( this.cacheKey( this.renderSource( block ) ) );
+    this.walkBlocks( block => {
+      if ( filter( block ) ) {
+        cache.delete( this.cacheKey( this.renderSource( block ) ) );
+      }
     } );
-    [ ...this.viewport.querySelectorAll( ":scope > .md-block" ) ].forEach( el => {
+    [ ...this.viewport.querySelectorAll( ".md-block" ) ].forEach( el => {
       if ( el.mdBlock && filter( el.mdBlock ) ) {
         el.mdKey = null; // never reused
       }
@@ -745,14 +916,15 @@ window.UTILS.MDBlockEditor = class {
 
   /**
    * Edits the block by its dedicated editor (when registered) or inline
-   * @param {Number} index
+   * @param {String} path
    */
-  editBlock( index ) {
+  editBlock( path ) {
     this.commitEdit();
-    let block = this.doc.blocks[ index ];
-    if ( !block ) {
+    let r = this.resolve( path );
+    if ( !r ) {
       return;
     }
+    let block = r.block;
     let inserter = block.type === "shortcode" && window.UTILS.MDEditorInserts.editorFor( block.name, block.raw );
     if ( inserter ) {
       let raw = block.raw;
@@ -760,41 +932,44 @@ window.UTILS.MDBlockEditor = class {
         raw: raw,
         onSave: newRaw => {
           // the document may have been changed meanwhile, so the block is looked up again
-          let i = this.doc.blocks.findIndex( b => b.raw === raw );
+          let found = null;
+          this.walkBlocks( ( b, p ) => {
+            found = found || ( b.raw === raw ? p : null );
+          } );
           newRaw = window.UTILS.MDBlockEditor.cleanRaw( newRaw );
-          if ( i >= 0 && newRaw !== raw ) {
-            this.replaceBlock( i, newRaw );
-          } else {
-            this.focusBlock( i );
+          if ( found !== null && newRaw !== raw ) {
+            this.replaceBlock( found, newRaw );
+          } else if ( found !== null ) {
+            this.focusBlock( found );
           }
         },
         onCancel: () => {
-          this.focusBlock( index );
+          this.focusBlock( path );
         },
       } );
       return;
     }
-    let el = this.viewport.querySelector( ":scope > .md-block[data-index='" + index + "']" );
-    this.startEdit( { index: index, isNew: false, element: el, original: block.raw, value: block.raw, cursor: block.raw.length } );
+    this.startEdit( { list: r.list, index: r.index, isNew: false, element: this.blockElement( path ), original: block.raw, value: block.raw, cursor: block.raw.length } );
   }
 
   /**
    * Starts editing a new block placed at the given position
+   * @param {String} list
    * @param {Number} index
    * @param {String} template - "|" marks the cursor position
    */
-  addBlock( index, template ) {
+  addBlock( list, index, template ) {
     this.commitEdit();
     let cursor = template.indexOf( "|" );
     let value = template.replace( "|", "" );
     if ( cursor < 0 ) {
       // nothing to fill in (e.g. a divider)
-      this.insertBlock( index, value );
+      this.insertBlock( list, index, value );
       return;
     }
     let el = document.createElement( "div" );
     el.className = "md-block md-block--new";
-    this.startEdit( { index: index, isNew: true, element: el, original: "", value: value, cursor: cursor } );
+    this.startEdit( { list: list, index: index, isNew: true, element: el, original: "", value: value, cursor: cursor } );
   }
 
   startEdit( editing ) {
@@ -862,20 +1037,21 @@ window.UTILS.MDBlockEditor = class {
     let raw = window.UTILS.MDBlockEditor.cleanRaw( editing.input.value );
     this.finishEditElement( editing );
     let element = editing.element;
+    let path = window.UTILS.MDBlockEditor.pathOf( editing.list, editing.index );
 
     if ( editing.isNew ) {
       element.remove();
       if ( raw ) {
-        this.insertBlock( editing.index, raw );
+        this.insertBlock( editing.list, editing.index, raw );
       } else {
         this.refresh();
       }
     } else if ( raw === editing.original ) {
-      this.focusBlock( editing.index );
+      this.focusBlock( path );
     } else if ( !raw ) {
-      this.removeBlock( editing.index );
+      this.removeBlock( path );
     } else {
-      this.replaceBlock( editing.index, raw );
+      this.replaceBlock( path, raw );
     }
   }
 
@@ -905,9 +1081,9 @@ window.UTILS.MDBlockEditor = class {
     if ( editing.isNew ) {
       editing.element.remove();
       this.refresh();
-      this.focusBlock( editing.index - 1 );
+      this.focusBlock( window.UTILS.MDBlockEditor.pathOf( editing.list, editing.index - 1 ) );
     } else {
-      this.focusBlock( editing.index );
+      this.focusBlock( window.UTILS.MDBlockEditor.pathOf( editing.list, editing.index ) );
     }
   }
 
@@ -983,65 +1159,108 @@ window.UTILS.MDBlockEditor = class {
     input.setSelectionRange( selectionStart, selectionEnd );
   }
 
-  insertBlock( index, raw ) {
-    this.doc.blocks.splice( index, 0, { type: "paragraph", raw: raw } );
-    window.UTILS.MDBlockTokenizer.normalize( this.doc, [ index - 1, index ] );
+  insertBlock( list, index, raw ) {
+    let doc = this.resolveList( list );
+    if ( !doc ) {
+      return;
+    }
+    doc.blocks.splice( index, 0, { type: "paragraph", raw: raw } );
+    window.UTILS.MDBlockTokenizer.normalize( doc, [ index - 1, index ] );
     this.applyDoc();
-    this.focusBlock( index );
+    this.focusBlock( window.UTILS.MDBlockEditor.pathOf( list, index ) );
   }
 
-  replaceBlock( index, raw ) {
-    this.doc.blocks[ index ].raw = raw;
-    window.UTILS.MDBlockTokenizer.normalize( this.doc, [ index - 1, index ] );
+  replaceBlock( path, raw ) {
+    let r = this.resolve( path );
+    if ( !r ) {
+      return;
+    }
+    r.block.raw = raw;
+    delete r.block.container; // the raw is the source of the block now
+    window.UTILS.MDBlockTokenizer.normalize( r.doc, [ r.index - 1, r.index ] );
     this.applyDoc();
-    this.focusBlock( index );
+    this.focusBlock( path );
   }
 
-  removeBlock( index ) {
-    this.doc.blocks.splice( index, 1 );
-    window.UTILS.MDBlockTokenizer.normalize( this.doc, [ index - 1 ] );
+  removeBlock( path ) {
+    let r = this.resolve( path );
+    if ( !r ) {
+      return;
+    }
+    r.doc.blocks.splice( r.index, 1 );
+    window.UTILS.MDBlockTokenizer.normalize( r.doc, [ r.index - 1 ] );
+    let focusIndex = Math.min( r.index, r.doc.blocks.length - 1 );
     this.applyDoc();
-    this.focusBlock( Math.min( index, this.doc.blocks.length - 1 ) );
+    if ( focusIndex >= 0 ) {
+      this.focusBlock( window.UTILS.MDBlockEditor.pathOf( r.list, focusIndex ) );
+    }
   }
 
   /**
-   * Writes the order of block elements left by dragging into the source
-   * @param {Element} moved - the dragged block
+   * Writes the order of block elements left by dragging into the source;
+   * a block dropped into another list (e.g. another column) is moved there
+   * @param {Object} evt - SortableJS onEnd event
    */
-  onSortEnd( moved ) {
-    let order = [ ...this.viewport.querySelectorAll( ":scope > .md-block:not(.md-block--new):not(.md-block--dragged)" ) ].map( el => parseInt( el.dataset.index, 10 ) );
-    if ( order.every( ( index, i ) => index === i ) ) {
-      return;
+  onSortEnd( evt ) {
+    let moved = evt.item;
+    let from = evt.from.dataset.list;
+    let to = evt.to.dataset.list;
+    let blocksOf = listEl => [ ...listEl.querySelectorAll( ":scope > .md-block:not(.md-block--new):not(.md-block--dragged)" ) ];
+    let source = window.UTILS.MDBlockEditor.splitPath( moved.dataset.path );
+    let targetIndex = blocksOf( evt.to ).indexOf( moved );
+
+    if ( from === to ) {
+      let order = blocksOf( evt.to ).map( el => window.UTILS.MDBlockEditor.splitPath( el.dataset.path ).index );
+      if ( order.every( ( index, i ) => index === i ) ) {
+        return;
+      }
+      window.UTILS.MDBlockTokenizer.reorder( this.resolveList( from ), order );
+    } else {
+      // both docs are looked up before anything is moved, paths of later blocks would change
+      let sourceDoc = this.resolveList( from );
+      let targetDoc = this.resolveList( to );
+      if ( !sourceDoc || !targetDoc ) {
+        this.refresh();
+        return;
+      }
+      let block = sourceDoc.blocks.splice( source.index, 1 )[ 0 ];
+      window.UTILS.MDBlockTokenizer.normalize( sourceDoc, [ source.index - 1 ] );
+      targetDoc.blocks.splice( targetIndex, 0, block );
+      window.UTILS.MDBlockTokenizer.normalize( targetDoc, [ targetIndex - 1, targetIndex ] );
     }
-    window.UTILS.MDBlockTokenizer.reorder( this.doc, order );
     this.applyDoc();
     moved.focus( { preventScroll: true } );
   }
 
   /**
-   * Moves the block one position up or down (Alt+Up / Alt+Down)
-   * @param {Number} index
+   * Moves the block one position up or down within its list (Alt+Up / Alt+Down)
+   * @param {String} path
    * @param {Number} delta - -1 or 1
    */
-  moveBlock( index, delta ) {
-    let target = index + delta;
-    if ( target < 0 || target >= this.doc.blocks.length ) {
+  moveBlock( path, delta ) {
+    let r = this.resolve( path );
+    if ( !r ) {
       return;
     }
-    let order = this.doc.blocks.map( ( block, i ) => i );
-    order[ index ] = target;
-    order[ target ] = index;
-    window.UTILS.MDBlockTokenizer.reorder( this.doc, order );
+    let target = r.index + delta;
+    if ( target < 0 || target >= r.doc.blocks.length ) {
+      return;
+    }
+    let order = r.doc.blocks.map( ( block, i ) => i );
+    order[ r.index ] = target;
+    order[ target ] = r.index;
+    window.UTILS.MDBlockTokenizer.reorder( r.doc, order );
     this.applyDoc();
-    this.focusBlock( target );
-    let el = this.viewport.querySelector( ":scope > .md-block[data-index='" + target + "']" );
+    let targetPath = window.UTILS.MDBlockEditor.pathOf( r.list, target );
+    this.focusBlock( targetPath );
+    let el = this.blockElement( targetPath );
     if ( el ) {
       el.scrollIntoView( { block: "nearest" } );
     }
   }
 
-  focusBlock( index ) {
-    let el = this.viewport.querySelector( ":scope > .md-block[data-index='" + index + "']" );
+  focusBlock( path ) {
+    let el = this.blockElement( path );
     if ( el ) {
       el.focus( { preventScroll: true } );
     }
@@ -1057,8 +1276,12 @@ window.UTILS.MDBlockEditor = class {
   insertItem( item ) {
     let editing = this.editing;
     if ( !editing ) {
-      let index = this.lastFocusedIndex === null ? this.doc.blocks.length : Math.min( this.lastFocusedIndex + 1, this.doc.blocks.length );
-      this.insertItemAsBlock( item, index );
+      let last = this.lastFocusedPath !== null && this.resolve( this.lastFocusedPath );
+      if ( last ) {
+        this.insertItemAsBlock( item, last.list, last.index + 1 );
+      } else {
+        this.insertItemAsBlock( item, "", this.doc.blocks.length );
+      }
       return;
     }
     // the modal takes the focus; the edit must not be committed by the textarea's blur meanwhile
@@ -1100,25 +1323,27 @@ window.UTILS.MDBlockEditor = class {
   /**
    * Opens the registered thing and inserts the result as a new block at the given position
    * @param {Object} item
+   * @param {String} list
    * @param {Number} index
    */
-  insertItemAsBlock( item, index ) {
+  insertItemAsBlock( item, list, index ) {
     window.UTILS.MDEditorInserts.run( item, {
       onSave: code => {
         code = window.UTILS.MDBlockEditor.cleanRaw( code );
-        if ( code ) {
-          this.insertBlock( Math.min( index, this.doc.blocks.length ), code );
+        let doc = this.resolveList( list );
+        if ( code && doc ) {
+          this.insertBlock( list, Math.min( index, doc.blocks.length ), code );
         }
       },
       onCancel: () => {
-        this.focusBlock( index - 1 );
+        this.focusBlock( window.UTILS.MDBlockEditor.pathOf( list, index - 1 ) );
       },
     } );
   }
 
   // ---------------------------------------------------------------- the "add block" menu
 
-  openMenu( button, index ) {
+  openMenu( button, list, index ) {
     this.closeMenu();
     let menu = document.createElement( "div" );
     menu.className = "md-blocks__menu";
@@ -1129,7 +1354,7 @@ window.UTILS.MDBlockEditor = class {
       btn.textContent = this.texts.types[ item.type ] || item.type;
       btn.addEventListener( "click", () => {
         this.closeMenu();
-        this.addBlock( index, item.template );
+        this.addBlock( list, index, item.template );
       } );
       menu.appendChild( btn );
     } );
@@ -1147,7 +1372,7 @@ window.UTILS.MDBlockEditor = class {
       btn.title = item.title || "";
       btn.addEventListener( "click", () => {
         this.closeMenu();
-        this.insertItemAsBlock( item, index );
+        this.insertItemAsBlock( item, list, index );
       } );
       menu.appendChild( btn );
     } );
@@ -1191,18 +1416,27 @@ window.UTILS.MDBlockEditor = class {
       }
     }
     let blockEl = target.closest( ".md-block" );
-    let index = blockEl ? parseInt( blockEl.dataset.index, 10 ) : null;
+    let path = blockEl ? blockEl.dataset.path : null;
 
-    if ( target.closest( ".js--add-block" ) ) {
-      this.openMenu( target.closest( ".js--add-block" ), blockEl ? index + 1 : this.doc.blocks.length );
+    let addButton = target.closest( ".js--add-block" );
+    if ( addButton ) {
+      if ( addButton.classList.contains( "md-blocks__append" ) ) {
+        // at the end of the list the button belongs to
+        let listEl = addButton.parentElement;
+        let doc = this.resolveList( listEl.dataset.list );
+        this.openMenu( addButton, listEl.dataset.list, doc ? doc.blocks.length : 0 );
+      } else {
+        let { list, index } = window.UTILS.MDBlockEditor.splitPath( path );
+        this.openMenu( addButton, list, index + 1 );
+      }
     } else if ( !blockEl ) {
       return;
     } else if ( target.closest( ".js--edit-block" ) ) {
-      this.editBlock( index );
+      this.editBlock( path );
     } else if ( target.closest( ".js--show-source" ) ) {
-      this.showSource( index );
+      this.showSource( path );
     } else if ( target.closest( ".js--remove-block" ) ) {
-      this.removeBlock( index );
+      this.removeBlock( path );
     } else if ( target.closest( ".js--edit-object" ) ) {
       this.refreshIobjectsOnFocus = true;
       return; // the link opens in a new tab
@@ -1216,12 +1450,12 @@ window.UTILS.MDBlockEditor = class {
 
   onDblClick( e ) {
     let blockEl = e.target.closest( ".md-block" );
-    if ( !blockEl || blockEl.classList.contains( "md-block--editing" ) || e.target.closest( ".md-block__toolbar, .md-block__add" ) ) {
+    if ( !blockEl || blockEl.classList.contains( "md-block--editing" ) || e.target.closest( ".md-block__toolbar, .md-block__add, .md-blocks__append" ) ) {
       return;
     }
     e.preventDefault();
     window.getSelection().removeAllRanges(); // a double-click selects a word
-    this.editBlock( parseInt( blockEl.dataset.index, 10 ) );
+    this.editBlock( blockEl.dataset.path );
   }
 
   onKeyDown( e ) {
@@ -1246,27 +1480,28 @@ window.UTILS.MDBlockEditor = class {
       this.redo();
     } else if ( e.altKey && ( e.key === "ArrowUp" || e.key === "ArrowDown" ) && e.target.classList.contains( "md-block" ) ) {
       e.preventDefault();
-      this.moveBlock( parseInt( e.target.dataset.index, 10 ), e.key === "ArrowUp" ? -1 : 1 );
+      this.moveBlock( e.target.dataset.path, e.key === "ArrowUp" ? -1 : 1 );
     } else if ( e.key === "Enter" && e.target.classList.contains( "md-block" ) ) {
       e.preventDefault();
-      this.editBlock( parseInt( e.target.dataset.index, 10 ) );
+      this.editBlock( e.target.dataset.path );
     }
   }
 
   /**
-   * Switches to "Edit" and selects the source of the given block
-   * @param {Number} index
+   * Switches to "Code" and selects the source of the given block
+   * @param {String} path
    */
-  showSource( index ) {
-    let block = this.doc.blocks[ index ];
+  showSource( path ) {
+    let r = this.resolve( path );
     // clicking the editor's own button switches the view as the user would do it
     this.container.querySelector( ".btn-edit" ).click();
-    if ( !block ) {
+    if ( !r ) {
       return;
     }
+    let block = r.block;
     let editor = this.aceEditor;
     let Range = window.ace.require( "ace/range" ).Range;
-    let lastRow = block.line + block.lineCount - 1;
+    let lastRow = block.line + window.UTILS.MDBlockTokenizer.blockRaw( block ).split( "\n" ).length - 1;
     editor.selection.setRange( new Range( block.line, 0, lastRow, editor.getSession().getLine( lastRow ).length ) );
     editor.scrollToLine( block.line, true, true );
     editor.focus();

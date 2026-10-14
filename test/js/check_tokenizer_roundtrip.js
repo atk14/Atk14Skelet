@@ -19,6 +19,7 @@ var data = JSON.parse( fs.readFileSync( file || "/dev/stdin", "utf8" ) );
 var failures = 0;
 var warnings = 0;
 var blockCount = 0;
+var containerCount = 0;
 var typeCounts = {};
 
 data.sources.forEach( function( item ) {
@@ -30,14 +31,27 @@ data.sources.forEach( function( item ) {
     console.log( "FAIL " + label + ": join() doesn't give back the original source" );
   }
 
-  doc.blocks.forEach( function( block ) {
-    blockCount++;
-    typeCounts[ block.type ] = ( typeCounts[ block.type ] || 0 ) + 1;
-    if ( block.unclosed ) {
-      warnings++;
-      console.log( "WARN " + label + ": unclosed [" + block.name + "] at line " + ( block.line + 1 ) );
-    }
-  } );
+  var walk = function( blocks, depth ) {
+    blocks.forEach( function( block ) {
+      blockCount++;
+      var type = block.type + ( depth ? " (nested)" : "" );
+      typeCounts[ type ] = ( typeCounts[ type ] || 0 ) + 1;
+      if ( block.unclosed ) {
+        warnings++;
+        console.log( "WARN " + label + ": unclosed [" + block.name + "] at line " + ( block.line + 1 ) );
+      }
+      if ( block.container ) {
+        containerCount++;
+        block.container.children.forEach( function( child ) {
+          walk( child.doc.blocks, depth + 1 );
+        } );
+      } else if ( block.type === "shortcode" && MDBlockTokenizer.defaultContainers[ block.name ] && !block.unclosed ) {
+        // a container shortcode which couldn't be split into its children, it's edited as a whole
+        console.log( "INFO " + label + ": [" + block.name + "] at line " + ( block.line + 1 ) + " is not split into children" );
+      }
+    } );
+  };
+  walk( doc.blocks, 0 );
 
   if ( verbose ) {
     console.log( "--- " + label );
@@ -48,6 +62,6 @@ data.sources.forEach( function( item ) {
   }
 } );
 
-console.log( data.sources.length + " sources, " + blockCount + " blocks " + JSON.stringify( typeCounts ) );
+console.log( data.sources.length + " sources, " + blockCount + " blocks (" + containerCount + " containers) " + JSON.stringify( typeCounts ) );
 console.log( failures + " failures, " + warnings + " warnings" );
 process.exit( failures ? 1 : 0 );

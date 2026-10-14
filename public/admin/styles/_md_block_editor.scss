@@ -272,3 +272,71 @@
     }
   }
 }
+
+// Containers ([row]) with nested lists of blocks ([col])
+
+.md-blocks {
+
+  // nothing is added around the blocks, a column looks as on the web
+  .md-blocks-list--nested {
+    position: relative;
+    min-height: 1.5rem;
+  }
+
+  // "+" of an empty nested list; a non-empty one gets new blocks by the "+" of its blocks
+  .md-blocks__append--nested {
+    display: none;
+    width: 100%;
+    padding: 0;
+    font-size: 0.75rem;
+    line-height: 1.5rem;
+    color: $gray-500;
+    background: none;
+    border: 1px dashed $gray-400;
+    border-radius: 2px;
+    cursor: pointer;
+    &:hover, &:focus {
+      color: $primary;
+      border-color: $primary;
+    }
+  }
+
+  .md-blocks-list--nested:not(:has(> .md-block)) > .md-blocks__append--nested {
+    display: block;
+  }
+
+  // the toolbar of a container is a tab above its top left corner, so it's reachable even when the container
+  // is filled with nested blocks (whose toolbars are at their top right corners)
+  .md-block--container > .md-block__toolbar {
+    position: absolute;
+    top: -1.5rem;
+    left: 0;
+    margin: 0;
+    border-radius: 2px 2px 0 0;
+  }
+
+  // room for the toolbar of a container at the very top
+  .md-preview__viewport {
+    padding-top: 1.75rem;
+  }
+
+  // while hovering (or editing) a block inside a container, the container's outline is just a hint
+  // and its bottom "+" steps aside (its toolbar has a "+" too)
+  .md-block--container:has(.md-blocks-list--nested:hover),
+  .md-block--container:has(.md-blocks-list--nested:focus-within) {
+    outline-color: $gray-300;
+    > .md-block__add {
+      display: none;
+    }
+  }
+
+  // nested lists shown side by side until the container is rendered
+  .md-block__columns {
+    display: flex;
+    gap: 0.5rem;
+    > .md-blocks-list--nested {
+      flex: 1 1 0;
+      outline: 1px dashed $gray-400;
+    }
+  }
+}

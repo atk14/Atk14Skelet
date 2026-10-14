@@ -232,6 +232,146 @@ module.exports = {
     assert.throws( function() { MDBlockTokenizer.reorder( tokenize( "A\n\nB" ), [ 0 ] ); }, /every block index/ );
   },
 
+  test_container() {
+    var row = [
+      "[row class=\"row--borders\"]",
+      "  [col class=\"col-md-6\" defaultclasses=0]",
+      "### Column 1",
+      "Text of the first column.",
+      "",
+      "[#12 Picture]",
+      "[/col]",
+      "  [col]Two[/col]",
+      "[/row]",
+    ].join( "\n" );
+    var doc = tokenize( "Intro\n\n" + row + "\n\nOutro\n" );
+    assert.deepEqual( types( doc ), [ "paragraph", "shortcode", "paragraph" ] );
+    var c = doc.blocks[ 1 ].container;
+    assert.ok( c );
+    assert.equal( c.head, "[row class=\"row--borders\"]\n  " );
+    assert.equal( c.tail, "[/row]" );
+    assert.deepEqual( c.children.map( ch => ch.open ), [ "[col class=\"col-md-6\" defaultclasses=0]", "[col]" ] );
+    assert.deepEqual( c.children.map( ch => ch.close ), [ "[/col]", "[/col]" ] );
+    assert.deepEqual( c.children.map( ch => ch.after ), [ "\n  ", "\n" ] );
+    assert.deepEqual( c.children[ 0 ].attrs, { class: "col-md-6", defaultclasses: "0" } );
+
+    var col1 = c.children[ 0 ].doc;
+    assert.equal( col1.nested, true );
+    assert.deepEqual( types( col1 ), [ "heading", "paragraph", "iobject" ] );
+    assert.equal( col1.leading, "\n" );
+    assert.equal( col1.trailing, "\n" );
+    // lines in the whole source
+    assert.deepEqual( col1.blocks.map( b => b.line ), [ 4, 5, 7 ] );
+    assert.deepEqual( raws( c.children[ 1 ].doc ), [ "Two" ] );
+    assert.equal( c.children[ 1 ].doc.blocks[ 0 ].line, 9 );
+
+    // a change inside a column gets into the source
+    col1.blocks[ 1 ].raw = "Changed text.";
+    assert.equal( MDBlockTokenizer.join( doc ), "Intro\n\n" + row.replace( "Text of the first column.", "Changed text." ) + "\n\nOutro\n" );
+    assert.equal( doc.blocks[ 1 ].raw.indexOf( "Changed text." ) > 0, true );
+
+    // reordering blocks inside a column
+    MDBlockTokenizer.reorder( col1, [ 2, 0, 1 ] );
+    assert.equal( MDBlockTokenizer.join( c.children[ 0 ].doc ), "\n[#12 Picture]\n\n### Column 1\nChanged text.\n" );
+  },
+
+  test_container_inline_child_gets_own_lines() {
+    var doc = tokenize( "[row]\n[col]One[/col]\n[col][/col]\n[/row]" );
+    var c = doc.blocks[ 0 ].container;
+    assert.deepEqual( raws( c.children[ 1 ].doc ), [] );
+
+    // two blocks in a one-line column
+    var col = c.children[ 0 ].doc;
+    col.blocks.push( { type: "paragraph", raw: "Another" } );
+    MDBlockTokenizer.normalize( col, [ 0 ] );
+    // a block in an empty column stays on the line
+    c.children[ 1 ].doc.blocks.push( { type: "paragraph", raw: "Two" } );
+    MDBlockTokenizer.normalize( c.children[ 1 ].doc );
+    assert.equal( MDBlockTokenizer.join( doc ), "[row]\n[col]\nOne\n\nAnother\n[/col]\n[col]Two[/col]\n[/row]" );
+  },
+
+  test_container_lossless() {
+    [
+      "[row]\r\n  [col]\r\n\r\nA\r\n\r\n  [/col]\r\n[/row]\r\n",
+      "[row][col]A[/col][col]B[/col][/row]",
+      "  [row]\n[col]\n```\n[/col]\n```\n[/col]\n[/row]",
+      "[row]\n[col]\n[row]\n[col]nested[/col]\n[/row]\n[/col]\n[/row]",
+    ].forEach( source => {
+      var doc = tokenize( source );
+      assert.ok( doc.blocks[ 0 ].container, source );
+    } );
+
+    // a nested row is a container too
+    var doc = tokenize( "[row]\n[col]\n[row]\n[col]nested[/col]\n[/row]\n[/col]\n[/row]" );
+    var inner = doc.blocks[ 0 ].container.children[ 0 ].doc.blocks[ 0 ];
+    assert.equal( inner.name, "row" );
+    assert.deepEqual( raws( inner.container.children[ 0 ].doc ), [ "nested" ] );
+    assert.equal( inner.container.children[ 0 ].doc.blocks[ 0 ].line, 3 );
+  },
+
+  test_tabs_container() {
+    var source = [
+      "[tabs]",
+      "[tab name=\"One\"]",
+      "Text of one.",
+      "",
+      "[row]",
+      "[col]A[/col]",
+      "[col]B[/col]",
+      "[/row]",
+      "[/tab]",
+      "[tab name='Two']",
+      "[/tab]",
+      "[/tabs]",
+    ].join( "\n" );
+    var doc = tokenize( source );
+    var c = doc.blocks[ 0 ].container;
+    assert.ok( c );
+    assert.deepEqual( c.children.map( ch => ch.attrs.name ), [ "One", "Two" ] );
+    assert.deepEqual( types( c.children[ 0 ].doc ), [ "paragraph", "shortcode" ] );
+    assert.deepEqual( raws( c.children[ 1 ].doc ), [] );
+    // a row in a tab is a container too
+    var row = c.children[ 0 ].doc.blocks[ 1 ];
+    assert.deepEqual( row.container.children.map( ch => raws( ch.doc ) ), [ [ "A" ], [ "B" ] ] );
+    assert.equal( row.container.children[ 1 ].doc.blocks[ 0 ].line, 6 );
+
+    // a change in a column in a tab gets into the source
+    row.container.children[ 1 ].doc.blocks[ 0 ].raw = "B2";
+    assert.equal( MDBlockTokenizer.join( doc ), source.replace( "[col]B[/col]", "[col]B2[/col]" ) );
+
+    // not a container: a tab without [/tab], text between tabs
+    [ "[tabs]\n[tab name=\"A\"]\nx\n[/tabs]", "[tabs]\n[tab]x[/tab]\nbetween\n[tab]y[/tab]\n[/tabs]" ].forEach( s => {
+      assert.equal( tokenize( s ).blocks[ 0 ].container, undefined, s );
+    } );
+  },
+
+  test_not_a_container() {
+    [
+      "[row]\ntext between\n[col]A[/col]\n[/row]", // text outside columns
+      "[row]\n[col]A[/col]\nafter\n[/row]",
+      "[row]\n[div]A[/div]\n[/row]", // not a column
+      "[row]\n[/row]", // no columns
+      "[row]\n[col]A\n[/row]", // unpaired
+      "[row]\n[col]A[/col]\n[/row] trailing text",
+      "[row]\n[col]A[/col]", // unclosed
+    ].forEach( source => {
+      var doc = tokenize( source );
+      assert.equal( doc.blocks[ 0 ].type, "shortcode", source );
+      assert.equal( doc.blocks[ 0 ].container, undefined, source );
+    } );
+
+    // containers can be switched off
+    var doc = MDBlockTokenizer.tokenize( "[row]\n[col]A[/col]\n[/row]", { blockShortcodes: BLOCK_SHORTCODES, containers: {} } );
+    assert.equal( doc.blocks[ 0 ].container, undefined );
+  },
+
+  test_replacing_a_container_raw() {
+    var doc = tokenize( "[row]\n[col]A[/col]\n[/row]" );
+    doc.blocks[ 0 ].raw = "[row]\n[col]B[/col]\n[/row]";
+    delete doc.blocks[ 0 ].container;
+    assert.equal( MDBlockTokenizer.join( doc ), "[row]\n[col]B[/col]\n[/row]" );
+  },
+
   test_join_new_blocks() {
     var doc = tokenize( "A\n\nB\n" );
     doc.blocks.splice( 1, 0, { type: "paragraph", raw: "New" } );

@@ -20,8 +20,23 @@
  * Block shortcodes are kept whole, including blank lines and nested shortcodes inside.
  * Positions (line, lineCount) are 0-based line numbers in the original source.
  *
+ * Container shortcodes (options.containers, by default [row] with [col] children and [tabs] with [tab] children) get their children's
+ * content tokenized too, so it can be edited as blocks:
+ *
+ *   block.container = {
+ *     head: "[row class=\"x\"]\n",                  // the source before the first child
+ *     children: [ { name: "col", attrs, open: "[col]", doc: { leading, blocks, trailing }, close: "[/col]", after: "\n" } ],
+ *     tail: "[/row]",                                // the closing tag
+ *   }
+ *
+ * join() builds the raw of such a block from its parts (see blockRaw()), so a change in a child's doc
+ * gets into the source. A container block whose raw is replaced as a whole must lose its container
+ * (delete block.container). A shortcode not having the expected structure (text between children,
+ * other shortcodes as children, unpaired tags...) is left as a plain block.
+ *
  * After blocks are moved, inserted or removed, call normalize( doc ) so that every
- * block is separated by a blank line.
+ * block is separated by a blank line (and content of a container child spanning more lines
+ * starts and ends on its own line).
  *
  * Dependencies: md_shortcodes.js
  * Works in the browser (window.UTILS.MDBlockTokenizer) and in Node.js (module.exports).
@@ -81,6 +96,16 @@
     return RE.blank.test( line.slice( line.indexOf( m[ 1 ] ) + m[ 1 ].length ) );
   };
 
+  // Moves line numbers of all blocks (nested ones included) by the given number of lines
+  let shiftLines = function( doc, delta ) {
+    doc.blocks.forEach( block => {
+      block.line += delta;
+      if ( block.container ) {
+        block.container.children.forEach( child => shiftLines( child.doc, delta ) );
+      }
+    } );
+  };
+
   /**
    * Tokenizer for a single document
    */
@@ -88,7 +113,9 @@
 
     constructor( source, options ) {
       this.source = source;
+      this.options = options;
       this.blockShortcodes = options.blockShortcodes;
+      this.containers = options.containers || {};
       this.lines = source.split( "\n" );
       this.lineStarts = [];
       let pos = 0;
@@ -300,6 +327,10 @@
         block.params = m.params;
         let tree = MDShortcodes.parseTree( raw, this.blockShortcodes );
         block.unclosed = !tree.children.length || !tree.children[ 0 ].closeTag;
+        let container = this.containers[ m.name ] && !block.unclosed && this.parseContainer( raw, tree, this.containers[ m.name ], first );
+        if ( container ) {
+          block.container = container;
+        }
       } else if ( ( m = firstLine.match( RE.atxHeading ) ) ) {
         block.type = "heading";
         block.level = m[ 1 ].length;
@@ -325,6 +356,63 @@
         block.tag = m[ 1 ].toLowerCase();
       }
       return block;
+    }
+
+    /**
+     * Splits a container shortcode into its children and tokenizes their content;
+     * returns null when the shortcode doesn't have the expected structure
+     * @param {String} raw - source of the block
+     * @param {Object} tree - MDShortcodes.parseTree() of raw
+     * @param {Object} config - e.g. { children: "col" }
+     * @param {Number} firstLine - line of the block in the source
+     * @returns {Object|null}
+     */
+    parseContainer( raw, tree, config, firstLine ) {
+      if ( tree.errors.length || tree.children.length !== 1 ) {
+        return null;
+      }
+      let node = tree.children[ 0 ];
+      let indent = raw.match( /^[ \t]*/ )[ 0 ].length;
+      if ( node.start !== indent || raw.slice( node.end ).trim() || !node.children.length ) {
+        return null;
+      }
+      let blockStart = this.lineStarts[ firstLine ];
+      let children = [];
+      let pos = node.innerStart;
+      for ( let child of node.children ) {
+        // only whitespace may be between children
+        if ( child.name !== config.children || raw.slice( pos, child.start ).trim() ) {
+          return null;
+        }
+        let inner = raw.slice( child.innerStart, child.innerEnd );
+        let doc = new Tokenizer( inner, this.options ).tokenize();
+        // lines of the child's blocks in the whole source
+        let line = this.source.slice( 0, blockStart + child.innerStart ).split( "\n" ).length - 1;
+        shiftLines( doc, line );
+        doc.nested = true;
+        children.push( {
+          name: child.name,
+          attrs: child.attrs,
+          params: child.params,
+          open: raw.slice( child.start, child.innerStart ),
+          doc: doc,
+          close: raw.slice( child.innerEnd, child.end ),
+          after: "",
+        } );
+        if ( children.length > 1 ) {
+          children[ children.length - 2 ].after = raw.slice( pos, child.start );
+        }
+        pos = child.end;
+      }
+      if ( raw.slice( pos, node.innerEnd ).trim() ) {
+        return null;
+      }
+      children[ children.length - 1 ].after = raw.slice( pos, node.innerEnd );
+      return {
+        head: raw.slice( 0, node.children[ 0 ].start ),
+        children: children,
+        tail: raw.slice( node.innerEnd ),
+      };
     }
 
     // Link reference definitions anywhere in the document (outside fenced code)
@@ -354,14 +442,17 @@
     // Block shortcodes built into DrInk Markdown; the full list depends on app/helpers/block.drink_shortcode__*.php
     defaultBlockShortcodes: [ "row", "col", "div" ],
 
+    // Container shortcodes whose children's content is tokenized too
+    defaultContainers: { row: { children: "col" }, tabs: { children: "tab" } },
+
     /**
      * Splits the source into blocks
      * @param {String} source
-     * @param {Object} options - { blockShortcodes: [ "row", "col", "div", ... ] }
+     * @param {Object} options - { blockShortcodes: [ "row", "col", "div", ... ], containers: { row: { children: "col" } } }
      * @returns {Object} { leading, blocks, trailing, definitions }
      */
     tokenize( source, options ) {
-      options = Object.assign( { blockShortcodes: MDBlockTokenizer.defaultBlockShortcodes }, options );
+      options = Object.assign( { blockShortcodes: MDBlockTokenizer.defaultBlockShortcodes, containers: MDBlockTokenizer.defaultContainers }, options );
       return new Tokenizer( String( source || "" ), options ).tokenize();
     },
 
@@ -374,12 +465,25 @@
       let blocks = doc.blocks;
       let out = doc.leading || "";
       blocks.forEach( ( block, index ) => {
-        out += block.raw;
+        out += MDBlockTokenizer.blockRaw( block );
         if ( index < blocks.length - 1 ) {
           out += typeof block.separator === "string" ? block.separator : "\n\n";
         }
       } );
       return out + ( doc.trailing || "" );
+    },
+
+    /**
+     * Source of a block; the raw of a container block is built from its parts (and updated)
+     * @param {Object} block
+     * @returns {String}
+     */
+    blockRaw( block ) {
+      if ( block.container ) {
+        let c = block.container;
+        block.raw = c.head + c.children.map( child => child.open + MDBlockTokenizer.join( child.doc ) + child.close + child.after ).join( "" ) + c.tail;
+      }
+      return block.raw;
     },
 
     /**
@@ -394,6 +498,15 @@
      * @returns {Object} the same doc
      */
     normalize( doc, indexes ) {
+      if ( doc.nested && ( doc.blocks.length > 1 || doc.blocks.some( block => MDBlockTokenizer.blockRaw( block ).indexOf( "\n" ) >= 0 ) ) ) {
+        // more lines inside a container child (e.g. "[col]Text[/col]") go on their own lines
+        if ( doc.leading.indexOf( "\n" ) < 0 ) {
+          doc.leading = "\n";
+        }
+        if ( doc.trailing.indexOf( "\n" ) < 0 ) {
+          doc.trailing = "\n";
+        }
+      }
       doc.blocks.forEach( ( block, index ) => {
         if ( indexes && indexes.indexOf( index ) < 0 ) {
           return;
