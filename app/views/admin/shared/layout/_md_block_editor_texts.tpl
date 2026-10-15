@@ -20,7 +20,7 @@
 		undo: "{t escape=javascript}Undo{/t}",
 		redo: "{t escape=javascript}Redo{/t}",
 		loading: "{t escape=javascript}Loading{/t}",
-		empty: "{t escape=javascript}The text is empty{/t}",
+		empty: "{t escape=javascript}The text is empty, click here to start writing{/t}",
 		error: "{t escape=javascript}The preview could not be loaded{/t}",
 		retry: "{t escape=javascript}Try again{/t}",
 		unclosed: "{t escape=javascript}The shortcode is not closed{/t}",

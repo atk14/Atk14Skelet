@@ -125,7 +125,7 @@ window.UTILS.MDBlockEditor = class {
       undo: "Undo",
       redo: "Redo",
       loading: "Loading",
-      empty: "The text is empty",
+      empty: "The text is empty, click here to start writing",
       error: "The preview could not be loaded",
       retry: "Try again",
       unclosed: "The shortcode is not closed",
@@ -245,6 +245,10 @@ window.UTILS.MDBlockEditor = class {
       }
     } );
 
+    // a click finishing an edit (or closing the menu) must not start a new block, see onClick()
+    this.viewport.addEventListener( "mousedown", () => {
+      this.busyAtMousedown = !!( this.editing || this.menu );
+    }, true );
     this.viewport.addEventListener( "click", this.onClick.bind( this ) );
     this.viewport.addEventListener( "dblclick", this.onDblClick.bind( this ) );
     this.element.addEventListener( "keydown", this.onKeyDown.bind( this ) );
@@ -1407,6 +1411,19 @@ window.UTILS.MDBlockEditor = class {
     if ( target.closest( ".md-block__editor" ) ) {
       return;
     }
+
+    // a click into an empty editor, or below the last block of a list, starts writing a new paragraph there
+    let listEl = target.classList.contains( "md-blocks-list" ) ? target : ( target.classList.contains( "md-blocks__message" ) ? target.parentElement : null );
+    if ( listEl ) {
+      let doc = this.resolveList( listEl.dataset.list );
+      let blocks = listEl.querySelectorAll( ":scope > .md-block" );
+      let last = blocks[ blocks.length - 1 ];
+      if ( doc && !this.busyAtMousedown && ( !last || e.clientY > last.getBoundingClientRect().bottom ) ) {
+        this.addBlock( listEl.dataset.list, doc.blocks.length, "|" );
+      }
+      return;
+    }
+
     if ( this.editing && target.closest( ".js--add-block, .js--edit-block, .js--show-source, .js--remove-block, .js--retry" ) ) {
       // the edited block is saved first, it may change positions of the other blocks
       this.commitEdit();
