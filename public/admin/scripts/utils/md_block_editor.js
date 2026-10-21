@@ -709,7 +709,12 @@ window.UTILS.MDBlockEditor = class {
     add.title = this.texts.addTitle;
     add.innerHTML = "<span class=\"fa-solid fa-plus\"></span>";
 
-    el.appendChild( toolbar );
+    // the toolbar is positioned in a zero-height bar, so showing it doesn't move anything
+    // (an element appearing at the top of the block would stop margins of its content from collapsing)
+    let bar = document.createElement( "div" );
+    bar.className = "md-block__bar";
+    bar.appendChild( toolbar );
+    el.appendChild( bar );
     el.appendChild( content );
     el.appendChild( add );
     return el;

@@ -44,17 +44,23 @@
     }
   }
 
-  // sticky under the preview mode toolbar, so it stays reachable on tall blocks scrolled partly out of view;
-  // the negative margin takes the toolbar out of the layout
-  .md-block__toolbar {
+  // the bar is sticky under the preview mode toolbar, so the toolbar stays reachable on tall blocks
+  // scrolled partly out of view; the bar has no height and is always there, and the toolbar is positioned in it,
+  // so showing the toolbar doesn't shift the layout
+  .md-block__bar {
     position: sticky;
     z-index: 10;
     top: 3.5rem;
+    height: 0;
+  }
+
+  .md-block__toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
     display: none;
     width: max-content;
     height: 1.5rem;
-    margin-left: auto;
-    margin-bottom: -1.5rem;
     align-items: center;
     gap: 0.5rem;
     padding: 0 0.375rem;
@@ -65,8 +71,8 @@
     border-radius: 0 2px 0 2px;
   }
 
-  .md-block:hover > .md-block__toolbar,
-  .md-block:focus-within > .md-block__toolbar {
+  .md-block:hover > .md-block__bar > .md-block__toolbar,
+  .md-block:focus-within > .md-block__bar > .md-block__toolbar {
     display: flex;
   }
 
@@ -99,7 +105,7 @@
 
   .md-block--unclosed {
     outline-color: $danger;
-    .md-block__toolbar {
+    > .md-block__bar > .md-block__toolbar {
       display: flex;
       background-color: $danger;
     }
@@ -155,7 +161,7 @@
   .md-block--editing {
     outline: 1px solid $primary;
     > .md-block__content,
-    > .md-block__toolbar,
+    > .md-block__bar,
     > .md-block__add {
       display: none !important;
     }
@@ -271,7 +277,7 @@
     &, * {
       pointer-events: none !important;
     }
-    > .md-block__toolbar,
+    > .md-block__bar,
     > .md-block__add {
       display: none !important;
     }
@@ -312,12 +318,15 @@
 
   // the toolbar of a container is a tab above its top left corner, so it's reachable even when the container
   // is filled with nested blocks (whose toolbars are at their top right corners)
-  .md-block--container > .md-block__toolbar {
+  .md-block--container > .md-block__bar {
     position: absolute;
     top: -1.5rem;
     left: 0;
-    margin: 0;
-    border-radius: 2px 2px 0 0;
+    > .md-block__toolbar {
+      right: auto;
+      left: 0;
+      border-radius: 2px 2px 0 0;
+    }
   }
 
   // room for the toolbar of a container at the very top
