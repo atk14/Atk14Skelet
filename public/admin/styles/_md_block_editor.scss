@@ -47,6 +47,7 @@
   // the bar is sticky under the preview mode toolbar, so the toolbar stays reachable on tall blocks
   // scrolled partly out of view; the bar has no height and is always there, and the toolbar is positioned in it,
   // so showing the toolbar doesn't shift the layout
+  $toolbarHeight: 2rem;
   .md-block__bar {
     position: sticky;
     z-index: 10;
@@ -69,6 +70,23 @@
     color: white;
     background-color: rgba( $gray-800, 0.85 );
     border-radius: 0 2px 0 2px;
+    //
+    background-color: rgba( black, 0.85 );
+    height: $toolbarHeight;
+    gap: 0;
+    padding: 0;
+    font-size: 0.875rem;
+    outline: 1px solid rgba( white, 0.8 );
+    border-radius: 0;
+    > * {
+      //outline: 1px solid red;
+      height: $toolbarHeight;
+      min-width: $toolbarHeight;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      padding: 0 0.5rem;
+    }
   }
 
   .md-block:hover > .md-block__bar > .md-block__toolbar,
@@ -77,19 +95,29 @@
   }
 
   .md-block__label {
-    font-family: $font-family-monospace;
+    //font-family: $font-family-monospace;
+    font-weight: 600;
   }
 
   .md-block__btn {
-    padding: 0 0.25rem;
+    //padding: 0 0.25rem;
     font-size: inherit;
     color: inherit;
     background: none;
-    border: 1px solid rgba( white, 0.4 );
-    border-radius: 2px;
+    //border: 1px solid rgba( white, 0.4 );
+    //border-radius: 2px;
+    border: none;
+    border-left: 1px solid rgba( white, 0.8 );
     cursor: pointer;
     &:hover {
       background-color: rgba( white, 0.15 );
+    }
+    [class*="fa-"] {
+      margin-right: 0.5em;
+      // an icon without text (e.g. the delete button)
+      &:last-child {
+        margin-right: 0;
+      }
     }
   }
 

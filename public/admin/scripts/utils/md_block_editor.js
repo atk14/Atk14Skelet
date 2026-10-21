@@ -729,7 +729,11 @@ window.UTILS.MDBlockEditor = class {
     btn.title = title;
     btn.innerHTML = "<span class=\"fa-solid " + icon + "\"></span>";
     if ( text ) {
-      btn.appendChild( document.createTextNode( " " + text ) );
+      // the text in its own element, so the space after the icon is up to CSS
+      let span = document.createElement( "span" );
+      span.className = "md-block__btn-text";
+      span.textContent = text;
+      btn.appendChild( span );
     }
     return btn;
   }
