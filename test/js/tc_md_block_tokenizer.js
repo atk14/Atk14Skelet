@@ -345,6 +345,48 @@ module.exports = {
     } );
   },
 
+  test_div_container() {
+    var source = "Intro\n\n[div style=\"max-width:30%; margin: auto;\"]\n[#57 Picture]\n[/div]\n\nOutro";
+    var doc = tokenize( source );
+    var div = doc.blocks[ 1 ];
+    assert.equal( div.name, "div" );
+    var c = div.container;
+    assert.equal( c.head, "" );
+    assert.equal( c.tail, "" );
+    assert.equal( c.children.length, 1 );
+    assert.equal( c.children[ 0 ].open, "[div style=\"max-width:30%; margin: auto;\"]" );
+    assert.equal( c.children[ 0 ].close, "[/div]" );
+    assert.deepEqual( c.children[ 0 ].attrs, { style: "max-width:30%; margin: auto;" } );
+    assert.deepEqual( types( c.children[ 0 ].doc ), [ "iobject" ] );
+    assert.equal( c.children[ 0 ].doc.blocks[ 0 ].line, 3 );
+
+    // the iobject replaced
+    c.children[ 0 ].doc.blocks[ 0 ].raw = "[#58 Picture: Rose]";
+    assert.equal( MDBlockTokenizer.join( doc ), source.replace( "[#57 Picture]", "[#58 Picture: Rose]" ) );
+
+    // nested divs
+    doc = tokenize( "[div class=\"fullwidth\"]\n[div style=\"font-size: 8vw\"]\nBig\n[/div]\n[/div]" );
+    var inner = doc.blocks[ 0 ].container.children[ 0 ].doc.blocks[ 0 ];
+    assert.equal( inner.name, "div" );
+    assert.deepEqual( raws( inner.container.children[ 0 ].doc ), [ "Big" ] );
+
+    // a one-line div, an empty div
+    assert.deepEqual( raws( tokenize( "[div class=\"x\"]text[/div]" ).blocks[ 0 ].container.children[ 0 ].doc ), [ "text" ] );
+    assert.deepEqual( raws( tokenize( "[div class=\"x\"][/div]" ).blocks[ 0 ].container.children[ 0 ].doc ), [] );
+
+    // not a container: text after the closing tag
+    assert.equal( tokenize( "[div]a[/div] b" ).blocks[ 0 ].container, undefined );
+  },
+
+  test_nested_content_on_own_lines() {
+    // a block added into "[div]\n[/div]" ends on its own line too
+    var doc = tokenize( "[div]\n[/div]" );
+    var content = doc.blocks[ 0 ].container.children[ 0 ].doc;
+    content.blocks.push( { type: "paragraph", raw: "Text" } );
+    MDBlockTokenizer.normalize( content, [ 0 ] );
+    assert.equal( MDBlockTokenizer.join( doc ), "[div]\nText\n[/div]" );
+  },
+
   test_not_a_container() {
     [
       "[row]\ntext between\n[col]A[/col]\n[/row]", // text outside columns

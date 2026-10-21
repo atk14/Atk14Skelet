@@ -203,6 +203,9 @@
 				if( document.getElementById( "iobjectinserter_modal" ) ) {
 					new UTILS.IobjectInserter();
 				};
+				if( document.getElementById( "diveditor_modal" ) ) {
+					new UTILS.DivEditor();
+				};
 			}
 
 		}

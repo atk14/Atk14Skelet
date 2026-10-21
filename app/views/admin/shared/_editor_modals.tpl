@@ -3,3 +3,4 @@
 {render partial="shared/editor_modals/fa_iconpicker_modal"}
 {render partial="shared/editor_modals/tabdesigner_modal"}
 {render partial="shared/editor_modals/iobject_inserter_modal"}
+{render partial="shared/editor_modals/div_editor_modal"}

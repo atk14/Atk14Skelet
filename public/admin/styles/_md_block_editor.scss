@@ -358,3 +358,25 @@
     cursor: auto;
   }
 }
+
+// A nested list taking over a flex/grid layout of its parent (see adaptLayouts() in md_block_editor.js)
+
+.md-blocks {
+  .md-blocks-list--layout > .md-block + .md-block {
+    margin-top: 0;
+  }
+
+  // the rendered item fills its block, as it would fill the flex/grid cell (e.g. cards of the same height)
+  .md-blocks-list--layout > .md-block {
+    display: flex;
+    flex-direction: column;
+    > .md-block__content {
+      display: flex;
+      flex-direction: column;
+      flex: 1 1 auto;
+      > * {
+        flex: 1 1 auto;
+      }
+    }
+  }
+}

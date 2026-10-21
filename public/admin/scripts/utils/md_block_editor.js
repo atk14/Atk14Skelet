@@ -10,7 +10,7 @@
  * (and so into the textarea), then the source is tokenized and the blocks are rendered again.
  * Undo/redo uses Ace's undo manager, so the history is shared with the "Code" view.
  *
- * Container blocks ([row], [tabs]) show their children ([col], [tab]) as nested lists of blocks:
+ * Container blocks ([row], [tabs], [div]) show their children ([col], [tab]; the content of [div]) as nested lists of blocks:
  * the container itself is rendered with empty slots in place of the children's content
  * (so it looks exactly as on the web) and the nested lists are put into the slots.
  * Blocks are addressed by paths: "3" is the 4th top-level block, "3/1/0" the 1st block in the 2nd child of it;
@@ -188,6 +188,10 @@ window.UTILS.MDBlockEditor = class {
     this.mdPreview.after( this.element );
     this.viewport = this.element.querySelector( ".md-preview__viewport" );
     window.UTILS.PreviewModeToggle.init( this.element );
+    // layouts of nested lists depend on the preview width (see adaptLayouts())
+    this.element.querySelector( ".preview-mode-toggler" ).addEventListener( "click", () => {
+      window.setTimeout( () => this.adaptLayouts(), 0 );
+    } );
     this.addHistoryButtons();
 
     this.appendButton = document.createElement( "button" );
@@ -427,6 +431,7 @@ window.UTILS.MDBlockEditor = class {
       message.remove();
     }
 
+    this.adaptLayouts();
     if ( !pending.length ) {
       return;
     }
@@ -533,6 +538,58 @@ window.UTILS.MDBlockEditor = class {
     if ( swiper && window.UTILS.initSwiper ) {
       window.UTILS.initSwiper();
     }
+    this.adaptLayouts();
+  }
+
+  /**
+   * A nested list put into a flex or grid element (e.g. [div class="card-deck"]) stands between the element
+   * and its items, so the layout would break. The list takes over the layout of the element then,
+   * and every block takes over the flex properties of its rendered content (e.g. a card).
+   * Computed styles depend on the preview width, so it's done again on every change of the view.
+   */
+  adaptLayouts() {
+    let layoutProps = [ "display", "flexDirection", "flexWrap", "justifyContent", "alignItems", "alignContent", "rowGap", "columnGap", "gridTemplateColumns", "gridTemplateRows", "gridAutoFlow", "gridAutoColumns", "gridAutoRows" ];
+    let itemProps = [ "flexGrow", "flexShrink", "flexBasis", "gridColumn", "gridRow" ];
+    [ ...this.viewport.querySelectorAll( ".md-blocks-list--nested" ) ].forEach( listEl => {
+      let blocks = [ ...listEl.querySelectorAll( ":scope > .md-block" ) ];
+      listEl.classList.remove( "md-blocks-list--layout" );
+      listEl.style.cssText = "";
+      blocks.forEach( el => {
+        el.style.cssText = "";
+      } );
+      let parent = listEl.parentElement;
+      if ( !parent || parent.children.length !== 1 ) {
+        return;
+      }
+      let parentStyle = window.getComputedStyle( parent );
+      if ( !/flex|grid/.test( parentStyle.display ) ) {
+        return;
+      }
+      // the items' own styles are read before the layout class, which makes them fill their blocks, is set
+      let itemStyles = blocks.map( el => {
+        let item = el.querySelector( ":scope > .md-block__content > *" );
+        if ( !item ) {
+          return null;
+        }
+        let itemStyle = window.getComputedStyle( item );
+        let values = {};
+        itemProps.forEach( prop => {
+          values[ prop ] = itemStyle[ prop ];
+        } );
+        return values;
+      } );
+      listEl.classList.add( "md-blocks-list--layout" );
+      layoutProps.forEach( prop => {
+        listEl.style[ prop ] = parentStyle[ prop ];
+      } );
+      listEl.style.flex = "1 1 100%";
+      blocks.forEach( ( el, i ) => {
+        if ( itemStyles[ i ] ) {
+          Object.assign( el.style, itemStyles[ i ] );
+          el.style.minWidth = "0";
+        }
+      } );
+    } );
   }
 
   /**
@@ -579,12 +636,15 @@ window.UTILS.MDBlockEditor = class {
         this.closeMenu();
       },
       onMove: evt => {
-        // a block can't get into itself; a container can't get into a child of its own kind (no [row] in a column, no [tabs] in a tab)
+        // a block can't get into itself; a container can't get into a child of its own kind (no [row] in a column,
+        // no [tabs] in a tab) unless it's nestable (a [div] in a [div] is fine)
         if ( evt.dragged.contains( evt.to ) ) {
           return false;
         }
         let block = evt.dragged.mdBlock;
-        if ( block && block.container && evt.to.dataset.container === block.name ) {
+        let containers = this.tokenizerOptions.containers || window.UTILS.MDBlockTokenizer.defaultContainers;
+        let config = block && containers[ block.name ];
+        if ( block && block.container && evt.to.dataset.container === block.name && !( config && config.nestable ) ) {
           return false;
         }
         return true;

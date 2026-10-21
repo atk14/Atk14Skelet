@@ -20,7 +20,8 @@
  * Block shortcodes are kept whole, including blank lines and nested shortcodes inside.
  * Positions (line, lineCount) are 0-based line numbers in the original source.
  *
- * Container shortcodes (options.containers, by default [row] with [col] children and [tabs] with [tab] children) get their children's
+ * Container shortcodes (options.containers, by default [row] with [col] children, [tabs] with [tab] children
+ * and [div] with its own content as the only child) get their children's
  * content tokenized too, so it can be edited as blocks:
  *
  *   block.container = {
@@ -373,10 +374,21 @@
       }
       let node = tree.children[ 0 ];
       let indent = raw.match( /^[ \t]*/ )[ 0 ].length;
+      let blockStart = this.lineStarts[ firstLine ];
+      if ( config.content ) {
+        // the shortcode's own content are blocks, e.g. [div]; it's the only "child"
+        if ( node.start !== indent || raw.slice( node.end ).trim() ) {
+          return null;
+        }
+        return {
+          head: raw.slice( 0, node.start ),
+          children: [ this.containerChild( raw, node, blockStart ) ],
+          tail: raw.slice( node.end ),
+        };
+      }
       if ( node.start !== indent || raw.slice( node.end ).trim() || !node.children.length ) {
         return null;
       }
-      let blockStart = this.lineStarts[ firstLine ];
       let children = [];
       let pos = node.innerStart;
       for ( let child of node.children ) {
@@ -384,21 +396,7 @@
         if ( child.name !== config.children || raw.slice( pos, child.start ).trim() ) {
           return null;
         }
-        let inner = raw.slice( child.innerStart, child.innerEnd );
-        let doc = new Tokenizer( inner, this.options ).tokenize();
-        // lines of the child's blocks in the whole source
-        let line = this.source.slice( 0, blockStart + child.innerStart ).split( "\n" ).length - 1;
-        shiftLines( doc, line );
-        doc.nested = true;
-        children.push( {
-          name: child.name,
-          attrs: child.attrs,
-          params: child.params,
-          open: raw.slice( child.start, child.innerStart ),
-          doc: doc,
-          close: raw.slice( child.innerEnd, child.end ),
-          after: "",
-        } );
+        children.push( this.containerChild( raw, child, blockStart ) );
         if ( children.length > 1 ) {
           children[ children.length - 2 ].after = raw.slice( pos, child.start );
         }
@@ -412,6 +410,29 @@
         head: raw.slice( 0, node.children[ 0 ].start ),
         children: children,
         tail: raw.slice( node.innerEnd ),
+      };
+    }
+
+    /**
+     * A child of a container with its content tokenized
+     * @param {String} raw - source of the container block
+     * @param {Object} node - the child's node of MDShortcodes.parseTree( raw )
+     * @param {Number} blockStart - offset of the container block in the source
+     * @returns {Object} { name, attrs, params, open, doc, close, after }
+     */
+    containerChild( raw, node, blockStart ) {
+      let doc = new Tokenizer( raw.slice( node.innerStart, node.innerEnd ), this.options ).tokenize();
+      // lines of the child's blocks in the whole source
+      shiftLines( doc, this.source.slice( 0, blockStart + node.innerStart ).split( "\n" ).length - 1 );
+      doc.nested = true;
+      return {
+        name: node.name,
+        attrs: node.attrs,
+        params: node.params,
+        open: raw.slice( node.start, node.innerStart ),
+        doc: doc,
+        close: raw.slice( node.innerEnd, node.end ),
+        after: "",
       };
     }
 
@@ -443,7 +464,9 @@
     defaultBlockShortcodes: [ "row", "col", "div" ],
 
     // Container shortcodes whose children's content is tokenized too
-    defaultContainers: { row: { children: "col" }, tabs: { children: "tab" } },
+    // (children: name of the children shortcode, or content: the shortcode's own content are blocks;
+    // nestable: a container of the same kind can be put into it in the editor)
+    defaultContainers: { row: { children: "col" }, tabs: { children: "tab" }, div: { content: true, nestable: true } },
 
     /**
      * Splits the source into blocks
@@ -498,8 +521,11 @@
      * @returns {Object} the same doc
      */
     normalize( doc, indexes ) {
-      if ( doc.nested && ( doc.blocks.length > 1 || doc.blocks.some( block => MDBlockTokenizer.blockRaw( block ).indexOf( "\n" ) >= 0 ) ) ) {
-        // more lines inside a container child (e.g. "[col]Text[/col]") go on their own lines
+      let multiline = doc.blocks.length > 1 || doc.blocks.some( block => MDBlockTokenizer.blockRaw( block ).indexOf( "\n" ) >= 0 );
+      let onOwnLines = doc.blocks.length && ( doc.leading.indexOf( "\n" ) >= 0 || doc.trailing.indexOf( "\n" ) >= 0 );
+      if ( doc.nested && ( multiline || onOwnLines ) ) {
+        // more lines inside a container child (e.g. "[col]Text[/col]") go on their own lines,
+        // and content starting on its own line ends on its own line too (e.g. "[div]\nText[/div]")
         if ( doc.leading.indexOf( "\n" ) < 0 ) {
           doc.leading = "\n";
         }
