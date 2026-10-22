@@ -116,6 +116,10 @@ window.UTILS.MDBlockEditor = class {
       editHint: "Ctrl+Enter or clicking outside saves, Esc cancels",
       showSource: "Source",
       showSourceTitle: "Show the source of this block in the editor",
+      moreTitle: "More actions",
+      cut: "Cut",
+      copy: "Copy",
+      paste: "Paste",
       editObject: "Edit object",
       editObjectTitle: "Edit the object in a new tab",
       remove: "Delete",
@@ -693,7 +697,7 @@ window.UTILS.MDBlockEditor = class {
       link.target = "_blank";
       toolbar.appendChild( link );
     }
-    toolbar.appendChild( this.toolbarButton( "js--show-source", "fa-code", this.texts.showSource, this.texts.showSourceTitle ) );
+    toolbar.appendChild( this.toolbarButton( "js--block-menu", "fa-ellipsis-vertical", "", this.texts.moreTitle ) );
     if ( block.container ) {
       // its bottom "+" is hidden while blocks inside are hovered
       toolbar.appendChild( this.toolbarButton( "js--add-block", "fa-plus", "", this.texts.addTitle ) );
@@ -1414,52 +1418,198 @@ window.UTILS.MDBlockEditor = class {
     } );
   }
 
-  // ---------------------------------------------------------------- the "add block" menu
+  // ---------------------------------------------------------------- copy, cut and paste
 
+  // The copied block is kept in localStorage, so it can be pasted on another page too
+  static clipboardKey = "md_block_editor_clipboard";
+  static memoryClipboard = null;
+
+  static readClipboard() {
+    try {
+      let raw = window.localStorage.getItem( window.UTILS.MDBlockEditor.clipboardKey );
+      if ( raw !== null ) {
+        return raw;
+      }
+    } catch ( e ) {
+      // storage not available
+    }
+    return window.UTILS.MDBlockEditor.memoryClipboard;
+  }
+
+  /**
+   * Stores the source of a block; it's put into the system clipboard too, so it can be pasted as text anywhere
+   * @param {String} raw
+   */
+  static writeClipboard( raw ) {
+    window.UTILS.MDBlockEditor.memoryClipboard = raw;
+    try {
+      window.localStorage.setItem( window.UTILS.MDBlockEditor.clipboardKey, raw );
+    } catch ( e ) {
+      // storage not available
+    }
+    if ( navigator.clipboard && navigator.clipboard.writeText ) {
+      navigator.clipboard.writeText( raw ).catch( () => {} );
+    }
+  }
+
+  copyBlock( path ) {
+    let r = this.resolve( path );
+    if ( r ) {
+      window.UTILS.MDBlockEditor.writeClipboard( window.UTILS.MDBlockTokenizer.blockRaw( r.block ) );
+      this.focusBlock( path );
+    }
+  }
+
+  cutBlock( path ) {
+    let r = this.resolve( path );
+    if ( r ) {
+      window.UTILS.MDBlockEditor.writeClipboard( window.UTILS.MDBlockTokenizer.blockRaw( r.block ) );
+      this.removeBlock( path );
+    }
+  }
+
+  /**
+   * Pastes the copied block at the given position
+   * @param {String} list
+   * @param {Number} index
+   */
+  pasteBlock( list, index ) {
+    let copied = window.UTILS.MDBlockEditor.readClipboard();
+    if ( copied && this.canPasteInto( list, copied ) ) {
+      this.insertBlock( list, index, copied );
+    }
+  }
+
+  /**
+   * A container can't get into a child of its own kind (no [row] in a column, no [tabs] in a tab), see makeSortable()
+   * @param {String} list
+   * @param {String} raw
+   * @returns {Boolean}
+   */
+  canPasteInto( list, raw ) {
+    if ( list === "" ) {
+      return true;
+    }
+    let owner = this.resolve( list.slice( 0, list.lastIndexOf( "/" ) ) );
+    if ( !owner ) {
+      return false;
+    }
+    let containers = this.tokenizerOptions.containers || window.UTILS.MDBlockTokenizer.defaultContainers;
+    let config = containers[ owner.block.name ];
+    if ( !config || config.nestable ) {
+      return true;
+    }
+    let tags = window.UTILS.MDShortcodes.scanTags( raw.trim(), [ owner.block.name ] );
+    return !( tags.length && !tags[ 0 ].closing && tags[ 0 ].start === 0 );
+  }
+
+  // ---------------------------------------------------------------- menus
+
+  /**
+   * The "add block" menu: the copied block, new blocks and things registered in UTILS.MDEditorInserts
+   * @param {Element} button
+   * @param {String} list
+   * @param {Number} index - position of the new block in the list
+   */
   openMenu( button, list, index ) {
-    this.closeMenu();
-    let menu = document.createElement( "div" );
-    menu.className = "md-blocks__menu";
-    window.UTILS.MDBlockEditor.newBlockTemplates.forEach( item => {
-      let btn = document.createElement( "button" );
-      btn.type = "button";
-      btn.className = "md-blocks__menu-item";
-      btn.textContent = this.texts.types[ item.type ] || item.type;
-      btn.addEventListener( "click", () => {
-        this.closeMenu();
-        this.addBlock( list, index, item.template );
+    let items = [];
+    let copied = window.UTILS.MDBlockEditor.readClipboard();
+    if ( copied ) {
+      items.push( {
+        icon: "fa-paste",
+        label: this.texts.paste,
+        title: copied.slice( 0, 200 ),
+        disabled: !this.canPasteInto( list, copied ),
+        onClick: () => this.insertBlock( list, index, copied ),
       } );
-      menu.appendChild( btn );
+      items.push( { divider: true } );
+    }
+    window.UTILS.MDBlockEditor.newBlockTemplates.forEach( item => {
+      items.push( {
+        label: this.texts.types[ item.type ] || item.type,
+        onClick: () => this.addBlock( list, index, item.template ),
+      } );
     } );
     let inserters = window.UTILS.MDEditorInserts.items().filter( item => !item.inline );
     if ( inserters.length ) {
-      let divider = document.createElement( "div" );
-      divider.className = "md-blocks__menu-divider";
-      menu.appendChild( divider );
+      items.push( { divider: true } );
     }
     inserters.forEach( item => {
+      items.push( {
+        html: item.text,
+        title: item.title,
+        onClick: () => this.insertItemAsBlock( item, list, index ),
+      } );
+    } );
+    this.showMenu( button, items );
+  }
+
+  /**
+   * The menu of a block (the "more" button on its toolbar)
+   * @param {Element} button
+   * @param {String} path
+   */
+  openBlockMenu( button, path ) {
+    this.showMenu( button, [
+      { icon: "fa-scissors", label: this.texts.cut, title: "Ctrl+X", onClick: () => this.cutBlock( path ) },
+      { icon: "fa-copy", label: this.texts.copy, title: "Ctrl+C", onClick: () => this.copyBlock( path ) },
+      { divider: true },
+      { icon: "fa-code", label: this.texts.showSource, title: this.texts.showSourceTitle, onClick: () => this.showSource( path ) },
+    ] );
+  }
+
+  /**
+   * Shows a menu under the button
+   * @param {Element} button
+   * @param {Array} items - [ { label or html, icon, title, disabled, onClick } or { divider: true } ]
+   */
+  showMenu( button, items ) {
+    this.closeMenu();
+    let menu = document.createElement( "div" );
+    menu.className = "md-blocks__menu";
+    items.forEach( item => {
+      if ( item.divider ) {
+        let divider = document.createElement( "div" );
+        divider.className = "md-blocks__menu-divider";
+        menu.appendChild( divider );
+        return;
+      }
       let btn = document.createElement( "button" );
       btn.type = "button";
       btn.className = "md-blocks__menu-item";
-      btn.innerHTML = item.text;
+      if ( item.html ) {
+        btn.innerHTML = item.html;
+      } else {
+        if ( item.icon ) {
+          btn.innerHTML = "<span class=\"fa-solid " + item.icon + "\"></span>";
+        }
+        let label = document.createElement( "span" );
+        label.textContent = item.label;
+        btn.appendChild( label );
+      }
       btn.title = item.title || "";
+      btn.disabled = !!item.disabled;
       btn.addEventListener( "click", () => {
         this.closeMenu();
-        this.insertItemAsBlock( item, list, index );
+        item.onClick();
       } );
       menu.appendChild( btn );
     } );
     this.element.appendChild( menu );
-    // placed under the button, inside the scrolled container;
+    // placed under the button, inside the scrolled container (and not over its right edge);
     // a hidden button (shown on hover only, e.g. when triggered from keyboard) is replaced by its block
     let anchor = button.getClientRects().length ? button : ( button.closest( ".md-block" ) || this.appendButton );
     let rect = anchor.getBoundingClientRect();
     let parentRect = this.element.getBoundingClientRect();
     menu.style.top = ( rect.bottom - parentRect.top + this.element.scrollTop + 4 ) + "px";
-    menu.style.left = Math.max( 4, rect.left - parentRect.left + rect.width / 2 - menu.offsetWidth / 2 ) + "px";
+    let left = rect.left - parentRect.left + rect.width / 2 - menu.offsetWidth / 2;
+    menu.style.left = Math.max( 4, Math.min( left, this.element.clientWidth - menu.offsetWidth - 4 ) ) + "px";
     this.menu = menu;
     menu.scrollIntoView( { block: "nearest" } );
-    menu.querySelector( "button" ).focus( { preventScroll: true } );
+    let first = menu.querySelector( "button:not(:disabled)" );
+    if ( first ) {
+      first.focus( { preventScroll: true } );
+    }
   }
 
   closeMenu() {
@@ -1493,7 +1643,7 @@ window.UTILS.MDBlockEditor = class {
       return;
     }
 
-    if ( this.editing && target.closest( ".js--add-block, .js--edit-block, .js--show-source, .js--remove-block, .js--retry" ) ) {
+    if ( this.editing && target.closest( ".js--add-block, .js--edit-block, .js--block-menu, .js--remove-block, .js--retry" ) ) {
       // the edited block is saved first, it may change positions of the other blocks
       this.commitEdit();
       if ( !target.isConnected ) {
@@ -1519,8 +1669,8 @@ window.UTILS.MDBlockEditor = class {
       return;
     } else if ( target.closest( ".js--edit-block" ) ) {
       this.editBlock( path );
-    } else if ( target.closest( ".js--show-source" ) ) {
-      this.showSource( path );
+    } else if ( target.closest( ".js--block-menu" ) ) {
+      this.openBlockMenu( target.closest( ".js--block-menu" ), path );
     } else if ( target.closest( ".js--remove-block" ) ) {
       this.removeBlock( path );
     } else if ( target.closest( ".js--edit-object" ) ) {
@@ -1570,6 +1720,18 @@ window.UTILS.MDBlockEditor = class {
     } else if ( e.key === "Enter" && e.target.classList.contains( "md-block" ) ) {
       e.preventDefault();
       this.editBlock( e.target.dataset.path );
+    } else if ( ctrl && ( key === "c" || key === "x" || key === "v" ) && e.target.classList.contains( "md-block" ) && window.getSelection().isCollapsed ) {
+      // a focused block (with no text selected in it) is copied, cut, or the copied block is pasted after it
+      e.preventDefault();
+      let path = e.target.dataset.path;
+      if ( key === "c" ) {
+        this.copyBlock( path );
+      } else if ( key === "x" ) {
+        this.cutBlock( path );
+      } else {
+        let { list, index } = window.UTILS.MDBlockEditor.splitPath( path );
+        this.pasteBlock( list, index + 1 );
+      }
     }
   }
 

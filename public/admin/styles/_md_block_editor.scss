@@ -258,6 +258,17 @@
       background-color: $gray-200;
       outline: none;
     }
+    &:disabled {
+      color: $gray-500;
+      background: none;
+      cursor: not-allowed;
+    }
+    // icons of Cut, Copy, Paste... in a column
+    > .fa-solid {
+      width: 1.25em;
+      margin-right: 0.5em;
+      text-align: center;
+    }
   }
 
   .md-blocks__history {
