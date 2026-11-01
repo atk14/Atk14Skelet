@@ -11,7 +11,20 @@ class OneTimePassword extends ApplicationModel {
 
 	/**
 	 *
-	 *	$password = (string)String4::RandomNumericString(10);
+	 *	$code = OneTimePassword::NewCode();
+	 *	$code = OneTimePassword::NewCode(["length" => 6]);
+	 */
+	static function NewCode($options = []){
+		$options += [
+			"length" => 8,
+		];
+
+		return (string)String4::RandomNumericString($options["length"]);
+	}
+
+	/**
+	 *
+	 *	$password = OneTimePassword::NewCode();
 	 *	$otp = OneTimePassword::CreateNewRecordFor("user_login_2fa",$user->gertId(),$password,$user->getEmail());
 	 */
 	static function CreateNewRecordFor($purpose,$object_key,$password_plain,$recipient,$values = []){
@@ -45,7 +58,7 @@ class OneTimePassword extends ApplicationModel {
 	static function GetActiveInstanceFor($purpose,$object_key,$password){
 		$password = (string)$password;
 		foreach(self::FindAll([
-			"conditions" => "purpose=:purpose AND object_key=:object_key AND expires_at>:now",
+			"conditions" => "purpose=:purpose AND object_key=:object_key AND expires_at>:now AND used_at IS NULL",
 			"bind_ar" => [
 				":purpose" => (string)$purpose,
 				":object_key" => (string)$object_key,

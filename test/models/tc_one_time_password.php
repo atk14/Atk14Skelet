@@ -1,6 +1,15 @@
 <?php
 class TcOneTimePassword extends TcBase {
 
+	function test_NewCode(){
+		$code = OneTimePassword::NewCode();
+		$this->assertEquals(8,strlen($code));
+		$this->assertEquals(1,preg_match('/^[0-9]+$/',$code));
+
+		$code = OneTimePassword::NewCode(["length" => 6]);
+		$this->assertEquals(6,strlen($code));
+	}
+
 	function test(){
 		$password1 = "123456";
 		$rec1 = OneTimePassword::CreateNewRecordFor("user_login_2fa",123,$password1,"john@doe.com");
@@ -44,5 +53,10 @@ class TcOneTimePassword extends TcBase {
 		$rec1->markAsUsed();
 		$this->assertEquals(true,$rec1->isUsed());
 		$this->assertEquals("8.8.8.8",$rec1->g("used_from_addr"));
+
+		// An already-used code can't be used again, even if it hasn't expired yet (rec2 is still valid)
+		$this->assertEquals(false,$rec2->isUsed());
+		$rec2->markAsUsed();
+		$this->assertNull(OneTimePassword::GetActiveInstanceFor("user_login_2fa",123,$password2));
 	}
 }
