@@ -45,7 +45,7 @@ class OneTimePassword extends ApplicationModel {
 	static function GetActiveInstanceFor($purpose,$object_key,$password){
 		$password = (string)$password;
 		foreach(self::FindAll([
-			"conditions" => "purpose=:purpose AND object_key=:object_key AND expires_at>:now",
+			"conditions" => "purpose=:purpose AND object_key=:object_key AND expires_at>:now AND used_at IS NULL",
 			"bind_ar" => [
 				":purpose" => (string)$purpose,
 				":object_key" => (string)$object_key,
