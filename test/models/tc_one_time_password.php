@@ -1,6 +1,15 @@
 <?php
 class TcOneTimePassword extends TcBase {
 
+	function test_NewCode(){
+		$code = OneTimePassword::NewCode();
+		$this->assertEquals(8,strlen($code));
+		$this->assertEquals(1,preg_match('/^[0-9]+$/',$code));
+
+		$code = OneTimePassword::NewCode(["length" => 6]);
+		$this->assertEquals(6,strlen($code));
+	}
+
 	function test(){
 		$password1 = "123456";
 		$rec1 = OneTimePassword::CreateNewRecordFor("user_login_2fa",123,$password1,"john@doe.com");

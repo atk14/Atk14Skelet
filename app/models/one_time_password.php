@@ -11,7 +11,20 @@ class OneTimePassword extends ApplicationModel {
 
 	/**
 	 *
-	 *	$password = (string)String4::RandomNumericString(10);
+	 *	$code = OneTimePassword::NewCode();
+	 *	$code = OneTimePassword::NewCode(["length" => 6]);
+	 */
+	static function NewCode($options = []){
+		$options += [
+			"length" => 8,
+		];
+
+		return (string)String4::RandomNumericString($options["length"]);
+	}
+
+	/**
+	 *
+	 *	$password = OneTimePassword::NewCode();
 	 *	$otp = OneTimePassword::CreateNewRecordFor("user_login_2fa",$user->gertId(),$password,$user->getEmail());
 	 */
 	static function CreateNewRecordFor($purpose,$object_key,$password_plain,$recipient,$values = []){
