@@ -165,7 +165,32 @@ window.UTILS.MDEditorResizer = class {
         subtree: false,
         childList: false,
       } );
+      this.keepScrollOverFullscreen( editor );
     } );
+  }
+
+  /**
+   * After leaving the fullscreen, the page is scrolled back where it was when the fullscreen was entered
+   * (the fullscreen makes html and body 100% high with hidden overflow, some browsers lose the scroll position;
+   * the editor's own handler also focuses Ace, which may scroll the page)
+   * @param {Element} editor - .md-container
+   */
+  keepScrollOverFullscreen( editor ) {
+    let button = editor.querySelector( ".md-toolbar [data-btn='fullscreen']" );
+    if ( !button ) {
+      return;
+    }
+    // a capturing listener runs before the editor's own handler on the button
+    button.addEventListener( "click", () => {
+      if ( !editor.classList.contains( "md-fullscreen" ) ) {
+        editor.dataset.scroll_before_fullscreen = window.scrollY;
+        return;
+      }
+      let scrollY = parseFloat( editor.dataset.scroll_before_fullscreen );
+      if ( !isNaN( scrollY ) ) {
+        window.setTimeout( () => window.scrollTo( window.scrollX, scrollY ), 0 );
+      }
+    }, true );
   }
 
   /**

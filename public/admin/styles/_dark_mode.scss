@@ -18,7 +18,7 @@
       color: $dark-primary-color
     }
 
-    // tables
+    // tables (those in the rendered content of the Markdown editor are kept light, see _md_preview.scss)
     .table {
       color: $table-dark-color;
       background-color: $table-dark-bg;

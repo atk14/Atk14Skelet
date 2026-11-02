@@ -80,6 +80,39 @@
         }
       }
     }
+
+    // tables of the content stay light as on the web (the dark mode darkens every .table, see _dark_mode.scss;
+    // excluding them there by :not(.md-preview .table) doesn't work, node-sass drops such a :not)
+    .table:not(.table-dark) {
+      color: $table-color;
+      background-color: if( $table-bg, $table-bg, transparent ); // $table-bg is null by default
+      border-color: $table-border-color;
+
+      th,
+      td,
+      thead th {
+        border-color: $table-border-color;
+      }
+
+      &.table-bordered {
+        border: $table-border-width solid $table-border-color;
+      }
+
+      &.table-striped {
+        tbody tr:nth-of-type(#{$table-striped-order}) {
+          background-color: $table-accent-bg;
+        }
+      }
+
+      &.table-hover {
+        tbody tr {
+          @include hover() {
+            color: $table-hover-color;
+            background-color: $table-hover-bg;
+          }
+        }
+      }
+    }
   }
 }
 

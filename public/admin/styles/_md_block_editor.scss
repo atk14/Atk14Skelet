@@ -428,3 +428,13 @@
     }
   }
 }
+
+// Rules of the content (see _md_preview.scss) aimed at children of shortcodes, whose content is wrapped
+// by a nested list and its blocks in the block view
+
+.md-blocks {
+  // .col--shortcode > .iobject (public/styles/_shortcodes.scss)
+  .col--shortcode > .md-blocks-list > .md-block > .md-block__content > .iobject {
+    margin-top: 0;
+  }
+}
