@@ -169,15 +169,16 @@
     width: 1.5rem;
     height: 1.5rem;
     padding: 0;
-    font-size: 0.75rem;
+    // the circle is the icon itself (fa-circle-plus), the white background shows through its cross
+    font-size: 1.5rem;
     line-height: 1;
-    color: white;
-    background-color: $gray-800;
-    border: 2px solid white;
+    color: $gray-800;
+    background-color: white;
+    border: none;
     border-radius: 50%;
     cursor: pointer;
     &:hover {
-      background-color: $primary;
+      color: $primary;
     }
   }
 

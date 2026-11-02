@@ -201,7 +201,7 @@ window.UTILS.MDBlockEditor = class {
     this.appendButton = document.createElement( "button" );
     this.appendButton.type = "button";
     this.appendButton.className = "md-blocks__append js--add-block";
-    this.appendButton.innerHTML = "<span class=\"fa-solid fa-plus\"></span> ";
+    this.appendButton.innerHTML = "<span class=\"fa-solid fa-circle-plus\"></span> ";
     this.appendButton.appendChild( document.createTextNode( this.texts.add ) );
     this.viewport.appendChild( this.appendButton );
     this.viewport.mdAppend = this.appendButton;
@@ -607,7 +607,7 @@ window.UTILS.MDBlockEditor = class {
     append.type = "button";
     append.className = "md-blocks__append md-blocks__append--nested js--add-block";
     append.title = this.texts.add;
-    append.innerHTML = "<span class=\"fa-solid fa-plus\"></span>";
+    append.innerHTML = "<span class=\"fa-solid fa-circle-plus\"></span>";
     listEl.appendChild( append );
     listEl.mdAppend = append;
     this.makeSortable( listEl );
@@ -700,7 +700,7 @@ window.UTILS.MDBlockEditor = class {
     toolbar.appendChild( this.toolbarButton( "js--block-menu", "fa-ellipsis-vertical", "", this.texts.moreTitle ) );
     if ( block.container ) {
       // its bottom "+" is hidden while blocks inside are hovered
-      toolbar.appendChild( this.toolbarButton( "js--add-block", "fa-plus", "", this.texts.addTitle ) );
+      toolbar.appendChild( this.toolbarButton( "js--add-block", "fa-circle-plus", "", this.texts.addTitle ) );
     }
     toolbar.appendChild( this.toolbarButton( "js--remove-block", "fa-trash-can", "", this.texts.removeTitle ) );
 
@@ -711,7 +711,7 @@ window.UTILS.MDBlockEditor = class {
     add.type = "button";
     add.className = "md-block__add js--add-block";
     add.title = this.texts.addTitle;
-    add.innerHTML = "<span class=\"fa-solid fa-plus\"></span>";
+    add.innerHTML = "<span class=\"fa-solid fa-circle-plus\"></span>";
 
     // the toolbar is positioned in a zero-height bar, so showing it doesn't move anything
     // (an element appearing at the top of the block would stop margins of its content from collapsing)
