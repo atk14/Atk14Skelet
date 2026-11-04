@@ -3,8 +3,8 @@
 {/if}
 {if $link_list}{admin_menu for=$link_list align=left}{/if}
 {if $link_list && $link_list->getVisibleItems()}  
-  <div class="drink-shortcode linklist--shortcode">
-    {if $link_list->getTitle()}
+  <div class="drink-shortcode linklist--shortcode{if $class} {$class}{/if}"{if $style} style="{$style}"{/if}>
+    {if $link_list->getTitle() && $show_title}
       <p class="h5">{$link_list->getTitle()}</p>
     {/if}
 

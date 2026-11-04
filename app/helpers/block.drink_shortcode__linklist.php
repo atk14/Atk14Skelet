@@ -4,7 +4,10 @@ function smarty_block_drink_shortcode__linklist($params,$content,$template,&$rep
 
 	$params += [
 		"code" => 0,
-		"class" => ""
+		"class" => "",
+		"style" => "",
+		"type" => "",
+		"show_title" => true,
 	];
 
 	foreach($params as $k => $v){
