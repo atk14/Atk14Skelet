@@ -40,6 +40,12 @@ definedef("REDIRECT_TO_CORRECT_HOSTNAME_AUTOMATICALLY",false);
 // Or if you don't want to let users to register at all, set USER_REGISTRATION_ENABLED to false.
 definedef("USER_REGISTRATION_ENABLED",true);
 
+// Hreflang tags in <head>
+// Set to false to disable hreflang tags completely (e.g. during translation rollout)
+definedef("HREFLANG_ENABLED",true);
+// Language codes to exclude from hreflang, e.g. ["sk"] while Slovak version is being prepared
+definedef("HREFLANG_DISABLED_LANGS",[]);
+
 // Google Analytics tracking code,
 // see app/views/shared/trackers/google/_analytics.tpl and app/layouts/default.tpl.
 // definedef("GOOGLE_ANALYTICS_TRACKING_ID","UA-123456789-1");
