@@ -74,5 +74,49 @@
 				}
 			}
 		}
+		&--images {
+			.linklist__links {
+				// Each item spans two rows of the parent grid (image + title); li and a pass
+				// those rows down via subgrid, so images and titles line up across all items
+				// in the same visual row (also when an item has no image).
+				// The img is wrapped in div.linklist__image: with the img directly as a subgrid
+				// item, Firefox sized the row from the image's natural height (600px).
+				min-width: 0; // prevents the grid from overflowing the container when the content is too wide
+				li,
+				li a {
+					display: grid;
+					grid-row: span 2;
+					grid-template-rows: subgrid;
+				}
+				li {
+					row-gap: 0;
+					min-width: 0;
+				}
+				li a {
+					grid-template-columns: minmax(0, 1fr); // don't let the image's natural width (800px) size the column
+					row-gap: 2px;
+					text-align: center;
+					padding: 0;
+					.link__image {
+						grid-row: 1;
+						align-self: end;
+						img {
+							display: block;
+							width: 100%;
+							height: auto;
+							aspect-ratio: 4 / 3; // same height for every image even if a file has other proportions
+							object-fit: cover;
+						}
+					}
+					span.link_title {
+						padding: 0.5rem 0.75rem;
+						/*display: flex;
+						align-items: center;
+						justify-content: center;*/
+						grid-row: 2; // keeps the title in the text row even when an item has no image
+					}
+				}
+			}
+		}
 	}
 }
