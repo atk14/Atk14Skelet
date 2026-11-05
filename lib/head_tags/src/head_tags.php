@@ -238,7 +238,7 @@ class HeadTags {
 
 	function hasNoindex() {
 		$robots = $this->meta_items[self::META_TYPE_NAME]["robots"] ?? null;
-		return $robots && str_contains((string)$robots->getData(), "noindex");
+		return $robots && strpos((string)$robots->getData(), "noindex") !== false;
 	}
 
 	/**
