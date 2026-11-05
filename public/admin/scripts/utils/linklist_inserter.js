@@ -24,8 +24,10 @@ window.UTILS.LinkListInserter = class {
 
     this.modal = document.getElementById( "linklistinserter_modal" );
     this.linklistSelect = this.modal.querySelector( "#linklistinserter_linklist" );
-    this.styleSelect = this.modal.querySelector( "#linklistinserter_style" );
+    this.typeSelect = this.modal.querySelector( "#linklistinserter_type" );
+    this.showTitleInput = this.modal.querySelector( "#linklistinserter_show_title" );
     this.classInput = this.modal.querySelector( "#linklistinserter_class" );
+    this.styleInput = this.modal.querySelector( "#linklistinserter_css_style" );
     this.copyBtn = this.modal.querySelector( "#linklistinserter_copy_btn" );
     this.saveBtn = this.modal.querySelector( "#linklistinserter_save_btn" );
     this.save = null; // callback given by open()
@@ -87,11 +89,12 @@ window.UTILS.LinkListInserter = class {
     if ( model ) {
       let attrs = Object.assign( {}, model.attrs );
       this.setSelectValue( this.linklistSelect, attrs.code || "" );
-      this.setSelectValue( this.styleSelect, attrs.style || "" );
+      this.setSelectValue( this.typeSelect, attrs.type || "" );
+      // falsy as in PHP (see shared/helpers/drink_shortcodes/_linklist.tpl): "0" or an empty value
+      this.showTitleInput.checked = attrs.show_title === undefined || !/^(0|)$/.test( attrs.show_title );
       this.classInput.value = attrs.class || "";
-      delete attrs.code;
-      delete attrs.style;
-      delete attrs.class;
+      this.styleInput.value = attrs.style || "";
+      [ "code", "type", "show_title", "class", "style" ].forEach( key => delete attrs[ key ] );
       this.attrs = attrs;
       this.original = { raw: options.raw, code: this.generateCode() };
     }
@@ -111,7 +114,7 @@ window.UTILS.LinkListInserter = class {
 
   /**
    * Parses a [linklist] shortcode; returns null when it's not a single [linklist][/linklist]
-   *   "[linklist code=\"main\" class=\"m-4\"][/linklist]" -> { attrs: { code: "main", class: "m-4" } }
+   *   "[linklist code=\"main\" type=\"with_images\"][/linklist]" -> { attrs: { code: "main", type: "with_images" } }
    * @param {String} raw
    * @returns {Object|null} { attrs }
    */
@@ -129,7 +132,8 @@ window.UTILS.LinkListInserter = class {
   }
 
   /**
-   * Builds the [linklist] shortcode from the current form values, "" when no link list is chosen
+   * Builds the [linklist] shortcode from the current form values, "" when no link list is chosen;
+   * only values differing from the defaults of block.drink_shortcode__linklist.php are written
    * @returns {String}
    */
   generateCode() {
@@ -138,13 +142,20 @@ window.UTILS.LinkListInserter = class {
       return "";
     }
     let attrs = { code: code };
-    if ( this.styleSelect.value ) {
-      attrs.style = this.styleSelect.value;
+    if ( this.typeSelect.value ) {
+      attrs.type = this.typeSelect.value;
+    }
+    if ( !this.showTitleInput.checked ) {
+      attrs.show_title = "0";
     }
     // DrInk Markdown doesn't allow "]" in shortcode params
     let cssClass = this.classInput.value.trim().replace( /\]/g, "" );
     if ( cssClass ) {
       attrs.class = cssClass;
+    }
+    let cssStyle = this.styleInput.value.trim().replace( /\]/g, "" );
+    if ( cssStyle ) {
+      attrs.style = cssStyle;
     }
     Object.assign( attrs, this.attrs );
     return window.UTILS.MDShortcodes.buildOpeningTag( "linklist", attrs ) + "[/linklist]";
@@ -177,8 +188,10 @@ window.UTILS.LinkListInserter = class {
 
   reset() {
     this.linklistSelect.value = "";
-    this.styleSelect.value = "";
+    this.typeSelect.value = "";
+    this.showTitleInput.checked = true;
     this.classInput.value = "";
+    this.styleInput.value = "";
     this.attrs = {};
     this.original = null;
   }

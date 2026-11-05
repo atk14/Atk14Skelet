@@ -8,7 +8,6 @@
       <p class="h5">{$link_list->getTitle()}</p>
     {/if}
     {if $type=="with_images"}
-      <p>with images</p>
       <div class="linklist linklist--images">
         <ul class="linklist__links">
           {foreach $link_list->getVisibleItems() as $item}
@@ -26,7 +25,6 @@
         </ul>
       </div>
     {else}
-      <p>default</p>
       <div class="linklist">
         <ul class="linklist__links">
           {foreach $link_list->getVisibleItems() as $item}

@@ -31,14 +31,19 @@
             {/if}
           {/foreach}
         </select>
-        <label for="linklistinserter_style" class="form-label">{t}Style{/t}</label>
-        <select class="form-control form-select mb-2" id="linklistinserter_style">
-          <option value="">Default</option>
-          <option value="with_images">Link list with images</option>
-          <option value="cards">Cards</option>
+        <label for="linklistinserter_type" class="form-label">{t}Type{/t}</label>
+        <select class="form-control form-select mb-2" id="linklistinserter_type">
+          <option value="">{t}Default{/t}</option>
+          <option value="with_images">{t}Link list with images{/t}</option>
         </select>
+        <div class="form-check mb-3">
+          <input type="checkbox" class="form-check-input" id="linklistinserter_show_title" checked>
+          <label for="linklistinserter_show_title" class="form-check-label">{t}Show title of the link list{/t}</label>
+        </div>
         <label for="linklistinserter_class" class="form-label">{t}CSS class{/t}</label>
-        <input type="text" class="form-control" id="linklistinserter_class">
+        <input type="text" class="form-control mb-2" id="linklistinserter_class">
+        <label for="linklistinserter_css_style" class="form-label">{t}CSS style{/t}</label>
+        <input type="text" class="form-control" id="linklistinserter_css_style" placeholder="{t}e.g.{/t} max-width: 40rem;">
       </div>
       <div class="modal-footer d-flex justify-content-between">
         <div>
