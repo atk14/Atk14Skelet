@@ -439,3 +439,136 @@
     margin-top: 0;
   }
 }
+
+// The selected block and the inspector beside the blocks, see select() and createInspector() in md_block_editor.js
+
+.md-blocks {
+
+  // the selected block keeps its outline and toolbar while the focus is elsewhere (in the inspector...)
+  .md-block.md-block--selected {
+    &, &:hover, &:focus, &:focus-within {
+      outline: 2px solid $primary;
+    }
+    > .md-block__bar > .md-block__toolbar {
+      display: flex;
+    }
+    > .md-block__add {
+      display: block;
+    }
+  }
+
+  .md-blocks__inspector {
+    display: none;
+  }
+
+  // shown only when the block view is wide enough (the class is set by layoutInspector())
+  $inspector-width: 18rem;
+  &.md-blocks--inspector {
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) $inspector-width;
+    grid-template-rows: auto 1fr;
+
+    > .preview-mode-toggler {
+      grid-column: 1 / -1;
+    }
+
+    > .md-preview__viewport {
+      grid-column: 1;
+      grid-row: 2;
+      width: 100%; // the margin: auto of the viewport would shrink it to its content in a grid
+      // its min-height: 100% (_md_preview.scss) would fix the height of the row to the visible height and long content
+      // would overflow the white viewport; the row fills the view anyway (1fr) and grows with the content now
+      min-height: auto;
+    }
+
+    > .md-blocks__inspector {
+      display: block;
+      grid-column: 2;
+      grid-row: 2;
+      align-self: start;
+      position: sticky; // top and max-height are set by layoutInspector()
+      overflow-y: auto;
+      //margin: 0 0.75rem 0.75rem;
+      margin: 0 0 0.75rem 0;
+      padding: 1rem;
+      font-size: 0.875rem;
+      color: $gray-900;
+      background-color: white;
+      border-radius: 0;
+    }
+  }
+}
+
+.md-inspector__empty {
+  margin: 1rem 0;
+  text-align: center;
+  color: $gray-600;
+}
+
+.md-inspector__path {
+  display: flex;
+  flex-wrap: wrap;
+  align-items: center;
+  margin-bottom: 0.25rem;
+  font-size: 0.75rem;
+  color: $gray-600;
+}
+
+.md-inspector__crumb {
+  padding: 0;
+  font-size: inherit;
+  color: inherit;
+  background: none;
+  border: none;
+  // separators
+  &::after {
+    content: "›";
+    margin: 0 0.375rem;
+    color: $gray-500;
+  }
+}
+
+button.md-inspector__crumb {
+  color: $primary;
+  cursor: pointer;
+  &:hover {
+    text-decoration: underline;
+  }
+}
+
+.md-inspector__title {
+  margin-bottom: 0.5rem;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.md-inspector__note {
+  color: $gray-600;
+}
+
+// the inspector is a part of the admin's UI, unlike the rendered content beside it
+@media screen {
+  body.dark-mode .md-blocks.md-blocks--inspector > .md-blocks__inspector {
+    color: white;
+    background-color: $gray-900;
+    border: 1px solid $gray-600;
+
+    .md-inspector__path,
+    .md-inspector__empty,
+    .md-inspector__note {
+      color: $gray-500;
+    }
+    button.md-inspector__crumb {
+      color: lighten( $primary, 15% );
+    }
+  }
+}
+
+// fields of an inserter in the inspector (e.g. DivEditor.inspect())
+.md-inspector__fields {
+  .form-label {
+    margin-bottom: 0.125rem;
+    font-size: 0.75rem;
+    color: $gray-600;
+  }
+}

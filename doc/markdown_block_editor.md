@@ -5,11 +5,12 @@ The admin Markdown editor (`MarkdownField`) has three views: **Blocks** (the def
 ## What the user gets
 
 - The text is split into blocks (paragraphs, headings, lists, tables, code, iobjects, shortcodes...), each rendered by the server exactly as on the web.
-- A block is edited in place (double-click, Enter or the pencil button): its Markdown source appears in a textarea. Ctrl+Enter or clicking outside saves, Esc cancels. The formatting buttons of the toolbar (H1–H3, bold, italic, lists, link, image) and Ctrl+B/I/K work on the edited block.
+- A click selects a block (Up/Down move the selection, Esc cancels it). A block is edited in place (a click into the selected block, double-click, Enter or the pencil button): its Markdown source appears in a textarea. Ctrl+Enter or clicking outside saves, Esc cancels. The formatting buttons of the toolbar (H1–H3, bold, italic, lists, link, image) and Ctrl+B/I/K work on the edited block.
 - Blocks are added by the "+" buttons (or by clicking into empty space below the last block), deleted, moved by dragging their handle or by Alt+Up/Down, cut, copied and pasted (the "⋮" menu, Ctrl+X/C/V on a focused block).
 - Shortcode blocks with a registered editor open it in a dialog: `[tabs]` the tab designer, `[row]` the layout designer, `[linklist]` the link list inserter, `[div]` the div editor (class and style), an iobject `[#123 ...]` the object picker.
 - Container shortcodes – `[row]`, `[tabs]`, `[div]` – show their content as nested lists of blocks, so a column, a tab or a div is edited block by block too.
 - Undo/redo works across the views (it is Ace's undo history).
+- When the block view is wide enough (typically in fullscreen), an **inspector** beside the blocks shows the selected block: where it is (its containers, each selectable) and how it's edited. Inserters with `inspect()` (so far the div editor: class and style) show their fields right there and the changes apply as they are typed; the others are still edited in their dialogs.
 
 ## The core rule: the source in Ace is the only truth
 
@@ -101,6 +102,8 @@ A container block gets `block.container = { head, children: [ { name, attrs, ope
 
 **Editing.** `editBlock( path )` opens a registered editor (`MDEditorInserts.editorFor( block )`) or the inline textarea (`startEdit()`). The edit is committed on blur, but not when the focus goes to the editor's toolbar (the "Insert" dropdown) or while a dialog of an inserter is open (`editing.suspended`). A click that only finishes an edit or closes a menu doesn't start a new block (`busyAtMousedown`).
 
+**Selection and the inspector.** The selected block is the focused one (`focusin` → `select( path )`), kept while the focus is elsewhere – in the inspector, the "Insert" dropdown (which inserts a new block after it) or anywhere on the page. `this.selectedElement` keeps it on its element across re-renders (`updateSelection()` at the end of `refresh()`), since paths shift when blocks are added above it; `focusBlock()` selects too, so every operation leaving the focus on a block leaves it selected. A click into an already selected block starts editing it (`isSecondClick()`) only for blocks edited inline and when the click isn't meant for the content (links, tabs, sliders...) or for selecting text – containers and inserters' blocks would open a dialog on every click. The inspector (`createInspector()`, `updateInspector()`) is shown by `layoutInspector()` – a ResizeObserver on `.md-blocks` adds `md-blocks--inspector` when it is at least `inspectorMinWidth` wide (the width of the editor, not of the window, decides); `.md-blocks` becomes a grid then and the inspector is sticky under the preview mode toolbar.
+
 **Integration with bootstrap-markdown-editor.** The library is not modified. Its toolbar buttons have jQuery handlers bound at init; the block view adds capturing listeners on the toolbar to redirect formatting buttons to the edited block and to keep the focus in the textarea. Its "Edit" button is renamed to "Code" in `MDBlockEditor.init()`. Ace doesn't redraw changes made while hidden – `redrawAce()` runs after switching to Code.
 
 **Drag & drop.** Every list has its own SortableJS instance with a group per editor (blocks can't be dragged into another field). `forceFallback` keeps the dragged clone inside `.md-blocks`, so it is styled as content. `onMove` forbids a block inside itself and a non-nestable container inside a child of its own kind; `canPasteInto()` applies the same rule to Paste.
@@ -117,10 +120,18 @@ UTILS.MDEditorInserts.register( {
   shortcode: "tabs",             // or blockType: "iobject" – which blocks it edits
   parse: raw => model || null,
   open: ( { raw, save } ) => { ... save( code ); },
+  inspect: ( container, { raw, change } ) => true, // optional, see below
 } );
 ```
 
 `run()` calls `open()`, shows the dialog and waits for it to close (Close, ×, Esc, a click on the backdrop): `save( code )` delivers the code, closing without saving cancels. The same `open()` serves inserting (`raw` is null) and editing (`raw` is the block's source).
+
+`inspect( container, { raw, change } )` renders the block's settings into the inspector and calls `change( code )` with the block's new source on every change (return `false` when the block can't be edited there; the inspector then offers the dialog). The block view handles the rest (`inspectorChange()`, `flushInspector()`):
+
+- A change is applied a moment after typing stops (`inspectorDelay`), at once when the field is left or by Enter, and before anything else changes the document (selecting another block, undo, leaving the view).
+- Changes of one field in a row become one step of Ace's undo history (`setSource( text, merge )` merges into the last group via `session.mergeUndoDeltas`), unless the undo revision moved meanwhile.
+- The inspector isn't rendered again while it shows the block's current source (`inspectorState`), so the focus stays in the field while the block is re-rendered beside it. Undo or an edit of the block elsewhere renders it again with the new values.
+- The fields' markup belongs to the designer's template (a `<template>`, e.g. `#diveditor_inspector`), so it's translated like the dialog; ids must be unique per field, more editors may be in the page.
 
 Rules for a designer:
 

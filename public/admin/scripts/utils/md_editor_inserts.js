@@ -18,6 +18,8 @@
  *     shortcode: "tabs",                            // optional, blocks of this shortcode can be edited (or blockType: "iobject")...
  *     parse: raw => model || null,                  // ...when parse() understands them
  *     open: ( { raw, save } ) => { ... save( code ); }, // fills the modal; raw is null when inserting
+ *     inspect: ( container, { raw, change } ) => true,   // optional: settings of the block in the block view's inspector,
+ *                                                       // calls change( code ) on every change, returns false when it can't
  *   } );
  *
  *   UTILS.MDEditorInserts.run( item, { raw: null, onSave: code => { ... }, onCancel: () => { ... } } );

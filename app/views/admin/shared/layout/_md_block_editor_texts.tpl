@@ -28,6 +28,13 @@
 		error: "{t escape=javascript}The preview could not be loaded{/t}",
 		retry: "{t escape=javascript}Try again{/t}",
 		unclosed: "{t escape=javascript}The shortcode is not closed{/t}",
+		inspectorEmpty: "{t escape=javascript}Select a block to see it here{/t}",
+		inspectorEditedInDialog: "{t escape=javascript}Its settings are edited in a dialog.{/t}",
+		inspectorEditedAsText: "{t escape=javascript}It is edited as Markdown text: double-click it, press Enter, or click it once more.{/t}",
+		childNames: {
+			col: "{t escape=javascript}Column{/t}",
+			tab: "{t escape=javascript}Tab{/t}"
+		},
 		types: {
 			heading: "{t escape=javascript}Heading{/t}",
 			paragraph: "{t escape=javascript}Paragraph{/t}",

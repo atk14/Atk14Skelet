@@ -4,8 +4,10 @@
  * The Markdown source is split into blocks (see md_block_tokenizer.js) and every block
  * is rendered separately by the API (markdown/transform_batch), so it looks like on the web.
  *
- * Blocks can be edited (double-click, Enter or the pencil button), deleted, added (the "+" buttons)
+ * A click selects a block (Up / Down move the selection, Esc cancels it); the selected block can be edited
+ * (a click into it again, double-click, Enter or the pencil button), deleted, added (the "+" buttons)
  * and moved (dragging the handle by SortableJS, or Alt+Up / Alt+Down).
+ * A wide block view (e.g. in fullscreen) shows the inspector of the selected block beside the blocks.
  * The source in the Ace editor stays the only source of truth: every change is written into it
  * (and so into the textarea), then the source is tokenized and the blocks are rendered again.
  * Undo/redo uses Ace's undo manager, so the history is shared with the "Code" view.
@@ -58,6 +60,12 @@ window.UTILS.MDBlockEditor = class {
 
   // Instance counter, Sortable groups are per editor (blocks can't be dragged into another editor)
   static instances = 0;
+
+  // The inspector is shown beside the blocks when the block view is at least this wide (px), see layoutInspector()
+  static inspectorMinWidth = 1000;
+
+  // Changes typed in the inspector are applied after this pause (ms), see flushInspector()
+  static inspectorDelay = 400;
 
   /**
    * Adds "Blocks" button as the first view mode of every MD editor in the page,
@@ -133,7 +141,11 @@ window.UTILS.MDBlockEditor = class {
       error: "The preview could not be loaded",
       retry: "Try again",
       unclosed: "The shortcode is not closed",
+      inspectorEmpty: "Select a block to see it here",
+      inspectorEditedInDialog: "Its settings are edited in a dialog.",
+      inspectorEditedAsText: "It is edited as Markdown text: double-click it, press Enter, or click it once more.",
       types: {},
+      childNames: {},
     }, window.mdBlockEditorTexts );
     texts.types = Object.assign( {
       heading: "Heading",
@@ -146,6 +158,11 @@ window.UTILS.MDBlockEditor = class {
       iobject: "Object",
       definitions: "Link definitions",
     }, texts.types );
+    // parts of containers, see inspectorPath()
+    texts.childNames = Object.assign( {
+      col: "Column",
+      tab: "Tab",
+    }, texts.childNames );
     return texts;
   }
 
@@ -244,18 +261,25 @@ window.UTILS.MDBlockEditor = class {
       }
     }, true );
 
-    // where the "Insert" dropdown puts a new block (the focus moves to the dropdown meanwhile)
-    this.lastFocusedPath = null;
+    // The selected block: the focused one, kept while the focus is elsewhere (the inspector, the "Insert" dropdown...);
+    // the "Insert" dropdown puts a new block after it, the inspector shows it
+    this.selected = null; // path
+    this.selectedElement = null;
     this.viewport.addEventListener( "focusin", e => {
-      let blockEl = e.target.closest( ".md-block[data-path]" );
-      if ( blockEl ) {
-        this.lastFocusedPath = blockEl.dataset.path;
+      let blockEl = e.target.closest( ".md-block" );
+      if ( blockEl && blockEl.dataset.path !== undefined && blockEl.dataset.path !== this.selected ) {
+        this.select( blockEl.dataset.path );
       }
     } );
 
-    // a click finishing an edit (or closing the menu) must not start a new block, see onClick()
-    this.viewport.addEventListener( "mousedown", () => {
+    this.createInspector();
+
+    // a click finishing an edit (or closing the menu) must not start a new block, see onClick();
+    // a click into the selected block starts editing it
+    this.viewport.addEventListener( "mousedown", e => {
       this.busyAtMousedown = !!( this.editing || this.menu );
+      let blockEl = e.target.closest( ".md-block" );
+      this.selectedAtMousedown = blockEl && blockEl.dataset.path === this.selected ? this.selected : null;
     }, true );
     this.viewport.addEventListener( "click", this.onClick.bind( this ) );
     this.viewport.addEventListener( "dblclick", this.onDblClick.bind( this ) );
@@ -317,6 +341,7 @@ window.UTILS.MDBlockEditor = class {
     if ( !this.visible ) {
       return;
     }
+    this.flushInspector();
     this.commitEdit();
     this.closeMenu();
     this.element.style.display = "none";
@@ -436,6 +461,7 @@ window.UTILS.MDBlockEditor = class {
     }
 
     this.adaptLayouts();
+    this.updateSelection();
     if ( !pending.length ) {
       return;
     }
@@ -915,8 +941,9 @@ window.UTILS.MDBlockEditor = class {
    * Replaces the source in Ace by the given text.
    * Only the changed part is replaced, so Ace's undo history gets a single, minimal change.
    * @param {String} text
+   * @param {Boolean} merge - the change is merged into the last step of the undo history (see applyInspectorChange())
    */
-  setSource( text ) {
+  setSource( text, merge ) {
     let editor = this.aceEditor;
     let session = editor.getSession();
     let doc = session.getDocument();
@@ -936,7 +963,11 @@ window.UTILS.MDBlockEditor = class {
     let Range = window.ace.require( "ace/range" ).Range;
     let start = doc.indexToPosition( prefix );
     let end = doc.indexToPosition( old.length - suffix );
-    session.markUndoGroup();
+    if ( merge ) {
+      session.mergeUndoDeltas = true;
+    } else {
+      session.markUndoGroup();
+    }
     doc.replace( new Range( start.row, start.column, end.row, end.column ), text.slice( prefix, text.length - suffix ) );
     session.markUndoGroup();
   }
@@ -947,6 +978,7 @@ window.UTILS.MDBlockEditor = class {
   }
 
   undo() {
+    this.flushInspector();
     this.commitEdit();
     let session = this.aceEditor.getSession();
     if ( session.getUndoManager().canUndo() ) {
@@ -956,6 +988,7 @@ window.UTILS.MDBlockEditor = class {
   }
 
   redo() {
+    this.flushInspector();
     this.commitEdit();
     let session = this.aceEditor.getSession();
     if ( session.getUndoManager().canRedo() ) {
@@ -1306,6 +1339,9 @@ window.UTILS.MDBlockEditor = class {
       window.UTILS.MDBlockTokenizer.normalize( targetDoc, [ targetIndex - 1, targetIndex ] );
     }
     this.applyDoc();
+    if ( moved.isConnected && moved.dataset.path !== undefined ) {
+      this.select( moved.dataset.path );
+    }
     moved.focus( { preventScroll: true } );
   }
 
@@ -1339,8 +1375,285 @@ window.UTILS.MDBlockEditor = class {
   focusBlock( path ) {
     let el = this.blockElement( path );
     if ( el ) {
+      this.select( path );
       el.focus( { preventScroll: true } );
     }
+  }
+
+  // ---------------------------------------------------------------- the selected block and the inspector
+
+  /**
+   * Selects the block (null deselects); the selection stays when the focus leaves the block
+   * @param {String|null} path
+   */
+  select( path ) {
+    if ( path !== this.selected ) {
+      this.flushInspector(); // a pending change of the inspector belongs to the block selected so far
+    }
+    let el = path === null || path === undefined ? null : this.blockElement( path );
+    this.selected = el ? path : null;
+    this.selectedElement = el;
+    this.updateSelection();
+  }
+
+  /**
+   * Keeps the selection on its block after the blocks were rendered again: on the same element
+   * (its path may have changed, e.g. a block was added above it), or on the same path when the element was replaced
+   */
+  updateSelection() {
+    let el = this.selectedElement;
+    if ( !( el && el.isConnected && el.dataset.path !== undefined && this.viewport.contains( el ) ) ) {
+      el = this.selected === null ? null : this.blockElement( this.selected );
+    }
+    this.selectedElement = el;
+    this.selected = el ? el.dataset.path : null;
+    [ ...this.viewport.querySelectorAll( ".md-block--selected" ) ].forEach( other => {
+      if ( other !== el ) {
+        other.classList.remove( "md-block--selected" );
+      }
+    } );
+    if ( el ) {
+      el.classList.add( "md-block--selected" );
+    }
+    this.updateInspector();
+  }
+
+  /**
+   * Moves the selection to the previous or next visible block (in the order of the page, nested blocks included)
+   * @param {Number} delta - -1 or 1
+   */
+  selectSibling( delta ) {
+    let blocks = [ ...this.viewport.querySelectorAll( ".md-block[data-path]" ) ].filter( el => el.getClientRects().length );
+    let i = blocks.indexOf( this.selectedElement );
+    let target = blocks[ i < 0 ? ( delta > 0 ? 0 : blocks.length - 1 ) : i + delta ];
+    if ( target ) {
+      this.focusBlock( target.dataset.path );
+      target.scrollIntoView( { block: "nearest" } );
+    }
+  }
+
+  /**
+   * The inspector beside the blocks, showing the selected block; it's there only when the block view is wide
+   * enough (typically in fullscreen), otherwise the blocks are edited by dialogs as before
+   */
+  createInspector() {
+    this.inspector = document.createElement( "div" );
+    this.inspector.className = "md-blocks__inspector";
+    this.element.appendChild( this.inspector );
+    this.inspector.addEventListener( "click", e => {
+      let target = e.target.closest( "[data-path]" );
+      if ( !target ) {
+        return;
+      }
+      if ( target.classList.contains( "js--inspector-edit" ) ) {
+        this.editBlock( target.dataset.path );
+      } else {
+        this.focusBlock( target.dataset.path );
+      }
+    } );
+    // changes of the fields are applied a moment after typing stops, at once when a field is left or by Enter
+    this.inspector.addEventListener( "focusout", () => this.flushInspector() );
+    this.inspector.addEventListener( "keydown", e => {
+      if ( e.key === "Enter" && e.target.matches( "input" ) ) {
+        e.preventDefault();
+        this.flushInspector();
+      }
+    } );
+    if ( window.ResizeObserver ) {
+      new window.ResizeObserver( () => this.layoutInspector() ).observe( this.element );
+    }
+    this.updateInspector();
+  }
+
+  get inspectorShown() {
+    return this.element.classList.contains( "md-blocks--inspector" );
+  }
+
+  layoutInspector() {
+    let width = this.element.clientWidth;
+    if ( !width ) {
+      return; // hidden
+    }
+    let shown = width >= window.UTILS.MDBlockEditor.inspectorMinWidth;
+    if ( shown !== this.inspectorShown ) {
+      this.element.classList.toggle( "md-blocks--inspector", shown );
+      this.adaptLayouts(); // the content got narrower or wider
+    }
+    if ( shown ) {
+      // sticky in the scrolled block view, under the preview mode toolbar
+      let toolbar = this.element.querySelector( ".preview-mode-toggler" );
+      this.inspector.style.top = toolbar.offsetHeight + "px";
+      this.inspector.style.maxHeight = ( this.element.clientHeight - toolbar.offsetHeight ) + "px";
+    }
+  }
+
+  updateInspector() {
+    if ( !this.inspector ) {
+      return;
+    }
+    let texts = this.texts;
+    let inspector = this.inspector;
+    let r = this.selected === null ? null : this.resolve( this.selected );
+    let raw = r ? window.UTILS.MDBlockTokenizer.blockRaw( r.block ) : null;
+    // the fields are kept while the same block is shown (rendering it again after a change of the fields
+    // would take the focus away from them)
+    let state = this.inspectorState;
+    if ( state && r && state.path === this.selected && state.raw === raw ) {
+      return;
+    }
+    if ( this.inspectorPending ) {
+      return; // the change is being typed; the block will be the shown one once it's applied
+    }
+    this.inspectorState = r ? { path: this.selected, raw: raw } : null;
+    inspector.innerHTML = "";
+    let el = ( tagName, className, text ) => {
+      let node = document.createElement( tagName );
+      node.className = className;
+      if ( text !== undefined ) {
+        node.textContent = text;
+      }
+      return node;
+    };
+
+    if ( !r ) {
+      inspector.appendChild( el( "p", "md-inspector__empty", texts.inspectorEmpty ) );
+      return;
+    }
+
+    // where the block is: its containers (and their children, e.g. a column), each one selectable
+    let crumbs = this.inspectorPath( this.selected );
+    if ( crumbs.length ) {
+      let nav = el( "nav", "md-inspector__path" );
+      crumbs.forEach( crumb => {
+        let btn = el( "button", "md-inspector__crumb", crumb.label );
+        btn.type = "button";
+        btn.dataset.path = crumb.path;
+        nav.appendChild( btn );
+        if ( crumb.child ) {
+          nav.appendChild( el( "span", "md-inspector__crumb md-inspector__crumb--child", crumb.child ) );
+        }
+      } );
+      inspector.appendChild( nav );
+    }
+
+    inspector.appendChild( el( "h3", "md-inspector__title", this.blockLabel( r.block ) ) );
+
+    let inserter = window.UTILS.MDEditorInserts.editorFor( r.block );
+    if ( inserter && inserter.inspect ) {
+      // the inserter's own fields, its changes are applied as they are typed
+      let fields = el( "div", "md-inspector__fields" );
+      let path = this.selected;
+      let shown = inserter.inspect( fields, {
+        raw: raw,
+        change: code => this.inspectorChange( path, raw, code ),
+      } );
+      if ( shown !== false ) {
+        inspector.appendChild( fields );
+        return;
+      }
+    }
+    inspector.appendChild( el( "p", "md-inspector__note", inserter ? texts.inspectorEditedInDialog : texts.inspectorEditedAsText ) );
+
+    let edit = el( "button", "btn btn-sm btn-outline-primary js--inspector-edit" );
+    edit.type = "button";
+    edit.dataset.path = this.selected;
+    edit.innerHTML = "<span class=\"fa-solid fa-pen\"></span> ";
+    edit.appendChild( document.createTextNode( texts.edit ) );
+    inspector.appendChild( edit );
+  }
+
+  /**
+   * A change made in the inspector's fields; applied when typing stops (see flushInspector())
+   * @param {String} path - the block shown in the inspector
+   * @param {String} raw - its source the fields were filled from
+   * @param {String} code - its new source
+   */
+  inspectorChange( path, raw, code ) {
+    let active = document.activeElement;
+    this.inspectorPending = {
+      path: path,
+      raw: raw,
+      code: code,
+      field: active && this.inspector.contains( active ) ? active : null,
+    };
+    window.clearTimeout( this.inspectorTimer );
+    this.inspectorTimer = window.setTimeout( () => this.flushInspector(), window.UTILS.MDBlockEditor.inspectorDelay );
+  }
+
+  /**
+   * Writes the pending change of the inspector into the source. Changes of one field in a row are merged
+   * into one step of the undo history, unless something else was done meanwhile.
+   */
+  flushInspector() {
+    window.clearTimeout( this.inspectorTimer );
+    let pending = this.inspectorPending;
+    if ( !pending ) {
+      return;
+    }
+    this.inspectorPending = null;
+    let state = this.inspectorState;
+    let base = state && state.path === pending.path ? state.raw : pending.raw; // the source after the last applied change
+    let code = window.UTILS.MDBlockEditor.cleanRaw( pending.code );
+
+    // the block is found by its source, the path may lead to another block after other changes
+    let path = pending.path;
+    let r = this.resolve( path );
+    if ( !r || window.UTILS.MDBlockTokenizer.blockRaw( r.block ) !== base ) {
+      path = null;
+      this.walkBlocks( ( b, p ) => {
+        path = path || ( window.UTILS.MDBlockTokenizer.blockRaw( b ) === base ? p : null );
+      } );
+      r = path === null ? null : this.resolve( path );
+    }
+    if ( !r || code === base || !code ) {
+      return;
+    }
+
+    let undoManager = this.aceEditor.getSession().getUndoManager();
+    let last = this.lastInspectorChange;
+    let merge = !!( last && pending.field && last.field === pending.field && last.revision === undoManager.getRevision() );
+
+    r.block.raw = code;
+    delete r.block.container; // the raw is the source of the block now
+    window.UTILS.MDBlockTokenizer.normalize( r.doc, [ r.index - 1, r.index ] );
+    this.setSource( window.UTILS.MDBlockTokenizer.join( this.doc ), merge );
+    this.lastInspectorChange = { field: pending.field, revision: undoManager.getRevision() };
+    if ( this.inspectorState && this.inspectorState.path === pending.path ) {
+      this.inspectorState = { path: path, raw: code }; // the fields show it already
+    }
+    if ( path !== this.selected ) {
+      this.selected = path;
+      this.selectedElement = null;
+    }
+    this.refresh();
+  }
+
+  /**
+   * Containers of the block, the outermost first: [ { path, label, child } ], child names the part
+   * of the container the block is in ("Column 2", a tab's name), null for a container with one part ([div])
+   * @param {String} path
+   * @returns {Array}
+   */
+  inspectorPath( path ) {
+    let crumbs = [];
+    let parts = path.split( "/" );
+    // a nested block's path is "<container path>/<child index>/<index>"
+    for ( let i = 1; i + 1 < parts.length; i += 2 ) {
+      let containerPath = parts.slice( 0, i ).join( "/" );
+      let r = this.resolve( containerPath );
+      if ( !r || !r.block.container ) {
+        break;
+      }
+      let childIndex = parseInt( parts[ i ], 10 );
+      let child = r.block.container.children[ childIndex ];
+      let childLabel = null;
+      if ( child && child.name !== r.block.name ) {
+        let name = child.attrs && child.attrs.name;
+        childLabel = name || ( this.texts.childNames[ child.name ] || child.name ) + " " + ( childIndex + 1 );
+      }
+      crumbs.push( { path: containerPath, label: this.blockLabel( r.block ), child: childLabel } );
+    }
+    return crumbs;
   }
 
   // ---------------------------------------------------------------- inserting registered things
@@ -1353,7 +1666,7 @@ window.UTILS.MDBlockEditor = class {
   insertItem( item ) {
     let editing = this.editing;
     if ( !editing ) {
-      let last = this.lastFocusedPath !== null && this.resolve( this.lastFocusedPath );
+      let last = this.selected !== null && this.resolve( this.selected );
       if ( last ) {
         this.insertItemAsBlock( item, last.list, last.index + 1 );
       } else {
@@ -1639,6 +1952,8 @@ window.UTILS.MDBlockEditor = class {
       let last = blocks[ blocks.length - 1 ];
       if ( doc && !this.busyAtMousedown && ( !last || e.clientY > last.getBoundingClientRect().bottom ) ) {
         this.addBlock( listEl.dataset.list, doc.blocks.length, "|" );
+      } else if ( !this.busyAtMousedown ) {
+        this.select( null ); // a click between blocks
       }
       return;
     }
@@ -1679,9 +1994,37 @@ window.UTILS.MDBlockEditor = class {
     } else if ( target.closest( ".js--retry" ) ) {
       this.refresh();
     } else if ( !target.closest( "a[href]" ) ) {
+      if ( this.isSecondClick( e, blockEl ) ) {
+        this.editBlock( path );
+      }
       return;
     }
     e.preventDefault();
+  }
+
+  /**
+   * A click into the block that was already selected starts editing it (the first click only selects it),
+   * when the block is edited inline (not by a dialog: a container or an inserter's block would open it by every click)
+   * and the click was not meant for something in the content (a link, a tab, a slider...) or for selecting text
+   * @param {MouseEvent} e
+   * @param {Element} blockEl
+   * @returns {Boolean}
+   */
+  isSecondClick( e, blockEl ) {
+    if ( this.busyAtMousedown || this.selectedAtMousedown === null || this.selectedAtMousedown !== blockEl.dataset.path || e.detail > 1 ) {
+      return false;
+    }
+    if ( blockEl.classList.contains( "md-block--editing" ) ) {
+      return false;
+    }
+    if ( e.target.closest( "a, button, input, select, textarea, label, summary, video, audio, [role=tab], [data-toggle], [data-bs-toggle], .swiper, .md-block__bar, .md-block__add" ) ) {
+      return false;
+    }
+    if ( !window.getSelection().isCollapsed ) {
+      return false;
+    }
+    let r = this.resolve( blockEl.dataset.path );
+    return !!r && !r.block.container && !window.UTILS.MDEditorInserts.editorFor( r.block );
   }
 
   onDblClick( e ) {
@@ -1717,6 +2060,13 @@ window.UTILS.MDBlockEditor = class {
     } else if ( e.altKey && ( e.key === "ArrowUp" || e.key === "ArrowDown" ) && e.target.classList.contains( "md-block" ) ) {
       e.preventDefault();
       this.moveBlock( e.target.dataset.path, e.key === "ArrowUp" ? -1 : 1 );
+    } else if ( !e.altKey && !ctrl && !e.shiftKey && ( e.key === "ArrowUp" || e.key === "ArrowDown" ) && e.target.classList.contains( "md-block" ) ) {
+      e.preventDefault();
+      this.selectSibling( e.key === "ArrowUp" ? -1 : 1 );
+    } else if ( e.key === "Escape" && e.target.classList.contains( "md-block" ) ) {
+      e.preventDefault();
+      this.select( null );
+      e.target.blur();
     } else if ( e.key === "Enter" && e.target.classList.contains( "md-block" ) ) {
       e.preventDefault();
       this.editBlock( e.target.dataset.path );

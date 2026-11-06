@@ -8,6 +8,14 @@
   };
 </script>
 
+{* fields of a [div] in the inspector of the block view (see DivEditor.inspect()) *}
+<template id="diveditor_inspector">
+  <label class="form-label js--class">{t}CSS class{/t}</label>
+  <input type="text" class="form-control form-control-sm mb-2 js--class" placeholder="{t}e.g.{/t} text-center bg-light p-3">
+  <label class="form-label js--style">{t}CSS style{/t}</label>
+  <input type="text" class="form-control form-control-sm js--style" placeholder="{t}e.g.{/t} max-width: 30%; margin: auto;">
+</template>
+
 <dialog class="dialog" id="diveditor_modal" aria-labelledby="diveditor_label" closedby="any">
   <div class="dialog-header">
     <h1 class="dialog-title" id="diveditor_label">{t}Div{/t}</h1>
