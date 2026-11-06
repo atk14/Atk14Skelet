@@ -10,7 +10,7 @@
  * md_shortcodes.js, md_editor_inserts.js
  * _tabdesigner.scss
  * _tabdesigner_modal.tpl
- * Bootstrap 4+
+ * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
  */
 window.UTILS = window.UTILS || { };
 

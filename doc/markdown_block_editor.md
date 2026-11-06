@@ -7,7 +7,7 @@ The admin Markdown editor (`MarkdownField`) has three views: **Blocks** (the def
 - The text is split into blocks (paragraphs, headings, lists, tables, code, iobjects, shortcodes...), each rendered by the server exactly as on the web.
 - A block is edited in place (double-click, Enter or the pencil button): its Markdown source appears in a textarea. Ctrl+Enter or clicking outside saves, Esc cancels. The formatting buttons of the toolbar (H1–H3, bold, italic, lists, link, image) and Ctrl+B/I/K work on the edited block.
 - Blocks are added by the "+" buttons (or by clicking into empty space below the last block), deleted, moved by dragging their handle or by Alt+Up/Down, cut, copied and pasted (the "⋮" menu, Ctrl+X/C/V on a focused block).
-- Shortcode blocks with a registered editor open it in a modal: `[tabs]` the tab designer, `[row]` the layout designer, `[linklist]` the link list inserter, `[div]` the div editor (class and style), an iobject `[#123 ...]` the object picker.
+- Shortcode blocks with a registered editor open it in a dialog: `[tabs]` the tab designer, `[row]` the layout designer, `[linklist]` the link list inserter, `[div]` the div editor (class and style), an iobject `[#123 ...]` the object picker.
 - Container shortcodes – `[row]`, `[tabs]`, `[div]` – show their content as nested lists of blocks, so a column, a tab or a div is edited block by block too.
 - Undo/redo works across the views (it is Ace's undo history).
 
@@ -35,9 +35,10 @@ The tokenizer is **lossless**: `join( tokenize( source ) ) === source` for any s
 | `md_block_tokenizer.js` | `UTILS.MDBlockTokenizer`: splits a source into blocks, including the tree of container shortcodes; `join()`, `blockRaw()`, `normalize()`, `reorder()`. No DOM, runs in Node.js. |
 | `md_row_layout.js` | `UTILS.MDRowLayout`: widths of `[col]` columns per breakpoint from Bootstrap classes and back; parses and rebuilds a `[row]` keeping content of the columns. No DOM, runs in Node.js. |
 | `md_block_editor.js` | `UTILS.MDBlockEditor`: the block view itself (rendering, editing, menus, drag & drop, clipboard). One instance per MD editor (`container.mdBlockEditor`). |
-| `md_editor_inserts.js` | `UTILS.MDEditorInserts`: registry of things insertable into editors (designers in modals). Fills the "Insert" dropdown, the "Add block" menu and finds the editor of a block. |
+| `md_editor_inserts.js` | `UTILS.MDEditorInserts`: registry of things insertable into editors (designers in dialogs). Fills the "Insert" dropdown, the "Add block" menu and finds the editor of a block. |
 | `tab_designer.js`, `layout_designer.js`, `linklist_inserter.js`, `iobject_inserter.js`, `div_editor.js` | Designers registered in `MDEditorInserts`; each can insert a new thing and edit an existing one. |
 | `fa_iconpicker.js` | Icon picker; **not migrated** to the registry yet – it still copies the code to the clipboard. |
+| `dialog.js` | `UTILS.Dialog`: `show()`, `close()`, `onClose()` of native `<dialog>` elements, plus fallbacks for browsers without Invoker Commands (`commandfor`/`command`) or `closedby`. No Bootstrap JavaScript. |
 | `md_editor_toolbar_helper.js` | Adds buttons, dropdowns and the view mode button ("Blocks") to toolbars of bootstrap-markdown-editor. |
 | `md_editor_resizer.js` | Remembers editor heights in sessionStorage; the height is kept on `.md-editor` and mirrored to `.md-blocks`. |
 | `preview_mode_toggle.js` | Desktop / tablet / phone width of the preview (used by the block view too). |
@@ -58,8 +59,8 @@ Initialization is in `public/admin/scripts/application.js` (`initializeEditors()
 ### Templates and styles
 
 - `app/views/admin/shared/layout/_md_block_editor_texts.tpl` – UI strings of the block view (`window.mdBlockEditorTexts`), rendered in the admin layout. English fallbacks are in `MDBlockEditor.texts()`.
-- `app/views/admin/shared/_editor_modals.tpl` and `editor_modals/*` – modals of the designers, each with its own `window.*Texts`. The object picker needs the edited record: edit templates render `{render partial="shared/editor_modals" iobjects_for=$page}` (`application/edit.tpl` does it only for models with `has_iobjects`).
-- `public/admin/styles/_md_block_editor.scss` – the block view; `_md_preview.scss` – the rendered content (frontend styles of iobjects, shortcodes... imported under `.md-preview, .md-blocks`); `_md_preview_grid.scss` – Bootstrap grid emulated by container queries (the preview width, not the window width, decides); `_iobject_inserter.scss`, `_tabdesigner.scss`, `_layout_designer.scss` – modals.
+- `app/views/admin/shared/_editor_modals.tpl` and `editor_modals/*` – dialogs of the designers (native `<dialog>` marked up like Bootstrap 6 dialogs: `.dialog`, `.dialog-header`, `.dialog-title`, `.dialog-body`, `.dialog-footer`, `.btn-close` with `commandfor`/`command="close"`), each with its own `window.*Texts`. The object picker needs the edited record: edit templates render `{render partial="shared/editor_modals" iobjects_for=$page}` (`application/edit.tpl` does it only for models with `has_iobjects`).
+- `public/admin/styles/_md_block_editor.scss` – the block view; `_md_preview.scss` – the rendered content (frontend styles of iobjects, shortcodes... imported under `.md-preview, .md-blocks`); `_md_preview_grid.scss` – Bootstrap grid emulated by container queries (the preview width, not the window width, decides); `_dialog.scss` – the dialogs (styled like Bootstrap 4 modals from the `$modal-*` variables, sizes `.dialog-sm/-lg/-xl`, dark mode); `_iobject_inserter.scss`, `_tabdesigner.scss`, `_layout_designer.scss` – content of the dialogs.
 
 ### Tests
 
@@ -98,7 +99,7 @@ A container block gets `block.container = { head, children: [ { name, attrs, ope
 - Block elements are reused when their source didn't change (`elementFor()` keyed by the rendered source), so interactive components keep their state (an active tab) and media aren't reloaded. `placeElements()` moves as few nodes as possible – moving a node reloads its iframes.
 - `adaptLayouts()`: a nested list put into a flex/grid element (e.g. `[div class="card-deck"]`) would break the layout, so the list takes over the parent's flex/grid properties and every block takes over the flex properties of its rendered content. It runs after every render and after a preview width change.
 
-**Editing.** `editBlock( path )` opens a registered editor (`MDEditorInserts.editorFor( block )`) or the inline textarea (`startEdit()`). The edit is committed on blur, but not when the focus goes to the editor's toolbar (the "Insert" dropdown) or while a modal of an inserter is open (`editing.suspended`). A click that only finishes an edit or closes a menu doesn't start a new block (`busyAtMousedown`).
+**Editing.** `editBlock( path )` opens a registered editor (`MDEditorInserts.editorFor( block )`) or the inline textarea (`startEdit()`). The edit is committed on blur, but not when the focus goes to the editor's toolbar (the "Insert" dropdown) or while a dialog of an inserter is open (`editing.suspended`). A click that only finishes an edit or closes a menu doesn't start a new block (`busyAtMousedown`).
 
 **Integration with bootstrap-markdown-editor.** The library is not modified. Its toolbar buttons have jQuery handlers bound at init; the block view adds capturing listeners on the toolbar to redirect formatting buttons to the edited block and to keep the focus in the textarea. Its "Edit" button is renamed to "Code" in `MDBlockEditor.init()`. Ace doesn't redraw changes made while hidden – `redrawAce()` runs after switching to Code.
 
@@ -119,7 +120,7 @@ UTILS.MDEditorInserts.register( {
 } );
 ```
 
-`run()` shows the modal, calls `open()` and waits for the modal to close: `save( code )` delivers the code, closing without saving cancels. The same `open()` serves inserting (`raw` is null) and editing (`raw` is the block's source).
+`run()` calls `open()`, shows the dialog and waits for it to close (Close, ×, Esc, a click on the backdrop): `save( code )` delivers the code, closing without saving cancels. The same `open()` serves inserting (`raw` is null) and editing (`raw` is the block's source).
 
 Rules for a designer:
 
@@ -127,7 +128,9 @@ Rules for a designer:
 - Keep what the form doesn't show (other attributes, classes, content of columns).
 - When nothing was changed in the form, save the original `raw` exactly, otherwise opening and saving a block would reformat it.
 - DrInk Markdown params can't contain `]`; double quotes are escaped as `\"` (`MDShortcodes.buildOpeningTag()`). Server-side helpers reading params of nested tags must use `parseParams()`, not their own regex (see the tabs helper).
-- Modals are shown by `MDEditorInserts.showModal()`; it works with Bootstrap 4 (jQuery) and 5. `window.bootstrapVersion` used in older code is never set, don't rely on it.
+- The designers' dialogs are native `<dialog>` elements shown by `MDEditorInserts.showModal()` (→ `UTILS.Dialog`); a Bootstrap modal still works there for an item registered with one (Bootstrap 4 through jQuery, 5 natively). `window.bootstrapVersion` used in older code is never set, don't rely on it.
+- `open()` runs before the dialog is shown, and `showModal()` focuses the element with `autofocus` (otherwise the first focusable one, the × button), so the field to start with gets `autofocus` in the template instead of a `focus()` call.
+- A dialog is in the top layer: anything a widget inside it appends to `<body>` (an autocomplete, a color picker, a tooltip with `container: body`) would be hidden under it – attach such popups to the dialog.
 
 `[row]` specifics (`md_row_layout.js`): a `[col]` without `defaultclasses=0` gets default classes depending on the **number of columns** (`_col.tpl`: `col-md-{12/n}`, special cases for 4 and 6), so a column kept as `[col]` changes its width when columns are added – `serialize()` checks that with the new count. Removed columns' content is moved to the last column.
 

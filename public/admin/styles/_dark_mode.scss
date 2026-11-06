@@ -210,16 +210,16 @@
       button.close {
         color: currentColor;
       }
-      &-content {
-        background-color: $dark-body-bg;
-        .layout-designer__row-editor {
-          background-color: $gray-700;
-          .btn-outline-primary {
-            border-color: lighten( $primary, 30% );
-            color: lighten( $primary, 30% );
-            &:hover, &:active, &:focus {
-              color: white;
-            }
+    }
+    .modal-content, .dialog { // .dialog: see _dialog.scss
+      background-color: $dark-body-bg;
+      .layout-designer__row-editor {
+        background-color: $gray-700;
+        .btn-outline-primary {
+          border-color: lighten( $primary, 30% );
+          color: lighten( $primary, 30% );
+          &:hover, &:active, &:focus {
+            color: white;
           }
         }
       }

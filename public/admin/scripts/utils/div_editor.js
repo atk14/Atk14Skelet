@@ -16,7 +16,7 @@
  *
  * md_shortcodes.js, md_editor_inserts.js
  * _div_editor_modal.tpl
- * Bootstrap 4+
+ * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
  */
 window.UTILS = window.UTILS || { };
 
@@ -101,7 +101,6 @@ window.UTILS.DivEditor = class {
     this.classInput.value = model ? model.attrs.class || "" : "";
     this.styleInput.value = model ? model.attrs.style || "" : "";
     this.saveBtn.textContent = model ? this.texts.save : this.texts.insert;
-    window.setTimeout( () => this.classInput.focus(), 500 ); // after the modal is shown
   }
 
   /**

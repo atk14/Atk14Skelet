@@ -1,0 +1,191 @@
+/***
+ * Native <dialog> marked up like Bootstrap 6 dialogs (.dialog, .dialog-header, .dialog-title, .dialog-body, .dialog-footer, .btn-close),
+ * styled like the current Bootstrap modals. Used by the designers of the Markdown editor (editor_modals/*),
+ * the behaviour is in public/admin/scripts/utils/dialog.js.
+ *
+ * Sizes: .dialog-sm, .dialog-lg, .dialog-xl (like .modal-sm...); the default width is $modal-md.
+ */
+
+.dialog {
+  // the UA styles of <dialog> are replaced
+  position: fixed;
+  inset: 0;
+  width: calc(100% - #{$modal-dialog-margin * 2});
+  max-width: $modal-md;
+  height: fit-content;
+  max-height: calc(100% - #{$modal-dialog-margin * 2});
+  margin: $modal-dialog-margin auto auto;
+  padding: 0;
+  overflow: hidden;
+
+  color: $modal-content-color;
+  background-color: $modal-content-bg;
+  background-clip: padding-box;
+  border: $modal-content-border-width solid $modal-content-border-color;
+  @include border-radius($modal-content-border-radius);
+  @include box-shadow($modal-content-box-shadow-xs);
+
+  // display must not be set on a closed dialog
+  &[open] {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &::backdrop {
+    background-color: rgba($modal-backdrop-bg, $modal-backdrop-opacity);
+  }
+
+  &:focus {
+    outline: 0;
+  }
+
+  @include media-breakpoint-up(sm) {
+    max-height: calc(100% - #{$modal-dialog-margin-y-sm-up * 2});
+    margin-top: $modal-dialog-margin-y-sm-up;
+    @include box-shadow($modal-content-box-shadow-sm-up);
+
+    &.dialog-sm {
+      max-width: $modal-sm;
+    }
+  }
+
+  @include media-breakpoint-up(lg) {
+    &.dialog-lg,
+    &.dialog-xl {
+      max-width: $modal-lg;
+    }
+  }
+
+  @include media-breakpoint-up(xl) {
+    &.dialog-xl {
+      max-width: $modal-xl;
+    }
+  }
+
+  // animation like .modal.fade
+  @media (prefers-reduced-motion: no-preference) {
+    transition: opacity .15s linear, transform .3s ease-out, overlay .3s allow-discrete, display .3s allow-discrete;
+    opacity: 0;
+    transform: $modal-fade-transform;
+    &[open] {
+      opacity: 1;
+      transform: none;
+    }
+    @starting-style {
+      &[open] {
+        opacity: 0;
+        transform: $modal-fade-transform;
+      }
+    }
+
+    &::backdrop {
+      transition: background-color .15s linear, overlay .15s allow-discrete, display .15s allow-discrete;
+      background-color: transparent;
+    }
+    &[open]::backdrop {
+      background-color: rgba($modal-backdrop-bg, $modal-backdrop-opacity);
+    }
+    @starting-style {
+      &[open]::backdrop {
+        background-color: transparent;
+      }
+    }
+  }
+}
+
+.dialog-header {
+  display: flex;
+  flex-shrink: 0;
+  align-items: flex-start;
+  justify-content: space-between;
+  padding: $modal-header-padding;
+  border-bottom: $modal-header-border-width solid $modal-header-border-color;
+  @include border-top-radius($modal-content-inner-border-radius);
+
+  .btn-close {
+    margin: (-$modal-header-padding-y / 2) (-$modal-header-padding-x / 2) (-$modal-header-padding-y / 2) auto;
+  }
+}
+
+.dialog-title {
+  margin-bottom: 0;
+  font-size: $h5-font-size;
+  line-height: $modal-title-line-height;
+}
+
+.dialog-body {
+  position: relative;
+  flex: 1 1 auto;
+  padding: $modal-inner-padding;
+  overflow-y: auto;
+}
+
+.dialog-footer {
+  display: flex;
+  flex-shrink: 0;
+  flex-wrap: wrap;
+  align-items: center;
+  justify-content: flex-end;
+  padding: $modal-inner-padding - $modal-footer-margin-between / 2;
+  border-top: $modal-footer-border-width solid $modal-footer-border-color;
+  @include border-bottom-radius($modal-content-inner-border-radius);
+
+  > * {
+    margin: $modal-footer-margin-between / 2;
+  }
+}
+
+// a cross drawn in currentColor, so it suits the dark mode too (Bootstrap 4 has no .btn-close)
+.dialog .btn-close {
+  box-sizing: content-box;
+  flex-shrink: 0;
+  width: 1em;
+  height: 1em;
+  padding: .5em;
+  color: inherit;
+  background: transparent;
+  border: 0;
+  @include border-radius($border-radius);
+  opacity: .5;
+  cursor: pointer;
+
+  &::before {
+    content: "";
+    display: block;
+    width: 100%;
+    height: 100%;
+    background-color: currentColor;
+    $cross: url("data:image/svg+xml,%3csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 16 16'%3e%3cpath d='M.293.293a1 1 0 0 1 1.414 0L8 6.586 14.293.293a1 1 0 1 1 1.414 1.414L9.414 8l6.293 6.293a1 1 0 0 1-1.414 1.414L8 9.414l-6.293 6.293a1 1 0 0 1-1.414-1.414L6.586 8 .293 1.707a1 1 0 0 1 0-1.414z'/%3e%3c/svg%3e");
+    -webkit-mask: $cross center / 1em auto no-repeat;
+    mask: $cross center / 1em auto no-repeat;
+  }
+
+  &:hover {
+    opacity: .75;
+  }
+
+  &:focus {
+    outline: 0;
+    box-shadow: $input-btn-focus-box-shadow;
+    opacity: 1;
+  }
+}
+
+// the page doesn't scroll under an open dialog
+body:has(dialog.dialog[open]) {
+  overflow: hidden;
+}
+
+// dark mode (see _dark_mode.scss)
+@media screen {
+  body.dark-mode .dialog {
+    color: white;
+    background-color: $gray-900;
+    border-color: $gray-600;
+
+    .dialog-header,
+    .dialog-footer {
+      border-color: $gray-600;
+    }
+  }
+}

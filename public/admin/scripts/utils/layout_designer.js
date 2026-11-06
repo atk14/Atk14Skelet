@@ -17,7 +17,7 @@
  * md_row_layout.js, md_editor_inserts.js
  * _layout_designer.scss
  * _layout_designer.tpl
- * Bootstrap 4+
+ * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
  * 
  */
 window.UTILS = window.UTILS || { };
@@ -83,9 +83,8 @@ window.UTILS.LayoutDesigner = class {
       this.updateNote();
     } );
 
-    // Handler for close btn
-    // TODO: better would be to have handler on modal close
-    this.designerModal.querySelector( "[data-bs-dismiss='modal']" ).addEventListener( "click", () => {
+    // The layout is remembered however the dialog is closed (Close, Esc, the backdrop, Insert)
+    this.designerModal.addEventListener( "close", () => {
       if ( !this.edited ) {
         this.save(); // a layout being edited is not remembered as the default one
       }

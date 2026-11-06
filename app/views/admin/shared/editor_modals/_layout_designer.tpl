@@ -48,57 +48,47 @@
  </template>
 
 
-<div class="modal fade" id="layout_designer_modal" tabindex="-1" aria-labelledby="layout_modal_label" aria-hidden="true">
-  <div class="modal-dialog">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fs-5" id="layout_modal_label">Layout Designer</h5>
-        {if USING_BOOTSTRAP5}
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        {else}
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        {/if}
-      </div>
-      <div class="modal-body layout-designer" id="layout-designer">
+<dialog class="dialog dialog-xl" id="layout_designer_modal" aria-labelledby="layout_modal_label" closedby="any">
+  <div class="dialog-header">
+    <h1 class="dialog-title" id="layout_modal_label">Layout Designer</h1>
+    <button type="button" class="btn-close" commandfor="layout_designer_modal" command="close" aria-label="{t}Close{/t}"></button>
+  </div>
+  <div class="dialog-body layout-designer" id="layout-designer">
 
-        <div class="form-group row mb-3">
-          <label for="layout_designer_column_count" class="form-label col-4">{t}Number of columns{/t}</label>
-          <div class="col-8">
-          <select name="" id="layout_designer_column_count" class="{if USING_BOOTSTRAP5}form-select{else}form-control{/if}">
-            {for $i=1 to 12}
-              <option value="{$i}"{if $i==2} selected{/if}>{$i}</option>
-            {/for}
-          </select>
-        </div>
-        </div>
+    <div class="form-group row mb-3">
+      <label for="layout_designer_column_count" class="form-label col-4">{t}Number of columns{/t}</label>
+      <div class="col-8">
+      <select name="" id="layout_designer_column_count" autofocus class="{if USING_BOOTSTRAP5}form-select{else}form-control{/if}">
+        {for $i=1 to 12}
+          <option value="{$i}"{if $i==2} selected{/if}>{$i}</option>
+        {/for}
+      </select>
+    </div>
+    </div>
 
-        <div class="alert alert-info js--layout-designer-note d-none">
-          {t}Content of the removed columns will be moved to the last column.{/t}
-        </div>
+    <div class="alert alert-info js--layout-designer-note d-none">
+      {t}Content of the removed columns will be moved to the last column.{/t}
+    </div>
 
-        <div class="editor-container">
-        </div>
-        
+    <div class="editor-container">
+    </div>
+    
 
 
 
-      </div>
-      <div class="modal-footer d-flex justify-content-between">
-        <div>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Close{/t}</button>
-          <button type="button" class="btn btn-secondary" id="reset_btn">{t}Reset{/t}</button>
-        </div>
-        <div>
-          <button type="button" class="btn btn-link" id="copy_html_btn">{t}Copy HTML code to clipboard{/t}</button>
-          <button type="button" class="btn btn-outline-secondary" id="copy_md_btn">{t}Copy Markdown code to clipboard{/t}</button>
-          <button type="button" class="btn btn-primary" id="layout_designer_save_btn">{t}Insert{/t}</button>
-        </div>
-      </div>
+  </div>
+  <div class="dialog-footer d-flex justify-content-between">
+    <div>
+      <button type="button" class="btn btn-secondary" commandfor="layout_designer_modal" command="close">{t}Close{/t}</button>
+      <button type="button" class="btn btn-secondary" id="reset_btn">{t}Reset{/t}</button>
+    </div>
+    <div>
+      <button type="button" class="btn btn-link" id="copy_html_btn">{t}Copy HTML code to clipboard{/t}</button>
+      <button type="button" class="btn btn-outline-secondary" id="copy_md_btn">{t}Copy Markdown code to clipboard{/t}</button>
+      <button type="button" class="btn btn-primary" id="layout_designer_save_btn">{t}Insert{/t}</button>
     </div>
   </div>
-</div>
+</dialog>
 
 
 

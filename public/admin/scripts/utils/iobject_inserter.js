@@ -18,7 +18,7 @@
  * md_editor_inserts.js
  * _iobject_inserter.scss
  * _iobject_inserter_modal.tpl, api/iobjects/index
- * Bootstrap 4+
+ * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
  */
 window.UTILS = window.UTILS || { };
 
@@ -64,7 +64,7 @@ window.UTILS.IobjectInserter = class {
       } );
       // an object added in another tab appears when coming back
       window.addEventListener( "focus", () => {
-        if ( this.modal.classList.contains( "show" ) ) {
+        if ( this.modal.open ) {
           this.load();
         }
       } );

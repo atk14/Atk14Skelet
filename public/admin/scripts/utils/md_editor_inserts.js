@@ -13,7 +13,7 @@
  *     name: "tabs",                                 // unique id
  *     text: "<span class=\"fas fa-folder\"></span> Tabs", // menu item innerHTML
  *     title: "Tabs",
- *     modal: "#tabdesigner_modal",                  // shown by run(), closing it without saving cancels
+ *     modal: "#tabdesigner_modal",                  // a <dialog> (or a Bootstrap modal) shown by run(), closing it without saving cancels
  *     inline: false,                                // true: a piece of text (e.g. an icon), not a block
  *     shortcode: "tabs",                            // optional, blocks of this shortcode can be edited (or blockType: "iobject")...
  *     parse: raw => model || null,                  // ...when parse() understands them
@@ -22,7 +22,7 @@
  *
  *   UTILS.MDEditorInserts.run( item, { raw: null, onSave: code => { ... }, onCancel: () => { ... } } );
  *
- * Dependencies: md_editor_toolbar_helper.js, Bootstrap 4 or 5 (modals), Ace (via bootstrap-markdown-editor)
+ * Dependencies: md_editor_toolbar_helper.js, dialog.js, Ace (via bootstrap-markdown-editor)
  */
 window.UTILS = window.UTILS || { };
 
@@ -144,13 +144,22 @@ window.UTILS.MDEditorInserts = class {
     return before + code + after;
   }
 
+  // The designers' dialogs are native <dialog> elements (see dialog.js);
+  // a Bootstrap modal (4 or 5) still works for an item registered with one
+
   // Bootstrap 5 has bootstrap.Modal.getOrCreateInstance(), Bootstrap 4 works through jQuery
   static get bootstrap5() {
     return !!( window.bootstrap && window.bootstrap.Modal && window.bootstrap.Modal.getOrCreateInstance );
   }
 
+  static isDialog( modal ) {
+    return modal.tagName === "DIALOG";
+  }
+
   static showModal( modal ) {
-    if ( window.UTILS.MDEditorInserts.bootstrap5 ) {
+    if ( window.UTILS.MDEditorInserts.isDialog( modal ) ) {
+      window.UTILS.Dialog.show( modal );
+    } else if ( window.UTILS.MDEditorInserts.bootstrap5 ) {
       window.bootstrap.Modal.getOrCreateInstance( modal ).show();
     } else {
       window.jQuery( modal ).modal( "show" );
@@ -158,7 +167,9 @@ window.UTILS.MDEditorInserts = class {
   }
 
   static hideModal( modal ) {
-    if ( window.UTILS.MDEditorInserts.bootstrap5 ) {
+    if ( window.UTILS.MDEditorInserts.isDialog( modal ) ) {
+      window.UTILS.Dialog.close( modal );
+    } else if ( window.UTILS.MDEditorInserts.bootstrap5 ) {
       window.bootstrap.Modal.getOrCreateInstance( modal ).hide();
     } else {
       window.jQuery( modal ).modal( "hide" );
@@ -166,7 +177,9 @@ window.UTILS.MDEditorInserts = class {
   }
 
   static onModalHidden( modal, callback ) {
-    if ( window.UTILS.MDEditorInserts.bootstrap5 ) {
+    if ( window.UTILS.MDEditorInserts.isDialog( modal ) ) {
+      window.UTILS.Dialog.onClose( modal, callback );
+    } else if ( window.UTILS.MDEditorInserts.bootstrap5 ) {
       modal.addEventListener( "hidden.bs.modal", callback, { once: true } );
     } else {
       window.jQuery( modal ).one( "hidden.bs.modal", callback );

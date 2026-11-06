@@ -1361,7 +1361,7 @@ window.UTILS.MDBlockEditor = class {
       }
       return;
     }
-    // the modal takes the focus; the edit must not be committed by the textarea's blur meanwhile
+    // the dialog takes the focus; the edit must not be committed by the textarea's blur meanwhile
     let input = editing.input;
     let start = input.selectionStart;
     let end = input.selectionEnd;

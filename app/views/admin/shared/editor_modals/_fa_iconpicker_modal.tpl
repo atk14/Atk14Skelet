@@ -26,37 +26,27 @@
   }
 </script>
 
-<div class="modal fade" id="fa_iconpicker_modal" tabindex="-1" aria-labelledby="fa_iconpicker_label" aria-hidden="true">
-  <div class="modal-dialog modal-lg">
-    <div class="modal-content">
-      <div class="modal-header">
-        <h5 class="modal-title fs-5" id="fa_iconpicker_label">{t}Icon Picker{/t}</h5>
-        {if USING_BOOTSTRAP5}
-        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        {else}
-        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
-          <span aria-hidden="true">&times;</span>
-        </button>
-        {/if}
-      </div>
-      <div class="modal-body fa-iconpicker" id="fa-iconpicker">
-        
-        <div class="form-group row mb-3">
-          <label for="fa_iconpicker_search_input" class="form-label col-4">{t}Search icons{/t}</label>
-          <div class="col-8">
-            <input type="text" class="form-control" id="fa_iconpicker_search_input" placeholder="{t}Search icons...{/t}">
-          </div>
-        </div>
-
-        <div class="fa-iconpicker__thumbnails">
-        </div>
-
-      </div>
-      <div class="modal-footer d-flex justify-content-between">
-        <div>
-          <button type="button" class="btn btn-secondary" data-bs-dismiss="modal" data-dismiss="modal">{t}Close{/t}</button>
-        </div>
+<dialog class="dialog dialog-lg" id="fa_iconpicker_modal" aria-labelledby="fa_iconpicker_label" closedby="any">
+  <div class="dialog-header">
+    <h1 class="dialog-title" id="fa_iconpicker_label">{t}Icon Picker{/t}</h1>
+    <button type="button" class="btn-close" commandfor="fa_iconpicker_modal" command="close" aria-label="{t}Close{/t}"></button>
+  </div>
+  <div class="dialog-body fa-iconpicker" id="fa-iconpicker">
+    
+    <div class="form-group row mb-3">
+      <label for="fa_iconpicker_search_input" class="form-label col-4">{t}Search icons{/t}</label>
+      <div class="col-8">
+        <input type="text" class="form-control" id="fa_iconpicker_search_input" autofocus placeholder="{t}Search icons...{/t}">
       </div>
     </div>
+
+    <div class="fa-iconpicker__thumbnails">
+    </div>
+
   </div>
-</div>
+  <div class="dialog-footer d-flex justify-content-between">
+    <div>
+      <button type="button" class="btn btn-secondary" commandfor="fa_iconpicker_modal" command="close">{t}Close{/t}</button>
+    </div>
+  </div>
+</dialog>

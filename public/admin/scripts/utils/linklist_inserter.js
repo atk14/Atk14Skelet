@@ -8,7 +8,7 @@
  *
  * md_shortcodes.js, md_editor_inserts.js
  * _linklist_inserter_modal.tpl
- * Bootstrap 4+
+ * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
  */
 window.UTILS = window.UTILS || { };
 

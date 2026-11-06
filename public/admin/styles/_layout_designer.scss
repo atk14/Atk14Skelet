@@ -130,9 +130,8 @@
   }
 }
 
-#layout_designer_modal {
-  .modal-dialog {
-     width: 100%;
+#layout_designer_modal.dialog {
+  @include media-breakpoint-up(xl) {
     max-width: 1200px;
   }
 }
