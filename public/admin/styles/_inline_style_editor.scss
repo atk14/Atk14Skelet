@@ -1,0 +1,51 @@
+/***
+ * Inline style editor (a style attribute as rows of declarations), see public/admin/scripts/utils/inline_style_editor.js
+ */
+
+.inline-style-editor {
+  font-family: $font-family-monospace;
+}
+
+.inline-style-editor__row {
+  display: flex;
+  align-items: center;
+  gap: 0.25rem;
+  margin-bottom: 0.25rem;
+
+  .form-control {
+    min-width: 0;
+    font-family: inherit;
+    font-size: 0.8125rem;
+  }
+
+  .js--property {
+    flex: 0 0 42%;
+  }
+
+  .js--value {
+    flex: 1 1 auto;
+  }
+}
+
+.inline-style-editor__row--invalid .form-control {
+  border-color: $warning;
+}
+
+.inline-style-editor__colon {
+  color: $gray-600;
+}
+
+.inline-style-editor__remove {
+  flex: 0 0 auto;
+  padding: 0.125rem 0.375rem;
+  color: $gray-600;
+  background: none;
+  border: none;
+  &:hover, &:focus {
+    color: $danger;
+  }
+}
+
+.inline-style-editor__add {
+  font-family: $font-family-base;
+}

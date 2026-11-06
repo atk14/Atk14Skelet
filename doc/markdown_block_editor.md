@@ -39,6 +39,7 @@ The tokenizer is **lossless**: `join( tokenize( source ) ) === source` for any s
 | `md_editor_inserts.js` | `UTILS.MDEditorInserts`: registry of things insertable into editors (designers in dialogs). Fills the "Insert" dropdown, the "Add block" menu and finds the editor of a block. |
 | `tab_designer.js`, `layout_designer.js`, `linklist_inserter.js`, `iobject_inserter.js`, `div_editor.js` | Designers registered in `MDEditorInserts`; each can insert a new thing and edit an existing one. |
 | `fa_iconpicker.js` | Icon picker; **not migrated** to the registry yet – it still copies the code to the clipboard. |
+| `inline_style_editor.js` | `UTILS.InlineStyleEditor`: a style attribute edited as rows of declarations (property, value, ×; "+" adds one). Used by designers in their dialogs and in the inspector. `parse()`/`serialize()` need no DOM (tested in Node.js); declarations are split by `;` outside parentheses and quotes, so `url(data:…;base64,…)` stays whole. `getValue()` returns the original string when the declarations didn't change. |
 | `dialog.js` | `UTILS.Dialog`: `show()`, `close()`, `onClose()` of native `<dialog>` elements, plus fallbacks for browsers without Invoker Commands (`commandfor`/`command`) or `closedby`. No Bootstrap JavaScript. |
 | `md_editor_toolbar_helper.js` | Adds buttons, dropdowns and the view mode button ("Blocks") to toolbars of bootstrap-markdown-editor. |
 | `md_editor_resizer.js` | Remembers editor heights in sessionStorage; the height is kept on `.md-editor` and mirrored to `.md-blocks`. |

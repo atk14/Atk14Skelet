@@ -67,6 +67,7 @@ var applicationScripts = [
 	"public/admin/scripts/utils/tab_designer.js",
 	"public/admin/scripts/utils/linklist_inserter.js",
 	"public/admin/scripts/utils/iobject_inserter.js",
+	"public/admin/scripts/utils/inline_style_editor.js",
 	"public/admin/scripts/utils/div_editor.js",
 	"public/admin/scripts/application.js",
 ];

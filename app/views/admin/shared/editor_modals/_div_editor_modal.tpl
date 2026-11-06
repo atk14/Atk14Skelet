@@ -12,8 +12,8 @@
 <template id="diveditor_inspector">
   <label class="form-label js--class">{t}CSS class{/t}</label>
   <input type="text" class="form-control form-control-sm mb-2 js--class" placeholder="{t}e.g.{/t} text-center bg-light p-3">
-  <label class="form-label js--style">{t}CSS style{/t}</label>
-  <input type="text" class="form-control form-control-sm js--style" placeholder="{t}e.g.{/t} max-width: 30%; margin: auto;">
+  <div class="form-label js--style">{t}CSS style{/t}</div>
+  <div class="js--style" role="group"></div>
 </template>
 
 <dialog class="dialog" id="diveditor_modal" aria-labelledby="diveditor_label" closedby="any">
@@ -25,8 +25,8 @@
     <p class="text-muted small">{t}A box around blocks. Its content is edited directly in the block view.{/t}</p>
     <label for="diveditor_class" class="form-label">{t}CSS class{/t}</label>
     <input type="text" class="form-control mb-3" id="diveditor_class" autofocus placeholder="{t}e.g.{/t} text-center bg-light p-3">
-    <label for="diveditor_style" class="form-label">{t}CSS style{/t}</label>
-    <input type="text" class="form-control" id="diveditor_style" placeholder="{t}e.g.{/t} max-width: 30%; margin: auto;">
+    <div class="form-label" id="diveditor_style_label">{t}CSS style{/t}</div>
+    <div id="diveditor_style" role="group" aria-labelledby="diveditor_style_label"></div>
   </div>
   <div class="dialog-footer d-flex justify-content-between">
     <div>
