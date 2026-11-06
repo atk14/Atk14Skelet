@@ -146,6 +146,15 @@ class ApplicationRestApiController extends ApplicationBaseController{
 	function _application_before_filter(){
 		parent::_application_before_filter();
 
+		// API responses are always dynamic and often carry sensitive data - they must not be cached
+		// by any shared cache (a CDN like Cloudflare) or by the browser. The "private, max-age=0,
+		// must-revalidate" set by ApplicationBaseController isn't always enough on its own, e.g. if a
+		// CDN is configured to ignore the origin's Cache-Control - "no-store" is the strongest, most
+		// widely respected directive.
+		$this->response->setHeader("Cache-Control","private, no-store, no-cache, must-revalidate, max-age=0");
+		$this->response->setHeader("Pragma","no-cache");
+		$this->response->setHeader("Expires","0");
+
 		$this->response->setContentCharset("UTF-8");
 
 		$this->page_title = $this->controller.($this->action=="index" ? "" : "/$this->action");
@@ -387,6 +396,12 @@ function _rest_api_dbmole_error_handler($dbmole){
 	global $HTTP_RESPONSE,$HTTP_REQUEST;
 	$HTTP_RESPONSE->setStatusCode(500);
 	$HTTP_RESPONSE->setContentCharset('UTF-8');
+	// this handler runs outside of _application_before_filter(), so it wouldn't otherwise get the
+	// cache headers set there - without them a shared cache (a CDN) could store and keep serving
+	// this stale 500 even after the DB is working again
+	$HTTP_RESPONSE->setHeader("Cache-Control","private, no-store, no-cache, must-revalidate, max-age=0");
+	$HTTP_RESPONSE->setHeader("Pragma","no-cache");
+	$HTTP_RESPONSE->setHeader("Expires","0");
 
 	$msg = Translate::Trans("Internal server error occurred",DEFAULT_CHARSET,"utf-8");
 
