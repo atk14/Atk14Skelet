@@ -10,7 +10,7 @@ class TcUsers extends TcBase{
 		"login" => "john.doe.tester",
 		"firstname" => "John",
 		"lastname" => "Doe",
-		"email" => "john@doe.com",
+		"email" => "john@example.com",
 		"password" => "no_more_fears",
 		"password_repeat" => "no_more_fears",
 
@@ -51,7 +51,7 @@ class TcUsers extends TcBase{
 
 		// testing outgoing email
 		$mailer = $controller->mailer;
-		$this->assertEquals('john@doe.com',$mailer->to);
+		$this->assertEquals('john@example.com',$mailer->to);
 		$this->assertStringContains('Thanks for signing up',$mailer->body_html);
 		$this->assertStringContains('login: john.doe.tester',$mailer->body_html);
 
@@ -118,15 +118,15 @@ class TcUsers extends TcBase{
 		$this->_login_user("john@doe.com","Samantha111");
 
 		$data = $this->users["john_doe"]->toArray();
-		$data["email"] = "info@doe.com";
+		$data["email"] = "info@example.com";
 
 		$controller = $this->client->post("users/edit",$data);
 		$this->assertTrue($this->client->redirected());
-		$this->assertEquals("Your account data has been updated. Next time you should sign-in with login name <em>info@doe.com</em>.",(string)$controller->flash->success());
+		$this->assertEquals("Your account data has been updated. Next time you should sign-in with login name <em>info@example.com</em>.",(string)$controller->flash->success());
 
 		$john_doe = User::GetInstanceById($this->users["john_doe"]->getId());
-		$this->assertEquals("info@doe.com",$john_doe->getEmail());
-		$this->assertEquals("info@doe.com",$john_doe->getLogin());
+		$this->assertEquals("info@example.com",$john_doe->getEmail());
+		$this->assertEquals("info@example.com",$john_doe->getLogin());
 
 		$this->_logout_user();
 
@@ -134,7 +134,7 @@ class TcUsers extends TcBase{
 		$this->_login_user("samantha@doe.com","John123");
 
 		$data = $this->users["samantha_doe"]->toArray();
-		$data["email"] = "info@doe.com";
+		$data["email"] = "info@example.com";
 
 		$controller = $this->client->post("users/edit",$data);
 		$this->assertFalse($this->client->redirected());
