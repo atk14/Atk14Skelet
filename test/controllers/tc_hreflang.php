@@ -112,6 +112,44 @@ class TcHreflang extends TcBase {
 		$this->assertFalse(isset($link_tags["alternate"]), "hreflang must not be added when fewer than 2 active locales remain");
 	}
 
+	// --- _set_lang_noindex() — sibling language has noindex ---
+
+	function test_set_lang_noindex_on_2lang_site_suppresses_all_hreflang() {
+		// MiniSkelet has only en+cs. Marking cs as noindex leaves 1 active locale
+		// → not enough for hreflang → no tags at all.
+		$ctrl = $this->client->get("main/index");
+		$ctrl->head_tags = new HeadTags();
+
+		$method_noindex = new ReflectionMethod($ctrl, "_set_lang_noindex");
+		$method_noindex->setAccessible(true);
+		$method_noindex->invoke($ctrl, "cs");
+
+		$method = new ReflectionMethod($ctrl, "_setup_hreflang_for_head_tags");
+		$method->setAccessible(true);
+		$method->invoke($ctrl);
+
+		$link_tags = $ctrl->head_tags->getLinkTags();
+		$this->assertFalse(isset($link_tags["alternate"]), "hreflang must not be added when only 1 active locale remains after excluding the noindex lang");
+	}
+
+	function test_set_lang_noindex_excludes_lang_not_in_active_locales() {
+		// Marking a lang that isn't configured must not suppress hreflang for the remaining langs.
+		$ctrl = $this->client->get("main/index");
+		$ctrl->head_tags = new HeadTags();
+
+		$method_noindex = new ReflectionMethod($ctrl, "_set_lang_noindex");
+		$method_noindex->setAccessible(true);
+		$method_noindex->invoke($ctrl, "sk"); // sk is not configured in this test suite
+
+		$method = new ReflectionMethod($ctrl, "_setup_hreflang_for_head_tags");
+		$method->setAccessible(true);
+		$method->invoke($ctrl);
+
+		$map = $this->_get_hreflang_map($ctrl);
+		$this->assertTrue(isset($map["en"]), "hreflang=en must still be present when noindex lang is not active");
+		$this->assertTrue(isset($map["cs"]), "hreflang=cs must still be present when noindex lang is not active");
+	}
+
 	// --- _set_hreflang_url() ---
 
 	function test_set_hreflang_url_overrides_url_for_given_lang() {
