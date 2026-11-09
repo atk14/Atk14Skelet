@@ -10,7 +10,7 @@ The admin Markdown editor (`MarkdownField`) has three views: **Blocks** (the def
 - Shortcode blocks with a registered editor open it in a dialog: `[tabs]` the tab designer, `[row]` the layout designer, `[linklist]` the link list inserter, `[div]` the div editor (class and style), an iobject `[#123 ...]` the object picker.
 - Container shortcodes – `[row]`, `[tabs]`, `[div]` – show their content as nested lists of blocks, so a column, a tab or a div is edited block by block too.
 - Undo/redo works across the views (it is Ace's undo history).
-- When the block view is wide enough (typically in fullscreen), an **inspector** beside the blocks shows the selected block: where it is (its containers, each selectable) and how it's edited. Inserters with `inspect()` (so far the div editor: class and style) show their fields right there and the changes apply as they are typed; the others are still edited in their dialogs.
+- When the block view is wide enough (typically in fullscreen), an **inspector** beside the blocks shows the selected block: where it is (its containers, each selectable) and how it's edited. Inserters with `inspect()` (so far the div editor and the link list inserter) show their fields right there and the changes apply as they are typed; the others are still edited in their dialogs.
 
 ## The core rule: the source in Ace is the only truth
 
