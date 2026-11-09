@@ -1,4 +1,4 @@
-<div class="content-tabs{if $class} {$class}{/if}">
+<div class="content-tabs{if $class} {$class}{/if}" {if $style} style="{$style}"{/if}>
   <ul class="nav nav-pills" id="{$uniqid}-tabnav" role="tablist">
     {foreach $tab_names as $tab_name}
       <li class="nav-item" role="presentation">

@@ -4,6 +4,7 @@ function smarty_block_drink_shortcode__tabs($params,$content,$template,&$repeat)
 
 	$params += [
 		"class" => "",
+		"style" => "",
 	];
 
 	foreach($params as $k => $v){

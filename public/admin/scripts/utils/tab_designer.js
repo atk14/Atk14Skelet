@@ -5,11 +5,11 @@
  * Registered in UTILS.MDEditorInserts, so it's offered in the "Insert" dropdown of MD editors,
  * in the "Add block" menu of the block view and as the editor of [tabs] blocks.
  * In the inspector of the block view (inspect()) the tabs are renamed, added, removed and reordered
- * and the class of [tabs] is set, without touching their content (it's edited as blocks there), see md_tabs_model.js.
+ * and the class and style of [tabs] are set, without touching their content (it's edited as blocks there), see md_tabs_model.js.
  *
  * Dependencies:
  *
- * md_shortcodes.js, md_editor_inserts.js, md_tabs_model.js, css_class_editor.js, SortableJS (optional)
+ * md_shortcodes.js, md_editor_inserts.js, md_tabs_model.js, css_class_editor.js, inline_style_editor.js, SortableJS (optional)
  * _tabdesigner.scss
  * _tabdesigner_modal.tpl
  * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
@@ -30,6 +30,8 @@ window.UTILS.TabDesigner = class {
     this.tabFieldsTemplate = document.getElementById( "tabdesigner_tab_fields" );
     this.tabsContainer = this.modal.querySelector( ".tabdesigner__tabs" );
     this.addTabBtn = this.modal.querySelector( ".js--add-tab" );
+    this.classEditor = new window.UTILS.CssClassEditor( this.modal.querySelector( "#tabdesigner_class" ) );
+    this.styleEditor = new window.UTILS.InlineStyleEditor( this.modal.querySelector( "#tabdesigner_style" ) );
     this.copyBtn = this.modal.querySelector( "#tabdesigner_copy_btn" );
     this.saveBtn = this.modal.querySelector( "#tabdesigner_save_btn" );
     this.save = null; // callback given by open()
@@ -93,7 +95,7 @@ window.UTILS.TabDesigner = class {
     let list = fields.querySelector( ".js--tabs" );
     let addBtn = fields.querySelector( ".js--add-tab" );
     let id = "tabdesigner_inspector_" + ( ++window.UTILS.TabDesigner.inspectorCount );
-    [ "tabs", "class" ].forEach( name => {
+    [ "tabs", "class", "style" ].forEach( name => {
       let label = fields.querySelector( ".js--" + name + "-label" );
       label.id = id + "_" + name + "_label";
       fields.querySelector( ".js--" + name ).setAttribute( "aria-labelledby", label.id );
@@ -190,6 +192,13 @@ window.UTILS.TabDesigner = class {
         apply( false );
       },
     } );
+    new window.UTILS.InlineStyleEditor( fields.querySelector( ".js--style" ), {
+      value: model.attrs.style || "",
+      onChange: value => {
+        model = MDTabsModel.setAttrs( model, { style: value } );
+        apply( false );
+      },
+    } );
 
     container.appendChild( fields );
     return true;
@@ -208,13 +217,14 @@ window.UTILS.TabDesigner = class {
     if ( model ) {
       this.tabsAttrs = model.attrs;
       model.tabs.forEach( tab => this.addTab( tab ) );
-      this.original = { raw: options.raw, code: this.generateCode() };
     } else {
       this.tabsAttrs = {};
       this.addTab();
       this.addTab();
-      this.original = null;
     }
+    this.classEditor.setValue( this.tabsAttrs.class || "" );
+    this.styleEditor.setValue( this.tabsAttrs.style || "" );
+    this.original = model ? { raw: options.raw, code: this.generateCode() } : null;
     this.saveBtn.textContent = model ? this.texts.save : this.texts.insert;
   }
 
@@ -302,7 +312,17 @@ window.UTILS.TabDesigner = class {
         return `${ MDShortcodes.buildOpeningTag( "tab", attrs ) }\n${ content }\n[/tab]`;
       } )
       .join( "\n" );
-    return `${ MDShortcodes.buildOpeningTag( "tabs", this.tabsAttrs ) }\n${ tabsCode }\n[/tabs]`;
+    // class and style from their editors, the other attributes of [tabs] are kept
+    let tabsAttrs = Object.assign( {}, this.tabsAttrs );
+    [ [ "class", this.classEditor.getValue() ], [ "style", this.styleEditor.getValue() ] ].forEach( ( [ key, value ] ) => {
+      value = value.trim().replace( /\]/g, "" );
+      if ( value ) {
+        tabsAttrs[ key ] = value;
+      } else {
+        delete tabsAttrs[ key ];
+      }
+    } );
+    return `${ MDShortcodes.buildOpeningTag( "tabs", tabsAttrs ) }\n${ tabsCode }\n[/tabs]`;
   }
 
   /**

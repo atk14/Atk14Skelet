@@ -27,7 +27,9 @@
   <div class="tabdesigner-inspector__tabs js--tabs" role="group"></div>
   <button type="button" class="btn btn-sm btn-outline-secondary js--add-tab">{!"plus"|icon} {t}Add tab{/t}</button>
   <div class="form-label mt-3 js--class-label">{t}CSS class{/t}</div>
-  <div class="js--class" role="group"></div>
+  <div class="mb-2 js--class" role="group"></div>
+  <div class="form-label js--style-label">{t}CSS style{/t}</div>
+  <div class="js--style" role="group"></div>
 </template>
 
 <dialog class="dialog dialog-lg" id="tabdesigner_modal" aria-labelledby="tabdesigner_label" closedby="any">
@@ -42,6 +44,11 @@
     <button type="button" class="btn btn-outline-primary btn-sm js--add-tab">
       {!"plus"|icon} {t}Add tab{/t}
     </button>
+
+    <div class="form-label mt-4" id="tabdesigner_class_label">{t}CSS class{/t}</div>
+    <div class="mb-3" id="tabdesigner_class" role="group" aria-labelledby="tabdesigner_class_label"></div>
+    <div class="form-label" id="tabdesigner_style_label">{t}CSS style{/t}</div>
+    <div id="tabdesigner_style" role="group" aria-labelledby="tabdesigner_style_label"></div>
 
   </div>
   <div class="dialog-footer d-flex justify-content-between">
