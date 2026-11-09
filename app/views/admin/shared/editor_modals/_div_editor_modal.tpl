@@ -10,8 +10,8 @@
 
 {* fields of a [div] in the inspector of the block view (see DivEditor.inspect()) *}
 <template id="diveditor_inspector">
-  <label class="form-label js--class">{t}CSS class{/t}</label>
-  <input type="text" class="form-control form-control-sm mb-2 js--class" placeholder="{t}e.g.{/t} text-center bg-light p-3">
+  <div class="form-label js--class">{t}CSS class{/t}</div>
+  <div class="mb-2 js--class" role="group"></div>
   <div class="form-label js--style">{t}CSS style{/t}</div>
   <div class="js--style" role="group"></div>
 </template>
@@ -23,8 +23,8 @@
   </div>
   <div class="dialog-body">
     <p class="text-muted small">{t}A box around blocks. Its content is edited directly in the block view.{/t}</p>
-    <label for="diveditor_class" class="form-label">{t}CSS class{/t}</label>
-    <input type="text" class="form-control mb-3" id="diveditor_class" autofocus placeholder="{t}e.g.{/t} text-center bg-light p-3">
+    <div class="form-label" id="diveditor_class_label">{t}CSS class{/t}</div>
+    <div class="mb-3" id="diveditor_class" role="group" aria-labelledby="diveditor_class_label"></div>
     <div class="form-label" id="diveditor_style_label">{t}CSS style{/t}</div>
     <div id="diveditor_style" role="group" aria-labelledby="diveditor_style_label"></div>
   </div>

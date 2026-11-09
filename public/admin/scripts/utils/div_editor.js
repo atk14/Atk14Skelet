@@ -15,7 +15,7 @@
  *
  * Dependencies:
  *
- * md_shortcodes.js, md_editor_inserts.js, inline_style_editor.js
+ * md_shortcodes.js, md_editor_inserts.js, css_class_editor.js, inline_style_editor.js
  * _div_editor_modal.tpl (the dialog and the template of the inspector's fields)
  * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
  */
@@ -32,7 +32,8 @@ window.UTILS.DivEditor = class {
     window.UTILS.DivEditor.instance = this;
 
     this.modal = document.getElementById( "diveditor_modal" );
-    this.classInput = this.modal.querySelector( "#diveditor_class" );
+    this.classEditor = new window.UTILS.CssClassEditor( this.modal.querySelector( "#diveditor_class" ) );
+    this.classEditor.input.autofocus = true;
     this.styleEditor = new window.UTILS.InlineStyleEditor( this.modal.querySelector( "#diveditor_style" ) );
     this.saveBtn = this.modal.querySelector( "#diveditor_save_btn" );
     this.save = null; // callback given by open()
@@ -41,8 +42,9 @@ window.UTILS.DivEditor = class {
     this.attachToolbarButtons();
 
     this.saveBtn.addEventListener( "click", () => this.saveCode() );
-    this.classInput.addEventListener( "keydown", e => {
-      if ( e.key === "Enter" ) {
+    // Enter saves, unless the class editor used it (to turn the typed text into a class)
+    this.modal.querySelector( "#diveditor_class" ).addEventListener( "keydown", e => {
+      if ( e.key === "Enter" && !e.defaultPrevented && e.target.matches( "input" ) ) {
         e.preventDefault();
         this.saveCode();
       }
@@ -98,7 +100,7 @@ window.UTILS.DivEditor = class {
     this.save = options.save;
     let model = options.raw ? window.UTILS.DivEditor.parse( options.raw ) : null;
     this.edited = model ? { raw: options.raw, model: model } : null;
-    this.classInput.value = model ? model.attrs.class || "" : "";
+    this.classEditor.setValue( model ? model.attrs.class || "" : "" );
     this.styleEditor.setValue( model ? model.attrs.style || "" : "" );
     this.saveBtn.textContent = model ? this.texts.save : this.texts.insert;
   }
@@ -107,7 +109,7 @@ window.UTILS.DivEditor = class {
    * Builds the [div] from the form
    */
   saveCode() {
-    let code = window.UTILS.DivEditor.build( this.edited, this.classInput.value, this.styleEditor.getValue() );
+    let code = window.UTILS.DivEditor.build( this.edited, this.classEditor.getValue(), this.styleEditor.getValue() );
     if ( this.save ) {
       this.save( code );
     }
@@ -127,22 +129,21 @@ window.UTILS.DivEditor = class {
     }
     let edited = { raw: options.raw, model: model };
     let fields = template.content.cloneNode( true );
-    let classInput = fields.querySelector( "input.js--class" );
-    let styleLabel = fields.querySelector( "div.form-label.js--style" );
-    let styleContainer = fields.querySelector( "div[role=group].js--style" );
     // labels need unique ids, there may be more editors in the page
     let id = "diveditor_inspector_" + ( ++window.UTILS.DivEditor.inspectorCount );
-    classInput.id = id + "_class";
-    fields.querySelector( "label.js--class" ).htmlFor = classInput.id;
-    styleLabel.id = id + "_style_label";
-    styleContainer.setAttribute( "aria-labelledby", styleLabel.id );
-    classInput.value = model.attrs.class || "";
-    let styleEditor;
+    let containers = {};
+    [ "class", "style" ].forEach( name => {
+      let label = fields.querySelector( "div.form-label.js--" + name );
+      containers[ name ] = fields.querySelector( "div[role=group].js--" + name );
+      label.id = id + "_" + name + "_label";
+      containers[ name ].setAttribute( "aria-labelledby", label.id );
+    } );
+    let classEditor, styleEditor;
     let onChange = () => {
-      options.change( window.UTILS.DivEditor.build( edited, classInput.value, styleEditor.getValue() ) );
+      options.change( window.UTILS.DivEditor.build( edited, classEditor.getValue(), styleEditor.getValue() ) );
     };
-    styleEditor = new window.UTILS.InlineStyleEditor( styleContainer, { value: model.attrs.style || "", onChange: onChange } );
-    classInput.addEventListener( "input", onChange );
+    classEditor = new window.UTILS.CssClassEditor( containers.class, { value: model.attrs.class || "", onChange: onChange } );
+    styleEditor = new window.UTILS.InlineStyleEditor( containers.style, { value: model.attrs.style || "", onChange: onChange } );
     container.appendChild( fields );
     return true;
   }
@@ -164,7 +165,7 @@ window.UTILS.DivEditor = class {
     let setAttr = window.UTILS.DivEditor.prototype.setAttr;
     if ( edited ) {
       let attrs = Object.assign( {}, edited.model.attrs );
-      if ( ( attrs.class || "" ) === cssClass && ( attrs.style || "" ) === style ) {
+      if ( window.UTILS.CssClassEditor.same( attrs.class || "", cssClass ) && window.UTILS.InlineStyleEditor.same( attrs.style || "", style ) ) {
         return edited.raw;
       }
       setAttr( attrs, "class", cssClass );
