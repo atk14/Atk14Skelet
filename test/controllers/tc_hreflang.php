@@ -150,6 +150,46 @@ class TcHreflang extends TcBase {
 		$this->assertTrue(isset($map["cs"]), "hreflang=cs must still be present when noindex lang is not active");
 	}
 
+	function test_set_lang_noindex_on_3lang_site_keeps_hreflang_for_remaining_two() {
+		// Simulate a 3-language site (en + cs + sk) where cs is noindex.
+		// Expected: en and sk keep hreflang for each other; cs is excluded entirely.
+		// The noindex language's URL must not appear in the hreflang set of any page.
+		global $ATK14_GLOBAL;
+
+		$original_locale = $ATK14_GLOBAL->getConfig("locale");
+		$ATK14_GLOBAL->setConfig("locale", array_merge($original_locale, [
+			"sk" => ["LANG" => "sk_SK.UTF-8", "name" => "slovenčina"],
+		]));
+
+		try {
+			$ctrl = $this->client->get("main/index");
+			$ctrl->head_tags = new HeadTags();
+			// Supply explicit URLs for all langs so the router is not asked to build /sk/… URLs
+			// (sk is not wired into the test-suite routes).
+			$ctrl->_hreflang_urls = [
+				"en" => "http://example.com/en/",
+				"cs" => "http://example.com/cs/",
+				"sk" => "http://example.com/sk/",
+			];
+
+			$method_noindex = new ReflectionMethod($ctrl, "_set_lang_noindex");
+			$method_noindex->setAccessible(true);
+			$method_noindex->invoke($ctrl, "cs");
+
+			$method = new ReflectionMethod($ctrl, "_setup_hreflang_for_head_tags");
+			$method->setAccessible(true);
+			$method->invoke($ctrl);
+
+			$map = $this->_get_hreflang_map($ctrl);
+			$this->assertTrue(isset($map["en"]),     "hreflang=en must be present on a 3-lang site when only cs is noindex");
+			$this->assertTrue(isset($map["sk"]),     "hreflang=sk must be present on a 3-lang site when only cs is noindex");
+			$this->assertFalse(isset($map["cs"]),    "hreflang=cs must not appear — cs has noindex");
+			$this->assertFalse(isset($map["cs-CZ"]), "hreflang=cs-CZ must not appear — cs has noindex");
+		} finally {
+			$ATK14_GLOBAL->setConfig("locale", $original_locale);
+		}
+	}
+
 	// --- _set_hreflang_url() ---
 
 	function test_set_hreflang_url_overrides_url_for_given_lang() {
