@@ -236,6 +236,11 @@ class HeadTags {
 		return $this->link_items;
 	}
 
+	function hasNoindex() {
+		$robots = $this->meta_items[self::META_TYPE_NAME]["robots"] ?? null;
+		return $robots && strpos((string)$robots->getData(), "noindex") !== false;
+	}
+
 	/**
 	 * Special set methods to set important link tags.
 	 */
