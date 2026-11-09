@@ -385,6 +385,9 @@ class ApplicationBaseController extends Atk14Controller{
 	 * Usage in a controller action:
 	 *   $this->_disable_hreflang();      // disable completely (e.g. noindex pages)
 	 *   $this->_disable_hreflang("sk");  // disable one language (e.g. translation not ready)
+	 *
+	 * Note: on a 2-language site, disabling one language leaves fewer than 2 active locales,
+	 * which suppresses hreflang entirely — useful when one language version has noindex.
 	 */
 	protected function _disable_hreflang($lang = null) {
 		if($lang === null) {
@@ -392,6 +395,24 @@ class ApplicationBaseController extends Atk14Controller{
 		} else {
 			$this->_hreflang_disabled_langs[] = $lang;
 		}
+	}
+
+	/**
+	 * Mark a sibling language version as noindex, removing it from the hreflang set.
+	 *
+	 * Use this when the current page is indexable but another language version is not
+	 * (e.g. translation not ready). Google requires that all pages in an hreflang set
+	 * are indexable — a noindex URL must not appear in hreflang.
+	 *
+	 * The noindex language is excluded from hreflang. If fewer than 2 active languages
+	 * remain afterwards, hreflang is suppressed entirely (including for the current language).
+	 *
+	 * Usage:
+	 *   $this->_set_lang_noindex("sk");  // sk has noindex → exclude sk; cs+en keep hreflang
+	 *   $this->_set_lang_noindex("cs");  // on a 2-lang site → fewer than 2 remain → no hreflang at all
+	 */
+	protected function _set_lang_noindex($lang) {
+		$this->_hreflang_disabled_langs[] = $lang;
 	}
 
 	/**
