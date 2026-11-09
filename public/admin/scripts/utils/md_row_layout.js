@@ -126,6 +126,84 @@
      * @param {String} raw
      * @returns {Object|null} { head, tail, cells: [ { open, attrs, classes, defaults, content, close, after, sizes, extra } ] }
      */
+    /**
+     * True for a class of a column managed by the layout designer: a width or visibility per breakpoint
+     * ("col-md-6", "col", "col-lg-auto", "d-none", "d-md-block")
+     * @param {String} cls
+     * @returns {Boolean}
+     */
+    isLayoutClass( cls ) {
+      return /^col(?:-(?:xs|sm|md|lg|xl))?(?:-(?:\d{1,2}|auto))?$/.test( cls ) || /^d(?:-(?:xs|sm|md|lg|xl))?-(?:none|block)$/.test( cls );
+    },
+
+    /**
+     * Splits classes of a column into the layout ones (see isLayoutClass()) and its own ones, both in their order
+     *   "col-12 col-md-6 text-right d-none" -> { layout: [ "col-12", "col-md-6", "d-none" ], own: [ "text-right" ] }
+     * @param {String} value - a class attribute
+     * @returns {Object} { layout, own }
+     */
+    splitClasses( value ) {
+      let classes = ( value || "" ).split( /\s+/ ).filter( c => c );
+      return {
+        layout: classes.filter( c => MDRowLayout.isLayoutClass( c ) ),
+        own: classes.filter( c => !MDRowLayout.isLayoutClass( c ) ),
+      };
+    },
+
+    /**
+     * The [row] tag and its [col] tags (nodes of MDShortcodes.parseTree()); null when the source is not a single [row]
+     * @param {String} raw
+     * @returns {Object|null} { row, cols }
+     */
+    tags( raw ) {
+      let tree = MDShortcodes.parseTree( raw, [ "row", "col" ] );
+      if ( tree.errors.length || tree.children.length !== 1 ) {
+        return null;
+      }
+      let row = tree.children[ 0 ];
+      if ( row.name !== "row" || raw.slice( 0, row.start ).trim() || raw.slice( row.end ).trim() ) {
+        return null;
+      }
+      return { row: row, cols: row.children.filter( node => node.name === "col" ) };
+    },
+
+    /**
+     * Sets attributes of the [row] (index null) or of its index-th [col]; a key with an empty value is removed.
+     * Only the opening tag is rebuilt, and only when a value changes; everything else is kept exactly.
+     *   UTILS.MDRowLayout.setAttrs( "[row]\n[col]A[/col]\n[/row]", 0, { style: "color: red;" } )
+     *   // "[row]\n[col style=\"color: red;\"]A[/col]\n[/row]"
+     * @param {String} raw
+     * @param {Number|null} index
+     * @param {Object} attrs
+     * @returns {String}
+     */
+    setAttrs( raw, index, attrs ) {
+      let tags = MDRowLayout.tags( raw );
+      let node = tags && ( index === null ? tags.row : tags.cols[ index ] );
+      if ( !node ) {
+        return raw;
+      }
+      let values = Object.assign( {}, node.attrs );
+      let changed = false;
+      Object.keys( attrs ).forEach( key => {
+        // DrInk Markdown doesn't allow "]" in shortcode params
+        let value = attrs[ key ] ? String( attrs[ key ] ).replace( /\]/g, "" ).trim() : "";
+        if ( ( values[ key ] || "" ) === value ) {
+          return;
+        }
+        changed = true;
+        if ( value ) {
+          values[ key ] = value;
+        } else {
+          delete values[ key ];
+        }
+      } );
+      if ( !changed ) {
+        return raw;
+      }
+      return raw.slice( 0, node.start ) + MDShortcodes.buildOpeningTag( index === null ? "row" : "col", values ) + raw.slice( node.innerStart );
+    },
+
     parse( raw ) {
       let source = raw.trim();
       let tree = MDShortcodes.parseTree( source, [ "row", "col" ] );

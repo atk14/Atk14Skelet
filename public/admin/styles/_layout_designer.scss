@@ -136,3 +136,10 @@
   }
 }
  
+
+// the columns of a [row] in the inspector of the block view (LayoutDesigner.inspect())
+.layout-designer-inspector__columns {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+}

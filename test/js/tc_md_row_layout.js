@@ -82,6 +82,29 @@ module.exports = {
     } );
   },
 
+  test_split_classes() {
+    assert.deepEqual( MDRowLayout.splitClasses( "col-12 col-md-6 text-right d-none d-md-block col highlight col-lg-auto" ), {
+      layout: [ "col-12", "col-md-6", "d-none", "d-md-block", "col", "col-lg-auto" ],
+      own: [ "text-right", "highlight" ],
+    } );
+    assert.deepEqual( MDRowLayout.splitClasses( "" ), { layout: [], own: [] } );
+    // other display and col-like classes are own ones
+    assert.deepEqual( MDRowLayout.splitClasses( "d-flex col--shortcode collapse" ).own, [ "d-flex", "col--shortcode", "collapse" ] );
+  },
+
+  test_set_attrs() {
+    var source = "[row class=\"x\"]\n  [col class=\"col-md-4 a\" defaultclasses=0]A[/col]\n  [col]\nB\n[/col]\n[/row]";
+    assert.equal( MDRowLayout.setAttrs( source, null, { style: "gap: 1rem;" } ), source.replace( "[row class=\"x\"]", "[row class=\"x\" style=\"gap: 1rem;\"]" ) );
+    assert.equal( MDRowLayout.setAttrs( source, null, { class: "" } ), source.replace( "[row class=\"x\"]", "[row]" ) );
+    assert.equal( MDRowLayout.setAttrs( source, 1, { class: "b", style: "color: \"red\"]" } ), source.replace( "  [col]\n", "  [col class=\"b\" style=\"color: \\\"red\\\"\"]\n" ) );
+    // other attributes of the column are kept, unchanged values keep the source
+    assert.equal( MDRowLayout.setAttrs( source, 0, { class: "col-md-4 a" } ), source );
+    assert.equal( MDRowLayout.setAttrs( source, 0, { class: "col-md-4 b" } ), source.replace( "class=\"col-md-4 a\" defaultclasses=0", "class=\"col-md-4 b\" defaultclasses=\"0\"" ) );
+    // a missing column or not a [row]
+    assert.equal( MDRowLayout.setAttrs( source, 5, { class: "x" } ), source );
+    assert.equal( MDRowLayout.setAttrs( "[div]x[/div]", null, { class: "x" } ), "[div]x[/div]" );
+  },
+
   test_serialize_changed_widths() {
     var model = MDRowLayout.parse( "[row]\n  [col]A[/col]\n  [col class=\"x\" order=2]B[/col]\n[/row]" );
     var code = MDRowLayout.serialize( model, [ model.cells[ 0 ].sizes, S( 12, 12, 4, 4, 4 ) ] );

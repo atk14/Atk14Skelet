@@ -20,7 +20,10 @@
  *     open: ( { raw, save } ) => { ... save( code ); }, // fills the modal; raw is null when inserting
  *     inspect: ( container, { raw, change } ) => true,   // optional: settings of the block in the block view's inspector,
  *                                                       // calls change( code ) on every change (change( code, { immediate: true } )
- *                                                       // for a step applied at once, e.g. a removed item), returns false when it can't
+ *                                                       // for a step applied at once, e.g. a removed item), returns false when it can't;
+ *                                                       // options have edit() (opens the dialog) and selectPart( index ) too
+ *     inspectChild: ( container, { raw, index, change } ) => true, // optional: settings of a part of a container block
+ *                                                       // (e.g. a column of [row]), raw is the container's source
  *   } );
  *
  *   UTILS.MDEditorInserts.run( item, { raw: null, onSave: code => { ... }, onCancel: () => { ... } } );

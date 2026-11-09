@@ -457,6 +457,12 @@
     }
   }
 
+  // a selected part of the selected container (a column of [row]), see selectPart()
+  .md-blocks-list--selected {
+    outline: 2px dashed $primary;
+    outline-offset: -2px;
+  }
+
   .md-blocks__inspector {
     display: none;
   }
@@ -537,6 +543,13 @@ button.md-inspector__crumb {
   }
 }
 
+// the path in the title (a selected part of a container: "[row] › [col] Column 2")
+.md-inspector__path--title {
+  margin-bottom: 0;
+  font-size: inherit;
+  color: inherit;
+}
+
 .md-inspector__title {
   margin-bottom: 0.5rem;
   font-size: 1rem;
@@ -558,6 +571,9 @@ button.md-inspector__crumb {
     .md-inspector__empty,
     .md-inspector__note {
       color: $gray-500;
+    }
+    .md-inspector__path--title {
+      color: inherit;
     }
     button.md-inspector__crumb {
       color: lighten( $primary, 15% );

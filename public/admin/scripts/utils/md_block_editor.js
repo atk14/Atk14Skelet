@@ -265,6 +265,7 @@ window.UTILS.MDBlockEditor = class {
     // the "Insert" dropdown puts a new block after it, the inspector shows it
     this.selected = null; // path
     this.selectedElement = null;
+    this.selectedPart = null; // index of a selected part of the selected container (a column), see selectPart()
     this.viewport.addEventListener( "focusin", e => {
       let blockEl = e.target.closest( ".md-block" );
       if ( blockEl && blockEl.dataset.path !== undefined && blockEl.dataset.path !== this.selected ) {
@@ -1386,14 +1387,26 @@ window.UTILS.MDBlockEditor = class {
    * Selects the block (null deselects); the selection stays when the focus leaves the block
    * @param {String|null} path
    */
-  select( path ) {
-    if ( path !== this.selected ) {
+  select( path, part ) {
+    part = part === undefined ? null : part;
+    if ( path !== this.selected || part !== this.selectedPart ) {
       this.flushInspector(); // a pending change of the inspector belongs to the block selected so far
     }
     let el = path === null || path === undefined ? null : this.blockElement( path );
     this.selected = el ? path : null;
     this.selectedElement = el;
+    this.selectedPart = el ? part : null;
     this.updateSelection();
+  }
+
+  /**
+   * Selects a part of a container block (e.g. a column of a [row]): the inspector shows its settings
+   * (see inspectChild in md_editor_inserts.js), the container stays the selected block
+   * @param {String} path - the container
+   * @param {Number} index - the part (child)
+   */
+  selectPart( path, index ) {
+    this.select( path, index );
   }
 
   /**
@@ -1407,6 +1420,10 @@ window.UTILS.MDBlockEditor = class {
     }
     this.selectedElement = el;
     this.selected = el ? el.dataset.path : null;
+    let parts = el && el.mdBlock && el.mdBlock.container ? el.mdBlock.container.children.length : 0;
+    if ( this.selectedPart === undefined || this.selectedPart === null || this.selectedPart >= parts ) {
+      this.selectedPart = null;
+    }
     [ ...this.viewport.querySelectorAll( ".md-block--selected" ) ].forEach( other => {
       if ( other !== el ) {
         other.classList.remove( "md-block--selected" );
@@ -1414,6 +1431,15 @@ window.UTILS.MDBlockEditor = class {
     } );
     if ( el ) {
       el.classList.add( "md-block--selected" );
+    }
+    let partEl = this.selectedPart !== null && el.mdLists ? el.mdLists[ this.selectedPart ] : null;
+    [ ...this.viewport.querySelectorAll( ".md-blocks-list--selected" ) ].forEach( other => {
+      if ( other !== partEl ) {
+        other.classList.remove( "md-blocks-list--selected" );
+      }
+    } );
+    if ( partEl ) {
+      partEl.classList.add( "md-blocks-list--selected" );
     }
     this.updateInspector();
   }
@@ -1447,6 +1473,8 @@ window.UTILS.MDBlockEditor = class {
       }
       if ( target.classList.contains( "js--inspector-edit" ) ) {
         this.editBlock( target.dataset.path );
+      } else if ( target.dataset.part !== undefined ) {
+        this.selectPart( target.dataset.path, parseInt( target.dataset.part, 10 ) );
       } else {
         this.focusBlock( target.dataset.path );
       }
@@ -1497,14 +1525,15 @@ window.UTILS.MDBlockEditor = class {
     let raw = r ? window.UTILS.MDBlockTokenizer.blockRaw( r.block ) : null;
     // the fields are kept while the same block is shown (rendering it again after a change of the fields
     // would take the focus away from them)
+    let part = r ? this.selectedPart : null;
     let state = this.inspectorState;
-    if ( state && r && state.path === this.selected && state.raw === raw ) {
+    if ( state && r && state.path === this.selected && state.part === part && state.raw === raw ) {
       return;
     }
     if ( this.inspectorPending ) {
       return; // the change is being typed; the block will be the shown one once it's applied
     }
-    this.inspectorState = r ? { path: this.selected, raw: raw } : null;
+    this.inspectorState = r ? { path: this.selected, part: part, raw: raw } : null;
     inspector.innerHTML = "";
     let el = ( tagName, className, text ) => {
       let node = document.createElement( tagName );
@@ -1520,37 +1549,61 @@ window.UTILS.MDBlockEditor = class {
       return;
     }
 
-    // where the block is: its containers (and their children, e.g. a column), each one selectable
+    // where the block is: its containers (and their children, e.g. a column), each one selectable;
+    // a selected part (a column) is shown under its container
     let crumbs = this.inspectorPath( this.selected );
+    if ( part !== null ) {
+      crumbs.push( { path: this.selected, label: this.blockLabel( r.block ), child: null } );
+    }
+    // a part is shown in one line with its containers: "[row] › [col] Column 2"
+    let title = el( "h3", "md-inspector__title" );
+    let nav = el( "nav", part !== null ? "md-inspector__path md-inspector__path--title" : "md-inspector__path" );
     if ( crumbs.length ) {
-      let nav = el( "nav", "md-inspector__path" );
       crumbs.forEach( crumb => {
         let btn = el( "button", "md-inspector__crumb", crumb.label );
         btn.type = "button";
         btn.dataset.path = crumb.path;
         nav.appendChild( btn );
         if ( crumb.child ) {
-          nav.appendChild( el( "span", "md-inspector__crumb md-inspector__crumb--child", crumb.child ) );
+          let child = el( "button", "md-inspector__crumb md-inspector__crumb--child", crumb.child );
+          child.type = "button";
+          child.dataset.path = crumb.path;
+          child.dataset.part = crumb.childIndex;
+          nav.appendChild( child );
         }
       } );
-      inspector.appendChild( nav );
     }
-
-    inspector.appendChild( el( "h3", "md-inspector__title", this.blockLabel( r.block ) ) );
+    if ( part !== null ) {
+      nav.appendChild( el( "span", "md-inspector__current", "[" + r.block.container.children[ part ].name + "] " + this.childLabel( r.block, part ) ) );
+      title.appendChild( nav );
+    } else {
+      if ( crumbs.length ) {
+        inspector.appendChild( nav );
+      }
+      title.textContent = this.blockLabel( r.block );
+    }
+    inspector.appendChild( title );
 
     let inserter = window.UTILS.MDEditorInserts.editorFor( r.block );
-    if ( inserter && inserter.inspect ) {
+    let inspectFn = inserter && ( part !== null ? inserter.inspectChild : inserter.inspect );
+    if ( inspectFn ) {
       // the inserter's own fields, its changes are applied as they are typed
       let fields = el( "div", "md-inspector__fields" );
       let path = this.selected;
-      let shown = inserter.inspect( fields, {
+      let shown = inspectFn.call( inserter, fields, {
         raw: raw,
+        index: part,
         change: ( code, changeOptions ) => this.inspectorChange( path, raw, code, changeOptions ),
+        edit: () => this.editBlock( path ),
+        selectPart: index => this.selectPart( path, index ),
       } );
       if ( shown !== false ) {
         inspector.appendChild( fields );
         return;
       }
+    }
+    if ( part !== null ) {
+      return; // nothing to set for the part
     }
     inspector.appendChild( el( "p", "md-inspector__note", inserter ? texts.inspectorEditedInDialog : texts.inspectorEditedAsText ) );
 
@@ -1626,13 +1679,25 @@ window.UTILS.MDBlockEditor = class {
     this.setSource( window.UTILS.MDBlockTokenizer.join( this.doc ), merge );
     this.lastInspectorChange = { field: pending.field, revision: undoManager.getRevision() };
     if ( this.inspectorState && this.inspectorState.path === pending.path ) {
-      this.inspectorState = { path: path, raw: code }; // the fields show it already
+      this.inspectorState = { path: path, part: this.inspectorState.part, raw: code }; // the fields show it already
     }
     if ( path !== this.selected ) {
       this.selected = path;
       this.selectedElement = null;
     }
     this.refresh();
+  }
+
+  /**
+   * Name of a part of a container: its name attribute (a tab), or its kind and number ("Column 2")
+   * @param {Object} block - a container block
+   * @param {Number} index
+   * @returns {String}
+   */
+  childLabel( block, index ) {
+    let child = block.container.children[ index ];
+    let name = child.attrs && child.attrs.name;
+    return name || ( this.texts.childNames[ child.name ] || child.name ) + " " + ( index + 1 );
   }
 
   /**
@@ -1653,12 +1718,8 @@ window.UTILS.MDBlockEditor = class {
       }
       let childIndex = parseInt( parts[ i ], 10 );
       let child = r.block.container.children[ childIndex ];
-      let childLabel = null;
-      if ( child && child.name !== r.block.name ) {
-        let name = child.attrs && child.attrs.name;
-        childLabel = name || ( this.texts.childNames[ child.name ] || child.name ) + " " + ( childIndex + 1 );
-      }
-      crumbs.push( { path: containerPath, label: this.blockLabel( r.block ), child: childLabel } );
+      let childLabel = child && child.name !== r.block.name ? this.childLabel( r.block, childIndex ) : null;
+      crumbs.push( { path: containerPath, label: this.blockLabel( r.block ), child: childLabel, childIndex: childIndex } );
     }
     return crumbs;
   }

@@ -18,6 +18,7 @@
  * _layout_designer.scss
  * _layout_designer.tpl
  * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
+ * css_class_editor.js, inline_style_editor.js (the inspector of the block view)
  * 
  */
 window.UTILS = window.UTILS || { };
@@ -30,6 +31,7 @@ window.UTILS.LayoutDesigner = class {
   rowMD;
   rowSM;
   rowXS;
+  static inspectorCount = 0;
   designerModal;                          // modal selector
   columnCount = 0;                        // current number of columns
   rows = [];                              // array for editors
@@ -133,6 +135,101 @@ window.UTILS.LayoutDesigner = class {
       shortcode: "row",
       parse: raw => window.UTILS.MDRowLayout.parse( raw ),
       open: options => this.open( options ),
+      inspect: ( container, options ) => this.inspect( container, options ),
+      inspectChild: ( container, options ) => this.inspectChild( container, options ),
+    } );
+  }
+
+  /**
+   * The [row] in the inspector of the block view: a button opening the designer (column widths),
+   * buttons selecting the columns (their settings, see inspectChild()), class and style of the [row]
+   * @param {Element} container
+   * @param {Object} options - { raw, change, edit, selectPart }
+   * @returns {Boolean}
+   */
+  inspect( container, options ) {
+    let tags = window.UTILS.MDRowLayout.tags( options.raw );
+    let template = document.getElementById( "layout_designer_inspector" );
+    if ( !tags || !template ) {
+      return false;
+    }
+    let fields = template.content.cloneNode( true );
+    this.labelInspectorFields( fields, [ "columns", "class", "style" ] );
+    fields.querySelector( ".js--layout" ).addEventListener( "click", () => options.edit() );
+    let columns = fields.querySelector( ".js--columns" );
+    tags.cols.forEach( ( col, i ) => {
+      let btn = document.createElement( "button" );
+      btn.type = "button";
+      btn.className = "btn btn-sm btn-outline-secondary";
+      btn.textContent = ( this.texts.column || "Column" ) + " " + ( i + 1 );
+      btn.addEventListener( "click", () => options.selectPart( i ) );
+      columns.appendChild( btn );
+    } );
+    this.attrsInspector( fields, options, null, tags.row.attrs, false );
+    container.appendChild( fields );
+    return true;
+  }
+
+  /**
+   * A column of the [row] in the inspector: its widths (set in the designer), its own classes and style.
+   * Width and visibility classes are not shown among the classes, they are kept as they are (see MDRowLayout.isLayoutClass()).
+   * @param {Element} container
+   * @param {Object} options - { raw, index, change, edit }
+   * @returns {Boolean}
+   */
+  inspectChild( container, options ) {
+    let tags = window.UTILS.MDRowLayout.tags( options.raw );
+    let col = tags && tags.cols[ options.index ];
+    let template = document.getElementById( "layout_designer_col_inspector" );
+    if ( !col || !template ) {
+      return false;
+    }
+    let fields = template.content.cloneNode( true );
+    this.labelInspectorFields( fields, [ "class", "style" ] );
+    let layout = window.UTILS.MDRowLayout.splitClasses( col.attrs.class ).layout;
+    let defaults = !/^(0|false|)$/i.test( col.attrs.defaultclasses === undefined ? "1" : col.attrs.defaultclasses );
+    fields.querySelector( ".js--widths" ).textContent = ( this.texts.widths || "Widths" ) + ": " +
+      ( layout.length ? layout.join( " " ) : "" ) + ( defaults && !layout.length ? ( this.texts.defaultWidths || "default" ) : "" );
+    fields.querySelector( ".js--layout" ).addEventListener( "click", () => options.edit() );
+    this.attrsInspector( fields, options, options.index, col.attrs, true );
+    container.appendChild( fields );
+    return true;
+  }
+
+  // Ids of the labels of the inspector's groups of fields (more editors may be in the page)
+  labelInspectorFields( fields, names ) {
+    let id = "layout_designer_inspector_" + ( ++window.UTILS.LayoutDesigner.inspectorCount );
+    names.forEach( name => {
+      let label = fields.querySelector( ".js--" + name + "-label" );
+      label.id = id + "_" + name + "_label";
+      fields.querySelector( ".js--" + name ).setAttribute( "aria-labelledby", label.id );
+    } );
+  }
+
+  /**
+   * Class and style editors of the [row] (index null) or of a column; changes are written by MDRowLayout.setAttrs()
+   * @param {Boolean} ownClassesOnly - layout classes of a column are kept aside, see inspectChild()
+   */
+  attrsInspector( fields, options, index, attrs, ownClassesOnly ) {
+    let MDRowLayout = window.UTILS.MDRowLayout;
+    let current = options.raw;
+    let split = ownClassesOnly ? MDRowLayout.splitClasses( attrs.class ) : { layout: [], own: ( attrs.class || "" ).split( /\s+/ ).filter( c => c ) };
+    let ownOriginal = split.own.join( " " );
+    let set = values => {
+      current = MDRowLayout.setAttrs( current, index, values );
+      options.change( current );
+    };
+    new window.UTILS.CssClassEditor( fields.querySelector( ".js--class" ), {
+      value: ownOriginal,
+      onChange: value => {
+        // unchanged own classes keep the attribute as it was
+        let classes = window.UTILS.CssClassEditor.same( value, ownOriginal ) ? ( attrs.class || "" ) : split.layout.concat( window.UTILS.CssClassEditor.parse( value ) ).join( " " );
+        set( { class: classes } );
+      },
+    } );
+    new window.UTILS.InlineStyleEditor( fields.querySelector( ".js--style" ), {
+      value: attrs.style || "",
+      onChange: value => set( { style: value } ),
     } );
   }
 

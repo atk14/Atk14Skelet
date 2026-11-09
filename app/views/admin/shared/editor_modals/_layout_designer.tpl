@@ -19,8 +19,31 @@
     wrongPaste: "{t}Cannot paste columns: Number of pasted columns do not match number of current columns.{/t}",
     insert: "{t escape=javascript}Insert{/t}",
     save: "{t escape=javascript}Save{/t}",
+    column: "{t escape=javascript}Column{/t}",
+    widths: "{t escape=javascript}Widths{/t}",
+    defaultWidths: "{t escape=javascript}default, by the number of columns{/t}",
   }
  </script>
+
+ {* a [row] and a column in the inspector of the block view (see LayoutDesigner.inspect() and inspectChild()) *}
+ <template id="layout_designer_inspector">
+  <button type="button" class="btn btn-sm btn-outline-primary mb-3 js--layout">{!"table-columns"|icon} {t}Column widths{/t}…</button>
+  <div class="form-label js--columns-label">{t}Columns{/t}</div>
+  <div class="layout-designer-inspector__columns mb-3 js--columns" role="group"></div>
+  <div class="form-label js--class-label">{t}CSS class{/t}</div>
+  <div class="mb-2 js--class" role="group"></div>
+  <div class="form-label js--style-label">{t}CSS style{/t}</div>
+  <div class="js--style" role="group"></div>
+ </template>
+
+ <template id="layout_designer_col_inspector">
+  <p class="md-inspector__note mb-1 js--widths"></p>
+  <button type="button" class="btn btn-sm btn-outline-primary mb-3 js--layout">{!"table-columns"|icon} {t}Column widths{/t}…</button>
+  <div class="form-label js--class-label">{t}CSS class{/t}</div>
+  <div class="mb-2 js--class" role="group"></div>
+  <div class="form-label js--style-label">{t}CSS style{/t}</div>
+  <div class="js--style" role="group"></div>
+ </template>
 
  <template id="layout_designer_row">
     <div class="layout-designer__row-editor">
