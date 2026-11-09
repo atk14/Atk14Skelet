@@ -1545,7 +1545,7 @@ window.UTILS.MDBlockEditor = class {
       let path = this.selected;
       let shown = inserter.inspect( fields, {
         raw: raw,
-        change: code => this.inspectorChange( path, raw, code ),
+        change: ( code, changeOptions ) => this.inspectorChange( path, raw, code, changeOptions ),
       } );
       if ( shown !== false ) {
         inspector.appendChild( fields );
@@ -1567,16 +1567,23 @@ window.UTILS.MDBlockEditor = class {
    * @param {String} path - the block shown in the inspector
    * @param {String} raw - its source the fields were filled from
    * @param {String} code - its new source
+   * @param {Object} options - { immediate: true } for a change made at once (e.g. adding a tab):
+   *   applied without waiting and never merged with other changes in the undo history
    */
-  inspectorChange( path, raw, code ) {
+  inspectorChange( path, raw, code, options ) {
+    let immediate = !!( options && options.immediate );
     let active = document.activeElement;
     this.inspectorPending = {
       path: path,
       raw: raw,
       code: code,
-      field: active && this.inspector.contains( active ) ? active : null,
+      field: !immediate && active && this.inspector.contains( active ) ? active : null,
     };
     window.clearTimeout( this.inspectorTimer );
+    if ( immediate ) {
+      this.flushInspector();
+      return;
+    }
     this.inspectorTimer = window.setTimeout( () => this.flushInspector(), window.UTILS.MDBlockEditor.inspectorDelay );
   }
 

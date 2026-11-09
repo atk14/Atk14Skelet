@@ -14,8 +14,21 @@
     copied: "{t escape=javascript}Copied!{/t}",
     insert: "{t escape=javascript}Insert{/t}",
     save: "{t escape=javascript}Save{/t}",
+    tabName: "{t escape=javascript}Tab name{/t}",
+    newTab: "{t escape=javascript}Tab{/t}",
+    removeTab: "{t escape=javascript}Remove tab (with its content){/t}",
+    moveTab: "{t escape=javascript}Drag to change the order{/t}",
   }
 </script>
+
+{* the tabs in the inspector of the block view (see TabDesigner.inspect()) *}
+<template id="tabdesigner_inspector">
+  <div class="form-label js--tabs-label">{t}Tabs{/t}</div>
+  <div class="tabdesigner-inspector__tabs js--tabs" role="group"></div>
+  <button type="button" class="btn btn-sm btn-outline-secondary js--add-tab">{!"plus"|icon} {t}Add tab{/t}</button>
+  <div class="form-label mt-3 js--class-label">{t}CSS class{/t}</div>
+  <div class="js--class" role="group"></div>
+</template>
 
 <dialog class="dialog dialog-lg" id="tabdesigner_modal" aria-labelledby="tabdesigner_label" closedby="any">
   <div class="dialog-header">

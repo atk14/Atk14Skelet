@@ -19,7 +19,8 @@
  *     parse: raw => model || null,                  // ...when parse() understands them
  *     open: ( { raw, save } ) => { ... save( code ); }, // fills the modal; raw is null when inserting
  *     inspect: ( container, { raw, change } ) => true,   // optional: settings of the block in the block view's inspector,
- *                                                       // calls change( code ) on every change, returns false when it can't
+ *                                                       // calls change( code ) on every change (change( code, { immediate: true } )
+ *                                                       // for a step applied at once, e.g. a removed item), returns false when it can't
  *   } );
  *
  *   UTILS.MDEditorInserts.run( item, { raw: null, onSave: code => { ... }, onCancel: () => { ... } } );
