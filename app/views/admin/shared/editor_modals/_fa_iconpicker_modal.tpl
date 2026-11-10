@@ -1,6 +1,6 @@
 <template id="fa_iconpicker_thumbnail">
   <div class="card card--iconthumbnail">
-    <div class="card-img-top"></div>
+    <div class="card-img-top" title="{t}Insert{/t}"></div>
     <div class="card-body text-center mt-0 pt-0">
       <div class="icon_name"></div>
       <div class="d-none">
@@ -10,7 +10,8 @@
         {/if}
       </div>
       <div class="d-flex" style="gap: 5px; justify-content: center; flex-direction: column; xflex-wrap: wrap;">
-        <button type="button" class="btn btn-primary btn-sm js--copy-html-btn">{t}Copy HTML code{/t}</button>
+        <button type="button" class="btn btn-primary btn-sm js--insert-btn">{t}Insert{/t}</button>
+        <button type="button" class="btn btn-outline-secondary btn-sm js--copy-html-btn">{t}Copy HTML code{/t}</button>
         {if $DEVELOPMENT}
         <button type="button" class="btn btn-outline-secondary btn-sm js--copy-smarty-btn">{t}Copy Smarty{/t}</button>
         {/if}

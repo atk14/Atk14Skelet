@@ -1,7 +1,8 @@
 /**
  * Collapse designer
  * Inserts a DrInk Markdown [collapse] shortcode (a title showing hidden content on click), or edits its settings:
- * the title, its CSS class (e.g. "btn btn-primary" for a button), CSS class of the content, class and style of the box.
+ * the title, its appearance (a link or a button: classes offered by a select) and CSS class, CSS class of the content,
+ * class and style of the box.
  * The content is not edited here: in the block view it's a list of blocks (see md_block_tokenizer.js),
  * so it's kept exactly as it was (see md_collapse_model.js).
  * Registered in UTILS.MDEditorInserts, so it's offered in the "Insert" dropdown of MD editors,
@@ -39,11 +40,14 @@ window.UTILS.CollapseFields = class {
     let fields = document.getElementById( "collapsedesigner_fields" ).content.cloneNode( true );
     let q = selector => fields.querySelector( selector );
     this.titleInput = q( "input.js--title" );
+    this.appearanceSelect = q( "select.js--appearance" );
 
     // labels need unique ids, the fields are in the dialog and in inspectors
     let id = "collapsedesigner_" + ( ++window.UTILS.CollapseFields.count );
     this.titleInput.id = id + "_title";
     q( "label.js--title-label" ).htmlFor = this.titleInput.id;
+    this.appearanceSelect.id = id + "_appearance";
+    q( "label.js--appearance-label" ).htmlFor = this.appearanceSelect.id;
     let groups = {};
     [ "title-class", "content-class", "class", "style" ].forEach( name => {
       let label = q( ".js--" + name + "-label" );
@@ -53,6 +57,7 @@ window.UTILS.CollapseFields = class {
     } );
     if ( options.small ) {
       this.titleInput.classList.add( "form-control-sm" );
+      this.appearanceSelect.classList.add( "form-control-sm" );
     }
 
     let changed = () => {
@@ -60,7 +65,22 @@ window.UTILS.CollapseFields = class {
         options.onChange();
       }
     };
-    this.titleClassEditor = new window.UTILS.CssClassEditor( groups[ "title-class" ], { onChange: changed } );
+    this.titleClassEditor = new window.UTILS.CssClassEditor( groups[ "title-class" ], {
+      onChange: () => {
+        this.syncAppearance();
+        changed();
+      },
+    } );
+    // the chosen appearance replaces the classes of the previous one, the other classes are kept after it
+    this.appearanceSelect.addEventListener( "change", () => {
+      let value = this.appearanceSelect.value;
+      if ( value === "custom" ) {
+        return;
+      }
+      let others = this.titleClasses().filter( c => !window.UTILS.CollapseFields.isAppearanceClass( c ) );
+      this.titleClassEditor.setValue( value.split( /\s+/ ).filter( c => c ).concat( others ).join( " " ) );
+      changed();
+    } );
     this.contentClassEditor = new window.UTILS.CssClassEditor( groups[ "content-class" ], { onChange: changed } );
     this.classEditor = new window.UTILS.CssClassEditor( groups.class, { onChange: changed } );
     this.styleEditor = new window.UTILS.InlineStyleEditor( groups.style, { onChange: changed } );
@@ -80,6 +100,31 @@ window.UTILS.CollapseFields = class {
     this.contentClassEditor.setValue( model ? model.content.attrs.class || "" : "" );
     this.classEditor.setValue( model ? model.attrs.class || "" : "" );
     this.styleEditor.setValue( model ? model.attrs.style || "" : "" );
+    this.syncAppearance();
+  }
+
+  titleClasses() {
+    return this.titleClassEditor.getValue().split( /\s+/ ).filter( c => c );
+  }
+
+  /**
+   * Classes managed by the appearance select: btn and its variants (btn-primary, btn-outline-secondary, btn-link...),
+   * not its sizes and other modifiers (btn-sm, btn-block...)
+   * @param {String} cssClass
+   * @returns {Boolean}
+   */
+  static isAppearanceClass( cssClass ) {
+    return cssClass === "btn" || ( /^btn-[a-z-]+$/.test( cssClass ) && !/^btn-(sm|lg|block)$/.test( cssClass ) );
+  }
+
+  /**
+   * Selects the appearance matching the title's classes, or "custom"
+   */
+  syncAppearance() {
+    let key = classes => classes.slice().sort().join( " " );
+    let current = key( this.titleClasses().filter( c => window.UTILS.CollapseFields.isAppearanceClass( c ) ) );
+    let option = [ ...this.appearanceSelect.options ].find( o => o.value !== "custom" && key( o.value.split( /\s+/ ).filter( c => c ) ) === current );
+    this.appearanceSelect.value = option ? option.value : "custom";
   }
 
   /**

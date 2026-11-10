@@ -509,9 +509,12 @@ window.UTILS.MDBlockEditor = class {
     let key = this.cacheKey( source ) + ( block.unclosed ? "\n#unclosed" : "" ) + ( block.container ? "\n#container" : "" );
     let el = [ ...listEl.children ].find( child => child.mdKey === key && !child.mdUsed );
     if ( !el ) {
+      // the element replacing the block's previous one shows the same tab ([tabs] renamed, a tab added...)
+      let previous = [ ...listEl.children ].find( child => child.dataset.path === path && !child.mdUsed && child.mdBlock && child.mdBlock.name === block.name );
       el = this.createBlockElement( block );
       el.mdKey = key;
       el.mdSource = source;
+      el.mdActiveTab = previous ? window.UTILS.MDBlockEditor.activeTab( previous ) : -1;
       if ( block.container ) {
         el.mdLists = block.container.children.map( () => this.createListElement() );
       }
@@ -782,6 +785,9 @@ window.UTILS.MDBlockEditor = class {
     let content = el.querySelector( ":scope > .md-block__content" );
     el.classList.remove( "md-block--pending", "md-block--error", "md-block--empty" );
     content.innerHTML = html || "";
+    if ( el.mdActiveTab > 0 ) {
+      window.UTILS.MDBlockEditor.showTab( el, el.mdActiveTab );
+    }
     if ( block.container ) {
       this.mountLists( el, content );
       return;
@@ -808,6 +814,38 @@ window.UTILS.MDBlockEditor = class {
     el.mdLists.forEach( listEl => columns.appendChild( listEl ) );
     content.innerHTML = "";
     content.appendChild( columns );
+  }
+
+  /**
+   * Index of the shown tab of a [tabs] block (see shared/helpers/drink_shortcodes/_tabs.tpl), -1 when it's not one
+   * @param {Element} el - .md-block
+   * @returns {Number}
+   */
+  static activeTab( el ) {
+    let tabs = el.querySelector( ":scope > .md-block__content > .content-tabs" );
+    return tabs ? [ ...tabs.querySelectorAll( ":scope > .nav .nav-link" ) ].findIndex( link => link.classList.contains( "active" ) ) : -1;
+  }
+
+  /**
+   * Shows the tab of a [tabs] block, as clicking on it would (without the fading)
+   * @param {Element} el - .md-block
+   * @param {Number} index
+   */
+  static showTab( el, index ) {
+    let tabs = el.querySelector( ":scope > .md-block__content > .content-tabs" );
+    let links = tabs ? [ ...tabs.querySelectorAll( ":scope > .nav .nav-link" ) ] : [];
+    let panes = tabs ? [ ...tabs.querySelectorAll( ":scope > .tab-content > .tab-pane" ) ] : [];
+    if ( index >= links.length || links.length !== panes.length ) {
+      return;
+    }
+    links.forEach( ( link, i ) => {
+      link.classList.toggle( "active", i === index );
+      link.setAttribute( "aria-selected", i === index ? "true" : "false" );
+    } );
+    panes.forEach( ( pane, i ) => {
+      pane.classList.toggle( "active", i === index );
+      pane.classList.toggle( "show", i === index );
+    } );
   }
 
   setElementPending( el, block ) {

@@ -17,6 +17,10 @@
       height: 3rem;
       font-size: 1.75rem;
       color: $gray-700;
+      cursor: pointer; // a click inserts the icon
+      &:hover {
+        color: $primary;
+      }
     }
     .card-body {
       padding: 0.5rem;
