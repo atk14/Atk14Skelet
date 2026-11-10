@@ -472,6 +472,9 @@
     }
   };
 
+  // The first line of a heading: 1 = text (with "#"s), 2 = special attributes in braces, 3 = trailing whitespace
+  let HEADING_ATTRS = /^(.*?)(?:[ ]+\{((?:[ ]*[#.a-z][-_:a-zA-Z0-9=]+)+)[ ]*\})?([ \t]*\r?)$/;
+
   let MDBlockTokenizer = {
 
     // Block shortcodes built into DrInk Markdown; the full list depends on app/helpers/block.drink_shortcode__*.php
@@ -514,6 +517,71 @@
         }
       } );
       return out + ( doc.trailing || "" );
+    },
+
+    /**
+     * Source of a heading with another level: an ATX heading gets other "#"s, a setext heading keeps
+     * its underline for levels 1 and 2 ("=" or "-" of the same length) and becomes an ATX one for the others
+     *   ( "## Title", 3 ) -> "### Title"
+     *   ( "Title\n=====", 2 ) -> "Title\n-----"
+     * @param {String} raw - source of a heading block
+     * @param {Number} level - 1 to 6
+     * @returns {String}
+     */
+    setHeadingLevel( raw, level ) {
+      let lines = raw.split( "\n" );
+      let m;
+      if ( lines.length === 2 && ( m = lines[ 1 ].match( /^( {0,3})(=+|-+)([ \t\r]*)$/ ) ) ) {
+        if ( level <= 2 ) {
+          return lines[ 0 ] + "\n" + m[ 1 ] + ( level === 1 ? "=" : "-" ).repeat( m[ 2 ].length ) + m[ 3 ];
+        }
+        return "#".repeat( level ) + " " + lines[ 0 ].trim();
+      }
+      return raw.replace( /^( {0,3})#{1,6}(?=[ \t]|\r?$)/, ( all, indent ) => indent + "#".repeat( level ) );
+    },
+
+    /**
+     * Special attributes of a heading (PHP Markdown Extra, kept by DrinkMarkdown): "## Title {#anchor .lead .mb-4}"
+     *   ( "## Title ## {#intro .lead}" ) -> { classes: [ "lead" ], id: "intro" }
+     * @param {String} raw - source of a heading block
+     * @returns {Object} { classes, id }
+     */
+    headingAttrs( raw ) {
+      let m = raw.split( "\n" )[ 0 ].match( HEADING_ATTRS );
+      let out = { classes: [], id: "" };
+      ( m && m[ 2 ] ? m[ 2 ].match( /[#.a-z][-_:a-zA-Z0-9=]+/g ) : [] ).forEach( el => {
+        if ( el[ 0 ] === "." ) {
+          out.classes.push( el.slice( 1 ) );
+        } else if ( el[ 0 ] === "#" && !out.id ) {
+          out.id = el.slice( 1 );
+        }
+      } );
+      return out;
+    },
+
+    /**
+     * Source of a heading with the given classes and id; other attributes in the braces are kept,
+     * the braces are removed when nothing's left. Only characters Markdown Extra allows are written:
+     * classes with others are left out, an id is made of the allowed ones ("Úvod a cíl" -> "Uvod-a-cil").
+     * @param {String} raw - source of a heading block
+     * @param {Object} attrs - { classes: [ "lead" ] or "lead mb-4", id: "intro" }
+     * @returns {String}
+     */
+    setHeadingAttrs( raw, attrs ) {
+      let lines = raw.split( "\n" );
+      let m = lines[ 0 ].match( HEADING_ATTRS );
+      let classes = typeof attrs.classes === "string" ? attrs.classes.split( /\s+/ ) : attrs.classes || [];
+      classes = classes.filter( c => /^[-_:a-zA-Z0-9]+$/.test( c ) );
+      let id = String( attrs.id || "" ).trim().normalize( "NFD" ).replace( /[\u0300-\u036f]/g, "" )
+        .replace( /\s+/g, "-" ).replace( /[^-_:a-zA-Z0-9]/g, "" );
+      let others = ( m[ 2 ] ? m[ 2 ].match( /[#.a-z][-_:a-zA-Z0-9=]+/g ) : [] ).filter( el => el[ 0 ] !== "." && el[ 0 ] !== "#" );
+      let elements = ( id ? [ "#" + id ] : [] ).concat( classes.map( c => "." + c ), others );
+      let current = MDBlockTokenizer.headingAttrs( raw );
+      if ( current.id === id && current.classes.join( " " ) === classes.join( " " ) ) {
+        return raw; // nothing changed, the source is kept exactly as it was
+      }
+      lines[ 0 ] = m[ 1 ] + ( elements.length ? " {" + elements.join( " " ) + "}" : "" ) + m[ 3 ];
+      return lines.join( "\n" );
     },
 
     /**

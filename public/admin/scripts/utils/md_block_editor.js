@@ -141,6 +141,10 @@ window.UTILS.MDBlockEditor = class {
       error: "The preview could not be loaded",
       retry: "Try again",
       unclosed: "The shortcode is not closed",
+      headingLevel: "Level",
+      headingClass: "CSS class",
+      headingId: "Anchor (id)",
+      headingIdHint: "A link to the heading: #anchor",
       inspectorEmpty: "Select a block to see it here",
       inspectorEditedInDialog: "Its settings are edited in a dialog.",
       inspectorEditedAsText: "It is edited as Markdown text: double-click it, press Enter, or click it once more.",
@@ -1631,6 +1635,11 @@ window.UTILS.MDBlockEditor = class {
     }
     inspector.appendChild( title );
 
+    if ( part === null && r.block.type === "heading" ) {
+      this.headingInspector( inspector, this.selected, raw, r.block.level );
+      return;
+    }
+
     let inserter = window.UTILS.MDEditorInserts.editorFor( r.block );
     let inspectFn = inserter && ( part !== null ? inserter.inspectChild : inserter.inspect );
     if ( inspectFn ) {
@@ -1661,6 +1670,100 @@ window.UTILS.MDBlockEditor = class {
     edit.appendChild( document.createTextNode( texts.edit ) );
     inspector.appendChild( edit );
   }
+
+  /**
+   * A heading in the inspector: its level (H1 to H6 buttons), CSS classes and id (special attributes
+   * of PHP Markdown Extra: "## Title {#anchor .lead}"); its text is edited in the block
+   * @param {Element} inspector
+   * @param {String} path
+   * @param {String} raw
+   * @param {Number} level
+   */
+  headingInspector( inspector, path, raw, level ) {
+    let fields = document.createElement( "div" );
+    fields.className = "md-inspector__fields";
+    let label = document.createElement( "div" );
+    label.className = "form-label";
+    label.id = "md_inspector_heading_" + ( ++window.UTILS.MDBlockEditor.inspectorCount );
+    label.textContent = this.texts.headingLevel;
+    let group = document.createElement( "div" );
+    group.className = "btn-group btn-group-sm md-inspector__heading-levels";
+    group.setAttribute( "role", "group" );
+    group.setAttribute( "aria-labelledby", label.id );
+    for ( let i = 1; i <= 6; i++ ) {
+      let btn = document.createElement( "button" );
+      btn.type = "button";
+      btn.className = "btn " + ( i === level ? "btn-primary" : "btn-outline-secondary" );
+      btn.textContent = "H" + i;
+      btn.setAttribute( "aria-pressed", i === level ? "true" : "false" );
+      btn.addEventListener( "click", () => {
+        if ( i !== level ) {
+          // a pending change of the attributes first, the level is changed in the current source
+          this.flushInspector();
+          let current = this.inspectorState && this.inspectorState.path === path ? this.inspectorState.raw : raw;
+          this.inspectorChange( path, current, window.UTILS.MDBlockTokenizer.setHeadingLevel( current, i ), { immediate: true, render: true } );
+          // the focus stays on the button of the level (the inspector is rendered again)
+          let pressed = this.inspector.querySelectorAll( ".md-inspector__heading-levels .btn" )[ i - 1 ];
+          if ( pressed ) {
+            pressed.focus();
+          }
+        }
+      } );
+      group.appendChild( btn );
+    }
+    fields.appendChild( label );
+    fields.appendChild( group );
+
+    // classes and id; every change is computed from the source the fields were filled from
+    let attrs = window.UTILS.MDBlockTokenizer.headingAttrs( raw );
+    let id = label.id;
+    let classLabel = document.createElement( "div" );
+    classLabel.className = "form-label mt-3";
+    classLabel.id = id + "_class";
+    classLabel.textContent = this.texts.headingClass;
+    let classGroup = document.createElement( "div" );
+    classGroup.className = "mb-2";
+    classGroup.setAttribute( "role", "group" );
+    classGroup.setAttribute( "aria-labelledby", classLabel.id );
+    let idLabel = document.createElement( "label" );
+    idLabel.className = "form-label";
+    idLabel.htmlFor = id + "_id";
+    idLabel.textContent = this.texts.headingId;
+    let idInput = document.createElement( "input" );
+    idInput.type = "text";
+    idInput.className = "form-control form-control-sm";
+    idInput.id = id + "_id";
+    idInput.value = attrs.id;
+    idInput.autocomplete = "off";
+    idInput.spellcheck = false;
+    let idHint = document.createElement( "div" );
+    idHint.className = "form-text text-muted small";
+    idHint.textContent = this.texts.headingIdHint;
+    let classEditor;
+    let changed = () => {
+      let code = window.UTILS.MDBlockTokenizer.setHeadingAttrs( raw, { classes: classEditor.getValue(), id: idInput.value } );
+      this.inspectorChange( path, raw, code );
+    };
+    classEditor = new window.UTILS.CssClassEditor( classGroup, { value: attrs.classes.join( " " ), onChange: changed } );
+    idInput.addEventListener( "input", changed );
+    // the id as written (only characters allowed by Markdown Extra) when the field is left
+    idInput.addEventListener( "change", () => {
+      idInput.value = window.UTILS.MDBlockTokenizer.headingAttrs( window.UTILS.MDBlockTokenizer.setHeadingAttrs( raw, { classes: [], id: idInput.value } ) ).id;
+    } );
+    fields.appendChild( classLabel );
+    fields.appendChild( classGroup );
+    fields.appendChild( idLabel );
+    fields.appendChild( idInput );
+    fields.appendChild( idHint );
+
+    let note = document.createElement( "p" );
+    note.className = "md-inspector__note mt-2 mb-0";
+    note.textContent = this.texts.inspectorEditedAsText;
+    fields.appendChild( note );
+    inspector.appendChild( fields );
+  }
+
+  static inspectorCount = 0;
 
   /**
    * A change made in the inspector's fields; applied when typing stops (see flushInspector())

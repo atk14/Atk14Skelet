@@ -414,6 +414,45 @@ module.exports = {
     } );
   },
 
+  test_set_heading_level() {
+    var set = MDBlockTokenizer.setHeadingLevel;
+    assert.equal( set( "## Title", 3 ), "### Title" );
+    assert.equal( set( "  # Title #", 6 ), "  ###### Title #" );
+    assert.equal( set( "###", 1 ), "#" );
+    assert.equal( set( "Title\n=====", 2 ), "Title\n-----" );
+    assert.equal( set( "Title\r\n--- \r", 1 ), "Title\r\n=== \r" );
+    assert.equal( set( "Title \n---", 4 ), "#### Title" );
+    // the result is a heading of the level
+    [ 1, 2, 3, 6 ].forEach( level => {
+      var block = MDBlockTokenizer.tokenize( set( "Some *title*\n===", level ) ).blocks[ 0 ];
+      assert.equal( block.type, "heading" );
+      assert.equal( block.level, level );
+    } );
+  },
+
+  test_heading_attrs() {
+    var get = MDBlockTokenizer.headingAttrs;
+    var set = MDBlockTokenizer.setHeadingAttrs;
+    assert.deepEqual( get( "## Title" ), { classes: [], id: "" } );
+    assert.deepEqual( get( "## Title ## {#intro .lead.mb-4}" ), { classes: [ "lead", "mb-4" ], id: "intro" } );
+    assert.deepEqual( get( "Title {.x}\n===" ), { classes: [ "x" ], id: "" } );
+    assert.deepEqual( get( "## Title {not attrs}" ), { classes: [], id: "" } );
+
+    assert.equal( set( "## Title", { classes: "lead mb-4" } ), "## Title {.lead .mb-4}" );
+    assert.equal( set( "## Title ##\r", { classes: [ "x" ], id: "Úvod a cíl" } ), "## Title ## {#Uvod-a-cil .x}\r" );
+    assert.equal( set( "## Title {.x #a}", { classes: [ "x" ], id: "a" } ), "## Title {.x #a}" ); // unchanged
+    assert.equal( set( "## Title {.x data-a=b}", { classes: [], id: "" } ), "## Title {data-a=b}" );
+    assert.equal( set( "## Title  {.x}  ", { classes: [] } ), "## Title  " );
+    assert.equal( set( "Title\n-----", { classes: [ "y", "w-1/2" ] } ), "Title {.y}\n-----" );
+    assert.equal( set( "## Title {.x}", { classes: [ "y", "x" ] } ), "## Title {.y .x}" ); // the order matters
+
+    // still a heading of the same level, the level can be changed with the attributes kept
+    var block = MDBlockTokenizer.tokenize( set( "Title\n===", { classes: "lead" } ) ).blocks[ 0 ];
+    assert.equal( block.type, "heading" );
+    assert.equal( block.level, 1 );
+    assert.equal( MDBlockTokenizer.setHeadingLevel( block.raw, 3 ), "### Title {.lead}" );
+  },
+
   test_nested_content_on_own_lines() {
     // a block added into "[div]\n[/div]" ends on its own line too
     var doc = tokenize( "[div]\n[/div]" );
