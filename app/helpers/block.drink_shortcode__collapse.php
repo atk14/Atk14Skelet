@@ -10,6 +10,7 @@
  *  [/collapse]
  * 
  * class: (optional) CSS class for container containing both link
+ * style: (optional) inline CSS style of the container
  *
  * See:
  * - https://getbootstrap.com/docs/4.6/components/collapse/
@@ -20,6 +21,7 @@ function smarty_block_drink_shortcode__collapse($params,$content,$template,&$rep
 
 	$params += [
 		"class" => "",
+		"style" => "",
 	];
 
 	foreach($params as $k => $v){

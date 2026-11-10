@@ -73,6 +73,20 @@
   }
   // Fixes for cases when dark mode collides with preview styles
   body.dark-mode & {
+    // link buttons of the content keep their colors (the dark mode lightens every link, see _dark_mode.scss)
+    @each $color, $value in $theme-colors {
+      a.btn-#{$color} {
+        color: color-yiq( $value );
+      }
+      a.btn-outline-#{$color} {
+        color: $value;
+        &:hover,
+        &.active {
+          color: color-yiq( $value );
+        }
+      }
+    }
+
     .content-tabs {
       .nav {
         .nav-link:not(.active) {

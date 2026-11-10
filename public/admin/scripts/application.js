@@ -206,6 +206,9 @@
 				if( document.getElementById( "diveditor_modal" ) ) {
 					new UTILS.DivEditor();
 				};
+				if( document.getElementById( "collapsedesigner_modal" ) ) {
+					new UTILS.CollapseDesigner();
+				};
 			}
 
 		}

@@ -9,7 +9,8 @@
  *  	[collapse_content class="someclass"]Hidden content to ne visible after click[/collapse_content]
  *  [/collapse]
  * 
- * class: (optional) CSS class for container containing both link
+ * class: (optional) CSS class of the hidden content
+ * style: (optional) inline CSS style of the hidden content
  *
  * See:
  * - app/helpers/block.drink_shortcode__collapse.php
@@ -20,6 +21,7 @@ function smarty_block_drink_shortcode__collapse_content($params,$content,$templa
 
 	$params += [
 		"class" => "",
+		"style" => "",
 	];
 
 	foreach($params as $k => $v){

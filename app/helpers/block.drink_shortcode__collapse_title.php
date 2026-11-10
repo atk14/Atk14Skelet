@@ -9,7 +9,8 @@
  *  	[collapse_content class="someclass"]Hidden content to ne visible after click[/collapse_content]
  *  [/collapse]
  * 
- * class: (optional) CSS class for container containing both link
+ * class: (optional) CSS class of the title link (e.g. "btn btn-primary")
+ * style: (optional) inline CSS style of the title link
  *
  * See:
  * - app/helpers/block.drink_shortcode__collapse.php
@@ -20,10 +21,17 @@ function smarty_block_drink_shortcode__collapse_title($params,$content,$template
 
 	$params += [
 		"class" => "",
+		"style" => "",
 	];
 
 	foreach($params as $k => $v){
 		$template->assign($k,$v);
+	}
+
+	// the title is inline, it's not a paragraph (Markdown makes one of a text on its own line)
+	$content = trim($content);
+	if(preg_match('/^<p>(.*)<\/p>$/s',$content,$matches) && strpos($matches[1],"<p>")===false){
+		$content = trim($matches[1]);
 	}
 
 	$template->assign("content",$content);

@@ -1,7 +1,7 @@
 var assert = require( "assert" );
 var MDBlockTokenizer = require( "../../public/admin/scripts/utils/md_block_tokenizer.js" );
 
-var BLOCK_SHORTCODES = [ "row", "col", "div", "tabs", "tab", "collapse", "linklist" ];
+var BLOCK_SHORTCODES = [ "row", "col", "div", "tabs", "tab", "collapse", "collapse_title", "collapse_content", "linklist" ];
 
 var tokenize = function( source ) {
   var doc = MDBlockTokenizer.tokenize( source, { blockShortcodes: BLOCK_SHORTCODES } );
@@ -376,6 +376,42 @@ module.exports = {
 
     // not a container: text after the closing tag
     assert.equal( tokenize( "[div]a[/div] b" ).blocks[ 0 ].container, undefined );
+  },
+
+  test_collapse_container() {
+    var source = [
+      "[collapse class=\"x\"]",
+      "  [collapse_title class=\"btn btn-primary\"]Read more[/collapse_title]",
+      "  [collapse_content]",
+      "Hidden **text**",
+      "",
+      "[#57 Picture]",
+      "  [/collapse_content]",
+      "[/collapse]",
+    ].join( "\n" );
+    var doc = tokenize( source );
+    var c = doc.blocks[ 0 ].container;
+    assert.ok( c );
+    assert.equal( c.head, "[collapse class=\"x\"]\n  [collapse_title class=\"btn btn-primary\"]Read more[/collapse_title]\n  " );
+    assert.equal( c.children.length, 1 );
+    assert.equal( c.children[ 0 ].name, "collapse_content" );
+    assert.deepEqual( types( c.children[ 0 ].doc ), [ "paragraph", "iobject" ] );
+    assert.equal( c.children[ 0 ].doc.blocks[ 1 ].line, 5 );
+
+    // the title after the content stays there
+    doc = tokenize( "[collapse]\n[collapse_content]\nA\n[/collapse_content]\n[collapse_title]T[/collapse_title]\n[/collapse]" );
+    c = doc.blocks[ 0 ].container;
+    assert.equal( c.children[ 0 ].after, "\n[collapse_title]T[/collapse_title]\n" );
+    c.children[ 0 ].doc.blocks[ 0 ].raw = "B";
+    assert.equal( MDBlockTokenizer.join( doc ), "[collapse]\n[collapse_content]\nB\n[/collapse_content]\n[collapse_title]T[/collapse_title]\n[/collapse]" );
+
+    // not a container: text in it, no content
+    [
+      "[collapse]\ntext\n[collapse_title]T[/collapse_title]\n[collapse_content]A[/collapse_content]\n[/collapse]",
+      "[collapse]\n[collapse_title]T[/collapse_title]\n[/collapse]",
+    ].forEach( s => {
+      assert.equal( tokenize( s ).blocks[ 0 ].container, undefined, s );
+    } );
   },
 
   test_nested_content_on_own_lines() {

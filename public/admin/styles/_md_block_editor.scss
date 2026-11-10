@@ -445,6 +445,14 @@
   .col--shortcode > .md-blocks-list > .md-block > .md-block__content > .iobject {
     margin-top: 0;
   }
+
+  // [collapse]: the content is edited, so it's always shown; its title doesn't hide it (a click selects the block)
+  .collapse_content--shortcode.collapse {
+    display: block;
+  }
+  .collapse_title--shortcode a[data-toggle] {
+    pointer-events: none;
+  }
 }
 
 // The selected block and the inspector beside the blocks, see select() and createInspector() in md_block_editor.js

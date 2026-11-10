@@ -5,7 +5,8 @@
  * New objects are created in a new tab by the usual administration pages; the list is reloaded
  * when the user comes back.
  * Registered in UTILS.MDEditorInserts, so it's offered in the "Insert" dropdown of MD editors,
- * in the "Add block" menu of the block view and as the editor of iobject blocks (to replace the object).
+ * in the "Add block" menu of the block view and as the editor of iobject blocks (to replace the object):
+ * in the dialog, or in the inspector of the block view (inspect()) where the object can be swapped at once.
  *
  * Usage:
  *
@@ -17,7 +18,7 @@
  *
  * md_editor_inserts.js
  * _iobject_inserter.scss
- * _iobject_inserter_modal.tpl, api/iobjects/index
+ * _iobject_inserter_modal.tpl (the dialog and the template of the inspector), api/iobjects/index
  * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
  */
 window.UTILS = window.UTILS || { };
@@ -27,6 +28,8 @@ window.UTILS.IobjectInserter = class {
 
   // Icons of objects without a preview image, by object type
   static typeIcons = { Picture: "fa-image", Gallery: "fa-images", Video: "fa-film", File: "fa-file" };
+
+  static inspectorCount = 0;
 
   constructor() {
     if ( window.UTILS.IobjectInserter.instance ) {
@@ -41,6 +44,8 @@ window.UTILS.IobjectInserter = class {
     this.message = this.modal.querySelector( ".js--message" );
     this.saveBtn = this.modal.querySelector( "#iobjectinserter_save_btn" );
     this.items = [];
+    this.itemsPromise = null; // objects of the record loaded by fetchItems()
+    this.inspectorRefresh = null; // refreshes the shown inspector, see inspect()
     this.selectedId = null;
     this.save = null; // callback given by open()
     this.original = null; // { raw, id } of the edited iobject block
@@ -62,13 +67,17 @@ window.UTILS.IobjectInserter = class {
           this.saveSelected();
         }
       } );
-      // an object added in another tab appears when coming back
-      window.addEventListener( "focus", () => {
-        if ( this.modal.open ) {
-          this.load();
-        }
-      } );
     }
+    // an object added or changed in another tab appears when coming back
+    window.addEventListener( "focus", () => {
+      this.itemsPromise = null;
+      if ( this.list && this.modal.open ) {
+        this.load();
+      }
+      if ( this.inspectorRefresh ) {
+        this.inspectorRefresh();
+      }
+    } );
     this.saveBtn.addEventListener( "click", () => this.saveSelected() );
   }
 
@@ -85,6 +94,7 @@ window.UTILS.IobjectInserter = class {
       blockType: "iobject",
       parse: raw => window.UTILS.IobjectInserter.parse( raw ),
       open: options => this.open( options ),
+      inspect: ( container, options ) => this.inspect( container, options ),
     } );
   }
 
@@ -119,29 +129,177 @@ window.UTILS.IobjectInserter = class {
   }
 
   /**
-   * Loads objects of the record by the API
+   * Parses an insert mark including its text
+   *   "[#123 Picture: Rose]" -> { id: 123, type: "Picture", title: "Rose" }
+   * @param {String} raw
+   * @returns {Object|null}
+   */
+  static parseMark( raw ) {
+    let m = raw.trim().match( /^\[#(\d+)\s*(?:([^\]:]*?)\s*(?::\s*([^\]]*?))?)?\s*\]$/ );
+    return m ? { id: parseInt( m[ 1 ], 10 ), type: m[ 2 ] || "", title: m[ 3 ] || "" } : null;
+  }
+
+  /**
+   * Objects of the record by the API; loaded once and kept until the window gets the focus again
+   * @param {Boolean} fresh - loads them again
+   * @returns {Promise} resolved with the objects (none for a record not saved yet)
+   */
+  fetchItems( fresh ) {
+    if ( !this.modal.dataset.table_name ) {
+      return Promise.resolve( [] );
+    }
+    if ( fresh || !this.itemsPromise ) {
+      let lang = document.documentElement.getAttribute( "lang" );
+      let params = new URLSearchParams( {
+        format: "json",
+        table_name: this.modal.dataset.table_name,
+        record_id: this.modal.dataset.record_id,
+      } );
+      let promise = fetch( "/api/" + lang + "/iobjects/?" + params.toString(), { credentials: "same-origin" } ).then( response => {
+        if ( !response.ok ) {
+          throw new Error( "HTTP " + response.status );
+        }
+        return response.json();
+      } );
+      promise.catch( () => {
+        if ( this.itemsPromise === promise ) {
+          this.itemsPromise = null; // tried again next time
+        }
+      } );
+      this.itemsPromise = promise;
+    }
+    return this.itemsPromise;
+  }
+
+  /**
+   * Loads objects of the record into the dialog
    */
   load() {
-    let lang = document.documentElement.getAttribute( "lang" );
-    let params = new URLSearchParams( {
-      format: "json",
-      table_name: this.modal.dataset.table_name,
-      record_id: this.modal.dataset.record_id,
-    } );
     if ( !this.items.length ) {
       this.showMessage( this.texts.loading );
     }
-    fetch( "/api/" + lang + "/iobjects/?" + params.toString(), { credentials: "same-origin" } ).then( response => {
-      if ( !response.ok ) {
-        throw new Error( "HTTP " + response.status );
-      }
-      return response.json();
-    } ).then( items => {
+    this.fetchItems( true ).then( items => {
       this.items = items;
       this.renderList();
     } ).catch( () => {
       this.showMessage( this.texts.error );
     } );
+  }
+
+  /**
+   * The object in the inspector of the block view: its preview, a select to swap it for another object
+   * of the record (applied at once), the dialog with all the objects and a link to edit the object
+   * @param {Element} container
+   * @param {Object} options - { raw, change, edit }
+   * @returns {Boolean} false when the block can't be shown here
+   */
+  inspect( container, options ) {
+    let mark = window.UTILS.IobjectInserter.parseMark( options.raw );
+    let template = document.getElementById( "iobjectinserter_inspector" );
+    if ( !mark || !template ) {
+      return false;
+    }
+    let fields = template.content.cloneNode( true );
+    let q = selector => fields.querySelector( selector );
+    let card = q( ".js--card" );
+    let select = q( ".js--object" );
+    let selectField = q( ".js--object-field" );
+    let markNote = q( ".js--mark-note" );
+    let editLink = q( ".js--edit-object" );
+    select.id = "iobjectinserter_inspector_" + ( ++window.UTILS.IobjectInserter.inspectorCount );
+    q( ".js--object-label" ).htmlFor = select.id;
+    editLink.href = "/admin/" + document.documentElement.getAttribute( "lang" ) + "/iobjects/edit/?id=" + mark.id;
+    if ( !this.modal.dataset.table_name ) {
+      selectField.remove(); // a record not saved yet has no objects
+    }
+
+    let items = [];
+    let current = () => items.find( item => item.id === mark.id ) || null;
+
+    let fill = () => {
+      let item = current();
+      this.fillCard( card, item || {
+        id: mark.id,
+        type: mark.type,
+        type_label: mark.type,
+        title: mark.title,
+        preview_image_url: null,
+      } );
+      card.classList.toggle( "iobject-inspector__card--unknown", !!items.length && !item );
+
+      select.innerHTML = "";
+      items.forEach( it => {
+        let option = document.createElement( "option" );
+        option.value = it.id;
+        option.textContent = it.type_label + " #" + it.id + ( it.title ? ": " + it.title : "" );
+        select.appendChild( option );
+      } );
+      if ( !item ) {
+        // an object not linked to the record (or deleted), kept selected
+        let option = document.createElement( "option" );
+        option.value = mark.id;
+        option.textContent = "#" + mark.id + " (" + this.texts.notLinked + ")";
+        select.insertBefore( option, select.firstChild );
+      }
+      select.value = mark.id;
+
+      // the text of the mark is not used to render the object, but it's what's seen in the source
+      markNote.classList.toggle( "d-none", !item || options.raw.trim() === item.insert_mark );
+    };
+
+    select.addEventListener( "change", () => {
+      let item = items.find( it => it.id === parseInt( select.value, 10 ) );
+      if ( item ) {
+        options.change( item.id === mark.id ? options.raw : item.insert_mark, { immediate: true, render: true } );
+      }
+    } );
+    q( ".js--update-mark" ).addEventListener( "click", () => {
+      let item = current();
+      if ( item ) {
+        options.change( item.insert_mark, { immediate: true, render: true } );
+      }
+    } );
+    q( ".js--choose" ).addEventListener( "click", () => options.edit() );
+
+    // the container is put into the inspector after this method returns, so it's checked only later
+    let refresh = () => {
+      this.fetchItems().then( loaded => {
+        if ( container.isConnected ) {
+          items = loaded;
+          fill();
+        }
+      } ).catch( () => {} );
+    };
+    this.inspectorRefresh = () => {
+      if ( container.isConnected ) {
+        refresh();
+      }
+    };
+
+    container.appendChild( fields );
+    fill();
+    refresh();
+    return true;
+  }
+
+  /**
+   * Shows an object in the inspector's card: preview, type and title
+   */
+  fillCard( card, item ) {
+    let preview = card.querySelector( ".js--preview" );
+    preview.innerHTML = "";
+    if ( item.preview_image_url ) {
+      let img = document.createElement( "img" );
+      img.src = item.preview_image_url;
+      img.alt = "";
+      preview.appendChild( img );
+    } else {
+      preview.innerHTML = "<span class=\"fa-solid " + ( window.UTILS.IobjectInserter.typeIcons[ item.type ] || "fa-cube" ) + "\"></span>";
+    }
+    card.querySelector( ".js--type" ).textContent = ( item.type_label ? item.type_label + " " : "" ) + "#" + item.id;
+    let title = card.querySelector( ".js--title" );
+    title.textContent = item.title || this.texts.untitled;
+    title.classList.toggle( "iobject-inspector__title--untitled", !item.title );
   }
 
   renderList() {

@@ -386,14 +386,28 @@
           tail: raw.slice( node.end ),
         };
       }
-      if ( node.start !== indent || raw.slice( node.end ).trim() || !node.children.length ) {
+      // kept children (e.g. [collapse_title] of a [collapse]) stay in the source around the children, as they are
+      let keep = config.keep || [];
+      let contentChildren = node.children.filter( child => keep.indexOf( child.name ) < 0 );
+      if ( node.start !== indent || raw.slice( node.end ).trim() || !contentChildren.length ) {
         return null;
       }
+      // text between two positions without the kept children in it
+      let gap = ( from, to ) => {
+        let text = "";
+        node.children.forEach( child => {
+          if ( keep.indexOf( child.name ) >= 0 && child.start >= from && child.end <= to ) {
+            text += raw.slice( from, child.start );
+            from = child.end;
+          }
+        } );
+        return text + raw.slice( from, to );
+      };
       let children = [];
       let pos = node.innerStart;
-      for ( let child of node.children ) {
-        // only whitespace may be between children
-        if ( child.name !== config.children || raw.slice( pos, child.start ).trim() ) {
+      for ( let child of contentChildren ) {
+        // only whitespace (and kept children) may be between children
+        if ( child.name !== config.children || gap( pos, child.start ).trim() ) {
           return null;
         }
         children.push( this.containerChild( raw, child, blockStart ) );
@@ -402,12 +416,12 @@
         }
         pos = child.end;
       }
-      if ( raw.slice( pos, node.innerEnd ).trim() ) {
+      if ( gap( pos, node.innerEnd ).trim() ) {
         return null;
       }
       children[ children.length - 1 ].after = raw.slice( pos, node.innerEnd );
       return {
-        head: raw.slice( 0, node.children[ 0 ].start ),
+        head: raw.slice( 0, contentChildren[ 0 ].start ),
         children: children,
         tail: raw.slice( node.innerEnd ),
       };
@@ -465,8 +479,14 @@
 
     // Container shortcodes whose children's content is tokenized too
     // (children: name of the children shortcode, or content: the shortcode's own content are blocks;
-    // nestable: a container of the same kind can be put into it in the editor)
-    defaultContainers: { row: { children: "col" }, tabs: { children: "tab" }, div: { content: true, nestable: true } },
+    // nestable: a container of the same kind can be put into it in the editor;
+    // keep: other children allowed among the children, kept in the source as they are, e.g. the title of a [collapse])
+    defaultContainers: {
+      row: { children: "col" },
+      tabs: { children: "tab" },
+      div: { content: true, nestable: true },
+      collapse: { children: "collapse_content", keep: [ "collapse_title" ] },
+    },
 
     /**
      * Splits the source into blocks

@@ -7,10 +7,10 @@ The admin Markdown editor (`MarkdownField`) has three views: **Blocks** (the def
 - The text is split into blocks (paragraphs, headings, lists, tables, code, iobjects, shortcodes...), each rendered by the server exactly as on the web.
 - A click selects a block (Up/Down move the selection, Esc cancels it). A block is edited in place (a click into the selected block, double-click, Enter or the pencil button): its Markdown source appears in a textarea. Ctrl+Enter or clicking outside saves, Esc cancels. The formatting buttons of the toolbar (H1–H3, bold, italic, lists, link, image) and Ctrl+B/I/K work on the edited block.
 - Blocks are added by the "+" buttons (or by clicking into empty space below the last block), deleted, moved by dragging their handle or by Alt+Up/Down, cut, copied and pasted (the "⋮" menu, Ctrl+X/C/V on a focused block).
-- Shortcode blocks with a registered editor open it in a dialog: `[tabs]` the tab designer, `[row]` the layout designer, `[linklist]` the link list inserter, `[div]` the div editor (class and style), an iobject `[#123 ...]` the object picker.
-- Container shortcodes – `[row]`, `[tabs]`, `[div]` – show their content as nested lists of blocks, so a column, a tab or a div is edited block by block too.
+- Shortcode blocks with a registered editor open it in a dialog: `[tabs]` the tab designer, `[row]` the layout designer, `[linklist]` the link list inserter, `[div]` the div editor (class and style), `[collapse]` the collapse designer (title, classes, style), an iobject `[#123 ...]` the object picker.
+- Container shortcodes – `[row]`, `[tabs]`, `[div]`, `[collapse]` – show their content as nested lists of blocks, so a column, a tab, a div or the hidden content of a collapse is edited block by block too (the content of a collapse is always shown in the block view).
 - Undo/redo works across the views (it is Ace's undo history).
-- When the block view is wide enough (typically in fullscreen), an **inspector** beside the blocks shows the selected block: where it is (its containers, each selectable) and how it's edited. Inserters with `inspect()` (so far the div editor, the link list inserter, the tab designer – names, order and number of tabs – and the layout designer – class and style of a `[row]` and of its columns) show their fields right there and the changes apply as they are typed; the others are still edited in their dialogs.
+- When the block view is wide enough (typically in fullscreen), an **inspector** beside the blocks shows the selected block: where it is (its containers, each selectable) and how it's edited. Inserters with `inspect()` (so far the div editor, the link list inserter, the tab designer – names, order and number of tabs –, the layout designer – class and style of a `[row]` and of its columns – the collapse designer – the title, classes and style of a `[collapse]` – and the object picker – the object's preview, swapping it for another object of the record, updating the text of an outdated insert mark) show their fields right there and the changes apply as they are typed; the others are still edited in their dialogs.
 
 ## The core rule: the source in Ace is the only truth
 
@@ -37,11 +37,12 @@ The tokenizer is **lossless**: `join( tokenize( source ) ) === source` for any s
 | `md_row_layout.js` | `UTILS.MDRowLayout`: widths of `[col]` columns per breakpoint from Bootstrap classes and back; parses and rebuilds a `[row]` keeping content of the columns; `setAttrs()` changes attributes of the `[row]` or of a column (only the opening tag), `splitClasses()` separates width/visibility classes (managed by the layout designer, hidden in the inspector's class editor) from a column's own classes. No DOM, runs in Node.js. |
 | `md_block_editor.js` | `UTILS.MDBlockEditor`: the block view itself (rendering, editing, menus, drag & drop, clipboard). One instance per MD editor (`container.mdBlockEditor`). |
 | `md_editor_inserts.js` | `UTILS.MDEditorInserts`: registry of things insertable into editors (designers in dialogs). Fills the "Insert" dropdown, the "Add block" menu and finds the editor of a block. |
-| `tab_designer.js`, `layout_designer.js`, `linklist_inserter.js`, `iobject_inserter.js`, `div_editor.js` | Designers registered in `MDEditorInserts`; each can insert a new thing and edit an existing one. |
+| `tab_designer.js`, `layout_designer.js`, `linklist_inserter.js`, `iobject_inserter.js`, `div_editor.js`, `collapse_designer.js` | Designers registered in `MDEditorInserts`; each can insert a new thing and edit an existing one. |
 | `fa_iconpicker.js` | Icon picker; **not migrated** to the registry yet – it still copies the code to the clipboard. |
 | `css_class_editor.js` | `UTILS.CssClassEditor`: a class attribute edited as chips (typed + Enter/Space/"+", × or Delete removes, dragging or Alt+Left/Right reorders). The order of classes is kept as written; `getValue()` returns the original string when the classes and their order didn't change, a class being typed counts too. Enter it consumes is `preventDefault()`ed, so a dialog saves only on Enter in an empty input. Suggestions are not offered yet (they would attach to `.js--input`). Same interface as `InlineStyleEditor`. |
 | `inline_style_editor.js` | `UTILS.InlineStyleEditor`: a style attribute edited as rows of declarations (property, value, ×; "+" adds one). Used by designers in their dialogs and in the inspector. `parse()`/`serialize()` need no DOM (tested in Node.js); declarations are split by `;` outside parentheses and quotes, so `url(data:…;base64,…)` stays whole. `getValue()` returns the original string when the declarations didn't change. |
 | `dialog.js` | `UTILS.Dialog`: `show()`, `close()`, `onClose()` of native `<dialog>` elements, plus fallbacks for browsers without Invoker Commands (`commandfor`/`command`) or `closedby`. No Bootstrap JavaScript. |
+| `md_collapse_model.js` | `UTILS.MDCollapseModel`: settings of a `[collapse]` (the title's text and attributes, attributes of `[collapse]` and `[collapse_content]`) changed by rebuilding only the changed tags, the content and whitespace kept; `create()` builds a new one. No DOM, runs in Node.js. |
 | `md_tabs_model.js` | `UTILS.MDTabsModel`: the structure of a `[tabs]` (names and attributes of tabs, their order and number, attributes of `[tabs]`) changed without touching the content of the tabs or the whitespace between the tags; used by the tab designer's inspector. No DOM, runs in Node.js. |
 | `md_editor_toolbar_helper.js` | Adds buttons, dropdowns and the view mode button ("Blocks") to toolbars of bootstrap-markdown-editor. |
 | `md_editor_resizer.js` | Remembers editor heights in sessionStorage; the height is kept on `.md-editor` and mirrored to `.md-blocks`. |
@@ -83,10 +84,15 @@ Initialization is in `public/admin/scripts/application.js` (`initializeEditors()
 **Containers.** `containers` (default `MDBlockTokenizer.defaultContainers`) says which shortcodes are split further:
 
 ```js
-{ row: { children: "col" }, tabs: { children: "tab" }, div: { content: true, nestable: true } }
+{
+  row: { children: "col" },
+  tabs: { children: "tab" },
+  div: { content: true, nestable: true },
+  collapse: { children: "collapse_content", keep: [ "collapse_title" ] },
+}
 ```
 
-A container block gets `block.container = { head, children: [ { name, attrs, open, doc, close, after } ], tail }`; each child's content is tokenized recursively into `doc` (marked `doc.nested`). `children` containers consist of the given child shortcodes only (whitespace between them is allowed, anything else makes the shortcode a plain block); `content` containers have their own content as the only "child". `nestable` allows a container inside a child of its own kind in the editor (`[div]` in `[div]`, but not `[row]` in a column).
+A container block gets `block.container = { head, children: [ { name, attrs, open, doc, close, after } ], tail }`; each child's content is tokenized recursively into `doc` (marked `doc.nested`). `children` containers consist of the given child shortcodes only (whitespace between them is allowed, anything else makes the shortcode a plain block); `content` containers have their own content as the only "child". `nestable` allows a container inside a child of its own kind in the editor (`[div]` in `[div]`, but not `[row]` in a column). `keep` lists other shortcodes allowed among the children, kept in the source as they are (in `head` or a child's `after`) – the title of a `[collapse]` is edited by its designer, not as blocks.
 
 `join()` builds the `raw` of a container from its parts (`blockRaw()`), so a change in a nested doc reaches the source. **When a container's `raw` is replaced as a whole, delete `block.container`**, otherwise `blockRaw()` rebuilds the old content.
 
@@ -133,7 +139,7 @@ UTILS.MDEditorInserts.register( {
 
 - A change is applied a moment after typing stops (`inspectorDelay`), at once when the field is left or by Enter, and before anything else changes the document (selecting another block, undo, leaving the view). A discrete step (adding, removing or moving a tab) is passed as `change( code, { immediate: true } )`: applied at once and never merged with other changes.
 - Changes of one field in a row become one step of Ace's undo history (`setSource( text, merge )` merges into the last group via `session.mergeUndoDeltas`), unless the undo revision moved meanwhile.
-- The inspector isn't rendered again while it shows the block's current source (`inspectorState`), so the focus stays in the field while the block is re-rendered beside it. Undo or an edit of the block elsewhere renders it again with the new values.
+- The inspector isn't rendered again while it shows the block's current source (`inspectorState`), so the focus stays in the field while the block is re-rendered beside it. Undo or an edit of the block elsewhere renders it again with the new values. Fields not showing their own change (e.g. swapping an iobject changes the inspector's title too) pass `change( code, { immediate: true, render: true } )` to have the inspector rendered again from the new source.
 - The fields' markup belongs to the designer's template (a `<template>`, e.g. `#diveditor_inspector`), so it's translated like the dialog; ids must be unique per field, more editors may be in the page.
 
 Rules for a designer:
@@ -171,4 +177,4 @@ Admin scripts are concatenated in the order of `applicationScripts` in `gulpfile
 - A column made multi-line by adding a block stays multi-line after the block is removed.
 - A block can't be dropped into a hidden tab; switch to the tab first.
 - The icon picker isn't in the registry yet (it should be `inline: true`, inserted into the edited block).
-- Other shortcodes could become containers (`[collapse]`, `[collapse_content]`) by adding them to `defaultContainers` after checking their skeleton renders with slots.
+- Other shortcodes could become containers by adding them to `defaultContainers` after checking their skeleton renders with slots.

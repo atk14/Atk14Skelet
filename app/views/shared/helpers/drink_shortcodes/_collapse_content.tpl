@@ -1,1 +1,1 @@
-<div class="collapse collapse_content--shortcode" id="{$collapseID}">{!$content}</div>
+<div class="collapse collapse_content--shortcode{if $class} {$class}{/if}" id="{$collapseID}"{if $style} style="{$style}"{/if}>{!$content}</div>

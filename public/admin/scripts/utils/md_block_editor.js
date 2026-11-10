@@ -162,6 +162,7 @@ window.UTILS.MDBlockEditor = class {
     texts.childNames = Object.assign( {
       col: "Column",
       tab: "Tab",
+      collapse_content: "Content",
     }, texts.childNames );
     return texts;
   }
@@ -1629,7 +1630,8 @@ window.UTILS.MDBlockEditor = class {
    * @param {String} raw - its source the fields were filled from
    * @param {String} code - its new source
    * @param {Object} options - { immediate: true } for a change made at once (e.g. adding a tab):
-   *   applied without waiting and never merged with other changes in the undo history
+   *   applied without waiting and never merged with other changes in the undo history;
+   *   { render: true } renders the inspector again from the new source (the fields don't show the change themselves)
    */
   inspectorChange( path, raw, code, options ) {
     let immediate = !!( options && options.immediate );
@@ -1639,6 +1641,7 @@ window.UTILS.MDBlockEditor = class {
       raw: raw,
       code: code,
       field: !immediate && active && this.inspector.contains( active ) ? active : null,
+      render: !!( options && options.render ),
     };
     window.clearTimeout( this.inspectorTimer );
     if ( immediate ) {
@@ -1687,7 +1690,8 @@ window.UTILS.MDBlockEditor = class {
     this.setSource( window.UTILS.MDBlockTokenizer.join( this.doc ), merge );
     this.lastInspectorChange = { field: pending.field, revision: undoManager.getRevision() };
     if ( this.inspectorState && this.inspectorState.path === pending.path ) {
-      this.inspectorState = { path: path, part: this.inspectorState.part, raw: code }; // the fields show it already
+      // the fields show it already, unless they are to be rendered again
+      this.inspectorState = pending.render ? null : { path: path, part: this.inspectorState.part, raw: code };
     }
     if ( path !== this.selected ) {
       this.selected = path;
@@ -1705,7 +1709,12 @@ window.UTILS.MDBlockEditor = class {
   childLabel( block, index ) {
     let child = block.container.children[ index ];
     let name = child.attrs && child.attrs.name;
-    return name || ( this.texts.childNames[ child.name ] || child.name ) + " " + ( index + 1 );
+    if ( name ) {
+      return name;
+    }
+    // numbered when there are more of them ("Column 2"), not the only content of a [collapse]
+    let label = this.texts.childNames[ child.name ] || child.name;
+    return block.container.children.length > 1 ? label + " " + ( index + 1 ) : label;
   }
 
   /**
