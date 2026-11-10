@@ -47,14 +47,17 @@ window.UTILS.MDBlockEditor = class {
   // Formatting buttons of the editor's toolbar (data-btn) working on the edited block
   static formatButtons = [ "h1", "h2", "h3", "bold", "italic", "ul", "ol", "link", "image" ];
 
-  // Blocks offered by the "+" buttons; "|" marks the cursor position in the template
+  // Marks the cursor position in a block template (not "|", tables are written with it)
+  static cursorMark = "{|}";
+
+  // Blocks offered by the "+" buttons, see cursorMark
   static newBlockTemplates = [
-    { type: "paragraph", template: "|" },
-    { type: "heading", template: "## |" },
-    { type: "list", template: "- |" },
-    { type: "quote", template: "> |" },
-    { type: "table", template: "| | |\n|---|---|\n| | |" },
-    { type: "code", template: "```\n|\n```" },
+    { type: "paragraph", template: "{|}" },
+    { type: "heading", template: "## {|}" },
+    { type: "list", template: "- {|}" },
+    { type: "quote", template: "> {|}" },
+    { type: "table", template: "| {|} | |\n|---|---|\n| | |" },
+    { type: "code", template: "```\n{|}\n```" },
     { type: "hr", template: "---" },
   ];
 
@@ -1118,12 +1121,13 @@ window.UTILS.MDBlockEditor = class {
    * Starts editing a new block placed at the given position
    * @param {String} list
    * @param {Number} index
-   * @param {String} template - "|" marks the cursor position
+   * @param {String} template - MDBlockEditor.cursorMark marks the cursor position
    */
   addBlock( list, index, template ) {
     this.commitEdit();
-    let cursor = template.indexOf( "|" );
-    let value = template.replace( "|", "" );
+    let mark = window.UTILS.MDBlockEditor.cursorMark;
+    let cursor = template.indexOf( mark );
+    let value = template.replace( mark, "" );
     if ( cursor < 0 ) {
       // nothing to fill in (e.g. a divider)
       this.insertBlock( list, index, value );
@@ -2205,7 +2209,7 @@ window.UTILS.MDBlockEditor = class {
       let blocks = listEl.querySelectorAll( ":scope > .md-block" );
       let last = blocks[ blocks.length - 1 ];
       if ( doc && !this.busyAtMousedown && ( !last || e.clientY > last.getBoundingClientRect().bottom ) ) {
-        this.addBlock( listEl.dataset.list, doc.blocks.length, "|" );
+        this.addBlock( listEl.dataset.list, doc.blocks.length, window.UTILS.MDBlockEditor.cursorMark );
       } else if ( !this.busyAtMousedown ) {
         this.select( null ); // a click between blocks
       }
