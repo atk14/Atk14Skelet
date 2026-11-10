@@ -4,7 +4,7 @@
  * It remembers the heights of editors in sessionStorage
  * and restores them when the form is reloaded.
  * If user resizes an MD editor, its height is restored after reload.
- * TODO: It should also restore height after MD editor goes fullscreen and back.
+ * After the fullscreen the editor gets back the height it had before; heights in the fullscreen are not remembered.
  *
  * The block view of an editor (.md-blocks, see md_block_editor.js) shares the height of the editor:
  * the height is kept on .md-editor and mirrored to .md-blocks, resizing either of them resizes both.
@@ -76,9 +76,19 @@ window.UTILS.MDEditorResizer = class {
    * @param {Element} panel - .md-editor or .md-blocks
    */
   onEditorResize( panel ) {
-    if ( panel.classList.contains( "md-blocks" ) && panel.offsetHeight ) {
+    let container = panel.closest( ".md-container" );
+    if ( container.classList.contains( "md-fullscreen" ) ) {
+      return; // the fullscreen height is not the editor's height
+    }
+    if ( panel.classList.contains( "md-blocks" ) ) {
+      // every click in the block view ends with a mouseup, only a height differing from the kept one
+      // (on the editor, the resize handle changes the block view's own style) is a resize
+      let editor = container.querySelector( ".md-editor" );
+      if ( !panel.offsetHeight || panel.offsetHeight === this.getHeight( editor ) ) {
+        return;
+      }
       // the height of the block view is kept on the (hidden) editor
-      this.setHeight( panel.closest( ".md-container" ), panel.offsetHeight );
+      this.setHeight( container, panel.offsetHeight );
     }
     this.storeHeights();
   }
@@ -129,7 +139,13 @@ window.UTILS.MDEditorResizer = class {
 
             if ( !mutation.target.classList.contains( "md-fullscreen" ) ) {
               //console.log( "An MD editor exited fullscreen" );
-              this.restoreHeights();
+              let height = parseFloat( mutation.target.dataset.height_before_fullscreen );
+              if ( height ) {
+                // the height it had before the fullscreen (see keepScrollOverFullscreen())
+                this.setHeight( mutation.target, height );
+              } else {
+                this.restoreHeights();
+              }
             }
           }
         }
@@ -170,7 +186,8 @@ window.UTILS.MDEditorResizer = class {
   }
 
   /**
-   * After leaving the fullscreen, the page is scrolled back where it was when the fullscreen was entered
+   * After leaving the fullscreen, the page is scrolled back where it was when the fullscreen was entered,
+   * and the editor gets back its height (restored by the MutationObserver, see startMutationObserver())
    * (the fullscreen makes html and body 100% high with hidden overflow, some browsers lose the scroll position;
    * the editor's own handler also focuses Ace, which may scroll the page)
    * @param {Element} editor - .md-container
@@ -184,6 +201,11 @@ window.UTILS.MDEditorResizer = class {
     button.addEventListener( "click", () => {
       if ( !editor.classList.contains( "md-fullscreen" ) ) {
         editor.dataset.scroll_before_fullscreen = window.scrollY;
+        let panel = editor.querySelector( ".md-editor" );
+        let height = panel && this.getHeight( panel );
+        if ( height ) {
+          editor.dataset.height_before_fullscreen = height;
+        }
         return;
       }
       let scrollY = parseFloat( editor.dataset.scroll_before_fullscreen );

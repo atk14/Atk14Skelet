@@ -231,9 +231,16 @@
     }
   }
 
+  // fixed in the top layer (a popover, see showMenu() and positionMenu() in md_block_editor.js); the popover's
+  // default placement (centered in the window) is replaced by the position computed for its button
   .md-blocks__menu {
-    position: absolute;
+    position: fixed;
+    inset: auto;
+    margin: 0;
+    max-height: calc(100vh - 8px);
+    overflow-y: auto;
     z-index: 1000;
+    color: $gray-900;
     display: flex;
     flex-direction: column;
     min-width: 10rem;

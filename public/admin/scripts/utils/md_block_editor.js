@@ -290,6 +290,14 @@ window.UTILS.MDBlockEditor = class {
         this.closeMenu();
       }
     } );
+    // the menu (fixed in the top layer) follows its button when the block view or the page is scrolled
+    let followMenu = e => {
+      if ( this.menu && e.target !== this.menu ) {
+        this.positionMenu();
+      }
+    };
+    window.addEventListener( "scroll", followMenu, true );
+    window.addEventListener( "resize", followMenu );
 
     // an object edited in another tab must be rendered again when coming back
     window.addEventListener( "focus", () => {
@@ -1977,26 +1985,54 @@ window.UTILS.MDBlockEditor = class {
       menu.appendChild( btn );
     } );
     this.element.appendChild( menu );
-    // placed under the button, inside the scrolled container (and not over its right edge);
     // a hidden button (shown on hover only, e.g. when triggered from keyboard) is replaced by its block
-    let anchor = button.getClientRects().length ? button : ( button.closest( ".md-block" ) || this.appendButton );
-    let rect = anchor.getBoundingClientRect();
-    let parentRect = this.element.getBoundingClientRect();
-    menu.style.top = ( rect.bottom - parentRect.top + this.element.scrollTop + 4 ) + "px";
-    let left = rect.left - parentRect.left + rect.width / 2 - menu.offsetWidth / 2;
-    menu.style.left = Math.max( 4, Math.min( left, this.element.clientWidth - menu.offsetWidth - 4 ) ) + "px";
     this.menu = menu;
-    menu.scrollIntoView( { block: "nearest" } );
+    this.menuAnchor = button.getClientRects().length ? button : ( button.closest( ".md-block" ) || this.appendButton );
+    // in the top layer (Popover API), so the menu is not clipped by the scrolled block view
+    // and doesn't stretch its scrolled area; it stays in its place in the DOM, so it keeps its styles and events
+    if ( menu.showPopover ) {
+      menu.popover = "manual";
+      menu.showPopover();
+    }
+    this.positionMenu();
     let first = menu.querySelector( "button:not(:disabled)" );
     if ( first ) {
       first.focus( { preventScroll: true } );
     }
   }
 
+  /**
+   * Places the menu under its button (above it when there's no room below), within the window;
+   * a menu whose button was scrolled out of the block view is closed
+   */
+  positionMenu() {
+    let menu = this.menu;
+    if ( !menu ) {
+      return;
+    }
+    let rect = this.menuAnchor.getBoundingClientRect();
+    let view = this.element.getBoundingClientRect();
+    if ( !this.menuAnchor.isConnected || rect.bottom < view.top || rect.top > view.bottom ) {
+      this.closeMenu();
+      return;
+    }
+    let width = menu.offsetWidth;
+    let height = menu.offsetHeight;
+    let top = rect.bottom + 4;
+    if ( top + height > window.innerHeight - 4 ) {
+      let above = rect.top - 4 - height;
+      top = above >= 4 ? above : Math.max( 4, window.innerHeight - 4 - height );
+    }
+    let left = rect.left + rect.width / 2 - width / 2;
+    menu.style.top = top + "px";
+    menu.style.left = Math.max( 4, Math.min( left, window.innerWidth - width - 4 ) ) + "px";
+  }
+
   closeMenu() {
     if ( this.menu ) {
       this.menu.remove();
       this.menu = null;
+      this.menuAnchor = null;
     }
   }
 
