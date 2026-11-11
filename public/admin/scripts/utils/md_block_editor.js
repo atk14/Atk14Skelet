@@ -827,7 +827,7 @@ window.UTILS.MDBlockEditor = class {
       this.mountLists( el, content );
       return;
     }
-    if ( !window.UTILS.MDBlockEditor.visibleText( content ) && !content.querySelector( "img, iframe, video, svg, hr, table" ) ) {
+    if ( !window.UTILS.MDBlockEditor.visibleText( content ) && !content.querySelector( window.UTILS.MDBlockEditor.visibleElements ) ) {
       // nothing visible, e.g. link reference definitions or an HTML comment;
       // the CSS of a Custom CSS block keeps applying to the other blocks
       let styles = [ ...content.querySelectorAll( "style" ) ];
@@ -836,6 +836,10 @@ window.UTILS.MDBlockEditor = class {
       styles.forEach( style => content.appendChild( style ) );
     }
   }
+
+  // elements visible without any text: media, and elements styled by a class or a style attribute
+  // (an icon like <i class="fa-solid fa-star"></i> alone in a paragraph)
+  static visibleElements = "img, iframe, video, audio, svg, canvas, object, embed, picture, hr, table, input, button, [class]:not(style, script), [style]:not(style, script)";
 
   /**
    * Text of the element without the content of its <style> and <script> elements
