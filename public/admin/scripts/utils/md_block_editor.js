@@ -190,6 +190,13 @@ window.UTILS.MDBlockEditor = class {
    */
   constructor( container ) {
     this.container = container;
+    // designers are registered after the blocks are shown first
+    document.addEventListener( "mdeditorinserts:register", () => {
+      if ( !this.element ) {
+        return;
+      }
+      [ ...this.element.querySelectorAll( ".md-block" ) ].forEach( el => el.mdBlock && this.markInspectable( el ) );
+    } );
     this.textarea = container.previousElementSibling;
     this.texts = window.UTILS.MDBlockEditor.texts();
     this.mdEditor = container.querySelector( ".md-editor" );
@@ -536,6 +543,7 @@ window.UTILS.MDBlockEditor = class {
     el.mdUsed = true;
     el.mdBlock = block;
     el.dataset.path = path;
+    this.markInspectable( el );
     if ( block.container ) {
       block.container.children.forEach( ( child, i ) => {
         el.mdLists[ i ].dataset.container = block.name; // see onMove in makeSortable()
@@ -543,6 +551,24 @@ window.UTILS.MDBlockEditor = class {
       } );
     }
     return el;
+  }
+
+  /**
+   * The inserter editing the block in the inspector (its inspect()), null for a block edited otherwise
+   * @param {Object} block
+   * @returns {Object|null}
+   */
+  static inspectorEditor( block ) {
+    let inserter = window.UTILS.MDEditorInserts.editorFor( block );
+    return inserter && inserter.inspect ? inserter : null;
+  }
+
+  /**
+   * A block edited in the inspector has no "Edit" button while the inspector is shown (see _md_block_editor.scss)
+   * @param {Element} el - .md-block
+   */
+  markInspectable( el ) {
+    el.classList.toggle( "md-block--inspectable", !!window.UTILS.MDBlockEditor.inspectorEditor( el.mdBlock ) );
   }
 
   /**
@@ -1109,13 +1135,24 @@ window.UTILS.MDBlockEditor = class {
    * Edits the block by its dedicated editor (when registered) or inline
    * @param {String} path
    */
-  editBlock( path ) {
+  /**
+   * Edits the block: in the inspector when it's shown and edits the block (double-click, Enter...),
+   * in the inserter's dialog, or as text in the block
+   * @param {String} path
+   * @param {Object} options - { dialog: true } opens the dialog even when the inspector is shown
+   *   (a button of the inspector opening a dialog doing more, e.g. the layout of a [row])
+   */
+  editBlock( path, options ) {
     this.commitEdit();
     let r = this.resolve( path );
     if ( !r ) {
       return;
     }
     let block = r.block;
+    if ( this.inspectorShown && !( options && options.dialog ) && window.UTILS.MDBlockEditor.inspectorEditor( block ) ) {
+      this.focusInspector( path );
+      return;
+    }
     let inserter = window.UTILS.MDEditorInserts.editorFor( block );
     if ( inserter ) {
       let raw = block.raw;
@@ -1462,6 +1499,24 @@ window.UTILS.MDBlockEditor = class {
     }
   }
 
+  /**
+   * Selects the block and moves the focus to the first field of the inspector, which flashes briefly
+   * @param {String} path
+   */
+  focusInspector( path ) {
+    this.select( path );
+    let fields = this.inspector.querySelector( ".md-inspector__fields" );
+    let field = fields && fields.querySelector( "input:not([type=hidden]):not([disabled]), select, textarea, button:not([disabled])" );
+    if ( !field ) {
+      this.focusBlock( path );
+      return;
+    }
+    field.focus();
+    fields.classList.remove( "md-inspector__fields--flash" );
+    void fields.offsetWidth; // restarts the animation
+    fields.classList.add( "md-inspector__fields--flash" );
+  }
+
   // ---------------------------------------------------------------- the selected block and the inspector
 
   /**
@@ -1680,7 +1735,7 @@ window.UTILS.MDBlockEditor = class {
         raw: raw,
         index: part,
         change: ( code, changeOptions ) => this.inspectorChange( path, raw, code, changeOptions ),
-        edit: () => this.editBlock( path ),
+        edit: () => this.editBlock( path, { dialog: true } ),
         selectPart: index => this.selectPart( path, index ),
       } );
       if ( shown !== false ) {

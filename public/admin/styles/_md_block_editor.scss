@@ -610,11 +610,30 @@ button.md-inspector__crumb {
   }
 }
 
+// a block edited in the inspector has no "Edit" button while the inspector is shown
+// (double-click or Enter moves the focus to the inspector, see MDBlockEditor.editBlock())
+.md-blocks--inspector .md-block--inspectable > .md-block__bar > .md-block__toolbar > .js--edit-block {
+  display: none;
+}
+
 // fields of an inserter in the inspector (e.g. DivEditor.inspect())
 .md-inspector__fields {
+  // shown where the block is edited (MDBlockEditor.focusInspector())
+  &--flash {
+    animation: md-inspector-flash 0.8s ease-out;
+  }
   .form-label {
     margin-bottom: 0.125rem;
     font-size: 0.75rem;
     color: $gray-600;
+  }
+}
+
+@keyframes md-inspector-flash {
+  from {
+    box-shadow: 0 0 0 0.25rem rgba( $primary, 0.5 );
+  }
+  to {
+    box-shadow: 0 0 0 0.25rem rgba( $primary, 0 );
   }
 }

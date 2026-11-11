@@ -50,6 +50,8 @@ window.UTILS.MDEditorInserts = class {
     } else {
       items.push( item );
     }
+    // the block view marks the blocks the item edits (see MDBlockEditor.markInspectable())
+    document.dispatchEvent( new CustomEvent( "mdeditorinserts:register", { detail: item } ) );
     window.UTILS.MDEditorToolbarHelper.addToolbarDropdownItem( "insert_dropdown", {
       name: item.name,
       text: item.text,
