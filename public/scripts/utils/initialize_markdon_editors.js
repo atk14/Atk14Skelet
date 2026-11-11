@@ -24,6 +24,10 @@ window.UTILS.initializeMarkdonEditors = function() {
 					success: function( output ) {
 						output = "<div class=\"md-preview__viewport preview--desktop\"> " + output + " </div>";
 						callback( output );
+						if ( window.UTILS.MDPreviewStyles ) {
+							// custom CSS applies to the preview only
+							window.UTILS.MDPreviewStyles.apply( el.parentElement.querySelector( ".md-preview" ) );
+						}
 						window.UTILS.initSwiper();
 						window.UTILS.PreviewModeToggle.init( el.parentElement.querySelector( ".md-preview" ) );
 					}

@@ -47,6 +47,10 @@ definedef("WEBP_FORMAT_SUPPORTED",true);
 
 definedef("ARTICLE_BODY_MAX_WIDTH",825);
 
+// Breakpoints offered by the Custom CSS block of the Markdown editor (tabs of @media (min-width: ...)), in px;
+// keep them the same as $grid-breakpoints of the web (public/styles/_bootstrap_variables.scss)
+definedef("MARKDOWN_CSS_BREAKPOINTS",["sm" => 576, "md" => 768, "lg" => 992, "xl" => 1200]);
+
 definedef("SIGN_UP_FOR_NEWSLETTER_ENABLED",true);
 
 // == hCaptcha ==

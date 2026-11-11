@@ -111,7 +111,7 @@
       }
     }
 
-    .form-control, textarea, .md-editor, .form-control-file, .custom-file-input, .drop-zone {
+    .form-control, textarea, .md-editor, .css-designer__editor, .form-control-file, .custom-file-input, .drop-zone {
       background-color: $dark-input-bg;
       border-color: $dark-border-color;
       color: white;
@@ -119,7 +119,7 @@
 
     // the Ace editor (Code view) keeps its light theme (tomorrow) under the dark colors above,
     // so its light markers would hide the white text
-    .md-editor {
+    .md-editor, .css-designer__editor {
       .ace_marker-layer {
         .ace_selection {
           background-color: mix( $primary, $dark-input-bg, 55% );

@@ -53,6 +53,8 @@ var applicationScripts = [
 	"public/admin/scripts/utils/md_row_layout.js",
 	"public/admin/scripts/utils/md_tabs_model.js",
 	"public/admin/scripts/utils/md_collapse_model.js",
+	"public/admin/scripts/utils/md_css_model.js",
+	"public/admin/scripts/utils/md_preview_styles.js",
 	"public/scripts/utils/initialize_markdon_editors.js",
 	"public/admin/scripts/utils/async_image_upload.js",
 	"public/scripts/utils/async_file_upload.js",
@@ -73,6 +75,7 @@ var applicationScripts = [
 	"public/admin/scripts/utils/inline_style_editor.js",
 	"public/admin/scripts/utils/div_editor.js",
 	"public/admin/scripts/utils/collapse_designer.js",
+	"public/admin/scripts/utils/css_designer.js",
 	"public/admin/scripts/application.js",
 ];
 

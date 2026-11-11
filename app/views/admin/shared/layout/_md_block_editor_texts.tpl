@@ -48,7 +48,8 @@
 			code: "{t escape=javascript}Code{/t}",
 			hr: "{t escape=javascript}Divider{/t}",
 			iobject: "{t escape=javascript}Object{/t}",
-			definitions: "{t escape=javascript}Link definitions{/t}"
+			definitions: "{t escape=javascript}Link definitions{/t}",
+			css: "{t escape=javascript}Custom CSS{/t}"
 		}
 	};
 </script>

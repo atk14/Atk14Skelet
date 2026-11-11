@@ -131,6 +131,20 @@
     }
   }
 
+  // a Custom CSS block is a low strip (see setContentSource())
+  .md-block--html.md-block--empty .md-block__content:has(> .md-block__placeholder) {
+    padding: 0;
+  }
+  .md-block__placeholder {
+    display: flex;
+    align-items: center;
+    height: 1.25rem;
+    padding: 0 0.5rem;
+    font-size: 0.75rem;
+    color: $gray-500;
+    background: repeating-linear-gradient( -45deg, $gray-100, $gray-100 6px, $gray-200 6px, $gray-200 12px );
+  }
+
   .md-block--unclosed {
     outline-color: $danger;
     > .md-block__bar > .md-block__toolbar {

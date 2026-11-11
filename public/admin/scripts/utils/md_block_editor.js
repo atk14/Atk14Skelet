@@ -792,6 +792,8 @@ window.UTILS.MDBlockEditor = class {
     let content = el.querySelector( ":scope > .md-block__content" );
     el.classList.remove( "md-block--pending", "md-block--error", "md-block--empty" );
     content.innerHTML = html || "";
+    // custom CSS applies to the preview only (see md_preview_styles.js)
+    window.UTILS.MDPreviewStyles.apply( content );
     if ( el.mdActiveTab > 0 ) {
       window.UTILS.MDBlockEditor.showTab( el, el.mdActiveTab );
     }
@@ -799,11 +801,25 @@ window.UTILS.MDBlockEditor = class {
       this.mountLists( el, content );
       return;
     }
-    if ( !content.textContent.trim() && !content.querySelector( "img, iframe, video, svg, hr, table" ) ) {
-      // nothing visible, e.g. link reference definitions or an HTML comment
+    if ( !window.UTILS.MDBlockEditor.visibleText( content ) && !content.querySelector( "img, iframe, video, svg, hr, table" ) ) {
+      // nothing visible, e.g. link reference definitions or an HTML comment;
+      // the CSS of a Custom CSS block keeps applying to the other blocks
+      let styles = [ ...content.querySelectorAll( "style" ) ];
       el.classList.add( "md-block--empty" );
       this.setContentSource( content, block );
+      styles.forEach( style => content.appendChild( style ) );
     }
+  }
+
+  /**
+   * Text of the element without the content of its <style> and <script> elements
+   * @param {Element} element
+   * @returns {String}
+   */
+  static visibleText( element ) {
+    let clone = element.cloneNode( true );
+    clone.querySelectorAll( "style, script" ).forEach( node => node.remove() );
+    return clone.textContent.trim();
   }
 
   /**
@@ -881,6 +897,16 @@ window.UTILS.MDBlockEditor = class {
   }
 
   setContentSource( content, block ) {
+    if ( block.type === "html" && block.tag === "style" ) {
+      // a Custom CSS block is just a low strip to select it by; its CSS is edited in the inspector or the dialog
+      let strip = document.createElement( "div" );
+      strip.className = "md-block__placeholder";
+      strip.innerHTML = "<span class=\"fa-solid fa-paintbrush\" aria-hidden=\"true\"></span>";
+      strip.title = this.blockLabel( block );
+      content.innerHTML = "";
+      content.appendChild( strip );
+      return;
+    }
     let code = document.createElement( "code" );
     code.className = "md-block__source";
     code.textContent = block.raw;
@@ -903,7 +929,7 @@ window.UTILS.MDBlockEditor = class {
       case "iobject":
         return types.iobject + " #" + block.id;
       case "html":
-        return "<" + block.tag + ">";
+        return block.tag === "style" ? types.css : "<" + block.tag + ">";
       default:
         return types[ block.type ] || block.type;
     }

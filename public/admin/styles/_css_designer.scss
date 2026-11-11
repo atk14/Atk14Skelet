@@ -1,0 +1,66 @@
+/***
+ * Custom CSS block: tabs of the screen widths and the Ace editor, see public/admin/scripts/utils/css_designer.js
+ */
+
+.css-designer__tabs {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.25rem;
+  margin-bottom: 0.5rem;
+  &[hidden] {
+    display: none;
+  }
+}
+
+.css-designer__tab {
+  position: relative;
+  padding: 0.125rem 0.5rem;
+  border: 1px solid $gray-400;
+  border-radius: $border-radius;
+  background-color: transparent;
+  color: $gray-700;
+  font-size: 0.8125rem;
+  line-height: 1.4;
+  small {
+    margin-left: 0.25rem;
+    color: $gray-500;
+  }
+  &:hover {
+    border-color: $primary;
+  }
+  &.active {
+    border-color: $primary;
+    background-color: $primary;
+    color: $white;
+    small {
+      color: rgba( $white, 0.75 );
+    }
+  }
+  // a dot marks a tab having some CSS
+  &--filled::after {
+    content: "";
+    position: absolute;
+    top: -0.1875rem;
+    right: -0.1875rem;
+    width: 0.5rem;
+    height: 0.5rem;
+    border-radius: 50%;
+    background-color: $success;
+  }
+}
+
+.css-designer__editor {
+  border: 1px solid $input-border-color;
+  border-radius: $border-radius;
+}
+
+body.dark-mode {
+  .css-designer__tab {
+    border-color: $gray-600;
+    color: $gray-300;
+    &.active {
+      border-color: $primary;
+      color: $white;
+    }
+  }
+}
