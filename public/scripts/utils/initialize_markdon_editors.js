@@ -4,6 +4,9 @@ window.UTILS.initializeMarkdonEditors = function() {
 	// Markdown Editor requires Ace
 	ace.config.set( "basePath", "/public/dist/scripts/ace/" );
 	$.each( $( "textarea[data-provide=markdown]" ), function( i, el ) {
+		if ( $( el ).next( ".md-container" ).length ) {
+			return; // already has an editor (kept when its form was replaced, see edit_form_replacer.js)
+		}
 		$( el ).markdownEditor( {
 			preview: true,
 			onPreview: function( content, callback ) {

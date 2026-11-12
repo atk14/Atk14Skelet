@@ -258,6 +258,19 @@ form {
 	z-index: $zindex-fixed;
 }
 
+// the form's save buttons in the toolbar of a fullscreen editor (see md_editor_save_buttons.js)
+.md-save-buttons {
+	display: none;
+	margin-left: auto;
+	gap: 0.25rem;
+	.md-fullscreen & {
+		display: inline-flex;
+	}
+	.btn {
+		border-radius: $btn-border-radius-sm !important;
+	}
+}
+
 // Sticky Save Buttons container in forms
 fieldset {
 	.form-group:has(.button-container) {

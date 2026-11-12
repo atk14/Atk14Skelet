@@ -67,6 +67,8 @@ var applicationScripts = [
 	"public/scripts/utils/swiper.js",
 	"public/admin/scripts/utils/preview_mode_toggle.js",
 	"public/admin/scripts/utils/md_block_editor.js",
+	"public/admin/scripts/utils/md_editor_save_buttons.js",
+	"public/admin/scripts/utils/edit_form_replacer.js",
 	"public/admin/scripts/utils/fa_iconpicker.js",
 	"public/admin/scripts/utils/tab_designer.js",
 	"public/admin/scripts/utils/linklist_inserter.js",

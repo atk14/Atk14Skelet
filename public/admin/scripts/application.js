@@ -187,6 +187,7 @@
   name: "insert_dropdown", text: "Insert", title: "Insert object", className: "",
 } );
 				UTILS.MDBlockEditor.init();
+				UTILS.MDEditorSaveButtons.init();
 				new UTILS.MDEditorResizer(); // after the block views are created, it manages their heights too
 				if( document.getElementById( "layout-designer" ) ) {
 					new UTILS.LayoutDesigner();
