@@ -14,7 +14,7 @@ class AttachmentsController extends ApplicationController{
 			return $this->_redirect_to($attachment->getUrl(),array("moved_permanently" => true));
 		}
 
-		$pupiq_url = $attachment->getUrl(true);
+		$pupiq_url = $attachment->_getPupiqAttachment()->getUrl(["direct" => true]);
 
 		$cache_dir = TEMP."/$this->controller/"; // TEMP."/attachment/" nebo TEMP."/files/"
 		Files::MkDir($cache_dir);
