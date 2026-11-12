@@ -579,10 +579,13 @@ button.md-inspector__crumb {
   color: inherit;
 }
 
+// the header (the path and the title) is separated by a line across the whole inspector
 .md-inspector__title {
-  margin-bottom: 0.5rem;
+  margin: 0 -1rem 0.75rem; // see the padding of .md-blocks__inspector
+  padding: 0 1rem 0.5rem;
   font-size: 1rem;
   font-weight: 600;
+  border-bottom: 1px solid $border-color;
 }
 
 .md-inspector__note {
@@ -603,6 +606,9 @@ button.md-inspector__crumb {
     }
     .md-inspector__path--title {
       color: inherit;
+    }
+    .md-inspector__title {
+      border-bottom-color: $gray-600;
     }
     button.md-inspector__crumb {
       color: lighten( $primary, 15% );

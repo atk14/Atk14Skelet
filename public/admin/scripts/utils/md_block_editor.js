@@ -535,6 +535,11 @@ window.UTILS.MDBlockEditor = class {
       let html = window.UTILS.MDBlockEditor.renderCache.get( this.cacheKey( source ) );
       if ( html !== undefined ) {
         this.setElementContent( el, block, html );
+      } else if ( !block.container && window.UTILS.MDBlockEditor.isRendered( previous, block ) ) {
+        // the block changed (e.g. by the inspector): its previous look is shown until the new one is rendered,
+        // so it doesn't blink with its source on every change
+        el.querySelector( ":scope > .md-block__content" ).innerHTML = previous.querySelector( ":scope > .md-block__content" ).innerHTML;
+        pending.push( el );
       } else {
         this.setElementPending( el, block );
         pending.push( el );
@@ -551,6 +556,17 @@ window.UTILS.MDBlockEditor = class {
       } );
     }
     return el;
+  }
+
+  /**
+   * Is the element a rendered block of the same kind as the block (to be shown until the block is rendered)?
+   * @param {Element|undefined} el
+   * @param {Object} block
+   * @returns {Boolean}
+   */
+  static isRendered( el, block ) {
+    return !!( el && el.mdBlock && el.mdBlock.type === block.type && !el.mdBlock.container &&
+      !el.classList.contains( "md-block--pending" ) && !el.classList.contains( "md-block--error" ) && !el.classList.contains( "md-block--empty" ) );
   }
 
   /**
@@ -1235,6 +1251,14 @@ window.UTILS.MDBlockEditor = class {
       input.style.height = ( input.scrollHeight + 2 ) + "px";
     };
     input.addEventListener( "input", autosize );
+    editing.autosize = autosize;
+    // the inspector shows the block as it's written, at once: its fields compute changes from the source
+    // they were filled from, a click into them right after typing must not lose the text typed
+    input.addEventListener( "input", () => {
+      if ( this.editing === editing && !( this.inspector && this.inspector.contains( document.activeElement ) ) ) {
+        this.updateInspector();
+      }
+    } );
     input.addEventListener( "keydown", e => {
       if ( e.key === "Escape" ) {
         e.preventDefault();
@@ -1256,6 +1280,7 @@ window.UTILS.MDBlockEditor = class {
     autosize();
     input.focus();
     input.setSelectionRange( editing.cursor, editing.cursor );
+    this.updateInspector();
   }
 
   /**
@@ -1300,6 +1325,9 @@ window.UTILS.MDBlockEditor = class {
     }
     if ( active && active.closest( ".md-toolbar" ) && this.container.contains( active ) ) {
       return; // committed when the focus leaves the toolbar too (see the constructor)
+    }
+    if ( this.inspector && ( this.inspectorPointer || this.inspector.contains( active ) ) ) {
+      return; // the inspector shows the edited block; committed when the focus leaves it (see createInspector())
     }
     this.commitEdit();
   }
@@ -1620,7 +1648,34 @@ window.UTILS.MDBlockEditor = class {
       }
     } );
     // changes of the fields are applied a moment after typing stops, at once when a field is left or by Enter
-    this.inspector.addEventListener( "focusout", () => this.flushInspector() );
+    this.inspector.addEventListener( "focusout", () => {
+      this.flushInspector();
+      // a block edited as text is committed when the focus leaves the inspector too (but not back into the block)
+      let editing = this.editing;
+      if ( editing ) {
+        window.setTimeout( () => this.commitEditOnFocusLoss( editing ), 0 );
+      }
+    } );
+    // a click into the inspector keeps the edit of a block; a button not focused by a click (Safari) gets the focus
+    this.inspector.addEventListener( "pointerdown", e => {
+      if ( !this.editing ) {
+        return;
+      }
+      this.inspectorPointer = true;
+      let control = e.target.closest( "button, input, select, textarea, a[href], [tabindex]" );
+      document.addEventListener( "pointerup", () => window.setTimeout( () => {
+        this.inspectorPointer = false;
+        let editing = this.editing;
+        if ( !editing || this.inspector.contains( document.activeElement ) ) {
+          return;
+        }
+        if ( control && this.inspector.contains( control ) ) {
+          control.focus();
+        } else {
+          this.commitEditOnFocusLoss( editing );
+        }
+      }, 0 ), { once: true } );
+    } );
     this.inspector.addEventListener( "keydown", e => {
       if ( e.key === "Enter" && e.target.matches( "input" ) ) {
         e.preventDefault();
@@ -1661,19 +1716,23 @@ window.UTILS.MDBlockEditor = class {
     }
     let texts = this.texts;
     let inspector = this.inspector;
-    let r = this.selected === null ? null : this.resolve( this.selected );
-    let raw = r ? window.UTILS.MDBlockTokenizer.blockRaw( r.block ) : null;
+    // a block edited as text (a new one too) is shown as it is being written, its changes go into its textarea
+    let editing = this.editing && !this.editing.suspended ? this.editing : null;
+    let edited = editing ? this.editedBlock( editing ) : null;
+    let selected = editing ? window.UTILS.MDBlockEditor.pathOf( editing.list, editing.index ) : this.selected;
+    let r = editing ? edited : ( this.selected === null ? null : this.resolve( this.selected ) );
+    let raw = editing ? ( edited && edited.raw ) : ( r ? window.UTILS.MDBlockTokenizer.blockRaw( r.block ) : null );
     // the fields are kept while the same block is shown (rendering it again after a change of the fields
     // would take the focus away from them)
-    let part = r ? this.selectedPart : null;
+    let part = r && !editing ? this.selectedPart : null;
     let state = this.inspectorState;
-    if ( state && r && state.path === this.selected && state.part === part && state.raw === raw ) {
+    if ( state && r && state.path === selected && state.part === part && state.raw === raw && ( state.editing || null ) === editing ) {
       return;
     }
     if ( this.inspectorPending ) {
       return; // the change is being typed; the block will be the shown one once it's applied
     }
-    this.inspectorState = r ? { path: this.selected, part: part, raw: raw } : null;
+    this.inspectorState = r ? { path: selected, part: part, raw: raw, editing: editing } : null;
     inspector.innerHTML = "";
     let el = ( tagName, className, text ) => {
       let node = document.createElement( tagName );
@@ -1691,9 +1750,9 @@ window.UTILS.MDBlockEditor = class {
 
     // where the block is: its containers (and their children, e.g. a column), each one selectable;
     // a selected part (a column) is shown under its container
-    let crumbs = this.inspectorPath( this.selected );
+    let crumbs = this.inspectorPath( selected );
     if ( part !== null ) {
-      crumbs.push( { path: this.selected, label: this.blockLabel( r.block ), child: null } );
+      crumbs.push( { path: selected, label: this.blockLabel( r.block ), child: null } );
     }
     // a part is shown in one line with its containers: "[row] › [col] Column 2"
     let title = el( "h3", "md-inspector__title" );
@@ -1725,7 +1784,7 @@ window.UTILS.MDBlockEditor = class {
     inspector.appendChild( title );
 
     if ( part === null && r.block.type === "heading" ) {
-      this.headingInspector( inspector, this.selected, raw, r.block.level );
+      this.headingInspector( inspector, selected, raw, r.block.level );
       return;
     }
 
@@ -1734,7 +1793,7 @@ window.UTILS.MDBlockEditor = class {
     if ( inspectFn ) {
       // the inserter's own fields, its changes are applied as they are typed
       let fields = el( "div", "md-inspector__fields" );
-      let path = this.selected;
+      let path = selected;
       let shown = inspectFn.call( inserter, fields, {
         raw: raw,
         index: part,
@@ -1750,14 +1809,61 @@ window.UTILS.MDBlockEditor = class {
     if ( part !== null ) {
       return; // nothing to set for the part
     }
+    if ( editing ) {
+      return; // edited already
+    }
     inspector.appendChild( el( "p", "md-inspector__note", inserter ? texts.inspectorEditedInDialog : texts.inspectorEditedAsText ) );
 
     let edit = el( "button", "btn btn-sm btn-outline-primary js--inspector-edit" );
     edit.type = "button";
-    edit.dataset.path = this.selected;
+    edit.dataset.path = selected;
     edit.innerHTML = "<span class=\"fa-solid fa-pen\"></span> ";
     edit.appendChild( document.createTextNode( texts.edit ) );
     inspector.appendChild( edit );
+  }
+
+  /**
+   * The block being edited as text, as it is written in its textarea
+   * @param {Object} editing
+   * @returns {Object|null} { block, raw }; null when more blocks are written
+   */
+  editedBlock( editing ) {
+    let raw = editing.input.value;
+    let blocks = raw.trim() ? window.UTILS.MDBlockTokenizer.tokenize( raw, this.tokenizerOptions ).blocks : [];
+    if ( blocks.length > 1 ) {
+      return null;
+    }
+    return { block: blocks[ 0 ] || { type: "paragraph", raw: "" }, raw: raw };
+  }
+
+  /**
+   * A change made in the inspector to the block being edited as text: written into its textarea,
+   * the selection kept on the same text
+   * @param {String} code
+   * @param {Object} options - see inspectorChange()
+   */
+  changeEdited( code, options ) {
+    let editing = this.editing;
+    let input = editing.input;
+    let old = input.value;
+    let prefix = 0;
+    while ( prefix < old.length && prefix < code.length && old[ prefix ] === code[ prefix ] ) {
+      prefix++;
+    }
+    let move = pos => pos > prefix ? Math.max( prefix, pos + code.length - old.length ) : pos;
+    let start = move( input.selectionStart );
+    let end = move( input.selectionEnd );
+    input.value = code;
+    input.setSelectionRange( start, end );
+    if ( editing.autosize ) {
+      editing.autosize();
+    }
+    if ( options && options.render ) {
+      this.inspectorState = null;
+      this.updateInspector();
+    } else if ( this.inspectorState ) {
+      this.inspectorState.raw = code;
+    }
   }
 
   /**
@@ -1845,10 +1951,12 @@ window.UTILS.MDBlockEditor = class {
     fields.appendChild( idInput );
     fields.appendChild( idHint );
 
-    let note = document.createElement( "p" );
-    note.className = "md-inspector__note mt-2 mb-0";
-    note.textContent = this.texts.inspectorEditedAsText;
-    fields.appendChild( note );
+    if ( !this.editing ) {
+      let note = document.createElement( "p" );
+      note.className = "md-inspector__note mt-2 mb-0";
+      note.textContent = this.texts.inspectorEditedAsText;
+      fields.appendChild( note );
+    }
     inspector.appendChild( fields );
   }
 
@@ -1864,6 +1972,10 @@ window.UTILS.MDBlockEditor = class {
    *   { render: true } renders the inspector again from the new source (the fields don't show the change themselves)
    */
   inspectorChange( path, raw, code, options ) {
+    if ( this.editing && this.inspectorState && this.inspectorState.editing === this.editing ) {
+      this.changeEdited( code, options );
+      return;
+    }
     let immediate = !!( options && options.immediate );
     let active = document.activeElement;
     this.inspectorPending = {
