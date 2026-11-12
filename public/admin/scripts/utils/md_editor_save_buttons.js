@@ -7,7 +7,9 @@
  * (the ones in .button-container, see e.g. app/views/admin/pages/_edit_form.tpl), so the form
  * is submitted as usual (by atk14.js via XHR when it's remote). A block being edited in the block view
  * is committed first. The XHR response keeps the editors (see edit_form_replacer.js),
- * so the editor stays in the fullscreen after "Save and continue editing".
+ * so the editor stays in the fullscreen after "Save and continue editing". An edit.xhr.tpl replacing
+ * the whole form ($form.replaceWith()) removes the editor; the fullscreen is then cleaned up
+ * (see cleanUpFullscreen()), so such forms (e.g. in derived projects) keep working, just without the fullscreen.
  *
  *   UTILS.MDEditorSaveButtons.init(); // after UTILS.initializeMarkdonEditors(), safe to call again
  */
@@ -70,12 +72,40 @@ window.UTILS.MDEditorSaveButtons = class {
     if ( !button ) {
       return;
     }
+    let form = container.closest( "form" );
     // a block edited in a block view goes to the source first
-    container.closest( "form" ).querySelectorAll( ".md-container" ).forEach( c => {
+    form.querySelectorAll( ".md-container" ).forEach( c => {
       if ( c.mdBlockEditor ) {
         c.mdBlockEditor.commitEdit();
       }
     } );
+    if ( container.classList.contains( "md-fullscreen" ) && window.jQuery ) {
+      let scrollY = parseFloat( container.dataset.scroll_before_fullscreen );
+      // after the response is evaluated; not "ajax:complete" of the form: jQuery's replaceWith() drops the handlers of a replaced form
+      window.jQuery( document ).one( "ajaxComplete", () => window.UTILS.MDEditorSaveButtons.cleanUpFullscreen( scrollY ) );
+    }
     button.click();
+  }
+
+  /**
+   * A safeguard for an edit.xhr.tpl replacing the whole form ($form.replaceWith(), not UTILS.EditFormReplacer):
+   * the editor in the fullscreen is gone, but the page would stay locked (md-body-fullscreen on body and html);
+   * the page is unlocked and scrolled to the first error, or where it was before the fullscreen
+   * @param {Number} scrollY
+   */
+  static cleanUpFullscreen( scrollY ) {
+    if ( document.querySelector( ".md-container.md-fullscreen" ) || !document.body.classList.contains( "md-body-fullscreen" ) ) {
+      return;
+    }
+    document.documentElement.classList.remove( "md-body-fullscreen" );
+    document.body.classList.remove( "md-body-fullscreen" );
+    let error = document.querySelector( "form .form-group--has-error, form .feedback--invalid, form .alert-danger" );
+    window.setTimeout( () => {
+      if ( error ) {
+        ( error.closest( ".form-group" ) || error ).scrollIntoView( { block: "center" } );
+      } else if ( !isNaN( scrollY ) ) {
+        window.scrollTo( window.scrollX, scrollY );
+      }
+    }, 50 );
   }
 };
