@@ -13,6 +13,10 @@ function smarty_block_highlight_keywords($params,$content,$template,&$repeat){
 		"tag" => "", // <span style="background-color: #ffff00;">
 	];
 
+	$keywords = $params["keywords"];
+	$keywords = trim((string)$keywords);
+	if(!strlen($keywords)){ return $content; }
+
 	if($params["tag"] && preg_match("/^<([^ ]+).*>/",$params["tag"],$matches)){
 		$params["opening_tag"] = $params["tag"];
 		$params["closing_tag"] = "</$matches[1]>";
@@ -22,10 +26,6 @@ function smarty_block_highlight_keywords($params,$content,$template,&$repeat){
 		"opening_tag" => '<mark>',
 		"closing_tag" => '</mark>',
 	];
-
-	$keywords = $params["keywords"];
-	$keywords = trim((string)$keywords);
-	if(!strlen($keywords)){ return $content; }
 
 	if(preg_match('/([^\s]+)[^\s]$/u',$keywords,$matches) && strlen($matches[1])>=3){
 		$keywords .= " $matches[1]"; // "girls boys" -> "girls boys boy"; "lísteče" -> "lísteče lísteč"

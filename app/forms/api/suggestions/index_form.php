@@ -1,5 +1,5 @@
 <?php
-class IndexForm extends ApiForm{
+class IndexForm extends SuggestionsForm{
 	function set_up(){
 		$this->add_field("q",new CharField(array(
 			"help_text" => _("Search term"),

@@ -10,7 +10,7 @@
         "yarri/essence": "3.5.4.1",
         "atk14/menu14": "^1.5|^2.0",
         "yarri/my-blowfish": "^1.4",
-        "yarri/full-text-search-query-like": "^0.2",
+        "yarri/full-text-search-query-like": "^0.3",
         "atk14/confirmation-field": "^1.0",
         "atk14/sluggish-router": "^1.1",
         "html2text/html2text": "^4.0",

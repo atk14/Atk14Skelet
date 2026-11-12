@@ -61,6 +61,12 @@ definedef("SIGN_UP_FOR_NEWSLETTER_ENABLED",true);
 // define("RECAPTCHA_SITE_KEY","");
 // define("RECAPTCHA_SECRET_KEY","");
 
+// Hreflang tags in <head>
+// Set to false to disable hreflang tags completely (e.g. during translation rollout)
+definedef("HREFLANG_ENABLED",true);
+// Language codes to exclude from hreflang, e.g. ["sk"] while Slovak version is being prepared
+definedef("HREFLANG_DISABLED_LANGS",[]);
+
 // Google Analytics tracking code,
 // see app/views/shared/trackers/google/_analytics.tpl and app/layouts/default.tpl.
 // definedef("GOOGLE_ANALYTICS_TRACKING_ID","UA-123456789-1");

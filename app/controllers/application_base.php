@@ -74,6 +74,8 @@ class ApplicationBaseController extends Atk14Controller{
 	function _before_render(){
 		global $ATK14_GLOBAL;
 
+		$this->_setup_head_tags_in_before_render();
+
 		if(!isset($this->tpl_data["breadcrumbs"]) && isset($this->breadcrumbs)){
 			$this->tpl_data["breadcrumbs"] = $this->breadcrumbs;
 		}
@@ -297,7 +299,6 @@ class ApplicationBaseController extends Atk14Controller{
 		if (isset($analytics_tracking_id) || isset($gtm_container_id)) {
 			$this->head_tags->addPreconnect("https://www.googletagmanager.com");
 		}
-		$this->_setup_hreflang_for_head_tags();
 		return;
 		# @note next tags are set in templates for now
 		# meta tags
@@ -379,41 +380,107 @@ class ApplicationBaseController extends Atk14Controller{
 		return $this->_link_to($params,["with_hostname" => true]);
 	}
 
+	protected function _setup_head_tags_in_before_render() {
+		$this->_setup_hreflang_for_head_tags();
+	}
+
 	protected function _setup_hreflang_for_head_tags() {
 		global $ATK14_GLOBAL;
-		$params_homepage = array("namespace" => "", "controller" => "main", "action" => "index");
-		$params = ($this->request->get() && !preg_match('/^error/',$this->action)) ? $this->params->toArray() : $params_homepage;
 
-		$current_language = null;
+		// global kill switch
+		if(defined("HREFLANG_ENABLED") && !HREFLANG_ENABLED) { return; }
+		// per-request kill switch (set via _disable_hreflang())
+		if(isset($this->_hreflang_enabled) && !$this->_hreflang_enabled) { return; }
+		// pages with noindex don't need hreflang
+		if($this->head_tags->hasNoindex()) { return; }
 
-		$langs = [];
 		$locales = $ATK14_GLOBAL->getConfig("locale");
-		# do not setup hreflang when only one locale
-		if (!(sizeof($locales)>1)) {
-			return;
+		if(!(sizeof($locales) > 1)) { return; }
+
+		// merge global + per-request disabled langs
+		$disabled_langs = defined("HREFLANG_DISABLED_LANGS") ? (array)HREFLANG_DISABLED_LANGS : [];
+		if(!empty($this->_hreflang_disabled_langs)) {
+			$disabled_langs = array_merge($disabled_langs, (array)$this->_hreflang_disabled_langs);
 		}
-		foreach($locales as $lang => $locale) {
+
+		$active_locales = array_diff_key($locales, array_flip($disabled_langs));
+		// at least 2 active languages needed for hreflang to make sense
+		if(count($active_locales) < 2) { return; }
+
+		$params_homepage = ["namespace" => "", "controller" => "main", "action" => "index"];
+		$params = ($this->request->get() && !preg_match('/^error/', $this->action)) ? $this->params->toArray() : $params_homepage;
+
+		$default_lang = $ATK14_GLOBAL->getDefaultLang();
+		$default_url = null;
+		$langs = [];
+
+		foreach($active_locales as $lang => $locale) {
 			$params["lang"] = $lang;
-			$_url = $this->_link_to($params,["with_hostname" => true]);
-			# first hreflang with just a language code
-			$langs[] = [
-				"lang" => $lang,
-				"url" => $_url,
-			];
-			list($locale_lang,$encoding) = preg_split("/\./", $locale["LANG"].".");
-			# second hreflang for language-country code
-			$langs[] = [
-				"lang" => strtr($locale_lang, "_", "-"),
-				"url" => $_url,
-			];
+			// per-request URL override (set via _set_hreflang_url())
+			$_url = isset($this->_hreflang_urls[$lang])
+				? $this->_hreflang_urls[$lang]
+				: $this->_link_to($params, ["with_hostname" => true]);
+
+			$langs[] = ["lang" => $lang, "url" => $_url];
+
+			list($locale_lang) = preg_split("/\./", $locale["LANG"] . ".");
+			$langs[] = ["lang" => strtr($locale_lang, "_", "-"), "url" => $_url];
+
+			if($lang === $default_lang) { $default_url = $_url; }
 		}
 
 		foreach($langs as $lang) {
 			$this->head_tags->addLinkTag("alternate", ["hreflang" => $lang["lang"], "href" => $lang["url"]]);
-			if ($ATK14_GLOBAL->getDefaultLang() == $lang["lang"]) {
-				$current_language = $lang;
-			}
 		}
-		$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $current_language["url"]]);
+		if($default_url) {
+			$this->head_tags->addLinkTag("alternate", ["hreflang" => "x-default", "href" => $default_url]);
+		}
+	}
+
+	/**
+	 * Disable hreflang for the current request.
+	 *
+	 * Usage in a controller action:
+	 *   $this->_disable_hreflang();      // disable completely (e.g. noindex pages)
+	 *   $this->_disable_hreflang("sk");  // disable one language (e.g. translation not ready)
+	 *
+	 * Note: on a 2-language site, disabling one language leaves fewer than 2 active locales,
+	 * which suppresses hreflang entirely — useful when one language version has noindex.
+	 */
+	protected function _disable_hreflang($lang = null) {
+		if($lang === null) {
+			$this->_hreflang_enabled = false;
+		} else {
+			$this->_hreflang_disabled_langs[] = $lang;
+		}
+	}
+
+	/**
+	 * Mark a sibling language version as noindex, removing it from the hreflang set.
+	 *
+	 * Use this when the current page is indexable but another language version is not
+	 * (e.g. translation not ready). Google requires that all pages in an hreflang set
+	 * are indexable — a noindex URL must not appear in hreflang.
+	 *
+	 * The noindex language is excluded from hreflang. If fewer than 2 active languages
+	 * remain afterwards, hreflang is suppressed entirely (including for the current language).
+	 *
+	 * Usage:
+	 *   $this->_set_lang_noindex("sk");  // sk has noindex → exclude sk; cs+en keep hreflang
+	 *   $this->_set_lang_noindex("cs");  // on a 2-lang site → fewer than 2 remain → no hreflang at all
+	 */
+	protected function _set_lang_noindex($lang) {
+		$this->_hreflang_disabled_langs[] = $lang;
+	}
+
+	/**
+	 * Override the hreflang URL for a specific language.
+	 * Useful when the translated version lives under a different slug.
+	 *
+	 * Usage:
+	 *   $this->_set_hreflang_url("en", "https://example.com/en/page/");
+	 */
+	protected function _set_hreflang_url($lang, $url) {
+		$this->_hreflang_urls[$lang] = $url;
 	}
 }

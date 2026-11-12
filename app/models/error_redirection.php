@@ -10,7 +10,12 @@ class ErrorRedirection extends ApplicationModel {
 			"strict_match" => false,
 		];
 
-		$source_urls = self::_GetPossibleSourceUrls($request->getUrl(),$options);
+		$url = $request->getUrl();
+		if(!Translate::CheckEncoding($url,DEFAULT_CHARSET)){
+			return null;
+		}
+
+		$source_urls = self::_GetPossibleSourceUrls($url,$options);
 
 		return ErrorRedirection::FindFirst([
 			"conditions" => [
