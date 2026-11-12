@@ -46,6 +46,12 @@ class TcErrorRedirection extends TcBase {
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request,["strict_match" => true]);
 		$this->assertNull($r);
 
+		// URL with an invalid (non-UTF-8) byte sequence must not blow up on the DB query,
+		// it simply can't match any configured source_url
+		$request->setUrl("https://www.example.com/autor/MAJER JI\xCD");
+		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
+		$this->assertNull($r);
+
 		// URI with parameters
 		$request->setUrl("https://www.example.com/old-site/about-us/");
 		$r = ErrorRedirection::GetInstanceByHttpRequest($request);
