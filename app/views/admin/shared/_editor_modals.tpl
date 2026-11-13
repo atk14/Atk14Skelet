@@ -7,4 +7,5 @@
 {render partial="shared/editor_modals/iobject_inserter_modal"}
 {render partial="shared/editor_modals/div_editor_modal"}
 {render partial="shared/editor_modals/collapse_designer_modal"}
+{render partial="shared/editor_modals/spacer_editor_modal"}
 {render partial="shared/editor_modals/css_designer_modal"}

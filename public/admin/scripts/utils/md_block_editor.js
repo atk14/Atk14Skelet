@@ -208,13 +208,18 @@ window.UTILS.MDBlockEditor = class {
     this.refreshIobjectsOnFocus = false;
     this.sortableGroup = "md-blocks-" + ( ++window.UTILS.MDBlockEditor.instances );
 
-    let blockShortcodes = null;
-    try {
-      blockShortcodes = JSON.parse( this.textarea.dataset.block_shortcodes );
-    } catch ( e ) {
-      // the default list is used
-    }
-    this.tokenizerOptions = blockShortcodes ? { blockShortcodes: blockShortcodes } : {};
+    // shortcodes known to DrInk Markdown (see app/fields/markdown_field.php); the tokenizer's default lists are used without them
+    this.tokenizerOptions = {};
+    [ [ "block_shortcodes", "blockShortcodes" ], [ "function_shortcodes", "functionShortcodes" ] ].forEach( ( [ attr, option ] ) => {
+      try {
+        let list = JSON.parse( this.textarea.dataset[ attr ] );
+        if ( Array.isArray( list ) ) {
+          this.tokenizerOptions[ option ] = list;
+        }
+      } catch ( e ) {
+        // the default list is used
+      }
+    } );
 
     // the container is placed after .md-preview so that querySelector( ".md-preview" ) still finds the editor's own preview
     this.element = document.createElement( "div" );

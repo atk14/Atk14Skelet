@@ -15,4 +15,14 @@ class TcMarkdownField extends TcBase {
 		$this->assertStringContains('data-base_href="/admin/en/pages/"',$html);
 		$this->assertStringContains('data-block_shortcodes="'.h(json_encode($block_shortcodes)).'"',$html);
 	}
+
+	function test_function_shortcodes(){
+		$function_shortcodes = MarkdownField::GetFunctionShortcodes();
+		$this->assertContains("spacer",$function_shortcodes); // app/helpers/function.drink_shortcode__spacer.php
+		$this->assertNotContains("div",$function_shortcodes);
+
+		$f = new MarkdownField();
+		$html = $f->widget->render("body","# Hello");
+		$this->assertStringContains('data-function_shortcodes="'.h(json_encode($function_shortcodes)).'"',$html);
+	}
 }

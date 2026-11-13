@@ -15,7 +15,10 @@
  *
  * Block types and their specific fields:
  *   heading (level), paragraph, list (ordered), quote, table, code, hr, html (tag),
- *   shortcode (name, attrs, params, unclosed), iobject (id), definitions
+ *   shortcode (name, attrs, params, unclosed, single), iobject (id), definitions
+ *
+ * A paragraph consisting only of one function shortcode (options.functionShortcodes, shortcodes without
+ * a closing tag, e.g. [spacer height="2rem"]) is a shortcode block too, with single = true.
  *
  * Block shortcodes are kept whole, including blank lines and nested shortcodes inside.
  * Positions (line, lineCount) are 0-based line numbers in the original source.
@@ -116,6 +119,7 @@
       this.source = source;
       this.options = options;
       this.blockShortcodes = options.blockShortcodes;
+      this.functionShortcodes = options.functionShortcodes || [];
       this.containers = options.containers || {};
       this.lines = source.split( "\n" );
       this.lineStarts = [];
@@ -145,6 +149,15 @@
       let tags = this.tagsOnLine( line );
       let indent = line.match( /^[ \t]*/ )[ 0 ].length;
       if ( tags.length && !tags[ 0 ].closing && tags[ 0 ].start === indent ) {
+        return tags[ 0 ];
+      }
+      return null;
+    }
+
+    // The tag when the whole text is one function shortcode (e.g. [spacer height="2rem"]), null otherwise
+    functionShortcode( text ) {
+      let tags = MDShortcodes.scanTags( text, this.functionShortcodes );
+      if ( tags.length === 1 && !tags[ 0 ].closing && tags[ 0 ].start === 0 && tags[ 0 ].end === text.length ) {
         return tags[ 0 ];
       }
       return null;
@@ -332,6 +345,13 @@
         if ( container ) {
           block.container = container;
         }
+      } else if ( ( m = this.functionShortcode( raw.trim() ) ) ) {
+        block.type = "shortcode";
+        block.name = m.name;
+        block.attrs = m.attrs;
+        block.params = m.params;
+        block.unclosed = false;
+        block.single = true;
       } else if ( ( m = firstLine.match( RE.atxHeading ) ) ) {
         block.type = "heading";
         block.level = m[ 1 ].length;
@@ -480,6 +500,9 @@
     // Block shortcodes built into DrInk Markdown; the full list depends on app/helpers/block.drink_shortcode__*.php
     defaultBlockShortcodes: [ "row", "col", "div" ],
 
+    // Function shortcodes (without a closing tag); the editor gets the list from app/helpers/function.drink_shortcode__*.php
+    defaultFunctionShortcodes: [],
+
     // Container shortcodes whose children's content is tokenized too
     // (children: name of the children shortcode, or content: the shortcode's own content are blocks;
     // nestable: a container of the same kind can be put into it in the editor;
@@ -494,11 +517,11 @@
     /**
      * Splits the source into blocks
      * @param {String} source
-     * @param {Object} options - { blockShortcodes: [ "row", "col", "div", ... ], containers: { row: { children: "col" } } }
+     * @param {Object} options - { blockShortcodes: [ "row", "col", "div", ... ], functionShortcodes: [ "spacer" ], containers: { row: { children: "col" } } }
      * @returns {Object} { leading, blocks, trailing, definitions }
      */
     tokenize( source, options ) {
-      options = Object.assign( { blockShortcodes: MDBlockTokenizer.defaultBlockShortcodes, containers: MDBlockTokenizer.defaultContainers }, options );
+      options = Object.assign( { blockShortcodes: MDBlockTokenizer.defaultBlockShortcodes, functionShortcodes: MDBlockTokenizer.defaultFunctionShortcodes, containers: MDBlockTokenizer.defaultContainers }, options );
       return new Tokenizer( String( source || "" ), options ).tokenize();
     },
 

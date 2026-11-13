@@ -1,0 +1,19 @@
+// the height of a [spacer]: a slider, its value and the unit (the dialog and the inspector, see spacer_editor.js)
+.spacer-height {
+	display: flex;
+	align-items: center;
+	gap: 0.5rem;
+	.custom-range {
+		flex: 1 1 auto;
+		min-width: 0;
+	}
+	&__value {
+		min-width: 2.5em;
+		text-align: right;
+		font-variant-numeric: tabular-nums;
+	}
+	.custom-select {
+		flex: 0 0 auto;
+		width: auto;
+	}
+}

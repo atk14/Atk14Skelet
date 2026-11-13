@@ -210,6 +210,9 @@
 				if( document.getElementById( "collapsedesigner_modal" ) ) {
 					new UTILS.CollapseDesigner();
 				};
+				if( document.getElementById( "spacereditor_modal" ) ) {
+					new UTILS.SpacerEditor();
+				};
 				if( document.getElementById( "cssdesigner_modal" ) ) {
 					new UTILS.CssDesigner();
 				};

@@ -499,4 +499,23 @@ module.exports = {
     var doc = MDBlockTokenizer.tokenize( "[row]\n\n[col]\n\nx\n\n[/col]\n\n[/row]\n\n[tabs]\n\n[/tabs]" );
     assert.deepEqual( types( doc ), [ "shortcode", "paragraph", "paragraph" ] );
   },
+  test_function_shortcodes() {
+    var options = { blockShortcodes: BLOCK_SHORTCODES, functionShortcodes: [ "spacer" ] };
+    var source = "A\n\n[spacer height=\"2rem\"]\n\n  [spacer]  \n\nText [spacer] text\n\n[spacer][spacer]\n\n[div]\n[spacer height=\"1em\"]\n[/div]";
+    var doc = MDBlockTokenizer.tokenize( source, options );
+    assert.equal( MDBlockTokenizer.join( doc ), source );
+    assert.deepEqual( types( doc ), [ "paragraph", "shortcode", "shortcode", "paragraph", "paragraph", "shortcode" ] );
+    var spacer = doc.blocks[ 1 ];
+    assert.equal( spacer.name, "spacer" );
+    assert.deepEqual( spacer.attrs, { height: "2rem" } );
+    assert.equal( spacer.single, true );
+    assert.equal( spacer.unclosed, false );
+    assert.equal( spacer.container, undefined );
+    assert.equal( doc.blocks[ 2 ].raw, "  [spacer]  " );
+    // in a container too
+    var nested = doc.blocks[ 5 ].container.children[ 0 ].doc.blocks;
+    assert.deepEqual( nested.map( b => b.type + ":" + ( b.name || "" ) ), [ "shortcode:spacer" ] );
+    // unknown without the option
+    assert.deepEqual( types( tokenize( "[spacer]" ) ), [ "paragraph" ] );
+  },
 };

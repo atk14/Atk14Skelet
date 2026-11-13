@@ -12,6 +12,7 @@ class MarkdownField extends TextField {
 					"data-provide" => "markdown",
 					"data-base_href" => $options["base_href"],
 					"data-block_shortcodes" => json_encode(self::GetBlockShortcodes()), // needed by the block editor, see public/admin/scripts/utils/md_block_editor.js
+					"data-function_shortcodes" => json_encode(self::GetFunctionShortcodes()), // e.g. [spacer]; a paragraph consisting only of one is a shortcode block in the block editor
 				),
 			)),
 		);
@@ -33,5 +34,19 @@ class MarkdownField extends TextField {
 			$block_shortcodes = $dm->getBlockShortcodes();
 		}
 		return $block_shortcodes;
+	}
+
+	/**
+	 * Returns names of function shortcodes (shortcodes without a closing tag) known to DrInk Markdown
+	 *
+	 *	["spacer"]
+	 */
+	static function GetFunctionShortcodes(){
+		static $function_shortcodes;
+		if(!isset($function_shortcodes)){
+			$dm = new DrinkMarkdown();
+			$function_shortcodes = $dm->getFunctionShortcodes();
+		}
+		return $function_shortcodes;
 	}
 }
