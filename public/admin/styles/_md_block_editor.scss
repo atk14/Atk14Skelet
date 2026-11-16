@@ -642,6 +642,31 @@ button.md-inspector__crumb {
   }
 }
 
+// a section of the inspector under the block's other fields (e.g. the typography, see typography_editor.js),
+// separated by a line across the whole inspector like its header
+.md-inspector__section {
+  margin: 0.75rem -1rem 0; // see the padding of .md-blocks__inspector
+  padding: 0.75rem 1rem 0;
+  border-top: 1px solid $border-color;
+  body.dark-mode & {
+    border-top-color: $gray-600;
+  }
+}
+.md-inspector__section-title {
+  margin-bottom: 0.5rem;
+  font-weight: 600;
+}
+
+.typography-editor__font {
+  display: flex;
+  gap: 0.5rem;
+  .custom-select {
+    flex: 1 1 auto;
+    width: auto;
+    min-width: 0;
+  }
+}
+
 @keyframes md-inspector-flash {
   from {
     box-shadow: 0 0 0 0.25rem rgba( $primary, 0.5 );

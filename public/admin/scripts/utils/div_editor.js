@@ -15,7 +15,7 @@
  *
  * Dependencies:
  *
- * md_shortcodes.js, md_editor_inserts.js, css_class_editor.js, inline_style_editor.js
+ * md_shortcodes.js, md_editor_inserts.js, css_class_editor.js, inline_style_editor.js, typography_editor.js (optional)
  * _div_editor_modal.tpl (the dialog and the template of the inspector's fields)
  * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
  */
@@ -145,6 +145,9 @@ window.UTILS.DivEditor = class {
     classEditor = new window.UTILS.CssClassEditor( containers.class, { value: model.attrs.class || "", onChange: onChange } );
     styleEditor = new window.UTILS.InlineStyleEditor( containers.style, { value: model.attrs.style || "", onChange: onChange } );
     container.appendChild( fields );
+    if ( window.UTILS.TypographyEditor ) {
+      window.UTILS.TypographyEditor.attach( container, classEditor, styleEditor );
+    }
     return true;
   }
 

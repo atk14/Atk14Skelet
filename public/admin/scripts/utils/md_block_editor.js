@@ -526,7 +526,11 @@ window.UTILS.MDBlockEditor = class {
   elementFor( listEl, block, path, pending ) {
     let source = this.renderSource( block );
     let key = this.cacheKey( source ) + ( block.unclosed ? "\n#unclosed" : "" ) + ( block.container ? "\n#container" : "" );
-    let el = [ ...listEl.children ].find( child => child.mdKey === key && !child.mdUsed );
+    // the element at the same place first: more blocks may have the same key (e.g. containers with the same tags,
+    // their content is not in the key), so a changed block's old element mustn't be taken by another one
+    // (the selection would move with it)
+    let candidates = [ ...listEl.children ].filter( child => child.mdKey === key && !child.mdUsed );
+    let el = candidates.find( child => child.dataset.path === path ) || candidates[ 0 ];
     if ( !el ) {
       // the element replacing the block's previous one shows the same tab ([tabs] renamed, a tab added...)
       let previous = [ ...listEl.children ].find( child => child.dataset.path === path && !child.mdUsed && child.mdBlock && child.mdBlock.name === block.name );

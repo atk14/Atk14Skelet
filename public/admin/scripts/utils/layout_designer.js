@@ -18,7 +18,7 @@
  * _layout_designer.scss
  * _layout_designer.tpl
  * dialog.js (a native <dialog>), Bootstrap 4+ (styles)
- * css_class_editor.js, inline_style_editor.js (the inspector of the block view)
+ * css_class_editor.js, inline_style_editor.js, typography_editor.js (optional; the inspector of the block view)
  * 
  */
 window.UTILS = window.UTILS || { };
@@ -165,8 +165,9 @@ window.UTILS.LayoutDesigner = class {
       btn.addEventListener( "click", () => options.selectPart( i ) );
       columns.appendChild( btn );
     } );
-    this.attrsInspector( fields, options, null, tags.row.attrs, false );
+    let editors = this.attrsInspector( fields, options, null, tags.row.attrs, false );
     container.appendChild( fields );
+    this.typographyInspector( container, editors );
     return true;
   }
 
@@ -191,8 +192,9 @@ window.UTILS.LayoutDesigner = class {
     fields.querySelector( ".js--widths" ).textContent = ( this.texts.widths || "Widths" ) + ": " +
       ( layout.length ? layout.join( " " ) : "" ) + ( defaults && !layout.length ? ( this.texts.defaultWidths || "default" ) : "" );
     fields.querySelector( ".js--layout" ).addEventListener( "click", () => options.edit() );
-    this.attrsInspector( fields, options, options.index, col.attrs, true );
+    let editors = this.attrsInspector( fields, options, options.index, col.attrs, true );
     container.appendChild( fields );
+    this.typographyInspector( container, editors );
     return true;
   }
 
@@ -206,9 +208,17 @@ window.UTILS.LayoutDesigner = class {
     } );
   }
 
+  // Text alignment, font weight and italics of the [row] or of a column, under the other fields (see typography_editor.js)
+  typographyInspector( container, editors ) {
+    if ( window.UTILS.TypographyEditor ) {
+      window.UTILS.TypographyEditor.attach( container, editors.classEditor, editors.styleEditor );
+    }
+  }
+
   /**
    * Class and style editors of the [row] (index null) or of a column; changes are written by MDRowLayout.setAttrs()
    * @param {Boolean} ownClassesOnly - layout classes of a column are kept aside, see inspectChild()
+   * @returns {Object} { classEditor, styleEditor }
    */
   attrsInspector( fields, options, index, attrs, ownClassesOnly ) {
     let MDRowLayout = window.UTILS.MDRowLayout;
@@ -219,7 +229,7 @@ window.UTILS.LayoutDesigner = class {
       current = MDRowLayout.setAttrs( current, index, values );
       options.change( current );
     };
-    new window.UTILS.CssClassEditor( fields.querySelector( ".js--class" ), {
+    let classEditor = new window.UTILS.CssClassEditor( fields.querySelector( ".js--class" ), {
       value: ownOriginal,
       onChange: value => {
         // unchanged own classes keep the attribute as it was
@@ -227,10 +237,11 @@ window.UTILS.LayoutDesigner = class {
         set( { class: classes } );
       },
     } );
-    new window.UTILS.InlineStyleEditor( fields.querySelector( ".js--style" ), {
+    let styleEditor = new window.UTILS.InlineStyleEditor( fields.querySelector( ".js--style" ), {
       value: attrs.style || "",
       onChange: value => set( { style: value } ),
     } );
+    return { classEditor, styleEditor };
   }
 
   /**
