@@ -124,6 +124,7 @@ window.UTILS.MDBlockEditor = class {
       edit: "Edit",
       editTitle: "Edit this block (or double-click it)",
       moveTitle: "Drag to move the block (or Alt+Up / Alt+Down)",
+      selectParentTitle: "Select the outer block (or Left arrow)",
       editHint: "Ctrl+Enter or clicking outside saves, Esc cancels",
       showSource: "Source",
       showSourceTitle: "Show the source of this block in the editor",
@@ -303,6 +304,8 @@ window.UTILS.MDBlockEditor = class {
       this.selectedAtMousedown = blockEl && blockEl.dataset.path === this.selected ? this.selected : null;
     }, true );
     this.viewport.addEventListener( "click", this.onClick.bind( this ) );
+    // tabs of containers are shown while hovered or focused, see placeTabs()
+    [ "mouseover", "focusin", "focusout" ].forEach( type => this.viewport.addEventListener( type, () => this.schedulePlaceTabs() ) );
     this.viewport.addEventListener( "dblclick", this.onDblClick.bind( this ) );
     this.element.addEventListener( "keydown", this.onKeyDown.bind( this ) );
     document.addEventListener( "mousedown", e => {
@@ -787,6 +790,8 @@ window.UTILS.MDBlockEditor = class {
       label.title = this.texts.unclosed;
     }
     toolbar.appendChild( label );
+    // shown in nested blocks only (see _md_block_editor.scss); the element may move to any list
+    toolbar.appendChild( this.toolbarButton( "js--select-parent", "fa-turn-up", "", this.texts.selectParentTitle ) );
     toolbar.appendChild( this.toolbarButton( "js--edit-block", "fa-pen", this.texts.edit, this.texts.editTitle ) );
     if ( block.type === "iobject" ) {
       let link = this.toolbarButton( "js--edit-object", "fa-arrow-up-right-from-square", this.texts.editObject, this.texts.editObjectTitle, "a" );
@@ -819,6 +824,54 @@ window.UTILS.MDBlockEditor = class {
     el.appendChild( content );
     el.appendChild( add );
     return el;
+  }
+
+  // px between tabs of containers put side by side, see placeTabs()
+  static tabGap = 3;
+
+  schedulePlaceTabs() {
+    if ( !this.placeTabsRequested ) {
+      this.placeTabsRequested = true;
+      window.requestAnimationFrame( () => {
+        this.placeTabsRequested = false;
+        this.placeTabs();
+      } );
+    }
+  }
+
+  /**
+   * Puts the shown tabs (toolbars) of containers side by side: a tab of a nested container starting
+   * at the same place as its outer container ([div] right in a [div]) would cover the outer one's tab,
+   * so it's moved to the right of it: [div] [div]. Outer containers first, each tab is moved past the tabs placed before.
+   */
+  placeTabs() {
+    let toolbars = [ ...this.viewport.querySelectorAll( ".md-block--container > .md-block__bar > .md-block__toolbar" ) ];
+    toolbars.forEach( toolbar => {
+      toolbar.style.left = "";
+    } );
+    let placed = [];
+    toolbars.forEach( toolbar => {
+      let rect = toolbar.getBoundingClientRect();
+      if ( !rect.width ) {
+        return; // not shown
+      }
+      let shift = 0;
+      let moved = true;
+      while ( moved ) {
+        moved = false;
+        placed.forEach( other => {
+          let overlaps = rect.left + shift < other.right && rect.left + shift + rect.width > other.left && rect.top < other.bottom && rect.bottom > other.top;
+          if ( overlaps ) {
+            shift = other.right + window.UTILS.MDBlockEditor.tabGap - rect.left;
+            moved = true;
+          }
+        } );
+      }
+      if ( shift ) {
+        toolbar.style.left = shift + "px";
+      }
+      placed.push( { left: rect.left + shift, right: rect.left + shift + rect.width, top: rect.top, bottom: rect.bottom } );
+    } );
   }
 
   toolbarButton( className, icon, text, title, tagName ) {
@@ -1636,6 +1689,40 @@ window.UTILS.MDBlockEditor = class {
   }
 
   /**
+   * Selects what the block is in: the part of its container (a column of a [row], a tab), or the container itself
+   * ([div]); a selected part selects its container. Nothing happens at the top level.
+   * The way to a container whose tab is covered by the tab of a nested container (both starting at the same place).
+   * @param {String} path
+   */
+  selectParent( path ) {
+    if ( path === this.selected && this.selectedPart !== null ) {
+      this.focusBlock( path );
+      return;
+    }
+    let parts = path.split( "/" );
+    if ( parts.length < 3 ) {
+      return;
+    }
+    // a nested block's path is "<container path>/<child index>/<index>"
+    let containerPath = parts.slice( 0, -2 ).join( "/" );
+    let childIndex = parseInt( parts[ parts.length - 2 ], 10 );
+    let r = this.resolve( containerPath );
+    if ( !r || !r.block.container ) {
+      return;
+    }
+    let child = r.block.container.children[ childIndex ];
+    this.focusBlock( containerPath );
+    // a part with a name of its own, as in the inspector's path (see inspectorPath())
+    if ( child && child.name !== r.block.name ) {
+      this.selectPart( containerPath, childIndex );
+    }
+    let el = this.blockElement( containerPath );
+    if ( el ) {
+      el.scrollIntoView( { block: "nearest" } );
+    }
+  }
+
+  /**
    * The inspector beside the blocks, showing the selected block; it's there only when the block view is wide
    * enough (typically in fullscreen), otherwise the blocks are edited by dialogs as before
    */
@@ -2422,7 +2509,7 @@ window.UTILS.MDBlockEditor = class {
       return;
     }
 
-    if ( this.editing && target.closest( ".js--add-block, .js--edit-block, .js--block-menu, .js--remove-block, .js--retry" ) ) {
+    if ( this.editing && target.closest( ".js--add-block, .js--select-parent, .js--edit-block, .js--block-menu, .js--remove-block, .js--retry" ) ) {
       // the edited block is saved first, it may change positions of the other blocks
       this.commitEdit();
       if ( !target.isConnected ) {
@@ -2446,6 +2533,8 @@ window.UTILS.MDBlockEditor = class {
       }
     } else if ( !blockEl ) {
       return;
+    } else if ( target.closest( ".js--select-parent" ) ) {
+      this.selectParent( path );
     } else if ( target.closest( ".js--edit-block" ) ) {
       this.editBlock( path );
     } else if ( target.closest( ".js--block-menu" ) ) {
@@ -2527,6 +2616,9 @@ window.UTILS.MDBlockEditor = class {
     } else if ( !e.altKey && !ctrl && !e.shiftKey && ( e.key === "ArrowUp" || e.key === "ArrowDown" ) && e.target.classList.contains( "md-block" ) ) {
       e.preventDefault();
       this.selectSibling( e.key === "ArrowUp" ? -1 : 1 );
+    } else if ( !e.altKey && !ctrl && !e.shiftKey && e.key === "ArrowLeft" && e.target.classList.contains( "md-block" ) ) {
+      e.preventDefault();
+      this.selectParent( e.target.dataset.path );
     } else if ( e.key === "Escape" && e.target.classList.contains( "md-block" ) ) {
       e.preventDefault();
       this.select( null );

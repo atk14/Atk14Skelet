@@ -397,6 +397,17 @@
     }
   }
 
+  // tabs of nested containers starting at the same place are put side by side: [div] [div] (see placeTabs()
+  // in md_block_editor.js, which moves them by their left)
+
+  // "Select the outer block" only in nested blocks
+  .md-block__toolbar > .js--select-parent {
+    display: none;
+  }
+  .md-blocks-list--nested > .md-block > .md-block__bar > .md-block__toolbar > .js--select-parent {
+    display: flex;
+  }
+
   // room for the toolbar of a container at the very top
   .md-preview__viewport {
     padding-top: 1.75rem;

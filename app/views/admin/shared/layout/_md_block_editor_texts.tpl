@@ -8,6 +8,7 @@
 		edit: "{t escape=javascript}Edit{/t}",
 		editTitle: "{t escape=javascript}Edit this block (or double-click it){/t}",
 		moveTitle: "{t escape=javascript}Drag to move the block (or Alt+Up / Alt+Down){/t}",
+		selectParentTitle: "{t escape=javascript}Select the outer block (or Left arrow){/t}",
 		editHint: "{t escape=javascript}Ctrl+Enter or clicking outside saves, Esc cancels{/t}",
 		showSource: "{t escape=javascript}Source{/t}",
 		showSourceTitle: "{t escape=javascript}Show the source of this block in the editor{/t}",
