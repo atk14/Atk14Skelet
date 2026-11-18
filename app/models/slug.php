@@ -92,8 +92,9 @@ class Slug extends ApplicationModel{
 				$limit = 100;
 			}
 			// the requested slug (guaranteed to be included, regardless of paging below) unioned with all rows (every lang) for the next page of up to $limit other slugs from the same table, to progressively prime the cache across repeated cache-misses within the same request
-			$offset = isset(Slug::$CACHE_OFFSETS[$cache_key]) ? (Slug::$CACHE_OFFSETS[$cache_key] += $limit) : (Slug::$CACHE_OFFSETS[$cache_key] = 0);
-			$rows = $dbmole->selectRows("SELECT record_id,slug FROM slugs WHERE table_name=:table_name$segment_sql AND slug=:slug UNION ALL SELECT record_id,slug FROM slugs WHERE table_name=:table_name$segment_sql AND slug IN (SELECT slug FROM (SELECT DISTINCT slug FROM slugs WHERE table_name=:table_name$segment_sql ORDER BY slug LIMIT $limit OFFSET $offset) t)",$bind_ar);
+			$bind_ar[":limit"] = $limit;
+			$bind_ar[":offset"] = isset(Slug::$CACHE_OFFSETS[$cache_key]) ? (Slug::$CACHE_OFFSETS[$cache_key] += $limit) : (Slug::$CACHE_OFFSETS[$cache_key] = 0);
+			$rows = $dbmole->selectRows("SELECT record_id,slug FROM slugs WHERE table_name=:table_name$segment_sql AND slug=:slug UNION ALL SELECT record_id,slug FROM slugs WHERE table_name=:table_name$segment_sql AND slug IN (SELECT slug FROM (SELECT DISTINCT slug FROM slugs WHERE table_name=:table_name$segment_sql ORDER BY slug LIMIT :limit OFFSET :offset) t)",$bind_ar);
 			foreach($rows as $row){
 				$s = $row["slug"];
 				$record_id = $row["record_id"];

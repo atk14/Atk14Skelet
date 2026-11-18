@@ -306,23 +306,18 @@ class TcSlug extends TcBase {
 	}
 
 	function test_GetRecordIdBySlug_paginates_through_unknown_slugs(){
-		$cache_key = "articles,"; // default segment "" with consider_segment=true
-
-		$offsets_property = new ReflectionProperty("Slug","CACHE_OFFSETS");
-		$offsets_property->setAccessible(true);
-
 		$cnt1 = $this->dbmole->getQueriesExecuted();
 		$this->assertNull(Slug::GetRecordIdBySlug("articles","unknown-slug-page-a"));
 		$cnt2 = $this->dbmole->getQueriesExecuted();
-		$offset_1 = $offsets_property->getValue()[$cache_key];
+		$offset_1 = $this->dbmole->getBindAr()[":offset"];
 
 		$this->assertNull(Slug::GetRecordIdBySlug("articles","unknown-slug-page-b"));
 		$cnt3 = $this->dbmole->getQueriesExecuted();
-		$offset_2 = $offsets_property->getValue()[$cache_key];
+		$offset_2 = $this->dbmole->getBindAr()[":offset"];
 
 		$this->assertNull(Slug::GetRecordIdBySlug("articles","unknown-slug-page-c"));
 		$cnt4 = $this->dbmole->getQueriesExecuted();
-		$offset_3 = $offsets_property->getValue()[$cache_key];
+		$offset_3 = $this->dbmole->getBindAr()[":offset"];
 
 		// each not-yet-cached slug costs exactly one query...
 		$this->assertEquals($cnt1+1,$cnt2);
@@ -336,7 +331,7 @@ class TcSlug extends TcBase {
 		// a slug already seen is served from the cache - no query, no further pagination
 		$this->assertNull(Slug::GetRecordIdBySlug("articles","unknown-slug-page-a"));
 		$cnt5 = $this->dbmole->getQueriesExecuted();
-		$offset_4 = $offsets_property->getValue()[$cache_key];
+		$offset_4 = $this->dbmole->getBindAr()[":offset"];
 		$this->assertEquals($cnt4,$cnt5);
 		$this->assertEquals($offset_3,$offset_4);
 	}
