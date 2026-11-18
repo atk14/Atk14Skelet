@@ -254,6 +254,91 @@ class TcSlug extends TcBase {
 		$lang = null;
 		$article = Article::GetInstanceBySlug("testing-article-with-testing-segment",$lang,array("consider_segment" => false));
 		$this->assertEquals($testing_article_with_testing_segment->getId(),$article->getId());
+
+		// unknown slug
+
+		$cnt1 = $this->dbmole->getQueriesExecuted();
+		$this->assertEquals(null,Article::GetInstanceBySlug("unknown-slug"));
+		$cnt2 = $this->dbmole->getQueriesExecuted();
+		$this->assertEquals(null,Article::GetInstanceBySlug("unknown-slug"));
+		$cnt3 = $this->dbmole->getQueriesExecuted();
+		$this->assertEquals($cnt1+1,$cnt2);
+		$this->assertEquals($cnt2,$cnt3);
+	}
+
+	function test_GetRecordIdBySlug_multiple_record_ids_for_one_slug(){
+		// the same slug text may be used by two different records, as long as each is in a different language
+		// (a custom segment is used here so that creating the articles below - which caches "no slug yet"
+		// for the default segment - doesn't shadow the slugs created directly via Slug::CreateNewRecord)
+		$segment = "shared-slug-test-segment";
+
+		$article_en = Article::CreateNewRecord(array("slug_en" => null, "slug_cs" => null));
+		$article_cs = Article::CreateNewRecord(array("slug_en" => null, "slug_cs" => null));
+
+		Slug::CreateNewRecord(array(
+			"table_name" => "articles",
+			"record_id" => $article_en,
+			"lang" => "en",
+			"segment" => $segment,
+			"slug" => "shared-slug-text",
+		));
+		Slug::CreateNewRecord(array(
+			"table_name" => "articles",
+			"record_id" => $article_cs,
+			"lang" => "cs",
+			"segment" => $segment,
+			"slug" => "shared-slug-text",
+		));
+
+		$lang = "en";
+		$id = Slug::GetRecordIdBySlug("articles","shared-slug-text",$lang,$segment);
+		$this->assertEquals($article_en->getId(),$id);
+
+		$lang = "cs";
+		$id = Slug::GetRecordIdBySlug("articles","shared-slug-text",$lang,$segment);
+		$this->assertEquals($article_cs->getId(),$id);
+
+		// without an explicit language the default one ("en") wins
+		$lang = null;
+		$id = Slug::GetRecordIdBySlug("articles","shared-slug-text",$lang,$segment);
+		$this->assertEquals($article_en->getId(),$id);
+		$this->assertEquals("en",$lang);
+	}
+
+	function test_GetRecordIdBySlug_paginates_through_unknown_slugs(){
+		$cache_key = "articles,"; // default segment "" with consider_segment=true
+
+		$offsets_property = new ReflectionProperty("Slug","CACHE_OFFSETS");
+		$offsets_property->setAccessible(true);
+
+		$cnt1 = $this->dbmole->getQueriesExecuted();
+		$this->assertNull(Slug::GetRecordIdBySlug("articles","unknown-slug-page-a"));
+		$cnt2 = $this->dbmole->getQueriesExecuted();
+		$offset_1 = $offsets_property->getValue()[$cache_key];
+
+		$this->assertNull(Slug::GetRecordIdBySlug("articles","unknown-slug-page-b"));
+		$cnt3 = $this->dbmole->getQueriesExecuted();
+		$offset_2 = $offsets_property->getValue()[$cache_key];
+
+		$this->assertNull(Slug::GetRecordIdBySlug("articles","unknown-slug-page-c"));
+		$cnt4 = $this->dbmole->getQueriesExecuted();
+		$offset_3 = $offsets_property->getValue()[$cache_key];
+
+		// each not-yet-cached slug costs exactly one query...
+		$this->assertEquals($cnt1+1,$cnt2);
+		$this->assertEquals($cnt2+1,$cnt3);
+		$this->assertEquals($cnt3+1,$cnt4);
+
+		// ...and advances to the next page of slugs, instead of refetching the same one
+		$this->assertEquals(100,$offset_2-$offset_1);
+		$this->assertEquals(100,$offset_3-$offset_2);
+
+		// a slug already seen is served from the cache - no query, no further pagination
+		$this->assertNull(Slug::GetRecordIdBySlug("articles","unknown-slug-page-a"));
+		$cnt5 = $this->dbmole->getQueriesExecuted();
+		$offset_4 = $offsets_property->getValue()[$cache_key];
+		$this->assertEquals($cnt4,$cnt5);
+		$this->assertEquals($offset_3,$offset_4);
 	}
 
 	function test_generic_slugs(){
