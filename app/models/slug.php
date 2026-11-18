@@ -3,9 +3,10 @@ definedef("SLUG_MAX_LENGTH",200);
 
 class Slug extends ApplicationModel{
 
-	protected static $CACHE = array();
-	protected static $CACHE_WITHOUT_SEGMENT = array();
-	protected static $CACHE_SLUGS = array();
+	protected static $CACHE = [];
+	protected static $CACHE_OFFSETS = [];
+	protected static $CACHE_WITHOUT_SEGMENT = [];
+	protected static $CACHE_SLUGS = [];
 
 	static function SlugMaxLength(){
 		return SLUG_MAX_LENGTH;
@@ -48,6 +49,8 @@ class Slug extends ApplicationModel{
 	static function GetRecordIdBySlug($table_name,$slug,&$lang = null,$segment = '',$options = array()){
 		global $ATK14_GLOBAL;
 
+		$slug = (string)$slug;
+
 		if(is_array($segment)){
 			$options = $segment;
 			$segment = '';
@@ -72,28 +75,35 @@ class Slug extends ApplicationModel{
 		$cache_key = "$table_name" . (isset($segment) ? ",$segment" : "");
 		
 		if(!isset(Slug::$CACHE_SLUGS[$cache_key])){
-			Slug::$CACHE_SLUGS[$cache_key] = array();
+			Slug::$CACHE_SLUGS[$cache_key] = [];
 		}
 
-		if(!isset(Slug::$CACHE_SLUGS[$cache_key]["$slug"])){
-			//echo "<font color='green'>$table_name ($segment)...$slug</font><br>";
+		if(!isset(Slug::$CACHE_SLUGS[$cache_key][$slug])){
 			$dbmole = Slug::GetDbmole();
-			$slugs = isset($segment) ? $dbmole->selectIntoArray("SELECT slug FROM slugs WHERE table_name=:table_name AND segment=:segment LIMIT 100",[":table_name" => $table_name, ":segment" => $segment]) : $dbmole->selectIntoArray("SELECT slug FROM slugs WHERE table_name=:table_name LIMIT 1000",[":table_name" => $table_name]);
-			$slugs[] = $slug;
-			$slugs = array_unique($slugs);
-			$slugs_to_read = [];
-			foreach($slugs as $s){
-				if(!isset(Slug::$CACHE_SLUGS[$cache_key]["$s"])){
-					Slug::$CACHE_SLUGS[$cache_key]["$s"] = array();
-					$slugs_to_read[] = $s;
-				}
+			$segment_sql = "";
+			$bind_ar = [
+				":table_name" => $table_name,
+				":slug" => $slug
+			];
+			$limit = 1000;
+			if(isset($segment)){
+				$segment_sql = " AND segment=:segment";
+				$bind_ar[":segment"] = $segment;
+				$limit = 100;
 			}
-			$rows = $dbmole->selectRows("SELECT record_id,slug FROM slugs WHERE table_name=:table_name AND slug IN :slgs",[":table_name" => $table_name, ":slgs" => $slugs_to_read]);
+			// the requested slug (guaranteed to be included, regardless of paging below) unioned with all rows (every lang) for the next page of up to $limit other slugs from the same table, to progressively prime the cache across repeated cache-misses within the same request
+			$offset = isset(Slug::$CACHE_OFFSETS[$cache_key]) ? (Slug::$CACHE_OFFSETS[$cache_key] += $limit) : (Slug::$CACHE_OFFSETS[$cache_key] = 0);
+			$rows = $dbmole->selectRows("SELECT record_id,slug FROM slugs WHERE table_name=:table_name$segment_sql AND slug=:slug UNION ALL SELECT record_id,slug FROM slugs WHERE table_name=:table_name$segment_sql AND slug IN (SELECT slug FROM (SELECT DISTINCT slug FROM slugs WHERE table_name=:table_name$segment_sql ORDER BY slug LIMIT $limit OFFSET $offset) t)",$bind_ar);
 			foreach($rows as $row){
-				Slug::$CACHE_SLUGS[$cache_key][$row["slug"]][] = $row["record_id"];
+				$s = $row["slug"];
+				$record_id = $row["record_id"];
+				Slug::$CACHE_SLUGS[$cache_key][$s][$record_id] = $record_id;
+			}
+			if(!isset(Slug::$CACHE_SLUGS[$cache_key][$slug])){
+				Slug::$CACHE_SLUGS[$cache_key][$slug] = [];
 			}
 		}
-		Slug::_ReadCache($table_name,Slug::$CACHE_SLUGS[$cache_key]["$slug"],$segment);
+		Slug::_ReadCache($table_name,Slug::$CACHE_SLUGS[$cache_key][$slug],$segment);
 
 		if($options["consider_segment"]){
 			$CACHE = &Slug::$CACHE["$table_name,$segment"];
@@ -114,7 +124,7 @@ class Slug extends ApplicationModel{
 			}
 		}
 
-		return;
+		return null;
 	}
 
 	/**
@@ -140,7 +150,8 @@ class Slug extends ApplicationModel{
 
 		unset(Slug::$CACHE["$table_name,$segment"]);
 		unset(Slug::$CACHE_WITHOUT_SEGMENT["$table_name"]);
-		Slug::$CACHE_SLUGS = array();
+		Slug::$CACHE_SLUGS = [];
+		Slug::$CACHE_OFFSETS = [];
 
 		$values = array(
 			"table_name" => $table_name,
@@ -291,9 +302,10 @@ class Slug extends ApplicationModel{
 			":table_name" => $table_name,
 			":record_id" => $record_id,
 		));
-		Slug::$CACHE = array(); // mazeme uplne vsechno...
-		Slug::$CACHE_WITHOUT_SEGMENT = array();
-		Slug::$CACHE_SLUGS = array();
+		Slug::$CACHE = []; // mazeme uplne vsechno...
+		Slug::$CACHE_WITHOUT_SEGMENT = [];
+		Slug::$CACHE_SLUGS = [];
+		Slug::$CACHE_OFFSETS = [];
 	}
 
 	static function StringToSluggish($string,$suffix = "") {
